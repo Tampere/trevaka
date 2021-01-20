@@ -1,2 +1,2 @@
 # trevaka
-treVaka – ERP for early childhood education for Tampere
+treVaka – ERP for early childhood education in Tampere
