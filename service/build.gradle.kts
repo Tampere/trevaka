@@ -1,7 +1,7 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.4.21"
-    id("org.jetbrains.kotlin.plugin.spring") version "1.4.21"
-    id("org.springframework.boot") version "2.4.1"
+    id("org.jetbrains.kotlin.jvm") version TrevakaServiceVersion.kotlin
+    id("org.jetbrains.kotlin.plugin.spring") version TrevakaServiceVersion.kotlin
+    id("org.springframework.boot") version TrevakaServiceVersion.springBoot
 }
 
 repositories {

@@ -1,4 +1,4 @@
-package trevaka
+package fi.tampere.trevaka
 
 import fi.espoo.evaka.Main
 import org.springframework.boot.builder.SpringApplicationBuilder
