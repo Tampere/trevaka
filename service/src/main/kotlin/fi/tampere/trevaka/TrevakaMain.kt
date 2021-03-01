@@ -1,7 +1,5 @@
 package fi.tampere.trevaka
 
-import fi.espoo.evaka.Main
-import fi.espoo.evaka.shared.dev.DevApi
 import mu.KotlinLogging
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration
@@ -39,7 +37,7 @@ fun main(args: Array<String>) {
         }
     }
 
-    logger.warn("Profiles: {}", profiles.toTypedArray())
+    logger.info("Active profiles: {}", profiles.toTypedArray())
     SpringApplicationBuilder()
         .sources(TrevakaMain::class.java)
         .profiles(*profiles.toTypedArray())
