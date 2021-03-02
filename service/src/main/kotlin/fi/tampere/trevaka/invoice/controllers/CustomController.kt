@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.servlet.http.HttpServletRequest
 
-private val logger = KotlinLogging.logger {  }
+private val logger = KotlinLogging.logger { }
 
+//FIXME: this controller is PUBLIC and for illustrating/testing customization principles only,
+// remove at the latest after actual invoicing client is implemented
 @Profile("trevaka")
 @RestController
 @RequestMapping("/public/tre-test")
