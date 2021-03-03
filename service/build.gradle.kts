@@ -40,6 +40,6 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 
 tasks {
     bootRun {
-        systemProperty("spring.profiles.active", "local")
+        systemProperty("spring.profiles.active", "local,trevaka-local")
     }
 }

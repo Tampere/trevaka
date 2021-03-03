@@ -25,19 +25,17 @@ private val logger = KotlinLogging.logger {}
 
 fun main(args: Array<String>) {
 
-    val profiles = mutableListOf<String>()
+    val profiles = mutableListOf("trevaka")
 
     System.getenv("VOLTTI_ENV")?.let { envString ->
-        val envList = envString.split(",").map { it.trim() }
-        for (env in envList) {
-            when (env) {
-                "dev", "test" -> profiles.add("enables_dev_api")
-                "trevaka" -> profiles.add("trevaka")
+        when (envString) {
+            "dev", "test" -> profiles.add("enables_dev_api")
+            else -> {
             }
         }
     }
 
-    logger.info("Active profiles: {}", profiles.toTypedArray())
+    logger.info("Parsed profiles: {}", profiles.toTypedArray())
     SpringApplicationBuilder()
         .sources(TrevakaMain::class.java)
         .profiles(*profiles.toTypedArray())
