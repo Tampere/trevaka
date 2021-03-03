@@ -1,0 +1,440 @@
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@1.4.0
+
+aliases:
+  - &workspace_root /home/circleci/repo
+  - &workspace_evaka_base /home/circleci/repo/evaka/evaka-base
+  - &workspace_apigw /home/circleci/repo/evaka/apigw
+  - &workspace_proxy /home/circleci/repo/evaka/proxy
+  - &workspace_service /home/circleci/repo/service
+  - &workspace_message_service /home/circleci/repo/evaka/message-service
+  - &yarn_cache .yarn_cache
+
+  - &remote_docker_version "20.10.2"
+  - &docker_layer_caching false
+  - &base_image cimg/base:stable-20.04
+  - &nodejs_image cimg/node:14.15
+  - &openjdk_image cimg/openjdk:11.0
+
+  - &default_contexts
+    context: []
+  - &aws_contexts
+    context: []
+
+  - &default_config
+    working_directory: *workspace_root
+
+  - &node_config
+    <<: *default_config
+    environment:
+      YARN_CACHE_FOLDER: *yarn_cache
+
+  - &jvm_config
+    <<: *default_config
+    environment:
+      GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx2048m"'
+      GRADLE_USER_HOME: /home/circleci/repo/.gradle-user-home
+      _JAVA_OPTIONS: "-Xmx2048m"
+
+  - &restore_repo
+    restore_cache:
+      keys:
+        - repo-v1-{{ .Branch }}-{{ .Revision }}
+
+  - &store_repo
+    save_cache:
+      key: repo-v1-{{ .Branch }}-{{ .Revision }}
+      paths:
+        - .
+
+  - &restore_apigw_node_modules
+    restore_cache:
+      keys:
+        - node-modules-apigw-v1-{{ checksum "evaka/apigw/yarn.lock" }}
+        - node-modules-apigw-v1-
+        - node-modules-apigw-
+
+  - &store_apigw_node_modules
+    save_cache:
+      key: node-modules-apigw-v1-{{ checksum "evaka/apigw/yarn.lock" }}
+      paths:
+        - apigw/node_modules
+
+  - &restore_service_gradle
+    restore_cache:
+      keys:
+        - gradle-home-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceVersion.kt" }}
+        - gradle-home-service-v1-
+        - gradle-home-service-
+
+  - &store_service_gradle
+    save_cache:
+      key: gradle-home-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceVersion.kt" }}
+      paths:
+        - service/.gradle
+        - .gradle-user-home
+
+  - &restore_message_service_gradle
+    restore_cache:
+      keys:
+        - gradle-home-message-service-v1-{{ checksum "evaka/message-service/build.gradle.kts" }}-{{ checksum "evaka/message-service/gradle.properties" }}-{{ checksum "evaka/message-service/settings.gradle.kts" }}
+        - gradle-home-message-service-v1-
+        - gradle-home-message-service-
+
+  - &store_message_service_gradle
+    save_cache:
+      key: gradle-home-message-service-v1-{{ checksum "evaka/message-service/build.gradle.kts" }}-{{ checksum "evaka/message-service/gradle.properties" }}-{{ checksum "evaka/message-service/settings.gradle.kts" }}
+      paths:
+        - message-service/.gradle
+        - .gradle-user-home
+
+executors:
+  base_executor:
+    <<: *default_config
+    docker:
+      - image: *base_image
+  nodejs_executor:
+    <<: *node_config
+    docker:
+      - image: *nodejs_image
+  openjdk_executor:
+    <<: *jvm_config
+    docker:
+      - image: *openjdk_image
+
+commands:
+  attach_root_workspace:
+    steps:
+      - attach_workspace:
+          at: *workspace_root
+
+  login_docker_hub:
+    description: Log in to Docker Hub for authenticated pulls
+    steps:
+      - run: echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+
+  setup_authenticated_remote_docker:
+    description: Setup remote Docker execution environment with Docker Hub authentication
+    steps:
+      - setup_remote_docker:
+          version: *remote_docker_version
+          docker_layer_caching: *docker_layer_caching
+      #- login_docker_hub
+
+  load_base_image:
+    steps:
+      - run:
+          name: Load base image
+          working_directory: *workspace_root
+          command: docker load -i evaka-base.tar
+
+  build_docker_image:
+    parameters:
+      image:
+        type: string
+      dir:
+        type: string
+    steps:
+      - run:
+          name: Build docker image
+          working_directory: << parameters.dir >>
+          command: |
+            docker build \
+              -t << parameters.image >> \
+              --build-arg "build=${CIRCLE_BUILD_NUM}" \
+              --build-arg "commit=${CIRCLE_SHA1}" \
+              .
+      - run:
+          name: Save docker image
+          working_directory: << parameters.dir >>
+          command: docker save << parameters.image >> > image.tar
+
+  push_docker_image:
+    parameters:
+      image:
+        type: string
+      dir:
+        type: string
+    steps:
+      - run:
+          name: Load docker image
+          working_directory: << parameters.dir >>
+          command: docker load -i image.tar
+      - run:
+          name: Push docker image
+          command: |
+            aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 518207624130.dkr.ecr.eu-west-1.amazonaws.com
+            docker tag << parameters.image >> 518207624130.dkr.ecr.eu-west-1.amazonaws.com/<< parameters.image >>:${CIRCLE_SHA1}
+            docker push 518207624130.dkr.ecr.eu-west-1.amazonaws.com/<< parameters.image >>:${CIRCLE_SHA1}
+
+jobs:
+  # MISC JOBS
+
+  checkout_repo:
+    executor: base_executor
+    steps:
+      - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
+      - *store_repo
+
+  # BUILD JOBS
+
+  build_base_image:
+    executor: base_executor
+    steps:
+      - *restore_repo
+      - setup_authenticated_remote_docker
+      - run:
+          name: Build base image
+          working_directory: *workspace_evaka_base
+          command: docker build -t evaka-base .
+      - run:
+          name: Save base image
+          working_directory: *workspace_root
+          command: docker save evaka-base > evaka-base.tar
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - evaka-base.tar
+
+  apigw_build:
+    executor: nodejs_executor
+    steps:
+      - *restore_repo
+      - *restore_apigw_node_modules
+      - run:
+          working_directory: *workspace_apigw
+          command: yarn install --immutable
+      - *store_apigw_node_modules
+      - run:
+          working_directory: *workspace_apigw
+          command: yarn build
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - evaka/apigw/dist
+            - *yarn_cache
+
+  apigw_build_image:
+    executor: nodejs_executor
+    steps:
+      - *restore_repo
+      - attach_root_workspace
+      - setup_remote_docker:
+          version: *remote_docker_version
+          docker_layer_caching: *docker_layer_caching
+      - load_base_image
+      - build_docker_image:
+          image: trevaka/api-gateway
+          dir: *workspace_apigw
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - evaka/apigw/image.tar
+
+  apigw_push_image:
+    <<: *default_config
+    executor: aws-cli/default
+    steps:
+      - attach_root_workspace
+      - setup_remote_docker:
+          version: *remote_docker_version
+      - aws-cli/setup:
+          configure-default-region: false
+          configure-profile-region: false
+      - push_docker_image:
+          image: trevaka/api-gateway
+          dir: *workspace_apigw
+
+  proxy_build_image:
+    executor: base_executor
+    steps:
+      - *restore_repo
+      - setup_authenticated_remote_docker
+      - build_docker_image:
+          image: trevaka/proxy
+          dir: *workspace_proxy
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - evaka/proxy/image.tar
+
+  proxy_push_image:
+    <<: *default_config
+    executor: aws-cli/default
+    steps:
+      - *restore_repo
+      - attach_root_workspace
+      - setup_remote_docker:
+          version: *remote_docker_version
+      - aws-cli/setup:
+          configure-default-region: false
+          configure-profile-region: false
+      - push_docker_image:
+          image: trevaka/proxy
+          dir: *workspace_proxy
+
+  service_build:
+    executor: openjdk_executor
+    steps:
+      - *restore_repo
+      - *restore_service_gradle
+      - run:
+          working_directory: *workspace_service
+          command: ./gradlew build
+      - *store_service_gradle
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - service/build
+
+  service_build_image:
+    executor: openjdk_executor
+    steps:
+      - *restore_repo
+      - attach_root_workspace
+      - setup_remote_docker:
+          version: *remote_docker_version
+          docker_layer_caching: *docker_layer_caching
+      - run:
+          name: Unzip executable
+          working_directory: *workspace_service
+          command: unzip -q build/libs/trevaka-service.jar -d target
+      - load_base_image
+      - build_docker_image:
+          image: trevaka/service
+          dir: *workspace_service
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - service/image.tar
+
+  service_push_image:
+    <<: *default_config
+    executor: aws-cli/default
+    steps:
+      - *restore_repo
+      - attach_root_workspace
+      - setup_remote_docker:
+          version: *remote_docker_version
+      - aws-cli/setup:
+          configure-default-region: false
+          configure-profile-region: false
+      - push_docker_image:
+          image: trevaka/service
+          dir: *workspace_service
+
+  message_service_build:
+    executor: openjdk_executor
+    steps:
+      - *restore_repo
+      - *restore_message_service_gradle
+      - run:
+          working_directory: *workspace_message_service
+          command: ./gradlew build
+      - *store_message_service_gradle
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - evaka/message-service/build
+
+  message_service_build_image:
+    executor: openjdk_executor
+    steps:
+      - *restore_repo
+      - attach_root_workspace
+      - setup_remote_docker:
+          version: *remote_docker_version
+          docker_layer_caching: *docker_layer_caching
+      - run:
+          name: Unzip executable
+          working_directory: *workspace_message_service
+          command: unzip -q build/libs/evaka-message-service.jar -d target
+      - load_base_image
+      - build_docker_image:
+          image: trevaka/message-service
+          dir: *workspace_message_service
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - evaka/message-service/image.tar
+
+  message_service_push_image:
+    <<: *default_config
+    executor: aws-cli/default
+    steps:
+      - *restore_repo
+      - attach_root_workspace
+      - setup_remote_docker:
+          version: *remote_docker_version
+      - aws-cli/setup:
+          configure-default-region: false
+          configure-profile-region: false
+      - push_docker_image:
+          image: trevaka/message-service
+          dir: *workspace_message_service
+
+workflows:
+  version: 2
+  build_test_and_deploy:
+    jobs:
+      - checkout_repo:
+          <<: *default_contexts
+      - build_base_image:
+          <<: *default_contexts
+          requires:
+            - checkout_repo
+
+      - apigw_build:
+          <<: *default_contexts
+          requires:
+            - checkout_repo
+      - apigw_build_image:
+          <<: *default_contexts
+          requires:
+            - build_base_image
+            - apigw_build
+      - apigw_push_image:
+          <<: *aws_contexts
+          requires:
+            - apigw_build_image
+
+      - proxy_build_image:
+          <<: *default_contexts
+          requires:
+            - checkout_repo
+      - proxy_push_image:
+          <<: *aws_contexts
+          requires:
+            - proxy_build_image
+
+      - service_build:
+          <<: *default_contexts
+          requires:
+            - checkout_repo
+      - service_build_image:
+          <<: *default_contexts
+          requires:
+            - build_base_image
+            - service_build
+      - service_push_image:
+          <<: *aws_contexts
+          requires:
+            - service_build_image
+
+      - message_service_build:
+          <<: *default_contexts
+          requires:
+            - checkout_repo
+      - message_service_build_image:
+          <<: *default_contexts
+          requires:
+            - build_base_image
+            - message_service_build
+      - message_service_push_image:
+          <<: *aws_contexts
+          requires:
+            - message_service_build_image
