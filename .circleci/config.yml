@@ -65,13 +65,13 @@ aliases:
   - &restore_service_gradle
     restore_cache:
       keys:
-        - gradle-home-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceVersion.kt" }}
+        - gradle-home-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
         - gradle-home-service-v1-
         - gradle-home-service-
 
   - &store_service_gradle
     save_cache:
-      key: gradle-home-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceVersion.kt" }}
+      key: gradle-home-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
       paths:
         - service/.gradle
         - .gradle-user-home
