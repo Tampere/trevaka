@@ -1,0 +1,53 @@
+# used with the trevaka-local profile, overlaying eVaka's local profile properties
+# profile priority defined by "last wins" -strategy of spring.profiles.active declarations (build file/env var)
+---
+debug: true
+
+spring:
+  devtools:
+    livereload:
+      enabled: false
+  main:
+    logStartupInfo: false
+logging:
+  level:
+    fi:
+      espoo:
+        evaka: DEBUG
+        evaka.invoicing.integration.IntegrationClient: DEBUG
+      tampere:
+        trevaka: DEBUG
+    org:
+      springframework:
+        boot:
+          autoconfigure: INFO
+
+aws:
+  region: eu-west-1
+
+fi:
+  espoo:
+    evaka:
+    integration:
+      koski:
+        enabled: false
+    varda:
+      force:
+      organizer: Tampere
+      vtj:
+        client:
+          # these are used if you run pis-service in "vtj-dev" profile (against Test VTJ).
+          # get-deployment-local.sh should fill the trustStore location, but you need to fill vtj user/pass with details from AWS Parameter Store
+          password: ""
+          username: ""
+        xroad:
+          address: https://fake.test
+          # FIXME: needs to be updated with trevaka info
+          client:
+            instance: FI-TEST
+            memberClass: MUN
+            memberCode: 0101263-6
+            subSystemCode: evaka-test
+          trustStore:
+            password: password
+            type: JKS
