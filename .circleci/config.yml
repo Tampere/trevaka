@@ -10,6 +10,7 @@ aliases:
   - &workspace_proxy /home/circleci/repo/evaka/proxy
   - &workspace_service /home/circleci/repo/service
   - &workspace_message_service /home/circleci/repo/evaka/message-service
+  - &workspace_auth /home/circleci/repo/auth
   - &yarn_cache .yarn_cache
 
   - &remote_docker_version "20.10.2"
@@ -376,6 +377,34 @@ jobs:
       - push_docker_image:
           image: trevaka/message-service
           dir: *workspace_message_service
+
+  auth_build_image:
+    executor: base_executor
+    steps:
+      - *restore_repo
+      - setup_authenticated_remote_docker
+      - build_docker_image:
+          image: trevaka/auth
+          dir: *workspace_auth
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - auth/image.tar
+
+  auth_push_image:
+    <<: *default_config
+    executor: aws-cli/default
+    steps:
+      - *restore_repo
+      - attach_root_workspace
+      - setup_remote_docker:
+          version: *remote_docker_version
+      - aws-cli/setup:
+          configure-default-region: false
+          configure-profile-region: false
+      - push_docker_image:
+          image: trevaka/auth
+          dir: *workspace_auth
 
 workflows:
   version: 2
