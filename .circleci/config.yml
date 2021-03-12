@@ -467,3 +467,12 @@ workflows:
           <<: *aws_contexts
           requires:
             - message_service_build_image
+
+      - auth_build_image:
+          <<: *default_contexts
+          requires:
+            - checkout_repo
+      - auth_push_image:
+          <<: *aws_contexts
+          requires:
+            - auth_build_image
