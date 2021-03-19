@@ -187,8 +187,7 @@ commands:
           working_directory: /home/circleci/repo/evaka/<< parameters.from >>
           command: |
             aws s3 cp ./index.html s3://trevaka-<< parameters.target_env >>-static/<< parameters.to >>/index.html \
-              --acl public-read \
-              --profile default
+              --acl public-read
 
             if [ "<< parameters.target_env >>" = "prod" ]; then
               echo 'Target environment is prod, excluding source maps from deploy'
@@ -200,8 +199,7 @@ commands:
               --acl public-read \
               --exact-timestamps \
               --exclude "*index.html" \
-              "${EXTRA_ARGS[@]}" \
-              --profile default
+              "${EXTRA_ARGS[@]}"
 
   load_base_image:
     steps:
@@ -322,9 +320,7 @@ jobs:
       - attach_root_workspace
       - setup_remote_docker:
           version: *remote_docker_version
-      - aws-cli/setup:
-          configure-default-region: false
-          configure-profile-region: false
+      - aws-cli/install
       - push_docker_image:
           image: trevaka/api-gateway
           dir: *workspace_apigw
@@ -368,9 +364,7 @@ jobs:
       - attach_root_workspace
       - setup_remote_docker:
           version: *remote_docker_version
-      - aws-cli/setup:
-          configure-default-region: false
-          configure-profile-region: false
+      - aws-cli/install
       - push_docker_image:
           image: trevaka/proxy
           dir: *workspace_proxy
@@ -418,9 +412,7 @@ jobs:
       - attach_root_workspace
       - setup_remote_docker:
           version: *remote_docker_version
-      - aws-cli/setup:
-          configure-default-region: false
-          configure-profile-region: false
+      - aws-cli/install
       - push_docker_image:
           image: trevaka/service
           dir: *workspace_service
@@ -468,9 +460,7 @@ jobs:
       - attach_root_workspace
       - setup_remote_docker:
           version: *remote_docker_version
-      - aws-cli/setup:
-          configure-default-region: false
-          configure-profile-region: false
+      - aws-cli/install
       - push_docker_image:
           image: trevaka/message-service
           dir: *workspace_message_service
@@ -496,9 +486,7 @@ jobs:
       - attach_root_workspace
       - setup_remote_docker:
           version: *remote_docker_version
-      - aws-cli/setup:
-          configure-default-region: false
-          configure-profile-region: false
+      - aws-cli/install
       - push_docker_image:
           image: trevaka/auth
           dir: *workspace_auth
@@ -511,9 +499,7 @@ jobs:
       target_env:
         type: string
     steps:
-      - aws-cli/setup:
-          configure-default-region: false
-          configure-profile-region: false
+      - aws-cli/install
       - deploy_frontend:
           target_env: << parameters.target_env >>
 
