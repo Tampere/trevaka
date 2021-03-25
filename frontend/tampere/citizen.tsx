@@ -1,4 +1,4 @@
-import { CitizenCustomizations } from '@evaka/lib-customizations/types'
+import { CitizenCustomizations } from 'lib-customizations/types'
 import enCustomizations from './enCustomizations'
 import fiCustomizations from './fiCustomizations'
 import svCustomizations from './svCustomizations'

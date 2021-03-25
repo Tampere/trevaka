@@ -1,4 +1,4 @@
-import { EmployeeCustomizations } from '@evaka/lib-customizations/types'
+import { EmployeeCustomizations } from 'lib-customizations/types'
 import TampereLogo from './city-logo.svg'
 import featureFlags from './featureFlags'
 

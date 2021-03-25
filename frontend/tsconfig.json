@@ -2,10 +2,7 @@
   "extends": "../evaka/frontend/tsconfig.base.json",
   "compilerOptions": {
     "rootDir": ".",
-    "baseUrl": ".",
-    "paths": {
-      "@evaka/*": ["../evaka/frontend/src/*"]
-    },
+    "baseUrl": "../evaka/frontend/src/",
     "noEmit": true,
     "jsx": "react"
   },
