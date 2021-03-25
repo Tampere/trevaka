@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration
 import org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration
 import org.springframework.boot.builder.SpringApplicationBuilder
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 
 @SpringBootApplication(
     scanBasePackages = ["fi.tampere.trevaka", "fi.espoo.evaka"],
@@ -19,6 +20,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder
         TransactionAutoConfiguration::class
     ]
 )
+@ConfigurationPropertiesScan(basePackages = ["fi.tampere.trevaka"])
 class TrevakaMain
 
 private val logger = KotlinLogging.logger {}

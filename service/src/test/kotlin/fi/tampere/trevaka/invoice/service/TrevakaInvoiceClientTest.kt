@@ -1,0 +1,103 @@
+package fi.tampere.trevaka.invoice.service
+
+import fi.espoo.evaka.invoicing.domain.*
+import fi.tampere.trevaka.InvoiceProperties
+import fi.tampere.trevaka.IpaasProperties
+import fi.tampere.trevaka.TrevakaProperties
+import fi.tampere.trevaka.invoice.config.InvoiceConfiguration
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.springframework.core.io.ClassPathResource
+import org.springframework.ws.test.client.MockWebServiceServer
+import org.springframework.ws.test.client.RequestMatchers.connectionTo
+import org.springframework.ws.test.client.RequestMatchers.payload
+import org.springframework.ws.test.client.ResponseCreators.*
+import java.time.LocalDate
+import java.util.*
+
+internal class TrevakaInvoiceClientTest {
+
+    private lateinit var client: TrevakaInvoiceClient
+    private lateinit var server: MockWebServiceServer
+
+    @BeforeEach
+    fun setup() {
+        val properties = TrevakaProperties(
+            IpaasProperties("http://localhost:8080", "user", "pass"),
+            InvoiceProperties()
+        )
+        val configuration = InvoiceConfiguration()
+        val webServiceTemplate = configuration.webServiceTemplate(configuration.httpClient(properties), properties)
+        client = configuration.invoiceIntegrationClient(webServiceTemplate, properties) as TrevakaInvoiceClient
+        server = MockWebServiceServer.createServer(webServiceTemplate)
+    }
+
+    @Test
+    fun sendBatchWithValidData() {
+        server.expect(connectionTo("http://localhost:8080/salesOrder"))
+            .andExpect(payload(ClassPathResource("invoice-client/sales-order-request-1.xml")))
+            .andRespond(withPayload(ClassPathResource("invoice-client/sales-order-response-ok.xml")))
+
+        assertThat(client.sendBatch(listOf(validInvoice(1)), 1)).isTrue()
+
+        server.verify()
+    }
+
+    @Test
+    fun sendBatchWithClientFault() {
+        server.expect(connectionTo("http://localhost:8080/salesOrder"))
+            .andRespond(withClientOrSenderFault("test", Locale.ENGLISH))
+
+        assertThat(client.sendBatch(listOf(), 1)).isFalse()
+
+        server.verify()
+    }
+
+    @Test
+    fun sendBatchWithServerFault() {
+        server.expect(connectionTo("http://localhost:8080/salesOrder"))
+            .andRespond(withServerOrReceiverFault("test", Locale.ENGLISH))
+
+        assertThat(client.sendBatch(listOf(), 1)).isFalse()
+
+        server.verify()
+    }
+
+    private fun validInvoice(agreementType: Int): InvoiceDetailed {
+        val headOfFamily = PersonData.Detailed(
+            UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
+            "Maija", "Meikäläinen",
+            "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
+            null, null, null, null, restrictedDetailsEnabled = false
+        )
+        val invoiceRow1 = InvoiceRowDetailed(
+            UUID.randomUUID(), PersonData.Detailed(
+                UUID.randomUUID(), LocalDate.of(2018, 1, 1), null,
+                "Matti", "Meikäläinen",
+                null, null, null, null,
+                null, null, null, null, restrictedDetailsEnabled = false
+            ), 1, 243,
+            LocalDate.of(2021, 1, 1),
+            LocalDate.of(2021, 1, 31),
+            Product.DAYCARE, "131885", null, "kuvaus1"
+        )
+        val invoiceRow2 = InvoiceRowDetailed(
+            UUID.randomUUID(), PersonData.Detailed(
+                UUID.randomUUID(), LocalDate.of(2015, 11, 26), null,
+                "Maiju", "Meikäläinen",
+                null, null, null, null,
+                null, null, null, null, restrictedDetailsEnabled = false
+            ), 1, 482,
+            LocalDate.of(2021, 1, 1),
+            LocalDate.of(2021, 1, 31),
+            Product.PRESCHOOL_WITH_DAYCARE, "284823", null, "kuvaus2"
+        )
+        return InvoiceDetailed(
+            UUID.randomUUID(), InvoiceStatus.WAITING_FOR_SENDING, LocalDate.now(), LocalDate.now(),
+            LocalDate.of(2021, 3, 6), LocalDate.of(2021, 2, 4),
+            agreementType, headOfFamily, listOf(invoiceRow1, invoiceRow2), null, null, null
+        )
+    }
+
+}

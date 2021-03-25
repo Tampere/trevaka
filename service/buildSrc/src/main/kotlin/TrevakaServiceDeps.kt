@@ -4,4 +4,7 @@ object TrevakaServiceDeps {
     const val java = "11"
     const val kotlinLogging = "1.8.3"
     const val logbackSpringBoot = "2.7.1"
+    const val xjc = "2.0.0"
+    const val wiremock = "2.27.2"
+    const val wiremockJunit5 = "1.3.1"
 }
