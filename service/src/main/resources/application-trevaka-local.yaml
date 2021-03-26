@@ -51,3 +51,9 @@ fi:
           trustStore:
             password: password
             type: JKS
+  tampere:
+    trevaka:
+      ipaas:
+        base-url: http://localhost:${server.port}
+        username: user
+        password: pass
