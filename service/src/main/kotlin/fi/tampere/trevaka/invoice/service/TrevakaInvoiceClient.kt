@@ -2,6 +2,7 @@ package fi.tampere.trevaka.invoice.service
 
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
+import fi.espoo.evaka.invoicing.domain.PersonData
 import fi.espoo.evaka.invoicing.domain.Product
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.tampere.messages.ipaas.commontypes.v1.FaultType
@@ -75,6 +76,23 @@ class TrevakaInvoiceClient(val webServiceTemplate: WebServiceTemplate, val prope
                     postCode = invoice.headOfFamily.postalCode
                 }
             }
+            alternativePayer = when (hasAlternativePayer(invoice.headOfFamily)) {
+                true -> P1PartnerType().apply {
+                    person = Person().apply {
+                        ssn = invoice.headOfFamily.ssn
+                        personName = PersonName().apply {
+                            firstNames = null
+                            surName = invoice.headOfFamily.invoiceRecipientName
+                        }
+                    }
+                    address = Address().apply {
+                        street = invoice.headOfFamily.invoicingStreetAddress
+                        town = invoice.headOfFamily.invoicingPostOffice
+                        postCode = invoice.headOfFamily.invoicingPostalCode
+                    }
+                }
+                false -> null
+            }
             paymentTerm = properties.paymentTerm
             dueDate = localDateToXMLGregorianCalendar(invoice.dueDate)
             billingDate = localDateToXMLGregorianCalendar(invoice.invoiceDate)
@@ -143,4 +161,11 @@ class TrevakaInvoiceClient(val webServiceTemplate: WebServiceTemplate, val prope
         }
     }
 
+}
+
+internal fun hasAlternativePayer(person: PersonData.Detailed): Boolean {
+    return !person.invoiceRecipientName.isNullOrBlank()
+            && !person.invoicingStreetAddress.isNullOrBlank()
+            && !person.invoicingPostalCode.isNullOrBlank()
+            && !person.invoicingPostOffice.isNullOrBlank()
 }
