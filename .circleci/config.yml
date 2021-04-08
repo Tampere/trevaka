@@ -136,10 +136,15 @@ commands:
   build_frontend:
     steps:
       - run:
+          name: link customizations
+          working_directory: *workspace_frontend
+          command: ln -v -s $(readlink -f ../../frontend/tampere) src/lib-customizations/tampere
+      - run:
           name: yarn build
           working_directory: *workspace_frontend
           environment:
             SENTRY_NO_PROGRESS_BAR: "1"
+            EVAKA_CUSTOMIZATIONS: tampere
           command: |
             ICONS=free yarn build
 

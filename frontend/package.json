@@ -1,0 +1,11 @@
+{
+  "name": "trevaka-frontend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "type-check": "tsc -b ."
+  },
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
+}

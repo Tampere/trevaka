@@ -1,0 +1,14 @@
+{
+  "extends": "../evaka/frontend/tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": "../evaka/frontend/src/",
+    "noEmit": true,
+    "jsx": "react"
+  },
+  "references": [
+    {
+      "path": "../evaka/frontend/src/lib-customizations"
+    }
+  ]
+}
