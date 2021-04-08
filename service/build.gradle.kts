@@ -12,10 +12,13 @@ repositories {
 
 
 dependencies {
+    implementation(platform(":evaka-bom"))
+    testImplementation(platform(":evaka-bom"))
+
     implementation(":evaka-service")
 
-    implementation("io.github.microutils:kotlin-logging:${TrevakaServiceDeps.kotlinLogging}")
-    implementation("net.rakugakibox.spring.boot:logback-access-spring-boot-starter:${TrevakaServiceDeps.logbackSpringBoot}")
+    implementation("io.github.microutils:kotlin-logging-jvm")
+    implementation("net.rakugakibox.spring.boot:logback-access-spring-boot-starter")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-web-services")
