@@ -1,3 +1,3 @@
 export default {
-    urgencyAttachmentsEnabled: false
+  urgencyAttachmentsEnabled: false
 }

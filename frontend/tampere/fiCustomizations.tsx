@@ -1,5 +1,5 @@
 export default {
-    footer: {
-        cityLabel: '© Tampereen kaupunki'
-    }
+  footer: {
+    cityLabel: '© Tampereen kaupunki'
+  }
 }

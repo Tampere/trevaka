@@ -1,5 +1,5 @@
 export default {
-    footer: {
-        cityLabel: '© Tammerfors stad'
-    }
+  footer: {
+    cityLabel: '© Tammerfors stad'
+  }
 }
