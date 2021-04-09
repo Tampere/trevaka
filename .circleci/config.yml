@@ -18,7 +18,6 @@ aliases:
   - &docker_layer_caching false
   - &base_image cimg/base:stable-20.04
   - &nodejs_image cimg/node:14.15
-  - &openjdk_image cimg/openjdk:11.0
   - &ubuntu_machine_image ubuntu-2004:202101-01
 
   - &default_config
@@ -111,10 +110,6 @@ executors:
     docker:
       - image: *nodejs_image
   openjdk_executor:
-    <<: *jvm_config
-    docker:
-      - image: *openjdk_image
-  service_build_executor:
     <<: *jvm_config
     machine:
       image: *ubuntu_machine_image
@@ -307,7 +302,7 @@ jobs:
             - *yarn_cache
 
   apigw_build_image:
-    executor: nodejs_executor
+    executor: base_executor
     steps:
       - *restore_repo
       - attach_root_workspace
@@ -380,7 +375,7 @@ jobs:
           dir: *workspace_proxy
 
   service_build:
-    executor: service_build_executor
+    executor: openjdk_executor
     steps:
       - *restore_repo
       - *restore_service_gradle
@@ -394,7 +389,7 @@ jobs:
             - service/build
 
   service_build_image:
-    executor: openjdk_executor
+    executor: base_executor
     steps:
       - *restore_repo
       - attach_root_workspace
@@ -442,7 +437,7 @@ jobs:
             - evaka/message-service/build
 
   message_service_build_image:
-    executor: openjdk_executor
+    executor: base_executor
     steps:
       - *restore_repo
       - attach_root_workspace
