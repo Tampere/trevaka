@@ -28,8 +28,6 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.ws:spring-ws-test")
-    testImplementation("com.github.tomakehurst:wiremock-jre8:${TrevakaServiceDeps.wiremock}")
-    testImplementation("ru.lanwen.wiremock:wiremock-junit5:${TrevakaServiceDeps.wiremockJunit5}")
     testImplementation(platform("org.springframework.cloud:spring-cloud-dependencies:${TrevakaServiceDeps.springCloud}"))
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
     testImplementation("org.testcontainers:postgresql")
