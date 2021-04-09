@@ -1,0 +1,47 @@
+# see AbstractIntegrationTest for dynamic properties
+aws:
+  region: us-east-1
+application:
+  frontend:
+    base-url: http://localhost:${server.port}
+    base-url.sv: http://localhost:${server.port}
+fi:
+  espoo:
+    evaka:
+      message:
+        url: http://localhost:${wiremock.server.port}/mock/message
+        enabled: false
+    integration:
+      dvv-modifications-service:
+        url: http://localhost:${wiremock.server.port}/mock/modifications
+        userId: user
+        password: pass
+        xRoadClientId: trevaka
+        productCode: trevaka
+      koski:
+        url: http://localhost:${wiremock.server.port}/mock/koski
+        enabled: false
+        source_system: trevaka
+        user: user
+        secret: pass
+      varda:
+        url: http://localhost:${wiremock.server.port}/mock/varda
+        basic_auth: dXNlcjpwYXNz # user:pass
+    voltti:
+      document:
+        bucket:
+          attachments: trevaka-attachments-it
+          clubdecision: trevaka-clubdecisions-it
+          daycaredecision: trevaka-daycaredecisions-it
+          paymentdecision: trevaka-paymentdecisions-it
+          vouchervaluedecision: trevaka-vouchervaluedecisions-it
+      vtj:
+        enabled: true
+        xroad:
+          address: http://localhost:${wiremock.server.port}/mock/vtj
+  tampere:
+    trevaka:
+      ipaas:
+        base-url: http://localhost:${wiremock.server.port}/mock/ipaas
+        username: user
+        password: pass
