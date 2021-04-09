@@ -19,6 +19,7 @@ aliases:
   - &base_image cimg/base:stable-20.04
   - &nodejs_image cimg/node:14.15
   - &openjdk_image cimg/openjdk:11.0
+  - &ubuntu_machine_image ubuntu-2004:202101-01
 
   - &default_config
     working_directory: *workspace_root
@@ -113,6 +114,10 @@ executors:
     <<: *jvm_config
     docker:
       - image: *openjdk_image
+  service_build_executor:
+    <<: *jvm_config
+    machine:
+      image: *ubuntu_machine_image
 
 commands:
   attach_root_workspace:
@@ -375,7 +380,7 @@ jobs:
           dir: *workspace_proxy
 
   service_build:
-    executor: openjdk_executor
+    executor: service_build_executor
     steps:
       - *restore_repo
       - *restore_service_gradle
