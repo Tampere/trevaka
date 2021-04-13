@@ -25,6 +25,7 @@ dependencies {
 
     implementation("javax.xml.bind:jaxb-api")
     implementation("org.apache.httpcomponents:httpclient")
+    implementation("com.github.kittinunf.fuel:fuel")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.ws:spring-ws-test")
