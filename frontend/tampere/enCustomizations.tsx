@@ -1,5 +1,7 @@
 export default {
   footer: {
-    cityLabel: '© City of Tampere'
+    cityLabel: '© City of Tampere',
+    privacyPolicyLink: 'TODO',
+    sendFeedbackLink: 'TODO'
   }
 }
