@@ -1,5 +1,8 @@
 package fi.tampere.trevaka.person.config
 
+import com.github.kittinunf.fuel.core.FuelManager
+import com.github.kittinunf.fuel.core.extensions.authentication
+import fi.espoo.evaka.dvv.DvvModificationRequestCustomizer
 import fi.tampere.trevaka.TrevakaProperties
 import fi.tampere.trevaka.util.basicAuthInterceptor
 import org.apache.http.client.HttpClient
@@ -29,5 +32,16 @@ class PersonConfiguration {
         .addInterceptorFirst(RemoveSoapHeadersInterceptor())
         .addInterceptorFirst(basicAuthInterceptor(properties.ipaas.username, properties.ipaas.password))
         .build()
+
+    /**
+     * Custom [FuelManager] for [fi.espoo.evaka.dvv.DvvModificationsServiceClient].
+     */
+    @Bean
+    fun fuelManager(properties: TrevakaProperties) = FuelManager()
+
+    @Bean
+    fun basicAuthCustomizer(properties: TrevakaProperties) = DvvModificationRequestCustomizer { request ->
+        request.authentication().basic(properties.ipaas.username, properties.ipaas.password)
+    }
 
 }
