@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# SPDX-FileCopyrightText: 2021 City of Tampere
+#
+# SPDX-License-Identifier: LGPL-2.1-or-later
+
 set -euo pipefail
 
 DOCKER_IMAGE=${DOCKER_IMAGE:-trevaka/service}

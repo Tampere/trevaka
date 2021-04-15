@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2021 City of Tampere
+
+SPDX-License-Identifier: LGPL-2.1-or-later
+-->
+
 # eVaka frontend customizations PoC
 
 * the `tampere` directory must be linked under main eVaka as `frontend/src/lib-customizations/tampere` using symbolic or hard links. See `link.sh` for an example
