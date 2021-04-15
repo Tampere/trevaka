@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# SPDX-FileCopyrightText: 2017-2020 City of Espoo
 # SPDX-FileCopyrightText: 2021 City of Tampere
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
@@ -103,8 +104,6 @@ while IFS= read -r file; do
     if [ -z "$file" ]; then
         continue
     fi
-
-    echo $file
 
     # Explicitly define styles for some common files not yet recognized by a released version of reuse:
     if [[ "$file" = *svg ]] || [[ "$file" = *json ]]; then
