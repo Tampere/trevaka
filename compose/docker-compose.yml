@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2021 City of Tampere
+#
+# SPDX-License-Identifier: LGPL-2.1-or-later
+
 # Docker compose for trying out the trevaka/service docker image locally
 # Scavenged from evaka integration testing and e2e compose files
 #

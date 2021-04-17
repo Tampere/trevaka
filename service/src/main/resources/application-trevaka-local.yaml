@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2021 City of Tampere
+#
+# SPDX-License-Identifier: LGPL-2.1-or-later
+
 # used with the trevaka-local profile, overlaying eVaka's local profile properties
 # profile priority defined by "last wins" -strategy of spring.profiles.active declarations (build file/env var)
 ---
