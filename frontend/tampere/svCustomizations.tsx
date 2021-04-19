@@ -6,6 +6,8 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 
 export default {
   footer: {
-    cityLabel: '© Tammerfors stad'
+    cityLabel: '© Tammerfors stad',
+    privacyPolicyLink: 'TODO',
+    sendFeedbackLink: 'TODO'
   }
 }
