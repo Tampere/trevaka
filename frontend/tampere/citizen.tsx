@@ -10,6 +10,7 @@ import fiCustomizations from './fiCustomizations'
 import svCustomizations from './svCustomizations'
 import TampereLogo from './city-logo.svg'
 import featureFlags from './featureFlags'
+import mapConfig from './mapConfig'
 
 const customizations: CitizenCustomizations = {
   fiCustomizations,
@@ -19,6 +20,7 @@ const customizations: CitizenCustomizations = {
     src: TampereLogo,
     alt: 'Tampere logo'
   },
+  mapConfig,
   featureFlags
 }
 
