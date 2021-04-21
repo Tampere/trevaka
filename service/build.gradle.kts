@@ -28,10 +28,12 @@ dependencies {
     implementation("com.github.kittinunf.fuel:fuel")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.junit-pioneer:junit-pioneer:${TrevakaServiceDeps.junitPioneer}") // for CartesianProductTest
     testImplementation("org.springframework.ws:spring-ws-test")
     testImplementation(platform("org.springframework.cloud:spring-cloud-dependencies:${TrevakaServiceDeps.springCloud}"))
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
     testImplementation("org.testcontainers:postgresql")
+    testImplementation("org.reflections:reflections:${TrevakaServiceDeps.reflections}")
     testImplementation("com.amazonaws:aws-java-sdk-s3")
     testImplementation("com.auth0:java-jwt")
 }
