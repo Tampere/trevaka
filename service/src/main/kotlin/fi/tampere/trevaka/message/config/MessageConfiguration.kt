@@ -13,6 +13,8 @@ import java.text.MessageFormat
 import java.util.Locale
 import java.util.Properties
 
+internal const val PREFIX: String = "fi.tampere.trevaka.MessageProvider"
+
 @Configuration
 class MessageConfiguration {
 
@@ -25,33 +27,25 @@ class MessageConfiguration {
 }
 
 internal class TrevakaMessageProvider(val messageSource: MessageSource) : IMessageProvider {
-    fun get(type: MessageType, lang: MessageLanguage) =
-        messageSource.getMessage("fi.tampere.trevaka.MessageProvider.$type", null, resolveLocale(lang))
+    override fun getDecisionHeader(lang: MessageLanguage): String =
+        messageSource.getMessage("$PREFIX.DECISION_HEADER", null, resolveLocale(lang))
 
-    override fun getDecisionHeader(lang: MessageLanguage): String = get(MessageType.DECISION_HEADER, lang)
+    override fun getDecisionContent(lang: MessageLanguage): String =
+        messageSource.getMessage("$PREFIX.DECISION_CONTENT", null, resolveLocale(lang))
 
-    override fun getDecisionContent(lang: MessageLanguage): String = get(MessageType.DECISION_CONTENT, lang)
+    override fun getFeeDecisionHeader(lang: MessageLanguage): String =
+        messageSource.getMessage("$PREFIX.FEE_DECISION_HEADER", null, resolveLocale(lang))
 
-    override fun getFeeDecisionHeader(lang: MessageLanguage): String = get(MessageType.FEE_DECISION_HEADER, lang)
-
-    override fun getFeeDecisionContent(lang: MessageLanguage): String = get(MessageType.FEE_DECISION_CONTENT, lang)
+    override fun getFeeDecisionContent(lang: MessageLanguage): String =
+        messageSource.getMessage("$PREFIX.FEE_DECISION_CONTENT", null, resolveLocale(lang))
 
     override fun getVoucherValueDecisionHeader(lang: MessageLanguage): String =
-        get(MessageType.VOUCHER_VALUE_DECISION_HEADER, lang)
+        messageSource.getMessage("$PREFIX.VOUCHER_VALUE_DECISION_HEADER", null, resolveLocale(lang))
 
     override fun getVoucherValueDecisionContent(lang: MessageLanguage): String =
-        get(MessageType.VOUCHER_VALUE_DECISION_CONTENT, lang)
+        messageSource.getMessage("$PREFIX.VOUCHER_VALUE_DECISION_CONTENT", null, resolveLocale(lang))
 
     private fun resolveLocale(lang: MessageLanguage) = Locale(lang.name.toLowerCase())
-}
-
-enum class MessageType {
-    DECISION_HEADER,
-    DECISION_CONTENT,
-    FEE_DECISION_HEADER,
-    FEE_DECISION_CONTENT,
-    VOUCHER_VALUE_DECISION_HEADER,
-    VOUCHER_VALUE_DECISION_CONTENT,
 }
 
 internal class YamlMessageSource(resource: Resource) : AbstractMessageSource() {
