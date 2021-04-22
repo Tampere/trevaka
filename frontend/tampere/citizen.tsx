@@ -21,12 +21,6 @@ const customizations: CitizenCustomizations = {
     alt: 'Tampere logo'
   },
   mapConfig,
-  mapSearchAreaRect: {
-    maxLatitude: 61.83715535012332,
-    minLatitude: 61.42731906621412,
-    maxLongitude: 24.118938446044925,
-    minLongitude: 23.54256391525269
-  },
   featureFlags
 }
 
