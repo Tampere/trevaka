@@ -4,7 +4,12 @@
 
 package fi.tampere.trevaka.invoice.service
 
-import fi.espoo.evaka.invoicing.domain.*
+import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
+import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
+import fi.espoo.evaka.invoicing.domain.InvoiceStatus
+import fi.espoo.evaka.invoicing.domain.PersonData
+import fi.espoo.evaka.invoicing.domain.Product
+import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.tampere.trevaka.InvoiceProperties
 import fi.tampere.trevaka.IpaasProperties
 import fi.tampere.trevaka.TrevakaProperties
@@ -12,28 +17,35 @@ import fi.tampere.trevaka.invoice.config.InvoiceConfiguration
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.springframework.core.env.Environment
 import org.springframework.core.io.ClassPathResource
 import org.springframework.ws.test.client.MockWebServiceServer
 import org.springframework.ws.test.client.RequestMatchers.connectionTo
 import org.springframework.ws.test.client.RequestMatchers.payload
 import org.springframework.ws.test.client.ResponseCreators.*
 import java.time.LocalDate
-import java.util.*
+import java.util.Locale
+import java.util.UUID
 
 internal class TrevakaInvoiceClientTest {
 
-    private lateinit var client: TrevakaInvoiceClient
+    private lateinit var client: InvoiceIntegrationClient
     private lateinit var server: MockWebServiceServer
 
     @BeforeEach
     fun setup() {
         val properties = TrevakaProperties(
-            IpaasProperties("http://localhost:8080", "user", "pass"),
+            IpaasProperties("user", "pass"),
             InvoiceProperties()
         )
+        val environment = mock<Environment> {
+            on { getRequiredProperty("fi.espoo.integration.invoice.url") } doReturn "http://localhost:8080/salesOrder"
+        }
         val configuration = InvoiceConfiguration()
         val webServiceTemplate = configuration.webServiceTemplate(configuration.httpClient(properties), properties)
-        client = configuration.invoiceIntegrationClient(webServiceTemplate, properties) as TrevakaInvoiceClient
+        client = configuration.invoiceIntegrationClient(webServiceTemplate, properties, environment)
         server = MockWebServiceServer.createServer(webServiceTemplate)
     }
 

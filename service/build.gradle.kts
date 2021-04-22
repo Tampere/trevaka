@@ -29,6 +29,7 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit-pioneer:junit-pioneer:${TrevakaServiceDeps.junitPioneer}") // for CartesianProductTest
+    testImplementation("org.mockito.kotlin:mockito-kotlin:${TrevakaServiceDeps.mockitoKotlin}")
     testImplementation("org.springframework.ws:spring-ws-test")
     testImplementation(platform("org.springframework.cloud:spring-cloud-dependencies:${TrevakaServiceDeps.springCloud}"))
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")

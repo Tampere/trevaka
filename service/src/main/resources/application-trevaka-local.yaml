@@ -33,6 +33,8 @@ fi:
   espoo:
     evaka:
     integration:
+      invoice:
+        url: http://localhost:${server.port}/salesOrder
       koski:
         enabled: false
     varda:
@@ -58,6 +60,5 @@ fi:
   tampere:
     trevaka:
       ipaas:
-        base-url: http://localhost:${server.port}
         username: user
         password: pass

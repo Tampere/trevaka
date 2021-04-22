@@ -11,26 +11,38 @@ import fi.espoo.evaka.invoicing.domain.Product
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.tampere.messages.ipaas.commontypes.v1.FaultType
 import fi.tampere.messages.ipaas.commontypes.v1.SimpleAcknowledgementResponseType
-import fi.tampere.messages.sapsd.salesorder.v11.*
+import fi.tampere.messages.sapsd.salesorder.v11.Address
+import fi.tampere.messages.sapsd.salesorder.v11.Header
+import fi.tampere.messages.sapsd.salesorder.v11.Item
+import fi.tampere.messages.sapsd.salesorder.v11.Items
+import fi.tampere.messages.sapsd.salesorder.v11.P1PartnerType
+import fi.tampere.messages.sapsd.salesorder.v11.Person
+import fi.tampere.messages.sapsd.salesorder.v11.PersonName
+import fi.tampere.messages.sapsd.salesorder.v11.SalesOrder
+import fi.tampere.messages.sapsd.salesorder.v11.Text
 import fi.tampere.services.sapsd.salesorder.v1.SendSalesOrderRequest
 import fi.tampere.trevaka.InvoiceProperties
 import mu.KotlinLogging
+import org.springframework.core.env.Environment
 import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.client.SoapFaultClientException
 import org.springframework.ws.soap.client.core.SoapActionCallback
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import java.util.*
+import java.util.Locale
 import javax.xml.bind.JAXBIntrospector
 import javax.xml.datatype.DatatypeFactory
 import javax.xml.datatype.XMLGregorianCalendar
 
 private val logger = KotlinLogging.logger {}
 
-class TrevakaInvoiceClient(val webServiceTemplate: WebServiceTemplate, val properties: InvoiceProperties) :
+class TrevakaInvoiceClient(
+    val webServiceTemplate: WebServiceTemplate, val properties: InvoiceProperties, val environment: Environment
+) :
     InvoiceIntegrationClient {
 
+    val url = environment.getRequiredProperty("fi.espoo.integration.invoice.url")
     val dateFormatter: DateTimeFormatter =
         DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale("fi"))
 
@@ -39,7 +51,7 @@ class TrevakaInvoiceClient(val webServiceTemplate: WebServiceTemplate, val prope
         try {
             val request = toRequest(invoices)
             val response = webServiceTemplate.marshalSendAndReceive(
-                "${webServiceTemplate.defaultUri}/salesOrder", request,
+                url, request,
                 SoapActionCallback("http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder")
             )
             when (val value = JAXBIntrospector.getValue(response)) {

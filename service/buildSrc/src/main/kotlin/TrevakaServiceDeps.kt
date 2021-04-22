@@ -9,5 +9,6 @@ object TrevakaServiceDeps {
     const val java = "11"
     const val xjc = "2.0.0"
     const val junitPioneer = "1.3.8"
+    const val mockitoKotlin = "3.1.0"
     const val reflections = "0.9.12"
 }
