@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
+import org.springframework.core.env.Environment
 import org.springframework.oxm.jaxb.Jaxb2Marshaller
 import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.SoapVersion
@@ -39,7 +40,8 @@ class InvoiceConfiguration {
     fun invoiceIntegrationClient(
         @Qualifier(WEB_SERVICE_TEMPLATE_INVOICE) webServiceTemplate: WebServiceTemplate,
         properties: TrevakaProperties,
-    ): InvoiceIntegrationClient = TrevakaInvoiceClient(webServiceTemplate, properties.invoice)
+        environment: Environment,
+    ): InvoiceIntegrationClient = TrevakaInvoiceClient(webServiceTemplate, properties.invoice, environment)
 
     @Bean(WEB_SERVICE_TEMPLATE_INVOICE)
     fun webServiceTemplate(
@@ -55,7 +57,6 @@ class InvoiceConfiguration {
             afterPropertiesSet()
         }
         return WebServiceTemplate(messageFactory).apply {
-            defaultUri = properties.ipaas.baseUrl
             this.marshaller = marshaller
             unmarshaller = marshaller
             setMessageSender(HttpComponentsMessageSender(httpClient))

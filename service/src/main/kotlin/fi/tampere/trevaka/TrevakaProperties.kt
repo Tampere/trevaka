@@ -18,7 +18,6 @@ data class TrevakaProperties(
 )
 
 data class IpaasProperties(
-    val baseUrl: String,
     val username: String,
     val password: String,
 )
