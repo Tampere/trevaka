@@ -12,5 +12,4 @@ const mapConfig: MapConfig = {
   }
 }
 
-
 export default mapConfig
