@@ -15,9 +15,11 @@ import featureFlags from './featureFlags'
 import mapConfig from './mapConfig'
 
 const customizations: CitizenCustomizations = {
-  fiCustomizations,
-  svCustomizations,
-  enCustomizations,
+  translations: {
+    fi: fiCustomizations,
+    sv: svCustomizations,
+    en: enCustomizations
+  },
   cityLogo: {
     src: TampereLogo,
     alt: 'Tampere logo'
