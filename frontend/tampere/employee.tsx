@@ -11,6 +11,11 @@ import TampereLogo from './city-logo.svg'
 import featureFlags from './featureFlags'
 
 const customizations: EmployeeCustomizations = {
+  translations: {
+    fi: {
+      // override translations here
+    }
+  },
   cityLogo: {
     src: TampereLogo,
     alt: 'Tampere logo'
