@@ -93,6 +93,10 @@ const fi: DeepPartial<Translations> = {
     privacyPolicyLink:
       'https://www.tampere.fi/tampereen-kaupunki/yhteystiedot-ja-asiointi/verkkoasiointi/tietosuoja/tietosuojaselosteet.html',
     sendFeedbackLink: 'https://www.tampere.fi/palaute.html.stx'
+  },
+  map: {
+    mainInfo: `Tässä näkymässä voit hakea kartalta kaikki Tampereen varhaiskasvatusyksiköt sekä kerhot. Kartalta löytyvät myös seudulliset palveluseteliyksiköt ja -kerhot.`,
+    searchPlaceholder: 'Esim. Jukolankatu 7 tai Amurin päiväkoti'
   }
 }
 
