@@ -13,6 +13,26 @@ import React from 'react'
 
 const fi: DeepPartial<Translations> = {
   applications: {
+    creation: {
+      daycareInfo:
+        'Varhaiskasvatushakemuksella haetaan paikkaa kunnallisesta päiväkodista tai perhepäivähoidosta, ostopalvelupäiväkodista tai palvelusetelillä tuetusta päiväkodista.',
+      clubInfo:
+        'Kerhohakemuksella haetaan paikkaa kunnallisista tai palvelusetelillä tuetuista kerhoista.',
+      applicationInfo: function ApplicationInfoText() {
+        return (
+          <P>
+            Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa siihen
+            asti, kun hakemus otetaan asiakaspalvelussa käsittelyyn. Tämän
+            jälkeen muutokset tai hakemuksen peruminen on mahdollista ottamalla
+            yhteyttä Varhaiskasvatuksen asiakaspalveluun:{' '}
+            <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">
+              varhaiskasvatus.asiakaspalvelu@tampere.fi
+            </a>{' '}
+            / 040 800 7260 (ma-pe klo 9-12).
+          </P>
+        )
+      }
+    },
     editor: {
       heading: {
         info: {
