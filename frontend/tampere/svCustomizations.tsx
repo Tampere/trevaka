@@ -28,10 +28,6 @@ const sv: DeepPartial<Translations> = {
     cityLabel: '© Tammerfors stad',
     privacyPolicyLink: 'TODO',
     sendFeedbackLink: 'TODO'
-  },
-  map: {
-    mainInfo: `TODO (sv) Tässä näkymässä voit hakea kartalta kaikki Tampereen varhaiskasvatusyksiköt sekä kerhot. Kartalta löytyvät myös seudulliset palveluseteliyksiköt ja -kerhot.`,
-    searchPlaceholder: 'T.ex. Jukolankatu 7 tai Amurin päiväkoti'
   }
 }
 
