@@ -24,6 +24,7 @@ const customizations: CitizenCustomizations = {
     src: TampereLogo,
     alt: 'Tampere logo'
   },
+  routeLinkRootUrl: 'https://reittiopas.tampere.fi/reitti/',
   mapConfig,
   featureFlags
 }
