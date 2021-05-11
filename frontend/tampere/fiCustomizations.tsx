@@ -79,11 +79,14 @@ const fi: DeepPartial<Translations> = {
                 <P>
                   Kerhopaikkaa voi hakea ympäri vuoden. Kerhohakemuksella voi
                   hakea kunnallista tai palvelusetelillä tuettua kerhopaikkaa.
-                  Kirjallinen ilmoitus kerhopaikasta lähetetään huoltajalle
-                  Suomi.fi-viestit-palveluun. Mikäli huoltaja ei ole ottanut
-                  Suomi.fi-viestit- palvelua käyttöön, ilmoitus lähetetään
-                  hänelle postitse. Paikka myönnetään yhdeksi toimintakaudeksi
-                  kerrallaan.
+                  Kirjallinen ilmoitus kerhopaikasta lähetään Suomi.fi -viestit
+                  palveluun. Mikäli haluatte ilmoituksen sähköisenä
+                  tiedoksiantona, teidän tulee ottaa Suomi.fi -viestit palvelu
+                  käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa
+                  https://www.suomi.fi/viestit. Mikäli ette ota
+                  Suomi.fi-viestit- palvelua käyttöön, ilmoitus kerhopaikasta
+                  lähetetään teille postitse. Paikka myönnetään yhdeksi
+                  toimintakaudeksi kerrallaan.
                 </P>
                 <P>
                   Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle.
