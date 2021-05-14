@@ -60,7 +60,7 @@ class TrevakaInvoiceClient(
             }
         } catch (e: SoapFaultClientException) {
             when (val faultDetail = unmarshalFaultDetail(e)) {
-                is FaultType -> logger.error("Fault in invoice: ${faultDetail.errorCode}. Message: ${faultDetail.errorMessage}")
+                is FaultType -> logger.error("Fault in invoice: ${faultDetail.errorCode}. Message: ${faultDetail.errorMessage}. Details: ${faultDetail.detailMessage}")
                 else -> logger.error("Unknown fault in invoice: $faultDetail", e)
             }
             return false
