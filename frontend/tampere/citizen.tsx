@@ -10,7 +10,7 @@ import { CitizenCustomizations } from 'lib-customizations/types'
 import enCustomizations from './enCustomizations'
 import fiCustomizations from './fiCustomizations'
 import svCustomizations from './svCustomizations'
-import TampereLogo from './city-logo.svg'
+import TampereLogo from './city-logo-citizen.svg'
 import featureFlags from './featureFlags'
 import mapConfig from './mapConfig'
 
