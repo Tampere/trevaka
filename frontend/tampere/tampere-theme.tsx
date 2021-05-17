@@ -36,6 +36,43 @@ const theme: Theme = {
       emerald: '#397368',
       violet: '#7361A2'
     }
+  },
+  typography: {
+    h1: {
+      weight: 600,
+      bold: 800,
+      mobile: {
+        weight: 600
+      }
+    },
+    h2: {
+      weight: 500,
+      bold: 700,
+      mobile: {
+        weight: 500,
+      }
+    },
+    h3: {
+      weight: 400,
+      bold: 600,
+      mobile: {
+        weight: 500
+      }
+    },
+    h4: {
+      weight: 400,
+      bold: 600,
+      mobile: {
+        weight: 500
+      }
+    },
+    h5: {
+      weight: 400,
+      bold: 600,
+      mobile: {
+        weight: 500
+      }
+    }
   }
 }
 
