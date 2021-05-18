@@ -11,6 +11,7 @@ import enCustomizations from './enCustomizations'
 import fiCustomizations from './fiCustomizations'
 import svCustomizations from './svCustomizations'
 import TampereLogo from './city-logo-citizen.svg'
+import FooterLogo from './footer-logo-citizen.png'
 import featureFlags from './featureFlags'
 import mapConfig from './mapConfig'
 
@@ -22,6 +23,10 @@ const customizations: CitizenCustomizations = {
   },
   cityLogo: {
     src: TampereLogo,
+    alt: 'Tampere logo'
+  },
+  footerLogo: {
+    src: FooterLogo,
     alt: 'Tampere logo'
   },
   routeLinkRootUrl: 'https://reittiopas.tampere.fi/reitti/',
