@@ -239,6 +239,9 @@ const fi: DeepPartial<Translations> = {
   },
   map: {
     mainInfo: `Tässä näkymässä voit hakea kartalta kaikki Tampereen varhaiskasvatusyksiköt sekä kerhot. Kartalta löytyvät myös seudulliset palveluseteliyksiköt ja -kerhot.`,
+    privateUnitInfo: function PrivateUnitInfo() {
+      return <></>
+    },
     searchPlaceholder: 'Esim. Jukolankatu 7 tai Amurin päiväkoti'
   }
 }
