@@ -15,7 +15,7 @@ import ExternalLink from 'lib-components/atoms/ExternalLink'
 const customerContactText = function () {
   return (
     <>
-      Varhaiskasvatuksen asiakaspalveluun:{' '}
+      {' '}Varhaiskasvatuksen asiakaspalveluun:{' '}
       <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">
         varhaiskasvatus.asiakaspalvelu@tampere.fi
       </a>{' '}
@@ -37,7 +37,8 @@ const fi: DeepPartial<Translations> = {
             Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa siihen
             asti, kun hakemus otetaan asiakaspalvelussa käsittelyyn. Tämän
             jälkeen muutokset tai hakemuksen peruminen on mahdollista ottamalla
-            yhteyttä {customerContactText()}
+            yhteyttä
+            {customerContactText()}
           </P>
         )
       }
@@ -60,14 +61,16 @@ const fi: DeepPartial<Translations> = {
                 </P>
                 <P>
                   Kirjallinen päätös varhaiskasvatuspaikasta lähetetään
-                  huoltajalle{' '}
+                  Suomi.fi-viestit -palveluun. Mikäli haluatte päätöksen
+                  sähköisenä tiedoksiantona, teidän tulee ottaa
+                  Suomi.fi-viestit -palvelu käyttöön. Palvelusta ja sen
+                  käyttöönotosta saatte lisätietoa{' '}
                   <ExternalLink
-                    text="Suomi.fi-viestit -palveluun"
+                    text="https://www.suomi.fi/viestit"
                     href="https://www.suomi.fi/viestit"
                     newTab
-                  />
-                  . Mikäli huoltaja ei ole ottanut Suomi.fi-viestit- palvelua
-                  käyttöön, päätös lähetetään hänelle postitse.
+                  />. Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön,
+                  päätös lähetetään teille postitse.
                 </P>
                 <P fitted={true}>* Tähdellä merkityt tiedot ovat pakollisia</P>
               </>
@@ -79,14 +82,17 @@ const fi: DeepPartial<Translations> = {
                 <P>
                   Kerhopaikkaa voi hakea ympäri vuoden. Kerhohakemuksella voi
                   hakea kunnallista tai palvelusetelillä tuettua kerhopaikkaa.
-                  Kirjallinen ilmoitus kerhopaikasta lähetään Suomi.fi -viestit
-                  palveluun. Mikäli haluatte ilmoituksen sähköisenä
-                  tiedoksiantona, teidän tulee ottaa Suomi.fi -viestit palvelu
+                  Kirjallinen ilmoitus kerhopaikasta lähetään Suomi.fi-viestit
+                  -palveluun. Mikäli haluatte ilmoituksen sähköisenä 
+                  tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit -palvelu
                   käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa
-                  https://www.suomi.fi/viestit. Mikäli ette ota
-                  Suomi.fi-viestit- palvelua käyttöön, ilmoitus kerhopaikasta
-                  lähetetään teille postitse. Paikka myönnetään yhdeksi
-                  toimintakaudeksi kerrallaan.
+                  <ExternalLink
+                    text="https://www.suomi.fi/viestit"
+                    href="https://www.suomi.fi/viestit"
+                    newTab
+                  />. Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön,
+                  ilmoitus kerhopaikasta lähetetään teille postitse. Paikka
+                  myönnetään yhdeksi toimintakaudeksi kerrallaan.
                 </P>
                 <P>
                   Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle.
