@@ -15,7 +15,7 @@ import ExternalLink from 'lib-components/atoms/ExternalLink'
 const customerContactText = function () {
   return (
     <>
-      Varhaiskasvatuksen asiakaspalveluun:{' '}
+      {' '}Varhaiskasvatuksen asiakaspalveluun:{' '}
       <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">
         varhaiskasvatus.asiakaspalvelu@tampere.fi
       </a>{' '}
@@ -37,7 +37,8 @@ const fi: DeepPartial<Translations> = {
             Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa siihen
             asti, kun hakemus otetaan asiakaspalvelussa käsittelyyn. Tämän
             jälkeen muutokset tai hakemuksen peruminen on mahdollista ottamalla
-            yhteyttä {customerContactText()}
+            yhteyttä
+            {customerContactText()}
           </P>
         )
       }
