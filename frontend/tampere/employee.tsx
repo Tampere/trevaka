@@ -14,6 +14,20 @@ const customizations: EmployeeCustomizations = {
   translations: {
     fi: {
       // override translations here
+      childInformation: {
+        assistanceAction: {
+          fields: {
+            measureTypes: {
+              SPECIAL_ASSISTANCE_DECISION: 'Erityinen tuki',
+              INTENSIFIED_ASSISTANCE: 'Tehostettu tuki',
+              EXTENDED_COMPULSORY_EDUCATION: 'Pidennetty oppivelvollisuus',
+              CHILD_ACCULTURATION_SUPPORT:
+                'Lapsen ja perheen kotoutumisen tuki',
+              TRANSPORT_BENEFIT: 'Kuljetusetu'
+            }
+          }
+        }
+      }
     }
   },
   cityLogo: {
