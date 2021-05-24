@@ -34,7 +34,14 @@ const customizations: EmployeeCustomizations = {
     src: TampereLogo,
     alt: 'Tampere logo'
   },
-  featureFlags
+  featureFlags,
+  assistanceMeasures: [
+    'SPECIAL_ASSISTANCE_DECISION',
+    'INTENSIFIED_ASSISTANCE',
+    'EXTENDED_COMPULSORY_EDUCATION',
+    'CHILD_ACCULTURATION_SUPPORT',
+    'TRANSPORT_BENEFIT'
+  ],
 }
 
 export default customizations

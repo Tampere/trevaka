@@ -9,7 +9,6 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 }
 
 const featureFlags: FeatureFlags = {
-  assistanceMeasureChildServiceEnabled: false,
   urgencyAttachmentsEnabled: false,
   preschoolEnabled: false
 }
