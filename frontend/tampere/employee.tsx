@@ -41,7 +41,7 @@ const customizations: EmployeeCustomizations = {
     'EXTENDED_COMPULSORY_EDUCATION',
     'CHILD_ACCULTURATION_SUPPORT',
     'TRANSPORT_BENEFIT'
-  ],
+  ]
 }
 
 export default customizations
