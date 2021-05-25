@@ -49,7 +49,7 @@ const theme: Theme = {
       weight: 500,
       bold: 700,
       mobile: {
-        weight: 500,
+        weight: 500
       }
     },
     h3: {

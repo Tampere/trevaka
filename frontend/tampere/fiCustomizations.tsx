@@ -15,7 +15,8 @@ import ExternalLink from 'lib-components/atoms/ExternalLink'
 const customerContactText = function () {
   return (
     <>
-      {' '}Varhaiskasvatuksen asiakaspalveluun:{' '}
+      {' '}
+      Varhaiskasvatuksen asiakaspalveluun:{' '}
       <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">
         varhaiskasvatus.asiakaspalvelu@tampere.fi
       </a>{' '}
@@ -62,15 +63,16 @@ const fi: DeepPartial<Translations> = {
                 <P>
                   Kirjallinen päätös varhaiskasvatuspaikasta lähetetään
                   Suomi.fi-viestit -palveluun. Mikäli haluatte päätöksen
-                  sähköisenä tiedoksiantona, teidän tulee ottaa
-                  Suomi.fi-viestit -palvelu käyttöön. Palvelusta ja sen
-                  käyttöönotosta saatte lisätietoa{' '}
+                  sähköisenä tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit
+                  -palvelu käyttöön. Palvelusta ja sen käyttöönotosta saatte
+                  lisätietoa{' '}
                   <ExternalLink
                     text="https://www.suomi.fi/viestit"
                     href="https://www.suomi.fi/viestit"
                     newTab
-                  />. Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön,
-                  päätös lähetetään teille postitse.
+                  />
+                  . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, päätös
+                  lähetetään teille postitse.
                 </P>
                 <P fitted={true}>* Tähdellä merkityt tiedot ovat pakollisia</P>
               </>
@@ -83,14 +85,15 @@ const fi: DeepPartial<Translations> = {
                   Kerhopaikkaa voi hakea ympäri vuoden. Kerhohakemuksella voi
                   hakea kunnallista tai palvelusetelillä tuettua kerhopaikkaa.
                   Kirjallinen ilmoitus kerhopaikasta lähetään Suomi.fi-viestit
-                  -palveluun. Mikäli haluatte ilmoituksen sähköisenä 
+                  -palveluun. Mikäli haluatte ilmoituksen sähköisenä
                   tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit -palvelu
                   käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa
                   <ExternalLink
                     text="https://www.suomi.fi/viestit"
                     href="https://www.suomi.fi/viestit"
                     newTab
-                  />. Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön,
+                  />
+                  . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön,
                   ilmoitus kerhopaikasta lähetetään teille postitse. Paikka
                   myönnetään yhdeksi toimintakaudeksi kerrallaan.
                 </P>

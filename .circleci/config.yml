@@ -351,6 +351,9 @@ jobs:
           paths:
             - evaka/frontend/dist
             - *yarn_cache
+      - run:
+          working_directory: *workspace_frontend
+          command: yarn lint-strict
 
   proxy_build_image:
     executor: base_executor
