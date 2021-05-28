@@ -16,6 +16,7 @@ import featureFlags from './featureFlags'
 import mapConfig from './mapConfig'
 
 const customizations: CitizenCustomizations = {
+  langs: ['fi', 'en'],
   translations: {
     fi: fiCustomizations,
     sv: svCustomizations,
