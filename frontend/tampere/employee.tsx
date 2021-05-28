@@ -19,11 +19,17 @@ const customizations: EmployeeCustomizations = {
           fields: {
             measureTypes: {
               SPECIAL_ASSISTANCE_DECISION: 'Erityinen tuki',
+              SPECIAL_ASSISTANCE_DECISION_INFO: 'Ei päätöstä',
               INTENSIFIED_ASSISTANCE: 'Tehostettu tuki',
+              INTENSIFIED_ASSISTANCE_INFO: 'Ei päätöstä',
               EXTENDED_COMPULSORY_EDUCATION: 'Pidennetty oppivelvollisuus',
+              EXTENDED_COMPULSORY_EDUCATION_INFO:
+                'Lapsella erityisen tuen päätös',
               CHILD_ACCULTURATION_SUPPORT:
                 'Lapsen ja perheen kotoutumisen tuki',
-              TRANSPORT_BENEFIT: 'Kuljetusetu'
+              CHILD_ACCULTURATION_SUPPORT_INFO: '',
+              TRANSPORT_BENEFIT: 'Kuljetusetu',
+              TRANSPORT_BENEFIT_INFO: 'Lapsella kuljetusetu'
             }
           }
         }
