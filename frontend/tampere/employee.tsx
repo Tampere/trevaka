@@ -47,6 +47,16 @@ const customizations: EmployeeCustomizations = {
       },
       login: {
         loginAD: 'Tampere AD'
+      },
+      placement: {
+        type: {
+          DAYCARE: 'Varhaiskasvatus',
+          DAYCARE_PART_TIME: 'Osapäiväinen varhaiskasvatus​',
+          TEMPORARY_DAYCARE: 'Tilapäinen kokopäiväinen varhaiskasvatus',
+          PRESCHOOL_DAYCARE: 'Esiopetus ja täydentävä varhaiskasvatus​',
+          CLUB: 'Kerho',
+          SCHOOL_SHIFT_CARE: 'Koululaisten vuorohoito'
+        }
       }
     }
   },
@@ -61,6 +71,14 @@ const customizations: EmployeeCustomizations = {
     'EXTENDED_COMPULSORY_EDUCATION',
     'CHILD_ACCULTURATION_SUPPORT',
     'TRANSPORT_BENEFIT'
+  ],
+  placementTypes: [
+    'DAYCARE',
+    'DAYCARE_PART_TIME',
+    'TEMPORARY_DAYCARE',
+    'PRESCHOOL_DAYCARE',
+    'CLUB',
+    'SCHOOL_SHIFT_CARE'
   ],
   placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER']
 }
