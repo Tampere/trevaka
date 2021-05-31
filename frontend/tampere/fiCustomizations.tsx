@@ -42,6 +42,10 @@ const fi: DeepPartial<Translations> = {
             {customerContactText()}
           </P>
         )
+      },
+      transferApplicationInfo: {
+        DAYCARE:
+          'Lapsella on jo paikka Tampereen varhaiskasvatuksessa. Tällä hakemuksella voit hakea siirtoa toiseen varhaiskasvatusta tarjoavaan yksikköön Tampereella.'
       }
     },
     editor: {
