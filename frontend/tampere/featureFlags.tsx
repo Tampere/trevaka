@@ -11,7 +11,8 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 const featureFlags: FeatureFlags = {
   daycareApplicationServiceNeedOptionsEnabled: true,
   urgencyAttachmentsEnabled: false,
-  preschoolEnabled: false
+  preschoolEnabled: false,
+  assistanceActionOtherEnabled: false
 }
 
 export default featureFlags
