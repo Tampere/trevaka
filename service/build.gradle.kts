@@ -37,6 +37,7 @@ dependencies {
     testImplementation("org.reflections:reflections:${TrevakaServiceDeps.reflections}")
     testImplementation("com.amazonaws:aws-java-sdk-s3")
     testImplementation("com.auth0:java-jwt")
+    testImplementation("org.thymeleaf:thymeleaf")
 }
 
 springBoot {
