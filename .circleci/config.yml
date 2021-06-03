@@ -394,6 +394,8 @@ jobs:
           root: *workspace_root
           paths:
             - service/build
+      - store_artifacts:
+          path: /home/circleci/repo/service/build/reports/
 
   service_build_image:
     executor: base_executor

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 City of Tampere
+//
+// SPDX-License-Identifier: LGPL-2.1-or-later
+
 package fi.tampere.trevaka.pdfgen.service
 
 import fi.espoo.voltti.pdfgen.PDFService
