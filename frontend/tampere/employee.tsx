@@ -33,6 +33,15 @@ const customizations: EmployeeCustomizations = {
             }
           }
         }
+      },
+      unit: {
+        placementProposals: {
+          infoBoxTitle: '',
+          infoBoxText: ''
+        }
+      },
+      login: {
+        loginAD: 'Tampere AD'
       }
     }
   },
