@@ -41,6 +41,7 @@ fi:
           daycaredecision: trevaka-daycaredecisions-it
           paymentdecision: trevaka-paymentdecisions-it
           vouchervaluedecision: trevaka-vouchervaluedecisions-it
+          data: trevaka-data-it
       vtj:
         enabled: true
         xroad:

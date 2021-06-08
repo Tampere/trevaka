@@ -39,6 +39,7 @@ class IntegrationTestConfiguration {
         client.createBucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.paymentdecision"))
         client.createBucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.vouchervaluedecision"))
         client.createBucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.attachments"))
+        client.createBucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.data"))
 
         return client
     }
