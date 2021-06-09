@@ -265,6 +265,16 @@ const fi: DeepPartial<Translations> = {
     serviceVoucherLink:
       'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit',
     searchPlaceholder: 'Esim. Jukolankatu 7 tai Amurin päiväkoti'
+  },
+  decisions: {
+    summary: function DecisionsSummaryText() {
+      return (
+        <P width="800px">
+          Tälle sivulle saapuvat lapsen varhaiskasvatus- ja kerhohakemuksiin
+          liittyvät päätökset ja ilmoitukset.
+        </P>
+      )
+    }
   }
 }
 
