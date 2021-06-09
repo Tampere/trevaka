@@ -1,5 +1,6 @@
 package fi.tampere.trevaka.message
 
+import fi.espoo.evaka.decision.DecisionSendAddress
 import fi.espoo.evaka.shared.message.IMessageProvider
 import fi.espoo.evaka.shared.message.MessageLanguage
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean
@@ -44,6 +45,25 @@ internal class TrevakaMessageProvider(val messageSource: MessageSource) : IMessa
 
     override fun getVoucherValueDecisionContent(lang: MessageLanguage): String =
         messageSource.getMessage("$PREFIX.VOUCHER_VALUE_DECISION_CONTENT", null, resolveLocale(lang))
+
+    override fun getDefaultDecisionAddress(lang: MessageLanguage): DecisionSendAddress = when (lang) {
+        MessageLanguage.FI -> DecisionSendAddress(
+            street = "",
+            postalCode = "",
+            postOffice = "",
+            row1 = "",
+            row2 = "",
+            row3 = ""
+        )
+        MessageLanguage.SV -> DecisionSendAddress(
+            street = "",
+            postalCode = "",
+            postOffice = "",
+            row1 = "",
+            row2 = "",
+            row3 = ""
+        )
+    }
 
     private fun resolveLocale(lang: MessageLanguage) = Locale(lang.name.toLowerCase())
 }
