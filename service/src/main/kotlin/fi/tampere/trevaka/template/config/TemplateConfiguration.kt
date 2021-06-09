@@ -21,7 +21,7 @@ internal class TrevakaTemplateProvider : ITemplateProvider {
     override fun getVoucherValueDecisionPath(): String = "tampere/fee-decision/voucher-value-decision"
     override fun getClubDecisionPath(): String = "tampere/club/decision"
     override fun getDaycareVoucherDecisionPath(): String = "tampere/daycare/voucher/decision"
-    override fun getDaycareTransferDecisionPath(): String = "tampere/daycare/transfer/decision"
+    override fun getDaycareTransferDecisionPath(): String = "tampere/daycare/decision"
     override fun getDaycareDecisionPath(): String = "tampere/daycare/decision"
 
     override fun getPreschoolDecisionPath(): String =
