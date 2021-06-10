@@ -42,7 +42,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
                                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:int">243
                     </ns3:UnitPrice>
                     <ns3:Quantity>1.0</ns3:Quantity>
-                    <ns3:Plant>1312</ns3:Plant>
+                    <ns3:Plant>1310</ns3:Plant>
                     <ns3:Text>
                         <ns3:TextRow>Meikäläinen Matti</ns3:TextRow>
                         <ns3:TextRow>1.1.2021 - 31.1.2021</ns3:TextRow>
@@ -59,7 +59,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
                                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:int">482
                     </ns3:UnitPrice>
                     <ns3:Quantity>1.0</ns3:Quantity>
-                    <ns3:Plant>1312</ns3:Plant>
+                    <ns3:Plant>1310</ns3:Plant>
                     <ns3:Text>
                         <ns3:TextRow>Meikäläinen Maiju</ns3:TextRow>
                         <ns3:TextRow>1.1.2021 - 31.1.2021</ns3:TextRow>

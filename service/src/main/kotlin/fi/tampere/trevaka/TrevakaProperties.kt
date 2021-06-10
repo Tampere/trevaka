@@ -29,5 +29,5 @@ data class InvoiceProperties(
     val division: String = "00",
     val salesOrderType: String = "ZPH",
     val interfaceID: String = "352",
-    val plant: String = salesOrganisation
+    val plant: String = "1310"
 )
