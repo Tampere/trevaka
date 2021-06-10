@@ -27,7 +27,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             <ns3:SalesOrganisation>1312</ns3:SalesOrganisation>
             <ns3:DistributionChannel>00</ns3:DistributionChannel>
             <ns3:Division>00</ns3:Division>
-            <ns3:SalesOrderType>Z001</ns3:SalesOrderType>
+            <ns3:SalesOrderType>ZPH</ns3:SalesOrderType>
             <ns3:InterfaceID>352</ns3:InterfaceID>
             <ns3:DueDate>2021-03-06</ns3:DueDate>
             <ns3:Items>
