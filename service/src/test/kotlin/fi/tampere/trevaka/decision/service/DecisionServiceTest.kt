@@ -145,6 +145,7 @@ private fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(
     streetAddress = "Rautiolanrinne 2",
     postalCode = "33870",
     postOffice = "Tampere",
+    phone = "+35850 1234564",
     decisionHandler = "Vuoreksen kerho",
     decisionHandlerAddress = "Rautiolanrinne 2, 33870 Tampere",
     providerType
