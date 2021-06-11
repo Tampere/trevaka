@@ -4,6 +4,7 @@
 
 package fi.tampere.trevaka.invoice.service
 
+import fi.espoo.evaka.invoicing.domain.FeeDecisionChildDetailed
 import fi.espoo.evaka.invoicing.domain.FeeDecisionDetailed
 import fi.espoo.evaka.invoicing.domain.FeeDecisionStatus
 import fi.espoo.evaka.invoicing.domain.FeeDecisionThresholds
@@ -49,7 +50,33 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
             FeeDecisionPdfData(
                 FeeDecisionDetailed(
                     UUID.randomUUID(),
-                    children = emptyList(),
+                    children = listOf(
+                        FeeDecisionChildDetailed(
+                            child = PersonData.Detailed(
+                                UUID.randomUUID(), LocalDate.of(2018, 1, 1), null,
+                                "Matti", "Meikäläinen",
+                                null, null, null, null,
+                                null, null, null, null, restrictedDetailsEnabled = false
+                            ),
+                            placementType = PlacementType.DAYCARE,
+                            placementUnit = UnitData.Detailed(
+                                UUID.randomUUID(),
+                                name = "Yksikkö 1",
+                                areaId = UUID.randomUUID(),
+                                areaName = "Alue 1",
+                                language = "fi"
+                            ),
+                            serviceNeedFeeCoefficient = BigDecimal.ONE,
+                            serviceNeedDescriptionFi = "Palveluntarve 1",
+                            serviceNeedDescriptionSv = "Palveluntarve 1 (sv)",
+                            serviceNeedMissing = false,
+                            baseFee = 1,
+                            siblingDiscount = 1,
+                            fee = 1,
+                            feeAlterations = listOf(),
+                            finalFee = 1
+                        )
+                    ),
                     validDuring = DateRange(LocalDate.now(), null),
                     FeeDecisionStatus.WAITING_FOR_SENDING,
                     decisionNumber = null,
