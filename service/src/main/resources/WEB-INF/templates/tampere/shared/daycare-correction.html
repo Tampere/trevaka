@@ -10,60 +10,23 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 <body>
 <th:block th:fragment="correction">
     <h1 th:text="#{title}"></h1>
-    <div th:if="${#locale.toString()} == 'fi'" class="correction-content">
-        <p th:text="#{section.main.1}"></p>
-        <p th:text="#{section.main.2}"></p>
-        <p th:text="#{section.main.3}"></p>
-        <p th:text="#{section.main.4}"></p>
-        <ul>
-            <li th:text="#{section.main.4.list.1}"></li>
-            <li th:text="#{section.main.4.list.2}"></li>
-            <li th:text="#{section.main.4.list.3}"></li>
-            <li th:text="#{section.main.4.list.4}"></li>
-        </ul>
-        <p th:text="#{section.main.5}"></p>
-        <p th:text="#{section.main.6}"></p>
+    <div class="correction-content">
+        <div th:utext="#{content}"></div>
     </div>
 
-    <div th:if="${#locale.toString()} == 'sv'" class="correction-content">
-        <p th:text="#{section.main.1}"></p>
-        <p th:text="#{section.main.2}"></p>
-        <ul>
-            <li th:text="#{section.main.2.list.1}"></li>
-            <li th:text="#{section.main.2.list.2}"></li>
-        </ul>
-        <p th:text="#{section.main.3}"></p>
-        <p th:text="#{section.main.4}"></p>
-        <ul>
-            <li th:text="#{section.main.4.list.1}"></li>
-            <li th:text="#{section.main.4.list.2}"></li>
-            <li th:text="#{section.main.4.list.3}"></li>
-            <li th:text="#{section.main.4.list.4}"></li>
-        </ul>
-        <p th:text="#{section.main.5}"></p>
+    <div class="correction-content">
+        <div th:text="#{address.title}">OIKAISUVIRANOMAISEN OSOITE</div>
+        <div th:utext="#{address.content}">Tampereen kaupunki, Sivistys ja kulttuurilautakunta, ...</div>
     </div>
 
-    <div class="col-row" th:text="#{address.title}"></div>
-    <br/>
-    <div class="row">
-        <div class="column left">
-            <div class="col-row" th:text="#{address.street.caption}"></div>
-            <div class="col-row" th:text="#{address.opening.caption}"></div>
-            <div class="col-row" th:text="#{address.postal.caption}"></div>
-            <div class="col-row" th:text="#{address.email.caption}"></div>
-            <div class="col-row" th:text="#{address.fax.caption}"></div>
-            <div class="col-row" th:text="#{address.phone.caption}"></div>
-        </div>
-        <div class="column right">
-            <div class="col-row" th:text="#{address.street.value}"></div>
-            <div class="col-row" th:text="#{address.opening.value}"></div>
-            <div class="col-row" th:text="#{address.postal.value}"></div>
-            <div class="col-row">
-                <a th:href="'mailto:' + #{address.email.value}" th:text="#{address.email.value}"></a>
-            </div>
-            <div class="col-row" th:text="#{address.fax.value}"></div>
-            <div class="col-row" th:text="#{address.phone.value}"></div>
-        </div>
+    <div class="correction-content">
+        <div th:text="#{time.title}">OIKAISUVAATIMUSAIKA</div>
+        <div th:utext="#{time.content}">Oikaisuvaatimus on tehtävä 30 päivän kuluessa päätöksen tiedoksisaannosta.</div>
+    </div>
+
+    <div class="correction-content">
+        <div th:text="#{notice.title}">TIEDOKSISAANTI</div>
+        <div th:utext="#{notice.content}">Asianosaisen katsotaan saaneen päätöksestä tiedon, ...</div>
     </div>
 </th:block>
 </body>
