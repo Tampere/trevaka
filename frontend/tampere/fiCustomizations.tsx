@@ -164,6 +164,11 @@ const fi: DeepPartial<Translations> = {
         },
         partTime: {
           true: 'Osapäiväinen'
+        },
+        dailyTime: {
+          label: {
+            DAYCARE: 'Palveluntarve'
+          }
         }
       },
       contactInfo: {
