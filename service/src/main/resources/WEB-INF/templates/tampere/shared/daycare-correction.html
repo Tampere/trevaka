@@ -11,22 +11,22 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 <th:block th:fragment="correction">
     <h1 th:text="#{title}"></h1>
     <div class="correction-content">
-        <span th:utext="#{content}"></span>
+        <div th:utext="#{content}"></div>
     </div>
 
     <div class="correction-content">
-        <span th:text="#{address.title}">OIKAISUVIRANOMAISEN OSOITE</span>
-        <span th:utext="#{address.content}">Tampereen kaupunki, Sivistys ja kulttuurilautakunta, ...</span>
+        <div th:text="#{address.title}">OIKAISUVIRANOMAISEN OSOITE</div>
+        <div th:utext="#{address.content}">Tampereen kaupunki, Sivistys ja kulttuurilautakunta, ...</div>
     </div>
 
     <div class="correction-content">
-        <span th:text="#{time.title}">OIKAISUVAATIMUSAIKA</span>
-        <span th:utext="#{time.content}">Oikaisuvaatimus on tehtävä 30 päivän kuluessa päätöksen tiedoksisaannosta.</span>
+        <div th:text="#{time.title}">OIKAISUVAATIMUSAIKA</div>
+        <div th:utext="#{time.content}">Oikaisuvaatimus on tehtävä 30 päivän kuluessa päätöksen tiedoksisaannosta.</div>
     </div>
 
     <div class="correction-content">
-        <span th:text="#{notice.title}">TIEDOKSISAANTI</span>
-        <span th:utext="#{notice.content}">Asianosaisen katsotaan saaneen päätöksestä tiedon, ...</span>
+        <div th:text="#{notice.title}">TIEDOKSISAANTI</div>
+        <div th:utext="#{notice.content}">Asianosaisen katsotaan saaneen päätöksestä tiedon, ...</div>
     </div>
 </th:block>
 </body>
