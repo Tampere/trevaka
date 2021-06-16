@@ -28,6 +28,7 @@ class MessageConfiguration {
 }
 
 internal class TrevakaMessageProvider(val messageSource: MessageSource) : IMessageProvider {
+
     override fun getDecisionHeader(lang: MessageLanguage): String =
         messageSource.getMessage("$PREFIX.DECISION_HEADER", null, resolveLocale(lang))
 
@@ -65,7 +66,10 @@ internal class TrevakaMessageProvider(val messageSource: MessageSource) : IMessa
         )
     }
 
-    private fun resolveLocale(lang: MessageLanguage) = Locale(lang.name.toLowerCase())
+    private fun resolveLocale(lang: MessageLanguage): Locale {
+        if (MessageLanguage.SV.equals(lang)) return resolveLocale(MessageLanguage.FI)
+        return Locale(lang.name.toLowerCase())
+    }
 }
 
 internal class YamlMessageSource(resource: Resource) : AbstractMessageSource() {
