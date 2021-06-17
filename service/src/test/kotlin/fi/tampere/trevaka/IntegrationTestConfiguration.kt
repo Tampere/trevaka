@@ -34,7 +34,6 @@ class IntegrationTestConfiguration {
             .withCredentials(AWSStaticCredentialsProvider(BasicAWSCredentials("foo", "bar")))
             .build()
 
-        client.createBucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.clubdecision"))
         client.createBucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.daycaredecision"))
         client.createBucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.paymentdecision"))
         client.createBucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.vouchervaluedecision"))
