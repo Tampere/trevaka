@@ -37,7 +37,6 @@ fi:
       document:
         bucket:
           attachments: trevaka-attachments-it
-          clubdecision: trevaka-clubdecisions-it
           daycaredecision: trevaka-daycaredecisions-it
           paymentdecision: trevaka-paymentdecisions-it
           vouchervaluedecision: trevaka-vouchervaluedecisions-it
