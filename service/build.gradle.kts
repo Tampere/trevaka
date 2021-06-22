@@ -35,7 +35,7 @@ dependencies {
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
     testImplementation("org.testcontainers:postgresql")
     testImplementation("org.reflections:reflections:${TrevakaServiceDeps.reflections}")
-    testImplementation("com.amazonaws:aws-java-sdk-s3")
+    testImplementation("software.amazon.awssdk:s3")
     testImplementation("com.auth0:java-jwt")
     testImplementation("org.thymeleaf:thymeleaf")
 }
