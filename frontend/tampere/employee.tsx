@@ -36,6 +36,11 @@ const customizations: EmployeeCustomizations = {
       },
       unit: {
         placementProposals: {
+          rejectReasons: {
+            REASON_1: 'Päiväkoti täynnä',
+            REASON_2: 'Sisäilma tai muu rakenteellinen syy',
+            REASON_3: 'Henkilökuntaa tilapäisesti vähennetty'
+          },
           infoBoxTitle: '',
           infoBoxText: ''
         }
@@ -56,7 +61,8 @@ const customizations: EmployeeCustomizations = {
     'EXTENDED_COMPULSORY_EDUCATION',
     'CHILD_ACCULTURATION_SUPPORT',
     'TRANSPORT_BENEFIT'
-  ]
+  ],
+  placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER']
 }
 
 export default customizations
