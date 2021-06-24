@@ -15,6 +15,9 @@ import fi.tampere.trevaka.IpaasProperties
 import fi.tampere.trevaka.TrevakaProperties
 import fi.tampere.trevaka.invoice.config.InvoiceConfiguration
 import org.assertj.core.api.Assertions.assertThat
+import org.custommonkey.xmlunit.XMLUnit
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.doReturn
@@ -33,6 +36,22 @@ internal class TrevakaInvoiceClientTest {
 
     private lateinit var client: InvoiceIntegrationClient
     private lateinit var server: MockWebServiceServer
+
+    companion object {
+        private val xmlUnitIgnoreWhitespace = XMLUnit.getIgnoreWhitespace()
+
+        @BeforeAll
+        @JvmStatic
+        fun setupXmlUnit() {
+            XMLUnit.setIgnoreWhitespace(true)
+        }
+
+        @AfterAll
+        @JvmStatic
+        fun cleanupXmlUnit() {
+            XMLUnit.setIgnoreWhitespace(xmlUnitIgnoreWhitespace)
+        }
+    }
 
     @BeforeEach
     fun setup() {

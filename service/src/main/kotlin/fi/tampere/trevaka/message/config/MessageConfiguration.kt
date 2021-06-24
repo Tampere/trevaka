@@ -68,7 +68,7 @@ internal class TrevakaMessageProvider(val messageSource: MessageSource) : IMessa
 
     private fun resolveLocale(lang: MessageLanguage): Locale {
         if (MessageLanguage.SV.equals(lang)) return resolveLocale(MessageLanguage.FI)
-        return Locale(lang.name.toLowerCase())
+        return Locale(lang.name.lowercase())
     }
 }
 
@@ -80,6 +80,6 @@ internal class YamlMessageSource(resource: Resource) : AbstractMessageSource() {
     }.`object`!!
 
     override fun resolveCode(code: String, locale: Locale): MessageFormat? =
-        properties.getProperty("$code.${locale.language.toLowerCase()}")?.let { MessageFormat(it, locale) }
+        properties.getProperty("$code.${locale.language.lowercase()}")?.let { MessageFormat(it, locale) }
 
 }
