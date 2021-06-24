@@ -4,18 +4,17 @@
 
 package fi.tampere.trevaka
 
-import com.amazonaws.ClientConfigurationFactory
-import com.amazonaws.Protocol
-import com.amazonaws.auth.AWSStaticCredentialsProvider
-import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.client.builder.AwsClientBuilder
-import com.amazonaws.services.s3.AmazonS3
-import com.amazonaws.services.s3.AmazonS3ClientBuilder
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.RSAKeyProvider
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.core.env.Environment
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider
+import software.amazon.awssdk.regions.Region
+import software.amazon.awssdk.services.s3.S3Client
+import software.amazon.awssdk.services.s3.S3Configuration
+import java.net.URI
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
 
@@ -23,22 +22,23 @@ import java.security.interfaces.RSAPublicKey
 class IntegrationTestConfiguration {
 
     @Bean
-    fun s3Client(environment: Environment): AmazonS3 {
+    fun s3Client(environment: Environment): S3Client {
         val s3MockUrl = environment.getRequiredProperty("fi.espoo.voltti.s3mock.url")
         val region = environment.getRequiredProperty("aws.region")
-        val client = AmazonS3ClientBuilder
-            .standard()
-            .enablePathStyleAccess()
-            .withEndpointConfiguration(AwsClientBuilder.EndpointConfiguration(s3MockUrl, region))
-            .withClientConfiguration(ClientConfigurationFactory().config.withProtocol(Protocol.HTTP))
-            .withCredentials(AWSStaticCredentialsProvider(BasicAWSCredentials("foo", "bar")))
+        val client = S3Client.builder()
+            .region(Region.of(region))
+            .serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build())
+            .endpointOverride(URI.create(s3MockUrl))
+            .credentialsProvider(
+                StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar"))
+            )
             .build()
 
-        client.createBucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.daycaredecision"))
-        client.createBucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.paymentdecision"))
-        client.createBucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.vouchervaluedecision"))
-        client.createBucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.attachments"))
-        client.createBucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.data"))
+        client.createBucket { it.bucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.daycaredecision")) }
+        client.createBucket { it.bucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.paymentdecision")) }
+        client.createBucket { it.bucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.vouchervaluedecision")) }
+        client.createBucket { it.bucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.attachments")) }
+        client.createBucket { it.bucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.data")) }
 
         return client
     }
