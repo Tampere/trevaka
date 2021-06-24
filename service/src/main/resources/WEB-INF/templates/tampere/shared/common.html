@@ -288,7 +288,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         </p>
     </div>
 
-    <div th:unless="${hideDaycareTime}" class="daycare-time-container">
+    <div th:unless="${decision.type.toString() == 'CLUB'}" class="daycare-time-container">
         <span class="strong" th:text="#{decision.daycareTime} + ': '"></span>
         <span th:if="${isPartTimeDecision}" th:text="#{decision.partTime}"></span>
         <span th:unless="${isPartTimeDecision}" th:text="#{decision.fullTime}"></span>
@@ -311,9 +311,10 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         </div>
 
         <div class="decision-details">
-            <div class="strong" th:text="#{decision.unitsupervisor}">Varhaiskasvatusyksikön johtaja</div>
+            <div class="strong" th:text="#{decision.unitsupervisor}">Päiväkodin johtaja</div>
             <div style="text-indent: 6em">
                 <div th:text="${manager.name}"></div>
+                <div th:text="#{decision.unitmanagertitle}"></div>
                 <div th:text="${manager.phone}"></div>
             </div>
         </div>
