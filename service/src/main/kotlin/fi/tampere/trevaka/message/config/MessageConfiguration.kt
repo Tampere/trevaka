@@ -1,6 +1,7 @@
 package fi.tampere.trevaka.message
 
 import fi.espoo.evaka.decision.DecisionSendAddress
+import fi.espoo.evaka.invoicing.domain.MailAddress
 import fi.espoo.evaka.shared.message.IMessageProvider
 import fi.espoo.evaka.shared.message.MessageLanguage
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean
@@ -49,20 +50,35 @@ internal class TrevakaMessageProvider(val messageSource: MessageSource) : IMessa
 
     override fun getDefaultDecisionAddress(lang: MessageLanguage): DecisionSendAddress = when (lang) {
         MessageLanguage.FI -> DecisionSendAddress(
-            street = "",
-            postalCode = "",
-            postOffice = "",
-            row1 = "",
-            row2 = "",
-            row3 = ""
+            street = "PL 487",
+            postalCode = "33101",
+            postOffice = "Tampere",
+            row1 = "Varhaiskasvatus ja esiopetus",
+            row2 = "Asiakaspalvelu",
+            row3 = "PL 487, 33101 Tampere"
         )
         MessageLanguage.SV -> DecisionSendAddress(
-            street = "",
-            postalCode = "",
-            postOffice = "",
-            row1 = "",
-            row2 = "",
-            row3 = ""
+            street = "PL 487",
+            postalCode = "33101",
+            postOffice = "Tampere",
+            row1 = "Varhaiskasvatus ja esiopetus",
+            row2 = "Asiakaspalvelu",
+            row3 = "PL 487, 33101 Tampere"
+        )
+    }
+
+    override fun getDefaultFeeDecisionAddress(lang: MessageLanguage): MailAddress = when (lang) {
+        MessageLanguage.FI -> MailAddress(
+            "",
+            "33101",
+            "Tampere",
+            "PL 487"
+        )
+        MessageLanguage.SV -> MailAddress(
+            "",
+            "33101",
+            "Tampere",
+            "PL 487"
         )
     }
 
