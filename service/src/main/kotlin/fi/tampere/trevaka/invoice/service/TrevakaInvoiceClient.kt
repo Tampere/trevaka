@@ -158,6 +158,7 @@ class TrevakaInvoiceClient(
         Product.PRESCHOOL_WITH_DAYCARE_DISCOUNT -> throw UnsupportedOperationException("Unsupported product $product")
         Product.PRESCHOOL_WITH_DAYCARE_INCREASE -> throw UnsupportedOperationException("Unsupported product $product")
         Product.TEMPORARY_CARE -> throw UnsupportedOperationException("Unsupported product $product")
+        Product.SCHOOL_SHIFT_CARE -> throw UnsupportedOperationException("Unsupported product $product")
         Product.SICK_LEAVE_100 -> "500248"
         Product.SICK_LEAVE_50 -> "500283"
         Product.ABSENCE -> throw UnsupportedOperationException("Unsupported product $product")
