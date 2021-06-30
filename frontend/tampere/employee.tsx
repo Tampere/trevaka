@@ -53,7 +53,7 @@ const customizations: EmployeeCustomizations = {
           DAYCARE: 'Varhaiskasvatus',
           DAYCARE_PART_TIME: 'Osapäiväinen varhaiskasvatus​',
           TEMPORARY_DAYCARE: 'Tilapäinen kokopäiväinen varhaiskasvatus',
-          PRESCHOOL_DAYCARE: 'Esiopetus ja täydentävä varhaiskasvatus​',
+          PRESCHOOL_DAYCARE: 'Esiopetusta täydentävä varhaiskasvatus',
           CLUB: 'Kerho',
           SCHOOL_SHIFT_CARE: 'Koululaisten vuorohoito'
         }
