@@ -367,6 +367,24 @@ jobs:
           working_directory: *workspace_frontend
           command: yarn lint-strict
 
+  frontend_upload_archive:
+    <<: *default_config
+    executor: aws-cli/default
+    steps:
+      - attach_root_workspace
+      - aws-cli/install
+      - run:
+          name: Create archive
+          working_directory: /home/circleci/repo/evaka
+          command: |
+            tar -cvf dist.tar --directory frontend/dist/bundle/ --transform 's,^\.,frontend,' .
+            tar -rvf dist.tar --directory frontend/dist/ --transform 's,^,frontend/,' maintenance-page
+            gzip dist.tar
+      - run:
+          name: Upload archive
+          working_directory: /home/circleci/repo/evaka
+          command: aws s3 cp dist.tar.gz s3://trevaka-dev-deployment/static/${CIRCLE_SHA1}.tar.gz
+
   proxy_build_image:
     executor: base_executor
     steps:
@@ -554,6 +572,11 @@ workflows:
       - frontend_build:
           requires:
             - checkout_repo
+      - frontend_upload_archive:
+          context:
+            - trevaka-dev
+          requires:
+            - frontend_build
 
       - proxy_build_image:
           requires:
