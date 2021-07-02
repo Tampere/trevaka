@@ -260,11 +260,23 @@ jobs:
   # MISC JOBS
 
   checkout_repo:
+    parameters:
+      latest_upstream:
+        type: boolean
+        default: false
     executor: base_executor
     steps:
       - checkout
+      - when:
+          condition: << parameters.latest_upstream >>
+          steps:
+            - run: git submodule set-url evaka https://github.com/espoon-voltti/evaka.git
       - run: git submodule sync
       - run: git submodule update --init
+      - when:
+          condition: << parameters.latest_upstream >>
+          steps:
+            - run: git submodule update --remote --merge
       - *store_repo
 
   # BUILD JOBS
@@ -609,3 +621,21 @@ workflows:
           requires:
             - frontend_approve_test_deploy
           target_env: test
+
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 3 * * 1-5" # At 03:00 on weekdays
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - checkout_repo:
+          latest_upstream: true
+      - frontend_build:
+          requires:
+            - checkout_repo
+      - service_build:
+          requires:
+            - checkout_repo
