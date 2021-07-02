@@ -159,57 +159,6 @@ commands:
           working_directory: *workspace_frontend
           command: yarn build-maintenance-page
 
-  deploy_frontend:
-    parameters:
-      target_env:
-        type: string
-    steps:
-      - attach_root_workspace
-      - deploy_to_s3:
-          target_env: << parameters.target_env >>
-          from: frontend/dist/bundle/citizen-frontend
-          to: citizen
-      - deploy_to_s3:
-          target_env: << parameters.target_env >>
-          from: frontend/dist/bundle/employee-frontend
-          to: employee
-      - deploy_to_s3:
-          target_env: << parameters.target_env >>
-          from: frontend/dist/bundle/employee-mobile-frontend
-          to: employee/mobile
-      - deploy_to_s3:
-          target_env: << parameters.target_env >>
-          from: frontend/dist/maintenance-page
-          to: maintenance-page
-
-  deploy_to_s3:
-    parameters:
-      target_env:
-        type: string
-      from:
-        type: string
-      to:
-        type: string
-    steps:
-      - run:
-          name: Deploy (<< parameters.from >>)
-          working_directory: /home/circleci/repo/evaka/<< parameters.from >>
-          command: |
-            aws s3 cp ./index.html s3://trevaka-<< parameters.target_env >>-static/<< parameters.to >>/index.html \
-              --acl public-read
-
-            if [ "<< parameters.target_env >>" = "prod" ]; then
-              echo 'Target environment is prod, excluding source maps from deploy'
-              EXTRA_ARGS=(
-                '--exclude' '*.map'
-              )
-            fi
-            aws s3 sync . s3://trevaka-<< parameters.target_env >>-static/<< parameters.to >> \
-              --acl public-read \
-              --exact-timestamps \
-              --exclude "*index.html" \
-              "${EXTRA_ARGS[@]}"
-
   load_base_image:
     steps:
       - run:
@@ -367,6 +316,24 @@ jobs:
           working_directory: *workspace_frontend
           command: yarn lint-strict
 
+  frontend_upload_archive:
+    <<: *default_config
+    executor: aws-cli/default
+    steps:
+      - attach_root_workspace
+      - aws-cli/install
+      - run:
+          name: Create archive
+          working_directory: /home/circleci/repo/evaka
+          command: |
+            tar -cvf dist.tar --directory frontend/dist/bundle/ --transform 's,^\.,frontend,' .
+            tar -rvf dist.tar --directory frontend/dist/ --transform 's,^,frontend/,' maintenance-page
+            gzip dist.tar
+      - run:
+          name: Upload archive
+          working_directory: /home/circleci/repo/evaka
+          command: aws s3 cp dist.tar.gz s3://trevaka-dev-deployment/static/${CIRCLE_SHA1}.tar.gz
+
   proxy_build_image:
     executor: base_executor
     steps:
@@ -517,18 +484,6 @@ jobs:
           image: trevaka/auth
           dir: *workspace_auth
 
-  # DEPLOY JOBS
-
-  frontend_deploy:
-    executor: aws-cli/default
-    parameters:
-      target_env:
-        type: string
-    steps:
-      - aws-cli/install
-      - deploy_frontend:
-          target_env: << parameters.target_env >>
-
 workflows:
   version: 2
   build_test_and_deploy:
@@ -554,6 +509,11 @@ workflows:
       - frontend_build:
           requires:
             - checkout_repo
+      - frontend_upload_archive:
+          context:
+            - trevaka-dev
+          requires:
+            - frontend_build
 
       - proxy_build_image:
           requires:
@@ -598,29 +558,6 @@ workflows:
             - trevaka-dev
           requires:
             - auth_build_image
-
-      - frontend_approve_dev_deploy:
-          type: approval
-          requires:
-            - frontend_build
-      - frontend_deploy:
-          name: frontend_deploy_dev
-          context:
-            - trevaka-dev
-          requires:
-            - frontend_approve_dev_deploy
-          target_env: dev
-      - frontend_approve_test_deploy:
-          type: approval
-          requires:
-            - frontend_build
-      - frontend_deploy:
-          name: frontend_deploy_test
-          context:
-            - trevaka-test
-          requires:
-            - frontend_approve_test_deploy
-          target_env: test
 
   nightly:
     triggers:
