@@ -118,11 +118,6 @@ executors:
       image: *ubuntu_machine_image
 
 commands:
-  attach_root_workspace:
-    steps:
-      - attach_workspace:
-          at: *workspace_root
-
   login_docker_hub:
     description: Log in to Docker Hub for authenticated pulls
     steps:
@@ -262,7 +257,6 @@ jobs:
     executor: base_executor
     steps:
       - *restore_repo
-      - attach_root_workspace
       - setup_remote_docker:
           version: *remote_docker_version
           docker_layer_caching: *docker_layer_caching
@@ -279,7 +273,7 @@ jobs:
     <<: *default_config
     executor: aws-cli/default
     steps:
-      - attach_root_workspace
+      - *restore_repo
       - setup_remote_docker:
           version: *remote_docker_version
       - aws-cli/install
@@ -291,7 +285,6 @@ jobs:
     executor: nodejs_executor
     steps:
       - *restore_repo
-      - attach_root_workspace
       - *restore_frontend_node_modules
       - run:
           working_directory: *workspace_frontend
@@ -312,7 +305,6 @@ jobs:
     executor: aws-cli/default
     steps:
       - *restore_repo
-      - attach_root_workspace
       - aws-cli/install
       - run:
           name: Create archive
@@ -344,7 +336,6 @@ jobs:
     executor: aws-cli/default
     steps:
       - *restore_repo
-      - attach_root_workspace
       - setup_remote_docker:
           version: *remote_docker_version
       - aws-cli/install
@@ -372,7 +363,6 @@ jobs:
     executor: base_executor
     steps:
       - *restore_repo
-      - attach_root_workspace
       - setup_remote_docker:
           version: *remote_docker_version
           docker_layer_caching: *docker_layer_caching
@@ -394,7 +384,6 @@ jobs:
     executor: aws-cli/default
     steps:
       - *restore_repo
-      - attach_root_workspace
       - setup_remote_docker:
           version: *remote_docker_version
       - aws-cli/install
@@ -420,7 +409,6 @@ jobs:
     executor: base_executor
     steps:
       - *restore_repo
-      - attach_root_workspace
       - setup_remote_docker:
           version: *remote_docker_version
           docker_layer_caching: *docker_layer_caching
@@ -442,7 +430,6 @@ jobs:
     executor: aws-cli/default
     steps:
       - *restore_repo
-      - attach_root_workspace
       - setup_remote_docker:
           version: *remote_docker_version
       - aws-cli/install
@@ -468,7 +455,6 @@ jobs:
     executor: aws-cli/default
     steps:
       - *restore_repo
-      - attach_root_workspace
       - setup_remote_docker:
           version: *remote_docker_version
       - aws-cli/install
