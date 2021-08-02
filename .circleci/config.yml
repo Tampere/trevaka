@@ -152,13 +152,6 @@ commands:
           command: |
             ICONS=free yarn build
 
-  build_maintenance_page:
-    steps:
-      - run:
-          name: yarn build-maintenance-page
-          working_directory: *workspace_frontend
-          command: yarn build-maintenance-page
-
   load_base_image:
     steps:
       - run:
@@ -306,7 +299,6 @@ jobs:
           command: yarn install --immutable
       - *store_frontend_node_modules
       - build_frontend
-      - build_maintenance_page
       - persist_to_workspace:
           root: *workspace_root
           paths:
@@ -327,7 +319,7 @@ jobs:
           working_directory: /home/circleci/repo/evaka
           command: |
             tar -cvf dist.tar --directory frontend/dist/bundle/ --transform 's,^\.,frontend,' .
-            tar -rvf dist.tar --directory frontend/dist/ --transform 's,^,frontend/,' maintenance-page
+            tar -rvf dist.tar --directory frontend/src/ --transform 's,^,frontend/,' maintenance-page-frontend
             gzip dist.tar
       - run:
           name: Upload archive
