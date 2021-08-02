@@ -40,13 +40,12 @@ aliases:
       _JAVA_OPTIONS: "-Xmx2048m"
 
   - &restore_repo
-    restore_cache:
-      keys:
-        - repo-v1-{{ .BuildNum }}
+    attach_workspace:
+      at: .
 
   - &store_repo
-    save_cache:
-      key: repo-v1-{{ .BuildNum }}
+    persist_to_workspace:
+      root: .
       paths:
         - .
 
