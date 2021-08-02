@@ -312,6 +312,7 @@ jobs:
     <<: *default_config
     executor: aws-cli/default
     steps:
+      - *restore_repo
       - attach_root_workspace
       - aws-cli/install
       - run:
