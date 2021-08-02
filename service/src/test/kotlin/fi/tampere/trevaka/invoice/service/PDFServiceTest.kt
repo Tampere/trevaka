@@ -15,6 +15,7 @@ import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionDetailed
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionPlacementDetailed
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionServiceNeed
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionStatus
+import fi.espoo.evaka.invoicing.service.DaycareCodes
 import fi.espoo.evaka.invoicing.service.DocumentLang
 import fi.espoo.evaka.invoicing.service.FeeDecisionPdfData
 import fi.espoo.evaka.invoicing.service.PDFService
@@ -22,6 +23,10 @@ import fi.espoo.evaka.invoicing.service.Page
 import fi.espoo.evaka.invoicing.service.Template
 import fi.espoo.evaka.invoicing.service.VoucherValueDecisionPdfData
 import fi.espoo.evaka.placement.PlacementType
+import fi.espoo.evaka.shared.AreaId
+import fi.espoo.evaka.shared.DaycareId
+import fi.espoo.evaka.shared.FeeDecisionId
+import fi.espoo.evaka.shared.VoucherValueDecisionId
 import fi.espoo.evaka.shared.domain.DateRange
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.junit.jupiter.api.Test
@@ -108,7 +113,7 @@ private fun validFeeDecisionPdfData(
 ): FeeDecisionPdfData {
     return FeeDecisionPdfData(
         FeeDecisionDetailed(
-            UUID.randomUUID(),
+            FeeDecisionId(UUID.randomUUID()),
             children = listOf(
                 FeeDecisionChildDetailed(
                     child = PersonData.Detailed(
@@ -119,9 +124,9 @@ private fun validFeeDecisionPdfData(
                     ),
                     placementType = PlacementType.DAYCARE,
                     placementUnit = UnitData.Detailed(
-                        UUID.randomUUID(),
+                        DaycareId(UUID.randomUUID()),
                         name = "Yksikkö 1",
-                        areaId = UUID.randomUUID(),
+                        areaId = AreaId(UUID.randomUUID()),
                         areaName = "Alue 1",
                         language = "fi"
                     ),
@@ -172,7 +177,7 @@ private fun validVoucherValueDecisionPdfData(
 ): VoucherValueDecisionPdfData {
     return VoucherValueDecisionPdfData(
         VoucherValueDecisionDetailed(
-            UUID.randomUUID(),
+            VoucherValueDecisionId(UUID.randomUUID()),
             LocalDate.now(),
             validTo = null,
             VoucherValueDecisionStatus.WAITING_FOR_SENDING,
@@ -197,9 +202,9 @@ private fun validVoucherValueDecisionPdfData(
             ),
             VoucherValueDecisionPlacementDetailed(
                 UnitData.Detailed(
-                    UUID.randomUUID(),
+                    DaycareId(UUID.randomUUID()),
                     name = "Vuoreksen kerho",
-                    areaId = UUID.randomUUID(),
+                    areaId = AreaId(UUID.randomUUID()),
                     areaName = "Etelä",
                     language = "fi"
                 ),

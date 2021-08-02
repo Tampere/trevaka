@@ -1,21 +1,15 @@
 package fi.tampere.trevaka.scheduler.config
 
-import fi.espoo.evaka.shared.daily.DailyJob
-import fi.espoo.evaka.shared.daily.DailySchedule
+import fi.espoo.evaka.shared.job.DefaultJobSchedule
+import fi.espoo.evaka.shared.job.JobSchedule
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import java.time.LocalTime
+import org.springframework.core.env.Environment
 
 @Configuration
 class SchedulerConfiguration {
 
     @Bean
-    fun dailySchedule(): DailySchedule = TrevakaDailySchedule()
+    fun jobSchedule(env: Environment): JobSchedule = DefaultJobSchedule.fromEnvironment(env)
 
-}
-
-internal class TrevakaDailySchedule : DailySchedule {
-    override fun getTimeForJob(job: DailyJob): LocalTime? = when (job) {
-        DailyJob.EndOfDayAttendanceUpkeep -> LocalTime.of(0, 0)
-    }
 }

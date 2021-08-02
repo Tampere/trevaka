@@ -13,8 +13,15 @@ const featureFlags: FeatureFlags = {
     serviceNeedOptionsEnabled: true,
     dailyTimesEnabled: false
   },
+  evakaLogin: true,
+  financeBasicsPage: true,
+  messaging: true,
   urgencyAttachmentsEnabled: false,
   preschoolEnabled: false,
+  vasu: true,
+  voucher: {
+    valueDecisionsPage: true
+  },
   assistanceActionOtherEnabled: false
 }
 
