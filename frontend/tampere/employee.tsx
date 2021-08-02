@@ -11,6 +11,7 @@ import TampereLogo from './city-logo.svg'
 import featureFlags from './featureFlags'
 
 const customizations: EmployeeCustomizations = {
+  appConfig: {},
   translations: {
     fi: {
       // override translations here

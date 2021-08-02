@@ -13,6 +13,9 @@ import fi.espoo.evaka.decision.DecisionUnit
 import fi.espoo.evaka.decision.createDecisionPdf
 import fi.espoo.evaka.identity.ExternalIdentifier
 import fi.espoo.evaka.pis.service.PersonDTO
+import fi.espoo.evaka.shared.ApplicationId
+import fi.espoo.evaka.shared.DaycareId
+import fi.espoo.evaka.shared.DecisionId
 import fi.espoo.evaka.shared.message.IMessageProvider
 import fi.espoo.evaka.shared.template.ITemplateProvider
 import fi.espoo.voltti.pdfgen.PDFService
@@ -118,13 +121,13 @@ class DecisionServiceTest : AbstractIntegrationTest() {
 }
 
 private fun validDecision(type: DecisionType, decisionUnit: DecisionUnit) = Decision(
-    UUID.randomUUID(),
+    DecisionId(UUID.randomUUID()),
     createdBy = "Päivi Päiväkodinjohtaja",
     type,
     startDate = LocalDate.now(),
     endDate = LocalDate.now().plusMonths(3),
     decisionUnit,
-    applicationId = UUID.randomUUID(),
+    applicationId = ApplicationId(UUID.randomUUID()),
     childId = UUID.randomUUID(),
     childName = "Matti",
     documentKey = null,
@@ -137,7 +140,7 @@ private fun validDecision(type: DecisionType, decisionUnit: DecisionUnit) = Deci
 )
 
 private fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(
-    UUID.randomUUID(),
+    DaycareId(UUID.randomUUID()),
     name = "Vuoreksen kerho",
     daycareDecisionName = "Vuoreksen kerho",
     preschoolDecisionName = "Vuoreksen kerho",
