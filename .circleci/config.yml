@@ -42,11 +42,11 @@ aliases:
   - &restore_repo
     restore_cache:
       keys:
-        - repo-v1-{{ .Branch }}-{{ .Revision }}
+        - repo-v1-{{ .BuildNum }}
 
   - &store_repo
     save_cache:
-      key: repo-v1-{{ .Branch }}-{{ .Revision }}
+      key: repo-v1-{{ .BuildNum }}
       paths:
         - .
 
