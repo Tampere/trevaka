@@ -19,10 +19,8 @@ const featureFlags: FeatureFlags = {
   urgencyAttachmentsEnabled: false,
   preschoolEnabled: false,
   vasu: true,
-  voucher: {
-    valueDecisionsPage: true
-  },
-  assistanceActionOtherEnabled: false
+  assistanceActionOtherEnabled: false,
+  assistanceBasisOtherEnabled: false
 }
 
 export default featureFlags
