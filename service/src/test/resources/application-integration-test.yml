@@ -32,6 +32,7 @@ fi:
         secret: pass
       varda:
         url: http://localhost:${wiremock.server.port}/mock/varda
+        source_system: trevaka
         basic_auth: dXNlcjpwYXNz # user:pass
     voltti:
       document:
@@ -43,6 +44,9 @@ fi:
           data: trevaka-data-it
       vtj:
         enabled: true
+        client:
+          username: user
+          password: pass
         xroad:
           address: http://localhost:${wiremock.server.port}/mock/vtj
   tampere:
