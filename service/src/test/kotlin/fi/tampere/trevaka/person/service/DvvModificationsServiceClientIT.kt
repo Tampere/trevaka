@@ -17,7 +17,7 @@ internal class DvvModificationsServiceClientIT : AbstractIntegrationTest() {
     @Test
     fun getFirstModificationToken() {
         stubFor(
-            get(urlEqualTo("/mock/modifications/api/v1/kirjausavain/2021-04-01")).willReturn(
+            get(urlEqualTo("/mock/modifications/kirjausavain/2021-04-01")).willReturn(
                 aResponse()
                     .withStatus(200)
                     .withHeader("Content-Type", "application/json")
@@ -29,7 +29,7 @@ internal class DvvModificationsServiceClientIT : AbstractIntegrationTest() {
         assertThat(response).returns(5446623423) { it?.latestModificationToken }
 
         verify(
-            getRequestedFor(urlEqualTo("/mock/modifications/api/v1/kirjausavain/2021-04-01"))
+            getRequestedFor(urlEqualTo("/mock/modifications/kirjausavain/2021-04-01"))
                 .withBasicAuth(BasicCredentials("user", "pass"))
         )
     }
@@ -37,7 +37,7 @@ internal class DvvModificationsServiceClientIT : AbstractIntegrationTest() {
     @Test
     fun getModifications() {
         stubFor(
-            post(urlEqualTo("/mock/modifications/api/v1/muutokset")).willReturn(
+            post(urlEqualTo("/mock/modifications/muutokset")).willReturn(
                 aResponse()
                     .withStatus(200)
                     .withHeader("Content-Type", "application/json")
@@ -49,7 +49,7 @@ internal class DvvModificationsServiceClientIT : AbstractIntegrationTest() {
         assertThat(response).returns("3494393") { it.viimeisinKirjausavain }
 
         verify(
-            postRequestedFor(urlEqualTo("/mock/modifications/api/v1/muutokset"))
+            postRequestedFor(urlEqualTo("/mock/modifications/muutokset"))
                 .withBasicAuth(BasicCredentials("user", "pass"))
         )
     }
