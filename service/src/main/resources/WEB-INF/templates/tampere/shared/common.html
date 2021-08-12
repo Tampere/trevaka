@@ -303,9 +303,8 @@ SPDX-License-Identifier: LGPL-2.1-or-later
                 )"></div>
                 <div th:if="${not #strings.isEmpty(decision.unit.streetAddress)}"
                      th:text="${decision.unit.streetAddress} + ', ' + ${decision.unit.postalCode} + ' ' + ${decision.unit.postOffice}"></div>
-                <div th:if="${not #strings.isEmpty(decision.unit.phone)}">
-                    <span th:text="#{decision.unit.phone}">Puh.</span>
-                    <span th:text="${decision.unit.phone}"></span>
+                <div th:if="${not #strings.isEmpty(decision.unit.phone)}"
+                     th:text="|#{decision.phone.prefix} ${decision.unit.phone}|">
                 </div>
             </div>
         </div>
@@ -315,7 +314,9 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             <div style="text-indent: 6em">
                 <div th:text="${manager.name}"></div>
                 <div th:text="#{decision.unitmanagertitle}"></div>
-                <div th:text="${manager.phone}"></div>
+                <div th:if="${not #strings.isEmpty(manager.phone)}"
+                     th:text="|#{decision.phone.prefix} ${manager.phone}|">
+                </div>
             </div>
         </div>
     </div>
