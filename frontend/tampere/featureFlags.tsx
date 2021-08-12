@@ -18,7 +18,6 @@ const featureFlags: FeatureFlags = {
   messaging: true,
   urgencyAttachmentsEnabled: false,
   preschoolEnabled: false,
-  vasu: true,
   assistanceActionOtherEnabled: false,
   assistanceBasisOtherEnabled: false
 }
