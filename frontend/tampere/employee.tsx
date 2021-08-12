@@ -15,6 +15,11 @@ const customizations: EmployeeCustomizations = {
   translations: {
     fi: {
       // override translations here
+      common: {
+        careTypeLabels: {
+          preschool: 'Esiopetusta täydentävä toiminta'
+        }
+      },
       childInformation: {
         assistanceAction: {
           fields: {
