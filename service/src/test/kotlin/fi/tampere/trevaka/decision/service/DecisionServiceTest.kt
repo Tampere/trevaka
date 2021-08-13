@@ -11,6 +11,7 @@ import fi.espoo.evaka.decision.DecisionStatus
 import fi.espoo.evaka.decision.DecisionType
 import fi.espoo.evaka.decision.DecisionUnit
 import fi.espoo.evaka.decision.createDecisionPdf
+import fi.espoo.evaka.emailclient.IEmailMessageProvider
 import fi.espoo.evaka.identity.ExternalIdentifier
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.shared.ApplicationId
@@ -33,6 +34,9 @@ class DecisionServiceTest : AbstractIntegrationTest() {
 
     @Autowired
     private lateinit var messageProvider: IMessageProvider
+
+    @Autowired
+    private lateinit var emailMessageProvider: IEmailMessageProvider
 
     @Autowired
     private lateinit var templateProvider: ITemplateProvider
@@ -157,7 +161,6 @@ private fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(
 private fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
     UUID.randomUUID(),
     ExternalIdentifier.SSN.getInstance("070682-924A"),
-    customerId = null,
     firstName = "Maija",
     lastName = "Meikäläinen",
     email = null,
@@ -173,7 +176,6 @@ private fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO
 private fun validChild(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
     UUID.randomUUID(),
     ExternalIdentifier.SSN.getInstance("010115A9532"),
-    customerId = null,
     firstName = "Matti",
     lastName = "Meikäläinen",
     email = null,
