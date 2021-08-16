@@ -63,6 +63,17 @@ const customizations: EmployeeCustomizations = {
           CLUB: 'Kerho',
           SCHOOL_SHIFT_CARE: 'Koululaisten vuorohoito'
         }
+      },
+      unitEditor: {
+        placeholder: {
+          phone: 'esim. +358 40 555 5555',
+          email: 'etunimi.sukunimi@tampere.fi',
+          url: 'esim. https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit/alueesi-paivakodit/keskusta/amurinpaivakoti.html',
+          streetAddress: 'Kadun nimi esim. Suokatu 10',
+          decisionCustomization: {
+            name: 'esim. Amurin päiväkoti'
+          }
+        }
       }
     }
   },
