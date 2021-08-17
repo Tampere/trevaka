@@ -38,6 +38,9 @@ const customizations: EmployeeCustomizations = {
               TRANSPORT_BENEFIT_INFO: 'Lapsella kuljetusetu'
             }
           }
+        },
+        dailyServiceTimes: {
+          info: 'Tallenna tähän varhaiskasvatussopimuksella sovittu päivittäinen läsnäoloaika.'
         }
       },
       unit: {
