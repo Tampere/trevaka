@@ -14,38 +14,28 @@ class EmailConfiguration {
 }
 
 internal class EmailMessageProvider(): IEmailMessageProvider {
-    override val subjectForPendingDecisionEmail: String = "Päätös varhaiskasvatuksesta"
+    override val subjectForPendingDecisionEmail: String = "Toimenpiteitäsi odotetaan"
     override val subjectForClubApplicationReceivedEmail: String = "Hakemus vastaanotettu"
     override val subjectForDaycareApplicationReceivedEmail: String = "Hakemus vastaanotettu"
     override val subjectForPreschoolApplicationReceivedEmail: String = ""
 
     override fun getPendingDecisionEmailHtml(): String {
         return """
-            <p>Sinulla on vastaamaton päätös Tampereen varhaiskasvatukselta. Päätös tulee hyväksyä tai hylätä kahden viikon sisällä sen saapumisesta.</p> 
-
-            <p>Hakemuksen tekijä voi hyväksyä tai hylätä vastaamattomat päätökset kirjautumalla osoitteeseen varhaiskasvatus.tampere.fi</p>  
-
-            <p>Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä</p>  
-
-            <pre>
-            Varhaiskasvatuksen asiakaspalvelu 
-            varhaiskasvatus.asiakaspalvelu@tampere.fi 
-            p. 040 8007260, soittoaika ma-pe klo 9-12
-            </pre>
+            <p>Olet saanut päätöksen/ilmoituksen Tampereen varhaiskasvatukselta, joka odottaa toimenpiteitäsi. Myönnetty varhaiskasvatus-/kerhopaikka tulee hyväksyä tai hylätä kahden viikon sisällä päätöksen saapumisesta.</p>
+            
+            <p>Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla osoitteeseen <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a> tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.</p>
+            
+            <p>Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun: <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a>, puh. <a href="tel:+358408007260">040 800 7260</a> (ma-pe klo 9-12).</p>
         """.trimIndent()
     }
 
     override fun getPendingDecisionEmailText(): String {
         return """
-            Sinulla on vastaamaton päätös Tampereen varhaiskasvatukselta. Päätös tulee hyväksyä tai hylätä kahden viikon sisällä sen saapumisesta. 
-
-            Hakemuksen tekijä voi hyväksyä tai hylätä vastaamattomat päätökset kirjautumalla osoitteeseen varhaiskasvatus.tampere.fi  
-
-            Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä  
-
-            Varhaiskasvatuksen asiakaspalvelu 
-            varhaiskasvatus.asiakaspalvelu@tampere.fi 
-            p. 040 8007260, soittoaika ma-pe klo 9-12
+            Olet saanut päätöksen/ilmoituksen Tampereen varhaiskasvatukselta, joka odottaa toimenpiteitäsi. Myönnetty varhaiskasvatus-/kerhopaikka tulee hyväksyä tai hylätä kahden viikon sisällä päätöksen saapumisesta.
+            
+            Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla osoitteeseen https://varhaiskasvatus.tampere.fi tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.
+            
+            Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun: varhaiskasvatus.asiakaspalvelu@tampere.fi, puh. 040 800 7260 (ma-pe klo 9-12).
         """.trimIndent()
     }
 
