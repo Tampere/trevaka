@@ -25,6 +25,7 @@ dependencies {
     implementation("javax.xml.bind:jaxb-api")
     implementation("org.apache.httpcomponents:httpclient")
     implementation("com.github.kittinunf.fuel:fuel")
+    implementation("org.jdbi:jdbi3-core")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit-pioneer:junit-pioneer:${TrevakaServiceDeps.junitPioneer}") // for CartesianProductTest
