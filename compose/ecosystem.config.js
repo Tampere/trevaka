@@ -9,6 +9,9 @@ module.exports = {
     name: 'apigw',
     script: 'yarn && yarn clean && yarn dev',
     cwd: path.resolve(__dirname, '../evaka/apigw'),
+    env: {
+      AD_SAML_EXTERNAL_ID_PREFIX: 'tampere-ad'
+    },
     ...defaults
   }, {
     name: 'frontend',
