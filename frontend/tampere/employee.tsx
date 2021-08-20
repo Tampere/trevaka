@@ -97,7 +97,13 @@ const customizations: EmployeeCustomizations = {
     'CLUB',
     'SCHOOL_SHIFT_CARE'
   ],
-  placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER']
+  placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER'],
+  unitProviderTypes: [
+    'MUNICIPAL',
+    'PURCHASED',
+    'PRIVATE',
+    'PRIVATE_SERVICE_VOUCHER'
+  ]
 }
 
 export default customizations
