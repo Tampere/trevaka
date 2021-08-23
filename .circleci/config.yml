@@ -131,6 +131,14 @@ commands:
           docker_layer_caching: *docker_layer_caching
       #- login_docker_hub
 
+  setup_git:
+    steps:
+      - run:
+          name: Setup git
+          command: |
+            git config user.email "89396184+trevaka-ci@users.noreply.github.com"
+            git config user.name "trevaka-ci"
+
   build_frontend:
     steps:
       - run:
@@ -214,6 +222,37 @@ jobs:
           steps:
             - run: git submodule update --remote --merge
       - *store_repo
+
+  commit_and_push_branch:
+    executor: base_executor
+    steps:
+      - *restore_repo
+      - setup_git
+      - run:
+          name: Verify changes
+          command: |
+            if [ -z "$(git status --porcelain -- evaka)" ]; then
+                circleci-agent step halt
+            fi
+      - run: git checkout -b evaka-update/$(date --iso-8601)
+      - run: git add evaka
+      - run: git commit -m "Update evaka submodule"
+      - run: git push --set-upstream origin evaka-update/$(date --iso-8601)
+
+  merge_branch:
+    executor: base_executor
+    steps:
+      - *restore_repo
+      - setup_git
+      - run:
+          name: Verify commit
+          command: |
+            if [ "$CIRCLE_USERNAME" != "trevaka" ]; then
+                circleci-agent step halt
+            fi
+      - run: git checkout main
+      - run: git merge --no-ff --no-edit ${CIRCLE_BRANCH}
+      - run: git push
 
   # BUILD JOBS
 
@@ -564,6 +603,19 @@ workflows:
               only:
                 - main
 
+      - merge_branch:
+          requires:
+            - apigw_push_image
+            - frontend_upload_archive
+            - proxy_push_image
+            - service_push_image
+            - message_service_push_image
+            - auth_push_image
+          filters:
+            branches:
+              only:
+                - /evaka-update\/.*/
+
   nightly:
     triggers:
       - schedule:
@@ -575,9 +627,6 @@ workflows:
     jobs:
       - checkout_repo:
           latest_upstream: true
-      - frontend_build:
-          requires:
-            - checkout_repo
-      - service_build:
+      - commit_and_push_branch:
           requires:
             - checkout_repo
