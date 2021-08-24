@@ -135,7 +135,7 @@ commands:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "a0:b3:0f:7b:fb:d5:35:e1:4e:e0:b7:ed:58:0e:cd:88"
+            - "c1:be:36:91:9c:6a:0e:58:4e:2d:a2:52:bb:bf:85:49"
       - run: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: Setup git
@@ -623,7 +623,7 @@ workflows:
   nightly:
     triggers:
       - schedule:
-          cron: "0 6 * * 1-5" # At 06:00 on weekdays
+          cron: "30 8 * * 1-5" # At 08:30 on weekdays
           filters:
             branches:
               only:
