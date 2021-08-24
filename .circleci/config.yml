@@ -251,12 +251,13 @@ jobs:
       - run:
           name: Verify commit
           command: |
-            if [ "$CIRCLE_USERNAME" != "trevaka" ]; then
+            if [ "$CIRCLE_USERNAME" != "trevaka-ci" ]; then
                 circleci-agent step halt
             fi
       - run: git checkout main
       - run: git merge --no-ff --no-edit ${CIRCLE_BRANCH}
       - run: git push
+      - run: git push --delete origin ${CIRCLE_BRANCH}
 
   # BUILD JOBS
 
@@ -623,7 +624,7 @@ workflows:
   nightly:
     triggers:
       - schedule:
-          cron: "30 8 * * 1-5" # At 08:30 on weekdays
+          cron: "0 3 * * 1-5" # At 03:00 on weekdays (UTC)
           filters:
             branches:
               only:
