@@ -13,6 +13,7 @@ const featureFlags: FeatureFlags = {
     serviceNeedOptionsEnabled: true,
     dailyTimesEnabled: false
   },
+  groupsTableServiceNeedsEnabled: true,
   evakaLogin: true,
   financeBasicsPage: true,
   urgencyAttachmentsEnabled: false,
