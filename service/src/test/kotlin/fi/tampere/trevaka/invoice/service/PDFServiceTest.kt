@@ -15,7 +15,6 @@ import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionDetailed
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionPlacementDetailed
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionServiceNeed
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionStatus
-import fi.espoo.evaka.invoicing.service.DaycareCodes
 import fi.espoo.evaka.invoicing.service.DocumentLang
 import fi.espoo.evaka.invoicing.service.FeeDecisionPdfData
 import fi.espoo.evaka.invoicing.service.PDFService
@@ -60,10 +59,19 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     }
 
     @Test
+    fun generateFeeDecisionPdfValidTo() {
+        val validTo = LocalDate.now().plusYears(1)
+        val bytes = pdfService.generateFeeDecisionPdf(validFeeDecisionPdfData(validTo))
+
+        val filepath = "${reportsPath}/PDFServiceTest-fee-decision-valid-to.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
     fun generateFeeDecisionPdfEmptyAddress() {
         val bytes = pdfService.generateFeeDecisionPdf(
             validFeeDecisionPdfData(
-                PersonData.Detailed(
+                headOfFamily = PersonData.Detailed(
                     UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
                     "Maija", "Meikäläinen",
                     "310382-956D", null, null, null,
@@ -85,10 +93,19 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     }
 
     @Test
+    fun generateVoucherValueDecisionPdfValidTo() {
+        val validTo = LocalDate.now().plusYears(1)
+        val bytes = pdfService.generateVoucherValueDecisionPdf(validVoucherValueDecisionPdfData(validTo))
+
+        val filepath = "${reportsPath}/PDFServiceTest-voucher-value-decision-valid-to.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
     fun generateVoucherValueDecisionPdfEmptyAddress() {
         val bytes = pdfService.generateVoucherValueDecisionPdf(
             validVoucherValueDecisionPdfData(
-                PersonData.Detailed(
+                headOfFamily = PersonData.Detailed(
                     UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
                     "Maija", "Meikäläinen",
                     "310382-956D", null, null, null,
@@ -104,6 +121,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
 }
 
 private fun validFeeDecisionPdfData(
+    validTo: LocalDate? = null,
     headOfFamily: PersonData.Detailed = PersonData.Detailed(
         UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
         "Maija", "Meikäläinen",
@@ -141,7 +159,7 @@ private fun validFeeDecisionPdfData(
                     finalFee = 1
                 )
             ),
-            validDuring = DateRange(LocalDate.now(), null),
+            validDuring = DateRange(LocalDate.now(), validTo),
             FeeDecisionStatus.WAITING_FOR_SENDING,
             decisionNumber = null,
             FeeDecisionType.NORMAL,
@@ -168,6 +186,7 @@ private fun validFeeDecisionPdfData(
 }
 
 private fun validVoucherValueDecisionPdfData(
+    validTo: LocalDate? = null,
     headOfFamily: PersonData.Detailed = PersonData.Detailed(
         UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
         "Maija", "Meikäläinen",
@@ -179,7 +198,7 @@ private fun validVoucherValueDecisionPdfData(
         VoucherValueDecisionDetailed(
             VoucherValueDecisionId(UUID.randomUUID()),
             LocalDate.now(),
-            validTo = null,
+            validTo,
             VoucherValueDecisionStatus.WAITING_FOR_SENDING,
             decisionNumber = null,
             headOfFamily = headOfFamily,

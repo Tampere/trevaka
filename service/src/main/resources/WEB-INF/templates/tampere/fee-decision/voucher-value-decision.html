@@ -27,7 +27,8 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 
     <h1 th:text="#{text.title}"></h1>
 
-    <p th:text="#{decision.details.child(${child.firstName}, ${child.lastName}, ${#temporals.format(child.dateOfBirth, 'd.M.yyyy')}, ${#temporals.format(validFrom, 'd.M.yyyy')})}"></p>
+    <p th:if="${#strings.isEmpty(validTo)}" th:text="#{decision.details.child(${child.firstName}, ${child.lastName}, ${#temporals.format(child.dateOfBirth, 'd.M.yyyy')}, ${#temporals.format(validFrom, 'd.M.yyyy')})}"></p>
+    <p th:if="${not #strings.isEmpty(validTo)}" th:text="#{decision.details.child2(${child.firstName}, ${child.lastName}, ${#temporals.format(child.dateOfBirth, 'd.M.yyyy')}, ${#temporals.format(validFrom, 'd.M.yyyy')}, ${#temporals.format(validTo, 'd.M.yyyy')})}"></p>
 
     <p th:text="#{decision.details.unitTitle}"></p>
 
