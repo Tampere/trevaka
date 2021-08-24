@@ -15,7 +15,6 @@ const featureFlags: FeatureFlags = {
   },
   evakaLogin: true,
   financeBasicsPage: true,
-  messaging: true,
   urgencyAttachmentsEnabled: false,
   preschoolEnabled: false,
   assistanceActionOtherEnabled: false,
