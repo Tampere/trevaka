@@ -76,6 +76,11 @@ const customizations: EmployeeCustomizations = {
           decisionCustomization: {
             name: 'esim. Amurin päiväkoti'
           }
+        },
+        field: {
+          decisionCustomization: {
+            handler: ['Palveluohjaus', 'Varhaiskasvatusyksikön johtaja']
+          }
         }
       }
     }
