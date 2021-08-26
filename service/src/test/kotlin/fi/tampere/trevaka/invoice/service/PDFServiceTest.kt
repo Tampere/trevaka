@@ -4,6 +4,8 @@
 
 package fi.tampere.trevaka.invoice.service
 
+import fi.espoo.evaka.invoicing.domain.FeeAlteration
+import fi.espoo.evaka.invoicing.domain.FeeAlterationWithEffect
 import fi.espoo.evaka.invoicing.domain.FeeDecisionChildDetailed
 import fi.espoo.evaka.invoicing.domain.FeeDecisionDetailed
 import fi.espoo.evaka.invoicing.domain.FeeDecisionStatus
@@ -155,7 +157,9 @@ private fun validFeeDecisionPdfData(
                     baseFee = 1,
                     siblingDiscount = 1,
                     fee = 1,
-                    feeAlterations = listOf(),
+                    feeAlterations = listOf(
+                        FeeAlterationWithEffect(FeeAlteration.Type.RELIEF, 50, false, -10800),
+                    ),
                     finalFee = 1
                 )
             ),
