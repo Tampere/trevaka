@@ -19,7 +19,8 @@ const featureFlags: FeatureFlags = {
   urgencyAttachmentsEnabled: false,
   preschoolEnabled: false,
   assistanceActionOtherEnabled: false,
-  assistanceBasisOtherEnabled: false
+  assistanceBasisOtherEnabled: false,
+  groupsTableServiceNeedsEnabled: true
 }
 
 export default featureFlags

@@ -1,0 +1,14 @@
+{
+  "extends": "../../../evaka/frontend/tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": "..",
+    "composite": true,
+    "outDir": "../../dist/e2e-playwright",
+    "noImplicitAny": false,
+    "types": [
+      "jest",
+      "node"
+    ]
+  }
+}
