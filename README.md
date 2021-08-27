@@ -5,9 +5,34 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 -->
 
 # treVaka
-treVaka – ERP for early childhood education in Tampere
+treVaka aka eVaka Tampere – ERP for early childhood education in Tampere
 
 This repository contains the code for customizing, configuring and extending the Espoo eVaka ERP for use in Tampere early education.
+
+## Getting treVaka dev environment up and running
+
+### Prerequisites - needed software and tools
+See [eVaka README](evaka/compose/README.md#Dependencies)
+
+### Starting treVaka dev environment
+1. `cd compose`
+2. `docker-compose -f docker-compose-dbs.yml up -d --build`
+3. `pm2 start` (starts all apps)
+4. Open browser: http://localhost:9099/
+
+## Running treVaka frontend tests
+
+### e2e ([Playwright](https://playwright.dev/))
+
+1. Start treVaka dev environment
+2. `cd frontend`
+3. `yarn e2e-playwright`
+
+
+### For WSL users:
+
+Install a tool for running X Window System, eg. [GWSL](https://www.microsoft.com/en-us/p/gwsl/9nl6kd1h33v3#activetab=pivot:overviewtab).
+
 
 ## Submodules
 treVaka utilizes the [eVaka-repository](https://github.com/espoon-voltti/evaka) as its submodule. When cloning the repository use `--recurse-submodules` or manually initialize and update the submodule after cloning with `git submodule update --init`.
