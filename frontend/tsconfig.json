@@ -4,7 +4,12 @@
     "rootDir": ".",
     "baseUrl": "../evaka/frontend/src/",
     "noEmit": true,
-    "jsx": "react"
+    "noImplicitAny": false,
+    "jsx": "react",
+    "types": [
+      "jest",
+      "node"
+    ]
   },
   "references": [
     {

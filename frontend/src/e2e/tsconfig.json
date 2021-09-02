@@ -10,5 +10,13 @@
       "jest",
       "node"
     ]
-  }
+  },
+  "references": [
+    {
+      "path": "../../../evaka/frontend/src/e2e-playwright"
+    },
+    {
+      "path": "../../../evaka/frontend/src/e2e-test-common"
+    }
+  ]
 }
