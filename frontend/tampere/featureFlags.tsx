@@ -21,6 +21,7 @@ const featureFlags: FeatureFlags = {
   assistanceActionOtherEnabled: false,
   assistanceBasisOtherEnabled: false,
   experimental: {
+    incomeStatements: true,
     vasu: true
   }
 }
