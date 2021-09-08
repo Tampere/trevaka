@@ -32,6 +32,8 @@ aws:
 fi:
   espoo:
     evaka:
+      five_years_old_daycare:
+        enabled: false
     integration:
       invoice:
         url: http://localhost:${server.port}/salesOrder
