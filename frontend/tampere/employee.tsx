@@ -40,7 +40,8 @@ const customizations: EmployeeCustomizations = {
           }
         },
         dailyServiceTimes: {
-          info: 'Tallenna tähän varhaiskasvatussopimuksella sovittu päivittäinen läsnäoloaika.'
+          info: 'Tallenna tähän varhaiskasvatussopimuksella sovittu päivittäinen läsnäoloaika.',
+          info2: ''
         }
       },
       unit: {
