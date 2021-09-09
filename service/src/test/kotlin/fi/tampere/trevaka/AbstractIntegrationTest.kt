@@ -26,16 +26,16 @@ abstract class AbstractIntegrationTest {
         @DynamicPropertySource
         fun properties(registry: DynamicPropertyRegistry) {
             // see application-integration-test.yml for static properties
-            registry.add("spring.datasource.url", postgres::getJdbcUrl)
-            registry.add("spring.datasource.username", postgres::getUsername)
-            registry.add("spring.datasource.password", postgres::getPassword)
-            registry.add("flyway.username", postgres::getUsername)
-            registry.add("flyway.password", postgres::getPassword)
-            registry.add("redis.url", redis::url)
-            registry.add("redis.port", redis::getFirstMappedPort)
-            registry.add("redis.password", redis::password)
-            registry.add("redis.ssl", redis::ssl)
-            registry.add("fi.espoo.voltti.s3mock.url", s3::getUrl)
+            registry.add("evaka.database.url", postgres::getJdbcUrl)
+            registry.add("evaka.database.username", postgres::getUsername)
+            registry.add("evaka.database.password", postgres::getPassword)
+            registry.add("evaka.database.flyway.username", postgres::getUsername)
+            registry.add("evaka.database.flyway.password", postgres::getPassword)
+            registry.add("evaka.redis.url", redis::url)
+            registry.add("evaka.redis.port", redis::getFirstMappedPort)
+            registry.add("evaka.redis.password", redis::password)
+            registry.add("evaka.redis.use_ssl", redis::ssl)
+            registry.add("evaka.s3mock.url", s3::getUrl)
         }
     }
 

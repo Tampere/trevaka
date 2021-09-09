@@ -6,15 +6,14 @@ package fi.tampere.trevaka
 
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.RSAKeyProvider
+import fi.espoo.evaka.BucketEnv
+import fi.espoo.evaka.EvakaEnv
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
-import org.springframework.core.env.Environment
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider
-import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.S3Configuration
-import java.net.URI
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
 
@@ -22,23 +21,21 @@ import java.security.interfaces.RSAPublicKey
 class IntegrationTestConfiguration {
 
     @Bean
-    fun s3Client(environment: Environment): S3Client {
-        val s3MockUrl = environment.getRequiredProperty("fi.espoo.voltti.s3mock.url")
-        val region = environment.getRequiredProperty("aws.region")
+    fun s3Client(evakaEnv: EvakaEnv, bucketEnv: BucketEnv): S3Client {
         val client = S3Client.builder()
-            .region(Region.of(region))
+            .region(evakaEnv.awsRegion)
             .serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build())
-            .endpointOverride(URI.create(s3MockUrl))
+            .endpointOverride(bucketEnv.s3MockUrl)
             .credentialsProvider(
                 StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar"))
             )
             .build()
 
-        client.createBucket { it.bucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.daycaredecision")) }
-        client.createBucket { it.bucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.paymentdecision")) }
-        client.createBucket { it.bucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.vouchervaluedecision")) }
-        client.createBucket { it.bucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.attachments")) }
-        client.createBucket { it.bucket(environment.getRequiredProperty("fi.espoo.voltti.document.bucket.data")) }
+        client.createBucket { it.bucket(bucketEnv.decisions) }
+        client.createBucket { it.bucket(bucketEnv.feeDecisions) }
+        client.createBucket { it.bucket(bucketEnv.voucherValueDecisions) }
+        client.createBucket { it.bucket(bucketEnv.attachments) }
+        client.createBucket { it.bucket(bucketEnv.data) }
 
         return client
     }
