@@ -235,14 +235,13 @@ SPDX-License-Identifier: LGPL-2.1-or-later
                 <div th:text="#{header.1}">PÄÄTÖS</div>
                 <div th:text="#{header.2}"></div>
                 <div><span th:replace="~{tampere/shared/common :: decision-date(type = ${type})}"></span></div>
+                <div th:unless="${type == 'notice'}">
+                    <span th:text="#{header.decisionNumber}">Päätöksen numero</span>
+                    <span th:text="${decision.decisionNumber}"></span>
+                </div>
             </div>
             <div class="right-column">
                 <div><span th:text="#{header.pageNumber}"></span> <span class="page-number"></span></div>
-                <div><br/></div>
-                <div th:unless="${type == 'notice'}">
-                    <div th:text="#{header.decisionNumber}">Päätöksen numero</div>
-                    <div th:text="${decision.decisionNumber}"></div>
-                </div>
             </div>
         </div>
     </div>
