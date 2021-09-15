@@ -20,7 +20,7 @@ const customerContactText = function () {
       <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">
         varhaiskasvatus.asiakaspalvelu@tampere.fi
       </a>{' '}
-      / 040 800 7260 (ma-pe klo 9-12).
+      / <a href="tel:+358408007260">040 800 7260</a> (ma-pe klo 9-12).
     </>
   )
 }
@@ -91,7 +91,7 @@ const fi: DeepPartial<Translations> = {
                   Kirjallinen ilmoitus kerhopaikasta lähetään Suomi.fi-viestit
                   -palveluun. Mikäli haluatte ilmoituksen sähköisenä
                   tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit -palvelu
-                  käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa
+                  käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa{' '}
                   <ExternalLink
                     text="https://www.suomi.fi/viestit"
                     href="https://www.suomi.fi/viestit"
