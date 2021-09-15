@@ -1,12 +1,8 @@
-// SPDX-FileCopyrightText: 2017-2021 City of Espoo
-//
-// SPDX-License-Identifier: LGPL-2.1-or-later
-
-import { newBrowserContext } from 'e2e-playwright-evaka/browser'
-import config from 'e2e-test-evaka-common/config'
+import { newBrowserContext } from 'e2e-playwright/browser'
+import config from 'e2e-test-common/config'
 import { Page } from 'playwright'
-import { waitUntilTrue, waitUntilEqual } from 'e2e-playwright-evaka/utils'
-import { RawElement } from 'e2e-playwright-evaka/utils/element'
+import { waitUntilTrue, waitUntilEqual } from 'e2e-playwright/utils'
+import { RawElement } from 'e2e-playwright/utils/element'
 
 let page: Page
 
@@ -24,14 +20,10 @@ describe('Citizen map page', () => {
     expect(preschoolFilter).toEqual([])
 
     let daycareFilter = new RawElement(page, '[data-qa="map-filter-daycare"]')
-    await waitUntilTrue(
-      async () => (await daycareFilter.visible)
-    )
+    await waitUntilTrue(() => daycareFilter.visible)
 
     let clubFilter = new RawElement(page, '[data-qa="map-filter-club"]')
-    await waitUntilTrue(
-      async () => (await clubFilter.visible)
-    )
+    await waitUntilTrue(() => clubFilter.visible)
   }),
   test('Map main info', async () => {
     let mapMainInfo = new RawElement(page, '[data-qa="map-main-info"]')

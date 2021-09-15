@@ -6,7 +6,7 @@ const config: Config.InitialOptions = {
   testEnvironment: '../../../evaka/frontend/src/e2e-playwright/jest-environment',
   testRunner: 'jest-circus/runner',
   moduleNameMapper: {
-    '^e2e-playwright/(.*)$': '<rootDir>/$1'
+    '^e2e/(.*)$': '<rootDir>/$1'
   }
 }
 export default config

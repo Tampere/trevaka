@@ -4,7 +4,7 @@
     "rootDir": ".",
     "baseUrl": "..",
     "composite": true,
-    "outDir": "../../dist/e2e-playwright",
+    "outDir": "../../dist/e2e",
     "noImplicitAny": false,
     "types": [
       "jest",
