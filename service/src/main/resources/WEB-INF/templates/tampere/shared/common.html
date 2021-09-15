@@ -335,6 +335,10 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             <span th:replace="~{tampere/shared/common :: format-date(${decision.sentDate})}"></span>
         </p>
         <p>
+            <strong th:text="#{notice.noticeMethodTitle}">Tiedoksiantotapa:</strong>
+            <span th:text="#{notice.noticeMethod.sent}">Lähetetty</span>
+        </p>
+        <p>
             <strong th:if="${type == 'notice'}" th:text="#{notice.approver.prefix}">Ilmoituksentekijä</strong>
             <strong th:unless="${type == 'notice'}" th:text="#{decision.approver.prefix}">Päätöksentekijä</strong>
         </p>
@@ -342,7 +346,10 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         <div th:if="${type == 'notice'}" th:text="#{notice.approver.title}">Koordinaattori</div>
         <div th:utext="#{decision.approver.additionalInfo}">(allekirjoitettu koneellisesti)</div>
         <br/>
-        <div th:unless="${type == 'notice'}" th:utext="#{decision.approver.help}">Lisätietoja:</div>
+        <p>
+            <strong th:if="${type == 'notice'}" th:utext="#{notice.approver.help}">Lisätietoja kerhopaikasta:</strong>
+            <strong th:unless="${type == 'notice'}" th:utext="#{decision.approver.help}">Lisätietoja myönnetystä varhaiskasvatuspaikasta:</strong>
+        </p>
         <div th:utext="#{decision.approver.title}">Varhaiskasvatuksen palveluohjaaja</div>
         <div>
             <a th:href="'mailto:' + #{decision.approver.email.email}"
@@ -366,7 +373,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 
 <span th:fragment="placement-dates">
   <span th:text="${#temporals.format(decision.startDate, 'd.M.yyyy')}
-                  + ' - ' +
+                  + ' – ' +
                   ${#temporals.format(decision.endDate, 'd.M.yyyy')}"></span>
 </span>
 
