@@ -1,5 +1,7 @@
 package fi.tampere.trevaka.dev
 
+import fi.espoo.evaka.ExcludeCodeGen
+import fi.espoo.evaka.shared.async.AsyncJob
 import fi.espoo.evaka.shared.async.AsyncJobRunner
 import fi.espoo.evaka.shared.db.Database
 import fi.tampere.trevaka.database.resetTampereDatabaseForE2ETests
@@ -14,8 +16,9 @@ import java.time.Duration
 @Profile("enable_dev_api")
 @RestController
 @RequestMapping("/dev-api/tampere")
+@ExcludeCodeGen
 class TampereDevApi(
-    private val asyncJobRunner: AsyncJobRunner
+    private val asyncJobRunner: AsyncJobRunner<AsyncJob>
 ) {
     @GetMapping
     fun healthCheck(): ResponseEntity<Unit> {
