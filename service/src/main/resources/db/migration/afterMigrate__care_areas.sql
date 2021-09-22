@@ -1,9 +1,9 @@
 INSERT INTO care_area
     (name, area_code, sub_cost_center, short_name)
 VALUES
-    ('Etelä', NULL, NULL, 'etela'),
-    ('Itä', NULL, NULL, 'ita'),
-    ('Länsi', NULL, NULL, 'lansi')
+    ('Etelä', 1, NULL, 'etela'),
+    ('Itä', 2, NULL, 'ita'),
+    ('Länsi', 3, NULL, 'lansi')
 ON CONFLICT (short_name) DO
 UPDATE SET
     name = EXCLUDED.name,
