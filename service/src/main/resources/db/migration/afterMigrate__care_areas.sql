@@ -1,15 +1,17 @@
 INSERT INTO care_area
-    (name, area_code, sub_cost_center, short_name)
+    (id, name, area_code, sub_cost_center, short_name)
 VALUES
-    ('Etelä', 1, NULL, 'etela'),
-    ('Itä', 2, NULL, 'ita'),
-    ('Länsi', 3, NULL, 'lansi')
-ON CONFLICT (short_name) DO
+    ('6529e31e-9777-11eb-ba88-33a923255570', 'Etelä', 1, NULL, 'etela'),
+    ('6529f5a2-9777-11eb-ba89-cfcda122ed3b', 'Itä', 2, NULL, 'ita'),
+    ('6529f6ce-9777-11eb-ba8a-8f6495ec5104', 'Länsi', 3, NULL, 'lansi')
+ON CONFLICT (id) DO
 UPDATE SET
     name = EXCLUDED.name,
     area_code = EXCLUDED.area_code,
-    sub_cost_center = EXCLUDED.sub_cost_center
+    sub_cost_center = EXCLUDED.sub_cost_center,
+    short_name = EXCLUDED.short_name
 WHERE
     care_area.name <> EXCLUDED.name OR
     care_area.area_code <> EXCLUDED.area_code OR
-    care_area.sub_cost_center <> EXCLUDED.sub_cost_center;
+    care_area.sub_cost_center <> EXCLUDED.sub_cost_center OR
+    care_area.short_name <> EXCLUDED.short_name;
