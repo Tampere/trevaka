@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 City of Tampere
+//
+// SPDX-License-Identifier: LGPL-2.1-or-later
+
 import type { Config } from '@jest/types'
 
 const config: Config.InitialOptions = {
@@ -6,7 +10,7 @@ const config: Config.InitialOptions = {
   testEnvironment: '../../../evaka/frontend/src/e2e-playwright/jest-environment',
   testRunner: 'jest-circus/runner',
   moduleNameMapper: {
-    '^e2e-playwright/(.*)$': '<rootDir>/$1'
+    '^e2e/(.*)$': '<rootDir>/$1'
   }
 }
 export default config

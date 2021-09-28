@@ -8,3 +8,7 @@ fun Database.Transaction.ensureTampereDevData() {
         listOf("tampere-dev-data.sql").forEach { runDevScript(it) }
     }
 }
+
+fun Database.Transaction.resetTampereDatabaseForE2ETests() {
+    execute("SELECT reset_tampere_database_for_e2e_tests()")
+}
