@@ -26,7 +26,7 @@ class TampereDevApi(
     }
 
     @PostMapping("/reset-tampere-db-for-e2e-tests")
-    fun resetTampereDatabaseForE2ETests(db: Database): ResponseEntity<Unit> {
+    fun resetTampereDatabaseForE2ETests(db: Database.Connection): ResponseEntity<Unit> {
         // Run async jobs before database reset to avoid database locks/deadlocks
         asyncJobRunner.runPendingJobsSync()
         asyncJobRunner.waitUntilNoRunningJobs(timeout = Duration.ofSeconds(20))
