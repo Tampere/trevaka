@@ -8,7 +8,7 @@ import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.containers.wait.strategy.Wait
 
-class PostgresContainer : PostgreSQLContainer<PostgresContainer>("postgres:12-alpine")
+class PostgresContainer : PostgreSQLContainer<PostgresContainer>("postgres:13-alpine")
 
 class RedisContainer(val password: String) : GenericContainer<RedisContainer>("redis:6.0.12-alpine") {
     val url = "localhost"
