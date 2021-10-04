@@ -49,7 +49,7 @@ const isChecked = async (p: Page, e: ElementHandle): Promise<boolean> => {
 
 describe('Citizen applications page', () => {
   test('Applications and ApplicationCreation customizations', async () => {
-    await header.applicationsTab.click()
+    await header.selectTab('applications')
     await waitUntilEqual(() => page.innerText('h1 + p'), 'Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen ja kerhoon. Huoltajan lasten tiedot haetaan tähän näkymään automaattisesti Väestötietojärjestelmästä.')
     let newApplicationButton = new RawElement(page, `[data-qa="new-application-${fixtures.enduserChildFixturePorriHatterRestricted.id}"]`)
     await newApplicationButton.click()
@@ -68,7 +68,7 @@ describe('Citizen applications page', () => {
     await waitUntilEqual(() => page.getAttribute('[data-qa="application-options-area"] p:last-of-type a:last-of-type', 'href'), customerContactTelHref)
   }),
   test('Daycare application form customizations', async () => {
-    await header.applicationsTab.click()
+    await header.selectTab('applications')
     let editorPage = await applicationsPage.createApplication(fixtures.enduserChildFixturePorriHatterRestricted.id, 'DAYCARE')
     await waitUntilEqual(() => page.innerText('[data-qa="application-child-name-title"] + p'), 'Varhaiskasvatuspaikkaa voi hakea ympäri vuoden. Varhaiskasvatushakemus tulee jättää viimeistään neljä kuukautta ennen hoidon toivottua alkamisajankohtaa. Mikäli varhaiskasvatuksen tarve johtuu työllistymisestä, opinnoista tai koulutuksesta, eikä hoidon tarpeen ajankohtaa ole pystynyt ennakoimaan, on varhaiskasvatuspaikkaa haettava mahdollisimman pian - kuitenkin viimeistään kaksi viikkoa ennen kuin lapsi tarvitsee hoitopaikan.')
     await waitUntilEqual(() => page.innerText('[data-qa="application-child-name-title"] + p + p'), 'Kirjallinen päätös varhaiskasvatuspaikasta lähetetään Suomi.fi-viestit -palveluun. Mikäli haluatte päätöksen sähköisenä tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit -palvelu käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa https://www.suomi.fi/viestit. Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, päätös lähetetään teille postitse.')
@@ -127,9 +127,9 @@ describe('Citizen applications page', () => {
     await assistanceNeedInstructionsDaycare.click()
     await waitUntilEqual(() => page.innerText('[data-qa="assistanceNeedInstructions-DAYCARE-text"]'), 'Tehostettua tai erityistä tukea annetaan lapselle heti tarpeen ilmettyä. Mikäli lapsella on olemassa tuen tarpeesta asiantuntijalausunto, tämä tulee ilmoittaa varhaiskasvatushakemuksella. Tukitoimet toteutuvat lapsen arjessa osana varhaiskasvatuksen toimintaa. Tampereen varhaiskasvatuksesta otetaan erikseen yhteyttä hakemuksen jättämisen jälkeen, jos lapsella on tuen tarve.')
     await editorPage.openSection('contactInfo')
-    let contactInfoSectionP0 = new RawElement(page, '[data-qa="contactInfo-section"] p:first-of-type')
-    await waitUntilEqual(() => contactInfoSectionP0.innerText, 'Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän tiedot Digi- ja Väestötietoviraston sivuilla. Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on päivittynyt väestötietojärjestelmään. Varhaiskasvatus- ja palvelusetelipäätös sekä tieto avoimen varhaiskasvatuksen kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa asuvalle väestötiedoista löytyvälle huoltajalle.')
-    await waitUntilEqual(() => contactInfoSectionP0.find('a').getAttribute('href'), 'https://dvv.fi/henkiloasiakkaat')
+    let contactInfoText = new RawElement(page, '[data-qa="contactInfo-section"] p[data-qa="contact-info-text"]')
+    await waitUntilEqual(() => contactInfoText.innerText, 'Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän tiedot Digi- ja Väestötietoviraston sivuilla. Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on päivittynyt väestötietojärjestelmään. Varhaiskasvatus- ja palvelusetelipäätös sekä tieto avoimen varhaiskasvatuksen kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa asuvalle väestötiedoista löytyvälle huoltajalle.')
+    await waitUntilEqual(() => contactInfoText.find('a').getAttribute('href'), 'https://dvv.fi/henkiloasiakkaat')
     const childFutureAddrInfo = new RawElement(page, '[data-qa="child-future-address-info"]')
     await childFutureAddrInfo.click()
     await waitUntilEqual(() => page.innerText('[data-qa="child-future-address-info-text"]'), 'Tampereen varhaiskasvatuksessa virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.')
@@ -141,14 +141,14 @@ describe('Citizen applications page', () => {
     await waitUntilEqual(() => page.innerText('[data-qa="fee-section"] p:last-of-type'), 'Lisätietoa varhaiskasvatuksen asiakasmaksuista löydät Tampereen kaupungin sivuilta')
     await waitUntilEqual(() => page.getAttribute('[data-qa="fee-section"] p:last-of-type a', 'href'), 'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html')
     await editorPage.openSection('additionalDetails')
-    const dietInfo = new RawElement(page, '[data-qa="diet-info"]')
+    const dietInfo = new RawElement(page, '[data-qa="diet-expanding-info"]')
     await dietInfo.click()
-    await waitUntilEqual(() => page.innerText('[data-qa="diet-info-text"]'), 'Erityisruokavaliosta huoltaja toimittaa varhaiskasvatuspaikkaan lääkärin tai ravitsemusterapeutin täyttämän ja allekirjoittaman Selvitys erityisruokavaliosta -lomakkeen, joka on määräaikainen.')
-    await waitUntilEqual(() => page.getAttribute('[data-qa="diet-info-text"] a', 'href'), 'https://www.tampere.fi/sosiaali-ja-terveyspalvelut/erityisruokavaliot.html')
+    await waitUntilEqual(() => page.innerText('[data-qa="diet-expanding-info-text"]'), 'Erityisruokavaliosta huoltaja toimittaa varhaiskasvatuspaikkaan lääkärin tai ravitsemusterapeutin täyttämän ja allekirjoittaman Selvitys erityisruokavaliosta -lomakkeen, joka on määräaikainen.')
+    await waitUntilEqual(() => page.getAttribute('[data-qa="diet-expanding-info-text"] a', 'href'), 'https://www.tampere.fi/sosiaali-ja-terveyspalvelut/erityisruokavaliot.html')
     // Click cancel and check text for an existing application
     let cancelButton = new RawElement(page, '[data-qa="cancel-application-button"]')
     await cancelButton.click()
-    await header.applicationsTab.click()
+    await header.selectTab('applications')
     let newApplicationButton = new RawElement(page, `[data-qa="new-application-${fixtures.enduserChildFixturePorriHatterRestricted.id}"]`)
     await newApplicationButton.click()
     let daycareApplicationRadio = new RawElement(page, '[data-qa="type-radio-DAYCARE"]')
@@ -156,7 +156,7 @@ describe('Citizen applications page', () => {
     await waitUntilTrue(() => page.isVisible('[data-qa="duplicate-application-notification"]'))
   }),
   test('Club application form customizations', async () => {
-    await header.applicationsTab.click()
+    await header.selectTab('applications')
     let editorPage = await applicationsPage.createApplication(fixtures.enduserChildFixturePorriHatterRestricted.id, 'CLUB')
     await waitUntilEqual(() => page.innerText('[data-qa="application-child-name-title"] + p'), 'Kerhopaikkaa voi hakea ympäri vuoden. Kerhohakemuksella voi hakea kunnallista tai palvelusetelillä tuettua kerhopaikkaa. Kirjallinen ilmoitus kerhopaikasta lähetään Suomi.fi-viestit -palveluun. Mikäli haluatte ilmoituksen sähköisenä tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit -palvelu käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa https://www.suomi.fi/viestit. Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, ilmoitus kerhopaikasta lähetetään teille postitse. Paikka myönnetään yhdeksi toimintakaudeksi kerrallaan.')
     await waitUntilEqual(() => page.innerText('[data-qa="application-child-name-title"] + p + p'), 'Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kyseisen kauden päättyessä hakemus poistetaan järjestelmästä.')
@@ -170,7 +170,7 @@ describe('Citizen applications page', () => {
     await assistanceNeedInstructionsClub.click()
     await waitUntilEqual(() => page.innerText('[data-qa="assistanceNeedInstructions-CLUB-text"]'), 'Jos lapsella on tuen tarve, Tampereen varhaiskasvatuksesta otetaan yhteyttä hakemuksen jättämisen jälkeen.')
     editorPage.openSection('contactInfo')
-    await waitUntilEqual(() => page.innerText('[data-qa="contactInfo-section"] p:first-of-type'), 'Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän tiedot Digi- ja Väestötietoviraston sivuilla. Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on päivittynyt väestötietojärjestelmään. Varhaiskasvatus- ja palvelusetelipäätös sekä tieto avoimen varhaiskasvatuksen kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa asuvalle väestötiedoista löytyvälle huoltajalle.')
+    await waitUntilEqual(() => page.innerText('[data-qa="contactInfo-section"] p[data-qa="contact-info-text"]'), 'Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän tiedot Digi- ja Väestötietoviraston sivuilla. Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on päivittynyt väestötietojärjestelmään. Varhaiskasvatus- ja palvelusetelipäätös sekä tieto avoimen varhaiskasvatuksen kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa asuvalle väestötiedoista löytyvälle huoltajalle.')
     const childFutureAddrInfo = new RawElement(page, '[data-qa="child-future-address-info"]')
     await childFutureAddrInfo.click()
     await waitUntilEqual(() => page.innerText('[data-qa="child-future-address-info-text"]'), 'Tampereen varhaiskasvatuksessa virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.')
