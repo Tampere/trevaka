@@ -10,9 +10,11 @@ import org.springframework.stereotype.Component
 @Profile("local")
 class DevDataInitializer(jdbi: Jdbi) {
     init {
-        Database(jdbi).transaction { tx ->
-            tx.runDevScript("reset-tampere-database-for-e2e-tests.sql")
-            tx.ensureTampereDevData()
+        Database(jdbi).connect { db ->
+            db.transaction { tx ->
+                tx.runDevScript("reset-tampere-database-for-e2e-tests.sql")
+                tx.ensureTampereDevData()
+            }
         }
     }
 }
