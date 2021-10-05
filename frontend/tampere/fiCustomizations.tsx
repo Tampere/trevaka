@@ -7,6 +7,8 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 }
 
 import { P } from 'lib-components/typography'
+import UnorderedList from 'lib-components/atoms/UnorderedList'
+import { Gap } from 'lib-components/white-space'
 import { Translations } from 'lib-customizations/citizen'
 import { DeepPartial } from 'lib-customizations/types'
 import React from 'react'
@@ -32,17 +34,14 @@ const fi: DeepPartial<Translations> = {
         'Varhaiskasvatushakemuksella haetaan paikkaa kunnallisesta päiväkodista tai perhepäivähoidosta, ostopalvelupäiväkodista tai palvelusetelillä tuetusta päiväkodista.',
       clubInfo:
         'Kerhohakemuksella haetaan paikkaa kunnallisista tai palvelusetelillä tuetuista kerhoista.',
-      applicationInfo: function ApplicationInfoText() {
-        return (
-          <P>
-            Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa siihen
-            asti, kun hakemus otetaan asiakaspalvelussa käsittelyyn. Tämän
-            jälkeen muutokset tai hakemuksen peruminen on mahdollista ottamalla
-            yhteyttä
-            {customerContactText()}
-          </P>
-        )
-      },
+      applicationInfo: (
+        <P>
+          Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa siihen asti,
+          kun hakemus otetaan asiakaspalvelussa käsittelyyn. Tämän jälkeen
+          muutokset tai hakemuksen peruminen on mahdollista ottamalla yhteyttä
+          {customerContactText()}
+        </P>
+      ),
       transferApplicationInfo: {
         DAYCARE:
           'Lapsella on jo paikka Tampereen varhaiskasvatuksessa. Tällä hakemuksella voit hakea siirtoa toiseen varhaiskasvatusta tarjoavaan yksikköön Tampereella.'
@@ -51,77 +50,71 @@ const fi: DeepPartial<Translations> = {
     editor: {
       heading: {
         info: {
-          DAYCARE: function EditorHeadingInfoDaycareText() {
-            return (
-              <>
-                <P>
-                  Varhaiskasvatuspaikkaa voi hakea ympäri vuoden.
-                  Varhaiskasvatushakemus tulee jättää viimeistään neljä
-                  kuukautta ennen hoidon toivottua alkamisajankohtaa. Mikäli
-                  varhaiskasvatuksen tarve johtuu työllistymisestä, opinnoista
-                  tai koulutuksesta, eikä hoidon tarpeen ajankohtaa ole pystynyt
-                  ennakoimaan, on varhaiskasvatuspaikkaa haettava mahdollisimman
-                  pian - kuitenkin viimeistään kaksi viikkoa ennen kuin lapsi
-                  tarvitsee hoitopaikan.
-                </P>
-                <P>
-                  Kirjallinen päätös varhaiskasvatuspaikasta lähetetään
-                  Suomi.fi-viestit -palveluun. Mikäli haluatte päätöksen
-                  sähköisenä tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit
-                  -palvelu käyttöön. Palvelusta ja sen käyttöönotosta saatte
-                  lisätietoa{' '}
-                  <ExternalLink
-                    text="https://www.suomi.fi/viestit"
-                    href="https://www.suomi.fi/viestit"
-                    newTab
-                  />
-                  . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, päätös
-                  lähetetään teille postitse.
-                </P>
-                <P fitted={true}>* Tähdellä merkityt tiedot ovat pakollisia</P>
-              </>
-            )
-          },
-          CLUB: function EditorHeadingInfoClubText() {
-            return (
-              <>
-                <P>
-                  Kerhopaikkaa voi hakea ympäri vuoden. Kerhohakemuksella voi
-                  hakea kunnallista tai palvelusetelillä tuettua kerhopaikkaa.
-                  Kirjallinen ilmoitus kerhopaikasta lähetään Suomi.fi-viestit
-                  -palveluun. Mikäli haluatte ilmoituksen sähköisenä
-                  tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit -palvelu
-                  käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa{' '}
-                  <ExternalLink
-                    text="https://www.suomi.fi/viestit"
-                    href="https://www.suomi.fi/viestit"
-                    newTab
-                  />
-                  . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön,
-                  ilmoitus kerhopaikasta lähetetään teille postitse. Paikka
-                  myönnetään yhdeksi toimintakaudeksi kerrallaan.
-                </P>
-                <P>
-                  Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle.
-                  Kyseisen kauden päättyessä hakemus poistetaan järjestelmästä.
-                </P>
-              </>
-            )
-          }
+          DAYCARE: (
+            <>
+              <P>
+                Varhaiskasvatuspaikkaa voi hakea ympäri vuoden.
+                Varhaiskasvatushakemus tulee jättää viimeistään neljä kuukautta
+                ennen hoidon toivottua alkamisajankohtaa. Mikäli
+                varhaiskasvatuksen tarve johtuu työllistymisestä, opinnoista tai
+                koulutuksesta, eikä hoidon tarpeen ajankohtaa ole pystynyt
+                ennakoimaan, on varhaiskasvatuspaikkaa haettava mahdollisimman
+                pian - kuitenkin viimeistään kaksi viikkoa ennen kuin lapsi
+                tarvitsee hoitopaikan.
+              </P>
+              <P>
+                Kirjallinen päätös varhaiskasvatuspaikasta lähetetään
+                Suomi.fi-viestit -palveluun. Mikäli haluatte päätöksen
+                sähköisenä tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit
+                -palvelu käyttöön. Palvelusta ja sen käyttöönotosta saatte
+                lisätietoa{' '}
+                <ExternalLink
+                  text="https://www.suomi.fi/viestit"
+                  href="https://www.suomi.fi/viestit"
+                  newTab
+                />
+                . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, päätös
+                lähetetään teille postitse.
+              </P>
+              <P fitted={true}>* Tähdellä merkityt tiedot ovat pakollisia</P>
+            </>
+          ),
+          CLUB: (
+            <>
+              <P>
+                Kerhopaikkaa voi hakea ympäri vuoden. Kerhohakemuksella voi
+                hakea kunnallista tai palvelusetelillä tuettua kerhopaikkaa.
+                Kirjallinen ilmoitus kerhopaikasta lähetään Suomi.fi-viestit
+                -palveluun. Mikäli haluatte ilmoituksen sähköisenä
+                tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit -palvelu
+                käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa{' '}
+                <ExternalLink
+                  text="https://www.suomi.fi/viestit"
+                  href="https://www.suomi.fi/viestit"
+                  newTab
+                />
+                . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, ilmoitus
+                kerhopaikasta lähetetään teille postitse. Paikka myönnetään
+                yhdeksi toimintakaudeksi kerrallaan.
+              </P>
+              <P>
+                Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kyseisen
+                kauden päättyessä hakemus poistetaan järjestelmästä.
+              </P>
+            </>
+          )
         }
       },
       serviceNeed: {
         startDate: {
-          instructions: function ServiceNeedInstructionsText() {
-            return (
-              <>
-                Toivottua aloituspäivää on mahdollista muuttaa myöhemmäksi niin
-                kauan, kun hakemusta ei ole otettu käsittelyyn. Tämän jälkeen
-                toivotun aloituspäivän muutokset tehdään ottamalla yhteyttä
-                {customerContactText()}
-              </>
-            )
-          }
+          instructions: (
+            <>
+              Toivottua aloituspäivää on mahdollista muuttaa myöhemmäksi niin
+              kauan, kun hakemusta ei ole otettu käsittelyyn. Tämän jälkeen
+              toivotun aloituspäivän muutokset tehdään ottamalla yhteyttä
+              {customerContactText()}
+            </>
+          )
         },
         clubDetails: {
           wasOnDaycareInfo:
@@ -131,17 +124,15 @@ const fi: DeepPartial<Translations> = {
         },
         urgent: {
           attachmentsMessage: {
-            text: function UrgentApplicationAttachmentMessageText() {
-              return (
-                <P fitted={true}>
-                  Mikäli varhaiskasvatuspaikan tarve johtuu äkillisestä
-                  työllistymisestä tai opiskelupaikan saamisesta, tulee paikkaa
-                  hakea viimeistään kaksi viikkoa ennen kuin hoidon tarve alkaa.
-                  Lisäksi huoltajan tulee ottaa yhteyttä viipymättä
-                  {customerContactText()}
-                </P>
-              )
-            }
+            text: (
+              <P fitted={true}>
+                Mikäli varhaiskasvatuspaikan tarve johtuu äkillisestä
+                työllistymisestä tai opiskelupaikan saamisesta, tulee paikkaa
+                hakea viimeistään kaksi viikkoa ennen kuin hoidon tarve alkaa.
+                Lisäksi huoltajan tulee ottaa yhteyttä viipymättä
+                {customerContactText()}
+              </P>
+            )
           }
         },
         shiftCare: {
@@ -169,89 +160,79 @@ const fi: DeepPartial<Translations> = {
         }
       },
       contactInfo: {
-        info: function ContactInfoInfoText() {
-          return (
-            <P>
-              Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa
-              tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän
-              tiedot{' '}
-              <ExternalLink
-                text="Digi- ja Väestötietoviraston sivuilla"
-                href="https://dvv.fi/henkiloasiakkaat"
-                newTab
-              />
-              . Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen
-              erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle
-              että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se
-              on päivittynyt väestötietojärjestelmään. Varhaiskasvatus- ja
-              palvelusetelipäätös sekä tieto avoimen varhaiskasvatuksen
-              kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa
-              asuvalle väestötiedoista löytyvälle huoltajalle.
-            </P>
-          )
-        },
+        info: (
+          <P data-qa="contact-info-text">
+            Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa
+            tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän
+            tiedot{' '}
+            <ExternalLink
+              text="Digi- ja Väestötietoviraston sivuilla"
+              href="https://dvv.fi/henkiloasiakkaat"
+              newTab
+            />
+            . Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen
+            erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle
+            että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on
+            päivittynyt väestötietojärjestelmään. Varhaiskasvatus- ja
+            palvelusetelipäätös sekä tieto avoimen varhaiskasvatuksen
+            kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa
+            asuvalle väestötiedoista löytyvälle huoltajalle.
+          </P>
+        ),
         futureAddressInfo:
           'Tampereen varhaiskasvatuksessa virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.'
       },
       fee: {
         info: {
-          DAYCARE: function FeeInfoTextDaycare() {
-            return (
-              <P>
-                Kunnallisen varhaiskasvatuksen asiakasmaksu ja palvelusetelin
-                omavastuuosuus perustuu varhaiskasvatuksen asiakasmaksuista
-                annettuun lakiin (Laki varhaiskasvatuksen asiakasmaksuista
-                (1503/2016)). Asiakasmaksu määräytyy perheen koon,
-                palveluntarpeen sekä bruttotulojen mukaan. Uusien asiakkaiden
-                tulee täyttää asiakasmaksulomake ja toimittaa tarvittavat
-                liitteet Varhaiskasvatuksen asiakasmaksuihin viimeistään
-                kuukauden kuluessa hoidon alkamisesta.
-              </P>
-            )
-          }
-        },
-        links: function FeeLinksText() {
-          return (
+          DAYCARE: (
             <P>
-              Lisätietoa varhaiskasvatuksen asiakasmaksuista löydät{' '}
-              <ExternalLink
-                href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html"
-                text="Tampereen kaupungin sivuilta"
-                newTab
-              />
+              Kunnallisen varhaiskasvatuksen asiakasmaksu ja palvelusetelin
+              omavastuuosuus perustuu varhaiskasvatuksen asiakasmaksuista
+              annettuun lakiin (Laki varhaiskasvatuksen asiakasmaksuista
+              (1503/2016)). Asiakasmaksu määräytyy perheen koon, palveluntarpeen
+              sekä bruttotulojen mukaan. Uusien asiakkaiden tulee täyttää
+              asiakasmaksulomake ja toimittaa tarvittavat liitteet
+              Varhaiskasvatuksen asiakasmaksuihin viimeistään kuukauden kuluessa
+              hoidon alkamisesta.
             </P>
           )
-        }
+        },
+        links: (
+          <P>
+            Lisätietoa varhaiskasvatuksen asiakasmaksuista löydät{' '}
+            <ExternalLink
+              href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html"
+              text="Tampereen kaupungin sivuilta"
+              newTab
+            />
+          </P>
+        )
       },
       additionalDetails: {
-        dietInfo: function DietInfoText() {
-          return (
-            <>
-              Erityisruokavaliosta huoltaja toimittaa varhaiskasvatuspaikkaan
-              lääkärin tai ravitsemusterapeutin täyttämän ja allekirjoittaman{' '}
-              <ExternalLink
-                href="https://www.tampere.fi/sosiaali-ja-terveyspalvelut/erityisruokavaliot.html"
-                text="Selvitys erityisruokavaliosta -lomakkeen"
-                newTab
-              />
-              , joka on määräaikainen.
-            </>
-          )
-        }
+        dietInfo: (
+          <>
+            Erityisruokavaliosta huoltaja toimittaa varhaiskasvatuspaikkaan
+            lääkärin tai ravitsemusterapeutin täyttämän ja allekirjoittaman{' '}
+            <ExternalLink
+              href="https://www.tampere.fi/sosiaali-ja-terveyspalvelut/erityisruokavaliot.html"
+              text="Selvitys erityisruokavaliosta -lomakkeen"
+              newTab
+            />
+            , joka on määräaikainen.
+          </>
+        )
       }
     }
   },
   applicationsList: {
     title: 'Hakeminen varhaiskasvatukseen',
-    summary: function ApplicationListSummaryText() {
-      return (
-        <P width="800px">
-          Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen ja
-          kerhoon. Huoltajan lasten tiedot haetaan tähän näkymään
-          automaattisesti Väestötietojärjestelmästä.
-        </P>
-      )
-    }
+    summary: (
+      <P width="800px">
+        Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen ja
+        kerhoon. Huoltajan lasten tiedot haetaan tähän näkymään automaattisesti
+        Väestötietojärjestelmästä.
+      </P>
+    )
   },
   footer: {
     cityLabel: '© Tampereen kaupunki',
@@ -261,22 +242,90 @@ const fi: DeepPartial<Translations> = {
   },
   map: {
     mainInfo: `Tässä näkymässä voit hakea kartalta kaikki Tampereen varhaiskasvatusyksiköt sekä kerhot. Kartalta löytyvät myös seudulliset palveluseteliyksiköt ja -kerhot.`,
-    privateUnitInfo: function PrivateUnitInfo() {
-      return <></>
-    },
+    privateUnitInfo: <></>,
     serviceVoucherLink:
       'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit',
     searchPlaceholder: 'Esim. Jukolankatu 7 tai Amurin päiväkoti'
   },
   decisions: {
-    summary: function DecisionsSummaryText() {
-      return (
-        <P width="800px">
-          Tälle sivulle saapuvat lapsen varhaiskasvatus- ja kerhohakemuksiin
-          liittyvät päätökset ja ilmoitukset.
+    summary: (
+      <P width="800px">
+        Tälle sivulle saapuvat lapsen varhaiskasvatus- ja kerhohakemuksiin
+        liittyvät päätökset ja ilmoitukset.
+      </P>
+    )
+  },
+  income: {
+    description: (
+      <>
+        <p data-qa="income-description-p1">
+          Tällä sivulla voit lähettää selvitykset varhaiskasvatusmaksuun
+          vaikuttavista tuloistasi. Voit myös tarkastella palauttamiasi
+          tuloselvityksiä ja muokata tai poistaa niitä kunnes viranomainen on
+          käsitellyt tiedot. Lomakkeen käsittelyn jälkeen voit päivittää
+          tulotietojasi toimittamalla uuden lomakkeen.
+          <br />
+          <a href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html">
+            Lisätietoja maksuista
+          </a>
+        </p>
+        <p data-qa="income-description-p2">
+          Kunnallisen varhaiskasvatuksen asiakasmaksut määräytyvät
+          prosenttiosuutena perheen bruttotuloista. Maksut vaihtelevat perheen
+          koon ja tulojen sekä varhaiskasvatusajan mukaan. Tarkista alla
+          olevasta taulukosta tarvitseeko sinun toimittaa tuloselvitystä, vai
+          kuuluuko perheenne automaattisesti korkeimman varhaiskasvatusmaksun
+          piiriin.
+        </p>
+      </>
+    ),
+    formDescription: (
+      <>
+        <P data-qa="income-formDescription-p1">
+          Tuloselvitys liitteineen palautetaan kuukauden kuluessa
+          varhaiskasvatuksen aloittamisesta. Maksu voidaan määrätä
+          puutteellisilla tulotiedoilla korkeimpaan maksuun. Puutteellisia
+          tulotietoja ei korjata takautuvasti oikaisuvaatimusajan jälkeen.
         </P>
-      )
-    }
+        <P>
+          Asiakasmaksu peritään päätöksen mukaisesta varhaiskasvatuksen
+          alkamispäivästä lähtien.
+        </P>
+        <P>
+          Asiakkaan on viipymättä ilmoitettava tulojen ja perhekoon muutoksista
+          varhaiskasvutuksen asiakasmaksuihin. Viranomainen on tarvittaessa
+          oikeutettu perimään varhaiskasvatusmaksuja myös takautuvasti.
+        </P>
+        <P>
+          <strong>Huomioitavaa:</strong>
+        </P>
+        <Gap size="xs" />
+        <UnorderedList data-qa="income-formDescription-ul">
+          <li>
+            Jos tulosi ylittävät perhekoon mukaisen tulorajan, hyväksy korkein
+            varhaiskasvatusmaksu. Tällöin sinun ei tarvitse selvittää tulojasi
+            lainkaan.
+          </li>
+          <li>
+            Jos perheeseesi kuuluu toinen aikuinen, myös hänen on toimitettava
+            tuloselvitys tunnistautumalla eVakaan omilla henkilötiedoillaan ja
+            täyttämällä tämä lomake.
+          </li>
+          <li>
+            Katso voimassaolevat tulorajat{' '}
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html"
+            >
+              tästä
+            </a>
+            .
+          </li>
+        </UnorderedList>
+        <P>* Tähdellä merkityt tiedot ovat pakollisia</P>
+      </>
+    )
   }
 }
 

@@ -83,6 +83,9 @@ const customizations: EmployeeCustomizations = {
             handler: ['Palveluohjaus', 'Varhaiskasvatusyksikön johtaja']
           }
         }
+      },
+      welcomePage: {
+        text: 'Olet kirjautunut sisään eVaka Tampere -palveluun. Käyttäjätunnuksellesi ei ole vielä annettu oikeuksia, jotka mahdollistavat palvelun käytön. Tarvittavat käyttöoikeudet saat omalta esimieheltäsi.'
       }
     }
   },
