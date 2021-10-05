@@ -22,6 +22,7 @@ const featureFlags: FeatureFlags = {
   assistanceBasisOtherEnabled: false,
   experimental: {
     incomeStatements: true,
+    messageAttachments: true,
     vasu: true
   },
   pedagogicalDocumentsEnabled: true
