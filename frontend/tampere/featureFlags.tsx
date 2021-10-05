@@ -23,7 +23,8 @@ const featureFlags: FeatureFlags = {
   experimental: {
     incomeStatements: true,
     vasu: true
-  }
+  },
+  pedagogicalDocumentsEnabled: true
 }
 
 export default featureFlags
