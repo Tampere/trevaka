@@ -45,11 +45,11 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
             
             <p>lapsenne kerhohakemus on vastaanotettu.</p>
             
-            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta osoitteessa <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a> siihen saakka, kunnes se on otettu käsittelyyn asiakaspalvelussa.</p> 
+            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a> siihen saakka, kunnes se on otettu käsittelyyn asiakaspalvelussa.</p>
             
             <p>Kirjallinen ilmoitus myönnetystä kerhopaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, ilmoitus lähetetään hänelle postitse.</p> 
             
-            <p>Myönnetyn kerhopaikan voi hyväksyä/hylätä sähköisesti osoitteessa <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a>. Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kauden päättyessä hakemus poistetaan järjestelmästä.</p> 
+            <p>Myönnetyn kerhopaikan voi hyväksyä / hylätä sähköisesti Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a>. Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kauden päättyessä hakemus poistetaan järjestelmästä.</p>
             
             <p>Lisätietoa hakemuksen käsittelystä ja kerhopaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta:</p>
             
@@ -59,11 +59,11 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
             Varhaiskasvatus ja esiopetus
             Asiakaspalvelu
             <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a>
-            <a href="tel:+358408007260">040&nbsp;800&nbsp;7260</a>, ma-pe klo 9-12
+            Puh. <a href="tel:+358408007260">040&nbsp;800&nbsp;7260</a> (ma-pe klo 9-12)
             <a href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html">www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html</a>
             </pre>
             
-            <p><strong>HUOM!<strong>  Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Älä vastaa tähän viestin reply-/vastaa-toiminnolla!</p>
+            <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
         """.trimIndent()
     }
 
@@ -73,11 +73,11 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
 
             lapsenne kerhohakemus on vastaanotettu.
             
-            Hakemuksen tehnyt huoltaja voi muokata hakemusta osoitteessa varhaiskasvatus.tampere.fi siihen saakka, kunnes se on otettu käsittelyyn asiakaspalvelussa. 
+            Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa varhaiskasvatus.tampere.fi siihen saakka, kunnes se on otettu käsittelyyn asiakaspalvelussa.
+
+            Kirjallinen ilmoitus myönnetystä kerhopaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, ilmoitus lähetetään hänelle postitse.
             
-            Kirjallinen ilmoitus myönnetystä kerhopaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, ilmoitus lähetetään hänelle postitse. 
-            
-            Myönnetyn kerhopaikan voi hyväksyä/hylätä sähköisesti osoitteessa varhaiskasvatus.tampere.fi. Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kauden päättyessä hakemus poistetaan järjestelmästä.
+            Myönnetyn kerhopaikan voi hyväksyä / hylätä sähköisesti Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa varhaiskasvatus.tampere.fi. Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kauden päättyessä hakemus poistetaan järjestelmästä.
             
             Lisätietoa hakemuksen käsittelystä ja kerhopaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta:
             
@@ -86,10 +86,10 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
             Varhaiskasvatus ja esiopetus
             Asiakaspalvelu
             varhaiskasvatus.asiakaspalvelu@tampere.fi
-            040 800 7260, ma-pe klo 9-12
+            Puh. 040 800 7260 (ma-pe klo 9-12)
             www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html
             
-            HUOM!  Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Älä vastaa tähän viestin reply-/vastaa-toiminnolla!
+            Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.
         """.trimIndent()
     }
 
