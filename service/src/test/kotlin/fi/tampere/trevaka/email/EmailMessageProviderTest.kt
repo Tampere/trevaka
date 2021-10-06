@@ -28,7 +28,7 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
     }
 
     private fun assertNotContainEspooText(message: String) {
-        assertThat(message).also(::println)
+        assertThat(message.also(::println))
             .isNotBlank
             .doesNotContainIgnoringCase("espoo")
             .doesNotContainIgnoringCase("esbo")
