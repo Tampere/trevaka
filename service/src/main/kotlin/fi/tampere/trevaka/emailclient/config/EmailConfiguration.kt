@@ -25,7 +25,7 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
             
             <p>Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla osoitteeseen <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a> tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.</p>
             
-            <p>Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun: <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a>, puh. <a href="tel:+358408007260">040 800 7260</a> (ma-pe klo 9-12).</p>
+            <p>Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun: <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a>, puh. <a href="tel:+358408007260">040 800 7260</a> (ma–pe klo 9–12).</p>
         """.trimIndent()
     }
 
@@ -35,7 +35,7 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
             
             Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla osoitteeseen https://varhaiskasvatus.tampere.fi tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.
             
-            Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun: varhaiskasvatus.asiakaspalvelu@tampere.fi, puh. 040 800 7260 (ma-pe klo 9-12).
+            Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun: varhaiskasvatus.asiakaspalvelu@tampere.fi, puh. 040 800 7260 (ma–pe klo 9–12).
         """.trimIndent()
     }
 
@@ -59,7 +59,7 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
             Varhaiskasvatus ja esiopetus
             Asiakaspalvelu
             <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a>
-            Puh. <a href="tel:+358408007260">040&nbsp;800&nbsp;7260</a> (ma-pe klo 9-12)
+            Puh. <a href="tel:+358408007260">040&nbsp;800&nbsp;7260</a> (ma–pe klo 9–12)
             <a href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html">www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html</a>
             </pre>
             
@@ -86,7 +86,7 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
             Varhaiskasvatus ja esiopetus
             Asiakaspalvelu
             varhaiskasvatus.asiakaspalvelu@tampere.fi
-            Puh. 040 800 7260 (ma-pe klo 9-12)
+            Puh. 040 800 7260 (ma–pe klo 9–12)
             www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html
             
             Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.
@@ -103,7 +103,7 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
             
             <p>Saatte tiedon lapsenne varhaiskasvatuspaikasta noin kuukautta ennen palvelutarpeen alkamista tai hakemuksen lakisääteisen järjestelyajan päättymistä. Hakemuksen lakisääteinen järjestelyaika on neljä (4) kuukautta hakemuksen saapumisesta.</p> 
             
-            <p>Mikäli hakemuksenne on kiireellinen, ottakaa yhteyttä viipymättä Varhaiskasvatuksen asiakaspalveluun: <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a>, puh. <a href="tel:0408007260">040&nbsp;800&nbsp;7260"</a> (ma-pe klo 9-12). Hakuaika kiireellisissä hakemuksissa on minimissään kaksi (2) viikkoa ja se alkaa siitä päivästä, kun olette olleet yhteydessä asiakaspalveluun.</p>
+            <p>Mikäli hakemuksenne on kiireellinen, ottakaa yhteyttä viipymättä Varhaiskasvatuksen asiakaspalveluun: <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a>, puh. <a href="tel:0408007260">040&nbsp;800&nbsp;7260"</a> (ma–pe klo 9–12). Hakuaika kiireellisissä hakemuksissa on minimissään kaksi (2) viikkoa ja se alkaa siitä päivästä, kun olette olleet yhteydessä asiakaspalveluun.</p>
             
             <p>Kirjallinen päätös varhaiskasvatuspaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, päätös lähetetään hänelle postitse.</p>
             
@@ -121,7 +121,7 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
             Varhaiskasvatus ja esiopetus
             Asiakaspalvelu
             <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a>
-            Puh. <a href="tel:+358408007260">040&nbsp;800&nbsp;7260</a>, ma-pe klo 9-12
+            Puh. <a href="tel:+358408007260">040&nbsp;800&nbsp;7260</a>, ma–pe klo 9–12
             Postiosoite: PL 487, 33101 Tampere
             <a href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html">www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html</a>
             </pre>
@@ -140,7 +140,7 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
             
             Saatte tiedon lapsenne varhaiskasvatuspaikasta noin kuukautta ennen palvelutarpeen alkamista tai hakemuksen lakisääteisen järjestelyajan päättymistä. Hakemuksen lakisääteinen järjestelyaika on neljä (4) kuukautta hakemuksen saapumisesta.
             
-            Mikäli hakemuksenne on kiireellinen, ottakaa yhteyttä viipymättä Varhaiskasvatuksen asiakaspalveluun: varhaiskasvatus.asiakaspalvelu@tampere.fi, puh. 040 800 7260 (ma-pe klo 9-12). Hakuaika kiireellisissä hakemuksissa on minimissään kaksi (2) viikkoa ja se alkaa siitä päivästä, kun olette olleet yhteydessä asiakaspalveluun.
+            Mikäli hakemuksenne on kiireellinen, ottakaa yhteyttä viipymättä Varhaiskasvatuksen asiakaspalveluun: varhaiskasvatus.asiakaspalvelu@tampere.fi, puh. 040 800 7260 (ma–pe klo 9–12). Hakuaika kiireellisissä hakemuksissa on minimissään kaksi (2) viikkoa ja se alkaa siitä päivästä, kun olette olleet yhteydessä asiakaspalveluun.
             
             Kirjallinen päätös varhaiskasvatuspaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, päätös lähetetään hänelle postitse.
             
@@ -157,7 +157,7 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
             Varhaiskasvatus ja esiopetus
             Asiakaspalvelu
             varhaiskasvatus.asiakaspalvelu@tampere.fi
-            Puh. 040 800 7260, ma-pe klo 9-12
+            Puh. 040 800 7260, ma–pe klo 9–12
             Postiosoite: PL 487, 33101 Tampere
             www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html
             
