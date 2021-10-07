@@ -109,7 +109,8 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         }
 
         .headerRight .left-column {
-            width: 73%;
+            position: relative;
+            width: 100%;
             display: inline-block;
             margin: 0;
             padding: 0;
@@ -117,7 +118,9 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         }
 
         .headerRight .right-column {
-            width: 25%;
+            position: absolute;
+            top: 0;
+            right: 0;
             display: inline-block;
             text-align: right;
             margin: 0;
@@ -245,9 +248,9 @@ SPDX-License-Identifier: LGPL-2.1-or-later
                     <span th:text="#{header.decisionNumber}">Päätöksen numero</span>
                     <span th:text="${decision.decisionNumber}"></span>
                 </div>
-            </div>
-            <div class="right-column">
-                <div><span th:text="#{header.pageNumber}"></span> <span class="page-number"></span></div>
+                <div class="right-column">
+                    <div><span th:text="#{header.pageNumber}"></span> <span class="page-number"></span></div>
+                </div>
             </div>
         </div>
     </div>
@@ -273,9 +276,9 @@ SPDX-License-Identifier: LGPL-2.1-or-later
                     <span th:text="#{decisionNumber}"></span>
                     <span th:text="${decisionNumber}"></span>
                 </div>
-            </div>
-            <div class="right-column">
-                <div><span th:text="#{header.pageNumber}"></span> <span class="page-number"></span></div>
+                <div class="right-column">
+                    <div><span th:text="#{header.pageNumber}"></span> <span class="page-number"></span></div>
+                </div>
             </div>
         </div>
     </div>
