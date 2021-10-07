@@ -11,3 +11,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 * no new library dependencies can be installed, because these files are basically included in the main eVaka `lib-customizations` builds as is, and don't form a separate package/project
 * customizations can freely be split into multiple files, but everything must be reachable by following the import chain from the main `citizen.tsx` / `employee.tsx` files
 * `employee-mobile-frontend` is not included in this PoC, but it can be added using the same mechanism
+
+# Icons
+
+See [eVaka documentation](https://github.com/espoon-voltti/evaka/blob/master/frontend/README.md#font-awesome-icon-library).
