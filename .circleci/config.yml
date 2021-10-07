@@ -326,8 +326,9 @@ jobs:
       - *restore_repo
       - run:
           name: reuse lint
+          # TODO: remove "true" to enforce check
           command: |
-            reuse lint || {
+            reuse lint || true || {
               echo '';
               echo '=========================================';
               echo 'Please run: ./bin/add-license-headers.sh';
