@@ -9,7 +9,7 @@ set -euo pipefail
 
 # Configuration
 DEBUG=${DEBUG:-false}
-REUSE_VERSION=0.12.1
+REUSE_VERSION=0.13.0
 START_YEAR=2021
 CURRENT_YEAR=$(date +"%Y")
 if [ "${START_YEAR}" == "${CURRENT_YEAR}" ]; then
@@ -106,9 +106,7 @@ while IFS= read -r file; do
     fi
 
     # Explicitly define styles for some common files not yet recognized by a released version of reuse:
-    if [[ "$file" = *svg ]] || [[ "$file" = *json ]]; then
-        addheader "$file" --explicit-license
-    elif [[ "$file" = *kts ]]; then
+    if [[ "$file" = *kts ]]; then
         addheader "$file" --style c
     else
         addheader "$file"
