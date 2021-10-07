@@ -68,7 +68,7 @@ request), run:
 **NOTE:** The tool has no concept for "no license", so currently it will
 always fail for the following files:
 
-- Logos of the city of Tampere
+- [invoicing WSDL files](service/src/main/schema)
 
 ### Automatically add licensing headers
 
