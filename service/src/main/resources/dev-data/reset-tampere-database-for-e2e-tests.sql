@@ -1,3 +1,7 @@
+-- SPDX-FileCopyrightText: 2021 City of Tampere
+--
+-- SPDX-License-Identifier: LGPL-2.1-or-later
+
 CREATE OR REPLACE FUNCTION reset_tampere_database_for_e2e_tests() RETURNS void AS $$
 BEGIN
 EXECUTE (

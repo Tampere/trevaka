@@ -1,3 +1,7 @@
+-- SPDX-FileCopyrightText: 2021 City of Tampere
+--
+-- SPDX-License-Identifier: LGPL-2.1-or-later
+
 INSERT INTO assistance_action_option
     (value, name_fi, display_order)
 VALUES
