@@ -126,6 +126,21 @@ executors:
 commands:
   # Caching commands
 
+  store_build_customizations:
+    steps:
+      - save_cache:
+          name: Store private build customizations
+          key: build-customization-v1-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - customizations
+  restore_build_customizations:
+    steps:
+      - restore_cache:
+          name: Restore private build customizations
+          keys:
+            # Not really intended to be a real cache, so use exact matches
+            - build-customization-v1-{{ .Branch }}-{{ .Revision }}
+
   store_frontend_comm_deps:
     steps:
       - save_cache:
@@ -261,6 +276,12 @@ jobs:
       - restore_frontend_comm_deps
       - aws-cli/install
       - run:
+          name: Fetch build customizations
+          working_directory: *workspace_root
+          command: |
+            aws s3 sync s3://trevaka-dev-deployment/customizations/ ./customizations/
+      - store_build_customizations
+      - run:
           name: Fetch commercial frontend dependencies
           working_directory: *workspace_frontend
           command: |
@@ -386,6 +407,7 @@ jobs:
       - *restore_repo
       - *restore_frontend_node_modules
       - restore_frontend_comm_deps
+      - restore_build_customizations
       - run:
           working_directory: *workspace_frontend
           command: yarn install --immutable
