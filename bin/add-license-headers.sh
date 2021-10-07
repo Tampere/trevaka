@@ -9,7 +9,7 @@ set -euo pipefail
 
 # Configuration
 DEBUG=${DEBUG:-false}
-REUSE_VERSION=0.13.0
+REUSE_VERSION=0.13.0 # NOTE: Update .circleci/config.yml to match
 START_YEAR=2021
 CURRENT_YEAR=$(date +"%Y")
 if [ "${START_YEAR}" == "${CURRENT_YEAR}" ]; then
