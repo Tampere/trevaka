@@ -249,6 +249,7 @@ private fun validVoucherValueDecisionPdfData(
             baseValue = 1,
             childAge = 1,
             ageCoefficient = BigDecimal.ONE,
+            capacityFactor = BigDecimal.ONE,
             voucherValue = 1,
             documentKey = null,
             approvedBy = null,
