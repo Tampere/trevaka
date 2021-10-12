@@ -10,7 +10,10 @@ const config: Config.InitialOptions = {
   testEnvironment: '../../../evaka/frontend/src/e2e-playwright/jest-environment',
   testRunner: 'jest-circus/runner',
   moduleNameMapper: {
-    '^e2e/(.*)$': '<rootDir>/$1'
+    '^e2e/(.*)$': '<rootDir>/$1',
+    '^@evaka/customizations/(.*)': '<rootDir>/../../tampere/$1',
+    '^Icons$': '<rootDir>/../../../evaka/frontend/src/lib-icons/free-icons',
+    '\.(jpg|jpeg|png|svg)$': '<rootDir>/../../../evaka/frontend/assetsTransformer.js'  
   }
 }
 export default config

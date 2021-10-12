@@ -9,6 +9,8 @@
     "types": [
       "jest",
       "node"
-    ]
-  }
+    ],
+    "jsx": "react"
+  },
+  "include": [ "../../webpack.d.ts" ]
 }
