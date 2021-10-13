@@ -1,3 +1,7 @@
+-- SPDX-FileCopyrightText: 2021 City of Tampere
+--
+-- SPDX-License-Identifier: LGPL-2.1-or-later
+
 INSERT INTO unit_manager (id, name, phone, email) VALUES
     ('340ead9c-a1bc-11eb-b5d4-1bc4a624aabe', 'UNIT_MANGER_NAME', 'UNIT_MANAGER_PHONE', 'UNIT_MANAGER_EMAIL@tampere.fi'),
     ('340eae78-a1bc-11eb-b5d6-b30369678b4c', 'UNIT_MANGER_NAME', 'UNIT_MANAGER_PHONE', 'UNIT_MANAGER_EMAIL@tampere.fi'),

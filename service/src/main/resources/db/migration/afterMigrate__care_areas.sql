@@ -1,3 +1,7 @@
+-- SPDX-FileCopyrightText: 2021 City of Tampere
+--
+-- SPDX-License-Identifier: LGPL-2.1-or-later
+
 INSERT INTO care_area
     (id, name, area_code, sub_cost_center, short_name)
 VALUES

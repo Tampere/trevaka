@@ -20,6 +20,7 @@ aliases:
   - &remote_docker_version "20.10.2"
   - &docker_layer_caching false
   - &base_image cimg/base:stable-20.04
+  - &reuse_image fsfe/reuse:0.13.0 # NOTE: Update bin/add-license-headers.sh to match
   - &nodejs_image cimg/node:14.15
   - &ubuntu_machine_image ubuntu-2004:202101-01
 
@@ -106,6 +107,11 @@ executors:
     <<: *default_config
     docker:
       - image: *base_image
+  reuse_tool:
+    docker:
+      - image: *reuse_image
+    resource_class: small
+    working_directory: *workspace_root
   nodejs_executor:
     <<: *node_config
     docker:
@@ -117,6 +123,21 @@ executors:
 
 commands:
   # Caching commands
+
+  store_build_customizations:
+    steps:
+      - save_cache:
+          name: Store private build customizations
+          key: build-customization-v1-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - customizations
+  restore_build_customizations:
+    steps:
+      - restore_cache:
+          name: Restore private build customizations
+          keys:
+            # Not really intended to be a real cache, so use exact matches
+            - build-customization-v1-{{ .Branch }}-{{ .Revision }}
 
   store_frontend_comm_deps:
     steps:
@@ -253,6 +274,12 @@ jobs:
       - restore_frontend_comm_deps
       - aws-cli/install
       - run:
+          name: Fetch build customizations
+          working_directory: *workspace_root
+          command: |
+            aws s3 sync s3://trevaka-dev-deployment/customizations/ ./customizations/
+      - store_build_customizations
+      - run:
           name: Fetch commercial frontend dependencies
           working_directory: *workspace_frontend
           command: |
@@ -290,6 +317,22 @@ jobs:
       - run: git merge --no-ff --no-edit ${CIRCLE_BRANCH}
       - run: git push
       - run: git push --delete origin ${CIRCLE_BRANCH}
+
+  check_licenses:
+    executor: reuse_tool
+    steps:
+      - *restore_repo
+      - run:
+          name: reuse lint
+          # TODO: remove "true" to enforce check
+          command: |
+            reuse lint || true || {
+              echo '';
+              echo '=========================================';
+              echo 'Please run: ./bin/add-license-headers.sh';
+              echo '=========================================';
+              exit 1
+            }
 
   # BUILD JOBS
 
@@ -362,6 +405,7 @@ jobs:
       - *restore_repo
       - *restore_frontend_deps
       - restore_frontend_comm_deps
+      - restore_build_customizations
       - run:
           working_directory: *workspace_frontend
           command: yarn install --immutable
@@ -564,6 +608,9 @@ workflows:
             - trevaka-dev
           requires:
             - checkout_repo
+      - check_licenses:
+          requires:
+            - checkout_repo
       - build_base_image:
           requires:
             - checkout_repo
@@ -638,6 +685,7 @@ workflows:
           context:
             - trevaka-infra
           requires:
+            - check_licenses
             - apigw_push_image
             - frontend_upload_archive
             - proxy_push_image
@@ -651,6 +699,7 @@ workflows:
 
       - merge_branch:
           requires:
+            - check_licenses
             - apigw_push_image
             - frontend_upload_archive
             - proxy_push_image
