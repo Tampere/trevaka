@@ -245,6 +245,11 @@ SPDX-License-Identifier: LGPL-2.1-or-later
     .narrow td {
         padding: 0;
     }
+    .narrow tbody + tbody::before {
+        content: '';
+        display: block;
+        height: 1em;
+    }
 
     th, td {
         min-width: 33%;

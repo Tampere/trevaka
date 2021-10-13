@@ -35,13 +35,13 @@ SPDX-License-Identifier: LGPL-2.1-or-later
     <p th:if="${decisionType == 'RELIEF_REJECTED'}" th:text="#{text.relief.rejected}"></p>
 
     <p th:if="${isReliefDecision}"
-       th:text="${not #strings.isEmpty(validTo)} ? #{text.relief.decision_retroactive(${totalFee}, ${validFor})} : #{text.relief.decision(${totalFee}, ${validFrom})}"></p>
+       th:utext="${not #strings.isEmpty(validTo)} ? #{text.relief.decision_retroactive(${totalFee}, ${validFrom}, ${validTo)} : #{text.relief.decision(${totalFee}, ${validFrom})}"></p>
     <p th:unless="${isReliefDecision}"
-       th:text="${not #strings.isEmpty(validTo)} ? #{text.decision_retroactive(${totalFee}, ${validFor})} : #{text.decision(${totalFee}, ${validFrom})}"></p>
+       th:utext="${not #strings.isEmpty(validTo)} ? #{text.decision_retroactive(${totalFee}, ${validFrom}, ${validTo})} : #{text.decision(${totalFee}, ${validFrom})}"></p>
 
     <p th:text="#{text.table.intro}"></p>
 
-    <table>
+    <table class="narrow">
         <tbody>
         <tr>
             <td th:text="${headFullName}"></td>
@@ -73,17 +73,21 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         </tbody>
     </table>
 
-    <p th:text="#{text.feePercent(${feePercent})}"></p>
+    <p>
+        <span th:text="#{decision.familySize}"></span>
+        <span th:text="${familySize}"></span>
+    </p>
 
-    <table>
+    <table class="narrow">
         <tbody th:each="part: ${parts}">
         <tr>
-            <td th:text="${part.childName}"></td>
+            <td colspan="2" th:text="${part.childName}"></td>
+        </tr>
+        <tr>
             <td th:text="${part.serviceNeedDescription}"></td>
             <td class="text-right" th:text="${part.feeFormatted}"></td>
         </tr>
         <tr th:each="alteration: ${part.feeAlterations}">
-            <td></td>
             <td>
                 <th:block th:switch="${alteration.type.name}">
                     <span th:case="'DISCOUNT'" th:text="#{text.feeAlterationType.DISCOUNT}"></span>
@@ -97,22 +101,22 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             <td class="text-right" th:text="${alteration.effectFormatted}"></td>
         </tr>
         <tr>
-            <td></td>
             <td th:text="#{text.table.finalFee}"></td>
             <td class="text-right" th:text="${part.finalFeeFormatted}"></td>
         </tr>
         </tbody>
         <tbody>
         <tr>
-            <td></td>
-            <td th:text="#{text.table.combined}"></td>
-            <td class="text-right" th:text="${totalFee}"></td>
+            <td><strong class="semi" th:text="#{text.table.combined}"></strong></td>
+            <td class="text-right"><strong class="semi" th:text="${totalFee}"></strong></td>
         </tr>
         </tbody>
     </table>
 
-    <p th:text="#{text.reference}"></p>
-    <a th:href="#{text.referenceUrl}" th:text="#{text.referenceUrl}"></a>
+    <h2 th:text="#{text.reference}"></h2>
+    <p>
+        <a th:href="#{text.referenceUrl}" th:text="#{text.referenceUrl}"></a>
+    </p>
 
 
 </div>
@@ -122,28 +126,34 @@ SPDX-License-Identifier: LGPL-2.1-or-later
     <div class="legal-content">
         <p th:text="#{text.legal.p1}"></p>
         <p th:text="#{text.legal.p2}"></p>
-        <p th:text="#{text.legal.p4}"></p>
-        <p th:text="#{text.legal.p5}"></p>
     </div>
 
-    <div class="document-signed-details">
+    <div th:utext="#{decision.legalInstructions}"></div>
+
+    <div class="decision-details-container">
         <p>
-            <span th:text="#{text.legal.p8}"></span>
+            <strong th:text="#{decision.sentDate}">Päätöspäivä</strong>
             <span th:text="${approvedAt}"></span>
         </p>
-        <div th:text="#{text.legal.p9}"></div>
+        <p>
+            <strong th:text="#{decision.decisionMethodTitle}">Tiedoksiantotapa:</strong>
+            <span th:text="#{decision.decisionMethod.sent}">Lähetetty</span>
+        </p>
+        <p>
+            <strong th:text="#{decision.approver.prefix}">Päätöksentekijä</strong>
+        </p>
         <div>
-            <span th:text="${approverLastName}"></span>,
             <span th:text="${approverFirstName}"></span>
+            <span th:text="${approverLastName}"></span>
         </div>
-        <div th:text="#{text.legal.p16}"></div>
-        <div th:text="#{text.legal.p10}"></div>
-        <div th:text="#{text.legal.p11}"></div>
-        <div th:text="#{text.legal.p12}"></div>
-        <div th:text="#{text.legal.p13}"></div>
-        <div th:text="#{text.legal.p14}"></div>
-        <div th:text="#{text.legal.p15}"></div>
+        <div th:utext="#{decision.approver.title}">Varhaiskasvatuksen palveluohjaaja</div>
+        <div th:utext="#{decision.approver.additionalInfo}">(allekirjoitettu koneellisesti)</div>
+
+        <p th:utext="#{decision.approver.details}"></p>
+
     </div>
+
+    <p th:text="#{decision.inform.guardians}">Tiedoksi: Huoltajat</p>
 
 </div>
 
