@@ -295,7 +295,7 @@ INSERT INTO daycare (id, name, type, care_area_id, phone, url, created, updated,
     ('206cbb96-b24a-11eb-8a4c-f72c88fdf3b1', 'Enkku - The English School of Tampere', '{CENTRE}', (SELECT id FROM care_area WHERE short_name = 'lansi'), NULL, NULL, '2021-05-11 11:15:00.624793+00', '2021-05-12 07:20:45.843207+00', NULL, NULL, '2021-05-11', NULL, NULL, NULL, NULL, '206cb934-b24a-11eb-8a4b-278173a5cc2c', NULL, false, 0, '', '', '', '', 'Amurinkuja 2 B', '33230', 'Tampere', NULL, '(23.74533,61.49882)', '', NULL, NULL, false, 'PRIVATE', 'fi', false, '', '', '', '{}', false, NULL, NULL, NULL, NULL, false);
 
 INSERT INTO daycare_group (daycare_id, name, start_date, end_date)
-SELECT id, 'Ryhmä ' || r, opening_date, COALESCE(closing_date, 'infinity'::date)
+SELECT id, 'Ryhmä ' || r, opening_date, COALESCE(closing_date, NULL)
 FROM daycare CROSS JOIN generate_series(1, 3) AS r;
 
 INSERT INTO message_account (daycare_group_id)
