@@ -266,7 +266,7 @@ const fi: DeepPartial<Translations> = {
           tulotietojasi toimittamalla uuden lomakkeen.
           <br />
           <a href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html">
-            Lisätietoja maksuista
+            Lisätietoja asiakasmaksuista
           </a>
         </p>
         <p data-qa="income-description-p2">
