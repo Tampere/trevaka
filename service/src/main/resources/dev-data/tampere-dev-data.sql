@@ -295,7 +295,7 @@ INSERT INTO daycare (id, name, type, care_area_id, phone, url, created, updated,
     ('206cbb96-b24a-11eb-8a4c-f72c88fdf3b1', 'Enkku - The English School of Tampere', '{CENTRE}', (SELECT id FROM care_area WHERE short_name = 'lansi'), NULL, NULL, '2021-05-11 11:15:00.624793+00', '2021-05-12 07:20:45.843207+00', NULL, NULL, '2021-05-11', NULL, NULL, NULL, NULL, '206cb934-b24a-11eb-8a4b-278173a5cc2c', NULL, false, 0, '', '', '', '', 'Amurinkuja 2 B', '33230', 'Tampere', NULL, '(23.74533,61.49882)', '', NULL, NULL, false, 'PRIVATE', 'fi', false, '', '', '', '{}', false, NULL, NULL, NULL, NULL, false);
 
 INSERT INTO daycare_group (daycare_id, name, start_date, end_date)
-SELECT id, 'Ryhmä ' || r, opening_date, COALESCE(closing_date, 'infinity'::date)
+SELECT id, 'Ryhmä ' || r, opening_date, COALESCE(closing_date, NULL)
 FROM daycare CROSS JOIN generate_series(1, 3) AS r;
 
 INSERT INTO message_account (daycare_group_id)
@@ -335,3 +335,30 @@ WHERE EXISTS(
     FROM daycare_acl acl
     WHERE acl.employee_id = e.id
     AND acl.role IN ('UNIT_SUPERVISOR', 'SPECIAL_EDUCATION_TEACHER'));
+
+INSERT INTO fee_thresholds (
+    valid_during,
+    min_income_threshold_2, min_income_threshold_3, min_income_threshold_4, min_income_threshold_5, min_income_threshold_6,
+    income_multiplier_2, income_multiplier_3, income_multiplier_4, income_multiplier_5, income_multiplier_6,
+    max_income_threshold_2, max_income_threshold_3, max_income_threshold_4, max_income_threshold_5, max_income_threshold_6,
+    income_threshold_increase_6_plus,
+    sibling_discount_2, sibling_discount_2_plus,
+    max_fee, min_fee
+) VALUES (
+    daterange('2000-01-01', '2020-07-31', '[]'),
+    210200, 271300, 308000, 344700, 381300,
+    0.1070, 0.1070, 0.1070, 0.1070, 0.1070,
+    479900, 541000, 577700, 614400, 651000,
+    14200,
+    0.5, 0.8,
+    28900, 2700
+),
+(
+    daterange('2020-08-01', NULL),
+    213600, 275600, 312900, 350200, 387400,
+    0.1070, 0.1070, 0.1070, 0.1070, 0.1070,
+    482300, 544300, 581600, 618900, 656100,
+    14200,
+    0.5, 0.8,
+    28800, 2700
+);
