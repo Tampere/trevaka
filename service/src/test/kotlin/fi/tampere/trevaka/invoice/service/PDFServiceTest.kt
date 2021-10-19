@@ -17,6 +17,7 @@ import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionDetailed
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionPlacementDetailed
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionServiceNeed
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionStatus
+import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionType
 import fi.espoo.evaka.invoicing.service.DocumentLang
 import fi.espoo.evaka.invoicing.service.FeeDecisionPdfData
 import fi.espoo.evaka.invoicing.service.PDFService
@@ -205,6 +206,7 @@ private fun validVoucherValueDecisionPdfData(
             validTo,
             VoucherValueDecisionStatus.WAITING_FOR_SENDING,
             decisionNumber = null,
+            decisionType = VoucherValueDecisionType.NORMAL,
             headOfFamily = headOfFamily,
             partner = null,
             headOfFamilyIncome = null,
