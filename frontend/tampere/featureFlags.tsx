@@ -23,6 +23,7 @@ const featureFlags: FeatureFlags = {
   experimental: {
     incomeStatements: true,
     messageAttachments: true,
+    realtimeStaffAttendance: true,
     vasu: true
   },
   pedagogicalDocumentsEnabled: true
