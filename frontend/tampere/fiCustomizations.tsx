@@ -48,6 +48,12 @@ const fi: DeepPartial<Translations> = {
       }
     },
     editor: {
+      unitPreference: {
+        units: {
+          serviceVoucherLink:
+            'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit'
+        }
+      },
       heading: {
         info: {
           DAYCARE: (
