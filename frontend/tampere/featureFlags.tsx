@@ -22,6 +22,7 @@ const featureFlags: FeatureFlags = {
   assistanceBasisOtherEnabled: false,
   experimental: {
     messageAttachments: true,
+    realtimeStaffAttendance: true,
     vasu: true
   },
   pedagogicalDocumentsEnabled: true
