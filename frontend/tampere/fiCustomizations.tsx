@@ -51,7 +51,7 @@ const fi: DeepPartial<Translations> = {
       unitPreference: {
         units: {
           serviceVoucherLink:
-            'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit',
+            'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit'
         }
       },
       heading: {
@@ -163,7 +163,7 @@ const fi: DeepPartial<Translations> = {
           label: {
             DAYCARE: 'Palveluntarve'
           }
-        },
+        }
       },
       contactInfo: {
         info: (
