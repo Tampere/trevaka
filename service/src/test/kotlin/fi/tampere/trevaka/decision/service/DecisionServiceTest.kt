@@ -4,6 +4,8 @@
 
 package fi.tampere.trevaka.decision.service
 
+import fi.espoo.evaka.application.ServiceNeed
+import fi.espoo.evaka.application.ServiceNeedOption
 import fi.espoo.evaka.daycare.domain.ProviderType
 import fi.espoo.evaka.daycare.service.DaycareManager
 import fi.espoo.evaka.decision.Decision
@@ -59,6 +61,16 @@ class DecisionServiceTest : AbstractIntegrationTest() {
             guardian = validGuardian(),
             child = validChild(),
             isTransferApplication = false,
+            serviceNeed = when (decisionType) {
+                DecisionType.CLUB -> null
+                else -> ServiceNeed(
+                    startTime = "08:00",
+                    endTime = "16:00",
+                    shiftCare = false,
+                    partTime = false,
+                    ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1")
+                )
+            },
             lang = "fi",
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
         )
@@ -77,6 +89,13 @@ class DecisionServiceTest : AbstractIntegrationTest() {
             guardian = validGuardian(),
             child = validChild(),
             isTransferApplication = true,
+            serviceNeed = ServiceNeed(
+                startTime = "08:00",
+                endTime = "16:00",
+                shiftCare = false,
+                partTime = false,
+                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1")
+            ),
             lang = "fi",
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
         )
@@ -95,6 +114,13 @@ class DecisionServiceTest : AbstractIntegrationTest() {
             guardian = validGuardian(),
             child = validChild(),
             isTransferApplication = false,
+            serviceNeed = ServiceNeed(
+                startTime = "08:00",
+                endTime = "16:00",
+                shiftCare = false,
+                partTime = false,
+                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1")
+            ),
             lang = "fi",
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
         )
@@ -113,6 +139,13 @@ class DecisionServiceTest : AbstractIntegrationTest() {
             guardian = validGuardian(true),
             child = validChild(true),
             isTransferApplication = false,
+            serviceNeed = ServiceNeed(
+                startTime = "08:00",
+                endTime = "16:00",
+                shiftCare = false,
+                partTime = false,
+                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1")
+            ),
             lang = "fi",
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
         )
