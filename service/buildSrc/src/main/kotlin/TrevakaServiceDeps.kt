@@ -4,7 +4,7 @@
 
 object TrevakaServiceDeps {
     const val kotlin = "1.5.10"
-    const val springBoot = "2.5.1"
+    const val springBoot = "2.5.6"
     const val springCloud = "2020.0.2"
     const val java = "11"
     const val xjc = "2.0.0"
