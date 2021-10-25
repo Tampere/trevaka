@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
 object TrevakaServiceDeps {
-    const val kotlin = "1.5.10"
+    const val kotlin = "1.5.31"
     const val springBoot = "2.5.6"
     const val springCloud = "2020.0.2"
     const val java = "11"
