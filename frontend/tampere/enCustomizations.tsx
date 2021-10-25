@@ -13,19 +13,19 @@ import React from 'react'
 
 const en: DeepPartial<Translations> = {
   applicationsList: {
-    title: 'TODO (en) Hakeminen varhaiskasvatukseen',
+    title: 'Applying for early childhood education',
     summary: (
       <P width="800px">
-        TODO (en) Lapsen huoltaja voi tehdä lapselleen hakemuksen
-        varhaiskasvatukseen ja kerhoon. Huoltajan lasten tiedot haetaan tähän
-        näkymään automaattisesti Väestötietojärjestelmästä.
+        The child’s custodian can apply for early childhood education and a club
+        for the child.  Information about the custodian’s children is
+        automatically retrieved from the Population data register for this view.
       </P>
     )
   },
   footer: {
     cityLabel: '© City of Tampere',
-    privacyPolicyLink: 'TODO',
-    sendFeedbackLink: 'TODO'
+    privacyPolicyLink: 'https://www.tampere.fi/tampereen-kaupunki/yhteystiedot-ja-asiointi/verkkoasiointi/tietosuoja/tietosuojaselosteet.html',
+    sendFeedbackLink: 'https://www.tampere.fi/en/feedback.html.stx'
   }
 }
 
