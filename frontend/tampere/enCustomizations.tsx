@@ -77,6 +77,22 @@ const en: DeepPartial<Translations> = {
               </P>
               <P fitted={true}>* Information marked with a star is required</P>
             </>
+          ),
+          CLUB: (
+            <>
+              <P>
+                A place at a club can be applied for all year round. A municipal place in a club or one supported with a service voucher can be applied for with a club application. A written confirmation of a place in a club will be sent to the Suomi.fi Messages service. If you wish to have the notice in electronic form, you must activate the Suomi.fi Messages service. Further information on the service and its activation is available at{' '}
+                <ExternalLink
+                  text="https://www.suomi.fi/messages"
+                  href="https://www.suomi.fi/messages"
+                  newTab
+                />
+                . If you do not activate the suomi.fi/messages service, the notice of the place at the club will be sent to you by post. A place is granted for one administrative period at a time.
+              </P>
+              <P>
+                The club application is for one such period. Once the period in question ends, the application is removed from the system.
+              </P>
+            </>
           )
         }
       },
@@ -90,6 +106,12 @@ const en: DeepPartial<Translations> = {
               {customerContactText()}
             </>
           )
+        },
+        clubDetails: {
+          wasOnDaycareInfo:
+            'If a child has been in municipal day care or family care or they give up their place when the club starts, they have a greater chance to obtain the place in the club.',
+          wasOnClubCareInfo:
+            'If the child has been in the club already during the previous period, they have a greater chance also to obtain a place from the club during the forthcoming period.'
         },
         urgent: {
           attachmentsMessage: {
@@ -114,6 +136,7 @@ const en: DeepPartial<Translations> = {
         assistanceNeedInstructions: {
           DAYCARE:
             'Intensified or special care is given to a child as soon as the need arises. If a child has received an expert opinion backing the need for support, this must be notified in the early childhood education application. The support measures are carried out in the child’s daily life as part of the early childhood educational activities. Tampere’s early childhood education will separately be in contact after the application has been submitted, if the child has a need for support.',
+          CLUB: 'If the child has a need for support, the staff of Tampere’s early childhood education will get in contact the application has been submitted.'
         },
         partTime: {
           true: 'Part-time'
