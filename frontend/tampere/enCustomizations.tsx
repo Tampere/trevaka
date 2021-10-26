@@ -220,6 +220,13 @@ const en: DeepPartial<Translations> = {
     cityLabel: '© City of Tampere',
     privacyPolicyLink: 'https://www.tampere.fi/tampereen-kaupunki/yhteystiedot-ja-asiointi/verkkoasiointi/tietosuoja/tietosuojaselosteet.html',
     sendFeedbackLink: 'https://www.tampere.fi/en/feedback.html.stx'
+  },
+  map: {
+    mainInfo: `In this view you can locate on the map all of Tampere’s early childhood education units and clubs. Regional service voucher units and clubs can also be found on the map.`,
+    privateUnitInfo: <></>,
+    serviceVoucherLink:
+      'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit',
+    searchPlaceholder: 'For example Jukolankatu 7 or Amurin päiväkoti'
   }
 }
 
