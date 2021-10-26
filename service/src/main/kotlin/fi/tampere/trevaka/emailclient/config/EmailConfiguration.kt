@@ -57,15 +57,15 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
             
             <p>Lisätietoa hakemuksen käsittelystä ja kerhopaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta:</p>
             
-            <pre>
-            Tampereen kaupunki
-            Sivistyspalvelut
-            Varhaiskasvatus ja esiopetus
-            Asiakaspalvelu
-            <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a>
-            Puh. <a href="tel:+358408007260">040&nbsp;800&nbsp;7260</a> (ma–pe klo 9–12)
+            <p>
+            Tampereen kaupunki<br/>
+            Sivistyspalvelut<br/>
+            Varhaiskasvatus ja esiopetus<br/>
+            Asiakaspalvelu<br/>
+            <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a><br/>
+            Puh. <a href="tel:+358408007260">040&nbsp;800&nbsp;7260</a> (ma–pe klo 9–12)<br/>
             <a href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html">www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html</a>
-            </pre>
+            </p>
             
             <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
         """.trimIndent()
@@ -119,16 +119,16 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
             
             <p>Lisätietoa hakemuksen käsittelystä ja varhaiskasvatuspaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta:</p>
             
-            <pre>
-            Tampereen kaupunki
-            Sivistyspalvelut
-            Varhaiskasvatus ja esiopetus
-            Asiakaspalvelu
-            <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a>
-            Puh. <a href="tel:+358408007260">040&nbsp;800&nbsp;7260</a>, ma–pe klo 9–12
-            Postiosoite: PL 487, 33101 Tampere
+            <p>
+            Tampereen kaupunki<br/>
+            Sivistyspalvelut<br/>
+            Varhaiskasvatus ja esiopetus<br/>
+            Asiakaspalvelu<br/>
+            <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a><br/>
+            Puh. <a href="tel:+358408007260">040&nbsp;800&nbsp;7260</a>, ma–pe klo 9–12<br/>
+            Postiosoite: PL 487, 33101 Tampere<br/>
             <a href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html">www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html</a>
-            </pre>
+            </p>
             
             <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
         """.trimIndent()
