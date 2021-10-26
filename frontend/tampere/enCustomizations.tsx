@@ -20,7 +20,8 @@ const customerContactText = function () {
       <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">
         varhaiskasvatus.asiakaspalvelu@tampere.fi
       </a>{' '}
-      / <a href="tel:+358408007260">040 800 7260</a> (Mon-Fri between 9am and 12noon).
+      / <a href="tel:+358408007260">040 800 7260</a> (Mon-Fri between 9am and
+      12noon).
     </>
   )
 }
@@ -56,17 +57,17 @@ const en: DeepPartial<Translations> = {
                 round. The application for early childhood education must be
                 submitted no later than four months prior to the desired start
                 date. If the need for early childhood education is due to
-                employment, studies or training, and it has not been possible
-                to anticipate the need for care, an early childhood education
-                place must be sought as soon as possible – however, no later
-                than two weeks before the child needs the place.
+                employment, studies or training, and it has not been possible to
+                anticipate the need for care, an early childhood education place
+                must be sought as soon as possible – however, no later than two
+                weeks before the child needs the place.
               </P>
               <P>
                 A written decision on the early childhood education place will
                 be sent to the Suomi.fi Messages service. If you wish to be
                 notified of the decision electronically, you will need to
-                activate the Suomi.fi Messages service. Further information
-                on the service and its activation is available at{' '}
+                activate the Suomi.fi Messages service. Further information on
+                the service and its activation is available at{' '}
                 <ExternalLink
                   text="https://www.suomi.fi/messages"
                   href="https://www.suomi.fi/messages"
@@ -81,16 +82,25 @@ const en: DeepPartial<Translations> = {
           CLUB: (
             <>
               <P>
-                A place at a club can be applied for all year round. A municipal place in a club or one supported with a service voucher can be applied for with a club application. A written confirmation of a place in a club will be sent to the Suomi.fi Messages service. If you wish to have the notice in electronic form, you must activate the Suomi.fi Messages service. Further information on the service and its activation is available at{' '}
+                A place at a club can be applied for all year round. A municipal
+                place in a club or one supported with a service voucher can be
+                applied for with a club application. A written confirmation of a
+                place in a club will be sent to the Suomi.fi Messages service.
+                If you wish to have the notice in electronic form, you must
+                activate the Suomi.fi Messages service. Further information on
+                the service and its activation is available at{' '}
                 <ExternalLink
                   text="https://www.suomi.fi/messages"
                   href="https://www.suomi.fi/messages"
                   newTab
                 />
-                . If you do not activate the suomi.fi/messages service, the notice of the place at the club will be sent to you by post. A place is granted for one administrative period at a time.
+                . If you do not activate the suomi.fi/messages service, the
+                notice of the place at the club will be sent to you by post. A
+                place is granted for one administrative period at a time.
               </P>
               <P>
-                The club application is for one such period. Once the period in question ends, the application is removed from the system.
+                The club application is for one such period. Once the period in
+                question ends, the application is removed from the system.
               </P>
             </>
           )
@@ -117,8 +127,11 @@ const en: DeepPartial<Translations> = {
           attachmentsMessage: {
             text: (
               <P fitted={true}>
-                If the need for an early child education place is due to sudden employment or obtaining a study place, the early childhood education place must be sought no later than two weeks before the need for care starts. Furthermore, the custodian must make contact, without delay, with the{' '}
-                {customerContactText()}
+                If the need for an early child education place is due to sudden
+                employment or obtaining a study place, the early childhood
+                education place must be sought no later than two weeks before
+                the need for care starts. Furthermore, the custodian must make
+                contact, without delay, with the {customerContactText()}
               </P>
             )
           }
@@ -158,10 +171,10 @@ const en: DeepPartial<Translations> = {
               href="https://dvv.fi/en/certificates-from-the-population-information-system."
               newTab
             />
-            . If your address is about to change, you can add the new address in a
-            separate field in the application. Add a future address for both the
-            child and guardian. The address information will be official only
-            when it has been updated to the database of the Digital and
+            . If your address is about to change, you can add the new address in
+            a separate field in the application. Add a future address for both
+            the child and guardian. The address information will be official
+            only when it has been updated to the database of the Digital and
             Population Data Services Agency. The decision on early childhood
             education and service vouchers, as well as the information on the
             location of an early childhood education club is automatically also
@@ -176,13 +189,21 @@ const en: DeepPartial<Translations> = {
         info: {
           DAYCARE: (
             <P>
-              The client fees for municipal early childhood education and the own deductible part of the service voucher are based on the Act on Client Fees in Early Childhood Education and Care (1503/2016). The client fee is determined by the size of the family, the need for service as well the gross income.  New clients must fill in the client fee form and submit the required appendices to the Client fees of Early childhood education within a month from when the care started at the latest.
+              The client fees for municipal early childhood education and the
+              own deductible part of the service voucher are based on the Act on
+              Client Fees in Early Childhood Education and Care (1503/2016). The
+              client fee is determined by the size of the family, the need for
+              service as well the gross income. New clients must fill in the
+              client fee form and submit the required appendices to the Client
+              fees of Early childhood education within a month from when the
+              care started at the latest.
             </P>
           )
         },
         links: (
           <P>
-            You will find further information on client fees for early childhood education on{' '}
+            You will find further information on client fees for early childhood
+            education on{' '}
             <ExternalLink
               href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html"
               text="the website of the City of Tampere"
@@ -194,13 +215,15 @@ const en: DeepPartial<Translations> = {
       additionalDetails: {
         dietInfo: (
           <>
-            For special diets, a custodian shall submit to the early childhood education location{' '}
+            For special diets, a custodian shall submit to the early childhood
+            education location{' '}
             <ExternalLink
               href="https://www.tampere.fi/sosiaali-ja-terveyspalvelut/erityisruokavaliot.html"
               text="the form ‘Clarification of a special diet’"
               newTab
             />
-            , filled in and signed by a doctor or a nutritional therapist, which is for a fixed time period.
+            , filled in and signed by a doctor or a nutritional therapist, which
+            is for a fixed time period.
           </>
         )
       }
@@ -211,14 +234,16 @@ const en: DeepPartial<Translations> = {
     summary: (
       <P width="800px">
         The child’s custodian can apply for early childhood education and a club
-        for the child. Information about the custodian’s children isautomatically
-        retrieved from the Population data register for this view.
+        for the child. Information about the custodian’s children
+        isautomatically retrieved from the Population data register for this
+        view.
       </P>
     )
   },
   footer: {
     cityLabel: '© City of Tampere',
-    privacyPolicyLink: 'https://www.tampere.fi/tampereen-kaupunki/yhteystiedot-ja-asiointi/verkkoasiointi/tietosuoja/tietosuojaselosteet.html',
+    privacyPolicyLink:
+      'https://www.tampere.fi/tampereen-kaupunki/yhteystiedot-ja-asiointi/verkkoasiointi/tietosuoja/tietosuojaselosteet.html',
     sendFeedbackLink: 'https://www.tampere.fi/en/feedback.html.stx'
   },
   map: {
