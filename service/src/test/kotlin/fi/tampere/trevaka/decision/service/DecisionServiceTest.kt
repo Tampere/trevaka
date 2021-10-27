@@ -194,6 +194,7 @@ private fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(
 private fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
     UUID.randomUUID(),
     ExternalIdentifier.SSN.getInstance("070682-924A"),
+    ssnAddingDisabled = false,
     firstName = "Maija",
     lastName = "Meikäläinen",
     email = null,
@@ -209,6 +210,7 @@ private fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO
 private fun validChild(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
     UUID.randomUUID(),
     ExternalIdentifier.SSN.getInstance("010115A9532"),
+    ssnAddingDisabled = false,
     firstName = "Matti",
     lastName = "Meikäläinen",
     email = null,
