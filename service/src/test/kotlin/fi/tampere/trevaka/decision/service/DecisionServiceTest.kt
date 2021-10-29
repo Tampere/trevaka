@@ -16,6 +16,7 @@ import fi.espoo.evaka.decision.createDecisionPdf
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
 import fi.espoo.evaka.identity.ExternalIdentifier
 import fi.espoo.evaka.pis.service.PersonDTO
+import fi.espoo.evaka.setting.SettingType
 import fi.espoo.evaka.shared.ApplicationId
 import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.DecisionId
@@ -57,6 +58,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
             messageProvider,
             templateProvider,
             pdfService,
+            mapOf(),
             validDecision(decisionType, validDecisionUnit(ProviderType.MUNICIPAL)),
             guardian = validGuardian(),
             child = validChild(),
@@ -80,11 +82,41 @@ class DecisionServiceTest : AbstractIntegrationTest() {
     }
 
     @Test
+    fun createDecisionPdfWithSettings() {
+        val bytes = createDecisionPdf(
+            messageProvider,
+            templateProvider,
+            pdfService,
+            mapOf(
+                SettingType.DECISION_MAKER_NAME to "Sirpa Sijainen",
+                SettingType.DECISION_MAKER_TITLE to "Palveluohjaaja"
+            ),
+            validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.MUNICIPAL)),
+            guardian = validGuardian(),
+            child = validChild(),
+            isTransferApplication = false,
+            serviceNeed = ServiceNeed(
+                startTime = "08:00",
+                endTime = "16:00",
+                shiftCare = false,
+                partTime = false,
+                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1")
+            ),
+            lang = "fi",
+            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
+        )
+
+        val filepath = "${Paths.get("build").toAbsolutePath()}/reports/DecisionServiceTest-DAYCARE-settings.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
     fun createDaycareTransferDecisionPdf() {
         val bytes = createDecisionPdf(
             messageProvider,
             templateProvider,
             pdfService,
+            mapOf(),
             validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.MUNICIPAL)),
             guardian = validGuardian(),
             child = validChild(),
@@ -110,6 +142,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
             messageProvider,
             templateProvider,
             pdfService,
+            mapOf(),
             validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.PRIVATE_SERVICE_VOUCHER)),
             guardian = validGuardian(),
             child = validChild(),
@@ -135,6 +168,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
             messageProvider,
             templateProvider,
             pdfService,
+            mapOf(),
             validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.MUNICIPAL)),
             guardian = validGuardian(true),
             child = validChild(true),
