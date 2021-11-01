@@ -251,7 +251,7 @@ const en: DeepPartial<Translations> = {
     privateUnitInfo: <></>,
     serviceVoucherLink:
       'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit',
-    searchPlaceholder: 'For example Jukolankatu 7 or Amurin päiväkoti'
+    searchPlaceholder: 'E.g. Amurin päiväkoti'
   }
 }
 
