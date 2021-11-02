@@ -401,6 +401,7 @@ jobs:
 
   frontend_build:
     executor: nodejs_executor
+    resource_class: medium+
     steps:
       - *restore_repo
       - *restore_frontend_deps
