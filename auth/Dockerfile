@@ -2,4 +2,4 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-FROM quay.io/keycloak/keycloak:13.0.1
+FROM quay.io/keycloak/keycloak:14.0.0
