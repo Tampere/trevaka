@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Configuration
 class TampereConfig {
 
     @Bean
-    fun featureFlags(): FeatureFlags = FeatureFlags.defaults()
+    fun featureFlags(): FeatureFlags = FeatureFlags(
+        valueDecisionCapacityFactorEnabled = true,
+        daycareApplicationServiceNeedOptionsEnabled = true
+    )
 
 }

@@ -10,7 +10,6 @@ import { FeatureFlags } from 'lib-customizations/types'
 
 const featureFlags: FeatureFlags = {
   daycareApplication: {
-    serviceNeedOptionsEnabled: true,
     dailyTimesEnabled: false
   },
   groupsTableServiceNeedsEnabled: true,
