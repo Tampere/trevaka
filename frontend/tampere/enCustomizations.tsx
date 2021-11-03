@@ -234,9 +234,8 @@ const en: DeepPartial<Translations> = {
     summary: (
       <P width="800px">
         The child’s custodian can apply for early childhood education and a club
-        for the child. Information about the custodian’s children
-        isautomatically retrieved from the Population data register for this
-        view.
+        for the child. Information about the custodian’s children is
+        automatically retrieved from the Population data register for this view.
       </P>
     )
   },
