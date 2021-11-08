@@ -153,7 +153,7 @@ describe('Citizen applications page', () => {
     await newApplicationButton.click()
     let daycareApplicationRadio = new RawElement(page, '[data-qa="type-radio-DAYCARE"]')
     await daycareApplicationRadio.click()
-    await waitUntilTrue(() => page.isVisible('[data-qa="duplicate-application-notification"]'))
+    await waitUntilEqual(() => page.innerText('[data-qa="duplicate-application-notification"]'), 'Lapsella on jo samantyyppinen, keskeneräinen hakemus. Palaa Hakemukset-näkymään ja muokkaa olemassa olevaa hakemusta tai ota yhteyttä Varhaiskasvatuksen asiakaspalveluun.')
   }),
   test('Club application form customizations', async () => {
     await header.selectTab('applications')

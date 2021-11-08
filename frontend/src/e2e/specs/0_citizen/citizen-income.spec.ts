@@ -41,7 +41,7 @@ describe('Citizen income page', () => {
 
     let incomeDescriptionP1 = new RawElement(page, '[data-qa="income-description-p1"]')
     await incomeDescriptionP1.waitUntilVisible()
-    await waitUntilEqual(() => incomeDescriptionP1.innerText, 'Tällä sivulla voit lähettää selvitykset varhaiskasvatusmaksuun vaikuttavista tuloistasi. Voit myös tarkastella palauttamiasi tuloselvityksiä ja muokata tai poistaa niitä kunnes viranomainen on käsitellyt tiedot. Lomakkeen käsittelyn jälkeen voit päivittää tulotietojasi toimittamalla uuden lomakkeen.\nLisätietoja maksuista')
+    await waitUntilEqual(() => incomeDescriptionP1.innerText, 'Tällä sivulla voit lähettää selvitykset varhaiskasvatusmaksuun vaikuttavista tuloistasi. Voit myös tarkastella palauttamiasi tuloselvityksiä ja muokata tai poistaa niitä kunnes viranomainen on käsitellyt tiedot. Lomakkeen käsittelyn jälkeen voit päivittää tulotietojasi toimittamalla uuden lomakkeen.\nLisätietoja asiakasmaksuista')
     let incomeDescriptionP2 = new RawElement(page, '[data-qa="income-description-p2"]')
     await incomeDescriptionP2.waitUntilVisible()
     await waitUntilEqual(() => incomeDescriptionP2.innerText, 'Kunnallisen varhaiskasvatuksen asiakasmaksut määräytyvät prosenttiosuutena perheen bruttotuloista. Maksut vaihtelevat perheen koon ja tulojen sekä varhaiskasvatusajan mukaan. Tarkista alla olevasta taulukosta tarvitseeko sinun toimittaa tuloselvitystä, vai kuuluuko perheenne automaattisesti korkeimman varhaiskasvatusmaksun piiriin.')
