@@ -21,10 +21,9 @@ const featureFlags: FeatureFlags = {
   assistanceBasisOtherEnabled: false,
   experimental: {
     messageAttachments: true,
-    realtimeStaffAttendance: true,
-    vasu: true
+    realtimeStaffAttendance: true
   },
-  pedagogicalDocumentsEnabled: true
+  adminSettingsEnabled: true
 }
 
 export default featureFlags

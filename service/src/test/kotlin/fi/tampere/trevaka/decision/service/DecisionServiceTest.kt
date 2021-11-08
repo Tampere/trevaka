@@ -70,7 +70,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                     endTime = "16:00",
                     shiftCare = false,
                     partTime = false,
-                    ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1")
+                    ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1", "Palveluntarve 1", "Palveluntarve 1")
                 )
             },
             lang = "fi",
@@ -100,7 +100,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                 endTime = "16:00",
                 shiftCare = false,
                 partTime = false,
-                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1")
+                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1", "Palveluntarve 1", "Palveluntarve 1")
             ),
             lang = "fi",
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
@@ -126,7 +126,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                 endTime = "16:00",
                 shiftCare = false,
                 partTime = false,
-                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1")
+                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1", "Palveluntarve 1", "Palveluntarve 1")
             ),
             lang = "fi",
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
@@ -152,7 +152,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                 endTime = "16:00",
                 shiftCare = false,
                 partTime = false,
-                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1")
+                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1", "Palveluntarve 1", "Palveluntarve 1")
             ),
             lang = "fi",
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
@@ -178,7 +178,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                 endTime = "16:00",
                 shiftCare = false,
                 partTime = false,
-                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1")
+                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1", "Palveluntarve 1", "Palveluntarve 1")
             ),
             lang = "fi",
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
