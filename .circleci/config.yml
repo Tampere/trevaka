@@ -21,7 +21,7 @@ aliases:
   - &docker_layer_caching false
   - &base_image cimg/base:stable-20.04
   - &reuse_image fsfe/reuse:0.13.0 # NOTE: Update bin/add-license-headers.sh to match
-  - &nodejs_image cimg/node:14.15
+  - &nodejs_image cimg/node:16.13
   - &ubuntu_machine_image ubuntu-2004:202101-01
 
   - &default_config
