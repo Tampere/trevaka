@@ -195,6 +195,7 @@ commands:
             SENTRY_NO_PROGRESS_BAR: "1"
             EVAKA_CUSTOMIZATIONS: tampere
           command: |
+            export APP_COMMIT="$CIRCLE_SHA1"
             ICONS=pro yarn build
 
   load_base_image:
