@@ -32,7 +32,7 @@ const en: DeepPartial<Translations> = {
       daycareInfo:
         'An applicant for early childhood education applies for a place in a municipal day care centre or family day care, an outsourced service day care centre or a day care centre supported by a service voucher.',
       clubInfo:
-        'With a club application one may apply for a place at municipal clubs or clubs supported by a service voucher.  ',
+        'With a club application one may apply for a place at municipal clubs or clubs supported by a service voucher.',
       applicationInfo: (
         <P>
           The custodian can make amendments to the application on the web up
@@ -42,9 +42,11 @@ const en: DeepPartial<Translations> = {
           {customerContactText()}
         </P>
       ),
+      duplicateWarning:
+        'The child already has a similar unfinished application. Please return to the Applications view and complete the existing application or contact the customer service of the Early childhood education.',
       transferApplicationInfo: {
         DAYCARE:
-          'The child already has a place in early childhood education in Tampere.  With this application you can apply for a transfer to another unit offering early childhood education in Tampere.'
+          'The child already has a place in early childhood education in Tampere. With this application you can apply for a transfer to another unit offering early childhood education in Tampere.'
       }
     },
     editor: {

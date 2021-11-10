@@ -42,6 +42,8 @@ const fi: DeepPartial<Translations> = {
           {customerContactText()}
         </P>
       ),
+      duplicateWarning:
+        'Lapsella on jo samantyyppinen, keskeneräinen hakemus. Palaa Hakemukset-näkymään ja muokkaa olemassa olevaa hakemusta tai ota yhteyttä Varhaiskasvatuksen asiakaspalveluun.',
       transferApplicationInfo: {
         DAYCARE:
           'Lapsella on jo paikka Tampereen varhaiskasvatuksessa. Tällä hakemuksella voit hakea siirtoa toiseen varhaiskasvatusta tarjoavaan yksikköön Tampereella.'
