@@ -33,6 +33,11 @@ import java.nio.file.Paths
 import java.time.LocalDate
 import java.util.UUID
 
+private val settings = mapOf(
+    SettingType.DECISION_MAKER_NAME to "Paula Palvelupäällikkö",
+    SettingType.DECISION_MAKER_TITLE to "Asiakaspalvelupäällikkö"
+)
+
 class DecisionServiceTest : AbstractIntegrationTest() {
 
     @Autowired
@@ -58,7 +63,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
             messageProvider,
             templateProvider,
             pdfService,
-            mapOf(),
+            settings,
             validDecision(decisionType, validDecisionUnit(ProviderType.MUNICIPAL)),
             guardian = validGuardian(),
             child = validChild(),
@@ -82,15 +87,12 @@ class DecisionServiceTest : AbstractIntegrationTest() {
     }
 
     @Test
-    fun createDecisionPdfWithSettings() {
+    fun createDecisionPdfWithoutSettings() {
         val bytes = createDecisionPdf(
             messageProvider,
             templateProvider,
             pdfService,
-            mapOf(
-                SettingType.DECISION_MAKER_NAME to "Sirpa Sijainen",
-                SettingType.DECISION_MAKER_TITLE to "Palveluohjaaja"
-            ),
+            mapOf(),
             validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.MUNICIPAL)),
             guardian = validGuardian(),
             child = validChild(),
@@ -106,7 +108,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
         )
 
-        val filepath = "${Paths.get("build").toAbsolutePath()}/reports/DecisionServiceTest-DAYCARE-settings.pdf"
+        val filepath = "${Paths.get("build").toAbsolutePath()}/reports/DecisionServiceTest-DAYCARE-without-settings.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
     }
 
@@ -116,7 +118,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
             messageProvider,
             templateProvider,
             pdfService,
-            mapOf(),
+            settings,
             validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.MUNICIPAL)),
             guardian = validGuardian(),
             child = validChild(),
@@ -142,7 +144,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
             messageProvider,
             templateProvider,
             pdfService,
-            mapOf(),
+            settings,
             validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.PRIVATE_SERVICE_VOUCHER)),
             guardian = validGuardian(),
             child = validChild(),
@@ -168,7 +170,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
             messageProvider,
             templateProvider,
             pdfService,
-            mapOf(),
+            settings,
             validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.MUNICIPAL)),
             guardian = validGuardian(true),
             child = validChild(true),
