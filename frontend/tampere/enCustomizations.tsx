@@ -177,11 +177,11 @@ const en: DeepPartial<Translations> = {
             a separate field in the application. Add a future address for both
             the child and guardian. The address information will be official
             only when it has been updated to the database of the Digital and
-            Population Data Services Agency. The decision on early childhood
-            education and service vouchers, as well as the information on the
-            location of an early childhood education club is automatically also
-            submitted to a custodian living at another address found in the
-            population data register.
+            Population Data Services Agency. The decision on both early
+            childhood education and service vouchers as well as the information
+            about a club place for open early childhood education is
+            automatically submitted to a custodian living at another address
+            based on the information in the population data register.
           </P>
         ),
         futureAddressInfo:
