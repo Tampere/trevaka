@@ -5,3 +5,8 @@
 spring:
   application:
     name: "trevaka-service"
+evaka:
+  oph:
+    organizer_oid: "1.2.246.562.10.79499343246"
+    organizer_id: "176" # from test environment
+    municipality_code: "837"
