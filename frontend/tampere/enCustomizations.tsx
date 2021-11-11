@@ -78,7 +78,9 @@ const en: DeepPartial<Translations> = {
                 . If you do not activate the Suomi.fi Messages service, the
                 decision will be sent to you by post.
               </P>
-              <P fitted={true}>* The information denoted with an asterisk is mandatory.</P>
+              <P fitted={true}>
+                * The information denoted with an asterisk is mandatory.
+              </P>
             </>
           ),
           CLUB: (
@@ -142,10 +144,10 @@ const en: DeepPartial<Translations> = {
           instructions:
             'The day care centres are normally open on weekdays from 6.00am to 6pm. Evening care is intended for the children who, due to the parents’ work or studies that lead to a qualification, regularly require care after 6pm. Day care centres that offer evening care open, if necessary, at 5.30am and close at 10.30pm at the latest. Some day care centres that offer evening care are also open during the weekends. Shift care is intended for children whose parents work in shifts, when the child’s care also includes nights.',
           message: {
-            text: 'Evening and shift care is intended for those children who, due to the parents’ work or studies that lead to a qualification, require evening and shift care.    In the case of the parents, an employer’s certificate of a need for evening or shift care due to shift work or study must be attached to the application.'
+            text: 'Evening and shift care is intended for those children who, due to the parents work or studies that lead to a qualification, require evening and shift care. In the case of the parents, an employer’s certificate of a need for evening or shift care due to shift work or study must be attached to the application.'
           },
           attachmentsMessage: {
-            text: 'Evening and shift care is intended for those children who, due to the parents’ work or studies that lead to a qualification, require evening and shift care.    In the case of the parents, an employer’s certificate of a need for evening or shift care due to shift work or study must be attached to the application.'
+            text: 'Evening and shift care is intended for those children who, due to the parents’ work or studies that lead to a qualification, require evening and shift care. In the case of the parents, an employer’s certificate of a need for evening or shift care due to shift work or study must be attached to the application.'
           }
         },
         assistanceNeedInstructions: {
@@ -235,8 +237,8 @@ const en: DeepPartial<Translations> = {
     title: 'Applying for early childhood education',
     summary: (
       <P width="800px">
-        The child’s custodian can apply for early childhood education and a club
-        for the child. Information about the custodian’s children is
+        The child&apos;s custodian can apply for early childhood education and a
+        club for the child. Information about the custodian&apos;s children is
         automatically retrieved from the Population data register for this view.
       </P>
     )
@@ -257,7 +259,8 @@ const en: DeepPartial<Translations> = {
   decisions: {
     summary: (
       <P width="800px">
-        This page displays the received decisions regarding child's early childhood education and club applications.
+        This page displays the received decisions regarding child&apos;s early
+        childhood education and club applications.
       </P>
     )
   }
