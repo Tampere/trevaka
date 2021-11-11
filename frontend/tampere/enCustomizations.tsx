@@ -78,7 +78,7 @@ const en: DeepPartial<Translations> = {
                 . If you do not activate the Suomi.fi Messages service, the
                 decision will be sent to you by post.
               </P>
-              <P fitted={true}>* Information marked with a star is required</P>
+              <P fitted={true}>* The information denoted with an asterisk is mandatory.</P>
             </>
           ),
           CLUB: (
@@ -253,6 +253,13 @@ const en: DeepPartial<Translations> = {
     serviceVoucherLink:
       'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit',
     searchPlaceholder: 'E.g. Amurin päiväkoti'
+  },
+  decisions: {
+    summary: (
+      <P width="800px">
+        This page displays the received decisions regarding child's early childhood education and club applications.
+      </P>
+    )
   }
 }
 
