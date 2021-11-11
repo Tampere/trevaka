@@ -272,18 +272,22 @@ const fi: DeepPartial<Translations> = {
           tuloselvityksiä ja muokata tai poistaa niitä kunnes viranomainen on
           käsitellyt tiedot. Lomakkeen käsittelyn jälkeen voit päivittää
           tulotietojasi toimittamalla uuden lomakkeen.
-          <br />
-          <a href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html">
-            Lisätietoja asiakasmaksuista
-          </a>
+        </p>
+        <p>
+          <strong>
+            Molempien samassa taloudessa asuvien aikuisten tulee toimittaa omat
+            erilliset tuloselvitykset.
+          </strong>
         </p>
         <p data-qa="income-description-p2">
           Kunnallisen varhaiskasvatuksen asiakasmaksut määräytyvät
           prosenttiosuutena perheen bruttotuloista. Maksut vaihtelevat perheen
-          koon ja tulojen sekä varhaiskasvatusajan mukaan. Tarkista alla
-          olevasta taulukosta tarvitseeko sinun toimittaa tuloselvitystä, vai
-          kuuluuko perheenne automaattisesti korkeimman varhaiskasvatusmaksun
-          piiriin.
+          koon ja tulojen sekä varhaiskasvatusajan mukaan.
+        </p>
+        <p>
+          <a href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html">
+            Lisätietoja asiakasmaksuista
+          </a>
         </p>
       </>
     ),

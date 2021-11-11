@@ -11,6 +11,8 @@ import { Translations } from 'lib-customizations/citizen'
 import { DeepPartial } from 'lib-customizations/types'
 import React from 'react'
 import ExternalLink from 'lib-components/atoms/ExternalLink'
+import UnorderedList from 'lib-components/atoms/UnorderedList'
+import { Gap } from 'lib-components/white-space'
 
 const customerContactText = function () {
   return (
@@ -262,6 +264,80 @@ const en: DeepPartial<Translations> = {
         This page displays the received decisions regarding child&apos;s early
         childhood education and club applications.
       </P>
+    )
+  },
+  income: {
+    description: (
+      <>
+        <p data-qa="income-description-p1">
+          On this page, you can submit statements on your earnings that affect
+          the early childhood education fee. You can also view, edit, or delete
+          income statements that you have submitted until the authority has
+          processed the information. After the form has been processed, you can
+          update your income information by submitting a new form.
+        </p>
+        <p>
+          <strong>
+            Both adults living in the same household must submit their own
+            separate income statements.
+          </strong>
+        </p>
+        <p data-qa="income-description-p2">
+          The client fees for municipal early childhood education are determined
+          as a percentage of the family’s gross income. The fees vary according
+          to family size, income and time in early childhood education.
+        </p>
+        <p>
+          <a href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html">
+            Further information on client fees.
+          </a>
+        </p>
+      </>
+    ),
+    formDescription: (
+      <>
+        <P data-qa="income-formDescription-p1">
+          The income statement and its attachments must be submitted within a
+          month from the beginning of early childhood education. In case of
+          incomplete income information, the fee may be set at the highest fee.
+        </P>
+        <P>
+          The client fee is charged from the first day of early education in
+          accordance with the decision.
+        </P>
+        <P>
+          The client must immediately inform the client fees for Early childhood
+          education of changes in income and family size.{' '}
+        </P>
+        <P>
+          <strong>To be noted:</strong>
+        </P>
+        <Gap size="xs" />
+        <UnorderedList>
+          <li>
+            If your income exceeds the income threshold according to family
+            size, accept the highest early childhood education fee. In this
+            case, you do not need to submit an income statement.
+          </li>
+          <li>
+            If there&apos;s another adult in your family, they must also submit
+            an income statement by personally logging into eVaka and filling out
+            this form.
+          </li>
+          <li>
+            See current income thresholds{' '}
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html"
+            >
+              hare
+            </a>
+            .
+          </li>
+        </UnorderedList>
+        <P>* The information denoted with an asterisk is mandatory.</P>
+      </>
     )
   }
 }
