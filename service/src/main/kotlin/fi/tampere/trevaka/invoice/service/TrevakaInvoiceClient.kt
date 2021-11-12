@@ -37,11 +37,11 @@ import javax.xml.datatype.XMLGregorianCalendar
 private val logger = KotlinLogging.logger {}
 
 class TrevakaInvoiceClient(
-    val webServiceTemplate: WebServiceTemplate, val properties: InvoiceProperties
+    private val webServiceTemplate: WebServiceTemplate, private val properties: InvoiceProperties
 ) :
     InvoiceIntegrationClient {
 
-    val dateFormatter: DateTimeFormatter =
+    private val dateFormatter: DateTimeFormatter =
         DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale("fi"))
 
     override fun sendBatch(invoices: List<InvoiceDetailed>, agreementType: Int): Boolean {
@@ -164,15 +164,15 @@ class TrevakaInvoiceClient(
     }
 
     private fun unmarshalFaultDetail(exception: SoapFaultClientException): Any? {
-        try {
+        return try {
             val detailEntries = exception.soapFault?.faultDetail?.detailEntries
-            return when (detailEntries?.hasNext()) {
+            when (detailEntries?.hasNext()) {
                 true -> webServiceTemplate.unmarshaller.unmarshal(detailEntries.next().source)
                 else -> null
             }
         } catch (e: Exception) {
             logger.error("Unable to unmarshal fault detail", e)
-            return null
+            null
         }
     }
 
