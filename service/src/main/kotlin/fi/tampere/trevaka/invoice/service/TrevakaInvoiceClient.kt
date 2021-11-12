@@ -152,16 +152,16 @@ class TrevakaInvoiceClient(
 
     private fun productToMaterial(product: Product): String = when (product) {
         Product.DAYCARE -> "500218"
-        Product.DAYCARE_DISCOUNT -> throw UnsupportedOperationException("Unsupported product $product")
-        Product.DAYCARE_INCREASE -> throw UnsupportedOperationException("Unsupported product $product")
+        Product.DAYCARE_DISCOUNT -> "500687"
+        Product.DAYCARE_INCREASE -> "500139"
         Product.PRESCHOOL_WITH_DAYCARE -> "500220"
-        Product.PRESCHOOL_WITH_DAYCARE_DISCOUNT -> throw UnsupportedOperationException("Unsupported product $product")
-        Product.PRESCHOOL_WITH_DAYCARE_INCREASE -> throw UnsupportedOperationException("Unsupported product $product")
-        Product.TEMPORARY_CARE -> throw UnsupportedOperationException("Unsupported product $product")
-        Product.SCHOOL_SHIFT_CARE -> throw UnsupportedOperationException("Unsupported product $product")
+        Product.PRESCHOOL_WITH_DAYCARE_DISCOUNT -> "500687"
+        Product.PRESCHOOL_WITH_DAYCARE_INCREASE -> "500139"
+        Product.TEMPORARY_CARE -> "500576"
+        Product.SCHOOL_SHIFT_CARE -> "500949"
         Product.SICK_LEAVE_100 -> "500248"
         Product.SICK_LEAVE_50 -> "500283"
-        Product.ABSENCE -> throw UnsupportedOperationException("Unsupported product $product")
+        Product.ABSENCE -> "507292"
         Product.FREE_OF_CHARGE -> "500156"
     }
 
