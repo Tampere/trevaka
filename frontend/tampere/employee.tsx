@@ -51,8 +51,8 @@ const customizations: EmployeeCustomizations = {
             REASON_2: 'Sisäilma tai muu rakenteellinen syy',
             REASON_3: 'Henkilökuntaa tilapäisesti vähennetty'
           },
-          infoBoxTitle: '',
-          infoBoxText: ''
+          infoTitle: '',
+          infoText: ''
         }
       },
       login: {
