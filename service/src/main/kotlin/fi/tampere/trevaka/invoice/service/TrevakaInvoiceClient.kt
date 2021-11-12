@@ -23,7 +23,6 @@ import fi.tampere.messages.sapsd.salesorder.v11.Text
 import fi.tampere.services.sapsd.salesorder.v1.SendSalesOrderRequest
 import fi.tampere.trevaka.InvoiceProperties
 import mu.KotlinLogging
-import org.springframework.core.env.Environment
 import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.client.SoapFaultClientException
 import org.springframework.ws.soap.client.core.SoapActionCallback
@@ -38,11 +37,10 @@ import javax.xml.datatype.XMLGregorianCalendar
 private val logger = KotlinLogging.logger {}
 
 class TrevakaInvoiceClient(
-    val webServiceTemplate: WebServiceTemplate, val properties: InvoiceProperties, val environment: Environment
+    val webServiceTemplate: WebServiceTemplate, val properties: InvoiceProperties
 ) :
     InvoiceIntegrationClient {
 
-    val url = environment.getRequiredProperty("fi.espoo.integration.invoice.url")
     val dateFormatter: DateTimeFormatter =
         DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale("fi"))
 
@@ -51,7 +49,7 @@ class TrevakaInvoiceClient(
         try {
             val request = toRequest(invoices)
             val response = webServiceTemplate.marshalSendAndReceive(
-                url, request,
+                properties.url, request,
                 SoapActionCallback("http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder")
             )
             when (val value = JAXBIntrospector.getValue(response)) {

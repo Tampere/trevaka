@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
-import org.springframework.core.env.Environment
 import org.springframework.oxm.jaxb.Jaxb2Marshaller
 import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.SoapVersion
@@ -41,9 +40,8 @@ class InvoiceConfiguration {
     @Bean(name = ["trevakaInvoiceIntegrationClient"])
     fun invoiceIntegrationClient(
         @Qualifier(WEB_SERVICE_TEMPLATE_INVOICE) webServiceTemplate: WebServiceTemplate,
-        properties: TrevakaProperties,
-        environment: Environment,
-    ): InvoiceIntegrationClient = TrevakaInvoiceClient(webServiceTemplate, properties.invoice, environment)
+        properties: TrevakaProperties
+    ): InvoiceIntegrationClient = TrevakaInvoiceClient(webServiceTemplate, properties.invoice)
 
     @Bean(WEB_SERVICE_TEMPLATE_INVOICE)
     fun webServiceTemplate(

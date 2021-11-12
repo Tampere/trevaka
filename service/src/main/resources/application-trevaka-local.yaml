@@ -35,8 +35,6 @@ fi:
       five_years_old_daycare:
         enabled: false
     integration:
-      invoice:
-        url: http://localhost:${server.port}/salesOrder
       koski:
         enabled: false
     varda:
@@ -64,3 +62,5 @@ fi:
       ipaas:
         username: user
         password: pass
+      invoice:
+        url: http://localhost:${server.port}/salesOrder

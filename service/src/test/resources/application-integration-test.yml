@@ -22,8 +22,6 @@ fi:
         password: pass
         xRoadClientId: trevaka
         productCode: trevaka
-      invoice:
-        url: http://localhost:${wiremock.server.port}/mock/ipaas/salesOrder
       koski:
         url: http://localhost:${wiremock.server.port}/mock/koski
         enabled: false
@@ -54,3 +52,5 @@ fi:
       ipaas:
         username: user
         password: pass
+      invoice:
+        url: http://localhost:${wiremock.server.port}/mock/ipaas/salesOrder
