@@ -11,6 +11,8 @@ import { Translations } from 'lib-customizations/citizen'
 import { DeepPartial } from 'lib-customizations/types'
 import React from 'react'
 import ExternalLink from 'lib-components/atoms/ExternalLink'
+import UnorderedList from 'lib-components/atoms/UnorderedList'
+import { Gap } from 'lib-components/white-space'
 
 const customerContactText = function () {
   return (
@@ -78,7 +80,9 @@ const en: DeepPartial<Translations> = {
                 . If you do not activate the Suomi.fi Messages service, the
                 decision will be sent to you by post.
               </P>
-              <P fitted={true}>* Information marked with a star is required</P>
+              <P fitted={true}>
+                * The information denoted with an asterisk is mandatory.
+              </P>
             </>
           ),
           CLUB: (
@@ -142,10 +146,10 @@ const en: DeepPartial<Translations> = {
           instructions:
             'The day care centres are normally open on weekdays from 6.00am to 6pm. Evening care is intended for the children who, due to the parents’ work or studies that lead to a qualification, regularly require care after 6pm. Day care centres that offer evening care open, if necessary, at 5.30am and close at 10.30pm at the latest. Some day care centres that offer evening care are also open during the weekends. Shift care is intended for children whose parents work in shifts, when the child’s care also includes nights.',
           message: {
-            text: 'Evening and shift care is intended for those children who, due to the parents’ work or studies that lead to a qualification, require evening and shift care.    In the case of the parents, an employer’s certificate of a need for evening or shift care due to shift work or study must be attached to the application.'
+            text: 'Evening and shift care is intended for those children who, due to the parents work or studies that lead to a qualification, require evening and shift care. In the case of the parents, an employer’s certificate of a need for evening or shift care due to shift work or study must be attached to the application.'
           },
           attachmentsMessage: {
-            text: 'Evening and shift care is intended for those children who, due to the parents’ work or studies that lead to a qualification, require evening and shift care.    In the case of the parents, an employer’s certificate of a need for evening or shift care due to shift work or study must be attached to the application.'
+            text: 'Evening and shift care is intended for those children who, due to the parents’ work or studies that lead to a qualification, require evening and shift care. In the case of the parents, an employer’s certificate of a need for evening or shift care due to shift work or study must be attached to the application.'
           }
         },
         assistanceNeedInstructions: {
@@ -177,11 +181,11 @@ const en: DeepPartial<Translations> = {
             a separate field in the application. Add a future address for both
             the child and guardian. The address information will be official
             only when it has been updated to the database of the Digital and
-            Population Data Services Agency. The decision on early childhood
-            education and service vouchers, as well as the information on the
-            location of an early childhood education club is automatically also
-            submitted to a custodian living at another address found in the
-            population data register.
+            Population Data Services Agency. The decision on both early
+            childhood education and service vouchers as well as the information
+            about a club place for open early childhood education is
+            automatically submitted to a custodian living at another address
+            based on the information in the population data register.
           </P>
         ),
         futureAddressInfo:
@@ -235,8 +239,8 @@ const en: DeepPartial<Translations> = {
     title: 'Applying for early childhood education',
     summary: (
       <P width="800px">
-        The child’s custodian can apply for early childhood education and a club
-        for the child. Information about the custodian’s children is
+        The child&apos;s custodian can apply for early childhood education and a
+        club for the child. Information about the custodian&apos;s children is
         automatically retrieved from the Population data register for this view.
       </P>
     )
@@ -253,6 +257,88 @@ const en: DeepPartial<Translations> = {
     serviceVoucherLink:
       'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit',
     searchPlaceholder: 'E.g. Amurin päiväkoti'
+  },
+  decisions: {
+    summary: (
+      <P width="800px">
+        This page displays the received decisions regarding child&apos;s early
+        childhood education and club applications.
+      </P>
+    )
+  },
+  income: {
+    description: (
+      <>
+        <p data-qa="income-description-p1">
+          On this page, you can submit statements on your earnings that affect
+          the early childhood education fee. You can also view, edit, or delete
+          income statements that you have submitted until the authority has
+          processed the information. After the form has been processed, you can
+          update your income information by submitting a new form.
+        </p>
+        <p>
+          <strong>
+            Both adults living in the same household must submit their own
+            separate income statements.
+          </strong>
+        </p>
+        <p data-qa="income-description-p2">
+          The client fees for municipal early childhood education are determined
+          as a percentage of the family’s gross income. The fees vary according
+          to family size, income and time in early childhood education.
+        </p>
+        <p>
+          <a href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html">
+            Further information on client fees.
+          </a>
+        </p>
+      </>
+    ),
+    formDescription: (
+      <>
+        <P data-qa="income-formDescription-p1">
+          The income statement and its attachments must be submitted within a
+          month from the beginning of early childhood education. In case of
+          incomplete income information, the fee may be set at the highest fee.
+        </P>
+        <P>
+          The client fee is charged from the first day of early education in
+          accordance with the decision.
+        </P>
+        <P>
+          The client must immediately inform the client fees for Early childhood
+          education of changes in income and family size.{' '}
+        </P>
+        <P>
+          <strong>To be noted:</strong>
+        </P>
+        <Gap size="xs" />
+        <UnorderedList>
+          <li>
+            If your income exceeds the income threshold according to family
+            size, accept the highest early childhood education fee. In this
+            case, you do not need to submit an income statement.
+          </li>
+          <li>
+            If there&apos;s another adult in your family, they must also submit
+            an income statement by personally logging into eVaka and filling out
+            this form.
+          </li>
+          <li>
+            See current income thresholds{' '}
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html"
+            >
+              hare
+            </a>
+            .
+          </li>
+        </UnorderedList>
+        <P>* The information denoted with an asterisk is mandatory.</P>
+      </>
+    )
   }
 }
 
