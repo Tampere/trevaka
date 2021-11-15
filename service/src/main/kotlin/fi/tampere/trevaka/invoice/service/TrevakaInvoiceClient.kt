@@ -23,7 +23,6 @@ import fi.tampere.messages.sapsd.salesorder.v11.Text
 import fi.tampere.services.sapsd.salesorder.v1.SendSalesOrderRequest
 import fi.tampere.trevaka.InvoiceProperties
 import mu.KotlinLogging
-import org.springframework.core.env.Environment
 import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.client.SoapFaultClientException
 import org.springframework.ws.soap.client.core.SoapActionCallback
@@ -38,12 +37,11 @@ import javax.xml.datatype.XMLGregorianCalendar
 private val logger = KotlinLogging.logger {}
 
 class TrevakaInvoiceClient(
-    val webServiceTemplate: WebServiceTemplate, val properties: InvoiceProperties, val environment: Environment
+    private val webServiceTemplate: WebServiceTemplate, private val properties: InvoiceProperties
 ) :
     InvoiceIntegrationClient {
 
-    val url = environment.getRequiredProperty("fi.espoo.integration.invoice.url")
-    val dateFormatter: DateTimeFormatter =
+    private val dateFormatter: DateTimeFormatter =
         DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale("fi"))
 
     override fun sendBatch(invoices: List<InvoiceDetailed>, agreementType: Int): Boolean {
@@ -51,7 +49,7 @@ class TrevakaInvoiceClient(
         try {
             val request = toRequest(invoices)
             val response = webServiceTemplate.marshalSendAndReceive(
-                url, request,
+                properties.url, request,
                 SoapActionCallback("http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder")
             )
             when (val value = JAXBIntrospector.getValue(response)) {
@@ -152,29 +150,29 @@ class TrevakaInvoiceClient(
 
     private fun productToMaterial(product: Product): String = when (product) {
         Product.DAYCARE -> "500218"
-        Product.DAYCARE_DISCOUNT -> throw UnsupportedOperationException("Unsupported product $product")
-        Product.DAYCARE_INCREASE -> throw UnsupportedOperationException("Unsupported product $product")
+        Product.DAYCARE_DISCOUNT -> "500687"
+        Product.DAYCARE_INCREASE -> "500139"
         Product.PRESCHOOL_WITH_DAYCARE -> "500220"
-        Product.PRESCHOOL_WITH_DAYCARE_DISCOUNT -> throw UnsupportedOperationException("Unsupported product $product")
-        Product.PRESCHOOL_WITH_DAYCARE_INCREASE -> throw UnsupportedOperationException("Unsupported product $product")
-        Product.TEMPORARY_CARE -> throw UnsupportedOperationException("Unsupported product $product")
-        Product.SCHOOL_SHIFT_CARE -> throw UnsupportedOperationException("Unsupported product $product")
+        Product.PRESCHOOL_WITH_DAYCARE_DISCOUNT -> "500687"
+        Product.PRESCHOOL_WITH_DAYCARE_INCREASE -> "500139"
+        Product.TEMPORARY_CARE -> "500576"
+        Product.SCHOOL_SHIFT_CARE -> "500949"
         Product.SICK_LEAVE_100 -> "500248"
         Product.SICK_LEAVE_50 -> "500283"
-        Product.ABSENCE -> throw UnsupportedOperationException("Unsupported product $product")
+        Product.ABSENCE -> "507292"
         Product.FREE_OF_CHARGE -> "500156"
     }
 
     private fun unmarshalFaultDetail(exception: SoapFaultClientException): Any? {
-        try {
+        return try {
             val detailEntries = exception.soapFault?.faultDetail?.detailEntries
-            return when (detailEntries?.hasNext()) {
+            when (detailEntries?.hasNext()) {
                 true -> webServiceTemplate.unmarshaller.unmarshal(detailEntries.next().source)
                 else -> null
             }
         } catch (e: Exception) {
             logger.error("Unable to unmarshal fault detail", e)
-            return null
+            null
         }
     }
 

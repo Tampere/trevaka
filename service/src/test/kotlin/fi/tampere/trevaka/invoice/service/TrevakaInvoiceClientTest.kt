@@ -20,9 +20,6 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
-import org.springframework.core.env.Environment
 import org.springframework.core.io.ClassPathResource
 import org.springframework.ws.test.client.MockWebServiceServer
 import org.springframework.ws.test.client.RequestMatchers.connectionTo
@@ -57,14 +54,11 @@ internal class TrevakaInvoiceClientTest {
     fun setup() {
         val properties = TrevakaProperties(
             IpaasProperties("user", "pass"),
-            InvoiceProperties()
+            InvoiceProperties("http://localhost:8080/salesOrder")
         )
-        val environment = mock<Environment> {
-            on { getRequiredProperty("fi.espoo.integration.invoice.url") } doReturn "http://localhost:8080/salesOrder"
-        }
         val configuration = InvoiceConfiguration()
         val webServiceTemplate = configuration.webServiceTemplate(configuration.httpClient(properties), properties)
-        client = configuration.invoiceIntegrationClient(webServiceTemplate, properties, environment)
+        client = configuration.invoiceIntegrationClient(webServiceTemplate, properties)
         server = MockWebServiceServer.createServer(webServiceTemplate)
     }
 

@@ -14,7 +14,7 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConfigurationProperties(prefix = "fi.tampere.trevaka")
 data class TrevakaProperties(
     val ipaas: IpaasProperties,
-    val invoice: InvoiceProperties = InvoiceProperties(),
+    val invoice: InvoiceProperties,
 )
 
 data class IpaasProperties(
@@ -23,6 +23,7 @@ data class IpaasProperties(
 )
 
 data class InvoiceProperties(
+    val url: String,
     val paymentTerm: String = "V000",
     val salesOrganisation: String = "1312",
     val distributionChannel: String = "00",
