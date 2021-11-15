@@ -39,7 +39,6 @@ fi:
         enabled: false
     varda:
       force:
-      organizer: Tampere
       vtj:
         client:
           # these are used if you run pis-service in "vtj-dev" profile (against Test VTJ).

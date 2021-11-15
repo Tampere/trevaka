@@ -9,7 +9,16 @@ EXECUTE (
     FROM information_schema.tables
     WHERE table_schema = 'public'
       AND table_type = 'BASE TABLE'
-      AND table_name not in ('flyway_schema_history', 'service_need_option', 'club_term', 'preschool_term')
+      AND table_name not in (
+        'flyway_schema_history',
+        'assistance_action_option',
+        'assistance_basis_option',
+        'care_area',
+        'service_need_option',
+        'club_term',
+        'preschool_term',
+        'voucher_value'
+    )
 );
 EXECUTE (
     SELECT 'SELECT ' || string_agg(format('setval(%L, %L, false)', sequence_name, start_value), ', ')
