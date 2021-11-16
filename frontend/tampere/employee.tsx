@@ -89,6 +89,10 @@ const customizations: EmployeeCustomizations = {
       }
     }
   },
+  vasuTranslations: {
+    FI: {},
+    SV: {}
+  },
   cityLogo: {
     src: TampereLogo,
     alt: 'Tampere logo'
