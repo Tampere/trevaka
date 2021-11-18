@@ -77,8 +77,8 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
                 headOfFamily = PersonData.Detailed(
                     UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
                     "Maija", "Meikäläinen",
-                    "310382-956D", null, null, null,
-                    null, null, null, null, restrictedDetailsEnabled = false
+                    "310382-956D", "", "", "",
+                    "", null, "", null, restrictedDetailsEnabled = false
                 )
             )
         )
@@ -111,8 +111,8 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
                 headOfFamily = PersonData.Detailed(
                     UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
                     "Maija", "Meikäläinen",
-                    "310382-956D", null, null, null,
-                    null, null, null, null, restrictedDetailsEnabled = false
+                    "310382-956D", "", "", "",
+                    "", null, "", null, restrictedDetailsEnabled = false
                 )
             )
         )
@@ -129,7 +129,7 @@ private fun validFeeDecisionPdfData(
         UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
         "Maija", "Meikäläinen",
         "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
-        null, null, null, null, restrictedDetailsEnabled = false
+        "", null, "", null, restrictedDetailsEnabled = false
     )
 ): FeeDecisionPdfData {
     return FeeDecisionPdfData(
@@ -140,8 +140,8 @@ private fun validFeeDecisionPdfData(
                     child = PersonData.Detailed(
                         UUID.randomUUID(), LocalDate.of(2018, 1, 1), null,
                         "Matti", "Meikäläinen",
-                        null, null, null, null,
-                        null, null, null, null, restrictedDetailsEnabled = false
+                        null, "", "", "",
+                        "", null, "", null, restrictedDetailsEnabled = false
                     ),
                     placementType = PlacementType.DAYCARE,
                     placementUnit = UnitData.Detailed(
@@ -196,7 +196,7 @@ private fun validVoucherValueDecisionPdfData(
         UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
         "Maija", "Meikäläinen",
         "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
-        null, null, null, null, restrictedDetailsEnabled = false
+        "", null, "", null, restrictedDetailsEnabled = false
     )
 ): VoucherValueDecisionPdfData {
     return VoucherValueDecisionPdfData(
@@ -222,8 +222,8 @@ private fun validVoucherValueDecisionPdfData(
             PersonData.Detailed(
                 UUID.randomUUID(), LocalDate.of(2018, 1, 1), null,
                 "Matti", "Meikäläinen",
-                null, null, null, null,
-                null, null, null, null, restrictedDetailsEnabled = false
+                null, "", "", "",
+                "", null, "", null, restrictedDetailsEnabled = false
             ),
             VoucherValueDecisionPlacementDetailed(
                 UnitData.Detailed(

@@ -98,14 +98,14 @@ internal class TrevakaInvoiceClientTest {
             UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
             "Maija", "Meikäläinen",
             "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
-            null, null, null, null, restrictedDetailsEnabled = false
+            "", null, "", null, restrictedDetailsEnabled = false
         )
         val invoiceRow1 = InvoiceRowDetailed(
             UUID.randomUUID(), PersonData.Detailed(
                 UUID.randomUUID(), LocalDate.of(2018, 1, 1), null,
                 "Matti", "Meikäläinen",
-                null, null, null, null,
-                null, null, null, null, restrictedDetailsEnabled = false
+                null, "", "", "",
+                "", null, "", null, restrictedDetailsEnabled = false
             ), 1, 243,
             LocalDate.of(2021, 1, 1),
             LocalDate.of(2021, 1, 31),
@@ -115,8 +115,8 @@ internal class TrevakaInvoiceClientTest {
             UUID.randomUUID(), PersonData.Detailed(
                 UUID.randomUUID(), LocalDate.of(2015, 11, 26), null,
                 "Maiju", "Meikäläinen",
-                null, null, null, null,
-                null, null, null, null, restrictedDetailsEnabled = false
+                null, "", "", "",
+                "", null, "", null, restrictedDetailsEnabled = false
             ), 1, 482,
             LocalDate.of(2021, 1, 1),
             LocalDate.of(2021, 1, 31),

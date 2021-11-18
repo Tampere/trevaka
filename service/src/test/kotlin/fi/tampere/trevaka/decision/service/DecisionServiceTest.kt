@@ -233,13 +233,16 @@ private fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO
     ssnAddingDisabled = false,
     firstName = "Maija",
     lastName = "Meikäläinen",
+    preferredName = "Maija",
     email = null,
-    phone = null,
+    phone = "",
+    backupPhone = "",
     language = null,
     dateOfBirth = LocalDate.of(1982, 6, 7),
     streetAddress = "Kokinpellonraitti 3",
     postalCode = "33870",
     postOffice = "Tampere",
+    residenceCode = "",
     restrictedDetailsEnabled = restrictedDetailsEnabled
 )
 
@@ -249,12 +252,15 @@ private fun validChild(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
     ssnAddingDisabled = false,
     firstName = "Matti",
     lastName = "Meikäläinen",
+    preferredName = "Matti",
     email = null,
-    phone = null,
+    phone = "",
+    backupPhone = "",
     language = null,
     dateOfBirth = LocalDate.of(2015, 1, 1),
     streetAddress = "Kokinpellonraitti 3",
     postalCode = "33870",
     postOffice = "Tampere",
+    residenceCode = "",
     restrictedDetailsEnabled = restrictedDetailsEnabled
 )
