@@ -13,7 +13,7 @@ const theme: Theme = {
     brand: {
       primary: '#00417D',
       secondary: '#39A7D7',
-      secondaryLight: '#e9f5ff'
+      secondaryLight: '#E5EEF8'
     },
     main: {
       dark: '#00417D',
@@ -21,7 +21,7 @@ const theme: Theme = {
       primary: '#29549A',
       primaryHover: '#4676BE',
       primaryActive: '#00417D',
-      light: '#C6D7E3',
+      light: '#CAD6E2',
       lighter: '#E5EEF8'
     },
     greyscale: {
@@ -35,9 +35,9 @@ const theme: Theme = {
     accents: {
       orange: '#FF7300',
       orangeDark: '#B85300',
-      green: '#ABC872',
-      greenDark: '#4C7A00',
-      water: '#91C9EA',
+      green: '#92BB4F',
+      greenDark: '#3C6100',
+      water: '#9FC1D3',
       yellow: '#F4D240',
       red: '#CB181A',
       petrol: '#5390B5',
