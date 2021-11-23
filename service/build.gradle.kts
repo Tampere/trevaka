@@ -17,7 +17,7 @@ dependencies {
     implementation(":evaka-service")
 
     implementation("io.github.microutils:kotlin-logging-jvm")
-    implementation("net.rakugakibox.spring.boot:logback-access-spring-boot-starter")
+    implementation("dev.akkinoc.spring.boot:logback-access-spring-boot-starter")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-web-services")
@@ -29,7 +29,7 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit-pioneer:junit-pioneer:${TrevakaServiceDeps.junitPioneer}") // for CartesianProductTest
-    testImplementation("org.mockito.kotlin:mockito-kotlin:${TrevakaServiceDeps.mockitoKotlin}")
+    testImplementation("org.mockito.kotlin:mockito-kotlin")
     testImplementation("org.springframework.ws:spring-ws-test")
     testImplementation(platform("org.springframework.cloud:spring-cloud-dependencies:${TrevakaServiceDeps.springCloud}"))
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
