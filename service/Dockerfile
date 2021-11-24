@@ -8,7 +8,7 @@ USER root
 RUN set -eux \
     && apt-get update && apt-get -y --no-install-recommends install \
        wget \
-       openjdk-11-jre-headless \
+       openjdk-17-jre-headless \
     && rm -rf /var/lib/apt/lists/*
 
 USER evaka

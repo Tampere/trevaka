@@ -475,6 +475,12 @@ jobs:
       - *restore_repo
       - *restore_service_gradle
       - run:
+          name: Install Java 17
+          command: |
+            sudo apt-get update && sudo apt-get install openjdk-17-jdk
+            sudo update-java-alternatives --set java-1.17.0-openjdk-amd64
+            java -version
+      - run:
           working_directory: *workspace_service
           command: ./gradlew build
       - *store_service_gradle
@@ -522,6 +528,12 @@ jobs:
     steps:
       - *restore_repo
       - *restore_message_service_gradle
+      - run:
+          name: Install Java 17
+          command: |
+            sudo apt-get update && sudo apt-get install openjdk-17-jdk
+            sudo update-java-alternatives --set java-1.17.0-openjdk-amd64
+            java -version
       - run:
           working_directory: *workspace_message_service
           command: ./gradlew build
