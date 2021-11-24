@@ -11,22 +11,20 @@ import CitizenHeader from 'e2e-playwright/pages/citizen/citizen-header'
 import CitizenApplicationsPage from 'e2e-playwright/pages/citizen/citizen-applications'
 import { enduserLogin } from 'e2e-playwright/utils/user'
 import {
-  AreaAndPersonFixtures,
-  initializeAreaAndPersonData
-} from 'e2e-test-common/dev-api/data-init'
-import {
   resetDatabaseForE2ETests
 } from '../../common/tampere-dev-api'
+import { enduserChildFixturePorriHatterRestricted, Fixture } from "e2e-test-common/dev-api/fixtures";
   
 
 let page: Page
 let header: CitizenHeader
 let applicationsPage: CitizenApplicationsPage
-let fixtures: AreaAndPersonFixtures
 
 beforeEach(async () => {
   await resetDatabaseForE2ETests()
-  fixtures = await initializeAreaAndPersonData()
+  await Fixture.person()
+      .with(enduserChildFixturePorriHatterRestricted)
+      .save()
   page = await (await newBrowserContext()).newPage()
   await page.goto(config.enduserUrl)
   await enduserLogin(page)
@@ -51,7 +49,7 @@ describe('Citizen applications page', () => {
   test('Applications and ApplicationCreation customizations', async () => {
     await header.selectTab('applications')
     await waitUntilEqual(() => page.innerText('h1 + p'), 'Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen ja kerhoon. Huoltajan lasten tiedot haetaan tähän näkymään automaattisesti Väestötietojärjestelmästä.')
-    let newApplicationButton = new RawElement(page, `[data-qa="new-application-${fixtures.enduserChildFixturePorriHatterRestricted.id}"]`)
+    let newApplicationButton = new RawElement(page, `[data-qa="new-application-${enduserChildFixturePorriHatterRestricted.id}"]`)
     await newApplicationButton.click()
     // Check that only daycare and club options are visible
     let applicationRadios = await page.$$('[data-qa^="type-radio-"]')
@@ -69,7 +67,7 @@ describe('Citizen applications page', () => {
   }),
   test('Daycare application form customizations', async () => {
     await header.selectTab('applications')
-    let editorPage = await applicationsPage.createApplication(fixtures.enduserChildFixturePorriHatterRestricted.id, 'DAYCARE')
+    let editorPage = await applicationsPage.createApplication(enduserChildFixturePorriHatterRestricted.id, 'DAYCARE')
     await waitUntilEqual(() => page.innerText('[data-qa="application-child-name-title"] + p'), 'Varhaiskasvatuspaikkaa voi hakea ympäri vuoden. Varhaiskasvatushakemus tulee jättää viimeistään neljä kuukautta ennen hoidon toivottua alkamisajankohtaa. Mikäli varhaiskasvatuksen tarve johtuu työllistymisestä, opinnoista tai koulutuksesta, eikä hoidon tarpeen ajankohtaa ole pystynyt ennakoimaan, on varhaiskasvatuspaikkaa haettava mahdollisimman pian - kuitenkin viimeistään kaksi viikkoa ennen kuin lapsi tarvitsee hoitopaikan.')
     await waitUntilEqual(() => page.innerText('[data-qa="application-child-name-title"] + p + p'), 'Kirjallinen päätös varhaiskasvatuspaikasta lähetetään Suomi.fi-viestit -palveluun. Mikäli haluatte päätöksen sähköisenä tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit -palvelu käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa https://www.suomi.fi/viestit. Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, päätös lähetetään teille postitse.')
     const startdateInstructions = new RawElement(page, '[data-qa="startdate-instructions"]')
@@ -149,7 +147,7 @@ describe('Citizen applications page', () => {
     let cancelButton = new RawElement(page, '[data-qa="cancel-application-button"]')
     await cancelButton.click()
     await header.selectTab('applications')
-    let newApplicationButton = new RawElement(page, `[data-qa="new-application-${fixtures.enduserChildFixturePorriHatterRestricted.id}"]`)
+    let newApplicationButton = new RawElement(page, `[data-qa="new-application-${enduserChildFixturePorriHatterRestricted.id}"]`)
     await newApplicationButton.click()
     let daycareApplicationRadio = new RawElement(page, '[data-qa="type-radio-DAYCARE"]')
     await daycareApplicationRadio.click()
@@ -157,7 +155,7 @@ describe('Citizen applications page', () => {
   }),
   test('Club application form customizations', async () => {
     await header.selectTab('applications')
-    let editorPage = await applicationsPage.createApplication(fixtures.enduserChildFixturePorriHatterRestricted.id, 'CLUB')
+    let editorPage = await applicationsPage.createApplication(enduserChildFixturePorriHatterRestricted.id, 'CLUB')
     await waitUntilEqual(() => page.innerText('[data-qa="application-child-name-title"] + p'), 'Kerhopaikkaa voi hakea ympäri vuoden. Kerhohakemuksella voi hakea kunnallista tai palvelusetelillä tuettua kerhopaikkaa. Kirjallinen ilmoitus kerhopaikasta lähetään Suomi.fi-viestit -palveluun. Mikäli haluatte ilmoituksen sähköisenä tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit -palvelu käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa https://www.suomi.fi/viestit. Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, ilmoitus kerhopaikasta lähetetään teille postitse. Paikka myönnetään yhdeksi toimintakaudeksi kerrallaan.')
     await waitUntilEqual(() => page.innerText('[data-qa="application-child-name-title"] + p + p'), 'Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kyseisen kauden päättyessä hakemus poistetaan järjestelmästä.')
     const wasOnDaycareInfo = new RawElement(page, '[data-qa="wasOnDaycare-info"]')
@@ -169,7 +167,7 @@ describe('Citizen applications page', () => {
     const assistanceNeedInstructionsClub = new RawElement(page, '[data-qa="assistanceNeedInstructions-CLUB"]')
     await assistanceNeedInstructionsClub.click()
     await waitUntilEqual(() => page.innerText('[data-qa="assistanceNeedInstructions-CLUB-text"]'), 'Jos lapsella on tuen tarve, Tampereen varhaiskasvatuksesta otetaan yhteyttä hakemuksen jättämisen jälkeen.')
-    editorPage.openSection('contactInfo')
+    await editorPage.openSection('contactInfo')
     await waitUntilEqual(() => page.innerText('[data-qa="contactInfo-section"] p[data-qa="contact-info-text"]'), 'Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän tiedot Digi- ja Väestötietoviraston sivuilla. Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on päivittynyt väestötietojärjestelmään. Varhaiskasvatus- ja palvelusetelipäätös sekä tieto avoimen varhaiskasvatuksen kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa asuvalle väestötiedoista löytyvälle huoltajalle.')
     const childFutureAddrInfo = new RawElement(page, '[data-qa="child-future-address-info"]')
     await childFutureAddrInfo.click()

@@ -11,9 +11,6 @@ import CitizenHeader from 'e2e-playwright/pages/citizen/citizen-header'
 import CitizenIncomePage from 'e2e-playwright/pages/citizen/citizen-income'
 import { enduserLogin } from 'e2e-playwright/utils/user'
 import {
-  initializeAreaAndPersonData
-} from 'e2e-test-common/dev-api/data-init'
-import {
   resetDatabaseForE2ETests
 } from '../../common/tampere-dev-api'
   
@@ -24,7 +21,6 @@ let incomePage: CitizenIncomePage
 
 beforeEach(async () => {
   await resetDatabaseForE2ETests()
-  await initializeAreaAndPersonData()
   page = await (await newBrowserContext()).newPage()
   await page.goto(config.enduserUrl)
   await enduserLogin(page)
@@ -41,13 +37,22 @@ describe('Citizen income page', () => {
 
     let incomeDescriptionP1 = new RawElement(page, '[data-qa="income-description-p1"]')
     await incomeDescriptionP1.waitUntilVisible()
-    await waitUntilEqual(() => incomeDescriptionP1.innerText, 'Tällä sivulla voit lähettää selvitykset varhaiskasvatusmaksuun vaikuttavista tuloistasi. Voit myös tarkastella palauttamiasi tuloselvityksiä ja muokata tai poistaa niitä kunnes viranomainen on käsitellyt tiedot. Lomakkeen käsittelyn jälkeen voit päivittää tulotietojasi toimittamalla uuden lomakkeen.\nLisätietoja asiakasmaksuista')
+    await waitUntilEqual(() => incomeDescriptionP1.innerText, 'Tällä sivulla voit lähettää selvitykset varhaiskasvatusmaksuun vaikuttavista tuloistasi. Voit myös tarkastella palauttamiasi tuloselvityksiä ja muokata tai poistaa niitä kunnes viranomainen on käsitellyt tiedot. Lomakkeen käsittelyn jälkeen voit päivittää tulotietojasi toimittamalla uuden lomakkeen.')
+
     let incomeDescriptionP2 = new RawElement(page, '[data-qa="income-description-p2"]')
     await incomeDescriptionP2.waitUntilVisible()
-    await waitUntilEqual(() => incomeDescriptionP2.innerText, 'Kunnallisen varhaiskasvatuksen asiakasmaksut määräytyvät prosenttiosuutena perheen bruttotuloista. Maksut vaihtelevat perheen koon ja tulojen sekä varhaiskasvatusajan mukaan. Tarkista alla olevasta taulukosta tarvitseeko sinun toimittaa tuloselvitystä, vai kuuluuko perheenne automaattisesti korkeimman varhaiskasvatusmaksun piiriin.')
+    await waitUntilEqual(() => incomeDescriptionP2.innerText, 'Molempien samassa taloudessa asuvien aikuisten tulee toimittaa omat erilliset tuloselvitykset.')
+
+    let incomeDescriptionP3 = new RawElement(page, '[data-qa="income-description-p3"]')
+    await incomeDescriptionP3.waitUntilVisible()
+    await waitUntilEqual(() => incomeDescriptionP3.innerText, 'Kunnallisen varhaiskasvatuksen asiakasmaksut määräytyvät prosenttiosuutena perheen bruttotuloista. Maksut vaihtelevat perheen koon ja tulojen sekä varhaiskasvatusajan mukaan.')
+
+    let incomeDescriptionP4 = new RawElement(page, '[data-qa="income-description-p4"]')
+    await incomeDescriptionP4.waitUntilVisible()
+    await waitUntilEqual(() => incomeDescriptionP4.innerText, 'Lisätietoja asiakasmaksuista')
 
     await incomePage.createNewIncomeStatement()
-    
+
     let incomeFormDescriptionP1 = new RawElement(page, '[data-qa="income-formDescription-p1"]')
     await incomeFormDescriptionP1.waitUntilVisible()
     await waitUntilEqual(() => incomeFormDescriptionP1.innerText, 'Tuloselvitys liitteineen palautetaan kuukauden kuluessa varhaiskasvatuksen aloittamisesta. Maksu voidaan määrätä puutteellisilla tulotiedoilla korkeimpaan maksuun. Puutteellisia tulotietoja ei korjata takautuvasti oikaisuvaatimusajan jälkeen.')
