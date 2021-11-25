@@ -121,6 +121,49 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
         FileOutputStream(filepath).use { it.write(bytes) }
     }
 
+    @Test
+    fun generateReliefAcceptedVoucherValueDecisionPdfValidTo() {
+        val validTo = LocalDate.now().plusYears(1)
+        val bytes = pdfService.generateVoucherValueDecisionPdf(
+            validVoucherValueDecisionPdfData(
+                validTo,
+                voucherValueDecisionType = VoucherValueDecisionType.RELIEF_ACCEPTED,
+                feeAlterations = listOf(
+                    FeeAlterationWithEffect(FeeAlteration.Type.RELIEF, 50, false, -10800)
+                )
+            )
+        )
+
+        val filepath = "${reportsPath}/PDFServiceTest-relief-accepted-voucher-value-decision-valid-to.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
+    fun generateReliefPartlyAcceptedVoucherValueDecisionPdfValidTo() {
+        val validTo = LocalDate.now().plusYears(1)
+        val bytes = pdfService.generateVoucherValueDecisionPdf(
+            validVoucherValueDecisionPdfData(
+                validTo,
+                voucherValueDecisionType = VoucherValueDecisionType.RELIEF_PARTLY_ACCEPTED,
+                feeAlterations = listOf(
+                    FeeAlterationWithEffect(FeeAlteration.Type.RELIEF, 50, false, -100)
+                )
+            )
+        )
+
+        val filepath = "${reportsPath}/PDFServiceTest-relief-partly-accepted-voucher-value-decision-valid-to.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
+    fun generateReliefRejectedVoucherValueDecisionPdfValidTo() {
+        val validTo = LocalDate.now().plusYears(1)
+        val bytes = pdfService.generateVoucherValueDecisionPdf(validVoucherValueDecisionPdfData(validTo, voucherValueDecisionType = VoucherValueDecisionType.RELIEF_REJECTED))
+
+        val filepath = "${reportsPath}/PDFServiceTest-relief-rejected-voucher-value-decision-valid-to.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
 }
 
 private fun validFeeDecisionPdfData(
@@ -197,7 +240,9 @@ private fun validVoucherValueDecisionPdfData(
         "Maija", "Meikäläinen",
         "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
         "", null, "", null, restrictedDetailsEnabled = false
-    )
+    ),
+    voucherValueDecisionType: VoucherValueDecisionType = VoucherValueDecisionType.NORMAL,
+    feeAlterations: List<FeeAlterationWithEffect> = emptyList()
 ): VoucherValueDecisionPdfData {
     return VoucherValueDecisionPdfData(
         VoucherValueDecisionDetailed(
@@ -206,7 +251,7 @@ private fun validVoucherValueDecisionPdfData(
             validTo,
             VoucherValueDecisionStatus.WAITING_FOR_SENDING,
             decisionNumber = null,
-            decisionType = VoucherValueDecisionType.NORMAL,
+            decisionType = voucherValueDecisionType,
             headOfFamily = headOfFamily,
             partner = null,
             headOfFamilyIncome = null,
@@ -246,7 +291,7 @@ private fun validVoucherValueDecisionPdfData(
             baseCoPayment = 1,
             siblingDiscount = 1,
             coPayment = 1,
-            emptyList(),
+            feeAlterations,
             finalCoPayment = 1,
             baseValue = 1,
             childAge = 1,
