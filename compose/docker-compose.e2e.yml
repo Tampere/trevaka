@@ -1,0 +1,96 @@
+# SPDX-FileCopyrightText: 2021 City of Tampere
+#
+# SPDX-License-Identifier: LGPL-2.1-or-later
+
+# Use this compose file to extend docker-compose.yml when you want to run
+# the latest published versions, e.g. for E2E testing.
+#
+# Scavenged from evaka integration testing and e2e compose files
+
+version: '3.5'
+
+services:
+  evaka-proxy:
+    image: nginx:1.21.3-alpine
+    ports:
+      - "9999:8080"
+    hostname: evaka-proxy
+    volumes:
+      - ../evaka/compose/proxy/nginx.conf:/etc/nginx/conf.d/evaka-nginx.conf
+      - ./s3-mount:/static
+    # Enable for debug logging
+    # command: [nginx-debug, '-g', 'daemon off;']
+
+  enduser-gw:
+    image: trevaka/api-gateway
+    ports:
+      - "3010"
+    hostname: enduser-gw
+    depends_on:
+      - redis
+    volumes:
+      - ../evaka/apigw/config/test-cert:/home/evaka/test-cert
+    env_file:
+      - .env
+    environment:
+      VOLTTI_ENV: local
+      NODE_ENV: local
+      GATEWAY_ROLE: enduser
+      EVAKA_SERVICE_URL: ${EVAKA_SERVICE_URL}
+      COOKIE_SECRET: cookie_secret
+      REDIS_HOST: ${EVAKA_REDIS_HOST}
+      REDIS_PORT: ${EVAKA_REDIS_PORT}
+      REDIS_DISABLE_SECURITY: "true"
+      JWT_PRIVATE_KEY: /home/evaka/test-cert/jwt_private_key.pem
+      EVAKA_CUSTOMER_SAML_PUBLIC_CERT: /home/evaka/test-cert/keycloak-local.pem
+      EVAKA_CUSTOMER_SAML_PRIVATE_CERT: /home/evaka/test-cert/saml-private.pem
+      ENABLE_DEV_API: "true"
+      PRETTY_LOGS: "false"
+
+  internal-gw:
+    image: trevaka/api-gateway
+    ports:
+      - "3020"
+    hostname: internal-gw
+    depends_on:
+      - redis
+    volumes:
+      - ../evaka/apigw/config/test-cert:/home/evaka/test-cert
+    environment:
+      VOLTTI_ENV: local
+      NODE_ENV: local
+      GATEWAY_ROLE: internal
+      EVAKA_SERVICE_URL: ${EVAKA_SERVICE_URL}
+      COOKIE_SECRET: cookie_secret
+      REDIS_HOST: ${EVAKA_REDIS_HOST}
+      REDIS_PORT: ${EVAKA_REDIS_PORT}
+      REDIS_DISABLE_SECURITY: "true"
+      JWT_PRIVATE_KEY: /home/evaka/test-cert/jwt_private_key.pem
+      EVAKA_SAML_PUBLIC_CERT: /home/evaka/test-cert/keycloak-local.pem
+      EVAKA_SAML_PRIVATE_CERT: /home/evaka/test-cert/saml-private.pem
+      ENABLE_DEV_API: "true"
+      PRETTY_LOGS: "false"
+
+  db:
+
+  db_it:
+
+  redis:
+
+  s3.mock.evaka:
+
+  playwright:
+    image: 518207624130.dkr.ecr.eu-west-1.amazonaws.com/evaka/e2e-playwright:latest
+    build:
+      context: ./e2e
+      dockerfile: ./playwright.Dockerfile
+    volumes:
+      - ..:/repo
+    ipc: host
+    environment:
+      CI: ${CI:-false}
+      DEBUG: ${DEBUG:-}
+
+volumes:
+  db-data:
+    driver: local

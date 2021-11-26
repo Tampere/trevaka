@@ -11,24 +11,31 @@ aliases:
   - &workspace_root /home/circleci/repo
   - &workspace_evaka_base /home/circleci/repo/evaka/evaka-base
   - &workspace_apigw /home/circleci/repo/evaka/apigw
-  - &workspace_frontend /home/circleci/repo/evaka/frontend
+  - &workspace_evaka_frontend /home/circleci/repo/evaka/frontend
+  - &workspace_tre_frontend /home/circleci/repo/frontend
   - &workspace_proxy /home/circleci/repo/evaka/proxy
   - &workspace_service /home/circleci/repo/service
   - &workspace_message_service /home/circleci/repo/evaka/message-service
   - &workspace_auth /home/circleci/repo/auth
+  - &workspace_compose /home/circleci/repo/compose
+  - &workspace_evaka_compose /home/circleci/repo/evaka/compose
 
-  - &remote_docker_version "20.10.2"
+  - &remote_docker_version "20.10.7"
   - &docker_layer_caching false
   - &base_image cimg/base:stable-20.04
   - &reuse_image fsfe/reuse:0.13.0 # NOTE: Update bin/add-license-headers.sh to match
   - &nodejs_image cimg/node:16.13
-  - &ubuntu_machine_image ubuntu-2004:202101-01
+  - &ubuntu_machine_image ubuntu-2004:202107-02
+  - &yarn_version '3.1.0\*'
 
   - &default_config
     working_directory: *workspace_root
 
   - &node_config
     <<: *default_config
+    environment:
+      # this makes Playwright download browsers to node_modules/playwright instead of $HOME/.cache/ms-playwright
+      PLAYWRIGHT_BROWSERS_PATH: 0
 
   - &jvm_config
     <<: *default_config
@@ -72,6 +79,9 @@ aliases:
       key: yarn-cache-frontend-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}
       paths:
         - evaka/frontend/.yarn/cache
+        - evaka/frontend/node_modules
+        - frontend/.yarn/cache
+        - frontend/node_modules
         - /home/circleci/.npm/sentry-cli
 
   - &restore_service_gradle
@@ -120,6 +130,13 @@ executors:
     <<: *jvm_config
     machine:
       image: *ubuntu_machine_image
+  e2e_executor:
+    <<: *node_config
+    machine:
+      image: *ubuntu_machine_image
+    resource_class: large
+    environment:
+      NODE_ENV: development
 
 commands:
   # Caching commands
@@ -186,11 +203,11 @@ commands:
     steps:
       - run:
           name: link customizations
-          working_directory: *workspace_frontend
+          working_directory: *workspace_evaka_frontend
           command: ln -v -s $(readlink -f ../../frontend/tampere) src/lib-customizations/tampere
       - run:
           name: yarn build
-          working_directory: *workspace_frontend
+          working_directory: *workspace_evaka_frontend
           environment:
             SENTRY_NO_PROGRESS_BAR: "1"
             EVAKA_CUSTOMIZATIONS: tampere
@@ -226,10 +243,8 @@ commands:
           working_directory: << parameters.dir >>
           command: docker save << parameters.image >> > image.tar
 
-  push_docker_image:
+  load_docker_image:
     parameters:
-      image:
-        type: string
       dir:
         type: string
     steps:
@@ -237,12 +252,111 @@ commands:
           name: Load docker image
           working_directory: << parameters.dir >>
           command: docker load -i image.tar
+
+  push_docker_image:
+    parameters:
+      image:
+        type: string
+      dir:
+        type: string
+    steps:
+      - load_docker_image:
+          dir: << parameters.dir >>
       - run:
           name: Push docker image
           command: |
             aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 518207624130.dkr.ecr.eu-west-1.amazonaws.com
             docker tag << parameters.image >> 518207624130.dkr.ecr.eu-west-1.amazonaws.com/<< parameters.image >>:${CIRCLE_SHA1}
             docker push 518207624130.dkr.ecr.eu-west-1.amazonaws.com/<< parameters.image >>:${CIRCLE_SHA1}
+
+  e2e_build:
+    steps:
+      - *restore_repo
+      - setup_remote_docker:
+          version: *remote_docker_version
+          docker_layer_caching: false
+      - run:
+          name: "Setup E2E_IMAGE and store date"
+          command: |
+            echo 'export E2E_IMAGE="trevaka/e2e-playwright:latest"' >> $BASH_ENV
+            date +%F > date
+      - restore_cache:
+          name: Restore Docker image from cache
+          key: playwright-daily-v1-{{ checksum "date"}}
+      - run:
+          name: Build E2E image
+          working_directory: *workspace_compose
+          command: |
+            docker load -i "e2e-playwright.tar" || true
+            docker build -t "$E2E_IMAGE" --cache-from "$E2E_IMAGE" -f "./e2e/playwright.Dockerfile" ./e2e/
+      - run:
+          name: Package E2E playwright image
+          working_directory: *workspace_root
+          command: |
+            docker save "$E2E_IMAGE" > "e2e-playwright.tar"
+      - save_cache:
+          name: Store Docker image in cache
+          key: playwright-image-v2-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}
+          paths:
+            - "e2e-playwright.tar"
+      - save_cache:
+          name: Store Docker image in daily cache
+          key: playwright-daily-v1-{{ checksum "date"}}
+          paths:
+            - "e2e-playwright.tar"
+
+  e2e_test:
+    parameters:
+      yarn_version:
+        type: string
+        default: *yarn_version
+    steps:
+      - *restore_repo
+      - load_docker_image:
+          dir: *workspace_apigw
+      - load_docker_image:
+          dir: *workspace_service
+      - run:
+          name: Tag docker images for apigw and service
+          command: |
+            docker tag trevaka/api-gateway evaka/api-gateway
+            docker tag trevaka/service evaka/service
+      - run:
+          name: Start up compose stack
+          working_directory: *workspace_compose
+          command: |
+            CI=true LOCAL_DIR='../evaka/frontend' ./compose-e2e up -d --build
+      - *restore_frontend_deps
+      - restore_frontend_comm_deps
+      - restore_cache:
+          name: Restore Docker image from cache
+          key: playwright-image-v2-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}
+      - run:
+          name: Load E2E image
+          working_directory: *workspace_root
+          command: |
+            docker load -i e2e-playwright.tar
+      - run:
+          name: Run E2E tests against compose inside a docker-compose
+          working_directory: *workspace_root
+          command: |
+            CI=true ./bin/circleci-e2e.sh
+      - run:
+          name: Collect docker-compose logs
+          working_directory: *workspace_evaka_compose
+          command: ./compose-e2e logs --tail=all > /tmp/docker-compose-logs.txt
+          when: always
+      - store_artifacts:
+          path: /tmp/docker-compose-logs.txt
+          destination: docker-compose-logs.txt
+      - store_artifacts:
+          path: frontend/screenshots
+          destination: screenshots
+      - store_artifacts:
+          path: frontend/videos
+          destination: videos
+      - store_test_results:
+          path: frontend/test-results
 
 jobs:
   # MISC JOBS
@@ -282,7 +396,7 @@ jobs:
       - store_build_customizations
       - run:
           name: Fetch commercial frontend dependencies
-          working_directory: *workspace_frontend
+          working_directory: *workspace_evaka_frontend
           command: |
             aws s3 sync s3://trevaka-dev-deployment/frontend/vendor/fortawesome/ ./vendor/fortawesome/
       - store_frontend_comm_deps
@@ -409,11 +523,14 @@ jobs:
       - restore_frontend_comm_deps
       - restore_build_customizations
       - run:
-          working_directory: *workspace_frontend
+          working_directory: *workspace_evaka_frontend
+          command: yarn install --immutable
+      - run:
+          working_directory: *workspace_tre_frontend
           command: yarn install --immutable
       - run:
           name: Unpack commercial frontend dependencies
-          working_directory: *workspace_frontend
+          working_directory: *workspace_evaka_frontend
           command: |
             ./unpack-pro-icons.sh
       - *store_frontend_deps
@@ -423,7 +540,7 @@ jobs:
           paths:
             - evaka/frontend/dist
       - run:
-          working_directory: *workspace_frontend
+          working_directory: *workspace_evaka_frontend
           command: yarn lint:strict
 
   frontend_upload_archive:
@@ -612,6 +729,19 @@ jobs:
               --header 'content-type: application/json' \
               --data '{"branch":"main","parameters":{"workflow":"deploy_pipeline","version":"'$CIRCLE_SHA1'"}}'
 
+  #E2E JOBS
+
+  e2e-build-playwright:
+    executor: nodejs_executor
+    steps:
+      - e2e_build
+
+  e2e-test-playwright:
+    executor: e2e_executor
+    parallelism: 4
+    steps:
+      - e2e_test
+
 workflows:
   version: 2
   build_test_and_deploy:
@@ -641,15 +771,30 @@ workflows:
             - trevaka-dev
           requires:
             - apigw_build_image
+            - e2e-test-playwright
+
 
       - frontend_build:
           requires:
             - fetch_private_dependencies
+
       - frontend_upload_archive:
           context:
             - trevaka-dev
           requires:
             - frontend_build
+            - e2e-test-playwright
+
+      - e2e-build-playwright:
+          requires:
+            - checkout_repo
+
+      - e2e-test-playwright:
+          requires:
+            - e2e-build-playwright
+            - frontend_build
+            - apigw_build_image
+            - service_build_image
 
       - proxy_build_image:
           requires:
@@ -659,6 +804,7 @@ workflows:
             - trevaka-dev
           requires:
             - proxy_build_image
+            - e2e-test-playwright
 
       - service_build:
           requires:
@@ -672,6 +818,7 @@ workflows:
             - trevaka-dev
           requires:
             - service_build_image
+            - e2e-test-playwright
 
       - message_service_build:
           requires:
@@ -685,6 +832,7 @@ workflows:
             - trevaka-dev
           requires:
             - message_service_build_image
+            - e2e-test-playwright
 
       - auth_build_image:
           requires:
@@ -694,6 +842,7 @@ workflows:
             - trevaka-dev
           requires:
             - auth_build_image
+            - e2e-test-playwright
 
       - trigger_deploy:
           context:
