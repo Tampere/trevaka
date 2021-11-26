@@ -62,6 +62,26 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     }
 
     @Test
+    fun generateFeeDecisionPdfPartner() {
+        val original = validFeeDecisionPdfData()
+        val modified = original.copy(
+            decision = original.decision.copy(
+                partner = PersonData.Detailed(
+                    UUID.randomUUID(), LocalDate.of(1980, 6, 14), null,
+                    "Mikko", "Meikäläinen",
+                    "140680-9239", "", "", "",
+                    "", null, "", null, restrictedDetailsEnabled = false
+                ),
+                isElementaryFamily = true
+            )
+        )
+        val bytes = pdfService.generateFeeDecisionPdf(modified)
+
+        val filepath = "${reportsPath}/PDFServiceTest-fee-decision-partner.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
     fun generateFeeDecisionPdfValidTo() {
         val validTo = LocalDate.now().plusYears(1)
         val bytes = pdfService.generateFeeDecisionPdf(validFeeDecisionPdfData(validTo))
@@ -92,6 +112,27 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
         val bytes = pdfService.generateVoucherValueDecisionPdf(validVoucherValueDecisionPdfData())
 
         val filepath = "${reportsPath}/PDFServiceTest-voucher-value-decision.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
+    fun generateVoucherValueDecisionPdfPartner() {
+        val original = validVoucherValueDecisionPdfData()
+        val modified = original.copy(
+            original.decision.copy(
+                partner = PersonData.Detailed(
+                    UUID.randomUUID(), LocalDate.of(1980, 6, 14), null,
+                    "Mikko", "Meikäläinen",
+                    "140680-9239", "", "", "",
+                    "", null, "", null, restrictedDetailsEnabled = false
+                ),
+                isElementaryFamily = true
+            )
+        )
+
+        val bytes = pdfService.generateVoucherValueDecisionPdf(modified)
+
+        val filepath = "${reportsPath}/PDFServiceTest-voucher-value-decision-partner.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
     }
 
