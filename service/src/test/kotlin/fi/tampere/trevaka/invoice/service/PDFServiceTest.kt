@@ -57,7 +57,9 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
 
     @Test
     fun generateFeeDecisionPdf() {
-        val bytes = pdfService.generateFeeDecisionPdf(validFeeDecisionPdfData())
+        val decision = validFeeDecision()
+
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, "fi"))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -76,19 +78,17 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
 
     @Test
     fun generateFeeDecisionPdfPartner() {
-        val original = validFeeDecisionPdfData()
-        val modified = original.copy(
-            decision = original.decision.copy(
-                partner = PersonData.Detailed(
-                    UUID.randomUUID(), LocalDate.of(1980, 6, 14), null,
-                    "Mikko", "Meikäläinen",
-                    "140680-9239", "", "", "",
-                    "", null, "", null, restrictedDetailsEnabled = false
-                ),
-                isElementaryFamily = true
-            )
+        val decision = validFeeDecision().copy(
+            partner = PersonData.Detailed(
+                UUID.randomUUID(), LocalDate.of(1980, 6, 14), null,
+                "Mikko", "Meikäläinen",
+                "140680-9239", "", "", "",
+                "", null, "", null, restrictedDetailsEnabled = false
+            ),
+            isElementaryFamily = true
         )
-        val bytes = pdfService.generateFeeDecisionPdf(modified)
+
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, "fi"))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-partner.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -96,8 +96,11 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
 
     @Test
     fun generateFeeDecisionPdfValidTo() {
-        val validTo = LocalDate.now().plusYears(1)
-        val bytes = pdfService.generateFeeDecisionPdf(validFeeDecisionPdfData(validTo))
+        val validFrom = LocalDate.now()
+        val validTo = validFrom.plusYears(1)
+        val decision = validFeeDecision().copy(validDuring = DateRange(validFrom, validTo))
+
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, "fi"))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-valid-to.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -105,16 +108,16 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
 
     @Test
     fun generateFeeDecisionPdfEmptyAddress() {
-        val bytes = pdfService.generateFeeDecisionPdf(
-            validFeeDecisionPdfData(
-                headOfFamily = PersonData.Detailed(
-                    UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
-                    "Maija", "Meikäläinen",
-                    "310382-956D", "", "", "",
-                    "", null, "", null, restrictedDetailsEnabled = false
-                )
+        val decision = validFeeDecision().copy(
+            headOfFamily = PersonData.Detailed(
+                UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
+                "Maija", "Meikäläinen",
+                "310382-956D", "", "", "",
+                "", null, "", null, restrictedDetailsEnabled = false
             )
         )
+
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, "fi"))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-empty-address.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -220,82 +223,65 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
 
 }
 
-private fun validFeeDecisionPdfData(
-    validTo: LocalDate? = null,
-    headOfFamily: PersonData.Detailed = PersonData.Detailed(
+private fun validFeeDecision() = FeeDecisionDetailed(
+    FeeDecisionId(UUID.randomUUID()),
+    children = listOf(
+        FeeDecisionChildDetailed(
+            child = PersonData.Detailed(
+                UUID.randomUUID(), LocalDate.of(2018, 1, 1), null,
+                "Matti", "Meikäläinen",
+                null, "", "", "",
+                "", null, "", null, restrictedDetailsEnabled = false
+            ),
+            placementType = PlacementType.DAYCARE,
+            placementUnit = UnitData.Detailed(
+                DaycareId(UUID.randomUUID()),
+                name = "Yksikkö 1",
+                areaId = AreaId(UUID.randomUUID()),
+                areaName = "Alue 1",
+                language = "fi"
+            ),
+            serviceNeedFeeCoefficient = BigDecimal.ONE,
+            serviceNeedDescriptionFi = "Palveluntarve 1",
+            serviceNeedDescriptionSv = "Palveluntarve 1 (sv)",
+            serviceNeedMissing = false,
+            baseFee = 1,
+            siblingDiscount = 1,
+            fee = 1,
+            feeAlterations = listOf(
+                FeeAlterationWithEffect(FeeAlteration.Type.RELIEF, 50, false, -10800),
+            ),
+            finalFee = 1
+        )
+    ),
+    validDuring = DateRange(LocalDate.now(), null),
+    FeeDecisionStatus.WAITING_FOR_SENDING,
+    decisionNumber = null,
+    FeeDecisionType.NORMAL,
+    headOfFamily = PersonData.Detailed(
         UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
         "Maija", "Meikäläinen",
         "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
         "", null, "", null, restrictedDetailsEnabled = false
-    )
-): FeeDecisionPdfData {
-    return FeeDecisionPdfData(validFeeDecision(validTo, headOfFamily), "fi")
-}
-
-private fun validFeeDecision(
-    validTo: LocalDate? = null,
-    headOfFamily: PersonData.Detailed = PersonData.Detailed(
-        UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
-        "Maija", "Meikäläinen",
-        "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
-        "", null, "", null, restrictedDetailsEnabled = false
-    )
-): FeeDecisionDetailed {
-    return FeeDecisionDetailed(
-        FeeDecisionId(UUID.randomUUID()),
-        children = listOf(
-            FeeDecisionChildDetailed(
-                child = PersonData.Detailed(
-                    UUID.randomUUID(), LocalDate.of(2018, 1, 1), null,
-                    "Matti", "Meikäläinen",
-                    null, "", "", "",
-                    "", null, "", null, restrictedDetailsEnabled = false
-                ),
-                placementType = PlacementType.DAYCARE,
-                placementUnit = UnitData.Detailed(
-                    DaycareId(UUID.randomUUID()),
-                    name = "Yksikkö 1",
-                    areaId = AreaId(UUID.randomUUID()),
-                    areaName = "Alue 1",
-                    language = "fi"
-                ),
-                serviceNeedFeeCoefficient = BigDecimal.ONE,
-                serviceNeedDescriptionFi = "Palveluntarve 1",
-                serviceNeedDescriptionSv = "Palveluntarve 1 (sv)",
-                serviceNeedMissing = false,
-                baseFee = 1,
-                siblingDiscount = 1,
-                fee = 1,
-                feeAlterations = listOf(
-                    FeeAlterationWithEffect(FeeAlteration.Type.RELIEF, 50, false, -10800),
-                ),
-                finalFee = 1
-            )
-        ),
-        validDuring = DateRange(LocalDate.now(), validTo),
-        FeeDecisionStatus.WAITING_FOR_SENDING,
-        decisionNumber = null,
-        FeeDecisionType.NORMAL,
-        headOfFamily = headOfFamily,
-        partner = null,
-        headOfFamilyIncome = null,
-        partnerIncome = null,
-        familySize = 1,
-        FeeDecisionThresholds(
-            minIncomeThreshold = 1,
-            maxIncomeThreshold = 2,
-            incomeMultiplier = BigDecimal.ONE,
-            maxFee = 1,
-            minFee = 1,
-        ),
-        documentKey = null,
-        approvedBy = PersonData.WithName(UUID.randomUUID(), "Markus", "Maksusihteeri"),
-        approvedAt = Instant.now(),
-        sentAt = null,
-        financeDecisionHandlerFirstName = null,
-        financeDecisionHandlerLastName = null
-    )
-}
+    ),
+    partner = null,
+    headOfFamilyIncome = null,
+    partnerIncome = null,
+    familySize = 1,
+    FeeDecisionThresholds(
+        minIncomeThreshold = 1,
+        maxIncomeThreshold = 2,
+        incomeMultiplier = BigDecimal.ONE,
+        maxFee = 1,
+        minFee = 1,
+    ),
+    documentKey = null,
+    approvedBy = PersonData.WithName(UUID.randomUUID(), "Markus", "Maksusihteeri"),
+    approvedAt = Instant.now(),
+    sentAt = null,
+    financeDecisionHandlerFirstName = null,
+    financeDecisionHandlerLastName = null
+)
 
 private fun validVoucherValueDecisionPdfData(
     validTo: LocalDate? = null,
