@@ -9,6 +9,7 @@ import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
 import fi.espoo.evaka.invoicing.domain.PersonData
 import fi.espoo.evaka.invoicing.domain.Product
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
+import fi.espoo.evaka.invoicing.service.toDecimalString
 import fi.tampere.messages.ipaas.commontypes.v1.FaultType
 import fi.tampere.messages.ipaas.commontypes.v1.SimpleAcknowledgementResponseType
 import fi.tampere.messages.sapsd.salesorder.v11.Address
@@ -26,6 +27,8 @@ import mu.KotlinLogging
 import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.client.SoapFaultClientException
 import org.springframework.ws.soap.client.core.SoapActionCallback
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -43,6 +46,13 @@ class TrevakaInvoiceClient(
 
     private val dateFormatter: DateTimeFormatter =
         DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale("fi"))
+
+    private fun priceInEuros(priceInCents: Int?): BigDecimal? =
+        if (priceInCents != null) BigDecimal(priceInCents).divide(
+            BigDecimal(100),
+            2,
+            RoundingMode.HALF_UP
+        ) else null
 
     override fun sendBatch(invoices: List<InvoiceDetailed>, agreementType: Int): Boolean {
         logger.info("Invoice batch started (agreementType=${agreementType})")
@@ -130,8 +140,8 @@ class TrevakaInvoiceClient(
             description = it.description
             profitCenter = it.costCenter
             material = productToMaterial(it.product)
-            rowAmount = it.price()
-            unitPrice = it.unitPrice
+            rowAmount = priceInEuros(it.price())
+            unitPrice = priceInEuros(it.unitPrice)
             quantity = it.amount.toFloat().toString()
             plant = properties.plant
             text.addAll(listOf(Text().apply {
