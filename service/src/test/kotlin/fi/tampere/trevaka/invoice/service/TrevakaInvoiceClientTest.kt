@@ -106,7 +106,7 @@ internal class TrevakaInvoiceClientTest {
                 "Matti", "Meikäläinen",
                 null, "", "", "",
                 "", null, "", null, restrictedDetailsEnabled = false
-            ), 1, 243,
+            ), 1, 24300,
             LocalDate.of(2021, 1, 1),
             LocalDate.of(2021, 1, 31),
             Product.DAYCARE, "131885", null, "kuvaus1"
@@ -117,7 +117,7 @@ internal class TrevakaInvoiceClientTest {
                 "Maiju", "Meikäläinen",
                 null, "", "", "",
                 "", null, "", null, restrictedDetailsEnabled = false
-            ), 1, 482,
+            ), 1, 48200,
             LocalDate.of(2021, 1, 1),
             LocalDate.of(2021, 1, 31),
             Product.PRESCHOOL_WITH_DAYCARE, "284823", null, "kuvaus2"
