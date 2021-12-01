@@ -21,6 +21,17 @@ const customizations: EmployeeCustomizations = {
         }
       },
       childInformation: {
+        assistanceNeed: {
+          fields: {
+            bases: 'Tuen tarve'
+          }
+        },
+        assistanceAction: {
+          title: 'Tukitoimet ja tukipalvelut',
+          fields: {
+            actions: 'Tukitoimet ja tukipalvelut'
+          }
+        },
         dailyServiceTimes: {
           info: 'Tallenna tähän varhaiskasvatussopimuksella sovittu päivittäinen läsnäoloaika.',
           info2: ''
