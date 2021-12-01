@@ -6,7 +6,7 @@ import { Page } from 'playwright'
 import config from 'e2e-test-common/config'
 import { newBrowserContext } from 'e2e-playwright/browser'
 import { waitUntilEqual } from 'e2e-playwright/utils'
-import { RawElement } from 'e2e-playwright/utils/element'
+import { RawElementDEPRECATED as RawElement } from 'e2e-playwright/utils/element'
 
 let page: Page
 
