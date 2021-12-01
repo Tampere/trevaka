@@ -11,7 +11,9 @@ VALUES
     ('40', 'Henkilökuntalisäys', 40),
     ('50', 'Integroitu varhaiskasvatusryhmä ', 50),
     ('60', 'Osa-aikainen erityisopetus', 60),
-    ('70', 'Veon tuki', 70)
+    ('70', 'Veon tuki', 70),
+    ('80', 'Tulkitsemispalvelut', 80),
+    ('90', 'Kuljetusetu', 90)
 ON CONFLICT (value) DO
 UPDATE SET
     name_fi = EXCLUDED.name_fi,

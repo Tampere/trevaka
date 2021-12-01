@@ -21,24 +21,6 @@ const customizations: EmployeeCustomizations = {
         }
       },
       childInformation: {
-        assistanceAction: {
-          fields: {
-            measureTypes: {
-              SPECIAL_ASSISTANCE_DECISION: 'Erityinen tuki',
-              SPECIAL_ASSISTANCE_DECISION_INFO: 'Ei päätöstä',
-              INTENSIFIED_ASSISTANCE: 'Tehostettu tuki',
-              INTENSIFIED_ASSISTANCE_INFO: 'Ei päätöstä',
-              EXTENDED_COMPULSORY_EDUCATION: 'Pidennetty oppivelvollisuus',
-              EXTENDED_COMPULSORY_EDUCATION_INFO:
-                'Lapsella erityisen tuen päätös',
-              CHILD_ACCULTURATION_SUPPORT:
-                'Lapsen ja perheen kotoutumisen tuki',
-              CHILD_ACCULTURATION_SUPPORT_INFO: '',
-              TRANSPORT_BENEFIT: 'Kuljetusetu',
-              TRANSPORT_BENEFIT_INFO: 'Lapsella kuljetusetu'
-            }
-          }
-        },
         dailyServiceTimes: {
           info: 'Tallenna tähän varhaiskasvatussopimuksella sovittu päivittäinen läsnäoloaika.',
           info2: ''
@@ -98,13 +80,7 @@ const customizations: EmployeeCustomizations = {
     alt: 'Tampere logo'
   },
   featureFlags,
-  assistanceMeasures: [
-    'SPECIAL_ASSISTANCE_DECISION',
-    'INTENSIFIED_ASSISTANCE',
-    'EXTENDED_COMPULSORY_EDUCATION',
-    'CHILD_ACCULTURATION_SUPPORT',
-    'TRANSPORT_BENEFIT'
-  ],
+  assistanceMeasures: [],
   placementTypes: [
     'DAYCARE',
     'DAYCARE_PART_TIME',
