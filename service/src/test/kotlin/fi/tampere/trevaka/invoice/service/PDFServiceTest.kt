@@ -4,6 +4,7 @@
 
 package fi.tampere.trevaka.invoice.service
 
+import fi.espoo.evaka.invoicing.domain.DecisionIncome
 import fi.espoo.evaka.invoicing.domain.FeeAlteration
 import fi.espoo.evaka.invoicing.domain.FeeAlterationWithEffect
 import fi.espoo.evaka.invoicing.domain.FeeDecisionChildDetailed
@@ -11,6 +12,7 @@ import fi.espoo.evaka.invoicing.domain.FeeDecisionDetailed
 import fi.espoo.evaka.invoicing.domain.FeeDecisionStatus
 import fi.espoo.evaka.invoicing.domain.FeeDecisionThresholds
 import fi.espoo.evaka.invoicing.domain.FeeDecisionType
+import fi.espoo.evaka.invoicing.domain.IncomeEffect
 import fi.espoo.evaka.invoicing.domain.PersonData
 import fi.espoo.evaka.invoicing.domain.UnitData
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionDetailed
@@ -62,6 +64,16 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
         val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, "fi"))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
+    fun generateFeeDecisionPdfWithIncome() {
+        val decision = validFeeDecision().copy(headOfFamilyIncome = testDecisionIncome)
+
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, "fi"))
+
+        val filepath = "${reportsPath}/PDFServiceTest-fee-decision-head-of-family-income.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
     }
 
@@ -128,6 +140,15 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
         val bytes = pdfService.generateVoucherValueDecisionPdf(validVoucherValueDecisionPdfData())
 
         val filepath = "${reportsPath}/PDFServiceTest-voucher-value-decision.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
+    fun generateVoucherValueDecisionPdfWithIncome() {
+        val pdfData = validVoucherValueDecisionPdfData()
+        val bytes = pdfService.generateVoucherValueDecisionPdf(pdfData.copy(decision = pdfData.decision.copy(headOfFamilyIncome = testDecisionIncome)))
+
+        val filepath = "${reportsPath}/PDFServiceTest-voucher-value-decision-head-of-family-income.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
     }
 
@@ -222,6 +243,16 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     }
 
 }
+
+private val testDecisionIncome = DecisionIncome(
+    effect = IncomeEffect.INCOME,
+    data = mapOf("MAIN_INCOME" to 314100),
+    totalIncome = 314100,
+    totalExpenses = 0,
+    total = 314100,
+    validFrom = LocalDate.of(2000, 1, 1),
+    validTo = null
+)
 
 private fun validFeeDecision() = FeeDecisionDetailed(
     FeeDecisionId(UUID.randomUUID()),
