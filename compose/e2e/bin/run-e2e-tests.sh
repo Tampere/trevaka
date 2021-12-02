@@ -26,6 +26,4 @@ echo 'INFO: Waiting for compose stack to be up...'
 
 cd /repo/frontend
 
-mapfile -t FILENAMES < playwright-filenames.txt
-
-yarn e2e-ci-playwright "${FILENAMES[@]}"
+yarn e2e-ci-playwright

@@ -738,7 +738,6 @@ jobs:
 
   e2e-test-playwright:
     executor: e2e_executor
-    parallelism: 4
     steps:
       - e2e_test
 
