@@ -5,7 +5,11 @@
 INSERT INTO assistance_basis_option
     (value, name_fi, description_fi, display_order)
 VALUES
-    ('DEVELOPMENTAL_DISABILITY', 'Kehitysvamma', NULL, 10)
+    ('CHILD_ACCULTURATION_SUPPORT', 'Lapsen ja perheen kotoutumisen tuki', NULL, 100),
+    ('INTENSIFIED_ASSISTANCE', 'Tehostettu tuki', 'Ei päätöstä', 200),
+    ('SPECIAL_ASSISTANCE_DECISION', 'Erityinen tuki', 'Ei päätöstä', 300),
+    ('DEVELOPMENTAL_DISABILITY', 'Kehitysvamma', NULL, 310),
+    ('EXTENDED_COMPULSORY_EDUCATION', 'Pidennetty oppivelvollisuus', 'Lapsella erityisen tuen päätös', 320)
 ON CONFLICT (value) DO
 UPDATE SET
     name_fi = EXCLUDED.name_fi,
