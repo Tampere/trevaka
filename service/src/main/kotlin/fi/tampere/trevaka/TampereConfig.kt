@@ -1,6 +1,6 @@
 package fi.tampere.trevaka
 
-import fi.espoo.evaka.shared.FeatureFlags
+import fi.espoo.evaka.shared.FeatureConfig
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -8,9 +8,10 @@ import org.springframework.context.annotation.Configuration
 class TampereConfig {
 
     @Bean
-    fun featureFlags(): FeatureFlags = FeatureFlags(
+    fun featureConfig(): FeatureConfig = FeatureConfig(
         valueDecisionCapacityFactorEnabled = true,
-        daycareApplicationServiceNeedOptionsEnabled = true
+        daycareApplicationServiceNeedOptionsEnabled = true,
+        citizenReservationThresholdHours = 6 * 24 // Tue 00:00
     )
 
 }
