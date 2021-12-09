@@ -2,16 +2,14 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-import { Page } from 'playwright'
 import config from 'e2e-test-common/config'
-import { newBrowserContext } from 'e2e-playwright/browser'
 import { waitUntilEqual } from 'e2e-playwright/utils'
-import { RawElementDEPRECATED as RawElement } from 'e2e-playwright/utils/element'
+import { Page } from 'e2e-playwright/utils/page'
 
 let page: Page
 
 beforeEach(async () => {
-  page = await (await newBrowserContext()).newPage()
+  page = await Page.open()
   await page.goto(config.enduserUrl)
 })
 afterEach(async () => {
@@ -20,23 +18,20 @@ afterEach(async () => {
 
 describe('Citizen footer', () => {
   test('Tampere footer label', async () => {
-    let footerPolicyLink = new RawElement(page, '[data-qa="footer-citylabel"]')
     await waitUntilEqual(
-      async () => (await footerPolicyLink.innerText),
+      () => page.find('[data-qa="footer-citylabel"]').innerText,
       '© Tampereen kaupunki'
     )
-  }),
+  })
   test('Tampere policy link', async () => {
-    let footerPolicyLink = new RawElement(page, '[data-qa="footer-policy-link"]')
     await waitUntilEqual(
-      async () => (await footerPolicyLink.getAttribute('href')),
+      () => page.find('[data-qa="footer-policy-link"]').getAttribute('href'),
       'https://www.tampere.fi/tampereen-kaupunki/yhteystiedot-ja-asiointi/verkkoasiointi/tietosuoja/tietosuojaselosteet.html'
     )
-  }),
+  })
   test('Tampere feedback link', async () => {
-    let footerFeedbackLink = new RawElement(page, '[data-qa="footer-feedback-link"]')
     await waitUntilEqual(
-      async () => (await footerFeedbackLink.getAttribute('href')),
+      () => page.find('[data-qa="footer-feedback-link"]').getAttribute('href'),
       'https://www.tampere.fi/palaute.html.stx'
     )
   })

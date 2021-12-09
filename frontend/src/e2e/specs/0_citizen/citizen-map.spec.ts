@@ -2,16 +2,14 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-import { newBrowserContext } from 'e2e-playwright/browser'
 import config from 'e2e-test-common/config'
-import { Page } from 'playwright'
-import { waitUntilTrue, waitUntilEqual } from 'e2e-playwright/utils'
-import { RawElementDEPRECATED as RawElement } from 'e2e-playwright/utils/element'
+import { Page } from 'e2e-playwright/utils/page'
+import { waitUntilEqual } from 'e2e-playwright/utils'
 
 let page: Page
 
 beforeEach(async () => {
-  page = await (await newBrowserContext()).newPage()
+  page = await Page.open()
   await page.goto(config.enduserUrl)
 })
 afterEach(async () => {
@@ -20,20 +18,17 @@ afterEach(async () => {
 
 describe('Citizen map page', () => {
   test('Unit type filters', async () => {
-    let preschoolFilter = await page.$$('[data-qa="map-filter-preschool"]')
-    expect(preschoolFilter).toEqual([])
-
-    let daycareFilter = new RawElement(page, '[data-qa="map-filter-daycare"]')
-    await waitUntilTrue(() => daycareFilter.visible)
-
-    let clubFilter = new RawElement(page, '[data-qa="map-filter-club"]')
-    await waitUntilTrue(() => clubFilter.visible)
-  }),
+    await page.find('[data-qa="map-filter-preschool"]').waitUntilHidden()
+    await page.find('[data-qa="map-filter-daycare"]').waitUntilVisible()
+    await page.find('[data-qa="map-filter-club"]').waitUntilVisible()
+  })
   test('Map main info', async () => {
-    let mapMainInfo = new RawElement(page, '[data-qa="map-main-info"]')
-    await waitUntilEqual(() => mapMainInfo.innerText, 'Tässä näkymässä voit hakea kartalta kaikki Tampereen varhaiskasvatusyksiköt sekä kerhot. Kartalta löytyvät myös seudulliset palveluseteliyksiköt ja -kerhot.')
-
-    let privateUnitInfo = mapMainInfo.find('span')
-    await waitUntilEqual(() => privateUnitInfo.innerText, '')
+    let mapMainInfo = page.find('[data-qa="map-main-info"]')
+    await waitUntilEqual(
+      () => mapMainInfo.innerText,
+      'Tässä näkymässä voit hakea kartalta kaikki Tampereen varhaiskasvatusyksiköt sekä kerhot. Kartalta löytyvät myös seudulliset palveluseteliyksiköt ja -kerhot.'
+    )
+    let privateUnitInfo = mapMainInfo.findAll('span')
+    await waitUntilEqual(() => privateUnitInfo.first().innerText, '')
   })
 })

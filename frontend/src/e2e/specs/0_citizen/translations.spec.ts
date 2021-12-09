@@ -31,11 +31,11 @@ const checkTampereTranslationInner = (object: any, errors: string[]) => {
 }
 
 const checkTampereTranslations = (translationsFi: { [key: string]: any }): string[] => {
-    let errors: string[] = [];
+    let errors: string[] = []
     for (const key of Object.keys(translationsFi)) {
         checkTampereTranslationInner(translationsFi[key], errors)
-    };
-    return errors;
+    }
+    return errors
 }
 
 describe('Citizen translations', () => {
