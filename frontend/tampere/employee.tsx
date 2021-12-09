@@ -23,6 +23,15 @@ const customizations: EmployeeCustomizations = {
       childInformation: {
         assistanceNeed: {
           fields: {
+            capacityFactorInfo: `
+              1. Kaupungin päiväkodeissa kerroin merkitään integroidussa varhaiskasvatusryhmässä oleville tehostettua
+              tai erityistä tukea tarvitseville lapsille ja missä tahansa ryhmässä kotoutumisen tukea saaville lapsille.
+              Kertoimen tallentaa varhaiskasvatuksen erityisopettaja.
+              2. Mikäli ostopalvelu- tai palvelusetelipäiväkodissa olevalla lapsella on tehostetun tai erityisen tuen
+              tarve, voidaan hänelle määritellä tuen kerroin. Päätöksen kertoimesta tekee varhaiskasvatusjohtaja,
+              varhaiskasvatuksen erityisopettajan esityksen perusteella. Kertoimen tallentaa varhaiskasvatuksen
+              asiakaspalvelu.
+            `,
             bases: 'Tuen tarve'
           }
         },
