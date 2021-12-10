@@ -22,23 +22,10 @@ if [ "${DEBUG:-X}" = "true" ]; then
 fi
 
 COMPOSE_NETWORK=${COMPOSE_NETWORK:-compose_default}
-SKIP_SPLIT=${SKIP_SPLIT:-false}
 PLAYWRIGHT_VERSION=${PLAYWRIGHT_VERSION:-v1.16.2}
 
 # Ensure we are in repository root
 pushd "$(dirname "${BASH_SOURCE[0]}")"/..
-
-if [ "$SKIP_SPLIT" != 'true' ]; then
-  pushd frontend
-  # Get list of test files that should run on this node.
-  mapfile -t FILENAMES < <(circleci tests glob \
-      'src/e2e-playwright/specs/**/*.spec.ts' \
-      | sort -h \
-      | circleci tests split --split-by=timings --timings-type=filename)
-  printf '%s\n' 'Spec files selected for node:' "${FILENAMES[@]}"
-  printf "%s\n" "${FILENAMES[@]}" > playwright-filenames.txt
-  popd
-fi
 
 pushd compose
 
