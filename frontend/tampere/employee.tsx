@@ -6,6 +6,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 */
 }
 
+import React from 'react'
 import { EmployeeCustomizations } from 'lib-customizations/types'
 import TampereLogo from './city-logo.svg'
 import featureFlags from './featureFlags'
@@ -23,6 +24,26 @@ const customizations: EmployeeCustomizations = {
       childInformation: {
         assistanceNeed: {
           fields: {
+            // @ts-expect-error: Type 'Element' is not assignable to type 'string'
+            capacityFactorInfo: (
+              <ol style={{ margin: '0', padding: '0 1em' }}>
+                <li>
+                  Kaupungin päiväkodeissa kerroin merkitään integroidussa
+                  varhaiskasvatusryhmässä oleville tehostettua tai erityistä
+                  tukea tarvitseville lapsille ja missä tahansa ryhmässä
+                  kotoutumisen tukea saaville lapsille. Kertoimen tallentaa
+                  varhaiskasvatuksen erityisopettaja.
+                </li>
+                <li>
+                  Mikäli ostopalvelu- tai palvelusetelipäiväkodissa olevalla
+                  lapsella on tehostetun tai erityisen tuen tarve, voidaan
+                  hänelle määritellä tuen kerroin. Päätöksen kertoimesta tekee
+                  varhaiskasvatusjohtaja, varhaiskasvatuksen erityisopettajan
+                  esityksen perusteella. Kertoimen tallentaa varhaiskasvatuksen
+                  asiakaspalvelu.
+                </li>
+              </ol>
+            ),
             bases: 'Tuen tarve'
           }
         },
