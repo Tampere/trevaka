@@ -141,6 +141,25 @@ executors:
 commands:
   # Caching commands
 
+  save:
+    parameters:
+      path:
+        type: string
+    steps:
+      - save_cache:
+          name: Save << parameters.path >>
+          key: workspace-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-<< parameters.path >>
+          paths:
+            - << parameters.path >>
+  restore:
+    parameters:
+      path:
+        type: string
+    steps:
+      - restore_cache:
+          name: Restore << parameters.path >>
+          key: workspace-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-<< parameters.path >>
+
   store_build_customizations:
     steps:
       - save_cache:
@@ -217,6 +236,8 @@ commands:
 
   load_base_image:
     steps:
+      - restore:
+          path: evaka-base.tar
       - run:
           name: Load base image
           working_directory: *workspace_root
@@ -312,6 +333,12 @@ commands:
         default: *yarn_version
     steps:
       - *restore_repo
+      - restore:
+          path: evaka/frontend/dist
+      - restore:
+          path: evaka/apigw/image.tar
+      - restore:
+          path: service/image.tar
       - load_docker_image:
           dir: *workspace_apigw
       - load_docker_image:
@@ -464,10 +491,8 @@ jobs:
           name: Save base image
           working_directory: *workspace_root
           command: docker save evaka-base > evaka-base.tar
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - evaka-base.tar
+      - save:
+          path: evaka-base.tar
 
   apigw_build:
     executor: nodejs_executor
@@ -481,15 +506,15 @@ jobs:
       - run:
           working_directory: *workspace_apigw
           command: yarn build
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - evaka/apigw/dist
+      - save:
+          path: evaka/apigw/dist
 
   apigw_build_image:
     executor: base_executor
     steps:
       - *restore_repo
+      - restore:
+          path: evaka/apigw/dist
       - setup_remote_docker:
           version: *remote_docker_version
           docker_layer_caching: *docker_layer_caching
@@ -497,16 +522,16 @@ jobs:
       - build_docker_image:
           image: trevaka/api-gateway
           dir: *workspace_apigw
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - evaka/apigw/image.tar
+      - save:
+          path: evaka/apigw/image.tar
 
   apigw_push_image:
     <<: *default_config
     executor: aws-cli/default
     steps:
       - *restore_repo
+      - restore:
+          path: evaka/apigw/image.tar
       - setup_remote_docker:
           version: *remote_docker_version
       - aws-cli/install
@@ -535,10 +560,8 @@ jobs:
             ./unpack-pro-icons.sh
       - *store_frontend_deps
       - build_frontend
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - evaka/frontend/dist
+      - save:
+          path: evaka/frontend/dist
       - run:
           working_directory: *workspace_evaka_frontend
           command: yarn lint:strict
@@ -548,6 +571,8 @@ jobs:
     executor: aws-cli/default
     steps:
       - *restore_repo
+      - restore:
+          path: evaka/frontend/dist
       - aws-cli/install
       - run:
           name: Create archive
@@ -569,16 +594,16 @@ jobs:
       - build_docker_image:
           image: trevaka/proxy
           dir: *workspace_proxy
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - evaka/proxy/image.tar
+      - save:
+          path: evaka/proxy/image.tar
 
   proxy_push_image:
     <<: *default_config
     executor: aws-cli/default
     steps:
       - *restore_repo
+      - restore:
+          path: evaka/proxy/image.tar
       - setup_remote_docker:
           version: *remote_docker_version
       - aws-cli/install
@@ -601,10 +626,8 @@ jobs:
           working_directory: *workspace_service
           command: ./gradlew build
       - *store_service_gradle
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - service/build
+      - save:
+          path: service/build/libs/trevaka-service.jar
       - store_artifacts:
           path: /home/circleci/repo/service/build/reports/
 
@@ -612,6 +635,8 @@ jobs:
     executor: base_executor
     steps:
       - *restore_repo
+      - restore:
+          path: service/build/libs/trevaka-service.jar
       - setup_remote_docker:
           version: *remote_docker_version
           docker_layer_caching: *docker_layer_caching
@@ -623,16 +648,16 @@ jobs:
       - build_docker_image:
           image: trevaka/service
           dir: *workspace_service
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - service/image.tar
+      - save:
+          path: service/image.tar
 
   service_push_image:
     <<: *default_config
     executor: aws-cli/default
     steps:
       - *restore_repo
+      - restore:
+          path: service/image.tar
       - setup_remote_docker:
           version: *remote_docker_version
       - aws-cli/install
@@ -655,15 +680,15 @@ jobs:
           working_directory: *workspace_message_service
           command: ./gradlew build
       - *store_message_service_gradle
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - evaka/message-service/build
+      - save:
+          path: evaka/message-service/build/libs/evaka-message-service.jar
 
   message_service_build_image:
     executor: base_executor
     steps:
       - *restore_repo
+      - restore:
+          path: evaka/message-service/build/libs/evaka-message-service.jar
       - setup_remote_docker:
           version: *remote_docker_version
           docker_layer_caching: *docker_layer_caching
@@ -675,16 +700,16 @@ jobs:
       - build_docker_image:
           image: trevaka/message-service
           dir: *workspace_message_service
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - evaka/message-service/image.tar
+      - save:
+          path: evaka/message-service/image.tar
 
   message_service_push_image:
     <<: *default_config
     executor: aws-cli/default
     steps:
       - *restore_repo
+      - restore:
+          path: evaka/message-service/image.tar
       - setup_remote_docker:
           version: *remote_docker_version
       - aws-cli/install
@@ -700,16 +725,16 @@ jobs:
       - build_docker_image:
           image: trevaka/auth
           dir: *workspace_auth
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - auth/image.tar
+      - save:
+          path: auth/image.tar
 
   auth_push_image:
     <<: *default_config
     executor: aws-cli/default
     steps:
       - *restore_repo
+      - restore:
+          path: auth/image.tar
       - setup_remote_docker:
           version: *remote_docker_version
       - aws-cli/install
