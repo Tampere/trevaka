@@ -541,7 +541,7 @@ jobs:
             - evaka/frontend/dist
       - run:
           working_directory: *workspace_evaka_frontend
-          command: yarn lint:strict
+          command: yarn lint
 
   frontend_upload_archive:
     <<: *default_config
