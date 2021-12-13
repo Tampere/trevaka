@@ -543,7 +543,6 @@ jobs:
           name: yarn lint
           working_directory: *workspace_evaka_frontend
           command: |
-            echo 'dist' >> .eslintignore
             echo 'src/*' >> .eslintignore
             echo '!src/lib-customizations' >> .eslintignore
             echo 'src/lib-customizations/*' >> .eslintignore
