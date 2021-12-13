@@ -540,8 +540,15 @@ jobs:
           paths:
             - evaka/frontend/dist
       - run:
+          name: yarn lint
           working_directory: *workspace_evaka_frontend
-          command: yarn lint
+          command: |
+            echo 'dist' >> .eslintignore
+            echo 'src/*' >> .eslintignore
+            echo '!src/lib-customizations' >> .eslintignore
+            echo 'src/lib-customizations/*' >> .eslintignore
+            echo '!src/lib-customizations/tampere' >> .eslintignore
+            yarn lint
 
   frontend_upload_archive:
     <<: *default_config
