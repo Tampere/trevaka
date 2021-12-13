@@ -19,7 +19,7 @@ module.exports = {
     ...defaults
   }, {
     name: 'frontend',
-    script: 'yarn && yarn clean && EVAKA_CUSTOMIZATIONS=tampere yarn dev',
+    script: 'yarn && yarn clean && EVAKA_CUSTOMIZATIONS=tampere yarn dev:old',
     cwd: path.resolve(__dirname, '../evaka/frontend'),
     env: {
       'ICONS': process.env.ICONS
