@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<md:EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" entityID="http://localhost:8080/auth/realms/citizens" ID="ID_2012bd4e-c917-4ae0-97f1-248d44aa5d6e">
+    <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" AuthnRequestsSigned="true" WantAssertionsSigned="true">
+        <md:KeyDescriptor use="signing">
+            <ds:KeyInfo>
+                <ds:KeyName>XNIAe3iP1aGOC0S9hBh_DPqNFC5iHRP8QO8DGcL4bUU</ds:KeyName>
+                <ds:X509Data>
+                    <ds:X509Certificate>MIIDATCCAemgAwIBAgIUHzkAYVMiQywKss92BD1CqrZKcMEwDQYJKoZIhvcNAQELBQAwEDEOMAwGA1UEAwwFZXZha2EwHhcNMjAxMjE2MTE1NjEwWhcNMzAxMjE0MTE1NjEwWjAQMQ4wDAYDVQQDDAVldmFrYTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJhEnTEokX6GWagKbp1NR5HaBxWPQSKItTRSIJ/jvSt5qJy5pZoLtCX5jy7c/WbC/+PNF8fL3DxDc12IhrjgvoVACezpU/KVXDk7rIvENrUKKTqmIBgtf84xiR44A6go9i8PN+Fi6hut5p6jQ/8a6qddOjPMolhbwpL2U1xFwJs81dsOJ608X2ZUMK/14yKBNqwyuARQmdzRQjXesDwqaxkQU64Ma65fN//sYvKmbL/Xw5r5XzBWY2TtZBZ8hlddqMPRvu6sorBziol/NDRtbn2pUswgQz6QLF3n+wcBGt+AycjqPgYUk6ebJyFB6pqK27bm3LLAdltr6YBmaGx51SkCAwEAAaNTMFEwHQYDVR0OBBYEFABgD77k623LS3GnhaNKvUjUw1l6MB8GA1UdIwQYMBaAFABgD77k623LS3GnhaNKvUjUw1l6MA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAIiA3vuvuQsNNMUH/b5Dmmq8SP1Mrfqx584FWOD8gKhBVvlFTKJsZC8Vuk39ynfz/g0eN3sRIywk/jMHJTV+zmS2YcLGKRvsdCbCA9v9R5Qh09E8HBsHTuFxgA09FN4OrxqRgv1RaXB5eEvzHWb7iemE1dW73TX9o0VEgF45I1ZrQWdq+SyOOCFa9dofADmrAI0EDARHPOUGEVrENwwk6au85VduLbhQ/rfw0hzig2w0HU4FVVELQQOZAwnrR+Acwl04W/DHp1U//MTAgpQ1FXnniCBi/duuXlLdpsbIyK3XlUGfjPnhIvFVH8EHI5BsG7vs+PMfTAFMbf8tDGpS15Q=</ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </md:KeyDescriptor>
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://localhost:8080/auth/realms/citizens/broker/saml/endpoint"/>
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://localhost:8080/auth/realms/citizens/broker/saml/endpoint" isDefault="true" index="1"/>
+    </md:SPSSODescriptor>
+</md:EntityDescriptor>

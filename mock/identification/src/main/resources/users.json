@@ -1,0 +1,1228 @@
+{
+  "@class": "java.util.LinkedHashMap",
+  "070644-937X": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "070644-937X"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Karhula"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Johannes"
+        ]
+      ]
+    }
+  },
+  "270372-905L": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "270372-905L"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Korhonen-Hämäläinen"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Sirkka-Liisa"
+        ]
+      ]
+    }
+  },
+  "271170-917X": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "271170-917X"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Heinjoki"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Kaarina"
+        ]
+      ]
+    }
+  },
+  "220281-9456": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "220281-9456"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Högfors"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Mikael"
+        ]
+      ]
+    }
+  },
+  "170590-9540": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "170590-9540"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Högfors"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Kaarina"
+        ]
+      ]
+    }
+  },
+  "280674-990X": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "280674-990X"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Honkilahti"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Kaarina"
+        ]
+      ]
+    }
+  },
+  "071082-9435": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "071082-9435"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Heinjoki"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Tapio"
+        ]
+      ]
+    }
+  },
+  "231182-9661": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "231182-9661"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Kalanti"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Anna"
+        ]
+      ]
+    }
+  },
+  "221071-9131": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "221071-9131"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Joensuu"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Tapani"
+        ]
+      ]
+    }
+  },
+  "260888-990V": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "260888-990V"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Aspö"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Liisa"
+        ]
+      ]
+    }
+  },
+  "210586-987L": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "210586-987L"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Aspö"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Anneli"
+        ]
+      ]
+    }
+  },
+  "150794-9463": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "150794-9463"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Hattula"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Hannele"
+        ]
+      ]
+    }
+  },
+  "290385-9900": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "290385-9900"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Haaga"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Anna"
+        ]
+      ]
+    }
+  },
+  "130973-9825": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "130973-9825"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Haga"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Hannele"
+        ]
+      ]
+    }
+  },
+  "050482-9741": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "050482-9741"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Alajärvi"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Tapani"
+        ]
+      ]
+    }
+  },
+  "130894-917N": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "130894-917N"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Hattula"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Helena"
+        ]
+      ]
+    }
+  },
+  "010882-983Y": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "010882-983Y"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Karjala"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Matti"
+        ]
+      ]
+    }
+  },
+  "100373-9733": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "100373-9733"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Haaga"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Olavi"
+        ]
+      ]
+    }
+  },
+  "090693-990K": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "090693-990K"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Joensuu"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Tapio"
+        ]
+      ]
+    }
+  },
+  "231090-912J": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "231090-912J"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Finström"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Liisa"
+        ]
+      ]
+    }
+  },
+  "010495-965H": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "010495-965H"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Anttola"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Marjatta"
+        ]
+      ]
+    }
+  },
+  "290377-9377": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "290377-9377"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Eno"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Annikki"
+        ]
+      ]
+    }
+  },
+  "090275-9724": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "090275-9724"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Jokioinen"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Helena"
+        ]
+      ]
+    }
+  },
+  "020394-958V": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "020394-958V"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Anttola"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Mikael"
+        ]
+      ]
+    }
+  },
+  "210593-9430": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "210593-9430"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Jaala"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Maria"
+        ]
+      ]
+    }
+  },
+  "060195-966B": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "060195-966B"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Finström"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Hannele"
+        ]
+      ]
+    }
+  },
+  "091171-9975": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "091171-9975"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Huittinen"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Helena"
+        ]
+      ]
+    }
+  },
+  "100774-9306": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "100774-9306"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Joutsa"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Helena"
+        ]
+      ]
+    }
+  },
+  "290393-9913": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "290393-9913"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Finström"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Matti"
+        ]
+      ]
+    }
+  },
+  "150288-971A": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "150288-971A"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Jurva"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Kaarina"
+        ]
+      ]
+    }
+  },
+  "120482-955X": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "120482-955X"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Tammi"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Tauno"
+        ]
+      ]
+    }
+  },
+  "010170-960F": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "010170-960F"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Demo"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Anna"
+        ]
+      ]
+    }
+  },
+  "210281-9988": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "210281-9988"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Demo"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Nordea"
+        ]
+      ]
+    }
+  },
+  "010101-123N": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "010101-123N"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Testaaja"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Teemu"
+        ]
+      ]
+    }
+  },
+  "010170-999R": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "010170-999R"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Testaaja"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Tero"
+        ]
+      ]
+    }
+  },
+  "081181-9984": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "081181-9984"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Marttila"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Sylvi"
+        ]
+      ]
+    }
+  },
+  "020898-945H": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "020898-945H"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Muurinen"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Eemeli"
+        ]
+      ]
+    }
+  },
+  "020474-9187": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "020474-9187"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Kankaanperä"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Terttu"
+        ]
+      ]
+    }
+  },
+  "170595-9151": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "170595-9151"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Simakuutio"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Ahto"
+        ]
+      ]
+    }
+  },
+  "050391-999B": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "050391-999B"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Äåöàáâãæçð Èèéêë-Ììíîïñòóôõ Øøßþùúûüýÿ"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Parkkonen"
+        ]
+      ]
+    }
+  },
+  "300190-9257": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "300190-9257"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Haahka"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Heikki"
+        ]
+      ]
+    }
+  },
+  "031083-910S": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "031083-910S"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Sotka"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Seija"
+        ]
+      ]
+    }
+  },
+  "150978-9025": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "150978-9025"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Silkkiuikku"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Sirpa"
+        ]
+      ]
+    }
+  },
+  "010180-1232": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "010180-1232"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Doe"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "John"
+        ]
+      ]
+    }
+  },
+  "010279-123L": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "010279-123L"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Doe"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Joan"
+        ]
+      ]
+    }
+  },
+  "311299-999E": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "311299-999E"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Vilkas"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Ville"
+        ]
+      ]
+    }
+  },
+  "311288A999L": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "311288A999L"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          ""
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          ""
+        ]
+      ]
+    }
+  },
+  "120220A995L": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "120220A995L"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Foo"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Hillary"
+        ]
+      ]
+    }
+  },
+  "150580-999K": {
+    "@class": "org.apereo.cas.adaptors.generic.CasUserAccount",
+    "password": "mock",
+    "attributes": {
+      "@class": "java.util.LinkedHashMap",
+      "nationalIdentificationNumber": [
+        "java.util.List",
+        [
+          "150580-999K"
+        ]
+      ],
+      "sn": [
+        "java.util.List",
+        [
+          "Aapinen"
+        ]
+      ],
+      "givenName": [
+        "java.util.List",
+        [
+          "Anelma"
+        ]
+      ]
+    }
+  }
+}
