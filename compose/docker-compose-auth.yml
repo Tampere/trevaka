@@ -12,10 +12,18 @@ services:
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: /etc/auth/citizens-realm-export.json,/etc/auth/employees-realm-export.json
       DB_VENDOR: h2
+    volumes:
+      - ./auth:/etc/auth
     depends_on:
       - smtp
   smtp:
     image: mailhog/mailhog
     ports:
-      - "8025:8025"
+      - "1025:1025" # smtp
+      - "8025:8025" # http
+  identification:
+    build: ../mock/identification
+    ports:
+      - "8081:8081"

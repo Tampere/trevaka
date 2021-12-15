@@ -14,6 +14,10 @@ module.exports = {
     script: 'yarn && yarn clean && yarn dev',
     cwd: path.resolve(__dirname, '../evaka/apigw'),
     env: {
+      EVAKA_CUSTOMER_SAML_ENTRYPOINT: 'http://localhost:8080/auth/realms/citizens/protocol/saml',
+      EVAKA_CUSTOMER_SAML_ISSUER: 'trevaka',
+      EVAKA_SAML_ENTRYPOINT: 'http://localhost:8080/auth/realms/employees/protocol/saml',
+      EVAKA_SAML_ISSUER: 'trevaka',
       AD_SAML_EXTERNAL_ID_PREFIX: 'tampere-ad'
     },
     ...defaults

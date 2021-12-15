@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: 2021 City of Tampere
+#
+# SPDX-License-Identifier: LGPL-2.1-or-later
+
+cas:
+  authn:
+    accept:
+      users:
+    json:
+      location: classpath:users.json
+  server:
+    name: http://localhost:${server.port}
+    prefix: http://localhost:${server.port}${server.servlet.context-path}
+    scope: localhost:${server.port}
+  service-registry:
+    yaml:
+      location: classpath:services
+  tgc:
+    secure: false
+    same-site-policy: strict
+  warning-cookie:
+    secure: false
+    same-site-policy: strict
+server:
+  servlet:
+    context-path: /identification
+  port: 8081
+  ssl:
+    enabled: false
