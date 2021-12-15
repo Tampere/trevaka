@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2021 City of Tampere
+#
+# SPDX-License-Identifier: LGPL-2.1-or-later
+
 FROM openjdk:17-alpine AS builder
 COPY gradle gradle
 COPY gradlew build.gradle.kts settings.gradle.kts ./

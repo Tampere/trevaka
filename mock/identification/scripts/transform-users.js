@@ -1,4 +1,9 @@
 #!/bin/node
+
+// SPDX-FileCopyrightText: 2021 City of Tampere
+//
+// SPDX-License-Identifier: LGPL-2.1-or-later
+
 // usage: ./transform-users.js > ../src/main/resources/users.json
 
 const fs = require("fs");
