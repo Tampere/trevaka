@@ -1288,6 +1288,9 @@
     "from": "noreply@trevaka.local",
     "ssl": ""
   },
+  "loginTheme": "evaka",
+  "accountTheme": "evaka",
+  "emailTheme": "evaka",
   "eventsEnabled": false,
   "eventsListeners": [
     "jboss-logging"
@@ -1530,8 +1533,11 @@
       }
     ]
   },
-  "internationalizationEnabled": false,
-  "supportedLocales": [],
+  "internationalizationEnabled": true,
+  "supportedLocales": [
+    "fi"
+  ],
+  "defaultLocale": "fi",
   "authenticationFlows": [
     {
       "id": "cbb86abd-d1a2-4f00-bfb4-e4ae40566484",
