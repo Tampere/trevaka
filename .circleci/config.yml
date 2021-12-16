@@ -200,10 +200,14 @@ commands:
 
   setup_authenticated_remote_docker:
     description: Setup remote Docker execution environment with Docker Hub authentication
+    parameters:
+      docker_layer_caching:
+        type: boolean
+        default: *docker_layer_caching
     steps:
       - setup_remote_docker:
           version: *remote_docker_version
-          docker_layer_caching: *docker_layer_caching
+          docker_layer_caching: << parameters.docker_layer_caching >>
       #- login_docker_hub
 
   setup_git:
@@ -727,7 +731,8 @@ jobs:
     executor: base_executor
     steps:
       - *restore_repo
-      - setup_authenticated_remote_docker
+      - setup_authenticated_remote_docker:
+          docker_layer_caching: true
       - build_docker_image:
           image: trevaka/auth
           dir: *workspace_auth
