@@ -2,8 +2,8 @@ package fi.tampere.trevaka.reports
 
 import fi.espoo.evaka.reports.freezeVoucherValueReportRows
 import fi.espoo.evaka.shared.auth.AuthenticatedUser
-import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.db.Database
+import fi.espoo.evaka.shared.domain.Forbidden
 import mu.KotlinLogging
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -20,14 +20,14 @@ class ReportsController() {
 
     @GetMapping("/freeze-voucher-value-report-rows/{year}/{month}")
     fun freezeVoucherValueReportRows(
-        db: Database.Connection,
+        db: Database,
         user: AuthenticatedUser,
         @PathVariable year: Int,
         @PathVariable month: Int
     ) {
         logger.info { "Freeze voucher value report rows ${YearMonth.of(year, month)}" }
-        user.requireOneOfRoles(UserRole.ADMIN)
-        db.transaction { tx -> freezeVoucherValueReportRows(tx, year, month, Instant.now()) }
+        if (!user.isAdmin) throw Forbidden()
+        db.connect { c -> c.transaction { tx -> freezeVoucherValueReportRows(tx, year, month, Instant.now()) } }
     }
 
 }
