@@ -733,6 +733,8 @@ jobs:
       - *restore_repo
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
+      - restore_build_customizations
+      - run: cp customizations/footer-logo-citizen.png auth/TampereLogo.png
       - build_docker_image:
           image: trevaka/auth
           dir: *workspace_auth

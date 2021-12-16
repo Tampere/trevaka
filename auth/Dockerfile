@@ -7,6 +7,7 @@ COPY theme/package*.json ./
 RUN npm ci
 COPY theme .
 COPY theme-fi.sed ./
+COPY TampereLogo.png evaka/login/resources/img/EspooLogo.png
 RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties
 RUN npm run build
 
