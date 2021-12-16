@@ -873,7 +873,7 @@ workflows:
 
       - auth_build_image:
           requires:
-            - checkout_repo
+            - fetch_private_dependencies
       - auth_push_image:
           context:
             - trevaka-dev
