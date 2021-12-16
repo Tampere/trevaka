@@ -20,14 +20,14 @@ class ReportsController() {
 
     @GetMapping("/freeze-voucher-value-report-rows/{year}/{month}")
     fun freezeVoucherValueReportRows(
-        db: Database.Connection,
+        db: Database,
         user: AuthenticatedUser,
         @PathVariable year: Int,
         @PathVariable month: Int
     ) {
         logger.info { "Freeze voucher value report rows ${YearMonth.of(year, month)}" }
         if (!user.isAdmin) throw Forbidden()
-        db.transaction { tx -> freezeVoucherValueReportRows(tx, year, month, Instant.now()) }
+        db.connect { c -> c.transaction { tx -> freezeVoucherValueReportRows(tx, year, month, Instant.now()) } }
     }
 
 }
