@@ -1,3 +1,6 @@
 [submodule "evaka"]
 	path = evaka
 	url = https://github.com/Tampere/evaka.git
+[submodule "auth/theme"]
+	path = auth/theme
+	url = https://github.com/espoon-voltti/evaka-keycloak-theme.git
