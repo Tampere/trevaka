@@ -145,21 +145,6 @@ commands:
           name: Restore << parameters.path >>
           key: workspace-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-<< parameters.path >>
 
-  store_build_customizations:
-    steps:
-      - save_cache:
-          name: Store private build customizations
-          key: build-customization-v1-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - customizations
-  restore_build_customizations:
-    steps:
-      - restore_cache:
-          name: Restore private build customizations
-          keys:
-            # Not really intended to be a real cache, so use exact matches
-            - build-customization-v1-{{ .Branch }}-{{ .Revision }}
-
   store_frontend_comm_deps:
     steps:
       - save_cache:
@@ -185,10 +170,14 @@ commands:
 
   setup_authenticated_remote_docker:
     description: Setup remote Docker execution environment with Docker Hub authentication
+    parameters:
+      docker_layer_caching:
+        type: boolean
+        default: *docker_layer_caching
     steps:
       - setup_remote_docker:
           version: *remote_docker_version
-          docker_layer_caching: *docker_layer_caching
+          docker_layer_caching: << parameters.docker_layer_caching >>
       #- login_docker_hub
 
   setup_git:
@@ -405,7 +394,8 @@ jobs:
           working_directory: *workspace_root
           command: |
             aws s3 sync s3://trevaka-dev-deployment/customizations/ ./customizations/
-      - store_build_customizations
+      - save:
+          path: customizations
       - run:
           name: Fetch commercial frontend dependencies
           working_directory: *workspace_evaka_frontend
@@ -531,7 +521,8 @@ jobs:
       - *restore_repo
       - *restore_frontend_deps
       - restore_frontend_comm_deps
-      - restore_build_customizations
+      - restore:
+          path: customizations
       - run:
           working_directory: *workspace_evaka_frontend
           command: yarn install --immutable
@@ -660,7 +651,11 @@ jobs:
     executor: base_executor
     steps:
       - *restore_repo
-      - setup_authenticated_remote_docker
+      - setup_authenticated_remote_docker:
+          docker_layer_caching: true
+      - restore:
+          path: customizations
+      - run: cp customizations/footer-logo-citizen.png auth/TampereLogo.png
       - build_docker_image:
           image: trevaka/auth
           dir: *workspace_auth
@@ -785,7 +780,7 @@ workflows:
 
       - auth_build_image:
           requires:
-            - checkout_repo
+            - fetch_private_dependencies
       - auth_push_image:
           context:
             - trevaka-dev
