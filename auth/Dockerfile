@@ -11,5 +11,5 @@ COPY TampereLogo.png evaka/login/resources/img/EspooLogo.png
 RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties
 RUN npm run build
 
-FROM quay.io/keycloak/keycloak:14.0.0
+FROM quay.io/keycloak/keycloak:16.0.0
 COPY --from=theme evaka /opt/jboss/keycloak/themes/evaka
