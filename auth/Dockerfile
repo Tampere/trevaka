@@ -8,7 +8,8 @@ RUN npm ci
 COPY theme .
 COPY theme-fi.sed ./
 COPY TampereLogo.png evaka/login/resources/img/EspooLogo.png
-RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties
+RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties && \
+    sed -i -e '/<#--/d' -e '/-->/d' evaka/login/login-update-profile.ftl
 RUN npm run build
 
 FROM quay.io/keycloak/keycloak:16.0.0
