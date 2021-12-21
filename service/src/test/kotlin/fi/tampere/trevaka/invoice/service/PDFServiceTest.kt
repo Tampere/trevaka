@@ -27,6 +27,7 @@ import fi.espoo.evaka.invoicing.service.Page
 import fi.espoo.evaka.invoicing.service.Template
 import fi.espoo.evaka.invoicing.service.VoucherValueDecisionPdfData
 import fi.espoo.evaka.placement.PlacementType
+import fi.espoo.evaka.setting.SettingType
 import fi.espoo.evaka.shared.AreaId
 import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.FeeDecisionId
@@ -47,6 +48,11 @@ import java.util.UUID
 
 private val reportsPath: String = "${Paths.get("build").toAbsolutePath()}/reports"
 
+private val settings = mapOf(
+    SettingType.DECISION_MAKER_NAME to "Paula Palvelupäällikkö",
+    SettingType.DECISION_MAKER_TITLE to "Asiakaspalvelupäällikkö"
+)
+
 internal class PDFServiceTest : AbstractIntegrationTest() {
 
     @Autowired
@@ -61,7 +67,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     fun generateFeeDecisionPdf() {
         val decision = validFeeDecision()
 
-        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, "fi"))
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -71,7 +77,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     fun generateFeeDecisionPdfWithIncome() {
         val decision = validFeeDecision().copy(headOfFamilyIncome = testDecisionIncome)
 
-        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, "fi"))
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-head-of-family-income.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -82,7 +88,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     fun generateFeeDecisionPdfType(decisionType: FeeDecisionType) {
         val decision = validFeeDecision().copy(decisionType = decisionType)
 
-        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, "fi"))
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-type-$decisionType.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -100,7 +106,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
             isElementaryFamily = true
         )
 
-        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, "fi"))
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-partner.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -112,7 +118,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
         val validTo = validFrom.plusYears(1)
         val decision = validFeeDecision().copy(validDuring = DateRange(validFrom, validTo))
 
-        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, "fi"))
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-valid-to.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -129,7 +135,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
             )
         )
 
-        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, "fi"))
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-empty-address.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -387,6 +393,7 @@ private fun validVoucherValueDecisionPdfData(
             financeDecisionHandlerFirstName = null,
             financeDecisionHandlerLastName = null
         ),
+        settings,
         DocumentLang.fi
     )
 }
