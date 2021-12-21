@@ -41,11 +41,9 @@ evaka:
       password: pass
       xroad:
         address: http://localhost:${wiremock.server.port}/mock/vtj
-fi:
-  tampere:
-    trevaka:
-      ipaas:
-        username: user
-        password: pass
-      invoice:
-        url: http://localhost:${wiremock.server.port}/mock/ipaas/salesOrder
+trevaka:
+  ipaas:
+    username: user
+    password: pass
+  invoice:
+    url: http://localhost:${wiremock.server.port}/mock/ipaas/salesOrder

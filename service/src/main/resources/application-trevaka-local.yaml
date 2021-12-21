@@ -35,11 +35,9 @@ evaka:
     koski:
       enabled: false
 
-fi:
-  tampere:
-    trevaka:
-      ipaas:
-        username: user
-        password: pass
-      invoice:
-        url: http://localhost:${server.port}/salesOrder
+trevaka:
+  ipaas:
+    username: user
+    password: pass
+  invoice:
+    url: http://localhost:${server.port}/salesOrder
