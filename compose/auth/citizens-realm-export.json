@@ -28,7 +28,7 @@
   "enabled": true,
   "sslRequired": "external",
   "registrationAllowed": false,
-  "registrationEmailAsUsername": false,
+  "registrationEmailAsUsername": true,
   "rememberMe": false,
   "verifyEmail": false,
   "loginWithEmailAllowed": true,
@@ -1073,17 +1073,6 @@
         "user.attribute": "firstName",
         "attributes": "[]",
         "attribute.friendly.name": "givenName"
-      }
-    },
-    {
-      "id": "5b42f8d1-0cbe-42e6-9400-51a9e53ff217",
-      "name": "username",
-      "identityProviderAlias": "saml",
-      "identityProviderMapper": "hardcoded-attribute-idp-mapper",
-      "config": {
-        "syncMode": "IMPORT",
-        "attributes": "[]",
-        "attribute": "username"
       }
     },
     {
