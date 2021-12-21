@@ -26,40 +26,18 @@ logging:
         boot:
           autoconfigure: INFO
 
-aws:
-  region: eu-west-1
+evaka:
+  aws:
+    region: eu-west-1
+  five_years_old_daycare:
+    enabled: false
+  integration:
+    koski:
+      enabled: false
 
-fi:
-  espoo:
-    evaka:
-      five_years_old_daycare:
-        enabled: false
-    integration:
-      koski:
-        enabled: false
-    varda:
-      force:
-      vtj:
-        client:
-          # these are used if you run pis-service in "vtj-dev" profile (against Test VTJ).
-          # get-deployment-local.sh should fill the trustStore location, but you need to fill vtj user/pass with details from AWS Parameter Store
-          password: ""
-          username: ""
-        xroad:
-          address: https://fake.test
-          # FIXME: needs to be updated with trevaka info
-          client:
-            instance: FI-TEST
-            memberClass: MUN
-            memberCode: 0101263-6
-            subSystemCode: evaka-test
-          trustStore:
-            password: password
-            type: JKS
-  tampere:
-    trevaka:
-      ipaas:
-        username: user
-        password: pass
-      invoice:
-        url: http://localhost:${server.port}/salesOrder
+trevaka:
+  ipaas:
+    username: user
+    password: pass
+  invoice:
+    url: http://localhost:${server.port}/salesOrder

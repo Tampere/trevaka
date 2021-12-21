@@ -3,54 +3,47 @@
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
 # see AbstractIntegrationTest for dynamic properties
-aws:
-  region: us-east-1
-application:
+evaka:
+  aws:
+    region: eu-west-1
+  bucket:
+    data: trevaka-data-it
+    attachments: trevaka-attachments-it
+    decisions: trevaka-daycaredecisions-it
+    fee_decisions: trevaka-paymentdecisions-it
+    voucher_value_decisions: trevaka-vouchervaluedecisions-it
   frontend:
-    base-url: http://localhost:${server.port}
-    base-url.sv: http://localhost:${server.port}
-fi:
-  espoo:
-    evaka:
-      message:
-        url: http://localhost:${wiremock.server.port}/mock/message
-        enabled: false
-    integration:
-      dvv-modifications-service:
-        url: http://localhost:${wiremock.server.port}/mock/modifications
-        userId: user
-        password: pass
-        xRoadClientId: trevaka
-        productCode: trevaka
-      koski:
-        url: http://localhost:${wiremock.server.port}/mock/koski
-        enabled: false
-        source_system: trevaka
-        user: user
-        secret: pass
-      varda:
-        url: http://localhost:${wiremock.server.port}/mock/varda
-        source_system: trevaka
-        basic_auth: dXNlcjpwYXNz # user:pass
-    voltti:
-      document:
-        bucket:
-          attachments: trevaka-attachments-it
-          daycaredecision: trevaka-daycaredecisions-it
-          paymentdecision: trevaka-paymentdecisions-it
-          vouchervaluedecision: trevaka-vouchervaluedecisions-it
-          data: trevaka-data-it
-      vtj:
-        enabled: true
-        client:
-          username: user
-          password: pass
-        xroad:
-          address: http://localhost:${wiremock.server.port}/mock/vtj
-  tampere:
-    trevaka:
-      ipaas:
-        username: user
-        password: pass
-      invoice:
-        url: http://localhost:${wiremock.server.port}/mock/ipaas/salesOrder
+    base_url:
+      fi: http://localhost:${server.port}
+      sv: http://localhost:${server.port}
+  integration:
+    sfi:
+      enabled: false
+    dvv_modifications:
+      url: http://localhost:${wiremock.server.port}/mock/modifications
+      user_id: user
+      password: pass
+      xroad_client_id: trevaka
+      product_code: trevaka
+    koski:
+      enabled: false
+      url: http://localhost:${wiremock.server.port}/mock/koski
+      source_system: trevaka
+      user: user
+      secret: pass
+    varda:
+      url: http://localhost:${wiremock.server.port}/mock/varda
+      source_system: trevaka
+      basic_auth: dXNlcjpwYXNz # user:pass
+    vtj:
+      enabled: true
+      username: user
+      password: pass
+      xroad:
+        address: http://localhost:${wiremock.server.port}/mock/vtj
+trevaka:
+  ipaas:
+    username: user
+    password: pass
+  invoice:
+    url: http://localhost:${wiremock.server.port}/mock/ipaas/salesOrder
