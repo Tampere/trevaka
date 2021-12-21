@@ -11,7 +11,7 @@ import org.springframework.boot.context.properties.ConstructorBinding
  * All trevaka-specific configuration properties.
  */
 @ConstructorBinding
-@ConfigurationProperties(prefix = "trevaka")
+@ConfigurationProperties(prefix = "trevaka", ignoreUnknownFields = false)
 data class TrevakaProperties(
     val ipaas: IpaasProperties,
     val invoice: InvoiceProperties,
