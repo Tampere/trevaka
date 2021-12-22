@@ -143,10 +143,20 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         <p>
             <strong th:text="#{decision.approver.prefix}">Päätöksentekijä</strong>
         </p>
-        <div th:if="${not #strings.isEmpty(decisionMakerName)}" th:text="${decisionMakerName}"></div>
-        <div th:if="${not #strings.isEmpty(decisionMakerTitle)}" th:text="${decisionMakerTitle}">Asiakaspalvelupäällikkö</div>
-        <div th:if="${not #strings.isEmpty(decisionMakerName) or not #strings.isEmpty(decisionMakerTitle)}"
-             th:text="#{decision.approver.additionalInfo}">(allekirjoitettu koneellisesti)</div>
+        <th:block th:if="${decisionType == 'NORMAL'}">
+            <div>
+                <span th:text="${approverFirstName}"></span>
+                <span th:text="${approverLastName}"></span>
+            </div>
+            <div th:utext="#{decision.approver.title}">Varhaiskasvatuksen palveluohjaaja</div>
+            <div th:utext="#{decision.approver.additionalInfo}">(allekirjoitettu koneellisesti)</div>
+        </th:block>
+        <th:block th:unless="${decisionType == 'NORMAL'}">
+            <div th:if="${not #strings.isEmpty(decisionMakerName)}" th:text="${decisionMakerName}"></div>
+            <div th:if="${not #strings.isEmpty(decisionMakerTitle)}" th:text="${decisionMakerTitle}">Asiakaspalvelupäällikkö</div>
+            <div th:if="${not #strings.isEmpty(decisionMakerName) or not #strings.isEmpty(decisionMakerTitle)}"
+                 th:text="#{decision.approver.additionalInfo}">(allekirjoitettu koneellisesti)</div>
+        </th:block>
 
         <p th:utext="#{decision.approver.details}"></p>
     </div>
