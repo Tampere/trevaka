@@ -10,6 +10,9 @@ import fi.espoo.evaka.invoicing.domain.InvoiceStatus
 import fi.espoo.evaka.invoicing.domain.PersonData
 import fi.espoo.evaka.invoicing.domain.Product
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
+import fi.espoo.evaka.shared.DatabaseTable
+import fi.espoo.evaka.shared.Id
+import fi.espoo.evaka.shared.InvoiceId
 import fi.tampere.trevaka.InvoiceProperties
 import fi.tampere.trevaka.IpaasProperties
 import fi.tampere.trevaka.TrevakaProperties
@@ -123,9 +126,19 @@ internal class TrevakaInvoiceClientTest {
             Product.PRESCHOOL_WITH_DAYCARE, "284823", null, "kuvaus2"
         )
         return InvoiceDetailed(
-            UUID.randomUUID(), InvoiceStatus.WAITING_FOR_SENDING, LocalDate.now(), LocalDate.now(),
-            LocalDate.of(2021, 3, 6), LocalDate.of(2021, 2, 4),
-            agreementType, headOfFamily, listOf(invoiceRow1, invoiceRow2), null, null, null
+            (InvoiceId(UUID.randomUUID())),
+            InvoiceStatus.WAITING_FOR_SENDING,
+            LocalDate.now(),
+            LocalDate.now(),
+            LocalDate.of(2021, 3, 6),
+            LocalDate.of(2021, 2, 4),
+            agreementType,
+            headOfFamily,
+            null,
+            listOf(invoiceRow1, invoiceRow2),
+            null,
+            null,
+            null
         )
     }
 

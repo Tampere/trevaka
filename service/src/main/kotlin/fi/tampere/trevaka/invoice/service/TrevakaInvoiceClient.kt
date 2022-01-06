@@ -140,7 +140,7 @@ class TrevakaInvoiceClient(
             description = it.description
             profitCenter = it.costCenter
             material = productToMaterial(it.product)
-            rowAmount = priceInEuros(it.price())
+            rowAmount = priceInEuros(it.price)
             unitPrice = priceInEuros(it.unitPrice)
             quantity = it.amount.toFloat().toString()
             plant = properties.plant
