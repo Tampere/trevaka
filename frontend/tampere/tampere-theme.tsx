@@ -10,19 +10,14 @@ import { Theme } from 'lib-common/theme'
 
 const theme: Theme = {
   colors: {
-    brand: {
-      primary: '#00417D',
-      secondary: '#39A7D7',
-      secondaryLight: '#E5EEF8'
-    },
     main: {
       dark: '#00417D',
-      medium: '#4676BE',
       primary: '#29549A',
-      primaryHover: '#4676BE',
+      light: '#4676BE',
+      lighter: '#E5EEF8',
+      primaryHover: '#00417D',
       primaryActive: '#00417D',
-      light: '#CAD6E2',
-      lighter: '#E5EEF8'
+      primaryFocus: '#4676BE'
     },
     greyscale: {
       darkest: '#0F0F0F',
@@ -33,16 +28,19 @@ const theme: Theme = {
       white: '#FFFFFF'
     },
     accents: {
-      orange: '#FF7300',
-      orangeDark: '#B85300',
-      green: '#92BB4F',
+      dangerRed: '#CB181A',
+      warningOrange: '#EB6A00',
+      successGreen: '#799E3D',
+      infoBlue: '#5390B5',
       greenDark: '#3C6100',
-      water: '#9FC1D3',
-      yellow: '#F4D240',
-      red: '#CB181A',
-      petrol: '#5390B5',
+      orangeDark: '#B85300',
       emerald: '#397368',
-      violet: '#7361A2'
+      violet: '#7361A2',
+      peach: '#F4D240',
+      turquoise: '#91C9EA',
+      mint: '#8CC1B3',
+      lightBlue: '#CAD6E2',
+      pink: '#D77094'
     }
   },
   typography: {
@@ -68,13 +66,6 @@ const theme: Theme = {
       }
     },
     h4: {
-      weight: 400,
-      bold: 600,
-      mobile: {
-        weight: 500
-      }
-    },
-    h5: {
       weight: 400,
       bold: 600,
       mobile: {
