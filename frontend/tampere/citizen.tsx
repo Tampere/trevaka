@@ -7,11 +7,11 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 }
 
 import { CitizenCustomizations } from 'lib-customizations/types'
-import enCustomizations from './enCustomizations'
-import fiCustomizations from './fiCustomizations'
 import TampereLogo from './city-logo-citizen.svg'
-import FooterLogo from './footer-logo-citizen.png'
+import enCustomizations from './enCustomizations'
 import featureFlags from './featureFlags'
+import fiCustomizations from './fiCustomizations'
+import FooterLogo from './footer-logo-citizen.png'
 import mapConfig from './mapConfig'
 
 const customizations: CitizenCustomizations = {
