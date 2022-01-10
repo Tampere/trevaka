@@ -61,7 +61,8 @@ const customizations: EmployeeCustomizations = {
       footer: {
         cityLabel: 'Tampereen kaupunki',
         linkLabel: 'Tampereen varhaiskasvatus',
-        linkHref: 'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html'
+        linkHref:
+          'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html'
       },
       unit: {
         placementProposals: {
