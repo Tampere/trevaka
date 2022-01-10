@@ -58,6 +58,11 @@ const customizations: EmployeeCustomizations = {
           info2: ''
         }
       },
+      footer: {
+        cityLabel: 'Tampereen kaupunki',
+        linkLabel: 'Tampereen varhaiskasvatus',
+        linkHref: 'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus.html'
+      },
       unit: {
         placementProposals: {
           rejectReasons: {
