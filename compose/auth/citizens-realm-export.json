@@ -411,7 +411,7 @@
         "saml.client.signature": "true",
         "id.token.as.detached.signature": "false",
         "saml.assertion.signature": "false",
-        "saml.encrypt": "false",
+        "saml.encrypt": "true",
         "saml.server.signature": "true",
         "exclude.session.state.from.auth.response": "false",
         "saml.artifact.binding.identifier": "kPINBa/aB8C3D10BhifNhU61d/Y=",
