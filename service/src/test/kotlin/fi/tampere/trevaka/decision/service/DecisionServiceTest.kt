@@ -18,8 +18,11 @@ import fi.espoo.evaka.identity.ExternalIdentifier
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.setting.SettingType
 import fi.espoo.evaka.shared.ApplicationId
+import fi.espoo.evaka.shared.ChildId
 import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.DecisionId
+import fi.espoo.evaka.shared.PersonId
+import fi.espoo.evaka.shared.ServiceNeedOptionId
 import fi.espoo.evaka.shared.message.IMessageProvider
 import fi.espoo.evaka.shared.template.ITemplateProvider
 import fi.espoo.voltti.pdfgen.PDFService
@@ -75,7 +78,12 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                     endTime = "16:00",
                     shiftCare = false,
                     partTime = false,
-                    ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1", "Palveluntarve 1", "Palveluntarve 1")
+                    ServiceNeedOption(
+                        ServiceNeedOptionId(UUID.randomUUID()),
+                        "Palveluntarve 1",
+                        "Palveluntarve 1",
+                        "Palveluntarve 1"
+                    )
                 )
             },
             lang = "fi",
@@ -102,7 +110,9 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                 endTime = "16:00",
                 shiftCare = false,
                 partTime = false,
-                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1", "Palveluntarve 1", "Palveluntarve 1")
+                ServiceNeedOption(
+                    ServiceNeedOptionId(UUID.randomUUID()), "Palveluntarve 1", "Palveluntarve 1", "Palveluntarve 1"
+                )
             ),
             lang = "fi",
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
@@ -128,7 +138,12 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                 endTime = "16:00",
                 shiftCare = false,
                 partTime = false,
-                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1", "Palveluntarve 1", "Palveluntarve 1")
+                ServiceNeedOption(
+                    ServiceNeedOptionId(UUID.randomUUID()),
+                    "Palveluntarve 1",
+                    "Palveluntarve 1",
+                    "Palveluntarve 1"
+                )
             ),
             lang = "fi",
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
@@ -154,7 +169,12 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                 endTime = "16:00",
                 shiftCare = false,
                 partTime = false,
-                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1", "Palveluntarve 1", "Palveluntarve 1")
+                ServiceNeedOption(
+                    ServiceNeedOptionId(UUID.randomUUID()),
+                    "Palveluntarve 1",
+                    "Palveluntarve 1",
+                    "Palveluntarve 1"
+                )
             ),
             lang = "fi",
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
@@ -180,7 +200,12 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                 endTime = "16:00",
                 shiftCare = false,
                 partTime = false,
-                ServiceNeedOption(UUID.randomUUID(), "Palveluntarve 1", "Palveluntarve 1", "Palveluntarve 1")
+                ServiceNeedOption(
+                    ServiceNeedOptionId(UUID.randomUUID()),
+                    "Palveluntarve 1",
+                    "Palveluntarve 1",
+                    "Palveluntarve 1"
+                )
             ),
             lang = "fi",
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
@@ -201,7 +226,7 @@ private fun validDecision(type: DecisionType, decisionUnit: DecisionUnit) = Deci
     endDate = LocalDate.now().plusMonths(3),
     decisionUnit,
     applicationId = ApplicationId(UUID.randomUUID()),
-    childId = UUID.randomUUID(),
+    childId = ChildId(UUID.randomUUID()),
     childName = "Matti",
     documentKey = null,
     otherGuardianDocumentKey = null,
@@ -228,7 +253,7 @@ private fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(
 )
 
 private fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
-    UUID.randomUUID(),
+    PersonId(UUID.randomUUID()),
     ExternalIdentifier.SSN.getInstance("070682-924A"),
     ssnAddingDisabled = false,
     firstName = "Maija",
@@ -247,7 +272,7 @@ private fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO
 )
 
 private fun validChild(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
-    UUID.randomUUID(),
+    PersonId(UUID.randomUUID()),
     ExternalIdentifier.SSN.getInstance("010115A9532"),
     ssnAddingDisabled = false,
     firstName = "Matti",

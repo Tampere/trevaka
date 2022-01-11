@@ -10,9 +10,8 @@ import fi.espoo.evaka.invoicing.domain.InvoiceStatus
 import fi.espoo.evaka.invoicing.domain.PersonData
 import fi.espoo.evaka.invoicing.domain.Product
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
-import fi.espoo.evaka.shared.DatabaseTable
-import fi.espoo.evaka.shared.Id
 import fi.espoo.evaka.shared.InvoiceId
+import fi.espoo.evaka.shared.PersonId
 import fi.tampere.trevaka.InvoiceProperties
 import fi.tampere.trevaka.IpaasProperties
 import fi.tampere.trevaka.TrevakaProperties
@@ -98,14 +97,14 @@ internal class TrevakaInvoiceClientTest {
 
     private fun validInvoice(agreementType: Int): InvoiceDetailed {
         val headOfFamily = PersonData.Detailed(
-            UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
+            PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
             "Maija", "Meikäläinen",
             "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
             "", null, "", null, restrictedDetailsEnabled = false
         )
         val invoiceRow1 = InvoiceRowDetailed(
             UUID.randomUUID(), PersonData.Detailed(
-                UUID.randomUUID(), LocalDate.of(2018, 1, 1), null,
+                PersonId(UUID.randomUUID()), LocalDate.of(2018, 1, 1), null,
                 "Matti", "Meikäläinen",
                 null, "", "", "",
                 "", null, "", null, restrictedDetailsEnabled = false
@@ -116,7 +115,7 @@ internal class TrevakaInvoiceClientTest {
         )
         val invoiceRow2 = InvoiceRowDetailed(
             UUID.randomUUID(), PersonData.Detailed(
-                UUID.randomUUID(), LocalDate.of(2015, 11, 26), null,
+                PersonId(UUID.randomUUID()), LocalDate.of(2015, 11, 26), null,
                 "Maiju", "Meikäläinen",
                 null, "", "", "",
                 "", null, "", null, restrictedDetailsEnabled = false

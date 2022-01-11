@@ -31,6 +31,7 @@ import fi.espoo.evaka.setting.SettingType
 import fi.espoo.evaka.shared.AreaId
 import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.FeeDecisionId
+import fi.espoo.evaka.shared.PersonId
 import fi.espoo.evaka.shared.VoucherValueDecisionId
 import fi.espoo.evaka.shared.domain.DateRange
 import fi.tampere.trevaka.AbstractIntegrationTest
@@ -98,7 +99,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     fun generateFeeDecisionPdfPartner() {
         val decision = validFeeDecision().copy(
             partner = PersonData.Detailed(
-                UUID.randomUUID(), LocalDate.of(1980, 6, 14), null,
+                PersonId(UUID.randomUUID()), LocalDate.of(1980, 6, 14), null,
                 "Mikko", "Meikäläinen",
                 "140680-9239", "", "", "",
                 "", null, "", null, restrictedDetailsEnabled = false
@@ -128,7 +129,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     fun generateFeeDecisionPdfEmptyAddress() {
         val decision = validFeeDecision().copy(
             headOfFamily = PersonData.Detailed(
-                UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
+                PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
                 "Maija", "Meikäläinen",
                 "310382-956D", "", "", "",
                 "", null, "", null, restrictedDetailsEnabled = false
@@ -167,7 +168,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     fun generateVoucherValueDecisionPdfPartner() {
         val decision = validVoucherValueDecision().copy(
             partner = PersonData.Detailed(
-                UUID.randomUUID(), LocalDate.of(1980, 6, 14), null,
+                PersonId(UUID.randomUUID()), LocalDate.of(1980, 6, 14), null,
                 "Mikko", "Meikäläinen",
                 "140680-9239", "", "", "",
                 "", null, "", null, restrictedDetailsEnabled = false
@@ -197,7 +198,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     fun generateVoucherValueDecisionPdfEmptyAddress() {
         val decision = validVoucherValueDecision().copy(
             headOfFamily = PersonData.Detailed(
-                UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
+                PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
                 "Maija", "Meikäläinen",
                 "310382-956D", "", "", "",
                 "", null, "", null, restrictedDetailsEnabled = false
@@ -276,7 +277,7 @@ private fun validFeeDecision() = FeeDecisionDetailed(
     children = listOf(
         FeeDecisionChildDetailed(
             child = PersonData.Detailed(
-                UUID.randomUUID(), LocalDate.of(2018, 1, 1), null,
+                PersonId(UUID.randomUUID()), LocalDate.of(2018, 1, 1), null,
                 "Matti", "Meikäläinen",
                 null, "", "", "",
                 "", null, "", null, restrictedDetailsEnabled = false
@@ -307,7 +308,7 @@ private fun validFeeDecision() = FeeDecisionDetailed(
     decisionNumber = null,
     FeeDecisionType.NORMAL,
     headOfFamily = PersonData.Detailed(
-        UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
+        PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
         "Maija", "Meikäläinen",
         "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
         "", null, "", null, restrictedDetailsEnabled = false
@@ -339,7 +340,7 @@ private fun validVoucherValueDecision() = VoucherValueDecisionDetailed(
     decisionNumber = null,
     decisionType = VoucherValueDecisionType.NORMAL,
     headOfFamily = PersonData.Detailed(
-        UUID.randomUUID(), LocalDate.of(1982, 3, 31), null,
+        PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
         "Maija", "Meikäläinen",
         "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
         "", null, "", null, restrictedDetailsEnabled = false
@@ -356,7 +357,7 @@ private fun validVoucherValueDecision() = VoucherValueDecisionDetailed(
         minFee = 1,
     ),
     PersonData.Detailed(
-        UUID.randomUUID(), LocalDate.of(2018, 1, 1), null,
+        PersonId(UUID.randomUUID()), LocalDate.of(2018, 1, 1), null,
         "Matti", "Meikäläinen",
         null, "", "", "",
         "", null, "", null, restrictedDetailsEnabled = false
