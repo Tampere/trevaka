@@ -6,10 +6,9 @@ package fi.tampere.trevaka.invoice.service
 
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
-import fi.espoo.evaka.invoicing.domain.PersonData
+import fi.espoo.evaka.invoicing.domain.PersonDetailed
 import fi.espoo.evaka.invoicing.domain.Product
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
-import fi.espoo.evaka.invoicing.service.toDecimalString
 import fi.tampere.messages.ipaas.commontypes.v1.FaultType
 import fi.tampere.messages.ipaas.commontypes.v1.SimpleAcknowledgementResponseType
 import fi.tampere.messages.sapsd.salesorder.v11.Address
@@ -188,7 +187,7 @@ class TrevakaInvoiceClient(
 
 }
 
-internal fun hasAlternativePayer(person: PersonData.Detailed): Boolean {
+internal fun hasAlternativePayer(person: PersonDetailed): Boolean {
     return !person.invoiceRecipientName.isNullOrBlank()
             && !person.invoicingStreetAddress.isNullOrBlank()
             && !person.invoicingPostalCode.isNullOrBlank()
