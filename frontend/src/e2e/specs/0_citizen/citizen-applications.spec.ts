@@ -33,7 +33,7 @@ afterEach(async () => {
   await page.close()
 })
 
-const customerContactText = 'Varhaiskasvatuksen asiakaspalveluun: varhaiskasvatus.asiakaspalvelu@tampere.fi / 040 800 7260 (ma-pe klo 9-12).'
+const customerContactText = 'Varhaiskasvatuksen asiakaspalveluun: varhaiskasvatus.asiakaspalvelu@tampere.fi / 040 800 7260 (ma–pe klo 9–12).'
 const customerContactEmailHref = 'mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi'
 const customerContactTelHref = 'tel:+358408007260'
 

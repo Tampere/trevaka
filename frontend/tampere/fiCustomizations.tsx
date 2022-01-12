@@ -19,10 +19,13 @@ const customerContactText = function () {
     <>
       {' '}
       Varhaiskasvatuksen asiakaspalveluun:{' '}
-      <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">
+      <a
+        style={{ wordBreak: 'break-word' }}
+        href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi"
+      >
         varhaiskasvatus.asiakaspalvelu@tampere.fi
       </a>{' '}
-      / <a href="tel:+358408007260">040 800 7260</a> (ma-pe klo 9-12).
+      / <a href="tel:+358408007260">040 800 7260</a> (ma–pe klo 9–12).
     </>
   )
 }
