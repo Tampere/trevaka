@@ -23,7 +23,8 @@ const featureFlags: FeatureFlags = {
     messageAttachments: true,
     realtimeStaffAttendance: true,
     personalDetailsPage: true,
-    mobileMessages: true
+    mobileMessages: true,
+    placementTermination: true
   },
   adminSettingsEnabled: true
 }
