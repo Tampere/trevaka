@@ -5,6 +5,7 @@
 package fi.tampere.trevaka.invoice.service
 
 import fi.espoo.evaka.invoicing.domain.DecisionIncome
+import fi.espoo.evaka.invoicing.domain.EmployeeWithName
 import fi.espoo.evaka.invoicing.domain.FeeAlteration
 import fi.espoo.evaka.invoicing.domain.FeeAlterationWithEffect
 import fi.espoo.evaka.invoicing.domain.FeeDecisionChildDetailed
@@ -13,7 +14,7 @@ import fi.espoo.evaka.invoicing.domain.FeeDecisionStatus
 import fi.espoo.evaka.invoicing.domain.FeeDecisionThresholds
 import fi.espoo.evaka.invoicing.domain.FeeDecisionType
 import fi.espoo.evaka.invoicing.domain.IncomeEffect
-import fi.espoo.evaka.invoicing.domain.PersonData
+import fi.espoo.evaka.invoicing.domain.PersonDetailed
 import fi.espoo.evaka.invoicing.domain.UnitData
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionDetailed
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionPlacementDetailed
@@ -30,10 +31,12 @@ import fi.espoo.evaka.placement.PlacementType
 import fi.espoo.evaka.setting.SettingType
 import fi.espoo.evaka.shared.AreaId
 import fi.espoo.evaka.shared.DaycareId
+import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.FeeDecisionId
 import fi.espoo.evaka.shared.PersonId
 import fi.espoo.evaka.shared.VoucherValueDecisionId
 import fi.espoo.evaka.shared.domain.DateRange
+import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -43,7 +46,6 @@ import org.thymeleaf.context.Context
 import java.io.FileOutputStream
 import java.math.BigDecimal
 import java.nio.file.Paths
-import java.time.Instant
 import java.time.LocalDate
 import java.util.UUID
 
@@ -98,7 +100,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     @Test
     fun generateFeeDecisionPdfPartner() {
         val decision = validFeeDecision().copy(
-            partner = PersonData.Detailed(
+            partner = PersonDetailed(
                 PersonId(UUID.randomUUID()), LocalDate.of(1980, 6, 14), null,
                 "Mikko", "Meikäläinen",
                 "140680-9239", "", "", "",
@@ -128,7 +130,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     @Test
     fun generateFeeDecisionPdfEmptyAddress() {
         val decision = validFeeDecision().copy(
-            headOfFamily = PersonData.Detailed(
+            headOfFamily = PersonDetailed(
                 PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
                 "Maija", "Meikäläinen",
                 "310382-956D", "", "", "",
@@ -167,7 +169,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     @Test
     fun generateVoucherValueDecisionPdfPartner() {
         val decision = validVoucherValueDecision().copy(
-            partner = PersonData.Detailed(
+            partner = PersonDetailed(
                 PersonId(UUID.randomUUID()), LocalDate.of(1980, 6, 14), null,
                 "Mikko", "Meikäläinen",
                 "140680-9239", "", "", "",
@@ -197,7 +199,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     @Test
     fun generateVoucherValueDecisionPdfEmptyAddress() {
         val decision = validVoucherValueDecision().copy(
-            headOfFamily = PersonData.Detailed(
+            headOfFamily = PersonDetailed(
                 PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
                 "Maija", "Meikäläinen",
                 "310382-956D", "", "", "",
@@ -276,14 +278,14 @@ private fun validFeeDecision() = FeeDecisionDetailed(
     FeeDecisionId(UUID.randomUUID()),
     children = listOf(
         FeeDecisionChildDetailed(
-            child = PersonData.Detailed(
+            child = PersonDetailed(
                 PersonId(UUID.randomUUID()), LocalDate.of(2018, 1, 1), null,
                 "Matti", "Meikäläinen",
                 null, "", "", "",
                 "", null, "", null, restrictedDetailsEnabled = false
             ),
             placementType = PlacementType.DAYCARE,
-            placementUnit = UnitData.Detailed(
+            placementUnit = UnitData(
                 DaycareId(UUID.randomUUID()),
                 name = "Yksikkö 1",
                 areaId = AreaId(UUID.randomUUID()),
@@ -307,7 +309,7 @@ private fun validFeeDecision() = FeeDecisionDetailed(
     FeeDecisionStatus.WAITING_FOR_SENDING,
     decisionNumber = null,
     FeeDecisionType.NORMAL,
-    headOfFamily = PersonData.Detailed(
+    headOfFamily = PersonDetailed(
         PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
         "Maija", "Meikäläinen",
         "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
@@ -325,8 +327,8 @@ private fun validFeeDecision() = FeeDecisionDetailed(
         minFee = 1,
     ),
     documentKey = null,
-    approvedBy = PersonData.WithName(UUID.randomUUID(), "Markus", "Maksusihteeri"),
-    approvedAt = Instant.now(),
+    approvedBy = EmployeeWithName(EmployeeId(UUID.randomUUID()), "Markus", "Maksusihteeri"),
+    approvedAt = HelsinkiDateTime.now(),
     sentAt = null,
     financeDecisionHandlerFirstName = null,
     financeDecisionHandlerLastName = null
@@ -339,7 +341,7 @@ private fun validVoucherValueDecision() = VoucherValueDecisionDetailed(
     VoucherValueDecisionStatus.WAITING_FOR_SENDING,
     decisionNumber = null,
     decisionType = VoucherValueDecisionType.NORMAL,
-    headOfFamily = PersonData.Detailed(
+    headOfFamily = PersonDetailed(
         PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
         "Maija", "Meikäläinen",
         "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
@@ -356,14 +358,14 @@ private fun validVoucherValueDecision() = VoucherValueDecisionDetailed(
         maxFee = 1,
         minFee = 1,
     ),
-    PersonData.Detailed(
+    PersonDetailed(
         PersonId(UUID.randomUUID()), LocalDate.of(2018, 1, 1), null,
         "Matti", "Meikäläinen",
         null, "", "", "",
         "", null, "", null, restrictedDetailsEnabled = false
     ),
     VoucherValueDecisionPlacementDetailed(
-        UnitData.Detailed(
+        UnitData(
             DaycareId(UUID.randomUUID()),
             name = "Vuoreksen kerho",
             areaId = AreaId(UUID.randomUUID()),
@@ -391,10 +393,10 @@ private fun validVoucherValueDecision() = VoucherValueDecisionDetailed(
     capacityFactor = BigDecimal.ONE,
     voucherValue = 1,
     documentKey = null,
-    approvedBy = PersonData.WithName(UUID.randomUUID(), "Markus", "Maksusihteeri"),
-    approvedAt = Instant.now(),
+    approvedBy = EmployeeWithName(EmployeeId(UUID.randomUUID()), "Markus", "Maksusihteeri"),
+    approvedAt = HelsinkiDateTime.now(),
     sentAt = null,
-    created = Instant.now(),
+    created = HelsinkiDateTime.now(),
     financeDecisionHandlerFirstName = null,
     financeDecisionHandlerLastName = null
 )
