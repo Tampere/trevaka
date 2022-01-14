@@ -35,6 +35,6 @@ class CustomController @Autowired constructor(private val integrationClient: Inv
     fun testMethod(request: HttpServletRequest): ResponseEntity<String> {
         logger.info("Test profile-based property override: {}", name)
         logger.info("Active profiles: {}", env.activeProfiles)
-        return ResponseEntity.ok(integrationClient.sendBatch(emptyList(), 5).toString())
+        return ResponseEntity.ok(integrationClient.send(emptyList()).toString())
     }
 }

@@ -9,6 +9,7 @@ import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
 import fi.espoo.evaka.invoicing.domain.PersonDetailed
 import fi.espoo.evaka.invoicing.domain.Product
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
+import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient.SendResult
 import fi.tampere.messages.ipaas.commontypes.v1.FaultType
 import fi.tampere.messages.ipaas.commontypes.v1.SimpleAcknowledgementResponseType
 import fi.tampere.messages.sapsd.salesorder.v11.Address
@@ -53,8 +54,8 @@ class TrevakaInvoiceClient(
             RoundingMode.HALF_UP
         ) else null
 
-    override fun sendBatch(invoices: List<InvoiceDetailed>, agreementType: Int): Boolean {
-        logger.info("Invoice batch started (agreementType=${agreementType})")
+    override fun send(invoices: List<InvoiceDetailed>): SendResult {
+        logger.info("Invoice batch started")
         try {
             val request = toRequest(invoices)
             val response = webServiceTemplate.marshalSendAndReceive(
@@ -70,9 +71,9 @@ class TrevakaInvoiceClient(
                 is FaultType -> logger.error("Fault in invoice: ${faultDetail.errorCode}. Message: ${faultDetail.errorMessage}. Details: ${faultDetail.detailMessage}")
                 else -> logger.error("Unknown fault in invoice: $faultDetail", e)
             }
-            return false
+            return SendResult(failed = invoices)
         }
-        return true
+        return SendResult(succeeded = invoices)
     }
 
     private fun toRequest(invoices: List<InvoiceDetailed>): SendSalesOrderRequest {
