@@ -68,7 +68,7 @@ internal class TrevakaInvoiceClientTest {
 
     @Test
     fun sendWithValidData() {
-        val invoice1 = validInvoice(1)
+        val invoice1 = validInvoice()
         server.expect(connectionTo("http://localhost:8080/salesOrder"))
             .andExpect(payload(ClassPathResource("invoice-client/sales-order-request-1.xml")))
             .andRespond(withPayload(ClassPathResource("invoice-client/sales-order-response-ok.xml")))
@@ -82,7 +82,7 @@ internal class TrevakaInvoiceClientTest {
 
     @Test
     fun sendWithClientFault() {
-        val invoice1 = validInvoice(1)
+        val invoice1 = validInvoice()
         server.expect(connectionTo("http://localhost:8080/salesOrder"))
             .andRespond(withClientOrSenderFault("test", Locale.ENGLISH))
 
@@ -95,7 +95,7 @@ internal class TrevakaInvoiceClientTest {
 
     @Test
     fun sendWithServerFault() {
-        val invoice1 = validInvoice(1)
+        val invoice1 = validInvoice()
         server.expect(connectionTo("http://localhost:8080/salesOrder"))
             .andRespond(withServerOrReceiverFault("test", Locale.ENGLISH))
 
@@ -108,7 +108,7 @@ internal class TrevakaInvoiceClientTest {
 
 }
 
-fun validInvoice(agreementType: Int): InvoiceDetailed {
+fun validInvoice(): InvoiceDetailed {
     val headOfFamily = PersonDetailed(
         PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
         "Maija", "Meikäläinen",
@@ -144,7 +144,7 @@ fun validInvoice(agreementType: Int): InvoiceDetailed {
         LocalDate.now(),
         LocalDate.of(2021, 3, 6),
         LocalDate.of(2021, 2, 4),
-        agreementType,
+        null,
         AreaId(UUID.randomUUID()),
         headOfFamily,
         null,

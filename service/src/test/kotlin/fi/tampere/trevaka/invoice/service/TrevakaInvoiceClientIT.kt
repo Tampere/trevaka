@@ -18,7 +18,7 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
 
     @Test
     fun send() {
-        val invoice1 = validInvoice(1)
+        val invoice1 = validInvoice()
         stubFor(
             post(urlEqualTo("/mock/ipaas/salesOrder")).willReturn(
                 aResponse()
@@ -45,7 +45,7 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
 
     @Test
     fun sendWithApplicationFaultResponse() {
-        val invoice1 = validInvoice(1)
+        val invoice1 = validInvoice()
         stubFor(
             post(urlEqualTo("/mock/ipaas/salesOrder")).willReturn(
                 aResponse()
@@ -72,7 +72,7 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
 
     @Test
     fun sendWithSystemFaultResponse() {
-        val invoice1 = validInvoice(1)
+        val invoice1 = validInvoice()
         stubFor(
             post(urlEqualTo("/mock/ipaas/salesOrder")).willReturn(
                 aResponse()
