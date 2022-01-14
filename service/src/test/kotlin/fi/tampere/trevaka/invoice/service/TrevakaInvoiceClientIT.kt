@@ -17,7 +17,8 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
     private lateinit var client: TrevakaInvoiceClient
 
     @Test
-    fun sendBatch() {
+    fun send() {
+        val invoice1 = validInvoice()
         stubFor(
             post(urlEqualTo("/mock/ipaas/salesOrder")).willReturn(
                 aResponse()
@@ -27,7 +28,9 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
             )
         )
 
-        assertThat(client.sendBatch(listOf(), 1)).isTrue()
+        assertThat(client.send(listOf(invoice1)))
+            .returns(listOf(invoice1)) { it.succeeded }
+            .returns(listOf()) { it.failed }
 
         verify(
             postRequestedFor(urlEqualTo("/mock/ipaas/salesOrder"))
@@ -41,7 +44,8 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
     }
 
     @Test
-    fun sendBatchWithApplicationFaultResponse() {
+    fun sendWithApplicationFaultResponse() {
+        val invoice1 = validInvoice()
         stubFor(
             post(urlEqualTo("/mock/ipaas/salesOrder")).willReturn(
                 aResponse()
@@ -51,7 +55,9 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
             )
         )
 
-        assertThat(client.sendBatch(listOf(), 1)).isFalse()
+        assertThat(client.send(listOf(invoice1)))
+            .returns(listOf()) { it.succeeded }
+            .returns(listOf(invoice1)) { it.failed }
 
         verify(
             postRequestedFor(urlEqualTo("/mock/ipaas/salesOrder"))
@@ -65,7 +71,8 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
     }
 
     @Test
-    fun sendBatchWithSystemFaultResponse() {
+    fun sendWithSystemFaultResponse() {
+        val invoice1 = validInvoice()
         stubFor(
             post(urlEqualTo("/mock/ipaas/salesOrder")).willReturn(
                 aResponse()
@@ -75,7 +82,9 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
             )
         )
 
-        assertThat(client.sendBatch(listOf(), 1)).isFalse()
+        assertThat(client.send(listOf(invoice1)))
+            .returns(listOf()) { it.succeeded }
+            .returns(listOf(invoice1)) { it.failed }
 
         verify(
             postRequestedFor(urlEqualTo("/mock/ipaas/salesOrder"))
