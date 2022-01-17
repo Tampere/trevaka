@@ -30,9 +30,11 @@ SPDX-License-Identifier: LGPL-2.1-or-later
     <h1 th:if="${isReliefDecision}" th:text="#{text.relief.title}"></h1>
     <h1 th:unless="${isReliefDecision}" th:text="#{text.title}"></h1>
 
-    <p th:if="${decisionType == 'RELIEF_ACCEPTED'}" th:text="#{text.relief.accepted}"></p>
-    <p th:if="${decisionType == 'RELIEF_PARTLY_ACCEPTED'}" th:text="#{text.relief.partlyAccepted}"></p>
-    <p th:if="${decisionType == 'RELIEF_REJECTED'}" th:text="#{text.relief.rejected}"></p>
+    <p th:unless="${decisionType == 'NORMAL'}">
+        <th:block th:text="#{text.relief.handled}">Maksuvapautushakemuksenne on käsitelty.</th:block>
+        <th:block th:if="${decisionType == 'RELIEF_ACCEPTED'}" th:text="#{text.relief.accepted}"></th:block>
+        <th:block th:if="${decisionType == 'RELIEF_REJECTED'}" th:text="#{text.relief.rejected}"></th:block>
+    </p>
 
     <p th:if="${#strings.isEmpty(validTo)}" th:utext="#{decision.details.child(${child.firstName}, ${child.lastName}, ${#temporals.format(child.dateOfBirth, 'd.M.yyyy')}, ${validFrom})}"></p>
     <p th:if="${not #strings.isEmpty(validTo)}" th:utext="#{decision.details.child2(${child.firstName}, ${child.lastName}, ${#temporals.format(child.dateOfBirth, 'd.M.yyyy')}, ${validFrom}, ${validTo})}"></p>
