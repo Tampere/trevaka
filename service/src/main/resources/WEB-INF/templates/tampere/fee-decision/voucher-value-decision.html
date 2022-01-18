@@ -44,46 +44,6 @@ SPDX-License-Identifier: LGPL-2.1-or-later
     <p th:if="${isReliefDecision}"
        th:text="#{text.relief.decision(${coPayment}, ${validFrom})}"></p>
 
-    <table class="narrow">
-        <tbody>
-        <tr>
-            <td th:text="#{decision.serviceNeed}"></td>
-            <td class="text-right">
-                <span th:text="${voucherValueDescription}"></span>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <span th:text="#{decision.familySize}"></span>
-                <span th:text="${familySize}"></span>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <p></p>
-
-    <table class="narrow">
-        <tbody>
-        <tr>
-            <td th:text="#{decision.baseValue}"></td>
-            <td class="text-right" th:text="${value}"></td>
-        </tr>
-        <tr th:each="alteration: ${feeAlterations}">
-            <td th:switch="${alteration.type.name}">
-                <span th:case="'DISCOUNT'" th:text="#{text.feeAlterationType.DISCOUNT}"></span>
-                <span th:case="'INCREASE'" th:text="#{text.feeAlterationType.INCREASE}"></span>
-                <span th:case="'RELIEF'" th:text="#{text.feeAlterationType.RELIEF}"></span>
-            </td>
-            <td class="text-right" th:text="${alteration.effectFormatted}"></td>
-        </tr>
-        <tr>
-            <td th:text="#{decision.coPayment}"></td>
-            <td class="text-right">– <span th:text="${coPayment}"></span></td>
-        </tr>
-        </tbody>
-    </table>
-
     <p th:text="#{decision.instructionsForCalculation}"></p>
 
     <table class="narrow">
@@ -109,8 +69,48 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         </tr>
 
         <tr th:if="${showTotalIncome}">
-            <td th:text="#{decision.combined}"></td>
+            <td><strong class="semi" th:text="#{decision.combined}"/></td>
             <td class="text-right" th:text="${totalIncome}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p></p>
+
+    <table class="narrow">
+        <tbody>
+        <tr>
+            <td th:text="#{decision.serviceNeed}"></td>
+            <td class="text-right">
+                <span th:text="${voucherValueDescription}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span th:text="#{decision.familySize}"></span>
+                <span th:text="${familySize}"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="narrow">
+        <tbody>
+        <tr>
+            <td th:text="#{decision.baseValue}"></td>
+            <td class="text-right" th:text="${value}"></td>
+        </tr>
+        <tr th:each="alteration: ${feeAlterations}">
+            <td th:switch="${alteration.type.name}">
+                <span th:case="'DISCOUNT'" th:text="#{text.feeAlterationType.DISCOUNT}"></span>
+                <span th:case="'INCREASE'" th:text="#{text.feeAlterationType.INCREASE}"></span>
+                <span th:case="'RELIEF'" th:text="#{text.feeAlterationType.RELIEF}"></span>
+            </td>
+            <td class="text-right" th:text="${alteration.effectFormatted}"></td>
+        </tr>
+        <tr>
+            <td th:text="#{decision.coPayment}"></td>
+            <td class="text-right">– <span th:text="${coPayment}"></span></td>
         </tr>
         </tbody>
     </table>
