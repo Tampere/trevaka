@@ -83,7 +83,7 @@ describe('Citizen applications page', () => {
     )
     await waitUntilEqual(
       () => page.find('[data-qa="application-child-name-title"] + p + p').innerText,
-      'Kirjallinen päätös varhaiskasvatuspaikasta lähetetään Suomi.fi-viestit -palveluun. Mikäli haluatte päätöksen sähköisenä tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit -palvelu käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa https://www.suomi.fi/viestit. Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, päätös lähetetään teille postitse.'
+      'Kirjallinen päätös varhaiskasvatuspaikasta lähetetään Suomi.fi-viestit -palveluun. Mikäli haluatte päätöksen sähköisenä tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit -palvelu käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa https://www.suomi.fi/viestit . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, päätös lähetetään teille postitse.'
     )
     await page.find('[data-qa="startdate-instructions"]').click()
     await waitUntilEqual(
@@ -183,7 +183,7 @@ describe('Citizen applications page', () => {
     let contactInfoText = page.find('[data-qa="contactInfo-section"] p[data-qa="contact-info-text"]')
     await waitUntilEqual(
       () => contactInfoText.innerText,
-      'Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän tiedot Digi- ja Väestötietoviraston sivuilla. Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on päivittynyt väestötietojärjestelmään. Varhaiskasvatus- ja palvelusetelipäätös sekä tieto avoimen varhaiskasvatuksen kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa asuvalle väestötiedoista löytyvälle huoltajalle.'
+      'Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän tiedot Digi- ja Väestötietoviraston sivuilla . Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on päivittynyt väestötietojärjestelmään. Varhaiskasvatus- ja palvelusetelipäätös sekä tieto avoimen varhaiskasvatuksen kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa asuvalle väestötiedoista löytyvälle huoltajalle.'
     )
     await waitUntilEqual(
       () => contactInfoText.find('a').getAttribute('href'),
@@ -207,7 +207,7 @@ describe('Citizen applications page', () => {
     )
     await waitUntilEqual(
       () => page.find('[data-qa="fee-section"] p:last-of-type').innerText,
-      'Lisätietoa varhaiskasvatuksen asiakasmaksuista löydät Tampereen kaupungin sivuilta'
+      'Lisätietoa varhaiskasvatuksen asiakasmaksuista löydät Tampereen kaupungin sivuilta '
     )
     await waitUntilEqual(
       () => page.find('[data-qa="fee-section"] p:last-of-type a').getAttribute('href'),
@@ -218,7 +218,7 @@ describe('Citizen applications page', () => {
     await dietInfo.click()
     await waitUntilEqual(
       () => page.find('[data-qa="diet-expanding-info-text"]').innerText,
-      'Erityisruokavaliosta huoltaja toimittaa varhaiskasvatuspaikkaan lääkärin tai ravitsemusterapeutin täyttämän ja allekirjoittaman Selvitys erityisruokavaliosta -lomakkeen, joka on määräaikainen.'
+      'Erityisruokavaliosta huoltaja toimittaa varhaiskasvatuspaikkaan lääkärin tai ravitsemusterapeutin täyttämän ja allekirjoittaman Selvitys erityisruokavaliosta -lomakkeen , joka on määräaikainen.'
     )
     await waitUntilEqual(
       () => page.find('[data-qa="diet-expanding-info-text"] a').getAttribute('href'),
@@ -239,7 +239,7 @@ describe('Citizen applications page', () => {
     let editorPage = await applicationsPage.createApplication(enduserChildFixturePorriHatterRestricted.id, 'CLUB')
     await waitUntilEqual(
       () => page.find('[data-qa="application-child-name-title"] + p').innerText,
-      'Kerhopaikkaa voi hakea ympäri vuoden. Kerhohakemuksella voi hakea kunnallista tai palvelusetelillä tuettua kerhopaikkaa. Kirjallinen ilmoitus kerhopaikasta lähetään Suomi.fi-viestit -palveluun. Mikäli haluatte ilmoituksen sähköisenä tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit -palvelu käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa https://www.suomi.fi/viestit. Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, ilmoitus kerhopaikasta lähetetään teille postitse. Paikka myönnetään yhdeksi toimintakaudeksi kerrallaan.'
+      'Kerhopaikkaa voi hakea ympäri vuoden. Kerhohakemuksella voi hakea kunnallista tai palvelusetelillä tuettua kerhopaikkaa. Kirjallinen ilmoitus kerhopaikasta lähetään Suomi.fi-viestit -palveluun. Mikäli haluatte ilmoituksen sähköisenä tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit -palvelu käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa https://www.suomi.fi/viestit . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, ilmoitus kerhopaikasta lähetetään teille postitse. Paikka myönnetään yhdeksi toimintakaudeksi kerrallaan.'
     )
     await waitUntilEqual(
       () => page.find('[data-qa="application-child-name-title"] + p + p').innerText,
@@ -263,7 +263,7 @@ describe('Citizen applications page', () => {
     await editorPage.openSection('contactInfo')
     await waitUntilEqual(
       () => page.find('[data-qa="contactInfo-section"] p[data-qa="contact-info-text"]').innerText,
-      'Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän tiedot Digi- ja Väestötietoviraston sivuilla. Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on päivittynyt väestötietojärjestelmään. Varhaiskasvatus- ja palvelusetelipäätös sekä tieto avoimen varhaiskasvatuksen kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa asuvalle väestötiedoista löytyvälle huoltajalle.'
+      'Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän tiedot Digi- ja Väestötietoviraston sivuilla . Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on päivittynyt väestötietojärjestelmään. Varhaiskasvatus- ja palvelusetelipäätös sekä tieto avoimen varhaiskasvatuksen kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa asuvalle väestötiedoista löytyvälle huoltajalle.'
     )
     await page.find('[data-qa="child-future-address-info"]').click()
     await waitUntilEqual(
