@@ -133,7 +133,8 @@ const customizations: EmployeeCustomizations = {
     'PURCHASED',
     'PRIVATE',
     'PRIVATE_SERVICE_VOUCHER'
-  ]
+  ],
+  voucherValueDecisionTypes: ['NORMAL', 'RELIEF_ACCEPTED', 'RELIEF_REJECTED']
 }
 
 export default customizations
