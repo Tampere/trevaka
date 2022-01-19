@@ -19,7 +19,7 @@ const theme: Theme = {
       m2Active: '#00417D',
       m2Focus: '#4676BE'
     },
-    greyscale: {
+    grayscale: {
       g100: '#0F0F0F',
       g70: '#585857',
       g35: '#B1B1B1',
