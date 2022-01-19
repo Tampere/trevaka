@@ -211,7 +211,7 @@ const en: DeepPartial<Translations> = {
             You will find further information on client fees for early childhood
             education on{' '}
             <ExternalLink
-              href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html"
+              href="https://www.tampere.fi/varhaiskasvatusasiakasmaksut"
               text="the website of the City of Tampere"
               newTab
             />
@@ -224,7 +224,7 @@ const en: DeepPartial<Translations> = {
             For special diets, a custodian shall submit to the early childhood
             education location{' '}
             <ExternalLink
-              href="https://www.tampere.fi/sosiaali-ja-terveyspalvelut/erityisruokavaliot.html"
+              href="https://www.tampere.fi/erityisruokavaliot"
               text="the form ‘Clarification of a special diet’"
               newTab
             />
@@ -247,9 +247,8 @@ const en: DeepPartial<Translations> = {
   },
   footer: {
     cityLabel: '© City of Tampere',
-    privacyPolicyLink:
-      'https://www.tampere.fi/tampereen-kaupunki/yhteystiedot-ja-asiointi/verkkoasiointi/tietosuoja/tietosuojaselosteet.html',
-    sendFeedbackLink: 'https://www.tampere.fi/en/feedback.html.stx'
+    privacyPolicyLink: 'https://www.tampere.fi/tietosuoja',
+    sendFeedbackLink: 'https://www.tampere.fi/palaute'
   },
   map: {
     mainInfo: `In this view you can locate on the map all of Tampere’s early childhood education units and clubs. Regional service voucher units and clubs can also be found on the map.`,
@@ -288,7 +287,7 @@ const en: DeepPartial<Translations> = {
           to family size, income and time in early childhood education.
         </p>
         <p>
-          <a href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html">
+          <a href="https://www.tampere.fi/varhaiskasvatusasiakasmaksut">
             Further information on client fees.
           </a>
         </p>
@@ -329,7 +328,7 @@ const en: DeepPartial<Translations> = {
             <a
               target="_blank"
               rel="noreferrer"
-              href="https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html"
+              href="https://www.tampere.fi/varhaiskasvatusasiakasmaksut"
             >
               hare
             </a>

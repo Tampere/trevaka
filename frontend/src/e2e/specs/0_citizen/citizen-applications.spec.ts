@@ -211,7 +211,7 @@ describe('Citizen applications page', () => {
     )
     await waitUntilEqual(
       () => page.find('[data-qa="fee-section"] p:last-of-type a').getAttribute('href'),
-      'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html'
+      'https://www.tampere.fi/varhaiskasvatusasiakasmaksut'
     )
     await editorPage.openSection('additionalDetails')
     const dietInfo = page.find('[data-qa="diet-expanding-info"]')
@@ -222,7 +222,7 @@ describe('Citizen applications page', () => {
     )
     await waitUntilEqual(
       () => page.find('[data-qa="diet-expanding-info-text"] a').getAttribute('href'),
-      'https://www.tampere.fi/sosiaali-ja-terveyspalvelut/erityisruokavaliot.html'
+      'https://www.tampere.fi/erityisruokavaliot'
     )
     // Click cancel and check text for an existing application
     await page.find('[data-qa="cancel-application-button"]').click()

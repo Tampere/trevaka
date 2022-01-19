@@ -26,13 +26,13 @@ describe('Citizen footer', () => {
   test('Tampere policy link', async () => {
     await waitUntilEqual(
       () => page.find('[data-qa="footer-policy-link"]').getAttribute('href'),
-      'https://www.tampere.fi/tampereen-kaupunki/yhteystiedot-ja-asiointi/verkkoasiointi/tietosuoja/tietosuojaselosteet.html'
+      'https://www.tampere.fi/tietosuoja'
     )
   })
   test('Tampere feedback link', async () => {
     await waitUntilEqual(
       () => page.find('[data-qa="footer-feedback-link"]').getAttribute('href'),
-      'https://www.tampere.fi/palaute.html.stx'
+      'https://www.tampere.fi/palaute'
     )
   })
 })
