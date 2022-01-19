@@ -23,7 +23,7 @@ fi.tampere.trevaka:
 
         Lisätietoja varhaiskasvatuksen asiakasmaksuista
 
-        https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html
+        https://www.tampere.fi/varhaiskasvatusasiakasmaksut
     VOUCHER_VALUE_DECISION_HEADER:
       fi: Tampereen varhaiskasvatukseen liittyvät päätökset
     VOUCHER_VALUE_DECISION_CONTENT:
@@ -34,4 +34,4 @@ fi.tampere.trevaka:
 
         Lisätietoja:
 
-        https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html
+        https://www.tampere.fi/varhaiskasvatusasiakasmaksut

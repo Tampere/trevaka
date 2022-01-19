@@ -78,7 +78,7 @@ describe('Citizen income page', () => {
     let incomeFormDescriptionLink = incomeFormDescriptionItem3.find('a')
     await waitUntilEqual(
       () => incomeFormDescriptionLink.getAttribute('href'),
-      'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/asiakasmaksut.html'
+      'https://www.tampere.fi/varhaiskasvatusasiakasmaksut'
     )
   })
 })
