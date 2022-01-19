@@ -31,7 +31,7 @@ const theme: Theme = {
       danger: '#CB181A',
       warning: '#EB6A00',
       success: '#799E3D',
-      info: '#5390B5',
+      info: '#5390B5'
     },
     accents: {
       a1greenDark: '#3C6100',
