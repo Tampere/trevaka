@@ -81,6 +81,20 @@ internal class TrevakaInvoiceClientTest {
     }
 
     @Test
+    fun sendWithRestrictedDetails() {
+        val invoice1 = validInvoice().copy(headOfFamily = validPerson().copy(restrictedDetailsEnabled = true))
+        server.expect(connectionTo("http://localhost:8080/salesOrder"))
+            .andExpect(payload(ClassPathResource("invoice-client/sales-order-request-restricted-details.xml")))
+            .andRespond(withPayload(ClassPathResource("invoice-client/sales-order-response-ok.xml")))
+
+        assertThat(client.send(listOf(invoice1)))
+            .returns(listOf(invoice1)) { it.succeeded }
+            .returns(listOf()) { it.failed }
+
+        server.verify()
+    }
+
+    @Test
     fun sendWithClientFault() {
         val invoice1 = validInvoice()
         server.expect(connectionTo("http://localhost:8080/salesOrder"))
@@ -109,12 +123,7 @@ internal class TrevakaInvoiceClientTest {
 }
 
 fun validInvoice(): InvoiceDetailed {
-    val headOfFamily = PersonDetailed(
-        PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
-        "Maija", "Meikäläinen",
-        "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
-        "", null, "", null, restrictedDetailsEnabled = false
-    )
+    val headOfFamily = validPerson()
     val invoiceRow1 = InvoiceRowDetailed(
         InvoiceRowId(UUID.randomUUID()), PersonDetailed(
             PersonId(UUID.randomUUID()), LocalDate.of(2018, 1, 1), null,
@@ -154,3 +163,10 @@ fun validInvoice(): InvoiceDetailed {
         null
     )
 }
+
+fun validPerson() = PersonDetailed(
+    PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
+    "Maija", "Meikäläinen",
+    "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
+    "", null, "", null, restrictedDetailsEnabled = false
+)
