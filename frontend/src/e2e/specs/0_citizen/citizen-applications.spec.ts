@@ -2,16 +2,16 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-import config from 'e2e-test-common/config'
-import { Page, Radio, Checkbox } from 'e2e-playwright/utils/page'
-import { waitUntilEqual } from 'e2e-playwright/utils'
-import CitizenHeader from 'e2e-playwright/pages/citizen/citizen-header'
-import CitizenApplicationsPage from 'e2e-playwright/pages/citizen/citizen-applications'
-import { enduserLogin } from 'e2e-playwright/utils/user'
+import config from 'e2e-test/config'
+import { Page, Radio, Checkbox } from 'e2e-test/utils/page'
+import { waitUntilEqual } from 'e2e-test/utils'
+import CitizenHeader from 'e2e-test/pages/citizen/citizen-header'
+import CitizenApplicationsPage from 'e2e-test/pages/citizen/citizen-applications'
+import { enduserLogin } from 'e2e-test/utils/user'
 import {
   resetDatabaseForE2ETests
 } from '../../common/tampere-dev-api'
-import { enduserChildFixturePorriHatterRestricted, Fixture } from "e2e-test-common/dev-api/fixtures";
+import { enduserChildFixturePorriHatterRestricted, Fixture } from "e2e-test/dev-api/fixtures";
   
 
 let page: Page

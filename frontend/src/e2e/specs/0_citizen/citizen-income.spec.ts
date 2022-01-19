@@ -2,12 +2,12 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-import config from 'e2e-test-common/config'
-import { Page } from 'e2e-playwright/utils/page'
-import { waitUntilEqual } from 'e2e-playwright/utils'
-import CitizenHeader from 'e2e-playwright/pages/citizen/citizen-header'
-import CitizenIncomePage from 'e2e-playwright/pages/citizen/citizen-income'
-import { enduserLogin } from 'e2e-playwright/utils/user'
+import config from 'e2e-test/config'
+import { Page } from 'e2e-test/utils/page'
+import { waitUntilEqual } from 'e2e-test/utils'
+import CitizenHeader from 'e2e-test/pages/citizen/citizen-header'
+import CitizenIncomePage from 'e2e-test/pages/citizen/citizen-income'
+import { enduserLogin } from 'e2e-test/utils/user'
 import {
   resetDatabaseForE2ETests
 } from '../../common/tampere-dev-api'

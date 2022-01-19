@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
 import axios from 'axios'
-import { DevApiError } from 'e2e-test-common/dev-api'
-import config from 'e2e-test-common/config'
+import { DevApiError } from 'e2e-test/dev-api'
+import config from 'e2e-test/config'
 
 export const devClient = axios.create({
     baseURL: config.devApiGwUrl + '/tampere'
