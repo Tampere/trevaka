@@ -38,6 +38,11 @@ import javax.xml.datatype.DatatypeFactory
 import javax.xml.datatype.XMLGregorianCalendar
 
 private val logger = KotlinLogging.logger {}
+private val restrictedAddress = Address().apply {
+    street = "Turvakielto"
+    postCode = "00000"
+    town = "TUNTEMATON"
+}
 
 class TrevakaInvoiceClient(
     private val webServiceTemplate: WebServiceTemplate, private val properties: InvoiceProperties
@@ -94,10 +99,13 @@ class TrevakaInvoiceClient(
                         surName = invoice.headOfFamily.lastName
                     }
                 }
-                address = Address().apply {
-                    street = invoice.headOfFamily.streetAddress
-                    town = invoice.headOfFamily.postOffice
-                    postCode = invoice.headOfFamily.postalCode
+                address = when (invoice.headOfFamily.restrictedDetailsEnabled) {
+                    true -> restrictedAddress
+                    false -> Address().apply {
+                        street = invoice.headOfFamily.streetAddress
+                        town = invoice.headOfFamily.postOffice
+                        postCode = invoice.headOfFamily.postalCode
+                    }
                 }
             }
             alternativePayer = when (hasAlternativePayer(invoice.headOfFamily)) {
