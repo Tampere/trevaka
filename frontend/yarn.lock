@@ -1076,11 +1076,7 @@ domexception@^2.0.1:
   dependencies:
     webidl-conversions "^5.0.0"
 
-"e2e-playwright@link:../evaka/frontend/src/e2e-playwright":
-  version "0.0.0"
-  uid ""
-
-"e2e-test-common@link:../evaka/frontend/src/e2e-test-common":
+"e2e-test@link:../evaka/frontend/src/e2e-test":
   version "0.0.0"
   uid ""
 

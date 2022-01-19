@@ -10,8 +10,7 @@
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "axios": "^0.24.0",
-    "e2e-playwright": "link:../evaka/frontend/src/e2e-playwright",
-    "e2e-test-common": "link:../evaka/frontend/src/e2e-test-common",
+    "e2e-test": "link:../evaka/frontend/src/e2e-test",
     "jest": "^27.3.1",
     "jest-circus": "^27.3.1",
     "jest-environment-node": "^27.3.1",

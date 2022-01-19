@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-import config from 'e2e-test-common/config'
-import { Page } from 'e2e-playwright/utils/page'
-import { waitUntilEqual } from 'e2e-playwright/utils'
+import config from 'e2e-test/config'
+import { Page } from 'e2e-test/utils/page'
+import { waitUntilEqual } from 'e2e-test/utils'
 
 let page: Page
 
