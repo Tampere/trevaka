@@ -69,13 +69,13 @@ aliases:
   - &restore_frontend_deps
     restore_cache:
       keys:
-        - yarn-cache-frontend-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}
+        - yarn-cache-frontend-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}-{{ checksum "frontend/yarn.lock" }}
         - yarn-cache-frontend-v1-
         - yarn-cache-frontend-
 
   - &store_frontend_deps
     save_cache:
-      key: yarn-cache-frontend-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}
+      key: yarn-cache-frontend-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}-{{ checksum "frontend/yarn.lock" }}
       paths:
         - evaka/frontend/.yarn/cache
         - evaka/frontend/node_modules
