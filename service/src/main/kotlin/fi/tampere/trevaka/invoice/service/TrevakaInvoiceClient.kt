@@ -7,7 +7,6 @@ package fi.tampere.trevaka.invoice.service
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
 import fi.espoo.evaka.invoicing.domain.PersonDetailed
-import fi.espoo.evaka.invoicing.domain.Product
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient.SendResult
 import fi.tampere.messages.ipaas.commontypes.v1.FaultType
@@ -23,6 +22,7 @@ import fi.tampere.messages.sapsd.salesorder.v11.SalesOrder
 import fi.tampere.messages.sapsd.salesorder.v11.Text
 import fi.tampere.services.sapsd.salesorder.v1.SendSalesOrderRequest
 import fi.tampere.trevaka.InvoiceProperties
+import fi.tampere.trevaka.invoice.config.findProduct
 import mu.KotlinLogging
 import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.client.SoapFaultClientException
@@ -147,7 +147,7 @@ class TrevakaInvoiceClient(
         return Item().apply {
             description = it.description
             profitCenter = it.costCenter
-            material = productToMaterial(it.product)
+            material = findProduct(it.product).code
             rowAmount = priceInEuros(it.price)
             unitPrice = priceInEuros(it.unitPrice)
             quantity = it.amount.toFloat().toString()
@@ -165,21 +165,6 @@ class TrevakaInvoiceClient(
 
     private fun localDateToXMLGregorianCalendar(localDate: LocalDate): XMLGregorianCalendar =
         DatatypeFactory.newInstance().newXMLGregorianCalendar(localDate.toString())
-
-    private fun productToMaterial(product: Product): String = when (product) {
-        Product.DAYCARE -> "500218"
-        Product.DAYCARE_DISCOUNT -> "500687"
-        Product.DAYCARE_INCREASE -> "500139"
-        Product.PRESCHOOL_WITH_DAYCARE -> "500220"
-        Product.PRESCHOOL_WITH_DAYCARE_DISCOUNT -> "500687"
-        Product.PRESCHOOL_WITH_DAYCARE_INCREASE -> "500139"
-        Product.TEMPORARY_CARE -> "500576"
-        Product.SCHOOL_SHIFT_CARE -> "500949"
-        Product.SICK_LEAVE_100 -> "500248"
-        Product.SICK_LEAVE_50 -> "500283"
-        Product.ABSENCE -> "507292"
-        Product.FREE_OF_CHARGE -> "500156"
-    }
 
     private fun unmarshalFaultDetail(exception: SoapFaultClientException): Any? {
         return try {
