@@ -345,7 +345,8 @@ INSERT INTO fee_thresholds (
     max_income_threshold_2, max_income_threshold_3, max_income_threshold_4, max_income_threshold_5, max_income_threshold_6,
     income_threshold_increase_6_plus,
     sibling_discount_2, sibling_discount_2_plus,
-    max_fee, min_fee
+    max_fee, min_fee,
+    temporary_fee, temporary_fee_part_day, temporary_fee_sibling, temporary_fee_sibling_part_day
 ) VALUES (
     daterange('2000-01-01', '2020-07-31', '[]'),
     210200, 271300, 308000, 344700, 381300,
@@ -353,7 +354,8 @@ INSERT INTO fee_thresholds (
     479900, 541000, 577700, 614400, 651000,
     14200,
     0.5, 0.8,
-    28900, 2700
+    28900, 2700,
+    2900, 1500, 1500, 800
 ),
 (
     daterange('2020-08-01', NULL),
@@ -362,5 +364,6 @@ INSERT INTO fee_thresholds (
     482300, 544300, 581600, 618900, 656100,
     14200,
     0.5, 0.8,
-    28800, 2700
+    28800, 2700,
+    2900, 1500, 1500, 800
 );
