@@ -8,8 +8,8 @@ import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceStatus
 import fi.espoo.evaka.invoicing.domain.PersonDetailed
-import fi.espoo.evaka.invoicing.domain.Product
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
+import fi.espoo.evaka.invoicing.service.ProductKey
 import fi.espoo.evaka.shared.AreaId
 import fi.espoo.evaka.shared.InvoiceId
 import fi.espoo.evaka.shared.InvoiceRowId
@@ -133,7 +133,7 @@ fun validInvoice(): InvoiceDetailed {
         ), 1, 24300,
         LocalDate.of(2021, 1, 1),
         LocalDate.of(2021, 1, 31),
-        Product.DAYCARE, "131885", null, "kuvaus1"
+        ProductKey("DAYCARE"), "131885", null, "kuvaus1"
     )
     val invoiceRow2 = InvoiceRowDetailed(
         InvoiceRowId(UUID.randomUUID()), PersonDetailed(
@@ -144,7 +144,7 @@ fun validInvoice(): InvoiceDetailed {
         ), 1, 48200,
         LocalDate.of(2021, 1, 1),
         LocalDate.of(2021, 1, 31),
-        Product.PRESCHOOL_WITH_DAYCARE, "284823", null, "kuvaus2"
+        ProductKey("PRESCHOOL_WITH_DAYCARE"), "284823", null, "kuvaus2"
     )
     return InvoiceDetailed(
         (InvoiceId(UUID.randomUUID())),

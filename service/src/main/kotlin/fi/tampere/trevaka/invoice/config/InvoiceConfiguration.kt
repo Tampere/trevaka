@@ -4,9 +4,14 @@
 
 package fi.tampere.trevaka.invoice.config
 
+import fi.espoo.evaka.invoicing.domain.FeeAlteration
 import fi.espoo.evaka.invoicing.domain.IncomeType
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.espoo.evaka.invoicing.service.IncomeTypesProvider
+import fi.espoo.evaka.invoicing.service.InvoiceProductProvider
+import fi.espoo.evaka.invoicing.service.ProductKey
+import fi.espoo.evaka.invoicing.service.ProductWithName
+import fi.espoo.evaka.placement.PlacementType
 import fi.tampere.trevaka.TrevakaProperties
 import fi.tampere.trevaka.invoice.service.TrevakaInvoiceClient
 import fi.tampere.trevaka.util.basicAuthInterceptor
@@ -72,6 +77,9 @@ class InvoiceConfiguration {
     @Bean
     fun incomeTypesProvider(): IncomeTypesProvider = TampereIncomeTypesProvider()
 
+    @Bean
+    fun invoiceProductProvider(): InvoiceProductProvider = TampereInvoiceProductProvider()
+
 }
 
 class TampereIncomeTypesProvider : IncomeTypesProvider {
@@ -96,4 +104,76 @@ class TampereIncomeTypesProvider : IncomeTypesProvider {
             "ADJUSTED_DAILY_ALLOWANCE" to IncomeType("Soviteltu päiväraha", 1, true, false),
         )
     }
+}
+
+class TampereInvoiceProductProvider : InvoiceProductProvider {
+
+    override val products = Product.values().map { ProductWithName(it.key, it.nameFi) }
+    override val dailyRefund = Product.FREE_OF_CHARGE.key
+    override val partMonthSickLeave = Product.SICK_LEAVE_50.key
+    override val fullMonthSickLeave = Product.SICK_LEAVE_100.key
+    override val fullMonthAbsence = Product.ABSENCE.key
+
+    override fun mapToProduct(placementType: PlacementType): ProductKey {
+        val product = when (placementType) {
+            PlacementType.DAYCARE,
+            PlacementType.DAYCARE_PART_TIME,
+            PlacementType.DAYCARE_FIVE_YEAR_OLDS,
+            PlacementType.DAYCARE_PART_TIME_FIVE_YEAR_OLDS ->
+                Product.DAYCARE
+            PlacementType.PRESCHOOL_DAYCARE ->
+                Product.PRESCHOOL_WITH_DAYCARE
+            PlacementType.PREPARATORY_DAYCARE ->
+                Product.PRESCHOOL_WITH_DAYCARE
+            PlacementType.TEMPORARY_DAYCARE,
+            PlacementType.TEMPORARY_DAYCARE_PART_DAY ->
+                Product.TEMPORARY_CARE
+            PlacementType.SCHOOL_SHIFT_CARE ->
+                Product.SCHOOL_SHIFT_CARE
+            PlacementType.PRESCHOOL,
+            PlacementType.PREPARATORY,
+            PlacementType.CLUB ->
+                error("No product mapping found for placement type $placementType")
+        }
+        return product.key
+    }
+
+    override fun mapToFeeAlterationProduct(productKey: ProductKey, feeAlterationType: FeeAlteration.Type): ProductKey {
+        val product = when (findProduct(productKey) to feeAlterationType) {
+            Product.DAYCARE to FeeAlteration.Type.DISCOUNT,
+            Product.DAYCARE to FeeAlteration.Type.RELIEF ->
+                Product.DAYCARE_DISCOUNT
+            Product.DAYCARE to FeeAlteration.Type.INCREASE ->
+                Product.DAYCARE_INCREASE
+            Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.DISCOUNT,
+            Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.RELIEF ->
+                Product.PRESCHOOL_WITH_DAYCARE_DISCOUNT
+            Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.INCREASE ->
+                Product.PRESCHOOL_WITH_DAYCARE_INCREASE
+            else ->
+                error("No product mapping found for product + fee alteration type combo ($productKey + $feeAlterationType)")
+        }
+        return product.key
+    }
+
+}
+
+fun findProduct(key: ProductKey) = Product.values().find { it.key == key }
+    ?: error("Product with key $key not found")
+
+enum class Product(val nameFi: String, val code: String) {
+    DAYCARE("Varhaiskasvatus", "500218"),
+    DAYCARE_DISCOUNT("Alennus (maksup.)", "500687"),
+    DAYCARE_INCREASE("Korotus (maksup.)", "500139"),
+    PRESCHOOL_WITH_DAYCARE("Varhaiskasvatus + Esiopetus", "500220"),
+    PRESCHOOL_WITH_DAYCARE_DISCOUNT("Alennus (maksup.)", "500687"),
+    PRESCHOOL_WITH_DAYCARE_INCREASE("Korotus (maksup.)", "500139"),
+    TEMPORARY_CARE("Tilapäinen varhaiskasvatus", "500576"),
+    SCHOOL_SHIFT_CARE("Koululaisen vuorohoito", "500949"),
+    SICK_LEAVE_100("Laskuun vaikuttava poissaolo 100%", "500248"),
+    SICK_LEAVE_50("Laskuun vaikuttava poissaolo 50%", "500283"),
+    ABSENCE("Poissaolovähennys", "507292"),
+    FREE_OF_CHARGE("Poissaolovähennys", "500156");
+
+    val key = ProductKey(this.name)
 }
