@@ -165,15 +165,15 @@ enum class Product(val nameFi: String, val code: String) {
     DAYCARE("Varhaiskasvatus", "500218"),
     DAYCARE_DISCOUNT("Alennus (maksup.)", "500687"),
     DAYCARE_INCREASE("Korotus (maksup.)", "500139"),
-    PRESCHOOL_WITH_DAYCARE("Varhaiskasvatus + Esiopetus", "500220"),
+    PRESCHOOL_WITH_DAYCARE("Esiopetusta täydentävä varhaiskasvatus", "500220"),
     PRESCHOOL_WITH_DAYCARE_DISCOUNT("Alennus (maksup.)", "500687"),
     PRESCHOOL_WITH_DAYCARE_INCREASE("Korotus (maksup.)", "500139"),
     TEMPORARY_CARE("Tilapäinen varhaiskasvatus", "500576"),
     SCHOOL_SHIFT_CARE("Koululaisen vuorohoito", "500949"),
     SICK_LEAVE_100("Laskuun vaikuttava poissaolo 100%", "500248"),
     SICK_LEAVE_50("Laskuun vaikuttava poissaolo 50%", "500283"),
-    ABSENCE("Poissaolovähennys", "507292"),
-    FREE_OF_CHARGE("Poissaolovähennys", "500156");
+    ABSENCE("Poissaolovähennys 50%", "500210"),
+    FREE_OF_CHARGE("Maksuton päivä", "503696");
 
     val key = ProductKey(this.name)
 }
