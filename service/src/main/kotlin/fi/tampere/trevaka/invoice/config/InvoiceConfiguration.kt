@@ -171,7 +171,8 @@ enum class Product(val nameFi: String, val code: String) {
     FREE_OF_CHARGE("Maksuton päivä", "503696"),
     CORRECTION("Oikaisu", "500177"),
     FREE_MONTH("Maksuton kuukausi", "500156"),
-    OVER_CONTRACT("Sopimuksen ylitys", "500538");
+    OVER_CONTRACT("Sopimuksen ylitys", "500538"),
+    UNANNOUNCED_ABSENCE("Ilmoittamaton päivystysajan poissaolo", "507292");
 
     val key = ProductKey(this.name)
 }
