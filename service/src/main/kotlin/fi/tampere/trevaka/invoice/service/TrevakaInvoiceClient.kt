@@ -43,6 +43,7 @@ private val restrictedAddress = Address().apply {
     postCode = "00000"
     town = "TUNTEMATON"
 }
+private const val maxNameLength = 35
 
 class TrevakaInvoiceClient(
     private val webServiceTemplate: WebServiceTemplate, private val properties: InvoiceProperties
@@ -90,38 +91,30 @@ class TrevakaInvoiceClient(
     }
 
     private fun toHeader(invoice: InvoiceDetailed): Header {
+        val headOfFamily = toInvoicePerson(invoice.headOfFamily)
+        val codebtor = invoice.codebtor?.let { toInvoicePerson(it) }
+
         return Header().apply {
             customer = P1PartnerType().apply {
                 person = Person().apply {
-                    ssn = invoice.headOfFamily.ssn
+                    ssn = headOfFamily.ssn
                     personName = PersonName().apply {
-                        firstNames = invoice.headOfFamily.firstName
-                        surName = invoice.headOfFamily.lastName
+                        firstNames = headOfFamily.firstName
+                        surName = headOfFamily.lastName
                     }
                 }
-                address = when (invoice.headOfFamily.restrictedDetailsEnabled) {
-                    true -> restrictedAddress
-                    false -> Address().apply {
-                        street = invoice.headOfFamily.streetAddress
-                        town = invoice.headOfFamily.postOffice
-                        postCode = invoice.headOfFamily.postalCode
-                    }
-                }
+                address = headOfFamily.address()
             }
-            alternativePayer = when (hasAlternativePayer(invoice.headOfFamily)) {
+            alternativePayer = when (codebtor != null) {
                 true -> P1PartnerType().apply {
                     person = Person().apply {
-                        ssn = invoice.headOfFamily.ssn
+                        ssn = headOfFamily.ssn
                         personName = PersonName().apply {
-                            firstNames = null
-                            surName = invoice.headOfFamily.invoiceRecipientName
+                            firstNames = codebtor.name().take(maxNameLength)
+                            surName = headOfFamily.name().take(maxNameLength)
                         }
                     }
-                    address = Address().apply {
-                        street = invoice.headOfFamily.invoicingStreetAddress
-                        town = invoice.headOfFamily.invoicingPostOffice
-                        postCode = invoice.headOfFamily.invoicingPostalCode
-                    }
+                    address = headOfFamily.address()
                 }
                 false -> null
             }
@@ -181,9 +174,46 @@ class TrevakaInvoiceClient(
 
 }
 
-internal fun hasAlternativePayer(person: PersonDetailed): Boolean {
-    return !person.invoiceRecipientName.isNullOrBlank()
-            && !person.invoicingStreetAddress.isNullOrBlank()
-            && !person.invoicingPostalCode.isNullOrBlank()
-            && !person.invoicingPostOffice.isNullOrBlank()
+internal fun toInvoicePerson(person: PersonDetailed): InvoicePerson {
+    val ssn = person.ssn
+    val (lastName, firstName) =
+        if (person.invoiceRecipientName.isNotBlank()) person.invoiceRecipientName.trim() to ""
+        else person.lastName.trim() to person.firstName.trim()
+    val restrictedDetailsEnabled = person.restrictedDetailsEnabled
+    val (streetName, postalCode, postOffice) = if (hasInvoicingAddress(person)) Triple(
+        person.invoicingStreetAddress.trim(),
+        person.invoicingPostalCode.trim(),
+        person.invoicingPostOffice.trim()
+    ) else Triple(
+        person.streetAddress.trim(),
+        person.postalCode.trim(),
+        person.postOffice.trim()
+    )
+    return InvoicePerson(ssn!!, lastName, firstName, restrictedDetailsEnabled, streetName, postalCode, postOffice)
+}
+
+internal fun hasInvoicingAddress(person: PersonDetailed): Boolean {
+    return person.invoicingStreetAddress.isNotBlank()
+            && person.invoicingPostalCode.isNotBlank()
+            && person.invoicingPostOffice.isNotBlank()
+}
+
+internal data class InvoicePerson(
+    val ssn: String,
+    val lastName: String,
+    val firstName: String,
+    val restrictedDetailsEnabled: Boolean,
+    val streetName: String,
+    val postalCode: String,
+    val postOffice: String
+) {
+    fun name(): String = "$lastName $firstName".trim()
+    fun address(): Address = when (restrictedDetailsEnabled) {
+        true -> restrictedAddress
+        false -> Address().apply {
+            street = streetName
+            town = postOffice
+            postCode = postalCode
+        }
+    }
 }
