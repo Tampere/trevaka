@@ -25,7 +25,6 @@ aliases:
   - &reuse_image fsfe/reuse:0.13.0 # NOTE: Update bin/add-license-headers.sh to match
   - &nodejs_image cimg/node:16.13
   - &ubuntu_machine_image ubuntu-2004:202107-02
-  - &yarn_version '3.1.0\*'
 
   - &default_config
     working_directory: *workspace_root
@@ -325,10 +324,6 @@ commands:
             - "e2e-playwright.tar"
 
   e2e_test:
-    parameters:
-      yarn_version:
-        type: string
-        default: *yarn_version
     steps:
       - *restore_repo
       - restore:
