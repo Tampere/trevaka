@@ -39,9 +39,9 @@ aliases:
   - &jvm_config
     <<: *default_config
     environment:
-      GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx2048m"'
+      GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-XX:MaxRAMPercentage=80"'
       GRADLE_USER_HOME: /home/circleci/repo/.gradle-user-home
-      _JAVA_OPTIONS: "-Xmx2048m"
+      JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=80"
 
   - &restore_repo
     attach_workspace:
