@@ -24,6 +24,7 @@ aliases:
   - &base_image cimg/base:stable-20.04
   - &reuse_image fsfe/reuse:0.13.0 # NOTE: Update bin/add-license-headers.sh to match
   - &nodejs_image cimg/node:16.13
+  - &openjdk_image cimg/openjdk:17.0
   - &ubuntu_machine_image ubuntu-2004:202107-02
 
   - &default_config
@@ -114,6 +115,10 @@ executors:
     docker:
       - image: *nodejs_image
   openjdk_executor:
+    <<: *jvm_config
+    docker:
+      - image: *openjdk_image
+  service_test_executor:
     <<: *jvm_config
     machine:
       image: *ubuntu_machine_image
@@ -608,12 +613,6 @@ jobs:
       - *restore_repo
       - *restore_service_gradle
       - run:
-          name: Install Java 17
-          command: |
-            sudo apt-get update && sudo apt-get install openjdk-17-jdk
-            sudo update-java-alternatives --set java-1.17.0-openjdk-amd64
-            java -version
-      - run:
           working_directory: *workspace_service
           command: ./gradlew assemble
       - *store_service_gradle
@@ -622,7 +621,7 @@ jobs:
           path: service/build/libs/trevaka-service.jar
 
   service_test:
-    executor: openjdk_executor
+    executor: service_test_executor
     steps:
       - *restore_repo
       - *restore_service_gradle
