@@ -294,18 +294,13 @@ commands:
           version: *remote_docker_version
           docker_layer_caching: false
       - run:
-          name: "Setup E2E_IMAGE and store date"
+          name: "Setup E2E_IMAGE"
           command: |
             echo 'export E2E_IMAGE="trevaka/e2e-playwright:latest"' >> $BASH_ENV
-            date +%F > date
-      - restore_cache:
-          name: Restore Docker image from cache
-          key: playwright-daily-v1-{{ checksum "date"}}
       - run:
           name: Build E2E image
           working_directory: *workspace_compose
           command: |
-            docker load -i "../e2e-playwright.tar" || true
             docker build -t "$E2E_IMAGE" --cache-from "$E2E_IMAGE" -f "./e2e/playwright.Dockerfile" ./e2e/
       - run:
           name: Package E2E playwright image
@@ -315,11 +310,6 @@ commands:
       - save_cache:
           name: Store Docker image in cache
           key: playwright-image-v2-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}
-          paths:
-            - "e2e-playwright.tar"
-      - save_cache:
-          name: Store Docker image in daily cache
-          key: playwright-daily-v1-{{ checksum "date"}}
           paths:
             - "e2e-playwright.tar"
 
