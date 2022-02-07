@@ -5,6 +5,16 @@
 spring:
   application:
     name: "trevaka-service"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+  endpoint:
+    health:
+      enabled: true
+    info:
+      enabled: true
 evaka:
   oph:
     organizer_oid: "1.2.246.562.10.79499343246"

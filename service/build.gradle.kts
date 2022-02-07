@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.spring") version TrevakaServiceDeps.kotlin
     id("org.springframework.boot") version TrevakaServiceDeps.springBoot
     id("org.unbroken-dome.xjc") version TrevakaServiceDeps.xjc
+    id("com.gorylenko.gradle-git-properties") version "2.4.0"
 }
 
 repositories {
