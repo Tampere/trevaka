@@ -755,7 +755,6 @@ workflows:
             - trevaka-dev
           requires:
             - apigw_build_image
-            - e2e-test-playwright
 
       - frontend_build:
           requires:
@@ -766,7 +765,6 @@ workflows:
             - trevaka-dev
           requires:
             - frontend_build
-            - e2e-test-playwright
 
       - e2e-build-playwright:
           requires:
@@ -787,7 +785,6 @@ workflows:
             - trevaka-dev
           requires:
             - proxy_build_image
-            - e2e-test-playwright
 
       - service_build:
           requires:
@@ -804,8 +801,6 @@ workflows:
             - trevaka-dev
           requires:
             - service_build_image
-            - service_test
-            - e2e-test-playwright
 
       - auth_build_image:
           requires:
@@ -815,7 +810,6 @@ workflows:
             - trevaka-dev
           requires:
             - auth_build_image
-            - e2e-test-playwright
 
       - trigger_deploy:
           context:
