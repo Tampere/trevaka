@@ -306,7 +306,7 @@ commands:
           name: Build E2E image
           working_directory: *workspace_compose
           command: |
-            docker load -i "e2e-playwright.tar" || true
+            docker load -i "../e2e-playwright.tar" || true
             docker build -t "$E2E_IMAGE" --cache-from "$E2E_IMAGE" -f "./e2e/playwright.Dockerfile" ./e2e/
       - run:
           name: Package E2E playwright image
