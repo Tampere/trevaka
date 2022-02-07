@@ -86,16 +86,19 @@ aliases:
   - &restore_service_gradle
     restore_cache:
       keys:
-        - gradle-home-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
-        - gradle-home-service-v1-
+        - gradle-home-service-v2-{{ checksum ".circleci/config.yml" }}-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
+        - gradle-home-service-v2-
         - gradle-home-service-
 
   - &store_service_gradle
     save_cache:
-      key: gradle-home-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
+      key: gradle-home-service-v2-{{ checksum ".circleci/config.yml" }}-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
       paths:
+        - service/buildSrc/.gradle
         - service/.gradle
-        - .gradle-user-home
+        - .gradle-user-home/wrapper
+        - .gradle-user-home/caches
+        - .gradle-user-home/notifications
 
 executors:
   base_executor:
@@ -160,6 +163,27 @@ commands:
             - frontend-comm-deps-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}
             - frontend-comm-deps-v1-
             - frontend-comm-deps-
+
+  store_service_build_cache:
+    steps:
+      - save_cache:
+          name: Store build cache
+          key: gradle-service-build-cache-v1-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-{{ checksum ".circleci/config.yml" }}
+          paths:
+            - service/build
+            - service/buildSrc/build
+            - evaka/service/build
+            - evaka/service/buildSrc/build
+            - evaka/service/sficlient/build
+            - evaka/service/vtjclient/build
+            - evaka/service-lib/build
+  restore_service_build_cache:
+    steps:
+      - restore_cache:
+          name: Restore build cache
+          keys:
+            - gradle-service-build-cache-v1-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-{{ checksum ".circleci/config.yml" }}
+            - gradle-service-build-cache-v1-
 
   # Misc commands
 
@@ -606,10 +630,27 @@ jobs:
             java -version
       - run:
           working_directory: *workspace_service
-          command: ./gradlew build
+          command: ./gradlew assemble
       - *store_service_gradle
+      - store_service_build_cache
       - save:
           path: service/build/libs/trevaka-service.jar
+
+  service_test:
+    executor: openjdk_executor
+    steps:
+      - *restore_repo
+      - *restore_service_gradle
+      - restore_service_build_cache
+      - run:
+          name: Install Java 17
+          command: |
+            sudo apt-get update && sudo apt-get install openjdk-17-jdk
+            sudo update-java-alternatives --set java-1.17.0-openjdk-amd64
+            java -version
+      - run:
+          working_directory: *workspace_service
+          command: ./gradlew test
       - store_artifacts:
           path: /home/circleci/repo/service/build/reports/
 
@@ -731,7 +772,6 @@ workflows:
             - apigw_build_image
             - e2e-test-playwright
 
-
       - frontend_build:
           requires:
             - fetch_private_dependencies
@@ -767,6 +807,9 @@ workflows:
       - service_build:
           requires:
             - checkout_repo
+      - service_test:
+          requires:
+            - service_build
       - service_build_image:
           requires:
             - build_base_image
@@ -776,6 +819,7 @@ workflows:
             - trevaka-dev
           requires:
             - service_build_image
+            - service_test
             - e2e-test-playwright
 
       - auth_build_image:
