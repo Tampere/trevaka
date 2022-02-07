@@ -6,6 +6,7 @@ version: "3.5"
 
 services:
   playwright:
+    image: trevaka/e2e-playwright:latest
     build:
       context: ./e2e
       dockerfile: ./playwright.Dockerfile
