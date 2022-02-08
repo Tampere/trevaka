@@ -12,6 +12,13 @@ evaka:
     decisions: trevaka-daycaredecisions-it
     fee_decisions: trevaka-paymentdecisions-it
     voucher_value_decisions: trevaka-vouchervaluedecisions-it
+  database:
+    url: jdbc:postgresql://localhost:15432/evaka_it
+    username: evaka_it
+    password: evaka_it
+    flyway:
+      username: evaka_it
+      password: evaka_it
   frontend:
     base_url:
       fi: http://localhost:${server.port}
@@ -47,3 +54,6 @@ trevaka:
     password: pass
   invoice:
     url: http://localhost:${wiremock.server.port}/mock/ipaas/salesOrder
+spring:
+  main:
+    allow-bean-definition-overriding: true # for redisPool

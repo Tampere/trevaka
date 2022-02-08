@@ -5,7 +5,7 @@
 version: 2.1
 
 orbs:
-  aws-cli: circleci/aws-cli@1.4.0
+  aws-cli: circleci/aws-cli@2.0.6
 
 aliases:
   - &workspace_root /home/circleci/repo
@@ -19,13 +19,16 @@ aliases:
   - &workspace_compose /home/circleci/repo/compose
   - &workspace_evaka_compose /home/circleci/repo/evaka/compose
 
-  - &remote_docker_version "20.10.7"
+  - &remote_docker_version "20.10.11"
   - &docker_layer_caching false
   - &base_image cimg/base:stable-20.04
   - &reuse_image fsfe/reuse:0.13.0 # NOTE: Update bin/add-license-headers.sh to match
   - &nodejs_image cimg/node:16.13
+  - &openjdk_image cimg/openjdk:17.0
+  - &postgres_image cimg/postgres:13.5
+  - &redis_image cimg/redis:5.0
+  - &s3mock_image adobe/s3mock
   - &ubuntu_machine_image ubuntu-2004:202107-02
-  - &yarn_version '3.1.0\*'
 
   - &default_config
     working_directory: *workspace_root
@@ -39,9 +42,9 @@ aliases:
   - &jvm_config
     <<: *default_config
     environment:
-      GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx2048m"'
+      GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-XX:MaxRAMPercentage=80"'
       GRADLE_USER_HOME: /home/circleci/repo/.gradle-user-home
-      _JAVA_OPTIONS: "-Xmx2048m"
+      JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=80"
 
   - &restore_repo
     attach_workspace:
@@ -86,16 +89,19 @@ aliases:
   - &restore_service_gradle
     restore_cache:
       keys:
-        - gradle-home-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
-        - gradle-home-service-v1-
+        - gradle-home-service-v2-{{ checksum ".circleci/config.yml" }}-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
+        - gradle-home-service-v2-
         - gradle-home-service-
 
   - &store_service_gradle
     save_cache:
-      key: gradle-home-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
+      key: gradle-home-service-v2-{{ checksum ".circleci/config.yml" }}-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
       paths:
+        - service/buildSrc/.gradle
         - service/.gradle
-        - .gradle-user-home
+        - .gradle-user-home/wrapper
+        - .gradle-user-home/caches
+        - .gradle-user-home/notifications
 
 executors:
   base_executor:
@@ -113,8 +119,21 @@ executors:
       - image: *nodejs_image
   openjdk_executor:
     <<: *jvm_config
-    machine:
-      image: *ubuntu_machine_image
+    docker:
+      - image: *openjdk_image
+  service_test_executor:
+    <<: *jvm_config
+    docker:
+      - image: *openjdk_image
+      - image: *postgres_image
+        environment:
+          PGPORT: 15432
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+      - image: *redis_image
+      - image: *s3mock_image
+        environment:
+          HTTP_PORT: 9876
   e2e_executor:
     <<: *node_config
     machine:
@@ -160,6 +179,27 @@ commands:
             - frontend-comm-deps-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}
             - frontend-comm-deps-v1-
             - frontend-comm-deps-
+
+  store_service_build_cache:
+    steps:
+      - save_cache:
+          name: Store build cache
+          key: gradle-service-build-cache-v1-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-{{ checksum ".circleci/config.yml" }}
+          paths:
+            - service/build
+            - service/buildSrc/build
+            - evaka/service/build
+            - evaka/service/buildSrc/build
+            - evaka/service/sficlient/build
+            - evaka/service/vtjclient/build
+            - evaka/service-lib/build
+  restore_service_build_cache:
+    steps:
+      - restore_cache:
+          name: Restore build cache
+          keys:
+            - gradle-service-build-cache-v1-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-{{ checksum ".circleci/config.yml" }}
+            - gradle-service-build-cache-v1-
 
   # Misc commands
 
@@ -271,18 +311,13 @@ commands:
           version: *remote_docker_version
           docker_layer_caching: false
       - run:
-          name: "Setup E2E_IMAGE and store date"
+          name: "Setup E2E_IMAGE"
           command: |
             echo 'export E2E_IMAGE="trevaka/e2e-playwright:latest"' >> $BASH_ENV
-            date +%F > date
-      - restore_cache:
-          name: Restore Docker image from cache
-          key: playwright-daily-v1-{{ checksum "date"}}
       - run:
           name: Build E2E image
           working_directory: *workspace_compose
           command: |
-            docker load -i "e2e-playwright.tar" || true
             docker build -t "$E2E_IMAGE" --cache-from "$E2E_IMAGE" -f "./e2e/playwright.Dockerfile" ./e2e/
       - run:
           name: Package E2E playwright image
@@ -294,17 +329,8 @@ commands:
           key: playwright-image-v2-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}
           paths:
             - "e2e-playwright.tar"
-      - save_cache:
-          name: Store Docker image in daily cache
-          key: playwright-daily-v1-{{ checksum "date"}}
-          paths:
-            - "e2e-playwright.tar"
 
   e2e_test:
-    parameters:
-      yarn_version:
-        type: string
-        default: *yarn_version
     steps:
       - *restore_repo
       - restore:
@@ -599,17 +625,24 @@ jobs:
       - *restore_repo
       - *restore_service_gradle
       - run:
-          name: Install Java 17
-          command: |
-            sudo apt-get update && sudo apt-get install openjdk-17-jdk
-            sudo update-java-alternatives --set java-1.17.0-openjdk-amd64
-            java -version
-      - run:
           working_directory: *workspace_service
-          command: ./gradlew build
+          command: ./gradlew assemble
       - *store_service_gradle
+      - store_service_build_cache
       - save:
           path: service/build/libs/trevaka-service.jar
+
+  service_test:
+    executor: service_test_executor
+    steps:
+      - *restore_repo
+      - *restore_service_gradle
+      - restore_service_build_cache
+      - run:
+          command: PGPASSWORD=postgres psql -U postgres -h localhost -p 15432 -f "evaka/compose/db-integration-test/init-evaka-it.sql"
+      - run:
+          working_directory: *workspace_service
+          command: ./gradlew test
       - store_artifacts:
           path: /home/circleci/repo/service/build/reports/
 
@@ -729,8 +762,6 @@ workflows:
             - trevaka-dev
           requires:
             - apigw_build_image
-            - e2e-test-playwright
-
 
       - frontend_build:
           requires:
@@ -741,7 +772,6 @@ workflows:
             - trevaka-dev
           requires:
             - frontend_build
-            - e2e-test-playwright
 
       - e2e-build-playwright:
           requires:
@@ -762,11 +792,13 @@ workflows:
             - trevaka-dev
           requires:
             - proxy_build_image
-            - e2e-test-playwright
 
       - service_build:
           requires:
             - checkout_repo
+      - service_test:
+          requires:
+            - service_build
       - service_build_image:
           requires:
             - build_base_image
@@ -776,7 +808,6 @@ workflows:
             - trevaka-dev
           requires:
             - service_build_image
-            - e2e-test-playwright
 
       - auth_build_image:
           requires:
@@ -786,7 +817,6 @@ workflows:
             - trevaka-dev
           requires:
             - auth_build_image
-            - e2e-test-playwright
 
       - trigger_deploy:
           context:
