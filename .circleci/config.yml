@@ -25,6 +25,9 @@ aliases:
   - &reuse_image fsfe/reuse:0.13.0 # NOTE: Update bin/add-license-headers.sh to match
   - &nodejs_image cimg/node:16.13
   - &openjdk_image cimg/openjdk:17.0
+  - &postgres_image cimg/postgres:13.5
+  - &redis_image cimg/redis:5.0
+  - &s3mock_image adobe/s3mock
   - &ubuntu_machine_image ubuntu-2004:202107-02
 
   - &default_config
@@ -120,8 +123,17 @@ executors:
       - image: *openjdk_image
   service_test_executor:
     <<: *jvm_config
-    machine:
-      image: *ubuntu_machine_image
+    docker:
+      - image: *openjdk_image
+      - image: *postgres_image
+        environment:
+          PGPORT: 15432
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+      - image: *redis_image
+      - image: *s3mock_image
+        environment:
+          HTTP_PORT: 9876
   e2e_executor:
     <<: *node_config
     machine:
@@ -627,11 +639,7 @@ jobs:
       - *restore_service_gradle
       - restore_service_build_cache
       - run:
-          name: Install Java 17
-          command: |
-            sudo apt-get update && sudo apt-get install openjdk-17-jdk
-            sudo update-java-alternatives --set java-1.17.0-openjdk-amd64
-            java -version
+          command: PGPASSWORD=postgres psql -U postgres -h localhost -p 15432 -f "evaka/compose/db-integration-test/init-evaka-it.sql"
       - run:
           working_directory: *workspace_service
           command: ./gradlew test
