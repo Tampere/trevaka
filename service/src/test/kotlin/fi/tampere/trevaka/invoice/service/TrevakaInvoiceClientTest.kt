@@ -82,10 +82,45 @@ internal class TrevakaInvoiceClientTest {
     }
 
     @Test
+    fun sendWithInvoicingDetails() {
+        val invoice1 = validInvoice().copy(
+            headOfFamily = validPerson().copy(
+                invoiceRecipientName = "Leena Meikäläinen",
+                invoicingStreetAddress = "Kotikatu 3",
+                invoicingPostalCode = "33960",
+                invoicingPostOffice = "PIRKKALA"
+            )
+        )
+        server.expect(connectionTo("http://localhost:8080/salesOrder"))
+            .andExpect(payload(ClassPathResource("invoice-client/sales-order-request-invoicing-details.xml")))
+            .andRespond(withPayload(ClassPathResource("invoice-client/sales-order-response-ok.xml")))
+
+        assertThat(client.send(listOf(invoice1)))
+            .returns(listOf(invoice1)) { it.succeeded }
+            .returns(listOf()) { it.failed }
+
+        server.verify()
+    }
+
+    @Test
     fun sendWithRestrictedDetails() {
         val invoice1 = validInvoice().copy(headOfFamily = validPerson().copy(restrictedDetailsEnabled = true))
         server.expect(connectionTo("http://localhost:8080/salesOrder"))
             .andExpect(payload(ClassPathResource("invoice-client/sales-order-request-restricted-details.xml")))
+            .andRespond(withPayload(ClassPathResource("invoice-client/sales-order-response-ok.xml")))
+
+        assertThat(client.send(listOf(invoice1)))
+            .returns(listOf(invoice1)) { it.succeeded }
+            .returns(listOf()) { it.failed }
+
+        server.verify()
+    }
+
+    @Test
+    fun sendWithCodebtor() {
+        val invoice1 = validInvoice().copy(codebtor = validPerson().copy(firstName = "Mikko"))
+        server.expect(connectionTo("http://localhost:8080/salesOrder"))
+            .andExpect(payload(ClassPathResource("invoice-client/sales-order-request-codebtor.xml")))
             .andRespond(withPayload(ClassPathResource("invoice-client/sales-order-response-ok.xml")))
 
         assertThat(client.send(listOf(invoice1)))
