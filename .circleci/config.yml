@@ -828,6 +828,7 @@ workflows:
             - proxy_push_image
             - service_push_image
             - auth_push_image
+            - e2e-test-playwright
           filters:
             branches:
               only:
@@ -841,6 +842,7 @@ workflows:
             - proxy_push_image
             - service_push_image
             - auth_push_image
+            - e2e-test-playwright
           filters:
             branches:
               only:
