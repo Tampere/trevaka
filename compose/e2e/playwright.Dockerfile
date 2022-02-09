@@ -4,7 +4,7 @@
 #
 # Scavenged from evaka integration testing and e2e compose files
 
-ARG PLAYWRIGHT_VERSION=v1.17.1
+ARG PLAYWRIGHT_VERSION=v1.18.1
 
 FROM mcr.microsoft.com/playwright:${PLAYWRIGHT_VERSION}-focal
 
