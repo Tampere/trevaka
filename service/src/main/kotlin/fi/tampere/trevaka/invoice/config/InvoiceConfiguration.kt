@@ -113,6 +113,7 @@ class TampereInvoiceProductProvider : InvoiceProductProvider {
     override val partMonthSickLeave = Product.SICK_LEAVE_50.key
     override val fullMonthSickLeave = Product.SICK_LEAVE_100.key
     override val fullMonthAbsence = Product.ABSENCE.key
+    override val contractSurplusDay = Product.OVER_CONTRACT.key
 
     override fun mapToProduct(placementType: PlacementType): ProductKey {
         val product = when (placementType) {
