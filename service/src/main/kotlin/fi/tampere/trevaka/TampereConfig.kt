@@ -15,7 +15,8 @@ class TampereConfig {
         valueDecisionCapacityFactorEnabled = true,
         daycareApplicationServiceNeedOptionsEnabled = true,
         citizenReservationThresholdHours = 6 * 24, // Tue 00:00
-        dailyFeeDivisorOperationalDaysOverride = 20
+        dailyFeeDivisorOperationalDaysOverride = 20,
+        freeSickLeaveOnContractDays = true
     )
 
     @Bean
