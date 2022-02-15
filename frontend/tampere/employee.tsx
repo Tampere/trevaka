@@ -16,6 +16,12 @@ const customizations: EmployeeCustomizations = {
   translations: {
     fi: {
       // override translations here
+      absences: {
+        absenceCategories: {
+          NONBILLABLE: 'Ei laskuteta eVakasta',
+          BILLABLE: 'Varhaiskasvatus'
+        }
+      },
       common: {
         careTypeLabels: {
           preschool: 'Esiopetusta täydentävä toiminta'
