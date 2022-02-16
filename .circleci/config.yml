@@ -164,22 +164,6 @@ commands:
           name: Restore << parameters.path >>
           key: workspace-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-<< parameters.path >>
 
-  store_frontend_comm_deps:
-    steps:
-      - save_cache:
-          name: Store commercial dependencies
-          key: frontend-comm-deps-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}
-          paths:
-            - evaka/frontend/vendor/fortawesome
-  restore_frontend_comm_deps:
-    steps:
-      - restore_cache:
-          name: Restore commercial dependencies
-          keys:
-            - frontend-comm-deps-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}
-            - frontend-comm-deps-v1-
-            - frontend-comm-deps-
-
   store_service_build_cache:
     steps:
       - save_cache:
@@ -354,7 +338,8 @@ commands:
           command: |
             CI=true LOCAL_DIR='../evaka/frontend' ./compose-e2e up -d --build
       - *restore_frontend_deps
-      - restore_frontend_comm_deps
+      - restore:
+          path: evaka/frontend/vendor/fortawesome
       - restore_cache:
           name: Restore Docker image from cache
           key: playwright-image-v2-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}
@@ -413,7 +398,6 @@ jobs:
     executor: aws-cli/default
     steps:
       - *restore_repo
-      - restore_frontend_comm_deps
       - aws-cli/install
       - run:
           name: Fetch build customizations
@@ -427,7 +411,8 @@ jobs:
           working_directory: *workspace_evaka_frontend
           command: |
             aws s3 sync s3://trevaka-dev-deployment/frontend/vendor/fortawesome/ ./vendor/fortawesome/
-      - store_frontend_comm_deps
+      - save:
+          path: evaka/frontend/vendor/fortawesome
 
   commit_and_push_branch:
     executor: base_executor
@@ -546,7 +531,8 @@ jobs:
     steps:
       - *restore_repo
       - *restore_frontend_deps
-      - restore_frontend_comm_deps
+      - restore:
+          path: evaka/frontend/vendor/fortawesome
       - restore:
           path: customizations
       - run:
