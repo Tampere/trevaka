@@ -145,7 +145,7 @@ class TampereInvoiceProductProvider : InvoiceProductProvider {
             Product.DAYCARE to FeeAlteration.Type.RELIEF,
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.DISCOUNT,
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.RELIEF ->
-                Product.DAYCARE_DISCOUNT
+                Product.PRESCHOOL_WITH_DAYCARE_DISCOUNT
             Product.DAYCARE to FeeAlteration.Type.INCREASE,
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.INCREASE ->
                 Product.CORRECTION
@@ -162,14 +162,15 @@ fun findProduct(key: ProductKey) = Product.values().find { it.key == key }
 
 enum class Product(val nameFi: String, val code: String) {
     DAYCARE("Varhaiskasvatus", "500218"),
-    DAYCARE_DISCOUNT("Alennus", "500687"),
+    DAYCARE_DISCOUNT("Alennus - Varhaiskasvatus", "500687"),
     PRESCHOOL_WITH_DAYCARE("Esiopetusta täydentävä varhaiskasvatus", "500220"),
+    PRESCHOOL_WITH_DAYCARE_DISCOUNT("Alennus - Esiopetusta täydentävä varhaiskasvatus", "509565"),
     TEMPORARY_CARE("Tilapäinen varhaiskasvatus", "500576"),
     SCHOOL_SHIFT_CARE("Koululaisen vuorohoito", "500949"),
     SICK_LEAVE_50("Laskuun vaikuttava poissaolo 50%", "500283"),
     SICK_LEAVE_100("Laskuun vaikuttava poissaolo 100%", "500248"),
     ABSENCE("Poissaolovähennys 50%", "500210"),
-    FREE_OF_CHARGE("Maksuton päivä", "503696"),
+    FREE_OF_CHARGE("Hyvityspäivä", "503696"),
     CORRECTION("Oikaisu", "500177"),
     FREE_MONTH("Maksuton kuukausi", "500156"),
     OVER_CONTRACT("Sopimuksen ylitys", "500538"),
