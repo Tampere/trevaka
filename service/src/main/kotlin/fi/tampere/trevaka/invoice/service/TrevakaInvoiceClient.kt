@@ -44,6 +44,7 @@ private val restrictedAddress = Address().apply {
     town = "TUNTEMATON"
 }
 private const val maxNameLength = 35
+private const val maxStreetLength = 30
 
 class TrevakaInvoiceClient(
     private val webServiceTemplate: WebServiceTemplate, private val properties: InvoiceProperties
@@ -211,7 +212,7 @@ internal data class InvoicePerson(
     fun address(): Address = when (restrictedDetailsEnabled) {
         true -> restrictedAddress
         false -> Address().apply {
-            street = streetName
+            street = streetName.take(maxStreetLength)
             town = postOffice
             postCode = postalCode
         }
