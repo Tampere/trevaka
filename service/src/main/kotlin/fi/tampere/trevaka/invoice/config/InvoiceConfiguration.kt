@@ -142,7 +142,8 @@ class TampereInvoiceProductProvider : InvoiceProductProvider {
     override fun mapToFeeAlterationProduct(productKey: ProductKey, feeAlterationType: FeeAlteration.Type): ProductKey {
         val product = when (findProduct(productKey) to feeAlterationType) {
             Product.DAYCARE to FeeAlteration.Type.DISCOUNT,
-            Product.DAYCARE to FeeAlteration.Type.RELIEF,
+            Product.DAYCARE to FeeAlteration.Type.RELIEF ->
+                Product.DAYCARE_DISCOUNT
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.DISCOUNT,
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.RELIEF ->
                 Product.PRESCHOOL_WITH_DAYCARE_DISCOUNT
