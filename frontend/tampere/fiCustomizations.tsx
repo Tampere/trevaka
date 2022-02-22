@@ -341,6 +341,13 @@ const fi: DeepPartial<Translations> = {
         <P>* Tähdellä merkityt tiedot ovat pakollisia</P>
       </>
     )
+  },
+  calendar: {
+    absenceModal: {
+      absenceTypes: {
+        PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo'
+      }
+    }
   }
 }
 

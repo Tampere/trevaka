@@ -14,6 +14,12 @@ const customizations: EmployeeMobileCustomizations = {
     fi: {
       mobile: {
         landerText1: 'Tervetuloa käyttämään eVaka Tampere -mobiilisovellusta!'
+      },
+      absences: {
+        absenceTypes: {
+          PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo',
+          FORCE_MAJEURE: 'Hyvityspäivä'
+        }
       }
     }
   }

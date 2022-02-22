@@ -22,6 +22,20 @@ const customizations: EmployeeCustomizations = {
         absenceCategories: {
           NONBILLABLE: 'Ei laskuteta eVakasta',
           BILLABLE: 'Varhaiskasvatus'
+        },
+        absenceTypes: {
+          PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo',
+          FORCE_MAJEURE: 'Hyvityspäivä'
+        },
+        absenceTypesShort: {
+          PLANNED_ABSENCE: 'Sopim, muk.',
+          FORCE_MAJEURE: 'Hyvitys'
+        },
+        modal: {
+          absenceTypes: {
+            PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo',
+            FORCE_MAJEURE: 'Hyvityspäivä'
+          }
         }
       },
       common: {
@@ -89,7 +103,7 @@ const customizations: EmployeeCustomizations = {
       placement: {
         type: {
           DAYCARE: 'Varhaiskasvatus',
-          DAYCARE_PART_TIME: 'Osapäiväinen varhaiskasvatus​',
+          DAYCARE_PART_TIME: 'Osapäiväinen varhaiskasvatus',
           TEMPORARY_DAYCARE: 'Tilapäinen kokopäiväinen varhaiskasvatus',
           PRESCHOOL_DAYCARE: 'Esiopetusta täydentävä varhaiskasvatus',
           CLUB: 'Kerho',
