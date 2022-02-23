@@ -92,7 +92,7 @@ describe('Citizen attendance reservations', () => {
 
         await waitUntilEqual(
             () => page.findByDataQa('absence-SICKLEAVE').find('label').innerText,
-            'Sairauspoissaolo'
+            'Sairaus'
         )
         await waitUntilEqual(
             () => page.findByDataQa('absence-OTHER_ABSENCE').find('label').innerText,
