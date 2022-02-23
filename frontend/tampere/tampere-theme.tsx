@@ -43,7 +43,7 @@ const theme: Theme = {
       a7mint: '#8CC1B3',
       a8lightBlue: '#CAD6E2',
       a9pink: '#D77094',
-      a10powder: '#FDE6DB'
+      a10powder: '#CAD6E2'
     }
   },
   typography: {
