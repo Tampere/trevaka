@@ -812,6 +812,7 @@ workflows:
             - apigw_push_image
             - frontend_upload_archive
             - proxy_push_image
+            - service_test
             - service_push_image
             - auth_push_image
             - e2e-test-playwright
@@ -826,6 +827,7 @@ workflows:
             - apigw_push_image
             - frontend_upload_archive
             - proxy_push_image
+            - service_test
             - service_push_image
             - auth_push_image
             - e2e-test-playwright
