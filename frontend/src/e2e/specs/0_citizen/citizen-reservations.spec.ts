@@ -14,6 +14,7 @@ import CitizenCalendarPage from 'e2e-test/pages/citizen/citizen-calendar'
 import CitizenHeader from 'e2e-test/pages/citizen/citizen-header'
 import { Page } from 'e2e-test/utils/page'
 import { waitUntilEqual } from "e2e-test/utils";
+import { enduserLogin } from 'e2e-test/utils/user'
 
 let page: Page
 let header: CitizenHeader
@@ -75,9 +76,9 @@ beforeEach(async () => {
 
     page = await Page.open()
     await page.goto(config.enduserUrl)
+    await enduserLogin(page)
     header = new CitizenHeader(page)
     calendarPage = new CitizenCalendarPage(page, 'desktop')
-    await header.logIn()
     await header.selectTab('calendar')
 })
 
