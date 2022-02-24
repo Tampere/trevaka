@@ -252,6 +252,9 @@ const fi: DeepPartial<Translations> = {
     sendFeedbackLink: 'https://www.tampere.fi/palaute'
   },
   loginPage: {
+    applying: {
+      paragraph: 'Hae lapsellesi varhaiskasvatus- tai kerhopaikkaa (vaatii vahvan tunnistautumisen).'
+    },
     title: 'Tampereen kaupungin varhaiskasvatus'
   },
   map: {
