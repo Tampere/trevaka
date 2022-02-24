@@ -251,6 +251,13 @@ const fi: DeepPartial<Translations> = {
     privacyPolicyLink: 'https://www.tampere.fi/tietosuoja',
     sendFeedbackLink: 'https://www.tampere.fi/palaute'
   },
+  loginPage: {
+    applying: {
+      paragraph:
+        'Hae lapsellesi varhaiskasvatus- tai kerhopaikkaa (vaatii vahvan tunnistautumisen).'
+    },
+    title: 'Tampereen kaupungin varhaiskasvatus'
+  },
   map: {
     mainInfo: `Tässä näkymässä voit hakea kartalta kaikki Tampereen varhaiskasvatusyksiköt sekä kerhot. Kartalta löytyvät myös seudulliset palveluseteliyksiköt ja -kerhot.`,
     privateUnitInfo: <></>,
