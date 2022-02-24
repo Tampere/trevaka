@@ -253,7 +253,8 @@ const fi: DeepPartial<Translations> = {
   },
   loginPage: {
     applying: {
-      paragraph: 'Hae lapsellesi varhaiskasvatus- tai kerhopaikkaa (vaatii vahvan tunnistautumisen).'
+      paragraph:
+        'Hae lapsellesi varhaiskasvatus- tai kerhopaikkaa (vaatii vahvan tunnistautumisen).'
     },
     title: 'Tampereen kaupungin varhaiskasvatus'
   },
