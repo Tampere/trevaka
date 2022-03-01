@@ -366,6 +366,7 @@ const fi: DeepPartial<Translations> = {
   calendar: {
     absenceModal: {
       absenceTypes: {
+        OTHER_ABSENCE: 'Muu poissaolo',
         PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo'
       }
     }
