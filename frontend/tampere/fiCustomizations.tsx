@@ -248,8 +248,22 @@ const fi: DeepPartial<Translations> = {
   },
   footer: {
     cityLabel: '© Tampereen kaupunki',
-    privacyPolicyLink: 'https://www.tampere.fi/tietosuoja',
-    sendFeedbackLink: 'https://www.tampere.fi/palaute'
+    privacyPolicyLink: (
+      <ExternalLink
+        href="https://www.tampere.fi/tietosuoja"
+        text="Tietosuojaselosteet"
+        newTab={true}
+        data-qa="footer-policy-link"
+      ></ExternalLink>
+    ),
+    sendFeedbackLink: (
+      <ExternalLink
+        href="https://www.tampere.fi/palaute"
+        text="Lähetä palautetta"
+        newTab={true}
+        data-qa="footer-feedback-link"
+      ></ExternalLink>
+    )
   },
   loginPage: {
     applying: {
