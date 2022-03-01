@@ -53,6 +53,12 @@ const en: DeepPartial<Translations> = {
       }
     },
     editor: {
+      unitPreference: {
+        units: {
+          serviceVoucherLink:
+            'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit'
+        }
+      },
       heading: {
         info: {
           DAYCARE: (
@@ -250,6 +256,13 @@ const en: DeepPartial<Translations> = {
     cityLabel: '© City of Tampere',
     privacyPolicyLink: 'https://www.tampere.fi/tietosuoja',
     sendFeedbackLink: 'https://www.tampere.fi/palaute'
+  },
+  loginPage: {
+    applying: {
+      paragraph:
+        'Apply to early childhood education and clubs (requires strong authentication).'
+    },
+    title: 'City of Tampere early childhood education'
   },
   map: {
     mainInfo: `In this view you can locate on the map all of Tampere’s early childhood education units and clubs. Regional service voucher units and clubs can also be found on the map.`,

@@ -10,4 +10,8 @@ describe('Citizen translations', () => {
     const errors = checkTampereTranslations(translations.fi)
     expect(errors).toEqual([])
   })
+  test('en', async () => {
+    const errors = checkTampereTranslations(translations.en)
+    expect(errors).toEqual([])
+  })
 })
