@@ -252,6 +252,10 @@ const en: DeepPartial<Translations> = {
       </P>
     )
   },
+  children: {
+    pageDescription:
+      "General information related to your children's early childhood education is displayed on this page."
+  },
   footer: {
     cityLabel: '© City of Tampere',
     privacyPolicyLink: (

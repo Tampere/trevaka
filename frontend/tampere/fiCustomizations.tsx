@@ -246,6 +246,10 @@ const fi: DeepPartial<Translations> = {
       </P>
     )
   },
+  children: {
+    pageDescription:
+      'Tällä sivulla näet lastesi varhaiskasvatukseen liittyvät yleiset tiedot.'
+  },
   footer: {
     cityLabel: '© Tampereen kaupunki',
     privacyPolicyLink: (

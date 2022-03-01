@@ -78,6 +78,9 @@ const customizations: EmployeeCustomizations = {
         dailyServiceTimes: {
           info: 'Tallenna tähän varhaiskasvatussopimuksella sovittu päivittäinen läsnäoloaika.',
           info2: ''
+        },
+        vasu: {
+          title: 'Varhaiskasvatussuunnitelma'
         }
       },
       footer: {
