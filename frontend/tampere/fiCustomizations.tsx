@@ -272,7 +272,11 @@ const fi: DeepPartial<Translations> = {
   loginPage: {
     applying: {
       paragraph:
-        'Hae lapsellesi varhaiskasvatus- tai kerhopaikkaa (vaatii vahvan tunnistautumisen).'
+        'Hae lapsellesi varhaiskasvatus- tai kerhopaikkaa (vaatii vahvan tunnistautumisen). Voit myös tarkastella aiempaa tekemääsi hakemusta ja vahvistaa myönnetyn varhaiskasvatus- tai kerhopaikan.'
+    },
+    login: {
+      paragraph:
+        'Huoltajat, joiden lapsi on jo varhaiskasvatuksessa: hoida päivittäisiä varhaiskasvatuksen asioita eVakassa. Kirjautuminen aukaistaan 4.4.2022 alkaen.'
     },
     title: 'Tampereen kaupungin varhaiskasvatus'
   },
