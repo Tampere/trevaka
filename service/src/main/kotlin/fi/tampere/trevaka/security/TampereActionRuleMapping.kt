@@ -3,7 +3,7 @@ package fi.tampere.trevaka.security
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.Action
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
-import fi.espoo.evaka.shared.security.actionrule.HasRoleInChildPlacementUnit
+import fi.espoo.evaka.shared.security.actionrule.HasUnitRole
 import fi.espoo.evaka.shared.security.actionrule.ScopedActionRule
 import fi.espoo.evaka.shared.security.actionrule.StaticActionRule
 
@@ -14,7 +14,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
         Action.BackupCare.DELETE -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
-                HasRoleInChildPlacementUnit(UserRole.STAFF).backupCare as ScopedActionRule<in T>
+                HasUnitRole(UserRole.STAFF).inPlacementUnitOfChildOfBackupCare() as ScopedActionRule<in T>
             )
         }
         Action.Child.CREATE_BACKUP_CARE,
@@ -22,7 +22,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
         Action.Child.READ_ASSISTANCE_NEED -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
-                HasRoleInChildPlacementUnit(UserRole.STAFF).child as ScopedActionRule<in T>
+                HasUnitRole(UserRole.STAFF).inPlacementUnitOfChild() as ScopedActionRule<in T>
             )
         }
         else -> action.defaultRules.asSequence()
