@@ -302,7 +302,8 @@ private fun validFeeDecision() = FeeDecisionDetailed(
             feeAlterations = listOf(
                 FeeAlterationWithEffect(FeeAlteration.Type.RELIEF, 50, false, -10800),
             ),
-            finalFee = 1
+            finalFee = 1,
+            childIncome = null
         )
     ),
     validDuring = DateRange(LocalDate.now(), null),
@@ -350,6 +351,7 @@ private fun validVoucherValueDecision() = VoucherValueDecisionDetailed(
     partner = null,
     headOfFamilyIncome = null,
     partnerIncome = null,
+    childIncome = null,
     familySize = 1,
     FeeDecisionThresholds(
         minIncomeThreshold = 1,
