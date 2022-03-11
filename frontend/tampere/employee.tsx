@@ -46,6 +46,7 @@ const customizations: EmployeeCustomizations = {
       childInformation: {
         assistanceNeed: {
           fields: {
+            /* eslint-disable */
             capacityFactorInfo: (
               <ol style={{ margin: '0', padding: '0 1em' }}>
                 <li>
@@ -65,6 +66,7 @@ const customizations: EmployeeCustomizations = {
                 </li>
               </ol>
             ) as any,
+            /* eslint-enable */
             bases: 'Tuen tarve'
           }
         },
