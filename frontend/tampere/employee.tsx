@@ -46,7 +46,7 @@ const customizations: EmployeeCustomizations = {
       childInformation: {
         assistanceNeed: {
           fields: {
-            // @ts-expect-error: Type 'Element' is not assignable to type 'string'
+            /* eslint-disable */
             capacityFactorInfo: (
               <ol style={{ margin: '0', padding: '0 1em' }}>
                 <li>
@@ -65,7 +65,8 @@ const customizations: EmployeeCustomizations = {
                   asiakaspalvelu.
                 </li>
               </ol>
-            ),
+            ) as any,
+            /* eslint-enable */
             bases: 'Tuen tarve'
           }
         },
@@ -143,6 +144,15 @@ const customizations: EmployeeCustomizations = {
     alt: 'Tampere logo'
   },
   featureFlags,
+  absenceTypes: [
+    'OTHER_ABSENCE',
+    'SICKLEAVE',
+    'UNKNOWN_ABSENCE',
+    'PLANNED_ABSENCE',
+    'PARENTLEAVE',
+    'FORCE_MAJEURE',
+    'FREE_ABSENCE'
+  ],
   assistanceMeasures: [],
   placementTypes: [
     'DAYCARE',
