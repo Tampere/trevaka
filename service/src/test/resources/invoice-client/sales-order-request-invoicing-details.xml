@@ -35,9 +35,6 @@ SPDX-License-Identifier: LGPL-2.1-or-later
                     <ns3:Description>kuvaus1</ns3:Description>
                     <ns3:ProfitCenter>131885</ns3:ProfitCenter>
                     <ns3:Material>500218</ns3:Material>
-                    <ns3:RowAmount xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:decimal">243.00
-                    </ns3:RowAmount>
                     <ns3:UnitPrice xmlns:xs="http://www.w3.org/2001/XMLSchema"
                                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:decimal">243.00
                     </ns3:UnitPrice>
@@ -52,9 +49,6 @@ SPDX-License-Identifier: LGPL-2.1-or-later
                     <ns3:Description>kuvaus2</ns3:Description>
                     <ns3:ProfitCenter>284823</ns3:ProfitCenter>
                     <ns3:Material>500220</ns3:Material>
-                    <ns3:RowAmount xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:decimal">482.00
-                    </ns3:RowAmount>
                     <ns3:UnitPrice xmlns:xs="http://www.w3.org/2001/XMLSchema"
                                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:decimal">482.00
                     </ns3:UnitPrice>
