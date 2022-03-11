@@ -74,6 +74,20 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         </tbody>
     </table>
 
+    <table class="narrow" th:if="${hasChildIncome}">
+        <tbody>
+        <tr>
+            <td colspan="2" th:text="#{text.table.childIncome}"></td>
+        </tr>
+        <tr th:each="part: ${parts}"
+            th:object="${part}"
+            th:if="${part.hasChildIncome}">
+            <td th:text="${part.childName}"></td>
+            <td class="text-right" th:text="${part.childIncomeTotal}"></td>
+        </tr>
+        </tbody>
+    </table>
+
     <p>
         <span th:text="#{decision.familySize}"></span>
         <span th:text="${familySize}"></span>

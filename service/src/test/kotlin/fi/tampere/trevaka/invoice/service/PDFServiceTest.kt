@@ -116,6 +116,18 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     }
 
     @Test
+    fun generateFeeDecisionPdfChildIncome() {
+        val decision = validFeeDecision().copy(
+            children = listOf(validFeeDecisionChild().copy(childIncome = testDecisionIncome))
+        )
+
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
+
+        val filepath = "${reportsPath}/PDFServiceTest-fee-decision-child-income.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
     fun generateFeeDecisionPdfValidTo() {
         val validFrom = LocalDate.now()
         val validTo = validFrom.plusYears(1)
@@ -163,6 +175,17 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
         val bytes = pdfService.generateVoucherValueDecisionPdf(data)
 
         val filepath = "${reportsPath}/PDFServiceTest-voucher-value-decision-head-of-family-income.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
+    fun generateVoucherValueDecisionPdfWithChildIncome() {
+        val decision = validVoucherValueDecision().copy(childIncome = testDecisionIncome)
+        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.fi)
+
+        val bytes = pdfService.generateVoucherValueDecisionPdf(data)
+
+        val filepath = "${reportsPath}/PDFServiceTest-voucher-value-decision-child-income.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
     }
 
@@ -276,36 +299,7 @@ private val testDecisionIncome = DecisionIncome(
 
 private fun validFeeDecision() = FeeDecisionDetailed(
     FeeDecisionId(UUID.randomUUID()),
-    children = listOf(
-        FeeDecisionChildDetailed(
-            child = PersonDetailed(
-                PersonId(UUID.randomUUID()), LocalDate.of(2018, 1, 1), null,
-                "Matti", "Meikäläinen",
-                null, "", "", "",
-                "", null, "", null, restrictedDetailsEnabled = false
-            ),
-            placementType = PlacementType.DAYCARE,
-            placementUnit = UnitData(
-                DaycareId(UUID.randomUUID()),
-                name = "Yksikkö 1",
-                areaId = AreaId(UUID.randomUUID()),
-                areaName = "Alue 1",
-                language = "fi"
-            ),
-            serviceNeedFeeCoefficient = BigDecimal.ONE,
-            serviceNeedDescriptionFi = "Palveluntarve 1",
-            serviceNeedDescriptionSv = "Palveluntarve 1 (sv)",
-            serviceNeedMissing = false,
-            baseFee = 1,
-            siblingDiscount = 1,
-            fee = 1,
-            feeAlterations = listOf(
-                FeeAlterationWithEffect(FeeAlteration.Type.RELIEF, 50, false, -10800),
-            ),
-            finalFee = 1,
-            childIncome = null
-        )
-    ),
+    children = listOf(validFeeDecisionChild()),
     validDuring = DateRange(LocalDate.now(), null),
     FeeDecisionStatus.WAITING_FOR_SENDING,
     decisionNumber = null,
@@ -333,6 +327,35 @@ private fun validFeeDecision() = FeeDecisionDetailed(
     sentAt = null,
     financeDecisionHandlerFirstName = null,
     financeDecisionHandlerLastName = null
+)
+
+private fun validFeeDecisionChild() = FeeDecisionChildDetailed(
+    child = PersonDetailed(
+        PersonId(UUID.randomUUID()), LocalDate.of(2018, 1, 1), null,
+        "Matti", "Meikäläinen",
+        null, "", "", "",
+        "", null, "", null, restrictedDetailsEnabled = false
+    ),
+    placementType = PlacementType.DAYCARE,
+    placementUnit = UnitData(
+        DaycareId(UUID.randomUUID()),
+        name = "Yksikkö 1",
+        areaId = AreaId(UUID.randomUUID()),
+        areaName = "Alue 1",
+        language = "fi"
+    ),
+    serviceNeedFeeCoefficient = BigDecimal.ONE,
+    serviceNeedDescriptionFi = "Palveluntarve 1",
+    serviceNeedDescriptionSv = "Palveluntarve 1 (sv)",
+    serviceNeedMissing = false,
+    baseFee = 1,
+    siblingDiscount = 1,
+    fee = 1,
+    feeAlterations = listOf(
+        FeeAlterationWithEffect(FeeAlteration.Type.RELIEF, 50, false, -10800),
+    ),
+    finalFee = 1,
+    childIncome = null
 )
 
 private fun validVoucherValueDecision() = VoucherValueDecisionDetailed(
