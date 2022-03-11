@@ -46,7 +46,6 @@ const customizations: EmployeeCustomizations = {
       childInformation: {
         assistanceNeed: {
           fields: {
-            // @ts-expect-error: Type 'Element' is not assignable to type 'string'
             capacityFactorInfo: (
               <ol style={{ margin: '0', padding: '0 1em' }}>
                 <li>
@@ -65,7 +64,7 @@ const customizations: EmployeeCustomizations = {
                   asiakaspalvelu.
                 </li>
               </ol>
-            ),
+            ) as any,
             bases: 'Tuen tarve'
           }
         },
