@@ -578,7 +578,7 @@ jobs:
       - run:
           name: Upload archive
           working_directory: /home/circleci/repo/evaka
-          command: aws s3 cp dist.tar.gz s3://trevaka-dev-deployment/static/${CIRCLE_SHA1}.tar.gz
+          command: aws s3 cp dist.tar.gz s3://trevaka-artifacts/frontend/${CIRCLE_SHA1}.tar.gz
 
   proxy_build_image:
     executor: base_executor
@@ -748,7 +748,7 @@ workflows:
             - apigw_build
       - apigw_push_image:
           context:
-            - trevaka-dev
+            - trevaka-utility
           requires:
             - apigw_build_image
 
@@ -758,7 +758,7 @@ workflows:
 
       - frontend_upload_archive:
           context:
-            - trevaka-dev
+            - trevaka-utility
           requires:
             - frontend_build
 
@@ -778,7 +778,7 @@ workflows:
             - checkout_repo
       - proxy_push_image:
           context:
-            - trevaka-dev
+            - trevaka-utility
           requires:
             - proxy_build_image
 
@@ -794,7 +794,7 @@ workflows:
             - service_build
       - service_push_image:
           context:
-            - trevaka-dev
+            - trevaka-utility
           requires:
             - service_build_image
 
@@ -803,7 +803,7 @@ workflows:
             - fetch_private_dependencies
       - auth_push_image:
           context:
-            - trevaka-dev
+            - trevaka-utility
           requires:
             - auth_build_image
 
