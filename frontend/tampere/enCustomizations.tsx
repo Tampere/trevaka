@@ -277,8 +277,12 @@ const en: DeepPartial<Translations> = {
   },
   loginPage: {
     applying: {
-      paragraph:
-        'Apply to early childhood education and clubs (requires strong authentication).'
+      infoBullets: [
+        'apply for an early childhood or club place for your child or view a previous application',
+        "report your or your child's income information",
+        "accept your child's early childhood or club place",
+        "terminate your child's early childhood or club place."
+      ]
     },
     title: 'City of Tampere early childhood education'
   },
