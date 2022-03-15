@@ -273,6 +273,7 @@ const fi: DeepPartial<Translations> = {
     applying: {
       infoBullets: [
         'hakea lapsellesi varhaiskasvatus- tai kerhopaikkaa tai tarkastella aiemmin tekemääsi hakemusta',
+        'tarkastella lapsesi varhaiskasvatukseen liittyviä kuvia ja muita dokumentteja',
         'ilmoittaa omat tai lapsesi tulotiedot',
         'hyväksyä lapsesi varhaiskasvatus- tai kerhopaikan',
         'irtisanoa lapsen varhaiskasvatus- tai kerhopaikan.'

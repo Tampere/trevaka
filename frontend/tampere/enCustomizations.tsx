@@ -279,6 +279,7 @@ const en: DeepPartial<Translations> = {
     applying: {
       infoBullets: [
         'apply for an early childhood or club place for your child or view a previous application',
+        'view pictures and other documents related to your child’s early childhood',
         "report your or your child's income information",
         "accept your child's early childhood or club place",
         "terminate your child's early childhood or club place."
