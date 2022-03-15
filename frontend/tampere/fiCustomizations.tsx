@@ -271,12 +271,17 @@ const fi: DeepPartial<Translations> = {
   },
   loginPage: {
     applying: {
-      paragraph:
-        'Hae lapsellesi varhaiskasvatus- tai kerhopaikkaa (vaatii vahvan tunnistautumisen). Voit myös tarkastella aiempaa tekemääsi hakemusta ja vahvistaa myönnetyn varhaiskasvatus- tai kerhopaikan.'
+      infoBullets: [
+        'hakea lapsellesi varhaiskasvatus- tai kerhopaikkaa tai tarkastella aiemmin tekemääsi hakemusta',
+        'tarkastella lapsesi varhaiskasvatukseen liittyviä kuvia ja muita dokumentteja',
+        'ilmoittaa omat tai lapsesi tulotiedot',
+        'hyväksyä lapsesi varhaiskasvatus- tai kerhopaikan',
+        'irtisanoa lapsen varhaiskasvatus- tai kerhopaikan.'
+      ]
     },
     login: {
       paragraph:
-        'Huoltajat, joiden lapsi on jo varhaiskasvatuksessa: hoida päivittäisiä varhaiskasvatuksen asioita eVakassa. Kirjautuminen aukaistaan 4.4.2022 alkaen.'
+        'Huoltajat, joiden lapsi on jo varhaiskasvatuksessa: hoida lapsesi päivittäisiä varhaiskasvatusasioita kuten lue viestejä ja ilmoita lapsen läsnäoloajat ja poissaolot. Kirjautuminen aukaistaan 4.4.2022.'
     },
     title: 'Tampereen kaupungin varhaiskasvatus'
   },
