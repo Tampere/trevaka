@@ -38,9 +38,9 @@ SPDX-License-Identifier: LGPL-2.1-or-later
     </p>
 
     <p th:if="${isReliefDecision}"
-       th:utext="${not #strings.isEmpty(validTo)} ? #{text.relief.decision_retroactive(${totalFee}, ${validFrom}, ${validTo})} : #{text.relief.decision(${totalFee}, ${validFrom})}"></p>
+       th:utext="${showValidTo}? #{text.relief.decision_retroactive(${totalFee}, ${validFrom}, ${validTo})} : #{text.relief.decision(${totalFee}, ${validFrom})}"></p>
     <p th:unless="${isReliefDecision}"
-       th:utext="${not #strings.isEmpty(validTo)} ? #{text.decision_retroactive(${totalFee}, ${validFrom}, ${validTo})} : #{text.decision(${totalFee}, ${validFrom})}"></p>
+       th:utext="${showValidTo}? #{text.decision_retroactive(${totalFee}, ${validFrom}, ${validTo})} : #{text.decision(${totalFee}, ${validFrom})}"></p>
 
     <p th:text="#{text.table.intro}"></p>
 
