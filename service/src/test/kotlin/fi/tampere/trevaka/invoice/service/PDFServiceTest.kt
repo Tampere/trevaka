@@ -210,7 +210,9 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
 
     @Test
     fun generateVoucherValueDecisionPdfValidTo() {
-        val decision = validVoucherValueDecision().copy(validTo = LocalDate.now().plusYears(1))
+        val validTo = LocalDate.now().minusDays(1)
+        val validFrom = validTo.minusYears(1)
+        val decision = validVoucherValueDecision().copy(validFrom = validFrom, validTo = validTo)
         val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.fi)
 
         val bytes = pdfService.generateVoucherValueDecisionPdf(data)
@@ -364,7 +366,7 @@ private fun validFeeDecisionChild() = FeeDecisionChildDetailed(
 private fun validVoucherValueDecision() = VoucherValueDecisionDetailed(
     VoucherValueDecisionId(UUID.randomUUID()),
     LocalDate.now(),
-    null,
+    LocalDate.now().plusYears(1), // validTo is nullable but actually never is null
     VoucherValueDecisionStatus.WAITING_FOR_SENDING,
     decisionNumber = null,
     decisionType = VoucherValueDecisionType.NORMAL,
