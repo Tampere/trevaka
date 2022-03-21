@@ -129,8 +129,8 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
 
     @Test
     fun generateFeeDecisionPdfValidTo() {
-        val validFrom = LocalDate.now()
-        val validTo = validFrom.plusYears(1)
+        val validTo = LocalDate.now().minusDays(1)
+        val validFrom = validTo.minusYears(1)
         val decision = validFeeDecision().copy(validDuring = DateRange(validFrom, validTo))
 
         val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
@@ -210,7 +210,9 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
 
     @Test
     fun generateVoucherValueDecisionPdfValidTo() {
-        val decision = validVoucherValueDecision().copy(validTo = LocalDate.now().plusYears(1))
+        val validTo = LocalDate.now().minusDays(1)
+        val validFrom = validTo.minusYears(1)
+        val decision = validVoucherValueDecision().copy(validFrom = validFrom, validTo = validTo)
         val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.fi)
 
         val bytes = pdfService.generateVoucherValueDecisionPdf(data)
@@ -300,7 +302,10 @@ private val testDecisionIncome = DecisionIncome(
 private fun validFeeDecision() = FeeDecisionDetailed(
     FeeDecisionId(UUID.randomUUID()),
     children = listOf(validFeeDecisionChild()),
-    validDuring = DateRange(LocalDate.now(), null),
+    validDuring = DateRange(
+        LocalDate.now(),
+        LocalDate.now().plusYears(1) // end is nullable but actually never is null for fee decisions
+    ),
     FeeDecisionStatus.WAITING_FOR_SENDING,
     decisionNumber = null,
     FeeDecisionType.NORMAL,
@@ -361,7 +366,7 @@ private fun validFeeDecisionChild() = FeeDecisionChildDetailed(
 private fun validVoucherValueDecision() = VoucherValueDecisionDetailed(
     VoucherValueDecisionId(UUID.randomUUID()),
     LocalDate.now(),
-    null,
+    LocalDate.now().plusYears(1), // validTo is nullable but actually never is null
     VoucherValueDecisionStatus.WAITING_FOR_SENDING,
     decisionNumber = null,
     decisionType = VoucherValueDecisionType.NORMAL,
