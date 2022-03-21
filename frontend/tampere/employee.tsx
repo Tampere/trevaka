@@ -25,11 +25,30 @@ const customizations: EmployeeCustomizations = {
         },
         absenceTypes: {
           PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo',
-          FORCE_MAJEURE: 'Hyvityspäivä'
+          FORCE_MAJEURE: 'Hyvityspäivä',
+          FREE_ABSENCE: 'Kesäajan maksuton poissaolo'
         },
         absenceTypesShort: {
           PLANNED_ABSENCE: 'Sopim, muk.',
           FORCE_MAJEURE: 'Hyvitys'
+        },
+        absenceTypeInfo: {
+          NO_ABSENCE: 'Lapsi läsnä varhaiskasvatuksessa.',
+          OTHER_ABSENCE:
+            'Käytetään tapauksissa, kun lapsi on poissa varhaiskasvatuksesta huoltajan ilmoituksesta.',
+          UNKNOWN_ABSENCE:
+            'Käytetään tapauksissa, kun lapsen poissaolosta ei tule huoltajalta mitään ilmoitusta.',
+          PLANNED_ABSENCE:
+            'Käytetään etukäteen ilmoitetuista poissaoloista, kun asiakkalla käytössä 10 pv/kk tai 15 pv/kk sopimuspäivät.',
+          SICKLEAVE: 'Lapsi sairaana.',
+          TEMPORARY_RELOCATION:
+            'Käytetään tapauksissa, kun lapselle on tehty varasijoitus toiseen yksikköön.',
+          PARENTLEAVE:
+            'Käytetään tapauksissa, kun lapsi on poissa varhaiskasvatuksesta isyysvapaan ajan.',
+          FORCE_MAJEURE:
+            'Käytetään erityistapauksissa, kun lapsen poissaolosta hyvitetään asiakasmaksua.',
+          FREE_ABSENCE:
+            'Käytetään kesäaikana 8 viikon maksuttomalla ajanjaksolla.'
         },
         modal: {
           absenceTypes: {
