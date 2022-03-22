@@ -39,7 +39,7 @@ const customizations: EmployeeCustomizations = {
           UNKNOWN_ABSENCE:
             'Käytetään tapauksissa, kun lapsen poissaolosta ei tule huoltajalta mitään ilmoitusta.',
           PLANNED_ABSENCE:
-            'Käytetään etukäteen ilmoitetuista poissaoloista, kun asiakkalla käytössä 10 pv/kk tai 15 pv/kk sopimuspäivät.',
+            'Käytetään etukäteen ilmoitetuista poissaoloista, kun asiakkalla käytössä 10 pv/kk tai 15 pv/kk sopimuspäivät. Ilta- ja vuorohoitoyksiköissä kaikille sopimuspäiväläisille (ml. päiväryhmät), on laitettava merkintä myös viikonlopuille.',
           SICKLEAVE: 'Lapsi sairaana.',
           TEMPORARY_RELOCATION:
             'Käytetään tapauksissa, kun lapselle on tehty varasijoitus toiseen yksikköön.',
