@@ -46,6 +46,11 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 
     <table class="narrow">
         <tbody>
+        <tr th:if="${hasChildIncome}">
+            <td colspan="2">
+                <strong class="semi" th:text="#{decision.income.title}">Vanhempien tulot</strong>
+            </td>
+        </tr>
         <tr>
             <td th:text="${headFullName}"></td>
 
@@ -65,26 +70,31 @@ SPDX-License-Identifier: LGPL-2.1-or-later
                 <span th:case="'NOT_AVAILABLE'" th:text="#{text.income.not_available}"></span>
             </td>
         </tr>
-        </tbody>
-        <tbody th:if="${showTotalIncome}">
-        <tr>
-            <td><strong class="semi" th:text="#{decision.combined}"></strong></td>
+        <tr th:if="${showTotalIncome}">
+            <td th:if="${hasChildIncome}" th:text="#{decision.combined.hasChildIncome}"></td>
+            <td th:unless="${hasChildIncome}" th:text="#{decision.combined}"></td>
             <td class="text-right" th:text="${totalIncome}"></td>
         </tr>
-        </tbody>
-    </table>
-
-    <table class="narrow" th:if="${hasChildIncome}">
-        <tbody>
-        <tr>
-            <td colspan="2" th:text="#{text.table.childIncome}"></td>
+        <tr th:if="${hasChildIncome}">
+            <td colspan="2">&nbsp;</td> <!-- empty row before child incomes -->
         </tr>
-        <tr th:each="part: ${parts}"
-            th:object="${part}"
-            th:if="${part.hasChildIncome}">
-            <td th:text="${part.childName}"></td>
-            <td class="text-right" th:text="${part.childIncomeTotal}"></td>
+        <tr th:if="${hasChildIncome}">
+            <td colspan="2">
+                <strong class="semi" th:text="#{text.table.childIncome}"></strong>
+            </td>
         </tr>
+        <th:block th:each="part: ${parts}"
+                  th:object="${part}"
+                  th:if="${part.hasChildIncome}">
+            <tr>
+                <td th:text="${part.childName}"></td>
+                <td class="text-right" th:text="${part.childIncomeTotal}"></td>
+            </tr>
+            <tr>
+                <td th:text="#{decision.childIncome.total}">Vanhempien ja lapsen tulot yhteensä</td>
+                <td class="text-right" th:text="${part.incomeTotal}">2345.67</td>
+            </tr>
+        </th:block>
         </tbody>
     </table>
 
