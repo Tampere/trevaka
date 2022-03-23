@@ -116,6 +116,26 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     }
 
     @Test
+    fun generateFeeDecisionPdfPartnerIncome() {
+        val decision = validFeeDecision().copy(
+            headOfFamilyIncome = validDecisionIncome(314100),
+            partner = PersonDetailed(
+                PersonId(UUID.randomUUID()), LocalDate.of(1980, 6, 14), null,
+                "Mikko", "Meikäläinen",
+                "140680-9239", "", "", "",
+                "", null, "", null, restrictedDetailsEnabled = false
+            ),
+            partnerIncome = validDecisionIncome(214000),
+            isElementaryFamily = true
+        )
+
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
+
+        val filepath = "${reportsPath}/PDFServiceTest-fee-decision-partner-income.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
     fun generateFeeDecisionPdfChildIncome() {
         val decision = validFeeDecision().copy(
             children = listOf(validFeeDecisionChild().copy(childIncome = testDecisionIncome))
@@ -124,6 +144,53 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
         val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-child-income.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
+    fun generateFeeDecisionPdfIncomes() {
+        val decision = validFeeDecision().copy(
+            headOfFamilyIncome = validDecisionIncome(income = 300000),
+            partner = PersonDetailed(
+                PersonId(UUID.randomUUID()), LocalDate.of(1982, 6, 25), null,
+                "Mikko", "Meikäläinen",
+                "250682-983U", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
+                "", null, "", null, restrictedDetailsEnabled = false
+            ),
+            partnerIncome = validDecisionIncome(income = 200000),
+            children = listOf(
+                validFeeDecisionChild().copy(
+                    child = PersonDetailed(
+                        PersonId(UUID.randomUUID()), LocalDate.of(2018, 1, 1), null,
+                        "Matti", "Meikäläinen",
+                        null, "", "", "",
+                        "", null, "", null, restrictedDetailsEnabled = false
+                    ),
+                    childIncome = validDecisionIncome(income = 10000)
+                ),
+                validFeeDecisionChild().copy(
+                    child = PersonDetailed(
+                        PersonId(UUID.randomUUID()), LocalDate.of(2018, 1, 1), null,
+                        "Marko", "Meikäläinen",
+                        null, "", "", "",
+                        "", null, "", null, restrictedDetailsEnabled = false
+                    )
+                ),
+                validFeeDecisionChild().copy(
+                    child = PersonDetailed(
+                        PersonId(UUID.randomUUID()), LocalDate.of(2018, 1, 1), null,
+                        "Miia", "Meikäläinen",
+                        null, "", "", "",
+                        "", null, "", null, restrictedDetailsEnabled = false
+                    ),
+                    childIncome = validDecisionIncome(income = 25000)
+                )
+            )
+        )
+
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
+
+        val filepath = "${reportsPath}/PDFServiceTest-fee-decision-incomes.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
     }
 
@@ -295,6 +362,16 @@ private val testDecisionIncome = DecisionIncome(
     totalIncome = 314100,
     totalExpenses = 0,
     total = 314100,
+    validFrom = LocalDate.of(2000, 1, 1),
+    validTo = null
+)
+
+private fun validDecisionIncome(income: Int = 314100) = DecisionIncome(
+    effect = IncomeEffect.INCOME,
+    data = mapOf("MAIN_INCOME" to income),
+    totalIncome = income,
+    totalExpenses = 0,
+    total = income,
     validFrom = LocalDate.of(2000, 1, 1),
     validTo = null
 )
