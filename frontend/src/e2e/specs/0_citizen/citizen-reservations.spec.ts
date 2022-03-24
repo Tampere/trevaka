@@ -101,7 +101,7 @@ describe('Citizen attendance reservations', () => {
         )
         await waitUntilEqual(
             () => page.findByDataQa('absence-PLANNED_ABSENCE').find('label').innerText,
-            'Sopimuksen mukainen poissaolo' // TODO: At some point will remove via featureFlag
+            'Vuorotyöpoissaolo' // TODO: At some point will remove via featureFlag
         )
     })
 })
