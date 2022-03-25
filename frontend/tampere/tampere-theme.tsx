@@ -44,6 +44,9 @@ const theme: Theme = {
       a8lightBlue: '#CAD6E2',
       a9pink: '#D77094',
       a10powder: '#CAD6E2'
+    },
+    absences: {
+      PLANNED_ABSENCE: '#3C6100'
     }
   },
   typography: {
