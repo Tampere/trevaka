@@ -70,13 +70,15 @@ internal class TrevakaInvoiceClientTest {
     @Test
     fun sendWithValidData() {
         val invoice1 = validInvoice()
+        val invoice2 = validInvoice().copy(headOfFamily = personWithoutSSN())
         server.expect(connectionTo("http://localhost:8080/salesOrder"))
             .andExpect(payload(ClassPathResource("invoice-client/sales-order-request-1.xml")))
             .andRespond(withPayload(ClassPathResource("invoice-client/sales-order-response-ok.xml")))
 
-        assertThat(client.send(listOf(invoice1)))
+        assertThat(client.send(listOf(invoice1, invoice2)))
             .returns(listOf(invoice1)) { it.succeeded }
             .returns(listOf()) { it.failed }
+            .returns(listOf(invoice2)) { it.manuallySent }
 
         server.verify()
     }
@@ -98,6 +100,7 @@ internal class TrevakaInvoiceClientTest {
         assertThat(client.send(listOf(invoice1)))
             .returns(listOf(invoice1)) { it.succeeded }
             .returns(listOf()) { it.failed }
+            .returns(listOf()) { it.manuallySent }
 
         server.verify()
     }
@@ -112,6 +115,7 @@ internal class TrevakaInvoiceClientTest {
         assertThat(client.send(listOf(invoice1)))
             .returns(listOf(invoice1)) { it.succeeded }
             .returns(listOf()) { it.failed }
+            .returns(listOf()) { it.manuallySent }
 
         server.verify()
     }
@@ -126,6 +130,7 @@ internal class TrevakaInvoiceClientTest {
         assertThat(client.send(listOf(invoice1)))
             .returns(listOf(invoice1)) { it.succeeded }
             .returns(listOf()) { it.failed }
+            .returns(listOf()) { it.manuallySent }
 
         server.verify()
     }
@@ -133,12 +138,14 @@ internal class TrevakaInvoiceClientTest {
     @Test
     fun sendWithClientFault() {
         val invoice1 = validInvoice()
+        val invoice2 = validInvoice().copy(headOfFamily = personWithoutSSN())
         server.expect(connectionTo("http://localhost:8080/salesOrder"))
             .andRespond(withClientOrSenderFault("test", Locale.ENGLISH))
 
-        assertThat(client.send(listOf(invoice1)))
+        assertThat(client.send(listOf(invoice1, invoice2)))
             .returns(listOf()) { it.succeeded }
             .returns(listOf(invoice1)) { it.failed }
+            .returns(listOf(invoice2)) { it.manuallySent }
 
         server.verify()
     }
@@ -146,12 +153,14 @@ internal class TrevakaInvoiceClientTest {
     @Test
     fun sendWithServerFault() {
         val invoice1 = validInvoice()
+        val invoice2 = validInvoice().copy(headOfFamily = personWithoutSSN())
         server.expect(connectionTo("http://localhost:8080/salesOrder"))
             .andRespond(withServerOrReceiverFault("test", Locale.ENGLISH))
 
-        assertThat(client.send(listOf(invoice1)))
+        assertThat(client.send(listOf(invoice1, invoice2)))
             .returns(listOf()) { it.succeeded }
             .returns(listOf(invoice1)) { it.failed }
+            .returns(listOf(invoice2)) { it.manuallySent }
 
         server.verify()
     }
@@ -204,5 +213,12 @@ fun validPerson() = PersonDetailed(
     PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
     "Maija", "Meikäläinen",
     "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
+    "", null, "", null, restrictedDetailsEnabled = false
+)
+
+fun personWithoutSSN() = PersonDetailed(
+    PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
+    "Maija", "Meikäläinen",
+    null, "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
     "", null, "", null, restrictedDetailsEnabled = false
 )
