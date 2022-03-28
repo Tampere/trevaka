@@ -63,24 +63,28 @@ class TrevakaInvoiceClient(
 
     override fun send(invoices: List<InvoiceDetailed>): SendResult {
         logger.info("Invoice batch started")
-        try {
-            val request = toRequest(invoices)
-            val response = webServiceTemplate.marshalSendAndReceive(
-                properties.url, request,
-                SoapActionCallback("http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder")
-            )
-            when (val value = JAXBIntrospector.getValue(response)) {
-                is SimpleAcknowledgementResponseType -> logger.info("Invoice batch ended with status ${value.statusMessage}")
-                else -> logger.warn("Unknown response in invoice: $value")
+        val (withSSN, withoutSSN) = invoices.partition { invoice -> invoice.headOfFamily.ssn != null }
+
+        if (withSSN.isNotEmpty()) {
+            try {
+                val request = toRequest(withSSN)
+                val response = webServiceTemplate.marshalSendAndReceive(
+                    properties.url, request,
+                    SoapActionCallback("http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder")
+                )
+                when (val value = JAXBIntrospector.getValue(response)) {
+                    is SimpleAcknowledgementResponseType -> logger.info("Invoice batch ended with status ${value.statusMessage}")
+                    else -> logger.warn("Unknown response in invoice: $value")
+                }
+            } catch (e: SoapFaultClientException) {
+                when (val faultDetail = unmarshalFaultDetail(e)) {
+                    is FaultType -> logger.error("Fault in invoice: ${faultDetail.errorCode}. Message: ${faultDetail.errorMessage}. Details: ${faultDetail.detailMessage}")
+                    else -> logger.error("Unknown fault in invoice: $faultDetail", e)
+                }
+                return SendResult(manuallySent = withoutSSN, failed = withSSN)
             }
-        } catch (e: SoapFaultClientException) {
-            when (val faultDetail = unmarshalFaultDetail(e)) {
-                is FaultType -> logger.error("Fault in invoice: ${faultDetail.errorCode}. Message: ${faultDetail.errorMessage}. Details: ${faultDetail.detailMessage}")
-                else -> logger.error("Unknown fault in invoice: $faultDetail", e)
-            }
-            return SendResult(failed = invoices)
         }
-        return SendResult(succeeded = invoices)
+        return SendResult(manuallySent = withoutSSN, succeeded = withSSN)
     }
 
     private fun toRequest(invoices: List<InvoiceDetailed>): SendSalesOrderRequest {
