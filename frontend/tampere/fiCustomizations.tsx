@@ -281,7 +281,7 @@ const fi: DeepPartial<Translations> = {
     },
     login: {
       paragraph:
-        'Huoltajat, joiden lapsi on jo varhaiskasvatuksessa: hoida lapsesi päivittäisiä varhaiskasvatusasioita kuten lue viestejä ja ilmoita lapsen läsnäoloajat ja poissaolot. Kirjautuminen aukaistaan 4.4.2022.'
+        'Huoltajat, joiden lapsi on jo varhaiskasvatuksessa: hoida lapsesi päivittäisiä varhaiskasvatusasioita kuten lue viestejä ja ilmoita lapsen läsnäoloajat ja poissaolot.'
     },
     title: 'Tampereen kaupungin varhaiskasvatus'
   },
