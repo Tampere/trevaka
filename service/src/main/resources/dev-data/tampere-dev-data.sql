@@ -329,20 +329,14 @@ INSERT INTO daycare_acl (daycare_id, employee_id, role) VALUES
     ('340ea27a-a1bc-11eb-b5d2-dfc0dc6d2fcb', '00000000-0000-0000-0006-000000000000', 'SPECIAL_EDUCATION_TEACHER'),
     ('3f667508-a1bc-11eb-b62e-9bdec02ff105', '00000000-0000-0000-0006-000000000000', 'SPECIAL_EDUCATION_TEACHER');
 
-WITH message_account_users AS (
-    INSERT INTO evaka_user (id, type, employee_id, name)
-    SELECT e.id, 'EMPLOYEE'::evaka_user_type, e.id, concat(e.first_name, ' ', e.last_name)
-    FROM employee e
-    WHERE EXISTS(
-        SELECT 1
-        FROM daycare_acl acl
-        WHERE acl.employee_id = e.id
-        AND acl.role IN ('UNIT_SUPERVISOR', 'SPECIAL_EDUCATION_TEACHER'))
-    RETURNING id
-)
-INSERT INTO message_account (employee_id, evaka_user_id)
-SELECT id, id
-FROM message_account_users;
+INSERT INTO message_account (employee_id)
+SELECT id
+FROM employee e
+WHERE EXISTS(
+    SELECT 1
+    FROM daycare_acl acl
+    WHERE acl.employee_id = e.id
+    AND acl.role IN ('UNIT_SUPERVISOR', 'SPECIAL_EDUCATION_TEACHER'));
 
 INSERT INTO fee_thresholds (
     valid_during,
