@@ -95,6 +95,33 @@ class DecisionServiceTest : AbstractIntegrationTest() {
     }
 
     @Test
+    fun createDecisionPdfWithoutServiceNeed() {
+        val bytes = createDecisionPdf(
+            messageProvider,
+            templateProvider,
+            pdfService,
+            settings,
+            validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.MUNICIPAL)),
+            guardian = validGuardian(),
+            child = validChild(),
+            isTransferApplication = false,
+            ServiceNeed(
+                startTime = "08:00",
+                endTime = "16:00",
+                shiftCare = false,
+                partTime = false,
+                serviceNeedOption = null
+            ),
+            lang = "fi",
+            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
+        )
+
+        val filepath =
+            "${Paths.get("build").toAbsolutePath()}/reports/DecisionServiceTest-DAYCARE-without-service-need-option.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
     fun createDecisionPdfWithoutSettings() {
         val bytes = createDecisionPdf(
             messageProvider,

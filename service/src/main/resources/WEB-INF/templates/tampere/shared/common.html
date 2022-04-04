@@ -309,7 +309,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         </p>
     </div>
 
-    <div th:if="${serviceNeed != null}">
+    <div th:if="${serviceNeed != null && serviceNeed.serviceNeedOption != null}">
         <span class="strong" th:text="#{decision.serviceNeed} + ': '"></span>
         <span th:text="${serviceNeed.serviceNeedOption.nameFi}"></span>
     </div>
