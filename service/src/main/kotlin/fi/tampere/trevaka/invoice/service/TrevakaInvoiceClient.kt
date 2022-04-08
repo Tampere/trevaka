@@ -45,6 +45,10 @@ private val restrictedAddress = Address().apply {
 }
 private const val maxNameLength = 35
 private const val maxStreetLength = 30
+private const val maxTownLength = 25
+private const val maxItemDescriptionLength = 40
+private const val maxItemProfitCenterLength = 10
+private const val maxTextRowLength = 70
 
 class TrevakaInvoiceClient(
     private val webServiceTemplate: WebServiceTemplate, private val properties: InvoiceProperties
@@ -104,8 +108,8 @@ class TrevakaInvoiceClient(
                 person = Person().apply {
                     ssn = headOfFamily.ssn
                     personName = PersonName().apply {
-                        firstNames = headOfFamily.firstName
-                        surName = headOfFamily.lastName
+                        firstNames = headOfFamily.firstName.take(maxNameLength)
+                        surName = headOfFamily.lastName.take(maxNameLength)
                     }
                 }
                 address = headOfFamily.address()
@@ -143,8 +147,8 @@ class TrevakaInvoiceClient(
 
     private fun toItem(it: InvoiceRowDetailed): Item {
         return Item().apply {
-            description = it.description
-            profitCenter = it.costCenter
+            description = it.description.take(maxItemDescriptionLength)
+            profitCenter = it.costCenter.take(maxItemProfitCenterLength)
             material = findProduct(it.product).code
             unitPrice = priceInEuros(it.unitPrice)
             quantity = it.amount.toFloat().toString()
@@ -152,7 +156,7 @@ class TrevakaInvoiceClient(
             text.addAll(listOf(Text().apply {
                 textRow.addAll(
                     listOf(
-                        "${it.child.lastName} ${it.child.firstName}",
+                        "${it.child.lastName} ${it.child.firstName}".take(maxTextRowLength),
                         "${it.periodStart.format(dateFormatter)} - ${it.periodEnd.format(dateFormatter)}"
                     )
                 )
@@ -216,7 +220,7 @@ internal data class InvoicePerson(
         true -> restrictedAddress
         false -> Address().apply {
             street = streetName.take(maxStreetLength)
-            town = postOffice
+            town = postOffice.take(maxTownLength)
             postCode = postalCode
         }
     }
