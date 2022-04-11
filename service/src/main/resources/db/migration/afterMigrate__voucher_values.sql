@@ -5,7 +5,7 @@
 INSERT INTO voucher_value
     (id, validity, base_value, age_under_three_coefficient)
 VALUES
-    ('084314dc-ed7f-4725-92f2-5c220bb4bb7e', daterange('2000-01-01', NULL, '[]'), 82600, 1.55)
+    ('084314dc-ed7f-4725-92f2-5c220bb4bb7e', daterange('2000-01-01', NULL, '[]'), 82600, 1.51)
 ON CONFLICT (id) DO
 UPDATE SET
     validity = EXCLUDED.validity,
