@@ -19,6 +19,18 @@ const customizations: EmployeeMobileCustomizations = {
         absenceTypes: {
           PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo',
           FORCE_MAJEURE: 'Hyvityspäivä'
+        },
+        careTypes: {
+          PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus'
+        }
+      },
+      common: {
+        types: {
+          PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus',
+          PREPARATORY_DAYCARE: 'Täydentävä varhaiskasvatus'
+        },
+        placement: {
+          PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus'
         }
       }
     }

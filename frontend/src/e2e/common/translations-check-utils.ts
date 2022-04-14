@@ -1,34 +1,54 @@
 import React from 'react'
 import { isArray, toArray, isObject } from 'lodash'
 
-const checkTampereTranslation = (value: string, errors: string[]) => {
-    if (value.toLowerCase().includes('espoo')) {
-        console.error(value)
-        errors.push(value);
-    }
+type TranslationError = {
+    key: string,
+    value: string
 }
 
-const checkTampereTranslationInner = (object: any, errors: string[]) => {
+type UnwantedText = {
+    valueCheck: (value: string) => Boolean
+}
+const unwantedTexts: UnwantedText[] = [
+    {
+        valueCheck: (value) => new RegExp('espoo').test(value)
+    },
+    {
+        valueCheck: (value) => new RegExp('liittyvä').test(value)
+            && !new RegExp('liittyvä[ät]? (?!varhais)').test(value)
+    }
+]
+
+const checkTampereTranslation = (key: string, value: string, errors: TranslationError[]) => {
+    unwantedTexts.forEach(unwantedText => {
+        if (unwantedText.valueCheck(value.toLowerCase())) {
+            let error = { key, value }
+            errors.push(error);
+        }
+    })
+}
+
+const checkTampereTranslationInner = (translationKeyAgg: string, object: any, errors: TranslationError[]) => {
     if (React.isValidElement(object)) {
-        checkTampereTranslation(JSON.stringify(object), errors);
+        checkTampereTranslation(translationKeyAgg, JSON.stringify(object), errors);
     } else if (isObject(object)) {
         Object.keys(object).forEach(key => {
-            checkTampereTranslationInner(object[key], errors)
+            checkTampereTranslationInner(translationKeyAgg.concat('.', key), object[key], errors)
         });
     } else if (isArray(object)) {
         let valAsArray = toArray(object)
         for (let val in valAsArray) {
-            checkTampereTranslationInner(val, errors)
+            checkTampereTranslationInner(translationKeyAgg, val, errors)
         }
     } else {
-        checkTampereTranslation(object, errors)
+        checkTampereTranslation(translationKeyAgg, object, errors)
     }
 }
 
-export const checkTampereTranslations = (translationsFi: { [key: string]: any }): string[] => {
-    let errors: string[] = []
+export const checkTampereTranslations = (translationsFi: { [key: string]: any }): TranslationError[] => {
+    let errors: TranslationError[] = []
     for (const key of Object.keys(translationsFi)) {
-        checkTampereTranslationInner(translationsFi[key], errors)
+        checkTampereTranslationInner(key, translationsFi[key], errors)
     }
     return errors
 }
