@@ -18,6 +18,27 @@ const customizations: EmployeeCustomizations = {
   translations: {
     fi: {
       // override translations here
+      application: {
+        serviceNeed: {
+          connectedLabel: 'Täydentävä varhaiskasvatus',
+          connectedValue: 'Haen myös täydentävää varhaiskasvatusta'
+        },
+        types: {
+          PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus'
+        },
+        decisions: {
+          types: {
+            PRESCHOOL_DAYCARE: 'Täydentävän varhaiskasvatuksen päätös'
+          }
+        }
+      },
+      applications: {
+        types: {
+          PRESCHOOL_DAYCARE: 'Esiopetus & täydentävä',
+          PREPARATORY_DAYCARE: 'Valmistava & täydentävä',
+          DAYCARE_ONLY: 'Myöhemmin haettu täydentävä'
+        }
+      },
       absences: {
         absenceCategories: {
           NONBILLABLE: 'Ei laskuteta eVakasta',
@@ -50,6 +71,9 @@ const customizations: EmployeeCustomizations = {
           FREE_ABSENCE:
             'Käytetään kesäaikana 8 viikon maksuttomalla ajanjaksolla.'
         },
+        careTypes: {
+          PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus'
+        },
         modal: {
           absenceTypes: {
             PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo',
@@ -60,6 +84,10 @@ const customizations: EmployeeCustomizations = {
       common: {
         careTypeLabels: {
           preschool: 'Esiopetusta täydentävä toiminta'
+        },
+        types: {
+          PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus',
+          PREPARATORY_DAYCARE: 'Täydentävä varhaiskasvatus'
         }
       },
       childInformation: {
@@ -101,7 +129,25 @@ const customizations: EmployeeCustomizations = {
         },
         vasu: {
           title: 'Varhaiskasvatussuunnitelma'
+        },
+        application: {
+          types: {
+            PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus'
+          }
         }
+      },
+      personProfile: {
+        application: {
+          types: {
+            PRESCHOOL_WITH_DAYCARE: 'Esiopetus + täydentävä',
+            PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus',
+            PREPARATORY_EDUCATION: 'Valmistava opetus',
+            PREPARATORY_WITH_DAYCARE: 'Valmistava opetus + täydentävä'
+          }
+        }
+      },
+      placementDraft: {
+        preschoolDaycare: 'Täydentävä varhaiskasvatus'
       },
       footer: {
         cityLabel: 'Tampereen kaupunki',
@@ -130,7 +176,17 @@ const customizations: EmployeeCustomizations = {
           TEMPORARY_DAYCARE: 'Tilapäinen kokopäiväinen varhaiskasvatus',
           PRESCHOOL_DAYCARE: 'Esiopetusta täydentävä varhaiskasvatus',
           CLUB: 'Kerho',
-          SCHOOL_SHIFT_CARE: 'Koululaisten vuorohoito'
+          SCHOOL_SHIFT_CARE: 'Koululaisten vuorohoito',
+          PRESCHOOL_WITH_DAYCARE: 'Esiopetus ja täydentävä varhaiskasvatus',
+          PREPARATORY_WITH_DAYCARE:
+            'Valmistava opetus ja täydentävä varhaiskasvatus',
+          PREPARATORY_DAYCARE: 'Valmistava opetus ja täydentävä varhaiskasvatus'
+        }
+      },
+      decisionDraft: {
+        types: {
+          PRESCHOOL_DAYCARE: 'Esiopetusta täydentävä varhaiskasvatus',
+          PREPARATORY_DAYCARE: 'Valmistavaa opetusta täydentävä varhaiskasvatus'
         }
       },
       unitEditor: {
@@ -155,6 +211,15 @@ const customizations: EmployeeCustomizations = {
       invoices: {
         buttons: {
           individualSendAlertText: ''
+        }
+      },
+      reports: {
+        decisions: {
+          preschoolDaycare: 'Esiopetus+täydentävä päätöksiä',
+          preparatoryDaycare: 'Valmistava+täydentävä päätöksiä'
+        },
+        placementSketching: {
+          connected: 'Täydentävä'
         }
       }
     }

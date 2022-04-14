@@ -38,6 +38,10 @@ const fi: DeepPartial<Translations> = {
         'Varhaiskasvatushakemuksella haetaan paikkaa kunnallisesta päiväkodista tai perhepäivähoidosta, ostopalvelupäiväkodista tai palvelusetelillä tuetusta päiväkodista.',
       clubInfo:
         'Kerhohakemuksella haetaan paikkaa kunnallisista tai palvelusetelillä tuetuista kerhoista.',
+      preschoolInfo:
+        'TODO: Maksutonta esiopetusta on neljä tuntia päivässä. Tämän lisäksi lapselle voidaan hakea maksullista täydentävää varhaiskasvatusta, jota tarjotaan esiopetuspaikoissa aamulla ennen esiopetuksen alkua ja iltapäivisin esiopetuksen jälkeen. Täydentävään varhaiskasvatukseen voi hakea myös palveluseteliä, valitsemalla Hakutoiveet-kohtaan palveluseteliyksikön, johon halutaan hakea. Hakemuksen täydentävään varhaiskasvatukseen voi tehdä esiopetukseen ilmoittautumisen yhteydessä tai erillisenä hakemuksena opetuksen jo alettua. Samalla hakemuksella voit hakea myös maksuttomaan valmistavaan opetukseen sekä valmistavaa opetusta täydentävään varhaiskasvatukseen.',
+      preschoolDaycareInfo:
+        'TODO: Täydentävän varhaiskasvatuksen hakeminen lapsille, jotka ilmoitetaan / on ilmoitettu esiopetukseen tai perusopetukseen valmistavaan opetukseen',
       applicationInfo: (
         <P>
           Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa siihen asti,
@@ -50,10 +54,22 @@ const fi: DeepPartial<Translations> = {
         'Lapsella on jo samantyyppinen, keskeneräinen hakemus. Palaa Hakemukset-näkymään ja muokkaa olemassa olevaa hakemusta tai ota yhteyttä Varhaiskasvatuksen asiakaspalveluun.',
       transferApplicationInfo: {
         DAYCARE:
-          'Lapsella on jo paikka Tampereen varhaiskasvatuksessa. Tällä hakemuksella voit hakea siirtoa toiseen varhaiskasvatusta tarjoavaan yksikköön Tampereella.'
+          'Lapsella on jo paikka Tampereen varhaiskasvatuksessa. Tällä hakemuksella voit hakea siirtoa toiseen varhaiskasvatusta tarjoavaan yksikköön Tampereella.',
+        PRESCHOOL:
+          'TODO: Lapsella on jo esiopetuspaikka. Tällä hakemuksella voit hakea esiopetusta täydentävää varhaiskasvatusta tai siirtoa toiseen esiopetusta tarjoavaan yksikköön.'
       }
     },
     editor: {
+      verification: {
+        serviceNeed: {
+          connectedDaycare: {
+            title: 'TODO: Esiopetusta täydentävän varhaiskasvatuksen tarve',
+            label: 'TODO: Täydentävä varhaiskasvatus',
+            withConnectedDaycare:
+              'TODO: Haen myös esiopetusta täydentävää varhaiskasvatusta.'
+          }
+        }
+      },
       unitPreference: {
         units: {
           serviceVoucherLink:
@@ -126,7 +142,12 @@ const fi: DeepPartial<Translations> = {
               toivotun aloituspäivän muutokset tehdään ottamalla yhteyttä
               {customerContactText()}
             </>
-          )
+          ),
+          info: {
+            PRESCHOOL: [
+              'TODO: Suomen- ja ruotsinkielinen esiopetus alkaa 11.8.2022. Jos tarvitsette varhaiskasvatusta 1.8.2022 lähtien ennen esiopetuksen alkua, voitte hakea sitä tällä hakemuksella valitsemalla ”Haen myös esiopetusta täydentävää varhaiskasvatusta'
+            ]
+          }
         },
         clubDetails: {
           wasOnDaycareInfo:
@@ -167,8 +188,50 @@ const fi: DeepPartial<Translations> = {
         },
         dailyTime: {
           label: {
-            DAYCARE: 'Palveluntarve'
-          }
+            DAYCARE: 'Palveluntarve',
+            PRESCHOOL: 'TODO: Esiopetusta täydentävän varhaiskasvatuksen tarve'
+          },
+          connectedDaycare:
+            'TODO: Haen myös esiopetusta täydentävää varhaiskasvatusta.',
+          connectedDaycareInfo: (
+            <>
+              <P>
+                TODO: Voit hakea lapselle tarvittaessa{' '}
+                <strong>
+                  esiopetusta täydentävää varhaiskasvatusta, joka on maksullista
+                  ja jota annetaan esiopetuksen (4 tuntia/päivä) lisäksi
+                </strong>{' '}
+                aamuisin ja/tai iltapäivisin samassa paikassa kuin esiopetus.
+                Jos haluat aloittaa varhaiskasvatuksen myöhemmin kuin esiopetus
+                alkaa, kirjoita haluttu aloituspäivämäärä hakemuksen “Muut
+                lisätiedot” -kohtaan.
+              </P>
+              <P>
+                Yksityisiin esiopetusyksiköihin haettassa täydentävä
+                varhaiskasvatus haetaan suoraan yksiköstä (pois lukien
+                palveluseteliyksiköt). Yksiköt informoivat asiakkaita
+                hakutavasta. Näissä tapauksissa palveluohjaus muuttaa hakemuksen
+                pelkäksi esiopetushakemukseksi.
+              </P>
+              <P>
+                Palveluseteliä haetaan valitsemalla hakutoiveeksi se
+                palveluseteliyksikkö, johon halutaan hakea.
+              </P>
+              <P>
+                Saat varhaiskasvatuspaikasta erillisen kirjallisen päätöksen, ja
+                päätös tulee{' '}
+                <a
+                  href="https://www.suomi.fi/viestit"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Suomi.fi-viestit
+                </a>{' '}
+                -palveluun tai postitse, mikäli et ole ottanut Suomi.fi-viestit
+                -palvelua käyttöön.
+              </P>
+            </>
+          )
         }
       },
       contactInfo: {
@@ -206,6 +269,15 @@ const fi: DeepPartial<Translations> = {
               asiakasmaksulomake ja toimittaa tarvittavat liitteet
               Varhaiskasvatuksen asiakasmaksuihin viimeistään kuukauden kuluessa
               hoidon alkamisesta.
+            </P>
+          ),
+          PRESCHOOL: (
+            <P>
+              TODO: Esiopetus on maksutonta, mutta sitä täydentävä
+              varhaiskasvatus on maksullista. Jos lapsi osallistuu täydentävään
+              varhaiskasvatukseen, perhe toimittaa tuloselvityksen
+              bruttotuloistaan tuloselvityslomakkeella viimeistään kahden viikon
+              kuluessa siitä, kun lapsi on aloittanut varhaiskasvatuksessa.
             </P>
           )
         },
@@ -298,7 +370,35 @@ const fi: DeepPartial<Translations> = {
         Tälle sivulle saapuvat lapsen varhaiskasvatus- ja kerhohakemuksiin
         liittyvät päätökset ja ilmoitukset.
       </P>
-    )
+    ),
+    applicationDecisions: {
+      type: {
+        PRESCHOOL_DAYCARE: 'TODO: täydentävästä varhaiskasvatuksesta'
+      },
+      confirmationInfo: {
+        preschool:
+          'TODO: Esiopetuksen, valmistavan opetuksen ja/tai täydentävän varhaiskasvatuksen hyväksymis- tai hylkäämisilmoitus on toimitettava välittömästi, viimeistään kahden viikon kuluessa tämän ilmoituksen saamisesta. Jos olet hakenut useampaa palvelua, saat jokaisesta oman päätöksen erikseen vahvistettavaksi'
+      },
+      warnings: {
+        doubleRejectWarning: {
+          text: 'TODO: Olet hylkäämässä tarjotun esiopetus / valmistavan paikan. Täydentävän varhaiskasvatuksen paikka merkitään samalla hylätyksi.'
+        }
+      },
+      response: {
+        disabledInfo:
+          'TODO: HUOM! Pääset hyväksymään/hylkäämään täydentävää varhaiskasvatusta koskevan päätöksen mikäli hyväksyt ensin esiopetusta / valmistavaa opetusta koskevan päätöksen.'
+      }
+    }
+  },
+  placement: {
+    type: {
+      PRESCHOOL_DAYCARE: 'TODO: Esiopetus ja täydentävä varhaiskasvatus',
+      PRESCHOOL_WITH_DAYCARE: 'TODO: Esiopetus ja täydentävä varhaiskasvatus',
+      PREPARATORY_WITH_DAYCARE:
+        'TODO: Valmistava opetus ja täydentävä varhaiskasvatus',
+      PREPARATORY_DAYCARE:
+        'TODO: Valmistava opetus ja täydentävä varhaiskasvatus'
+    }
   },
   income: {
     description: (
