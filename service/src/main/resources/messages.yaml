@@ -8,7 +8,7 @@ fi.tampere.trevaka:
       fi: Tampereen varhaiskasvatukseen liittyvät päätökset
     DECISION_CONTENT:
       fi: |
-        Olette hakeneet lapsellenne varhaiskasvatus- tai kerhopaikkaa Tampereen varhaiskasvatuksesta. Päätös on luettavissa alla olevasta liitteestä.
+        Olette hakeneet lapsellenne varhaiskasvatus- tai kerhopaikkaa Tampereen varhaiskasvatuksesta. Päätös on luettavissa Suomi.fi-viestit -palvelusta.
 
         Varhaiskasvatus tai kerhopaikka on hakemuksen tehneen huoltajan hyväksyttävissä Tampereen kaupungin varhaiskasvatuksen sähköisessä palvelussa osoitteessa varhaiskasvatus.tampere.fi. Paikkaa ei voi hyväksyä Suomi.fi-viestit -palvelussa.
 
@@ -17,7 +17,7 @@ fi.tampere.trevaka:
       fi: Tampereen varhaiskasvatukseen liittyvät päätökset
     FEE_DECISION_CONTENT:
       fi: |
-        Olette saaneet päätöksen varhaiskasvatuksen asiakasmaksusta Tampereen kaupungilta. Päätös on luettavissa alla olevasta liitteestä.
+        Olette saaneet päätöksen varhaiskasvatuksen asiakasmaksusta Tampereen kaupungilta. Päätös on luettavissa Suomi.fi-viestit -palvelusta.
 
         Varhaiskasvatuksen asiakasmaksu on voimassa toistaiseksi ja perheellä on velvollisuus ilmoittaa, mikäli perheen tulot olennaisesti muuttuvat (+/- 10 %).
 
@@ -28,7 +28,7 @@ fi.tampere.trevaka:
       fi: Tampereen varhaiskasvatukseen liittyvät päätökset
     VOUCHER_VALUE_DECISION_CONTENT:
       fi: |
-        Olette saaneet päätöksen palvelusetelin omavastuuosuudesta Tampereen kaupungilta. Päätös on luettavissa alla olevasta liitteestä.
+        Olette saaneet päätöksen palvelusetelin omavastuuosuudesta Tampereen kaupungilta. Päätös on luettavissa Suomi.fi-viestit -palvelusta.
 
         Omavastuuosuus on voimassa toistaiseksi ja perheellä on velvollisuus ilmoittaa, mikäli perheen tulot olennaisesti muuttuvat (+/- 10 %).
 
