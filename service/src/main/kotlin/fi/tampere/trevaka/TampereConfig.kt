@@ -12,7 +12,6 @@ class TampereConfig {
     @Bean
     fun featureConfig(): FeatureConfig = FeatureConfig(
         valueDecisionCapacityFactorEnabled = true,
-        valueDecisionAgeCoefficientRoundingEnabled = true,
         daycareApplicationServiceNeedOptionsEnabled = true,
         citizenReservationThresholdHours = 6 * 24, // Tue 00:00
         dailyFeeDivisorOperationalDaysOverride = 20,

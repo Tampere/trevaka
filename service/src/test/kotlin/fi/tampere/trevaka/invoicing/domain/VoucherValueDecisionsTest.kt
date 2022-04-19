@@ -4,7 +4,6 @@ import fi.espoo.evaka.invoicing.domain.VoucherValue
 import fi.espoo.evaka.invoicing.domain.calculateVoucherValue
 import fi.espoo.evaka.serviceneed.ServiceNeedOption
 import fi.espoo.evaka.serviceneed.getServiceNeedOptions
-import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.db.Database
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
@@ -19,9 +18,6 @@ internal class VoucherValueDecisionsTest : AbstractIntegrationTest() {
     @Autowired
     private lateinit var jdbi: Jdbi
 
-    @Autowired
-    private lateinit var featureConfig: FeatureConfig
-
     @Test
     fun calculateVoucherValuesAt20220413() {
         Database(jdbi).connect { dbc ->
@@ -30,8 +26,7 @@ internal class VoucherValueDecisionsTest : AbstractIntegrationTest() {
                 val voucherValue = tx.getVoucherValue(date)
                 val serviceNeedOptions = tx.getServiceNeedOptions()
                 assertVoucherValues(
-                    voucherValue,
-                    BigDecimal("1.00"),
+                    voucherValue.baseValue,
                     serviceNeedOptions,
                     expectedValuesAt20220413.entries.associate { it.key to it.value.first }
                 )
@@ -47,8 +42,7 @@ internal class VoucherValueDecisionsTest : AbstractIntegrationTest() {
                 val voucherValue = tx.getVoucherValue(date)
                 val serviceNeedOptions = tx.getServiceNeedOptions()
                 assertVoucherValues(
-                    voucherValue,
-                    voucherValue.ageUnderThreeCoefficient,
+                    voucherValue.baseValueAgeUnderThree,
                     serviceNeedOptions,
                     expectedValuesAt20220413.entries.associate { it.key to it.value.second }
                 )
@@ -57,18 +51,15 @@ internal class VoucherValueDecisionsTest : AbstractIntegrationTest() {
     }
 
     internal fun assertVoucherValues(
-        voucherValue: VoucherValue,
-        ageCoefficient: BigDecimal,
+        baseValue: Int,
         serviceNeedOptions: List<ServiceNeedOption>,
         expectedValues: Map<String, Int>
     ) {
         val values = serviceNeedOptions.associate { option ->
             option.nameFi to calculateVoucherValue(
-                voucherValue,
-                ageCoefficient,
+                baseValue,
                 BigDecimal("1.00"),
-                option.voucherValueCoefficient,
-                featureConfig.valueDecisionAgeCoefficientRoundingEnabled
+                option.voucherValueCoefficient
             )
         }
         assertThat(values).isEqualTo(expectedValues)
