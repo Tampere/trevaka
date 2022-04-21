@@ -475,6 +475,12 @@ const fi: DeepPartial<Translations> = {
         <P>* Tähdellä merkityt tiedot ovat pakollisia</P>
       </>
     )
+  },
+  calendar: {
+    absenceModal: {
+      selectChildrenInfo:
+        'Ilmoita tässä vain koko päivän poissaolot.'
+    }
   }
 }
 
