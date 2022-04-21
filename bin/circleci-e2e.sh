@@ -22,7 +22,7 @@ if [ "${DEBUG:-X}" = "true" ]; then
 fi
 
 COMPOSE_NETWORK=${COMPOSE_NETWORK:-compose_default}
-PLAYWRIGHT_VERSION=${PLAYWRIGHT_VERSION:-v1.18.1}
+PLAYWRIGHT_VERSION=${PLAYWRIGHT_VERSION:-v1.21.1}
 
 # Ensure we are in repository root
 pushd "$(dirname "${BASH_SOURCE[0]}")"/..
