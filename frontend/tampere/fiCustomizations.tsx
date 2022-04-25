@@ -10,7 +10,7 @@ import React from 'react'
 
 import ExternalLink from 'lib-components/atoms/ExternalLink'
 import UnorderedList from 'lib-components/atoms/UnorderedList'
-import { P } from 'lib-components/typography'
+import { H1, H2, P } from 'lib-components/typography'
 import { Gap } from 'lib-components/white-space'
 import { Translations } from 'lib-customizations/citizen'
 import { DeepPartial } from 'lib-customizations/types'
@@ -480,7 +480,136 @@ const fi: DeepPartial<Translations> = {
     absenceModal: {
       selectChildrenInfo: 'Ilmoita tässä vain koko päivän poissaolot.'
     }
-  }
+  },
+  accessibilityStatement: (
+    <>
+      <H1>Saavutettavuusseloste</H1>
+      <P>
+        Tämä saavutettavuusseloste koskee Tampereen kaupungin varhaiskasvatuksen
+        eVaka-verkkopalvelua osoitteessa{' '}
+        <a href="https://varhaiskasvatus.tampere.fi">
+          varhaiskasvatus.tampere.fi
+        </a>
+        . Tampereen kaupunki pyrkii takaamaan verkkopalvelun saavutettavuuden,
+        parantamaan käyttäjäkokemusta jatkuvasti ja soveltamaan asianmukaisia
+        saavutettavuusstandardeja.
+      </P>
+      <P>
+        Palvelun saavutettavuuden on arvioinut palvelun kehitystiimi, ja seloste
+        on laadittu 12.4.2022.
+      </P>
+      <H2>Palvelun vaatimustenmukaisuus</H2>
+      <P>
+        Verkkopalvelu täyttää lain asettamat kriittiset
+        saavutettavuusvaatimukset WCAG v2.1 -tason AA mukaisesti. Palvelu ei ole
+        vielä kaikilta osin vaatimusten mukainen.
+      </P>
+      <H2>Toimet saavutettavuuden tukemiseksi</H2>
+      <P>
+        Verkkopalvelun saavutettavuus varmistetaan muun muassa seuraavilla
+        toimenpiteillä:
+      </P>
+      <ul>
+        <li>
+          Saavutettavuus huomioidaan alusta lähtien suunnitteluvaiheessa, mm.
+          valitsemalla palvelun värit ja kirjaisinten koot saavutettavasti.
+        </li>
+        <li>
+          Palvelun elementit on määritelty semantiikaltaan johdonmukaisesti.
+        </li>
+        <li>Palvelua testataan jatkuvasti ruudunlukijalla.</li>
+        <li>
+          Erilaiset käyttäjät testaavat palvelua ja antavat saavutettavuudesta
+          palautetta.
+        </li>
+        <li>
+          Sivuston saavutettavuudesta huolehditaan jatkuvalla valvonnalla
+          tekniikan tai sisällön muuttuessa.
+        </li>
+      </ul>
+      <P>
+        Tätä selostetta päivitetään sivuston muutosten ja saavutettavuuden
+        tarkistusten yhteydessä.
+      </P>
+      <H2>Tunnetut saavutettavuusongelmat</H2>
+      <P>
+        Käyttäjät saattavat edelleen kohdata sivustolla joitakin ongelmia.
+        Seuraavassa on kuvaus tunnetuista saavutettavuusongelmista. Jos huomaat
+        sivustolla ongelman, joka ei ole luettelossa, otathan meihin yhteyttä.
+      </P>
+      <ul>
+        <li>
+          Viestit-sivulla liikkuminen näppäimistöllä tai ruudunlukijalla vaatii
+          vielä korjauksia siirtymien ja kohdistettavien elementtien osalta.
+        </li>
+        <li>
+          Palvelun yksikkökartassa ei pysty liikkumaan
+          näppäimistöllä/ruudunlukijalla, mutta yksikköjä voi selata samassa
+          näkymässä olevalta listalta. Palvelussa käytetty kartta on kolmannen
+          osapuolen tuottama.
+        </li>
+      </ul>
+      <H2>Kolmannet osapuolet</H2>
+      <P>
+        Verkkopalvelussa käytetään seuraavia kolmannen osapuolen palveluita,
+        joiden saavutettavuudesta emme voi vastata.
+      </P>
+      <ul>
+        <li>Keycloak käyttäjän tunnistautumispalvelu</li>
+        <li>Suomi.fi-tunnistautuminen</li>
+        <li>Leaflet-karttapalvelu</li>
+      </ul>
+      <H2>Vaihtoehtoiset asiointitavat</H2>
+      <P>
+        <strong>Varhaiskasvatuksen ja esiopetuksen asiakaspalvelu</strong>
+        <br />
+        sähköposti{' '}
+        <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">
+          varhaiskasvatus.asiakaspalvelu@tampere.fi
+        </a>
+        <br />
+        puhelin <a href="tel:040 800 7260">040 800 7260</a>, soittoaika ma–pe
+        klo 9.00–12.00
+      </P>
+      <H2>Anna palautetta</H2>
+      <P>
+        Jos huomaat saavutettavuuspuutteen verkkopalvelussamme, kerro siitä
+        meille.{' '}
+        <ExternalLink
+          href="https://elomake.tampere.fi/lomakkeet/21932/lomakkeet.html"
+          text="Anna saavutettavuuspalautetta tällä verkkolomakkeella"
+        />
+      </P>
+      <H2>Valvontaviranomainen</H2>
+      <P>
+        Jos huomaat sivustolla saavutettavuusongelmia, anna ensin palautetta
+        meille sivuston ylläpitäjille. Vastauksessa voi mennä 14 päivää. Jos et
+        ole tyytyväinen saamaasi vastaukseen, tai et saa vastausta lainkaan
+        kahden viikon aikana, voit antaa palautteen Etelä-Suomen
+        aluehallintovirastoon. Etelä-Suomen aluehallintoviraston sivulla
+        kerrotaan tarkasti, miten valituksen voi tehdä, ja miten asia
+        käsitellään.
+      </P>
+
+      <P>
+        <strong>Valvontaviranomaisen yhteystiedot </strong>
+        <br />
+        Etelä-Suomen aluehallintovirasto <br />
+        Saavutettavuuden valvonnan yksikkö
+        <br />
+        <ExternalLink
+          href="www.saavutettavuusvaatimukset.fi"
+          text="www.saavutettavuusvaatimukset.fi"
+        />
+        <br />
+        <a href="mailto:saavutettavuus@avi.fi">saavutettavuus@avi.fi</a>
+        <br />
+        puhelinnumero vaihde 0295 016 000
+        <br />
+        Avoinna: ma-pe klo 8.00–16.15
+      </P>
+    </>
+  )
 }
 
 export default fi
