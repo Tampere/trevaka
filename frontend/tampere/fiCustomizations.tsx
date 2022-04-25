@@ -476,6 +476,11 @@ const fi: DeepPartial<Translations> = {
       </>
     )
   },
+  calendar: {
+    absenceModal: {
+      selectChildrenInfo: 'Ilmoita tässä vain koko päivän poissaolot.'
+    }
+  },
   accessibilityStatement: (
     <>
       <H1>Saavutettavuusseloste</H1>
