@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.YearMonth
 
 private val logger = KotlinLogging.logger { }
+
+private const val TAKEN_AT_DAY_OF_MONTH = 25
 
 @RestController
 @RequestMapping("/reports")
@@ -39,11 +42,11 @@ class ReportsController() {
                     .exactlyOneOrNull() ?: return@transaction
                 val firstYearMonth = YearMonth.of(firstDate.year, firstDate.month)
                 val now = clock.today()
-                val lastDate = now.minusMonths(if (now.dayOfMonth >= 25) 0 else 1)
+                val lastDate = now.minusMonths(if (now.dayOfMonth >= TAKEN_AT_DAY_OF_MONTH) 0 else 1)
                 val lastYearMonth = YearMonth.of(lastDate.year, lastDate.month)
                 var yearMonth = firstYearMonth
                 while (yearMonth <= lastYearMonth) {
-                    freezeVoucherValueReportRows(tx, yearMonth, clock.now())
+                    freezeVoucherValueReportRows(tx, yearMonth)
                     yearMonth = yearMonth.plusMonths(1)
                 }
             }
@@ -54,18 +57,13 @@ class ReportsController() {
     fun freezeVoucherValueReportRows(
         db: Database,
         user: AuthenticatedUser,
-        clock: EvakaClock,
         @PathVariable year: Int,
         @PathVariable month: Int,
     ) {
         if (!user.isAdmin) throw Forbidden()
         db.connect { dbc ->
             dbc.transaction { tx ->
-                freezeVoucherValueReportRows(
-                    tx,
-                    YearMonth.of(year, month),
-                    clock.now(),
-                )
+                freezeVoucherValueReportRows(tx, YearMonth.of(year, month))
             }
         }
     }
@@ -73,9 +71,9 @@ class ReportsController() {
     internal fun freezeVoucherValueReportRows(
         tx: Database.Transaction,
         yearMonth: YearMonth,
-        takenAt: HelsinkiDateTime,
     ) {
         logger.info { "Freeze voucher value report rows $yearMonth" }
+        val takenAt = HelsinkiDateTime.of(yearMonth.atDay(TAKEN_AT_DAY_OF_MONTH), LocalTime.MIN)
         freezeVoucherValueReportRows(tx, yearMonth.year, yearMonth.monthValue, takenAt)
     }
 }
