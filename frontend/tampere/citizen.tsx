@@ -85,7 +85,10 @@ const TampereAaltoLogoSvg = styled.img`
 
 const TampereFooter = (
   <TreFooterLogo>
-    <TampereFinlandLogo src={TampereFinlandLogoImg} alt="Tampere.Finland logo" />
+    <TampereFinlandLogo
+      src={TampereFinlandLogoImg}
+      alt="Tampere.Finland logo"
+    />
     <TampereAaltoLogoSvg src={TampereWavesImg} alt="Tampere - aalto logo" />
   </TreFooterLogo>
 )
