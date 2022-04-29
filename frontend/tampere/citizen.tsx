@@ -31,12 +31,12 @@ const TreFooterLogo = styled.div`
   }
 
   @media (min-width: ${desktopMin}) {
-    margin-top: 16px;
+    margin-top: 32px;
   }
 
   @media (min-width: 1408px) {
     flex-basis: auto;
-    margin-top: 0;
+    margin-top: -10px;
     padding-left: 40px;
     margin-right: -64px;
   }
