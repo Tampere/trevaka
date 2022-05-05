@@ -43,7 +43,7 @@ beforeEach(async () => {
             decisionHandler: 'Käsittelijä',
             decisionHandlerAddress: 'Käsittelijän osoite',
             providerType: 'MUNICIPAL',
-            operationDays: [1, 2, 3, 4, 5],
+            operationDays: [1, 2, 3, 4, 5, 6, 7],
             roundTheClock: true,
             location: {
                 lat: 60.20377343765089,
