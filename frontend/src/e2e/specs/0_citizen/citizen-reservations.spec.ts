@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021-2022 City of Tampere
+//
+// SPDX-License-Identifier: LGPL-2.1-or-later
+
 import LocalDate from 'lib-common/local-date'
 import config from 'e2e-test/config'
 import { resetDatabaseForE2ETests } from '../../common/tampere-dev-api'
