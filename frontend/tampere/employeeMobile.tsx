@@ -21,7 +21,8 @@ const customizations: EmployeeMobileCustomizations = {
       absences: {
         absenceTypes: {
           PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo',
-          FORCE_MAJEURE: 'Hyvityspäivä'
+          FORCE_MAJEURE: 'Hyvityspäivä',
+          FREE_ABSENCE: 'Kesäajan maksuton poissaolo'
         },
         careTypes: {
           PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus'
