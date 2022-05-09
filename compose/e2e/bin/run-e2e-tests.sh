@@ -22,7 +22,7 @@ export FORCE_COLOR=1
 cd /repo/evaka/frontend
 
 echo 'INFO: Waiting for compose stack to be up...'
-./wait-for-dev-api.sh "$PROXY_URL"
+./wait-for-url.sh "${PROXY_URL}/api/internal/dev-api"
 
 cd /repo/frontend
 
