@@ -34,7 +34,7 @@ internal class PersonDetailsServiceIT : AbstractIntegrationTest() {
 
         val person = personDetailsService.getBasicDetailsFor(
             IPersonDetailsService.DetailsQuery(
-                AuthenticatedUser.SystemInternalUser,
+                AuthenticatedUser.SystemInternalUser.evakaUserId,
                 ExternalIdentifier.SSN.getInstance("070644-937X")
             )
         )
