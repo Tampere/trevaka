@@ -139,6 +139,7 @@ internal class TrevakaInvoiceClientTest {
     fun sendWithClientFault() {
         val invoice1 = validInvoice()
         val invoice2 = validInvoice().copy(headOfFamily = personWithoutSSN())
+
         server.expect(connectionTo("http://localhost:8080/salesOrder"))
             .andRespond(withClientOrSenderFault("test", Locale.ENGLISH))
 
@@ -165,36 +166,30 @@ internal class TrevakaInvoiceClientTest {
         server.verify()
     }
 
+    @Test
+    fun sendZeroTotalSumInvoices() {
+        val invoice1 = validInvoice().copy(rows = listOf(validInvoiceRow(15000), validInvoiceRow(-15000, ProductKey("DAYCARE_DISCOUNT"))))
+        val invoice2 = validInvoice().copy(headOfFamily = personWithoutSSN(), rows = listOf(validInvoiceRow(25000), validInvoiceRow(-25000, ProductKey("DAYCARE_DISCOUNT"))))
+
+        assertThat(client.send(listOf(invoice1, invoice2)))
+            .returns(listOf(invoice1, invoice2)) { it.succeeded }
+            .returns(listOf()) { it.failed }
+            .returns(listOf()) { it.manuallySent }
+
+        server.verify()
+    }
+
 }
 
 fun validInvoice(): InvoiceDetailed {
     val headOfFamily = validPerson()
-    val invoiceRow1 = InvoiceRowDetailed(
-        InvoiceRowId(UUID.randomUUID()), PersonDetailed(
-            PersonId(UUID.randomUUID()), LocalDate.of(2018, 1, 1), null,
-            "Matti", "Meikäläinen",
-            null, "", "", "",
-            "", null, "", null, restrictedDetailsEnabled = false
-        ), 1, 24300,
-        LocalDate.of(2021, 1, 1),
-        LocalDate.of(2021, 1, 31),
-        ProductKey("DAYCARE"), DaycareId(UUID.randomUUID()), "131885", null, null, "kuvaus1",
-        correctionId = null,
-        note = null
-    )
-    val invoiceRow2 = InvoiceRowDetailed(
-        InvoiceRowId(UUID.randomUUID()), PersonDetailed(
+    val invoiceRow1 = validInvoiceRow(24300)
+    val invoiceRow2 = validInvoiceRow(48200).copy(child = PersonDetailed(
             PersonId(UUID.randomUUID()), LocalDate.of(2015, 11, 26), null,
             "Maiju", "Meikäläinen",
             null, "", "", "",
             "", null, "", null, restrictedDetailsEnabled = false
-        ), 1, 48200,
-        LocalDate.of(2021, 1, 1),
-        LocalDate.of(2021, 1, 31),
-        ProductKey("PRESCHOOL_WITH_DAYCARE"), DaycareId(UUID.randomUUID()), "284823", null, null, "kuvaus2",
-        correctionId = null,
-        note = null
-    )
+        ), costCenter = "284823", product = ProductKey("PRESCHOOL_WITH_DAYCARE"), description = "kuvaus2")
     return InvoiceDetailed(
         (InvoiceId(UUID.randomUUID())),
         InvoiceStatus.WAITING_FOR_SENDING,
@@ -212,6 +207,20 @@ fun validInvoice(): InvoiceDetailed {
         null
     )
 }
+
+fun validInvoiceRow(unitPrice: Int, productKey: ProductKey = ProductKey("DAYCARE"), costCenter: String = "131885", description: String = "kuvaus1") = InvoiceRowDetailed(
+    InvoiceRowId(UUID.randomUUID()), PersonDetailed(
+        PersonId(UUID.randomUUID()), LocalDate.of(2018, 1, 1), null,
+        "Matti", "Meikäläinen",
+        null, "", "", "",
+        "", null, "", null, restrictedDetailsEnabled = false
+    ), 1, unitPrice,
+    LocalDate.of(2021, 1, 1),
+    LocalDate.of(2021, 1, 31),
+    productKey, DaycareId(UUID.randomUUID()), costCenter, null, null, description,
+    correctionId = null,
+    note = null
+)
 
 fun validPerson() = PersonDetailed(
     PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
