@@ -67,7 +67,8 @@ class TrevakaInvoiceClient(
 
     override fun send(invoices: List<InvoiceDetailed>): SendResult {
         logger.info("Invoice batch started")
-        val (withSSN, withoutSSN) = invoices.partition { invoice -> invoice.headOfFamily.ssn != null }
+        val (zeroSumInvoices, nonZeroSumInvoices) = invoices.partition { invoice -> invoice.totalPrice == 0 }
+        val (withSSN, withoutSSN) = nonZeroSumInvoices.partition { invoice -> invoice.headOfFamily.ssn != null }
 
         if (withSSN.isNotEmpty()) {
             try {
@@ -85,10 +86,10 @@ class TrevakaInvoiceClient(
                     is FaultType -> logger.error("Fault in invoice: ${faultDetail.errorCode}. Message: ${faultDetail.errorMessage}. Details: ${faultDetail.detailMessage}")
                     else -> logger.error("Unknown fault in invoice: $faultDetail", e)
                 }
-                return SendResult(manuallySent = withoutSSN, failed = withSSN)
+                return SendResult(manuallySent = withoutSSN, failed = withSSN, succeeded = zeroSumInvoices)
             }
         }
-        return SendResult(manuallySent = withoutSSN, succeeded = withSSN)
+        return SendResult(manuallySent = withoutSSN, succeeded = withSSN + zeroSumInvoices)
     }
 
     private fun toRequest(invoices: List<InvoiceDetailed>): SendSalesOrderRequest {
