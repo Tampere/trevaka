@@ -56,19 +56,6 @@ aliases:
       paths:
         - .
 
-  - &restore_apigw_deps
-    restore_cache:
-      keys:
-        - yarn-cache-apigw-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/apigw/yarn.lock" }}
-        - yarn-cache-apigw-v1-
-        - yarn-cache-apigw-
-
-  - &store_apigw_deps
-    save_cache:
-      key: yarn-cache-apigw-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/apigw/yarn.lock" }}
-      paths:
-        - evaka/apigw/.yarn/cache
-
   - &restore_frontend_deps
     restore_cache:
       keys:
@@ -236,10 +223,14 @@ commands:
     steps:
       - restore:
           path: evaka-base.tar
+      - restore:
+          path: evaka-yarn.tar
       - run:
-          name: Load base image
+          name: Load base images
           working_directory: *workspace_root
-          command: docker load -i evaka-base.tar
+          command: |
+            docker load -i evaka-base.tar
+            docker load -i evaka-yarn.tar
 
   build_docker_image:
     parameters:
@@ -474,33 +465,26 @@ jobs:
           working_directory: *workspace_evaka_base
           command: docker build -t evaka-base .
       - run:
+          name: Build base image
+          working_directory: *workspace_evaka_base
+          command: docker build -t evaka-yarn -f yarn.Dockerfile .
+      - run:
           name: Save base image
           working_directory: *workspace_root
           command: docker save evaka-base > evaka-base.tar
+      - run:
+          name: Save base image
+          working_directory: *workspace_root
+          command: docker save evaka-yarn > evaka-yarn.tar
       - save:
           path: evaka-base.tar
-
-  apigw_build:
-    executor: nodejs_executor
-    steps:
-      - *restore_repo
-      - *restore_apigw_deps
-      - run:
-          working_directory: *workspace_apigw
-          command: yarn install --immutable
-      - *store_apigw_deps
-      - run:
-          working_directory: *workspace_apigw
-          command: yarn build
       - save:
-          path: evaka/apigw/dist
+          path: evaka-yarn.tar
 
   apigw_build_image:
     executor: base_executor
     steps:
       - *restore_repo
-      - restore:
-          path: evaka/apigw/dist
       - setup_remote_docker:
           version: *remote_docker_version
           docker_layer_caching: *docker_layer_caching
@@ -739,13 +723,9 @@ workflows:
           requires:
             - checkout_repo
 
-      - apigw_build:
-          requires:
-            - checkout_repo
       - apigw_build_image:
           requires:
             - build_base_image
-            - apigw_build
       - apigw_push_image:
           context:
             - trevaka-utility
