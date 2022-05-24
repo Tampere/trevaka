@@ -485,9 +485,8 @@ jobs:
     executor: base_executor
     steps:
       - *restore_repo
-      - setup_remote_docker:
-          version: *remote_docker_version
-          docker_layer_caching: *docker_layer_caching
+      - setup_authenticated_remote_docker:
+          docker_layer_caching: true
       - load_base_image
       - build_docker_image:
           image: trevaka/api-gateway
