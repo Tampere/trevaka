@@ -5,7 +5,6 @@
 package fi.tampere.trevaka
 
 import com.auth0.jwt.algorithms.Algorithm
-import com.auth0.jwt.interfaces.RSAKeyProvider
 import fi.espoo.evaka.BucketEnv
 import fi.espoo.evaka.EvakaEnv
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig
@@ -17,8 +16,9 @@ import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.S3Configuration
-import java.security.interfaces.RSAPrivateKey
+import java.security.KeyFactory
 import java.security.interfaces.RSAPublicKey
+import java.security.spec.RSAPublicKeySpec
 
 @TestConfiguration
 class IntegrationTestConfiguration {
@@ -59,17 +59,10 @@ class IntegrationTestConfiguration {
 
     @Bean
     fun jwtAlgorithm(): Algorithm {
-        return Algorithm.RSA256(JwtKeys(privateKeyId = null, privateKey = null, publicKeys = mapOf()))
+        val kf = KeyFactory.getInstance("RSA")
+        val spec = RSAPublicKeySpec(jwtPrivateKey.modulus, jwtPrivateKey.publicExponent)
+        val jwtPublicKey = kf.generatePublic(spec) as RSAPublicKey
+        return Algorithm.RSA256(jwtPublicKey, null)
     }
 
-}
-
-internal class JwtKeys(
-    private val privateKeyId: String?,
-    private val privateKey: RSAPrivateKey?,
-    private val publicKeys: Map<String, RSAPublicKey>
-) : RSAKeyProvider {
-    override fun getPrivateKeyId(): String? = privateKeyId
-    override fun getPrivateKey(): RSAPrivateKey? = privateKey
-    override fun getPublicKeyById(keyId: String): RSAPublicKey? = publicKeys[keyId]
 }
