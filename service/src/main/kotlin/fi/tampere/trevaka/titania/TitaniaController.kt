@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/integration/titania")
 class TitaniaController(private val titaniaService: TitaniaService) {
 
-    @PutMapping("/workingTimeEvents")
+    @PutMapping("/working-time-events")
     fun updateWorkingTimeEvents(
         @RequestBody request: UpdateWorkingTimeEventsRequest,
         user: AuthenticatedUser

@@ -26,7 +26,7 @@ internal class TitaniaControllerTest : AbstractIntegrationTest() {
     fun `put working time events with valid example data should respond 200 and deserialize input correctly`() {
         whenever(titaniaService.updateWorkingTimeEvents(any())).thenReturn(UpdateWorkingTimeEventsResponse.ok())
 
-        val (_, res, _) = http.put("/integration/titania/workingTimeEvents")
+        val (_, res, _) = http.put("/integration/titania/working-time-events")
             .asUser(AuthenticatedUser.Integration)
             .jsonBody(ClassPathResource("titania/titania-update-request-valid-example-data.json"))
             .response()
@@ -39,7 +39,7 @@ internal class TitaniaControllerTest : AbstractIntegrationTest() {
     fun `put working time events with system user should respond 403`() {
         whenever(titaniaService.updateWorkingTimeEvents(any())).thenReturn(UpdateWorkingTimeEventsResponse.ok())
 
-        val (_, res, _) = http.put("/integration/titania/workingTimeEvents")
+        val (_, res, _) = http.put("/integration/titania/working-time-events")
             .asUser(AuthenticatedUser.SystemInternalUser)
             .jsonBody(ClassPathResource("titania/titania-update-request-valid-example-data.json"))
             .response()
@@ -52,7 +52,7 @@ internal class TitaniaControllerTest : AbstractIntegrationTest() {
     fun `put working time events without employee id should respond 400`() {
         whenever(titaniaService.updateWorkingTimeEvents(any())).thenReturn(UpdateWorkingTimeEventsResponse.ok())
 
-        val (_, res, _) = http.put("/integration/titania/workingTimeEvents")
+        val (_, res, _) = http.put("/integration/titania/working-time-events")
             .asUser(AuthenticatedUser.Integration)
             .jsonBody(ClassPathResource("titania/titania-update-request-without-employee-id.json"))
             .response()
