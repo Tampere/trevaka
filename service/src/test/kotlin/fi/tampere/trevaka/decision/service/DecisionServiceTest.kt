@@ -41,7 +41,7 @@ private val settings = mapOf(
     SettingType.DECISION_MAKER_TITLE to "Asiakaspalvelupäällikkö"
 )
 
-class DecisionServiceTest : AbstractIntegrationTest() {
+class DecisionServiceTest : AbstractIntegrationTest(resetDbBeforeEach = true) {
 
     @Autowired
     private lateinit var messageProvider: IMessageProvider

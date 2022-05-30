@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 
-internal class EmailMessageProviderTest : AbstractIntegrationTest() {
+internal class EmailMessageProviderTest : AbstractIntegrationTest(resetDbBeforeEach = true) {
 
     @Autowired
     private lateinit var emailMessageProvider: IEmailMessageProvider

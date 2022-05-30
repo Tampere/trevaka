@@ -56,7 +56,7 @@ private val settings = mapOf(
     SettingType.DECISION_MAKER_TITLE to "Asiakaspalvelupäällikkö"
 )
 
-internal class PDFServiceTest : AbstractIntegrationTest() {
+internal class PDFServiceTest : AbstractIntegrationTest(resetDbBeforeEach = true) {
 
     @Autowired
     private lateinit var pdfService: PDFService

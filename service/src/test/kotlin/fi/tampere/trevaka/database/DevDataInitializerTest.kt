@@ -9,7 +9,7 @@ import org.jdbi.v3.core.Jdbi
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
-class DevDataInitializerTest : AbstractIntegrationTest() {
+class DevDataInitializerTest : AbstractIntegrationTest(resetDbBeforeEach = true) {
 
     @Autowired
     private lateinit var jdbi: Jdbi

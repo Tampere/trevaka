@@ -14,7 +14,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
-internal class PersonDetailsServiceIT : AbstractIntegrationTest() {
+internal class PersonDetailsServiceIT : AbstractIntegrationTest(resetDbBeforeEach = true) {
 
     @Autowired
     lateinit var personDetailsService: IPersonDetailsService
