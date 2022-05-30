@@ -59,3 +59,31 @@ internal val titaniaUpdateRequestValidExampleData = UpdateWorkingTimeEventsReque
         )
     )
 )
+
+internal val titaniaUpdateRequestValidMinimalData = UpdateWorkingTimeEventsRequest(
+    period = TitaniaPeriod(
+        beginDate = LocalDate.of(2011, 1, 3),
+        endDate = LocalDate.of(2011, 1, 23)
+    ),
+    schedulingUnit = listOf(
+        TitaniaSchedulingUnit(
+            code = "E1100", occupation = listOf(
+                TitaniaOccupation(
+                    code = "15510", name = "Kodinhoitaja", person = listOf(
+                        TitaniaPerson(
+                            employeeId = "176716",
+                            name = "ANKKA IINES",
+                            actualWorkingTimeEvents = TitaniaWorkingTimeEvents(
+                                event = listOf(
+                                    TitaniaWorkingTimeEvent(
+                                        date = LocalDate.of(2010, 1, 1),
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
