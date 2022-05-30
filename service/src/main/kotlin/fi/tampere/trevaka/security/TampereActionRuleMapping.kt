@@ -9,10 +9,10 @@ import fi.espoo.evaka.shared.security.Action
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.shared.security.actionrule.HasUnitRole
 import fi.espoo.evaka.shared.security.actionrule.ScopedActionRule
-import fi.espoo.evaka.shared.security.actionrule.StaticActionRule
+import fi.espoo.evaka.shared.security.actionrule.UnscopedActionRule
 
 class TampereActionRuleMapping : ActionRuleMapping {
-    override fun rulesOf(action: Action.StaticAction): Sequence<StaticActionRule> = action.defaultRules.asSequence()
+    override fun rulesOf(action: Action.UnscopedAction): Sequence<UnscopedActionRule> = action.defaultRules.asSequence()
     override fun <T> rulesOf(action: Action.ScopedAction<in T>): Sequence<ScopedActionRule<in T>> = when (action) {
         Action.BackupCare.UPDATE,
         Action.BackupCare.DELETE -> {
