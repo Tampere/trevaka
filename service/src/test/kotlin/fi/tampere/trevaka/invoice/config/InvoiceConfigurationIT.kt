@@ -192,7 +192,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest(resetDbBeforeEac
         headOfChildId = testAdult.id,
         childId = testChild.id,
         startDate = testChild.dateOfBirth,
-        endDate = LocalDate.now()
+        endDate = testChild.dateOfBirth.plusYears(18).minusDays(1)
     )
 
     private final val defaultMunicipalOrganizerOid = "1.2.246.562.10.888888888888"
