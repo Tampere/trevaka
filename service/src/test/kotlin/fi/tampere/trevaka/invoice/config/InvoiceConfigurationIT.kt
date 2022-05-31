@@ -16,16 +16,12 @@ import fi.espoo.evaka.invoicing.domain.FeeDecisionThresholds
 import fi.espoo.evaka.invoicing.domain.FeeDecisionType
 import fi.espoo.evaka.invoicing.domain.FeeThresholds
 import fi.espoo.evaka.invoicing.domain.Invoice
-import fi.espoo.evaka.invoicing.service.DraftInvoiceGenerator
-import fi.espoo.evaka.invoicing.service.InvoiceGenerationLogicChooser
 import fi.espoo.evaka.invoicing.service.InvoiceGenerator
-import fi.espoo.evaka.invoicing.service.InvoiceProductProvider
 import fi.espoo.evaka.placement.PlacementType
 import fi.espoo.evaka.serviceneed.ServiceNeedOption
 import fi.espoo.evaka.shared.AreaId
 import fi.espoo.evaka.shared.ChildId
 import fi.espoo.evaka.shared.DaycareId
-import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.FeeDecisionId
 import fi.espoo.evaka.shared.ParentshipId
 import fi.espoo.evaka.shared.PersonId
@@ -44,36 +40,18 @@ import fi.espoo.evaka.shared.dev.insertTestPlacement
 import fi.espoo.evaka.shared.domain.DateRange
 import fi.espoo.evaka.shared.security.PilotFeature
 import fi.tampere.trevaka.AbstractIntegrationTest
-import fi.tampere.trevaka.InvoiceProperties
-import fi.tampere.trevaka.IpaasProperties
-import fi.tampere.trevaka.SummertimeAbsenceProperties
-import fi.tampere.trevaka.TrevakaProperties
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.UUID
 
 internal class InvoiceConfigurationIT : AbstractIntegrationTest(resetDbBeforeEach = false) {
 
-    private final val trevakaProperties: TrevakaProperties = TrevakaProperties(IpaasProperties("bla", "bla"), InvoiceProperties("dummy"), SummertimeAbsenceProperties())
-
-    private final val productProvider: InvoiceProductProvider = TampereInvoiceProductProvider()
-    private final val featureConfig: FeatureConfig = FeatureConfig(
-        valueDecisionCapacityFactorEnabled = true,
-        daycareApplicationServiceNeedOptionsEnabled = true,
-        citizenReservationThresholdHours = 6 * 24, // Tue 00:00
-        dailyFeeDivisorOperationalDaysOverride = 20,
-        freeSickLeaveOnContractDays = true,
-        alwaysUseDaycareFinanceDecisionHandler = true,
-    )
-    private final val invoiceGeneratorLogicChooser: InvoiceGenerationLogicChooser = TampereInvoiceGeneratorLogicChooser(
-        trevakaProperties.summertimeAbsenceProperties
-    )
-    private final val draftInvoiceGenerator: DraftInvoiceGenerator =
-        DraftInvoiceGenerator(productProvider, featureConfig, invoiceGeneratorLogicChooser)
-    private final val generator: InvoiceGenerator = InvoiceGenerator(draftInvoiceGenerator)
+    @Autowired
+    private lateinit var generator: InvoiceGenerator
 
     private final val questionnaireId = "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"
     private final val placementPeriod = DateRange(LocalDate.of(2021, 8, 31), LocalDate.of(2022, 8, 31))
