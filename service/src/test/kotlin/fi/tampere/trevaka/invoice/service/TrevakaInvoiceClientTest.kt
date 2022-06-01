@@ -18,6 +18,7 @@ import fi.espoo.evaka.shared.InvoiceRowId
 import fi.espoo.evaka.shared.PersonId
 import fi.tampere.trevaka.InvoiceProperties
 import fi.tampere.trevaka.IpaasProperties
+import fi.tampere.trevaka.SummertimeAbsenceProperties
 import fi.tampere.trevaka.TrevakaProperties
 import fi.tampere.trevaka.invoice.config.InvoiceConfiguration
 import org.assertj.core.api.Assertions.assertThat
@@ -60,7 +61,8 @@ internal class TrevakaInvoiceClientTest {
     fun setup() {
         val properties = TrevakaProperties(
             IpaasProperties("user", "pass"),
-            InvoiceProperties("http://localhost:8080/salesOrder")
+            InvoiceProperties("http://localhost:8080/salesOrder"),
+            SummertimeAbsenceProperties()
         )
         val configuration = InvoiceConfiguration()
         val webServiceTemplate = configuration.webServiceTemplate(configuration.httpClient(properties), properties)

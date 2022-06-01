@@ -5,7 +5,6 @@
 package fi.tampere.trevaka
 
 import fi.espoo.evaka.BucketEnv
-import fi.espoo.evaka.invoicing.service.DefaultInvoiceGenerationLogic
 import fi.espoo.evaka.s3.DocumentService
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
@@ -34,8 +33,4 @@ class TampereConfig {
 
     @Bean
     fun actionRuleMapping(): ActionRuleMapping = TampereActionRuleMapping()
-
-    @Bean
-    fun invoiceGenerationLogicChooser() = DefaultInvoiceGenerationLogic // TODO: implement
-
 }
