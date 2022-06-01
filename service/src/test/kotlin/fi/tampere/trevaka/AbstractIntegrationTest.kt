@@ -24,7 +24,7 @@ import redis.clients.jedis.JedisPool
     classes = [IntegrationTestConfiguration::class]
 )
 @AutoConfigureWireMock(port = 0)
-abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean) {
+abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean = true) {
 
     @Autowired
     private lateinit var jdbi: Jdbi

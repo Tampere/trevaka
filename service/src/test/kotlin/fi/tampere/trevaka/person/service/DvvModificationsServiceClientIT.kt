@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
 
-internal class DvvModificationsServiceClientIT : AbstractIntegrationTest(resetDbBeforeEach = true) {
+internal class DvvModificationsServiceClientIT : AbstractIntegrationTest() {
 
     @Autowired
     lateinit var dvvModificationsServiceClient: DvvModificationsServiceClient

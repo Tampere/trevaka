@@ -11,7 +11,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
-internal class TrevakaInvoiceClientIT : AbstractIntegrationTest(resetDbBeforeEach = true) {
+internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
 
     @Autowired
     private lateinit var client: TrevakaInvoiceClient

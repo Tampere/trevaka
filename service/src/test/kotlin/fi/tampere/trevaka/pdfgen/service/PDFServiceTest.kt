@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.thymeleaf.context.Context
 
-internal class PDFServiceTest : AbstractIntegrationTest(resetDbBeforeEach = true) {
+internal class PDFServiceTest : AbstractIntegrationTest() {
 
     @Autowired
     private lateinit var pdfService: PDFService

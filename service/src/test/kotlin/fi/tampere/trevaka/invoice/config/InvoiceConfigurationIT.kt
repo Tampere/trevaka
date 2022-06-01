@@ -52,7 +52,7 @@ import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.UUID
 
-internal class InvoiceConfigurationIT : AbstractIntegrationTest(resetDbBeforeEach = true) {
+internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
 
     @Autowired
     private lateinit var generator: InvoiceGenerator

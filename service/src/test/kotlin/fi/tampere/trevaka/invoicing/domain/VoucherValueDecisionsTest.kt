@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.math.BigDecimal
 import java.time.LocalDate
 
-internal class VoucherValueDecisionsTest : AbstractIntegrationTest(resetDbBeforeEach = true) {
+internal class VoucherValueDecisionsTest : AbstractIntegrationTest() {
 
     @Autowired
     private lateinit var jdbi: Jdbi

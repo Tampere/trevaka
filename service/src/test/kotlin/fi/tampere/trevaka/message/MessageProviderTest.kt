@@ -13,7 +13,7 @@ import org.reflections.ReflectionUtils.*
 import org.springframework.beans.factory.annotation.Autowired
 import java.lang.reflect.Method
 
-internal class MessageProviderTest : AbstractIntegrationTest(resetDbBeforeEach = true) {
+internal class MessageProviderTest : AbstractIntegrationTest() {
 
     @Autowired
     private lateinit var messageProvider: IMessageProvider
