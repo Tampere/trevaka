@@ -212,7 +212,7 @@ fun Database.Read.hasFreeSummerAbsence(childId: ChildId, year: Int): Boolean {
             FROM holiday_period_questionnaire hpq
             WHERE
                 hpq.absence_type = 'FREE_ABSENCE'
-                AND date_part('year', upper(hpq.active)) = :year
+                AND date_part('year', upper(hpq.active) - interval '1 day') = :year
                 AND EXISTS(
                     SELECT count(a.id), period
                     FROM
@@ -232,7 +232,7 @@ fun Database.Read.hasFreeSummerAbsence(childId: ChildId, year: Int): Boolean {
                         FROM
                             placement pl
                             JOIN daycare dc ON dc.id = pl.unit_id,
-                            generate_series(lower(period), upper(period), interval '1 day') period_date
+                            generate_series(lower(period), upper(period) - interval '1 day', interval '1 day') period_date
                         WHERE
                         pl.child_id = :childId
                         AND period_date NOT IN (SELECT h.date FROM holiday h)
