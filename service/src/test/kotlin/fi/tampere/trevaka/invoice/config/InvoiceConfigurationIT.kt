@@ -45,14 +45,14 @@ import fi.espoo.evaka.user.EvakaUser
 import fi.espoo.evaka.user.EvakaUserType
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.UUID
 
-internal class InvoiceConfigurationIT : AbstractIntegrationTest(resetDbBeforeEach = false) {
+internal class InvoiceConfigurationIT : AbstractIntegrationTest(resetDbBeforeEach = true) {
 
     @Autowired
     private lateinit var generator: InvoiceGenerator
@@ -61,7 +61,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest(resetDbBeforeEac
     private final val evakaUserId = EvakaUserId(UUID.randomUUID())
     private final val placementPeriod = DateRange(LocalDate.of(2021, 8, 31), LocalDate.of(2022, 8, 31))
 
-    @BeforeAll
+    @BeforeEach
     fun insertBaseData() {
         db.transaction { tx ->
             tx.createUpdate(
