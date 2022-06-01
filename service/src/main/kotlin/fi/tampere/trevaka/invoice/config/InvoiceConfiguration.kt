@@ -193,10 +193,9 @@ class TampereInvoiceGeneratorLogicChooser(
 ) : InvoiceGenerationLogicChooser {
 
     override fun logicForMonth(tx: Database.Read, year: Int, month: Month, childId: ChildId): InvoiceGenerationLogic {
-        val hasFreeSummerAbsence = tx.hasFreeSummerAbsence(childId, year)
         return when {
-            hasFreeSummerAbsence && month == summertimeAbsenceProperties.freeMonth -> InvoiceGenerationLogic.Free
-            hasFreeSummerAbsence && month == summertimeAbsenceProperties.ignoreAbsencesMonth -> InvoiceGenerationLogic.IgnoreAbsences
+            month == summertimeAbsenceProperties.freeMonth && tx.hasFreeSummerAbsence(childId, year) -> InvoiceGenerationLogic.Free
+            month == summertimeAbsenceProperties.ignoreAbsencesMonth && tx.hasFreeSummerAbsence(childId, year) -> InvoiceGenerationLogic.IgnoreAbsences
             else -> InvoiceGenerationLogic.Default
         }
     }
