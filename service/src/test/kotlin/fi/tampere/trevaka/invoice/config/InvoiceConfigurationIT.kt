@@ -22,6 +22,7 @@ import fi.espoo.evaka.serviceneed.ServiceNeedOption
 import fi.espoo.evaka.shared.AreaId
 import fi.espoo.evaka.shared.ChildId
 import fi.espoo.evaka.shared.DaycareId
+import fi.espoo.evaka.shared.EvakaUserId
 import fi.espoo.evaka.shared.FeeDecisionId
 import fi.espoo.evaka.shared.ParentshipId
 import fi.espoo.evaka.shared.PersonId
@@ -31,6 +32,7 @@ import fi.espoo.evaka.shared.dev.DevChild
 import fi.espoo.evaka.shared.dev.DevDaycare
 import fi.espoo.evaka.shared.dev.DevParentship
 import fi.espoo.evaka.shared.dev.DevPerson
+import fi.espoo.evaka.shared.dev.insertEvakaUser
 import fi.espoo.evaka.shared.dev.insertTestChild
 import fi.espoo.evaka.shared.dev.insertTestDaycare
 import fi.espoo.evaka.shared.dev.insertTestFeeThresholds
@@ -39,6 +41,8 @@ import fi.espoo.evaka.shared.dev.insertTestPerson
 import fi.espoo.evaka.shared.dev.insertTestPlacement
 import fi.espoo.evaka.shared.domain.DateRange
 import fi.espoo.evaka.shared.security.PilotFeature
+import fi.espoo.evaka.user.EvakaUser
+import fi.espoo.evaka.user.EvakaUserType
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
@@ -53,7 +57,8 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest(resetDbBeforeEac
     @Autowired
     private lateinit var generator: InvoiceGenerator
 
-    private final val questionnaireId = "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"
+    private final val questionnaireId = UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11")
+    private final val evakaUserId = EvakaUserId(UUID.randomUUID())
     private final val placementPeriod = DateRange(LocalDate.of(2021, 8, 31), LocalDate.of(2022, 8, 31))
 
     @BeforeAll
@@ -62,9 +67,9 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest(resetDbBeforeEac
             tx.createUpdate(
                 """
                 INSERT INTO holiday_period_questionnaire(id, type, absence_type, requires_strong_auth, active, title, description, description_link, condition_continuous_placement, period_options, period_option_label)
-                VALUES (${questionnaireId}, 'FIXED_PERIOD', 'FREE_ABSENCE', false, daterange('2022-04-13', '2022-04-29'), '{"fi": "title"}', '{"fi": "description"}', '{"fi": "link"}', daterange('2021-08-31', '2022-06-30'), array[daterange('2022-06-06', '2022-07-31', '[]'), daterange('2022-06-13', '2022-08-07', '[]'), daterange('2022-06-20', '2022-08-14', '[]'), daterange('2022-06-27', '2022-08-21', '[]'), daterange('2022-07-04', '2022-08-28', '[]')], '{"fi": "period option label"}')
+                VALUES (:questionnaireId, 'FIXED_PERIOD', 'FREE_ABSENCE', false, daterange('2022-04-13', '2022-04-29'), '{"fi": "title"}', '{"fi": "description"}', '{"fi": "link"}', daterange('2021-08-31', '2022-06-30'), array[daterange('2022-06-06', '2022-07-31', '[]'), daterange('2022-06-13', '2022-08-07', '[]'), daterange('2022-06-20', '2022-08-14', '[]'), daterange('2022-06-27', '2022-08-21', '[]'), daterange('2022-07-04', '2022-08-28', '[]')], '{"fi": "period option label"}')
                 """
-            )
+            ).bind("questionnaireId", questionnaireId).execute()
             tx.insertTestFeeThresholds(
                 FeeThresholds(
                     validDuring = DateRange(LocalDate.of(2000, 1, 1), null),
@@ -99,6 +104,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest(resetDbBeforeEac
             tx.insertTestChild(DevChild(testChild.id))
             tx.insertTestPerson(testAdult)
             tx.insertTestParentship(testParentship)
+            tx.insertEvakaUser(EvakaUser(evakaUserId, "integration-test", EvakaUserType.UNKNOWN))
         }
         val decisions = listOf(
             createFeeDecisionFixture(
@@ -130,9 +136,10 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest(resetDbBeforeEac
             tx.createUpdate(
             """
                 INSERT INTO absence(child_id, date, absence_type, modified_by, category, questionnaire_id)
-                VALUES (${testChild.id}, generate_series('2022-06-06', '2022-07-31', interval '1 day')::date, 'FREE_ABSENCE', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12', 'BILLABLE', ${questionnaireId}) 
+                VALUES (:childId, generate_series('2022-06-06', '2022-07-31', interval '1 day')::date, 'FREE_ABSENCE', :evakaUserId, 'BILLABLE', :questionnaireId)
                 """
-            )
+            ).bind("childId", testChild.id).bind("evakaUserId", evakaUserId).bind("questionnaireId", questionnaireId)
+                .execute()
         }
 
         val june = DateRange(LocalDate.of(2022, 6, 1), LocalDate.of(2022, 6, 30))
