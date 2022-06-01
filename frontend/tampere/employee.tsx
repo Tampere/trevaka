@@ -233,7 +233,7 @@ const customizations: EmployeeCustomizations = {
     src: TampereLogo,
     alt: 'Tampere logo'
   },
-  featureFlags,
+  featureFlags: { ...featureFlags, preschoolEnabled: true },
   absenceTypes: [
     'OTHER_ABSENCE',
     'SICKLEAVE',
