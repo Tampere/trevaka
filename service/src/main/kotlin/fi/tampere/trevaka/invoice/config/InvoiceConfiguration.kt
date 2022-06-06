@@ -8,10 +8,15 @@ import fi.espoo.evaka.invoicing.domain.FeeAlteration
 import fi.espoo.evaka.invoicing.domain.IncomeType
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.espoo.evaka.invoicing.service.IncomeTypesProvider
+import fi.espoo.evaka.invoicing.service.InvoiceGenerationLogic
+import fi.espoo.evaka.invoicing.service.InvoiceGenerationLogicChooser
 import fi.espoo.evaka.invoicing.service.InvoiceProductProvider
 import fi.espoo.evaka.invoicing.service.ProductKey
 import fi.espoo.evaka.invoicing.service.ProductWithName
 import fi.espoo.evaka.placement.PlacementType
+import fi.espoo.evaka.shared.ChildId
+import fi.espoo.evaka.shared.db.Database
+import fi.tampere.trevaka.SummertimeAbsenceProperties
 import fi.tampere.trevaka.TrevakaProperties
 import fi.tampere.trevaka.invoice.service.TrevakaInvoiceClient
 import fi.tampere.trevaka.util.basicAuthInterceptor
@@ -28,6 +33,7 @@ import org.springframework.ws.soap.SoapVersion
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory
 import org.springframework.ws.transport.http.HttpComponentsMessageSender
 import org.springframework.ws.transport.http.HttpComponentsMessageSender.RemoveSoapHeadersInterceptor
+import java.time.Month
 
 const val WEB_SERVICE_TEMPLATE_INVOICE = "webServiceTemplateInvoice"
 const val HTTP_CLIENT_INVOICE = "httpClientInvoice"
@@ -80,6 +86,8 @@ class InvoiceConfiguration {
     @Bean
     fun invoiceProductProvider(): InvoiceProductProvider = TampereInvoiceProductProvider()
 
+    @Bean
+    fun invoiceGenerationLogicChooser(properties: TrevakaProperties) : InvoiceGenerationLogicChooser = TampereInvoiceGeneratorLogicChooser(properties.summertimeAbsenceProperties)
 }
 
 class TampereIncomeTypesProvider : IncomeTypesProvider {
@@ -178,4 +186,65 @@ enum class Product(val nameFi: String, val code: String) {
     UNANNOUNCED_ABSENCE("Ilmoittamaton päivystysajan poissaolo", "507292");
 
     val key = ProductKey(this.name)
+}
+
+class TampereInvoiceGeneratorLogicChooser(
+    private val summertimeAbsenceProperties: SummertimeAbsenceProperties
+) : InvoiceGenerationLogicChooser {
+
+    override fun logicForMonth(tx: Database.Read, year: Int, month: Month, childId: ChildId): InvoiceGenerationLogic {
+        return when {
+            month == summertimeAbsenceProperties.freeMonth && tx.hasFreeSummerAbsence(childId, year) -> InvoiceGenerationLogic.Free
+            month == summertimeAbsenceProperties.ignoreAbsencesMonth && tx.hasFreeSummerAbsence(childId, year) -> InvoiceGenerationLogic.IgnoreAbsences
+            else -> InvoiceGenerationLogic.Default
+        }
+    }
+
+}
+
+fun Database.Read.hasFreeSummerAbsence(childId: ChildId, year: Int): Boolean {
+    // language=SQL
+    val sql =
+        """
+        SELECT EXISTS(
+            SELECT 1
+            FROM holiday_period_questionnaire hpq
+            WHERE
+                hpq.absence_type = 'FREE_ABSENCE'
+                AND date_part('year', upper(hpq.active) - interval '1 day') = :year
+                AND EXISTS(
+                    SELECT count(a.id), period
+                    FROM
+                        absence a
+                        JOIN placement pl ON pl.child_id = a.child_id AND daterange(pl.start_date, pl.end_date, '[]') @> a.date
+                        JOIN daycare dc ON dc.id = pl.unit_id,
+                        unnest(hpq.period_options) period
+                    WHERE
+                        a.absence_type = 'FREE_ABSENCE'
+                        AND a.child_id = :childId
+                        AND period @> a.date
+                        AND a.date NOT IN (SELECT h.date FROM holiday h)
+                        AND date_part('isodow', a.date) = ANY(dc.operation_days)
+                    GROUP BY period
+                    HAVING count(a.id) >= (
+                        SELECT count(*)
+                        FROM
+                            placement pl
+                            JOIN daycare dc ON dc.id = pl.unit_id,
+                            generate_series(lower(period), upper(period) - interval '1 day', interval '1 day') period_date
+                        WHERE
+                        pl.child_id = :childId
+                        AND period_date NOT IN (SELECT h.date FROM holiday h)
+                        AND daterange(pl.start_date, pl.end_date, '[]') @> period_date::date
+                        AND date_part('isodow', period_date) = ANY(dc.operation_days)
+                    )
+                )
+        )
+        """.trimIndent()
+
+    return createQuery(sql)
+        .bind("year", year)
+        .bind("childId", childId)
+        .mapTo(Boolean::class.java)
+        .one()
 }

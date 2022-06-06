@@ -6,6 +6,7 @@ package fi.tampere.trevaka
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
+import java.time.Month
 
 /**
  * All trevaka-specific configuration properties.
@@ -15,11 +16,12 @@ import org.springframework.boot.context.properties.ConstructorBinding
 data class TrevakaProperties(
     val ipaas: IpaasProperties,
     val invoice: InvoiceProperties,
+    val summertimeAbsenceProperties: SummertimeAbsenceProperties = SummertimeAbsenceProperties()
 )
 
 data class IpaasProperties(
     val username: String,
-    val password: String,
+    val password: String
 )
 
 data class InvoiceProperties(
@@ -31,4 +33,9 @@ data class InvoiceProperties(
     val salesOrderType: String = "ZPH",
     val interfaceID: String = "352",
     val plant: String = "1310"
+)
+
+data class SummertimeAbsenceProperties(
+    val freeMonth: Month = Month.JUNE,
+    val ignoreAbsencesMonth: Month = Month.AUGUST
 )
