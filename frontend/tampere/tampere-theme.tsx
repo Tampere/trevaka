@@ -46,7 +46,8 @@ const theme: Theme = {
       a10powder: '#CAD6E2'
     },
     absences: {
-      PLANNED_ABSENCE: '#3C6100'
+      PLANNED_ABSENCE: '#3C6100',
+      UNAUTHORIZED_ABSENCE: '#4676BE'
     }
   },
   typography: {
