@@ -241,7 +241,8 @@ const customizations: EmployeeCustomizations = {
     'PLANNED_ABSENCE',
     'PARENTLEAVE',
     'FORCE_MAJEURE',
-    'FREE_ABSENCE'
+    'FREE_ABSENCE',
+    'UNAUTHORIZED_ABSENCE'
   ],
   assistanceMeasures: [],
   placementTypes: [
