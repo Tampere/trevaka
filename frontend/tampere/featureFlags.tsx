@@ -21,7 +21,6 @@ const featureFlags: FeatureFlags = {
   assistanceActionOtherEnabled: false,
   experimental: {
     messageAttachments: true,
-    realtimeStaffAttendance: true,
     personalDetailsPage: true,
     mobileMessages: true
   },
