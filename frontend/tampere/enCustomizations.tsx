@@ -330,7 +330,7 @@ const en: DeepPartial<Translations> = {
     cityLabel: '© City of Tampere',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://www.tampere.fi/tietosuoja"
+        href="https://www.tampere.fi/tietosuojaselosteet"
         text="Privacy Notices"
         newTab={true}
         data-qa="footer-policy-link"
