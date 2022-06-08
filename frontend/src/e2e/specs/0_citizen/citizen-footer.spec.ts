@@ -26,7 +26,7 @@ describe('Citizen footer', () => {
   test('Tampere policy link', async () => {
     await waitUntilEqual(
       () => page.find('[data-qa="footer-policy-link"]').getAttribute('href'),
-      'https://www.tampere.fi/tietosuoja'
+      'https://www.tampere.fi/tietosuojaselosteet'
     )
   })
   test('Tampere feedback link', async () => {
