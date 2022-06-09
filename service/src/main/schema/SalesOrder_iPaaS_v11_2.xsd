@@ -2,7 +2,9 @@
 <!-- 5.12.2017	v11.1 / MKa	PriceCondition enumeration otettu pois, lisäksi RowAmount ja UnitPrice täsmennykset pois -->	
 <!-- 27.03.2018	v11.2 / MKa	Description kentän pidennys 30 -> 40 mrk ja uusi P1String0-40Type -->	
 <!-- 25.05.2020 v12 /MKa	Tiliöintiviite (AccountingReference), Työmaan tunnus (SiteKey), Sopimusnumero (AgreementNumber), Hansel-ID (HanselID) -> ei pakollisia tietoja -> minOccurs="0" -->
-
+<!-- 03.03.2022 v13 / MKa	Lisätty CustomerMaterial ja Batch Inworks liittymän aputaulun käsittelyä varten -->
+<!-- 6.4.2022   v14 / kjo	Lisätty SDTaxCode -->
+<!-- 14.4.2022  V15 / kjo	SSN lisätty minoccurs=0 -->
 
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tampere.fi/messages/sapsd/salesorder/v11.2" xmlns="http://www.tampere.fi/messages/sapsd/salesorder/v11.2">
 	<xsd:annotation>
@@ -87,6 +89,9 @@
 				<xsd:element ref="InternalOrder" minOccurs="0" />
 				<xsd:element ref="FunctionalArea" minOccurs="0" />
 				<xsd:element ref="Material" minOccurs="0" />
+				<xsd:element ref="CustomerMaterial" minOccurs="0"/>
+				<xsd:element ref="Batch" minOccurs="0"/>
+				<xsd:element ref="SDTaxCode" minOccurs="0"/>
 				<xsd:element ref="RowAmount" minOccurs="0"/>
 				<xsd:element ref="PriceCondition" minOccurs="0" />
 				<xsd:element ref="UnitPrice" minOccurs="0" />
@@ -184,7 +189,7 @@
 	<xsd:element name="Person">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="SSN" />
+				<xsd:element ref="SSN" minOccurs="0" />
 				<xsd:element ref="PersonName" />
 			</xsd:sequence>
 		</xsd:complexType>
@@ -267,6 +272,11 @@
 	<xsd:simpleType name="P1String0-30Type">
 		<xsd:restriction base="xsd:string">
 			<xsd:maxLength value="30" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="P1String0-22Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="22"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1String0-35Type">
@@ -457,6 +467,7 @@
 	<xsd:element name="ProfitCenter" type="P1String0-10Type" />
 	<xsd:element name="FunctionalArea" type="P1String0-4Type" />
 	<xsd:element name="Material" type="P1String0-18Type" />
+	<xsd:element name="CustomerMaterial" type="P1String0-22Type"/>
 	<xsd:element name="SalesOffice" type="P1String0-4Type">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -472,6 +483,8 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Quantity" type="P1DecimalType" />
+	<xsd:element name="Batch" type="P1DecimalType"/>
+	<xsd:element name="SDTaxCode" type="P1String0-2Type"/>
 	<xsd:element name="UnitPrice" />
 	<xsd:element name="UnitOfMeasure" type="P1String0-3Type" />
 	<xsd:element name="Letter" type="P1String0-7Type" />
