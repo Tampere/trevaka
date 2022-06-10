@@ -217,7 +217,6 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
         validPlacementType = PlacementType.DAYCARE,
         defaultOption = false,
         feeCoefficient = BigDecimal("1.00"),
-        voucherValueCoefficient = BigDecimal("1.0"),
         occupancyCoefficient = BigDecimal("1.00"),
         occupancyCoefficientUnder3y = BigDecimal("1.75"),
         daycareHoursPerWeek = 35,
