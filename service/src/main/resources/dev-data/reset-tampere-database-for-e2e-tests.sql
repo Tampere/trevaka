@@ -14,10 +14,10 @@ EXECUTE (
         'assistance_action_option',
         'assistance_basis_option',
         'care_area',
+        'service_need_option_voucher_value',
         'service_need_option',
         'club_term',
-        'preschool_term',
-        'voucher_value'
+        'preschool_term'
     )
 );
 EXECUTE (
