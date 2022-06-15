@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
 import redis.clients.jedis.JedisPool
+import java.util.function.Function
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(
@@ -68,5 +69,8 @@ abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean = 
     protected fun afterAll() {
         db.close()
     }
+
+    protected fun <T> runInTransaction(function: Function<Database.Transaction, T>) =
+        Database(jdbi).connect { dbc -> dbc.transaction { tx -> function.apply(tx) } }
 
 }

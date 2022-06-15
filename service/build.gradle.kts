@@ -27,6 +27,7 @@ dependencies {
     implementation("org.apache.httpcomponents:httpclient")
     implementation("com.github.kittinunf.fuel:fuel")
     implementation("org.jdbi:jdbi3-core")
+    implementation("org.jdbi:jdbi3-kotlin")
     implementation("software.amazon.awssdk:s3")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -40,6 +41,7 @@ dependencies {
     testImplementation("com.auth0:java-jwt")
     testImplementation("org.thymeleaf:thymeleaf")
     testImplementation("com.networknt:json-schema-validator:1.0.70")
+    testImplementation("org.skyscreamer:jsonassert")
 }
 
 springBoot {
