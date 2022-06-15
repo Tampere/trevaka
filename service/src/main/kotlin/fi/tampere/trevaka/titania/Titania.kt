@@ -5,10 +5,13 @@
 package fi.tampere.trevaka.titania
 
 import com.fasterxml.jackson.annotation.JsonFormat
+import com.fasterxml.jackson.annotation.JsonProperty
+import fi.espoo.evaka.shared.domain.FiniteDateRange
+import org.springframework.http.HttpStatus
 import java.time.LocalDate
 import java.time.LocalTime
 
-// from updateWorkingTimeEvents.wsdl, version 1.2 25.8.2020
+// from updateWorkingTimeEvents.wsdl, version 1.2 25.8.2020 & getStampedWorkingTimeEvents.wsdl, version 1.1 14.8.2020
 
 data class TitaniaCode(
     val code: String,
@@ -25,7 +28,14 @@ data class TitaniaPeriod(
     val beginDate: LocalDate,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
     val endDate: LocalDate,
-)
+) {
+    fun toDateRange() = FiniteDateRange(beginDate, endDate)
+
+    companion object {
+        fun from(range: FiniteDateRange) = TitaniaPeriod(range.start, range.end)
+        fun from(date: LocalDate) = TitaniaPeriod(date, date)
+    }
+}
 
 enum class TitaniaPayrollItemType {
     /** Edelliseltä jaksolta siirtyvää */
@@ -117,4 +127,79 @@ data class UpdateWorkingTimeEventsResponse(
     companion object {
         fun ok() = UpdateWorkingTimeEventsResponse("OK")
     }
+}
+
+data class GetStampedWorkingTimeEventsRequest(
+    val organisation: TitaniaCode? = null,
+    val period: TitaniaPeriod,
+    val schedulingUnit: List<TitaniaStampedUnitRequest>,
+)
+
+data class TitaniaStampedUnitRequest(
+    val code: String,
+    val name: String? = null,
+    val person: List<TitaniaStampedPersonRequest>,
+)
+
+// also includes ssn, but we cannot use it so just drop it
+data class TitaniaStampedPersonRequest(
+    val employeeId: String, // optional in the schema, but required for us
+    val name: String? = null,
+)
+
+data class GetStampedWorkingTimeEventsResponse(
+    val schedulingUnit: List<TitaniaStampedUnitResponse>,
+)
+
+data class TitaniaStampedUnitResponse(
+    val code: String,
+    val name: String? = null,
+    val person: List<TitaniaStampedPersonResponse>,
+)
+
+// also includes ssn, but we cannot use it so just drop it
+data class TitaniaStampedPersonResponse(
+    val employeeId: String, // optional in the schema, but required for us
+    val name: String,
+    val stampedWorkingTimeEvents: TitaniaStampedWorkingTimeEvents,
+)
+
+data class TitaniaStampedWorkingTimeEvents(
+    val event: List<TitaniaStampedWorkingTimeEvent>,
+)
+
+data class TitaniaStampedWorkingTimeEvent(
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
+    val date: LocalDate,
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HHmm")
+    val beginTime: LocalTime? = null,
+    val beginReasonCode: String? = null,
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HHmm")
+    val endTime: LocalTime? = null,
+    val endReasonCode: String? = null,
+)
+
+data class TitaniaException(val status: HttpStatus, val detail: List<TitaniaErrorDetail>) : RuntimeException() {
+
+    constructor(detail: TitaniaErrorDetail) : this(detail.errorcode.status, listOf(detail))
+
+    override val message: String?
+        get() = detail.joinToString { it.message }
+}
+
+data class TitaniaErrorDetail(val errorcode: TitaniaError, val message: String)
+
+data class TitaniaErrorResponse(
+    val faultcode: String = "Server",
+    val faultstring: String = "multiple",
+    val faultactor: String,
+    val detail: List<TitaniaErrorDetail>
+)
+
+enum class TitaniaError(val status: HttpStatus) {
+    @JsonProperty("101")
+    UNKNOWN_EMPLOYEE_NUMBER(HttpStatus.BAD_REQUEST),
+
+    @JsonProperty("102")
+    EVENT_DATE_OUT_OF_PERIOD(HttpStatus.BAD_REQUEST),
 }
