@@ -50,7 +50,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
         assertThat(response1.inserted).containsExactlyInAnyOrder(
             StaffAttendancePlan(
                 employeeId = employeeId,
-                type = "A",
+                type = StaffAttendancePlan.Type.PRESENT,
                 HelsinkiDateTime.of(
                     LocalDate.of(2011, 1, 3),
                     LocalTime.of(7, 0)
