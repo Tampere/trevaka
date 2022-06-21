@@ -58,7 +58,7 @@ class TitaniaService {
                                 message = "Unknown employee number: $employeeNumber"
                             )
                         ),
-                        event.code,
+                        StaffAttendancePlan.Type.PRESENT,
                         HelsinkiDateTime.of(event.date, event.beginTime!!),
                         HelsinkiDateTime.of(event.date, event.endTime!!),
                         event.description

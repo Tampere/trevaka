@@ -9,8 +9,12 @@ import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 
 data class StaffAttendancePlan(
     val employeeId: EmployeeId,
-    val type: String?,
+    val type: Type,
     val startTime: HelsinkiDateTime,
     val endTime: HelsinkiDateTime,
     val description: String?,
-)
+) {
+    enum class Type {
+        PRESENT
+    }
+}

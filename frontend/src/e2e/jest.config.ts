@@ -12,7 +12,7 @@ const config: Config.InitialOptions = {
   moduleNameMapper: {
     '^e2e/(.*)$': '<rootDir>/$1',
     '^@evaka/customizations/(.*)': '<rootDir>/../../tampere/$1',
-    '^Icons$': '<rootDir>/../../../evaka/frontend/src/lib-icons/free-icons',
+    '^Icons$': '<rootDir>/../../../evaka/frontend/src/lib-icons/fontawesome.d.ts',
     '\.(jpg|jpeg|png|svg)$': '<rootDir>/../../../evaka/frontend/assetsTransformer.js'  
   }
 }
