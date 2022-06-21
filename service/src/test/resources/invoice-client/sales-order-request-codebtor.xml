@@ -26,8 +26,8 @@ SPDX-License-Identifier: LGPL-2.1-or-later
                 <ns3:Person>
                     <ns3:SSN>310382-956D</ns3:SSN>
                     <ns3:PersonName>
-                        <ns3:FirstNames>Meikäläinen Mikko</ns3:FirstNames>
-                        <ns3:SurName>Meikäläinen Maija</ns3:SurName>
+                        <ns3:FirstNames>Meikäläinen Maija</ns3:FirstNames>
+                        <ns3:SurName>Meikäläinen Mikko</ns3:SurName>
                     </ns3:PersonName>
                 </ns3:Person>
                 <ns3:Address>

@@ -120,8 +120,8 @@ class TrevakaInvoiceClient(
                     person = Person().apply {
                         ssn = headOfFamily.ssn
                         personName = PersonName().apply {
-                            firstNames = codebtor.name().take(maxNameLength)
-                            surName = headOfFamily.name().take(maxNameLength)
+                            firstNames = headOfFamily.name().take(maxNameLength)
+                            surName = codebtor.name().take(maxNameLength)
                         }
                     }
                     address = headOfFamily.address()
