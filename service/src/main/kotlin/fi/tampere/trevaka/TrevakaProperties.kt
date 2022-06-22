@@ -37,5 +37,4 @@ data class InvoiceProperties(
 
 data class SummertimeAbsenceProperties(
     val freeMonth: Month = Month.JUNE,
-    val ignoreAbsencesMonth: Month = Month.AUGUST
 )
