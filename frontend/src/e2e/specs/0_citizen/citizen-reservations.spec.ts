@@ -72,8 +72,8 @@ beforeEach(async () => {
                 uuidv4(),
                 child.id,
                 daycareFixture.id,
-                LocalDate.today().formatIso(),
-                LocalDate.today().addYears(1).formatIso()
+                LocalDate.todayInHelsinkiTz().formatIso(),
+                LocalDate.todayInHelsinkiTz().addYears(1).formatIso()
             )
         )
     )
@@ -88,7 +88,7 @@ beforeEach(async () => {
 
 describe('Citizen attendance reservations', () => {
     test('Open absence modal and check Tampere options', async () => {
-        const reservationDay = LocalDate.today().addDays(14)
+        const reservationDay = LocalDate.todayInHelsinkiTz().addDays(14)
 
         const dayView = await calendarPage.openDayView(reservationDay)
         await dayView.createAbsence()
