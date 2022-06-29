@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.presigner.S3Presigner
+import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 
 @Configuration
 class TampereConfig {
@@ -26,7 +27,12 @@ class TampereConfig {
         freeSickLeaveOnContractDays = true,
         freeAbsenceGivesADailyRefund = false,
         alwaysUseDaycareFinanceDecisionHandler = true,
+        invoiceNumberSeriesStart = 5000000000, // previously hardcoded value in use
+        paymentNumberSeriesStart = null, // Payments-feature not currently used in Tampere
     )
+
+    @Bean
+    fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()
 
     @Bean
     fun documentService(s3Client: S3Client, s3Presigner: S3Presigner, env: BucketEnv): DocumentService =

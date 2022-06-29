@@ -8,6 +8,8 @@ import fi.espoo.evaka.ExcludeCodeGen
 import fi.espoo.evaka.shared.async.AsyncJob
 import fi.espoo.evaka.shared.async.AsyncJobRunner
 import fi.espoo.evaka.shared.db.Database
+import fi.espoo.evaka.shared.domain.EvakaClock
+import fi.espoo.evaka.shared.domain.RealEvakaClock
 import fi.tampere.trevaka.database.resetTampereDatabaseForE2ETests
 import org.springframework.context.annotation.Profile
 import org.springframework.http.ResponseEntity
@@ -30,9 +32,9 @@ class TampereDevApi(
     }
 
     @PostMapping("/reset-tampere-db-for-e2e-tests")
-    fun resetTampereDatabaseForE2ETests(db: Database): ResponseEntity<Unit> {
+    fun resetTampereDatabaseForE2ETests(db: Database, clock: EvakaClock = RealEvakaClock()): ResponseEntity<Unit> {
         // Run async jobs before database reset to avoid database locks/deadlocks
-        asyncJobRunner.runPendingJobsSync()
+        asyncJobRunner.runPendingJobsSync(clock)
         asyncJobRunner.waitUntilNoRunningJobs(timeout = Duration.ofSeconds(20))
 
         db.connect { c -> c.transaction { tx -> tx.resetTampereDatabaseForE2ETests() } }
