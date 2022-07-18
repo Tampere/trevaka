@@ -554,8 +554,11 @@ const en: DeepPartial<Translations> = {
       <H2>Alternative ways of accessing the service</H2>
       <P>
         <strong>Early childhood and pre-primary education customer service</strong>
+        <br />
         email{' '}
-        <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi"></a>
+        <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">
+          varhaiskasvatus.asiakaspalvelu@tampere.fi
+        </a>
         <br />
         telephone <a href="tel:040 800 7260">040 800 7260</a>, calling hours Mon-Fri 9.00–12.00
       </P>
@@ -587,8 +590,8 @@ const en: DeepPartial<Translations> = {
         Accessibility Supervision Unit
         <br />
         <ExternalLink
-          href="https://www.saavutettavuusvaatimukset.fi"
-          text="www.saavutettavuusvaatimukset.fi"
+          href="https://www.webaccessibility.fi/"
+          text="https://www.webaccessibility.fi/"
         />
         <br />
         <a href="mailto:saavutettavuus@avi.fi">saavutettavuus@avi.fi</a>
