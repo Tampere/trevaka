@@ -480,10 +480,12 @@ const en: DeepPartial<Translations> = {
       <P>
         This accessibility statement applies to the City of Tampere’s early
         childhood education online service eVaka at{' '}
-        <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a>.
-        The City of Tampere endeavours to ensure the accessibility of the online
-        service, continuously improve the user experience and apply appropriate
-        accessibility standards.
+        <a href="https://varhaiskasvatus.tampere.fi">
+          varhaiskasvatus.tampere.fi
+        </a>
+        . The City of Tampere endeavours to ensure the accessibility of the
+        online service, continuously improve the user experience and apply
+        appropriate accessibility standards.
       </P>
       <P>
         The accessibility of the service was assessed by the development team of
@@ -553,14 +555,17 @@ const en: DeepPartial<Translations> = {
       </ul>
       <H2>Alternative ways of accessing the service</H2>
       <P>
-        <strong>Early childhood and pre-primary education customer service</strong>
+        <strong>
+          Early childhood and pre-primary education customer service
+        </strong>
         <br />
         email{' '}
         <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">
           varhaiskasvatus.asiakaspalvelu@tampere.fi
         </a>
         <br />
-        telephone <a href="tel:040 800 7260">040 800 7260</a>, calling hours Mon-Fri 9.00–12.00
+        telephone <a href="tel:040 800 7260">040 800 7260</a>, calling hours
+        Mon-Fri 9.00–12.00
       </P>
       <H2>Give feedback</H2>
       <P>
