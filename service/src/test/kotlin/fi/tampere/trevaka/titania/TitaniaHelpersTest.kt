@@ -5,6 +5,7 @@
 package fi.tampere.trevaka.titania
 
 import fi.espoo.evaka.attendance.RawAttendance
+import fi.espoo.evaka.attendance.StaffAttendanceType
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.GroupId
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
@@ -60,6 +61,7 @@ private val testAttendance = RawAttendance(
     departed = null,
     occupancyCoefficient = BigDecimal("1.21"),
     currentOccupancyCoefficient = null,
+    type = StaffAttendanceType.PRESENT,
     employeeId = EmployeeId(UUID.randomUUID()),
     firstName = "First",
     lastName = "Last"
