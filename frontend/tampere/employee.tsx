@@ -41,7 +41,8 @@ const customizations: EmployeeCustomizations = {
       },
       absences: {
         absenceCategories: {
-          NONBILLABLE: 'Ei laskuteta eVakasta',
+          NONBILLABLE:
+            'Ei laskuteta eVakasta (käytetään vain kerhotoiminnassa sekä koululaisen vuorohoidossa)',
           BILLABLE: 'Varhaiskasvatus'
         },
         absenceTypes: {
