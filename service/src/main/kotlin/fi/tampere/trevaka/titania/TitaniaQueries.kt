@@ -102,6 +102,7 @@ SELECT
     sa.departed,
     sa.group_id,
     sa.occupancy_coefficient,
+    sa.type,
     emp.first_name,
     emp.last_name,
     soc.coefficient AS currentOccupancyCoefficient
