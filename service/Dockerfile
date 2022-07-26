@@ -9,6 +9,7 @@ RUN apt-get update \
  && apt-get -y --no-install-recommends install \
        curl \
        openjdk-17-jre-headless \
+       jq \
  && rm -rf /var/lib/apt/lists/*
 
 ARG DD_JAVA_AGENT_VERSION="0.91.0"
