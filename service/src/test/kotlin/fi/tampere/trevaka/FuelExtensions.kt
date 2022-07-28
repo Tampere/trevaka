@@ -10,7 +10,6 @@ import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.fuel.core.extensions.jsonBody
 import fi.espoo.evaka.shared.auth.AuthenticatedUser
 import fi.espoo.evaka.shared.auth.applyToJwt
-import org.bouncycastle.util.encoders.Base64
 import org.springframework.core.io.Resource
 import org.springframework.util.StreamUtils
 import java.nio.charset.Charset
@@ -20,6 +19,7 @@ import java.security.interfaces.RSAPrivateCrtKey
 import java.security.spec.PKCS8EncodedKeySpec
 import java.time.Clock
 import java.time.ZonedDateTime
+import java.util.Base64
 import java.util.Date
 
 fun Request.jsonBody(resource: Resource, charset: Charset = StandardCharsets.UTF_8) =
@@ -72,6 +72,6 @@ private val algorithm: Algorithm by lazy {
 
 internal val jwtPrivateKey: RSAPrivateCrtKey by lazy {
     val kf = KeyFactory.getInstance("RSA")
-    val spec = PKCS8EncodedKeySpec(Base64.decode(privateKeyText))
+    val spec = PKCS8EncodedKeySpec(Base64.getMimeDecoder().decode(privateKeyText))
     kf.generatePrivate(spec) as RSAPrivateCrtKey
 }

@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.spring") version TrevakaServiceDeps.kotlin
     id("org.springframework.boot") version TrevakaServiceDeps.springBoot
     id("org.unbroken-dome.xjc") version TrevakaServiceDeps.xjc
-    id("com.gorylenko.gradle-git-properties") version "2.4.0"
+    id("com.gorylenko.gradle-git-properties") version "2.4.1"
 }
 
 repositories {
@@ -40,7 +40,7 @@ dependencies {
     testImplementation("redis.clients:jedis")
     testImplementation("com.auth0:java-jwt")
     testImplementation("org.thymeleaf:thymeleaf")
-    testImplementation("com.networknt:json-schema-validator:1.0.70")
+    testImplementation("com.networknt:json-schema-validator:1.0.72")
     testImplementation("org.skyscreamer:jsonassert")
 }
 
