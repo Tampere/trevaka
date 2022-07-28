@@ -10,7 +10,8 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.junitpioneer.jupiter.CartesianProductTest
+import org.junitpioneer.jupiter.cartesian.ArgumentSets
+import org.junitpioneer.jupiter.cartesian.CartesianTest
 import org.reflections.ReflectionUtils.*
 import org.springframework.beans.factory.annotation.Autowired
 import java.lang.reflect.InvocationTargetException
@@ -38,7 +39,8 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
             .doesNotContainIgnoringCase("esbo")
     }
 
-    @CartesianProductTest(factory = "getPreschoolMethods")
+    @CartesianTest
+    @CartesianTest.MethodFactory("getPreschoolMethods")
     fun getPreschoolMessagesThrowError(method: Method, withinApplicationPeriod: Boolean) {
         val exception = assertThrows<InvocationTargetException> {
             method.invoke(emailMessageProvider, withinApplicationPeriod)
@@ -49,15 +51,15 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
 
     companion object {
         @JvmStatic
-        fun getPreschoolMethods(): CartesianProductTest.Sets {
+        fun getPreschoolMethods(): ArgumentSets {
             val preschoolMethods = getAllMethods(
                     IEmailMessageProvider::class.java,
                     withPrefix("getPreschool"),
                     withParametersAssignableTo(Boolean::class.java),
                     withReturnType(String::class.java))
-            return CartesianProductTest.Sets()
-                    .addAll(preschoolMethods)
-                    .add(true, false)
+            return ArgumentSets.create()
+                .argumentsForNextParameter(preschoolMethods)
+                .argumentsForNextParameter(true, false)
         }
     }
 }
