@@ -40,7 +40,7 @@ dependencies {
     testImplementation("redis.clients:jedis")
     testImplementation("com.auth0:java-jwt")
     testImplementation("org.thymeleaf:thymeleaf")
-    testImplementation("com.networknt:json-schema-validator:1.0.70")
+    testImplementation("com.networknt:json-schema-validator:1.0.72")
     testImplementation("org.skyscreamer:jsonassert")
 }
 
