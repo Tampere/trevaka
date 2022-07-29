@@ -22,7 +22,8 @@ const featureFlags: FeatureFlags = {
   experimental: {
     messageAttachments: true,
     personalDetailsPage: true,
-    mobileMessages: true
+    mobileMessages: true,
+    assistanceNeedDecisions: true
   },
   adminSettingsEnabled: true
 }
