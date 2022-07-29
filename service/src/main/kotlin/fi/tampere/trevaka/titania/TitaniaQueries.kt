@@ -105,7 +105,13 @@ SELECT
     sa.type,
     emp.first_name,
     emp.last_name,
-    soc.coefficient AS currentOccupancyCoefficient
+    soc.coefficient AS currentOccupancyCoefficient,
+    EXISTS(
+        SELECT 1 FROM staff_attendance_realtime osar
+        JOIN daycare_group odg on osar.group_id = odg.id
+        WHERE osar.employee_id = sa.employee_id
+          AND tstzrange(:start, :end) << tstzrange(osar.arrived, osar.departed)
+    ) AS has_future_attendances
 FROM staff_attendance_realtime sa
 JOIN daycare_group dg on sa.group_id = dg.id
 JOIN employee emp ON sa.employee_id = emp.id
