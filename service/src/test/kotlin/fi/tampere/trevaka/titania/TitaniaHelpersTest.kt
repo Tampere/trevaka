@@ -64,5 +64,6 @@ private val testAttendance = RawAttendance(
     type = StaffAttendanceType.PRESENT,
     employeeId = EmployeeId(UUID.randomUUID()),
     firstName = "First",
-    lastName = "Last"
+    lastName = "Last",
+    hasFutureAttendances = false
 )
