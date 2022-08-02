@@ -19,7 +19,10 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
 import redis.clients.jedis.JedisPool
+import java.nio.file.Paths
 import java.util.function.Function
+
+val reportsPath: String = "${Paths.get("build").toAbsolutePath()}/reports"
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(

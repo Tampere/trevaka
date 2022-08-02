@@ -5,6 +5,9 @@
 package fi.tampere.trevaka.email
 
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
+import fi.espoo.evaka.shared.AssistanceNeedDecisionId
+import fi.espoo.evaka.shared.ChildId
+import fi.espoo.evaka.shared.DecisionId
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions
@@ -16,6 +19,7 @@ import org.reflections.ReflectionUtils.*
 import org.springframework.beans.factory.annotation.Autowired
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
+import java.util.UUID
 
 internal class EmailMessageProviderTest : AbstractIntegrationTest() {
 
@@ -30,6 +34,18 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
         assertNotContainEspooText(emailMessageProvider.getClubApplicationReceivedEmailHtml())
         assertNotContainEspooText(emailMessageProvider.getPendingDecisionEmailText())
         assertNotContainEspooText(emailMessageProvider.getPendingDecisionEmailHtml())
+        assertNotContainEspooText(
+            emailMessageProvider.getAssistanceNeedDecisionEmailText(
+                ChildId(UUID.randomUUID()),
+                AssistanceNeedDecisionId(UUID.randomUUID())
+            )
+        )
+        assertNotContainEspooText(
+            emailMessageProvider.getAssistanceNeedDecisionEmailHtml(
+                ChildId(UUID.randomUUID()),
+                AssistanceNeedDecisionId(UUID.randomUUID())
+            )
+        )
     }
 
     private fun assertNotContainEspooText(message: String) {

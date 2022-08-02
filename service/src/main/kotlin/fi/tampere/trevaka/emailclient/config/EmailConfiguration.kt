@@ -5,6 +5,8 @@
 package fi.tampere.trevaka.emailclient.config
 
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
+import fi.espoo.evaka.shared.AssistanceNeedDecisionId
+import fi.espoo.evaka.shared.ChildId
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
@@ -22,6 +24,7 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
     override val subjectForClubApplicationReceivedEmail: String = "Hakemus vastaanotettu"
     override val subjectForDaycareApplicationReceivedEmail: String = "Hakemus vastaanotettu"
     override val subjectForPreschoolApplicationReceivedEmail: String = ""
+    override val subjectForAssistanceNeedDecisionEmail: String = "Päätös tuen tarpeesta"
 
     override fun getPendingDecisionEmailHtml(): String {
         return """
@@ -177,4 +180,17 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
         throw Error("Preschool not in use!")
     }
 
+    override fun getAssistanceNeedDecisionEmailHtml(childId: ChildId, decisionId: AssistanceNeedDecisionId): String = """
+        <p>Hyvä(t) huoltaja(t),</p>
+        <p>Lapsellenne on tehty päätös tuen tarpeesta.</p>
+        <p>Päätös on nähtävissä eVakassa osoitteessa <a href="https://varhaiskasvatus.tampere.fi/children/$childId/assistance-need-decision/$decisionId">https://varhaiskasvatus.tampere.fi/children/$childId/assistance-need-decision/$decisionId</a>.</p>
+    """.trimIndent()
+
+    override fun getAssistanceNeedDecisionEmailText(childId: ChildId, decisionId: AssistanceNeedDecisionId): String = """
+        Hyvä(t) huoltaja(t),
+
+        Lapsellenne on tehty päätös tuen tarpeesta.
+
+        Päätös on nähtävissä eVakassa osoitteessa https://varhaiskasvatus.tampere.fi/children/$childId/assistance-need-decision/$decisionId.
+    """.trimIndent()
 }
