@@ -4,6 +4,7 @@
 
 package fi.tampere.trevaka.titania
 
+import fi.espoo.evaka.attendance.StaffAttendanceType
 import fi.espoo.evaka.pis.createEmployee
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.domain.FiniteDateRange
@@ -49,28 +50,28 @@ internal class TitaniaQueriesTest : AbstractIntegrationTest() {
                 listOf(
                     StaffAttendancePlan(
                         employeeId = employee1.id,
-                        type = StaffAttendancePlan.Type.PRESENT,
+                        type = StaffAttendanceType.PRESENT,
                         startTime = HelsinkiDateTime.of(LocalDate.of(2022, 5, 31), LocalTime.of(7, 32)),
                         endTime = HelsinkiDateTime.of(LocalDate.of(2022, 5, 31), LocalTime.of(14, 54)),
                         description = null,
                     ),
                     StaffAttendancePlan(
                         employeeId = employee2.id,
-                        type = StaffAttendancePlan.Type.PRESENT,
+                        type = StaffAttendanceType.PRESENT,
                         startTime = HelsinkiDateTime.of(LocalDate.of(2022, 5, 31), LocalTime.of(7, 32)),
                         endTime = HelsinkiDateTime.of(LocalDate.of(2022, 5, 31), LocalTime.of(14, 54)),
                         description = null,
                     ),
                     StaffAttendancePlan(
                         employeeId = employee2.id,
-                        type = StaffAttendancePlan.Type.PRESENT,
+                        type = StaffAttendanceType.PRESENT,
                         startTime = HelsinkiDateTime.of(LocalDate.of(2022, 6, 1), LocalTime.of(7, 32)),
                         endTime = HelsinkiDateTime.of(LocalDate.of(2022, 6, 1), LocalTime.of(14, 54)),
                         description = null,
                     ),
                     StaffAttendancePlan(
                         employeeId = employee3.id,
-                        type = StaffAttendancePlan.Type.PRESENT,
+                        type = StaffAttendanceType.PRESENT,
                         startTime = HelsinkiDateTime.of(LocalDate.of(2022, 5, 31), LocalTime.of(7, 32)),
                         endTime = HelsinkiDateTime.of(LocalDate.of(2022, 5, 31), LocalTime.of(14, 54)),
                         description = null,
@@ -160,7 +161,7 @@ internal class TitaniaQueriesTest : AbstractIntegrationTest() {
 
 private val testStaffAttendancePlan = StaffAttendancePlan(
     employeeId = EmployeeId(UUID.randomUUID()),
-    type = StaffAttendancePlan.Type.PRESENT,
+    type = StaffAttendanceType.PRESENT,
     startTime = HelsinkiDateTime.of(LocalDate.of(2022, 6, 7), LocalTime.of(8, 12)),
     endTime = HelsinkiDateTime.of(LocalDate.of(2022, 6, 7), LocalTime.of(15, 41)),
     description = null,

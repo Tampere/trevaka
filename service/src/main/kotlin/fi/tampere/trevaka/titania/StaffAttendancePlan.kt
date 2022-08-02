@@ -4,17 +4,14 @@
 
 package fi.tampere.trevaka.titania
 
+import fi.espoo.evaka.attendance.StaffAttendanceType
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 
 data class StaffAttendancePlan(
     val employeeId: EmployeeId,
-    val type: Type,
+    val type: StaffAttendanceType,
     val startTime: HelsinkiDateTime,
     val endTime: HelsinkiDateTime,
     val description: String?,
-) {
-    enum class Type {
-        PRESENT
-    }
-}
+)

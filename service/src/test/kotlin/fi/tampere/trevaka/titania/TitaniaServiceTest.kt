@@ -4,6 +4,7 @@
 
 package fi.tampere.trevaka.titania
 
+import fi.espoo.evaka.attendance.StaffAttendanceType
 import fi.espoo.evaka.pis.createEmployee
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
@@ -50,7 +51,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
         assertThat(response1.inserted).containsExactlyInAnyOrder(
             StaffAttendancePlan(
                 employeeId = employeeId,
-                type = StaffAttendancePlan.Type.PRESENT,
+                type = StaffAttendanceType.PRESENT,
                 HelsinkiDateTime.of(
                     LocalDate.of(2011, 1, 3),
                     LocalTime.of(7, 0)

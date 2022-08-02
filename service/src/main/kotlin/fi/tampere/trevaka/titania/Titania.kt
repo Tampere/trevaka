@@ -11,6 +11,31 @@ import org.springframework.http.HttpStatus
 import java.time.LocalDate
 import java.time.LocalTime
 
+// from Titania_Vakiotyöaikatapahtumakoodit_Julkinen.pdf v1.3
+
+internal val IGNORED_EVENT_CODES = listOf(
+    // Työrupeamat
+    "U", "(", "£", "&", "€",
+    // Vapaapäivät
+    "V", "L", ":", "/", ")", "%", "T", "!", "k", "Q", "q", "v", "+",
+    // Koulutukset
+    "K", "N", "n",
+    // Varallaolo ja hälytystyö
+    "1", "2", "3", "4", "5", "9", "8",
+    // Vuosilomat
+    "H", "h",
+    // Sairauslomat
+    "S", "s", "Z",
+    // Vanhempainvapaat
+    "7", "G", "g",
+    // Virkavapaat
+    "M", "m",
+    // Muut poissaolot
+    "t", "#", "l", "{", "\\", "[",
+    // Muut tapahtumat
+    ".", "*", "@", "<"
+)
+
 // from updateWorkingTimeEvents.wsdl, version 1.2 25.8.2020 & getStampedWorkingTimeEvents.wsdl, version 1.1 14.8.2020
 
 data class TitaniaCode(

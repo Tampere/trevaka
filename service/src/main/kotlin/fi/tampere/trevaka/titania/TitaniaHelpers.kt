@@ -5,6 +5,7 @@
 package fi.tampere.trevaka.titania
 
 import fi.espoo.evaka.attendance.RawAttendance
+import fi.espoo.evaka.attendance.StaffAttendanceType
 import fi.espoo.evaka.shared.domain.FiniteDateRange
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import java.time.LocalTime
@@ -24,4 +25,17 @@ internal fun splitOvernight(attendance: RawAttendance): Iterable<RawAttendance> 
             departed = if (date == departedDate) attendance.departed else HelsinkiDateTime.of(date, LocalTime.MAX)
         )
     }.toList()
+}
+
+/**
+ * Returns type as Titania reason code.
+ *
+ * From Titania_WS_Sanomakuvaus_HaeLeimaustiedot.pdf v1.1
+ */
+fun StaffAttendanceType.asTitaniaReasonCode(): String? = when (this) {
+    StaffAttendanceType.PRESENT -> null
+    StaffAttendanceType.OTHER_WORK -> "TA"
+    StaffAttendanceType.TRAINING -> "KO"
+    StaffAttendanceType.OVERTIME -> "YT"
+    StaffAttendanceType.JUSTIFIED_CHANGE -> "PM"
 }

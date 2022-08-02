@@ -4,6 +4,7 @@
 
 package fi.tampere.trevaka.titania
 
+import fi.espoo.evaka.attendance.StaffAttendanceType
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
@@ -41,6 +42,7 @@ class TitaniaService {
         val employeeNumberToId = tx.getEmployeeIdsByNumbers(employeeNumbers)
         val newPlans = persons.flatMap { (employeeNumber, events) ->
             events.event
+                .filter { event -> !IGNORED_EVENT_CODES.contains(event.code) }
                 .filter { event -> event.beginTime != null && event.endTime != null }
                 .map { event ->
                     if (!period.includes(event.date)) {
@@ -58,7 +60,7 @@ class TitaniaService {
                                 message = "Unknown employee number: $employeeNumber"
                             )
                         ),
-                        StaffAttendancePlan.Type.PRESENT,
+                        StaffAttendanceType.PRESENT,
                         HelsinkiDateTime.of(event.date, event.beginTime!!),
                         HelsinkiDateTime.of(event.date, event.endTime!!),
                         event.description
@@ -106,9 +108,9 @@ class TitaniaService {
                             TitaniaStampedWorkingTimeEvent(
                                 date = attendance.arrived.toLocalDate(),
                                 beginTime = attendance.arrived.toLocalTime(),
-                                beginReasonCode = null, // TODO: reason code
+                                beginReasonCode = attendance.type.asTitaniaReasonCode(),
                                 endTime = attendance.departed?.toLocalTime(),
-                                endReasonCode = null // TODO: reason code
+                                endReasonCode = attendance.type.asTitaniaReasonCode()
                             )
                         }
                     )
