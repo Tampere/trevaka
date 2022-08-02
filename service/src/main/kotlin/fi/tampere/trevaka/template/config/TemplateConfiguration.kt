@@ -29,4 +29,6 @@ internal class TrevakaTemplateProvider : ITemplateProvider {
 
     override fun getPreparatoryDecisionPath(): String =
         throw UnsupportedOperationException("Preparatory decision is not supported")
+
+    override fun getAssistanceNeedDecisionPath(): String = "assistance-need/decision"
 }

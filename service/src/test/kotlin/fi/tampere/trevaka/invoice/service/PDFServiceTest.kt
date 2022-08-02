@@ -38,6 +38,7 @@ import fi.espoo.evaka.shared.VoucherValueDecisionId
 import fi.espoo.evaka.shared.domain.DateRange
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.tampere.trevaka.AbstractIntegrationTest
+import fi.tampere.trevaka.reportsPath
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
@@ -45,11 +46,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.thymeleaf.context.Context
 import java.io.FileOutputStream
 import java.math.BigDecimal
-import java.nio.file.Paths
 import java.time.LocalDate
 import java.util.UUID
-
-private val reportsPath: String = "${Paths.get("build").toAbsolutePath()}/reports"
 
 private val settings = mapOf(
     SettingType.DECISION_MAKER_NAME to "Paula Palvelupäällikkö",
