@@ -18,7 +18,11 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
+import org.springframework.core.io.Resource
+import org.springframework.util.StreamUtils
 import redis.clients.jedis.JedisPool
+import java.nio.charset.Charset
+import java.nio.charset.StandardCharsets
 import java.nio.file.Paths
 import java.util.function.Function
 
@@ -77,3 +81,6 @@ abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean = 
         Database(jdbi).connect { dbc -> dbc.transaction { tx -> function.apply(tx) } }
 
 }
+
+fun resourceAsString(resource: Resource, charset: Charset = StandardCharsets.UTF_8) =
+    resource.inputStream.use { StreamUtils.copyToString(it, charset) }

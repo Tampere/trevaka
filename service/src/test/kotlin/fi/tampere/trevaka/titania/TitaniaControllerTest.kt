@@ -8,6 +8,7 @@ import fi.espoo.evaka.shared.auth.AuthenticatedUser
 import fi.tampere.trevaka.AbstractIntegrationTest
 import fi.tampere.trevaka.asUser
 import fi.tampere.trevaka.jsonBody
+import fi.tampere.trevaka.resourceAsString
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
@@ -118,6 +119,11 @@ internal class TitaniaControllerTest : AbstractIntegrationTest() {
             .response()
 
         assertThat(res).returns(200) { it.statusCode }
+        assertEquals(
+            resourceAsString(ClassPathResource("titania/titania-get-response-valid-example-data.json")),
+            res.body().asString("application/json"),
+            JSONCompareMode.STRICT
+        )
         verify(titaniaService).getStampedWorkingTimeEvents(any(), eq(titaniaGetRequestValidExampleData))
     }
 

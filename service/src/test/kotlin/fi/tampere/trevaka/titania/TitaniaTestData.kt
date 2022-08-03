@@ -126,6 +126,7 @@ internal val titaniaGetRequestValidExampleData = GetStampedWorkingTimeEventsRequ
     )
 )
 
+// titania/titania-get-response-valid-example-data.json
 internal val titaniaGetResponseValidExampleData = GetStampedWorkingTimeEventsResponse(
     schedulingUnit = listOf(
         TitaniaStampedUnitResponse(

@@ -11,7 +11,6 @@ import com.github.kittinunf.fuel.core.extensions.jsonBody
 import fi.espoo.evaka.shared.auth.AuthenticatedUser
 import fi.espoo.evaka.shared.auth.applyToJwt
 import org.springframework.core.io.Resource
-import org.springframework.util.StreamUtils
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.security.KeyFactory
@@ -23,7 +22,7 @@ import java.util.Base64
 import java.util.Date
 
 fun Request.jsonBody(resource: Resource, charset: Charset = StandardCharsets.UTF_8) =
-    jsonBody(resource.inputStream.use { StreamUtils.copyToString(it, charset) })
+    jsonBody(resourceAsString(resource, charset))
 
 fun Request.asUser(user: AuthenticatedUser, clock: Clock? = Clock.systemDefaultZone()): Request {
     val now = ZonedDateTime.now(clock)
