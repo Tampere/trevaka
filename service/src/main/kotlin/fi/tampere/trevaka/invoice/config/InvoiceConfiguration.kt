@@ -21,6 +21,7 @@ import fi.tampere.trevaka.TrevakaProperties
 import fi.tampere.trevaka.invoice.service.TrevakaInvoiceClient
 import fi.tampere.trevaka.util.basicAuthInterceptor
 import org.apache.http.client.HttpClient
+import org.apache.http.impl.NoConnectionReuseStrategy
 import org.apache.http.impl.client.HttpClientBuilder
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
@@ -78,6 +79,7 @@ class InvoiceConfiguration {
     fun httpClient(properties: TrevakaProperties) = HttpClientBuilder.create()
         .addInterceptorFirst(RemoveSoapHeadersInterceptor())
         .addInterceptorFirst(basicAuthInterceptor(properties.ipaas.username, properties.ipaas.password))
+        .setConnectionReuseStrategy(NoConnectionReuseStrategy.INSTANCE) // fix random "connection reset" errors
         .build()
 
     @Bean
