@@ -51,6 +51,12 @@ internal class TrevakaMessageProvider(val messageSource: MessageSource) : IMessa
     override fun getVoucherValueDecisionContent(lang: MessageLanguage): String =
         messageSource.getMessage("$PREFIX.VOUCHER_VALUE_DECISION_CONTENT", null, resolveLocale(lang))
 
+    override fun getAssistanceNeedDecisionHeader(lang: MessageLanguage): String =
+        messageSource.getMessage("$PREFIX.ASSISTANCE_NEED_DECISION_HEADER", null, resolveLocale(lang))
+
+    override fun getAssistanceNeedDecisionContent(lang: MessageLanguage): String =
+        messageSource.getMessage("$PREFIX.ASSISTANCE_NEED_DECISION_CONTENT", null, resolveLocale(lang))
+
     override fun getDefaultDecisionAddress(lang: MessageLanguage): DecisionSendAddress = when (lang) {
         MessageLanguage.FI -> DecisionSendAddress(
             street = "PL 487",
