@@ -36,7 +36,7 @@ class PersonConfiguration {
     fun httpClient(properties: TrevakaProperties) = HttpClientBuilder.create()
         .addInterceptorFirst(RemoveSoapHeadersInterceptor())
         .addInterceptorFirst(basicAuthInterceptor(properties.ipaas.username, properties.ipaas.password))
-        .setConnectionReuseStrategy(NoConnectionReuseStrategy.INSTANCE) // attempt to fix random "connection reset"
+        .setConnectionReuseStrategy(NoConnectionReuseStrategy.INSTANCE) // fix random "connection reset" errors
         .build()
 
     /**
