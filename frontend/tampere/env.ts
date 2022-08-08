@@ -5,12 +5,14 @@
 export type Env = 'staging' | 'prod'
 
 export const env = (): Env | 'default' => {
-  if (window.location.host === 'varhaiskasvatus.tampere.fi') {
-    return 'prod'
-  }
+  if (typeof window !== 'undefined') {
+    if (window.location.host === 'varhaiskasvatus.tampere.fi') {
+      return 'prod'
+    }
 
-  if (window.location.host === 'staging-varhaiskasvatus.tampere.fi') {
-    return 'staging'
+    if (window.location.host === 'staging-varhaiskasvatus.tampere.fi') {
+      return 'staging'
+    }
   }
 
   return 'default'
