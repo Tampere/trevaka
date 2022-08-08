@@ -53,7 +53,7 @@ const features: Features = {
       personalDetailsPage: true,
       mobileMessages: true,
       assistanceNeedDecisions: false,
-      staffAttendanceTypes: true
+      staffAttendanceTypes: false
     },
     adminSettingsEnabled: true
   },
@@ -73,7 +73,7 @@ const features: Features = {
       personalDetailsPage: true,
       mobileMessages: true,
       assistanceNeedDecisions: false,
-      staffAttendanceTypes: true
+      staffAttendanceTypes: false
     },
     adminSettingsEnabled: true
   }
