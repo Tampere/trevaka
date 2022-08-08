@@ -318,6 +318,10 @@ const fi: DeepPartial<Translations> = {
       </P>
     )
   },
+  childDocuments: {
+    description:
+      'Tälle sivulle julkaistaan lapsen varhaiskasvatussuunnitelma sekä kootaan lapsen kasvuun, oppimiseen ja päiväkotiarkeen liittyviä kuvia ja muita dokumentteja.'
+  },
   children: {
     pageDescription:
       'Tällä sivulla näet lastesi varhaiskasvatukseen liittyvät yleiset tiedot.'
