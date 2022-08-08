@@ -14,6 +14,7 @@ import fi.espoo.evaka.shared.AssistanceNeedDecisionId
 import fi.espoo.evaka.shared.ChildId
 import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.EmployeeId
+import fi.espoo.evaka.shared.domain.DateRange
 import fi.tampere.trevaka.AbstractIntegrationTest
 import fi.tampere.trevaka.reportsPath
 import org.junit.jupiter.api.Test
@@ -47,8 +48,7 @@ private val validAssistanceNeedDecision = AssistanceNeedDecision(
         name = "Matti Meikäläinen",
         dateOfBirth = LocalDate.of(2020, 1, 5)
     ),
-    startDate = LocalDate.of(2022, 8, 2),
-    endDate = LocalDate.of(2022, 12, 31),
+    validityPeriod = DateRange(LocalDate.of(2022, 8, 2), LocalDate.of(2022, 12, 31)),
     status = AssistanceNeedDecisionStatus.ACCEPTED,
     language = AssistanceNeedDecisionLanguage.FI,
     decisionMade = LocalDate.of(2022, 7, 1),
@@ -93,7 +93,6 @@ private val validAssistanceNeedDecision = AssistanceNeedDecision(
     otherRepresentativeHeard = false,
     otherRepresentativeDetails = null,
     assistanceLevels = setOf(AssistanceLevel.ENHANCED_ASSISTANCE),
-    assistanceServicesTime = null,
     motivationForDecision = null,
     hasDocument = false
 )

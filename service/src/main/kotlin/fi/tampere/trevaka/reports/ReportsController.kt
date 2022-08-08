@@ -35,7 +35,7 @@ class ReportsController() {
         db.connect { dbc ->
             dbc.transaction { tx ->
                 val firstDate = tx.createQuery("SELECT min(valid_from) FROM voucher_value_decision")
-                    .mapTo(LocalDate::class.java)
+                    .mapTo<LocalDate>()
                     .firstOrNull() ?: return@transaction
                 val firstYearMonth = YearMonth.of(firstDate.year, firstDate.month)
                 val now = clock.today()

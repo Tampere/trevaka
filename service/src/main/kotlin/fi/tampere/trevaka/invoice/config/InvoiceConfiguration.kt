@@ -246,6 +246,6 @@ fun Database.Read.hasFreeSummerAbsence(childId: ChildId, year: Int): Boolean {
     return createQuery(sql)
         .bind("year", year)
         .bind("childId", childId)
-        .mapTo(Boolean::class.java)
+        .mapTo<Boolean>()
         .one()
 }

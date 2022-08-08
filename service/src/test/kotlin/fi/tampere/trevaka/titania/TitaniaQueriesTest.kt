@@ -78,8 +78,8 @@ internal class TitaniaQueriesTest : AbstractIntegrationTest() {
                     )
                 )
             )
-            assertThat(inserted).extracting<EmployeeId> { it.employeeId }
-                .containsExactlyInAnyOrder(employee1.id, employee2.id, employee2.id, employee3.id)
+            assertThat(inserted)
+                .containsExactlyInAnyOrder(1, 1, 1, 1)
 
             val deleted = tx.deleteStaffAttendancePlansBy(
                 employeeIds = listOf(employee2.id, employee3.id),

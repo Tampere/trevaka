@@ -74,9 +74,9 @@ class TitaniaService {
             period = period,
         )
         logger.info { "Adding ${newPlans.size} new staff attendance plans" }
-        val inserted = tx.insertStaffAttendancePlans(newPlans)
+        tx.insertStaffAttendancePlans(newPlans)
 
-        return TitaniaUpdateResponse(deleted, inserted)
+        return TitaniaUpdateResponse(deleted, newPlans)
     }
 
     fun getStampedWorkingTimeEvents(
