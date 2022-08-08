@@ -7,10 +7,9 @@ package fi.tampere.trevaka.titania
 import fi.espoo.evaka.attendance.RawAttendance
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.db.Database
-import fi.espoo.evaka.shared.db.bindNullable
 import fi.espoo.evaka.shared.domain.FiniteDateRange
-import org.jdbi.v3.core.generic.GenericType
-import org.jdbi.v3.core.kotlin.mapTo
+
+private data class EmployeeIdEmployeeNumber(val id: EmployeeId, val employeeNumber: String)
 
 fun Database.Read.getEmployeeIdsByNumbers(employeeNumbers: List<String>): Map<String, EmployeeId> {
     val sql = """
@@ -20,9 +19,8 @@ fun Database.Read.getEmployeeIdsByNumbers(employeeNumbers: List<String>): Map<St
     """.trimIndent()
     return createQuery(sql)
         .bind("employeeNumbers", employeeNumbers.toTypedArray())
-        .setMapKeyColumn("employee_number")
-        .setMapValueColumn("id")
-        .collectInto(object : GenericType<Map<String, EmployeeId>>() {})
+        .mapTo<EmployeeIdEmployeeNumber>()
+        .associate { it.employeeNumber to it.id }
 }
 
 fun Database.Read.getEmployeeIdsByNumbersMapById(employeeNumbers: List<String>): Map<EmployeeId, String> {
@@ -33,9 +31,8 @@ fun Database.Read.getEmployeeIdsByNumbersMapById(employeeNumbers: List<String>):
     """.trimIndent()
     return createQuery(sql)
         .bind("employeeNumbers", employeeNumbers.toTypedArray())
-        .setMapKeyColumn("id")
-        .setMapValueColumn("employee_number")
-        .collectInto(object : GenericType<Map<EmployeeId, String>>() {})
+        .mapTo<EmployeeIdEmployeeNumber>()
+        .associate { it.id to it.employeeNumber }
 }
 
 fun Database.Read.findStaffAttendancePlansBy(
@@ -49,26 +46,23 @@ fun Database.Read.findStaffAttendancePlansBy(
         AND (:period::daterange IS NULL OR :period::daterange @> date_trunc('day', start_time at time zone 'Europe/Helsinki')::date)
     """.trimIndent()
     return createQuery(sql)
-        .bindNullable("employeeIds", employeeIds?.toTypedArray())
-        .bindNullable("period", period)
+        .bind("employeeIds", employeeIds?.toTypedArray())
+        .bind("period", period)
         .mapTo<StaffAttendancePlan>()
         .list()
 }
 
-fun Database.Transaction.insertStaffAttendancePlans(plans: List<StaffAttendancePlan>): List<StaffAttendancePlan> {
+fun Database.Transaction.insertStaffAttendancePlans(plans: List<StaffAttendancePlan>): IntArray {
     if (plans.isEmpty()) {
-        return emptyList()
+        return IntArray(0)
     }
     val sql = """
         INSERT INTO staff_attendance_plan (employee_id, type, start_time, end_time, description)
-        VALUES <values>
-        RETURNING employee_id, type, start_time, end_time, description
+        VALUES (:employeeId, :type, :startTime, :endTime, :description)
     """.trimIndent()
-    return createUpdate(sql)
-        .bindBeanList("values", plans, listOf("employeeId", "type", "startTime", "endTime", "description"))
-        .executeAndReturnGeneratedKeys()
-        .mapTo<StaffAttendancePlan>()
-        .toList()
+    val batch = prepareBatch(sql)
+    plans.forEach { plan -> batch.bindKotlin(plan).add() }
+    return batch.execute()
 }
 
 fun Database.Transaction.deleteStaffAttendancePlansBy(
@@ -82,8 +76,8 @@ fun Database.Transaction.deleteStaffAttendancePlansBy(
         RETURNING employee_id, type, start_time, end_time, description
     """.trimIndent()
     return createUpdate(sql)
-        .bindNullable("employeeIds", employeeIds?.toTypedArray())
-        .bindNullable("period", period)
+        .bind("employeeIds", employeeIds?.toTypedArray())
+        .bind("period", period)
         .executeAndReturnGeneratedKeys()
         .mapTo<StaffAttendancePlan>()
         .toList()
@@ -120,8 +114,8 @@ WHERE (:employeeIds::uuid[] IS NULL OR sa.employee_id = ANY(:employeeIds))
 AND (:start IS NULL OR :end IS NULL OR daterange((sa.arrived at time zone 'Europe/Helsinki')::date, (sa.departed at time zone 'Europe/Helsinki')::date, '[]') && daterange(:start, :end, '[]'))
         """.trimIndent()
     )
-        .bindNullable("employeeIds", employeeIds?.toTypedArray())
-        .bindNullable("start", period?.start)
-        .bindNullable("end", period?.end)
+        .bind("employeeIds", employeeIds?.toTypedArray())
+        .bind("start", period?.start)
+        .bind("end", period?.end)
         .mapTo<RawAttendance>()
         .list()

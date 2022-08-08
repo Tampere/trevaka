@@ -53,4 +53,4 @@ private fun Database.Read.getVoucherValues(): List<ServiceNeedOptionVoucherValue
             value_under_3y
         FROM service_need_option_voucher_value
     """.trimIndent()
-).mapTo(ServiceNeedOptionVoucherValue::class.java).list()
+).mapTo<ServiceNeedOptionVoucherValue>().list()
