@@ -23,7 +23,7 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
     override val subjectForPendingDecisionEmail: String = "Toimenpiteitäsi odotetaan"
     override val subjectForClubApplicationReceivedEmail: String = "Hakemus vastaanotettu"
     override val subjectForDaycareApplicationReceivedEmail: String = "Hakemus vastaanotettu"
-    override val subjectForPreschoolApplicationReceivedEmail: String = ""
+    override val subjectForPreschoolApplicationReceivedEmail: String = "Hakemus vastaanotettu"
     override val subjectForAssistanceNeedDecisionEmail: String = "Päätös tuen tarpeesta"
 
     override fun getPendingDecisionEmailHtml(): String {
@@ -173,11 +173,51 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
     }
 
     override fun getPreschoolApplicationReceivedEmailHtml(withinApplicationPeriod: Boolean): String {
-        throw Error("Preschool not in use!")
+        return """
+            <p>Hyvä huoltaja,</p>
+
+            <p>lapsenne esiopetushakemus on vastaanotettu.</p>
+
+            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a> siihen saakka, kunnes se on otettu käsittelyyn.</p> 
+
+            <p>Lisätietoa hakemuksen käsittelystä ja esiopetuspaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta:</p>
+
+            <p>
+            Tampereen kaupunki<br/>
+            Sivistyspalvelut<br/>
+            Varhaiskasvatus ja esiopetus<br/>
+            Asiakaspalvelu<br/>
+            <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a><br/>
+            Puh. <a href="tel:+358408007260">040&nbsp;800&nbsp;7260</a>, ma–pe klo 9–12<br/>
+            Postiosoite: PL 487, 33101 Tampere<br/>
+            <a href="https://www.tampere.fi/varhaiskasvatus">www.tampere.fi/varhaiskasvatus</a>
+            </p>
+
+            <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
+        """.trimIndent()
     }
 
     override fun getPreschoolApplicationReceivedEmailText(withinApplicationPeriod: Boolean): String {
-        throw Error("Preschool not in use!")
+        return """
+            Hyvä huoltaja,
+
+            lapsenne esiopetushakemus on vastaanotettu.
+
+            Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa varhaiskasvatus.tampere.fi siihen saakka, kunnes se on otettu käsittelyyn.
+
+            Lisätietoa hakemuksen käsittelystä ja esiopetuspaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta:
+
+            Tampereen kaupunki
+            Sivistyspalvelut
+            Varhaiskasvatus ja esiopetus
+            Asiakaspalvelu
+            varhaiskasvatus.asiakaspalvelu@tampere.fi
+            Puh. 040 800 7260, ma–pe klo 9–12
+            Postiosoite: PL 487, 33101 Tampere
+            www.tampere.fi/varhaiskasvatus
+
+            Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.
+        """.trimIndent()
     }
 
     override fun getAssistanceNeedDecisionEmailHtml(childId: ChildId, decisionId: AssistanceNeedDecisionId): String = """

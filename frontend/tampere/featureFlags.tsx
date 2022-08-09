@@ -26,7 +26,7 @@ const features: Features = {
     evakaLogin: true,
     financeBasicsPage: true,
     urgencyAttachmentsEnabled: false,
-    preschoolEnabled: false,
+    preschoolEnabled: true,
     assistanceActionOtherEnabled: false,
     experimental: {
       messageAttachments: true,

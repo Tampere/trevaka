@@ -42,15 +42,19 @@ describe('Citizen applications page', () => {
     await header.selectTab('applications')
     await waitUntilEqual(() => page.find('h1 + p').innerText, 'Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen ja kerhoon. Huoltajan lasten tiedot haetaan tähän näkymään automaattisesti Väestötietojärjestelmästä.')
     await page.find(`[data-qa="new-application-${enduserChildFixturePorriHatterRestricted.id}"]`).click()
-    // Check that only daycare and club options are visible
+    // Check that all options are visible
     let applicationRadios = await page.findAll('[data-qa^="type-radio-"]')
-    expect(await applicationRadios.count()).toBe(2)
+    expect(await applicationRadios.count()).toBe(3)
     await waitUntilEqual(
       () => applicationRadios.first().find('label').innerText,
       'Varhaiskasvatus- ja palvelusetelihakemus'
     )
     await waitUntilEqual(
       () => applicationRadios.nth(1).find('label').innerText,
+      'Ilmoittautuminen esiopetukseen ja / tai valmistavaan opetukseen'
+    )
+    await waitUntilEqual(
+      () => applicationRadios.nth(2).find('label').innerText,
       'Kerhohakemus'
     )
     // Check all texts, including expanding infos
@@ -62,7 +66,7 @@ describe('Citizen applications page', () => {
       'Kerhohakemuksella haetaan paikkaa kunnallisista tai palvelusetelillä tuetuista kerhoista.'
     )
     await waitUntilEqual(
-      () => page.find('[data-qa="application-options-area"] p:last-of-type').innerText,
+      () => page.findText(/^Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa/).innerText,
       `Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa siihen asti, kun hakemus otetaan asiakaspalvelussa käsittelyyn. Tämän jälkeen muutokset tai hakemuksen peruminen on mahdollista ottamalla yhteyttä ${customerContactText}`
     )
     await waitUntilEqual(
