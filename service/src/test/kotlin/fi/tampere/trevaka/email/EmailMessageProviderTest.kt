@@ -7,18 +7,10 @@ package fi.tampere.trevaka.email
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
 import fi.espoo.evaka.shared.AssistanceNeedDecisionId
 import fi.espoo.evaka.shared.ChildId
-import fi.espoo.evaka.shared.DecisionId
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
-import org.junitpioneer.jupiter.cartesian.ArgumentSets
-import org.junitpioneer.jupiter.cartesian.CartesianTest
-import org.reflections.ReflectionUtils.*
 import org.springframework.beans.factory.annotation.Autowired
-import java.lang.reflect.InvocationTargetException
-import java.lang.reflect.Method
 import java.util.UUID
 
 internal class EmailMessageProviderTest : AbstractIntegrationTest() {
@@ -34,6 +26,10 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
         assertNotContainEspooText(emailMessageProvider.getClubApplicationReceivedEmailHtml())
         assertNotContainEspooText(emailMessageProvider.getPendingDecisionEmailText())
         assertNotContainEspooText(emailMessageProvider.getPendingDecisionEmailHtml())
+        assertNotContainEspooText(emailMessageProvider.getPreschoolApplicationReceivedEmailHtml(true))
+        assertNotContainEspooText(emailMessageProvider.getPreschoolApplicationReceivedEmailText(true))
+        assertNotContainEspooText(emailMessageProvider.getPreschoolApplicationReceivedEmailHtml(false))
+        assertNotContainEspooText(emailMessageProvider.getPreschoolApplicationReceivedEmailText(false))
         assertNotContainEspooText(
             emailMessageProvider.getAssistanceNeedDecisionEmailText(
                 ChildId(UUID.randomUUID()),
@@ -53,29 +49,5 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
             .isNotBlank
             .doesNotContainIgnoringCase("espoo")
             .doesNotContainIgnoringCase("esbo")
-    }
-
-    @CartesianTest
-    @CartesianTest.MethodFactory("getPreschoolMethods")
-    fun getPreschoolMessagesThrowError(method: Method, withinApplicationPeriod: Boolean) {
-        val exception = assertThrows<InvocationTargetException> {
-            method.invoke(emailMessageProvider, withinApplicationPeriod)
-        }
-        Assertions.assertEquals(Error::class.java, exception.cause?.javaClass)
-        Assertions.assertEquals("Preschool not in use!", exception.cause?.message)
-    }
-
-    companion object {
-        @JvmStatic
-        fun getPreschoolMethods(): ArgumentSets {
-            val preschoolMethods = getAllMethods(
-                    IEmailMessageProvider::class.java,
-                    withPrefix("getPreschool"),
-                    withParametersAssignableTo(Boolean::class.java),
-                    withReturnType(String::class.java))
-            return ArgumentSets.create()
-                .argumentsForNextParameter(preschoolMethods)
-                .argumentsForNextParameter(true, false)
-        }
     }
 }

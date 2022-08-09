@@ -18,7 +18,7 @@ afterEach(async () => {
 
 describe('Citizen map page', () => {
   test('Unit type filters', async () => {
-    await page.find('[data-qa="map-filter-preschool"]').waitUntilHidden()
+    await page.find('[data-qa="map-filter-preschool"]').waitUntilVisible()
     await page.find('[data-qa="map-filter-daycare"]').waitUntilVisible()
     await page.find('[data-qa="map-filter-club"]').waitUntilVisible()
   })
