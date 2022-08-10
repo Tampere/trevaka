@@ -24,7 +24,7 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
     override val subjectForClubApplicationReceivedEmail: String = "Hakemus vastaanotettu"
     override val subjectForDaycareApplicationReceivedEmail: String = "Hakemus vastaanotettu"
     override val subjectForPreschoolApplicationReceivedEmail: String = "Hakemus vastaanotettu"
-    override val subjectForAssistanceNeedDecisionEmail: String = "Päätös tuen tarpeesta"
+    override val subjectForDecisionEmail: String = "Päätös eVakassa"
 
     override fun getPendingDecisionEmailHtml(): String {
         return """
@@ -220,17 +220,17 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
         """.trimIndent()
     }
 
-    override fun getAssistanceNeedDecisionEmailHtml(childId: ChildId, decisionId: AssistanceNeedDecisionId): String = """
+    override fun getDecisionEmailHtml(childId: ChildId, decisionId: AssistanceNeedDecisionId): String = """
         <p>Hyvä(t) huoltaja(t),</p>
-        <p>Lapsellenne on tehty päätös tuen tarpeesta.</p>
-        <p>Päätös on nähtävissä eVakassa osoitteessa <a href="https://varhaiskasvatus.tampere.fi/children/$childId/assistance-need-decision/$decisionId">https://varhaiskasvatus.tampere.fi/children/$childId/assistance-need-decision/$decisionId</a>.</p>
+        <p>Lapsellenne on tehty päätös.</p>
+        <p>Päätös on nähtävissä eVakassa osoitteessa <a href="https://varhaiskasvatus.tampere.fi/">https://varhaiskasvatus.tampere.fi/</a>.</p>
     """.trimIndent()
 
-    override fun getAssistanceNeedDecisionEmailText(childId: ChildId, decisionId: AssistanceNeedDecisionId): String = """
+    override fun getDecisionEmailText(childId: ChildId, decisionId: AssistanceNeedDecisionId): String = """
         Hyvä(t) huoltaja(t),
 
-        Lapsellenne on tehty päätös tuen tarpeesta.
+        Lapsellenne on tehty päätös.
 
-        Päätös on nähtävissä eVakassa osoitteessa https://varhaiskasvatus.tampere.fi/children/$childId/assistance-need-decision/$decisionId.
+        Päätös on nähtävissä eVakassa osoitteessa https://varhaiskasvatus.tampere.fi/.
     """.trimIndent()
 }

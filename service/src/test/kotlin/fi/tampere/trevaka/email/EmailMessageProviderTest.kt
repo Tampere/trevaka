@@ -31,13 +31,13 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
         assertNotContainEspooText(emailMessageProvider.getPreschoolApplicationReceivedEmailHtml(false))
         assertNotContainEspooText(emailMessageProvider.getPreschoolApplicationReceivedEmailText(false))
         assertNotContainEspooText(
-            emailMessageProvider.getAssistanceNeedDecisionEmailText(
+            emailMessageProvider.getDecisionEmailText(
                 ChildId(UUID.randomUUID()),
                 AssistanceNeedDecisionId(UUID.randomUUID())
             )
         )
         assertNotContainEspooText(
-            emailMessageProvider.getAssistanceNeedDecisionEmailHtml(
+            emailMessageProvider.getDecisionEmailHtml(
                 ChildId(UUID.randomUUID()),
                 AssistanceNeedDecisionId(UUID.randomUUID())
             )
