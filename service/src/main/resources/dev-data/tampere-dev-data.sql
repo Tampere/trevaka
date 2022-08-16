@@ -313,7 +313,8 @@ INSERT INTO employee (id, first_name, last_name, email, external_id) VALUES
     ('00000000-0000-0000-0004-000000000001', 'Eemeli', 'Esimies', 'eemeli.esimies@tampere.fi', 'tampere-ad:00000000-0000-0000-0004-000000000001'),
     ('00000000-0000-0000-0005-000000000000', 'Kaisa', 'Kasvattaja', 'kaisa.kasvattaja@tampere.fi', 'tampere-ad:00000000-0000-0000-0005-000000000000'),
     ('00000000-0000-0000-0005-000000000001', 'Kalle', 'Kasvattaja', 'kalle.kasvattaja@tampere.fi', 'tampere-ad:00000000-0000-0000-0005-000000000001'),
-    ('00000000-0000-0000-0006-000000000000', 'Erkki', 'Erityisopettaja', 'erkki.erityisopettaja@tampere.fi', 'tampere-ad:00000000-0000-0000-0006-000000000000');
+    ('00000000-0000-0000-0006-000000000000', 'Erkki', 'Erityisopettaja', 'erkki.erityisopettaja@tampere.fi', 'tampere-ad:00000000-0000-0000-0006-000000000000'),
+    ('00000000-0000-0000-0007-000000000000', 'Vallu', 'Varhaiskasvatussihteeri', 'vallu.varhaiskasvatussihteeri@tampere.fi', 'tampere-ad:00000000-0000-0000-0007-000000000000');
 
 INSERT INTO daycare_acl (daycare_id, employee_id, role) VALUES
     ('340ea27a-a1bc-11eb-b5d2-dfc0dc6d2fcb', '00000000-0000-0000-0004-000000000000', 'UNIT_SUPERVISOR'),
@@ -327,7 +328,9 @@ INSERT INTO daycare_acl (daycare_id, employee_id, role) VALUES
     ('49c57f12-a1bc-11eb-b686-53a2520d8ee3', '00000000-0000-0000-0005-000000000001', 'STAFF'),
     ('3f66844e-a1bc-11eb-b65b-87ccd093b485', '00000000-0000-0000-0005-000000000001', 'STAFF'),
     ('340ea27a-a1bc-11eb-b5d2-dfc0dc6d2fcb', '00000000-0000-0000-0006-000000000000', 'SPECIAL_EDUCATION_TEACHER'),
-    ('3f667508-a1bc-11eb-b62e-9bdec02ff105', '00000000-0000-0000-0006-000000000000', 'SPECIAL_EDUCATION_TEACHER');
+    ('3f667508-a1bc-11eb-b62e-9bdec02ff105', '00000000-0000-0000-0006-000000000000', 'SPECIAL_EDUCATION_TEACHER'),
+    ('340ea27a-a1bc-11eb-b5d2-dfc0dc6d2fcb', '00000000-0000-0000-0007-000000000000', 'EARLY_CHILDHOOD_EDUCATION_SECRETARY'),
+    ('3f667508-a1bc-11eb-b62e-9bdec02ff105', '00000000-0000-0000-0007-000000000000', 'EARLY_CHILDHOOD_EDUCATION_SECRETARY');
 
 INSERT INTO message_account (employee_id)
 SELECT id
@@ -336,7 +339,7 @@ WHERE EXISTS(
     SELECT 1
     FROM daycare_acl acl
     WHERE acl.employee_id = e.id
-    AND acl.role IN ('UNIT_SUPERVISOR', 'SPECIAL_EDUCATION_TEACHER'));
+    AND acl.role IN ('UNIT_SUPERVISOR', 'SPECIAL_EDUCATION_TEACHER', 'EARLY_CHILDHOOD_EDUCATION_SECRETARY'));
 
 INSERT INTO fee_thresholds (
     valid_during,
