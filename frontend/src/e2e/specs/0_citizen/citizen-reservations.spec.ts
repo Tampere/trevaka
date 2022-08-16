@@ -93,8 +93,8 @@ describe('Citizen attendance reservations', () => {
         const dayView = await calendarPage.openDayView(reservationDay)
         await dayView.createAbsence()
         await waitUntilEqual(
-            () => page.find('[data-qa="modal"] > label:first-of-type+p').innerText,
-            'Ilmoita tässä vain koko päivän poissaolot.'
+            () => page.find('[data-qa="title"]').innerText,
+            'Ilmoita poissaolo'
         )
         let absenceChips = await page.findAll('[data-qa^="absence-"]')
         expect(await absenceChips.count()).toBe(2)
