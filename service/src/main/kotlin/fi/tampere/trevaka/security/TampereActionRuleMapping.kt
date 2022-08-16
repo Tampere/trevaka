@@ -44,6 +44,12 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.FINANCE_ADMIN) as ScopedActionRule<in T>
             )
         }
+        Action.Unit.READ_ATTENDANCE_RESERVATIONS -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasUnitRole(UserRole.SPECIAL_EDUCATION_TEACHER).inUnit() as ScopedActionRule<in T>
+            )
+        }
         else -> action.defaultRules.asSequence()
     }
 }
