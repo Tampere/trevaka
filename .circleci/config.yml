@@ -459,7 +459,8 @@ jobs:
     executor: base_executor
     steps:
       - *restore_repo
-      - setup_authenticated_remote_docker
+      - setup_authenticated_remote_docker:
+          docker_layer_caching: true
       - run:
           name: Build base image
           working_directory: *workspace_evaka_base
