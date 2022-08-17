@@ -35,7 +35,7 @@ beforeEach(async () => {
     await Fixture.daycare()
         .with({
             id: '4f3a32f5-d1bd-4b8b-aa4e-4fd78b18354b',
-            careAreaId: '6529e31e-9777-11eb-ba88-33a923255570', // Etelä
+            areaId: '6529e31e-9777-11eb-ba88-33a923255570', // Etelä
             name: 'Alkuräjähdyksen päiväkoti',
             type: ['CENTRE', 'PRESCHOOL', 'PREPARATORY_EDUCATION'],
             costCenter: '31500',
