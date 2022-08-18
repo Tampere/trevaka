@@ -34,6 +34,8 @@ evaka:
   integration:
     koski:
       enabled: false
+  s3mock:
+    url: "http://localhost:9090"
 
 trevaka:
   ipaas:

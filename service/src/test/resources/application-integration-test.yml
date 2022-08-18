@@ -48,6 +48,9 @@ evaka:
       password: pass
       xroad:
         address: http://localhost:${wiremock.server.port}/mock/vtj
+  s3mock:
+    url: "http://localhost:9090"
+
 trevaka:
   ipaas:
     username: user
