@@ -29,6 +29,9 @@ class TampereConfig {
         alwaysUseDaycareFinanceDecisionHandler = true,
         invoiceNumberSeriesStart = 5000000000, // previously hardcoded value in use
         paymentNumberSeriesStart = null, // Payments-feature not currently used in Tampere
+        unplannedAbsencesAreContractSurplusDays = false,
+        maxContractDaySurplusThreshold = null,
+        useContractDaysAsDailyFeeDivisor = true,
         enabledChildConsentTypes = emptySet(),
     )
 
