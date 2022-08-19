@@ -27,7 +27,7 @@ aliases:
   - &openjdk_image cimg/openjdk:17.0
   - &postgres_image cimg/postgres:14.2
   - &redis_image cimg/redis:5.0
-  - &s3mock_image adobe/s3mock:2.3.3
+  - &s3mock_image adobe/s3mock
   - &ubuntu_machine_image ubuntu-2004:202107-02
 
   - &default_config
@@ -119,8 +119,6 @@ executors:
           POSTGRES_PASSWORD: postgres
       - image: *redis_image
       - image: *s3mock_image
-        environment:
-          HTTP_PORT: 9876
   e2e_executor:
     <<: *node_config
     machine:
