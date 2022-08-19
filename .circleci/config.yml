@@ -20,7 +20,6 @@ aliases:
   - &workspace_evaka_compose /home/circleci/repo/evaka/compose
 
   - &remote_docker_version "20.10.11"
-  - &docker_layer_caching false
   - &base_image cimg/base:stable-20.04
   - &reuse_image fsfe/reuse:0.13.0 # NOTE: Update bin/add-license-headers.sh to match
   - &nodejs_image cimg/node:16.13
@@ -182,7 +181,7 @@ commands:
     parameters:
       docker_layer_caching:
         type: boolean
-        default: *docker_layer_caching
+        default: false
     steps:
       - setup_remote_docker:
           version: *remote_docker_version
@@ -280,9 +279,7 @@ commands:
   e2e_build:
     steps:
       - *restore_repo
-      - setup_remote_docker:
-          version: *remote_docker_version
-          docker_layer_caching: false
+      - setup_authenticated_remote_docker
       - run:
           name: "Setup E2E_IMAGE"
           command: |
@@ -500,8 +497,7 @@ jobs:
       - *restore_repo
       - restore:
           path: evaka/apigw/image.tar
-      - setup_remote_docker:
-          version: *remote_docker_version
+      - setup_authenticated_remote_docker
       - aws-cli/install
       - push_docker_image:
           image: trevaka/api-gateway
@@ -580,8 +576,7 @@ jobs:
       - *restore_repo
       - restore:
           path: evaka/proxy/image.tar
-      - setup_remote_docker:
-          version: *remote_docker_version
+      - setup_authenticated_remote_docker
       - aws-cli/install
       - push_docker_image:
           image: trevaka/proxy
@@ -620,9 +615,7 @@ jobs:
       - *restore_repo
       - restore:
           path: service/build/libs/trevaka-service.jar
-      - setup_remote_docker:
-          version: *remote_docker_version
-          docker_layer_caching: *docker_layer_caching
+      - setup_authenticated_remote_docker
       - run:
           name: Unzip executable
           working_directory: *workspace_service
@@ -641,8 +634,7 @@ jobs:
       - *restore_repo
       - restore:
           path: service/image.tar
-      - setup_remote_docker:
-          version: *remote_docker_version
+      - setup_authenticated_remote_docker
       - aws-cli/install
       - push_docker_image:
           image: trevaka/service
@@ -670,8 +662,7 @@ jobs:
       - *restore_repo
       - restore:
           path: auth/image.tar
-      - setup_remote_docker:
-          version: *remote_docker_version
+      - setup_authenticated_remote_docker
       - aws-cli/install
       - push_docker_image:
           image: trevaka/auth
