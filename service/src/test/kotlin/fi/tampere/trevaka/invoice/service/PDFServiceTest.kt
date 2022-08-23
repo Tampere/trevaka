@@ -104,7 +104,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
                 "140680-9239", "", "", "",
                 "", null, "", null, restrictedDetailsEnabled = false
             ),
-            isElementaryFamily = true
+            partnerIsCodebtor = true
         )
 
         val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
@@ -124,7 +124,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
                 "", null, "", null, restrictedDetailsEnabled = false
             ),
             partnerIncome = validDecisionIncome(214000),
-            isElementaryFamily = true
+            partnerIsCodebtor = true
         )
 
         val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
@@ -263,7 +263,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
                 "140680-9239", "", "", "",
                 "", null, "", null, restrictedDetailsEnabled = false
             ),
-            isElementaryFamily = true
+            partnerIsCodebtor = true
         )
         val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.fi)
 
