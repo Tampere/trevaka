@@ -13,8 +13,21 @@ import fi.espoo.evaka.shared.security.actionrule.ScopedActionRule
 import fi.espoo.evaka.shared.security.actionrule.UnscopedActionRule
 
 class TampereActionRuleMapping : ActionRuleMapping {
-    override fun rulesOf(action: Action.UnscopedAction): Sequence<UnscopedActionRule> = action.defaultRules.asSequence()
+    override fun rulesOf(action: Action.UnscopedAction): Sequence<UnscopedActionRule> = when (action) {
+        Action.Global.READ_ASSISTANCE_NEED_DECISIONS_REPORT -> {
+            action.defaultRules.asSequence() + sequenceOf(HasUnitRole(UserRole.UNIT_SUPERVISOR).inAnyUnit())
+        }
+        else -> action.defaultRules.asSequence()
+    }
+
     override fun <T> rulesOf(action: Action.ScopedAction<in T>): Sequence<ScopedActionRule<in T>> = when (action) {
+        Action.AssistanceNeedDecision.DECIDE,
+        Action.AssistanceNeedDecision.MARK_AS_OPENED -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasUnitRole(UserRole.UNIT_SUPERVISOR).andIsDecisionMakerForAssistanceNeedDecision() as ScopedActionRule<in T>
+            )
+        }
         Action.BackupCare.UPDATE,
         Action.BackupCare.DELETE -> {
             @Suppress("UNCHECKED_CAST")
@@ -50,6 +63,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasUnitRole(UserRole.SPECIAL_EDUCATION_TEACHER).inUnit() as ScopedActionRule<in T>
             )
         }
+        Action.Unit.READ_ASSISTANCE_NEED_DECISIONS_REPORT,
         Action.Unit.READ_ATTENDANCE_RESERVATION_REPORT -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
