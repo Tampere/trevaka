@@ -11,8 +11,8 @@ import React from 'react'
 import { EmployeeCustomizations } from 'lib-customizations/types'
 
 import TampereLogo from './city-logo.svg'
-import featureFlags from './featureFlags'
 import { env } from './env'
+import featureFlags from './featureFlags'
 
 const customizations: EmployeeCustomizations = {
   appConfig: {},
