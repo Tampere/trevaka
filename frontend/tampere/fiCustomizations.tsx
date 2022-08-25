@@ -10,7 +10,7 @@ import React from 'react'
 
 import ExternalLink from 'lib-components/atoms/ExternalLink'
 import UnorderedList from 'lib-components/atoms/UnorderedList'
-import { H1, H2, P } from 'lib-components/typography'
+import { H1, H2, H3, P } from 'lib-components/typography'
 import { Gap } from 'lib-components/white-space'
 import { Translations } from 'lib-customizations/citizen'
 import { DeepPartial } from 'lib-customizations/types'
@@ -319,6 +319,116 @@ const fi: DeepPartial<Translations> = {
     )
   },
   children: {
+    assistanceNeed: {
+      decisions: {
+        decision: {
+          appealInstructions: (
+            <>
+              <H3>Oikaisuvaatimusoikeus</H3>
+              <P>
+                Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
+                jonka oikeuteen, velvollisuuteen tai etuun päätös välittömästi
+                vaikuttaa (asianosainen).
+              </P>
+              <H3>Oikaisuvaatimusaika</H3>
+              <P>
+                Oikaisuvaatimus on tehtävä 30 päivän kuluessa päätöksen
+                tiedoksisaannista.
+              </P>
+              <H3>Tiedoksisaanti</H3>
+              <P>
+                Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
+                näytetä, seitsemän päivän kuluttua kirjeen lähettämisestä tai
+                saantitodistukseen tai tiedoksiantotodistukseen merkittynä
+                päivänä. Käytettäessä tavallista sähköistä tiedoksiantoa
+                asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
+                näytetä kolmantena päivänä viestin lähettämisestä.
+                Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan
+                viimeinen päivä on pyhäpäivä, itsenäisyyspäivä, vapunpäivä,
+                joulu- tai juhannusaatto tai arkilauantai, saa tehtävän
+                toimittaa ensimmäisenä arkipäivänä sen jälkeen.
+              </P>
+              <H3>Oikaisuviranomainen</H3>
+              <P>
+                Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle
+                (Vaasan päätoimipaikka).
+              </P>
+              <P>
+                Länsi- ja Sisä-Suomen aluehallintovirasto
+                <br />
+                Wolffintie 35
+                <br />
+                PL 200, 65101 Vaasa
+                <br />
+                faksi: 06 317 4817
+                <br />
+                sähköposti:{' '}
+                <ExternalLink
+                  href="mailto:kirjaamo.lansi@avi.fi"
+                  text="kirjaamo.lansi@avi.fi"
+                  newTab
+                />
+              </P>
+              <H3>Oikaisuvaatimuksen muoto ja sisältö</H3>
+              <P>
+                Oikaisuvaatimus on tehtävä kirjallisesti. Myös sähköinen
+                asiakirja täyttää vaatimuksen kirjallisesta muodosta.
+              </P>
+              <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
+              <ul>
+                <li>
+                  Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite,
+                  puhelinnumero ja muut asian hoitamiseksi tarvittavat
+                  yhteystiedot
+                </li>
+                <li>päätös, johon haetaan oikaisua</li>
+                <li>
+                  miltä osin päätökseen haetaan oikaisua ja mitä oikaisua siihen
+                  vaaditaan tehtäväksi
+                </li>
+                <li>vaatimuksen perusteet</li>
+              </ul>
+              <P>
+                Jos oikaisuvaatimuspäätös voidaan antaa tiedoksi sähköisenä
+                viestinä, yhteystietona pyydetään ilmoittamaan myös
+                sähköpostiosoite.
+              </P>
+              <P>
+                Jos oikaisuvaatimuksen tekijän puhevaltaa käyttää hänen
+                laillinen edustajansa tai asiamiehensä tai jos
+                oikaisuvaatimuksen laatijana on joku muu henkilö,
+                oikaisuvaatimuksessa on ilmoitettava myös tämän nimi ja
+                kotikunta.
+              </P>
+              <P noMargin>Oikaisuvaatimukseen on liitettävä</P>
+              <ul>
+                <li>
+                  päätös, johon haetaan oikaisua, alkuperäisenä tai
+                  jäljennöksenä
+                </li>
+                <li>
+                  todistus siitä, minä päivänä päätös on annettu tiedoksi, tai
+                  muu selvitys oikaisuvaatimusajan alkamisen ajankohdasta
+                </li>
+                <li>
+                  asiakirjat, joihin oikaisuvaatimuksen tekijä vetoaa
+                  oikaisuvaatimuksensa tueksi, jollei niitä ole jo aikaisemmin
+                  toimitettu viranomaiselle.
+                </li>
+              </ul>
+              <H3>Oikaisuvaatimuksen toimittaminen</H3>
+              <P>
+                Oikaisuvaatimuskirjelmä on toimitettava oikaisuvaatimusajan
+                kuluessa oikaisuvaatimusviranomaiselle. Oikaisuvaatimuskirjelmän
+                tulee olla perillä oikaisuvaatimusajan viimeisenä päivänä ennen
+                viraston aukiolon päättymistä. Oikaisuvaatimuksen lähettäminen
+                postitse tai sähköisesti tapahtuu lähettäjän omalla vastuulla.
+              </P>
+            </>
+          )
+        }
+      }
+    },
     pageDescription:
       'Tällä sivulla näet lastesi varhaiskasvatukseen liittyvät yleiset tiedot.',
     vasu: {
