@@ -12,6 +12,7 @@ import { EmployeeCustomizations } from 'lib-customizations/types'
 
 import TampereLogo from './city-logo.svg'
 import featureFlags from './featureFlags'
+import { env } from './env'
 
 const customizations: EmployeeCustomizations = {
   appConfig: {},
@@ -458,6 +459,7 @@ const customizations: EmployeeCustomizations = {
     'DAYCARE',
     'DAYCARE_PART_TIME',
     'TEMPORARY_DAYCARE',
+    ...(env() === 'default' ? (['PRESCHOOL'] as const) : []),
     'PRESCHOOL_DAYCARE',
     'CLUB',
     'SCHOOL_SHIFT_CARE'
