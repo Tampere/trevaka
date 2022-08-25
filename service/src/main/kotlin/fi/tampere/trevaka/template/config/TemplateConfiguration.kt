@@ -25,5 +25,5 @@ internal class TrevakaTemplateProvider : ITemplateProvider {
     override fun getDaycareDecisionPath(): String = "tampere/daycare/decision"
     override fun getPreschoolDecisionPath(): String = "preschool/decision"
     override fun getPreparatoryDecisionPath(): String = "preparatory/decision"
-    override fun getAssistanceNeedDecisionPath(): String = "assistance-need/decision"
+    override fun getAssistanceNeedDecisionPath(): String = "tampere/assistance/decision"
 }
