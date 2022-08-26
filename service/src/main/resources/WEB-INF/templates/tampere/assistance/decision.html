@@ -276,7 +276,8 @@ SPDX-License-Identifier: LGPL-2.1-or-later
     </div>
 
     <div class="page last-page">
-      <div th:replace="~{tampere/shared/daycare-correction :: correction}"></div>
+      <h1 th:text="#{appealInstructionTitle}"></h1>
+      <div th:utext="#{appealInstructions}"></div>
     </div>
   </body>
 </html>
