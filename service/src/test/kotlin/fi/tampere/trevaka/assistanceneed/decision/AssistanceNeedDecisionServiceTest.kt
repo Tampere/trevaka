@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021-2022 City of Tampere
+//
+// SPDX-License-Identifier: LGPL-2.1-or-later
+
 package fi.tampere.trevaka.assistanceneed.decision
 
 import fi.espoo.evaka.assistanceneed.decision.AssistanceLevel
@@ -10,10 +14,15 @@ import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionStatus
 import fi.espoo.evaka.assistanceneed.decision.ServiceOptions
 import fi.espoo.evaka.assistanceneed.decision.StructuralMotivationOptions
 import fi.espoo.evaka.assistanceneed.decision.UnitInfo
+import fi.espoo.evaka.decision.DecisionSendAddress
+import fi.espoo.evaka.identity.ExternalIdentifier
+import fi.espoo.evaka.invoicing.domain.PersonDetailed
+import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.shared.AssistanceNeedDecisionId
 import fi.espoo.evaka.shared.ChildId
 import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.EmployeeId
+import fi.espoo.evaka.shared.PersonId
 import fi.espoo.evaka.shared.domain.DateRange
 import fi.tampere.trevaka.AbstractIntegrationTest
 import fi.tampere.trevaka.reportsPath
@@ -31,8 +40,13 @@ class AssistanceNeedDecisionServiceTest : AbstractIntegrationTest() {
     @Test
     fun generatePdf() {
         val decision = validAssistanceNeedDecision
+        val headOfFamily = validPersonDTO
 
-        val bytes = assistanceNeedDecisionService.generatePdf(decision)
+        val bytes = assistanceNeedDecisionService.generatePdf(
+            decision = decision,
+            sendAddress = DecisionSendAddress.fromPerson(headOfFamily.toPersonDetailed()),
+            guardian = headOfFamily
+        )
 
         val filepath = "${reportsPath}/AssistanceNeedDecisionServiceTest-assistance-need-decision.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -95,4 +109,50 @@ private val validAssistanceNeedDecision = AssistanceNeedDecision(
     assistanceLevels = setOf(AssistanceLevel.ENHANCED_ASSISTANCE),
     motivationForDecision = null,
     hasDocument = false
+)
+
+private val validPersonDTO = PersonDTO(
+    id = PersonId(UUID.randomUUID()),
+    identity = ExternalIdentifier.SSN.getInstance("310382-956D"),
+    ssnAddingDisabled = false,
+    firstName = "Maija",
+    lastName = "Meikäläinen",
+    preferredName = "Maija",
+    email = null,
+    phone = "",
+    backupPhone = "",
+    language = null,
+    dateOfBirth = LocalDate.of(1982, 3, 31),
+    dateOfDeath = null,
+    streetAddress = "Meikäläisenkuja 6 B 7",
+    postalCode = "33730",
+    postOffice = "TAMPERE",
+    residenceCode = ""
+)
+
+fun PersonDTO.toPersonDetailed() = PersonDetailed(
+    id = this.id,
+    dateOfBirth = this.dateOfBirth,
+    dateOfDeath = this.dateOfDeath,
+    firstName = this.firstName,
+    lastName = this.lastName,
+    ssn = this.identity.let {
+        when (it) {
+            is ExternalIdentifier.SSN -> it.toString()
+            is ExternalIdentifier.NoID -> null
+        }
+    },
+    streetAddress = this.streetAddress,
+    postalCode = this.postalCode,
+    postOffice = this.postOffice,
+    residenceCode = this.residenceCode,
+    email = this.email,
+    phone = this.phone,
+    language = this.language,
+    invoiceRecipientName = this.invoiceRecipientName,
+    invoicingStreetAddress = this.invoicingStreetAddress,
+    invoicingPostalCode = this.invoicingPostalCode,
+    invoicingPostOffice = this.invoicingPostOffice,
+    restrictedDetailsEnabled = this.restrictedDetailsEnabled,
+    forceManualFeeDecisions = this.forceManualFeeDecisions,
 )

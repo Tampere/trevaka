@@ -108,6 +108,8 @@ while IFS= read -r file; do
     # Explicitly define styles for some common files not yet recognized by a released version of reuse:
     if [[ "$file" = *kts ]]; then
         addheader "$file" --style c
+    elif [[ "$file" = *properties ]]; then
+        addheader "$file" --style python
     else
         addheader "$file"
     fi
