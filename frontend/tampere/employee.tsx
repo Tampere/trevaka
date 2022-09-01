@@ -226,7 +226,9 @@ const customizations: EmployeeCustomizations = {
                 postitse tai sähköisesti tapahtuu lähettäjän omalla vastuulla.
               </P>
             </>
-          )
+          ),
+          jurisdictionText:
+            'Delegointipäätös pohjautuu Sivistys- ja kulttuurilautakunnan toimivallan siirtämiseen viranhaltijoille 14.6.2022 § 116: Varhaiskasvatuksen palvelupäällikkö päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista yksityisessä varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku) ja päiväkodin johtaja päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista kunnallisessa varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku)'
         },
         assistanceAction: {
           title: 'Tukitoimet ja tukipalvelut',
