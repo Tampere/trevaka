@@ -32,6 +32,7 @@ const features: Features = {
       messageAttachments: true,
       personalDetailsPage: true,
       mobileMessages: true,
+      leops: true,
       citizenVasu: true,
       assistanceNeedDecisions: true,
       staffAttendanceTypes: true
