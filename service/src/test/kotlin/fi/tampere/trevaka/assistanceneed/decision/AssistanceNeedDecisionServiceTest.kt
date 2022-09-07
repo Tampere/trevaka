@@ -52,6 +52,21 @@ class AssistanceNeedDecisionServiceTest : AbstractIntegrationTest() {
         FileOutputStream(filepath).use { it.write(bytes) }
     }
 
+    @Test
+    fun generatePdfWithoutdGuardian() {
+        val decision = validAssistanceNeedDecision
+
+        val bytes = assistanceNeedDecisionService.generatePdf(
+            decision = decision,
+            sendAddress = null,
+            guardian = null
+        )
+
+        val filepath =
+            "${reportsPath}/AssistanceNeedDecisionServiceTest-assistance-need-decision-without-guardian.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
 }
 
 private val validAssistanceNeedDecision = AssistanceNeedDecision(
