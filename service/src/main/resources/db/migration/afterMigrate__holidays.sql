@@ -5,6 +5,22 @@
 INSERT INTO holiday
     (date, description)
 VALUES
+    -- 2023
+    ('2023-01-01', 'uudenvuodenpäivä'),
+    ('2023-01-06', 'loppiainen'),
+    ('2023-04-07', 'pitkäperjantai'),
+    ('2023-04-09', 'pääsiäispäivä'),
+    ('2023-04-10', 'toinen pääsiäispäivä'),
+    ('2023-05-01', 'vappu'),
+    ('2023-05-18', 'helatorstai'),
+    ('2023-05-28', 'helluntai'),
+    ('2023-06-23', 'juhannusaatto'),
+    ('2023-06-24', 'juhannuspäivä'),
+    ('2023-11-04', 'pyhäinpäivä'),
+    ('2023-12-06', 'itsenäisyyspäivä'),
+    ('2023-12-24', 'jouluaatto'),
+    ('2023-12-25', 'joulupäivä'),
+    ('2023-12-26', 'tapaninpäivä'),
     -- 2022
     ('2022-01-01', 'uudenvuodenpäivä'),
     ('2022-01-06', 'loppiainen'),
