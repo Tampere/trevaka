@@ -334,6 +334,11 @@ const customizations: EmployeeCustomizations = {
         placementSketching: {
           connected: 'Täydentävä'
         }
+      },
+      roles: {
+        adRoles: {
+          DIRECTOR: 'Varhaiskasvatuksen esihenkilöt'
+        }
       }
     },
     sv: {
