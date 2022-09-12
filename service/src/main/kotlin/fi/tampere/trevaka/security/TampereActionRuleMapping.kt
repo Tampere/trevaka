@@ -6,6 +6,7 @@ package fi.tampere.trevaka.security
 
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.Action
+import fi.espoo.evaka.shared.security.PilotFeature
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.shared.security.actionrule.HasGlobalRole
 import fi.espoo.evaka.shared.security.actionrule.HasUnitRole
@@ -122,6 +123,13 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasUnitRole(UserRole.STAFF).inPlacementUnitOfChild() as ScopedActionRule<in T>
             ) + sequenceOf(HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>)
         }
+        Action.Child.READ_VASU_DOCUMENT -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasUnitRole(UserRole.STAFF).withUnitFeatures(PilotFeature.VASU_AND_PEDADOC)
+                    .inPlacementUnitOfChild() as ScopedActionRule<in T>
+            )
+        }
         Action.Child.CREATE_ABSENCE,
         Action.Child.DELETE_ABSENCE -> {
             @Suppress("UNCHECKED_CAST")
@@ -228,6 +236,13 @@ class TampereActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>
+            )
+        }
+        Action.VasuDocument.READ -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasUnitRole(UserRole.STAFF).withUnitFeatures(PilotFeature.VASU_AND_PEDADOC)
+                    .inPlacementUnitOfChildOfVasuDocument() as ScopedActionRule<in T>
             )
         }
         else -> action.defaultRules.asSequence()
