@@ -43,6 +43,7 @@ class AssistanceNeedDecisionServiceTest : AbstractIntegrationTest() {
         val headOfFamily = validPersonDTO
 
         val bytes = assistanceNeedDecisionService.generatePdf(
+            sentDate = LocalDate.of(2022, 9, 12),
             decision = decision,
             sendAddress = DecisionSendAddress.fromPerson(headOfFamily.toPersonDetailed()),
             guardian = headOfFamily
@@ -57,6 +58,7 @@ class AssistanceNeedDecisionServiceTest : AbstractIntegrationTest() {
         val decision = validAssistanceNeedDecision
 
         val bytes = assistanceNeedDecisionService.generatePdf(
+            sentDate = LocalDate.of(2022, 9, 12),
             decision = decision,
             sendAddress = null,
             guardian = null
