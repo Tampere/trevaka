@@ -34,6 +34,7 @@ class TampereConfig {
         useContractDaysAsDailyFeeDivisor = true,
         enabledChildConsentTypes = emptySet(),
         curriculumDocumentPermissionToShareRequired = false,
+        requestedStartUpperLimit = 14,
     )
 
     @Bean
