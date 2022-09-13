@@ -20,7 +20,7 @@ aliases:
   - &workspace_evaka_compose /home/circleci/repo/evaka/compose
 
   - &remote_docker_version "20.10.14"
-  - &base_image cimg/base:stable-20.04
+  - &base_image cimg/base:current-22.04
   - &reuse_image fsfe/reuse:0.13.0 # NOTE: Update bin/add-license-headers.sh to match
   - &nodejs_image cimg/node:16.13
   - &openjdk_image cimg/openjdk:17.0
