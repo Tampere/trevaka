@@ -337,7 +337,7 @@ const customizations: EmployeeCustomizations = {
       },
       roles: {
         adRoles: {
-          DIRECTOR: 'Varhaiskasvatuksen esihenkilöt'
+          DIRECTOR: 'Vaka-päälliköt'
         }
       }
     },
