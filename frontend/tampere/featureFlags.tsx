@@ -54,7 +54,7 @@ const features: Features = {
       messageAttachments: true,
       personalDetailsPage: true,
       mobileMessages: true,
-      assistanceNeedDecisions: false,
+      assistanceNeedDecisions: true,
       staffAttendanceTypes: false
     },
     adminSettingsEnabled: true
@@ -74,7 +74,7 @@ const features: Features = {
       messageAttachments: true,
       personalDetailsPage: true,
       mobileMessages: true,
-      assistanceNeedDecisions: false,
+      assistanceNeedDecisions: true,
       staffAttendanceTypes: false
     },
     adminSettingsEnabled: true
