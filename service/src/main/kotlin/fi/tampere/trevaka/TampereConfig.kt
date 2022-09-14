@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.presigner.S3Presigner
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
+import fi.espoo.evaka.shared.auth.UserRole
 
 @Configuration
 class TampereConfig {
@@ -34,6 +35,7 @@ class TampereConfig {
         useContractDaysAsDailyFeeDivisor = true,
         enabledChildConsentTypes = emptySet(),
         curriculumDocumentPermissionToShareRequired = false,
+        assistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
         requestedStartUpperLimit = 14,
     )
 
