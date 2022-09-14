@@ -371,8 +371,7 @@ const fi: DeepPartial<Translations> = {
   decisions: {
     summary: (
       <P width="800px">
-        Tälle sivulle saapuvat lapsen varhaiskasvatus- ja kerhohakemuksiin
-        liittyvät päätökset ja ilmoitukset.
+        Tälle sivulle saapuvat kaikki lasta koskevat päätökset.
       </P>
     ),
     applicationDecisions: {

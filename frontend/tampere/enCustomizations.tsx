@@ -371,8 +371,7 @@ const en: DeepPartial<Translations> = {
   decisions: {
     summary: (
       <P width="800px">
-        This page displays the received decisions regarding child&apos;s early
-        childhood education and club applications.
+        This page displays the received decisions regarding your child.
       </P>
     ),
     applicationDecisions: {
