@@ -7,6 +7,7 @@ package fi.tampere.trevaka.assistanceneed.decision
 import fi.espoo.evaka.assistanceneed.decision.AssistanceLevel
 import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecision
 import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionChild
+import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionEmployee
 import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionLanguage
 import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionMaker
 import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionService
@@ -66,6 +67,62 @@ class AssistanceNeedDecisionServiceTest : AbstractIntegrationTest() {
 
         val filepath =
             "${reportsPath}/AssistanceNeedDecisionServiceTest-assistance-need-decision-without-guardian.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
+    fun generatePdfWithPreparedBy() {
+        val decision = validAssistanceNeedDecision.copy(
+            preparedBy1 = AssistanceNeedDecisionEmployee(
+                employeeId = EmployeeId(UUID.randomUUID()),
+                title = "Palvelupäällikkö",
+                name = "Vallu Valmistelija",
+                phoneNumber = "0501234567"
+            ),
+            preparedBy2 = AssistanceNeedDecisionEmployee(
+                employeeId = EmployeeId(UUID.randomUUID()),
+                title = "Palvelupäällikkö",
+                name = "Valle Valmistelija",
+                phoneNumber = "0507654321"
+            ),
+        )
+        val headOfFamily = validPersonDTO
+
+        val bytes = assistanceNeedDecisionService.generatePdf(
+            sentDate = LocalDate.of(2022, 9, 12),
+            decision = decision,
+            sendAddress = DecisionSendAddress.fromPerson(headOfFamily.toPersonDetailed()),
+            guardian = headOfFamily
+        )
+
+        val filepath =
+            "${reportsPath}/AssistanceNeedDecisionServiceTest-assistance-need-decision-with-prepared-by.pdf"
+        FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    @Test
+    fun generatePdfWithEmptyPreparedBy() {
+        val preparedBy = AssistanceNeedDecisionEmployee(
+            employeeId = null,
+            title = null,
+            name = null,
+            phoneNumber = null,
+        )
+        val decision = validAssistanceNeedDecision.copy(
+            preparedBy1 = preparedBy,
+            preparedBy2 = preparedBy,
+        )
+        val headOfFamily = validPersonDTO
+
+        val bytes = assistanceNeedDecisionService.generatePdf(
+            sentDate = LocalDate.of(2022, 9, 12),
+            decision = decision,
+            sendAddress = DecisionSendAddress.fromPerson(headOfFamily.toPersonDetailed()),
+            guardian = headOfFamily
+        )
+
+        val filepath =
+            "${reportsPath}/AssistanceNeedDecisionServiceTest-assistance-need-decision-with-empty-prepared-by.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
     }
 
