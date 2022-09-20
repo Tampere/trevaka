@@ -16,7 +16,6 @@ import fi.espoo.evaka.shared.security.actionrule.UnscopedActionRule
 class TampereActionRuleMapping : ActionRuleMapping {
     override fun rulesOf(action: Action.UnscopedAction): Sequence<UnscopedActionRule> = when (action) {
         Action.Global.APPLICATIONS_PAGE,
-        Action.Global.FINANCE_BASICS_PAGE,
         Action.Global.FINANCE_PAGE,
         Action.Global.PERSON_SEARCH_PAGE,
         Action.Global.UNITS_PAGE,
@@ -49,6 +48,16 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR)
             )
         }
+        Action.Global.PIN_CODE_PAGE -> sequenceOf(
+            // removed director from default rules
+            HasGlobalRole(UserRole.REPORT_VIEWER, UserRole.SERVICE_WORKER),
+            HasUnitRole(
+                UserRole.UNIT_SUPERVISOR,
+                UserRole.STAFF,
+                UserRole.SPECIAL_EDUCATION_TEACHER,
+                UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY
+            ).inAnyUnit()
+        )
         Action.Global.READ_ASSISTANCE_NEED_DECISIONS_REPORT -> {
             action.defaultRules.asSequence() + sequenceOf(HasUnitRole(UserRole.UNIT_SUPERVISOR).inAnyUnit())
         }
@@ -73,6 +82,13 @@ class TampereActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.UNIT_SUPERVISOR).andIsDecisionMakerForAssistanceNeedDecision() as ScopedActionRule<in T>
+            )
+        }
+        Action.AssistanceNeedDecision.READ,
+        Action.AssistanceNeedDecision.READ_DECISION_MAKER_OPTIONS -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>
             )
         }
         Action.Attachment.READ_APPLICATION_ATTACHMENT,
