@@ -10,12 +10,13 @@ services:
     ports:
       - "8080:8080"
     environment:
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: admin
-      KEYCLOAK_IMPORT: /etc/auth/citizens-realm-export.json,/etc/auth/employees-realm-export.json
-      DB_VENDOR: h2
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTP_RELATIVE_PATH: /auth
+      KC_DB: dev-file
+    command: start-dev --import-realm
     volumes:
-      - ./auth:/etc/auth
+      - ./auth:/opt/keycloak/data/import
     depends_on:
       - smtp
   smtp:
