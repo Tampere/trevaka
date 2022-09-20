@@ -50,7 +50,12 @@ class TampereActionRuleMapping : ActionRuleMapping {
         Action.Global.PIN_CODE_PAGE -> sequenceOf(
             // removed director from default rules
             HasGlobalRole(UserRole.REPORT_VIEWER, UserRole.SERVICE_WORKER),
-            HasUnitRole(UserRole.UNIT_SUPERVISOR, UserRole.STAFF, UserRole.SPECIAL_EDUCATION_TEACHER).inAnyUnit()
+            HasUnitRole(
+                UserRole.UNIT_SUPERVISOR,
+                UserRole.STAFF,
+                UserRole.SPECIAL_EDUCATION_TEACHER,
+                UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY
+            ).inAnyUnit()
         )
         Action.Global.READ_ASSISTANCE_NEED_DECISIONS_REPORT -> {
             action.defaultRules.asSequence() + sequenceOf(HasUnitRole(UserRole.UNIT_SUPERVISOR).inAnyUnit())
