@@ -326,6 +326,10 @@ const customizations: EmployeeCustomizations = {
           individualSendAlertText: ''
         }
       },
+      preferredFirstName: {
+        description:
+          'Voit määritellä eVakassa käytössä olevan kutsumanimesi. Kutsumanimen tulee olla jokin etunimistäsi.'
+      },
       reports: {
         decisions: {
           preschoolDaycare: 'Esiopetus+täydentävä päätöksiä',
