@@ -76,7 +76,7 @@ internal class TrevakaMessageProvider(val messageSource: MessageSource) : IMessa
         )
     }
 
-    override fun getDefaultFeeDecisionAddress(lang: MessageLanguage): DecisionSendAddress =
+    override fun getDefaultFinancialDecisionAddress(lang: MessageLanguage): DecisionSendAddress =
         getDefaultDecisionAddress(lang)
 
     private fun resolveLocale(lang: MessageLanguage): Locale {
