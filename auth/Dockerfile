@@ -12,5 +12,8 @@ RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties && \
     sed -i -e '/<#--/d' -e '/-->/d' evaka/login/login-update-profile.ftl
 RUN npm run build
 
-FROM quay.io/keycloak/keycloak:19.0.1-legacy
-COPY --from=theme evaka /opt/jboss/keycloak/themes/evaka
+FROM quay.io/keycloak/keycloak:19.0.2
+COPY --from=theme evaka /opt/keycloak/themes/evaka
+RUN /opt/keycloak/bin/kc.sh build --db=postgres --http-relative-path=/auth --health-enabled=true
+RUN /opt/keycloak/bin/kc.sh show-config
+CMD ["start"]
