@@ -71,14 +71,6 @@ services:
       ENABLE_DEV_API: "true"
       PRETTY_LOGS: "false"
 
-  db:
-
-  db_it:
-
-  redis:
-
-  s3.mock.evaka:
-
 volumes:
   db-data:
     driver: local
