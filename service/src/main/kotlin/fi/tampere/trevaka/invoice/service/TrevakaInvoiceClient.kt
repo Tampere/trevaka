@@ -86,7 +86,7 @@ class TrevakaInvoiceClient(
                     is FaultType -> logger.error("Fault in invoice: ${faultDetail.errorCode}. Message: ${faultDetail.errorMessage}. Details: ${faultDetail.detailMessage}")
                     else -> logger.error("Unknown fault in invoice: $faultDetail", e)
                 }
-                return SendResult(manuallySent = withoutSSN, failed = withSSN, succeeded = zeroSumInvoices)
+                throw e
             }
         }
         return SendResult(manuallySent = withoutSSN, succeeded = withSSN + zeroSumInvoices)
