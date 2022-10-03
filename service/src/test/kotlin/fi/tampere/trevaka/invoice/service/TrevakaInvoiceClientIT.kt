@@ -8,8 +8,10 @@ import com.github.tomakehurst.wiremock.client.BasicCredentials
 import com.github.tomakehurst.wiremock.client.WireMock.*
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.catchThrowable
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.ws.soap.client.SoapFaultClientException
 
 internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
 
@@ -55,10 +57,9 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
             )
         )
 
-        assertThat(client.send(listOf(invoice1)))
-            .returns(listOf()) { it.succeeded }
-            .returns(listOf(invoice1)) { it.failed }
+        val thrown = catchThrowable { client.send(listOf(invoice1)) }
 
+        assertThat(thrown).isInstanceOf(SoapFaultClientException::class.java)
         verify(
             postRequestedFor(urlEqualTo("/mock/ipaas/salesOrder"))
                 .withBasicAuth(BasicCredentials("user", "pass"))
@@ -82,10 +83,9 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
             )
         )
 
-        assertThat(client.send(listOf(invoice1)))
-            .returns(listOf()) { it.succeeded }
-            .returns(listOf(invoice1)) { it.failed }
+        val thrown = catchThrowable { client.send(listOf(invoice1)) }
 
+        assertThat(thrown).isInstanceOf(SoapFaultClientException::class.java)
         verify(
             postRequestedFor(urlEqualTo("/mock/ipaas/salesOrder"))
                 .withBasicAuth(BasicCredentials("user", "pass"))

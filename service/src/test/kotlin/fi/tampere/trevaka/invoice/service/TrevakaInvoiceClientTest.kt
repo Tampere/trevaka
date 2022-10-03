@@ -4,6 +4,7 @@
 
 package fi.tampere.trevaka.invoice.service
 
+
 import fi.espoo.evaka.daycare.CareType
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
@@ -22,12 +23,14 @@ import fi.tampere.trevaka.SummertimeAbsenceProperties
 import fi.tampere.trevaka.TrevakaProperties
 import fi.tampere.trevaka.invoice.config.InvoiceConfiguration
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.catchThrowable
 import org.custommonkey.xmlunit.XMLUnit
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.core.io.ClassPathResource
+import org.springframework.ws.soap.client.SoapFaultClientException
 import org.springframework.ws.test.client.MockWebServiceServer
 import org.springframework.ws.test.client.RequestMatchers.connectionTo
 import org.springframework.ws.test.client.RequestMatchers.payload
@@ -146,11 +149,9 @@ internal class TrevakaInvoiceClientTest {
         server.expect(connectionTo("http://localhost:8080/salesOrder"))
             .andRespond(withClientOrSenderFault("test", Locale.ENGLISH))
 
-        assertThat(client.send(listOf(invoice1, invoice2)))
-            .returns(listOf()) { it.succeeded }
-            .returns(listOf(invoice1)) { it.failed }
-            .returns(listOf(invoice2)) { it.manuallySent }
+        val thrown = catchThrowable { client.send(listOf(invoice1, invoice2)) }
 
+        assertThat(thrown).isInstanceOf(SoapFaultClientException::class.java)
         server.verify()
     }
 
@@ -161,11 +162,9 @@ internal class TrevakaInvoiceClientTest {
         server.expect(connectionTo("http://localhost:8080/salesOrder"))
             .andRespond(withServerOrReceiverFault("test", Locale.ENGLISH))
 
-        assertThat(client.send(listOf(invoice1, invoice2)))
-            .returns(listOf()) { it.succeeded }
-            .returns(listOf(invoice1)) { it.failed }
-            .returns(listOf(invoice2)) { it.manuallySent }
+        val thrown = catchThrowable { client.send(listOf(invoice1, invoice2)) }
 
+        assertThat(thrown).isInstanceOf(SoapFaultClientException::class.java)
         server.verify()
     }
 
