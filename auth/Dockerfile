@@ -9,7 +9,8 @@ COPY theme .
 COPY theme-fi.sed ./
 COPY TampereLogo.png evaka/login/resources/img/EspooLogo.png
 RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties && \
-    sed -i -e '/<#--/d' -e '/-->/d' evaka/login/login-update-profile.ftl
+    sed -i -e '/<#--/d' -e '/-->/d' evaka/login/login-update-profile.ftl && \
+    sed -i -r 's/ lib\/zocial\/zocial.css//' evaka/login/theme.properties
 RUN npm run build
 
 FROM quay.io/keycloak/keycloak:19.0.2
