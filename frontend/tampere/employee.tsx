@@ -371,7 +371,7 @@ const customizations: EmployeeCustomizations = {
     'DAYCARE',
     'DAYCARE_PART_TIME',
     'TEMPORARY_DAYCARE',
-    ...(env() === 'default' ? (['PRESCHOOL'] as const) : []),
+    ...(['default', 'staging'].includes(env()) ? (['PRESCHOOL'] as const) : []),
     'PRESCHOOL_DAYCARE',
     'CLUB',
     'SCHOOL_SHIFT_CARE'
