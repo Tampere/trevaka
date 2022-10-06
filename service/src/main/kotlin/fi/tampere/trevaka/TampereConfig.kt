@@ -37,6 +37,7 @@ class TampereConfig {
         curriculumDocumentPermissionToShareRequired = false,
         assistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
         requestedStartUpperLimit = 14,
+        partialAbsenceThresholdsEnabled = false,
     )
 
     @Bean
