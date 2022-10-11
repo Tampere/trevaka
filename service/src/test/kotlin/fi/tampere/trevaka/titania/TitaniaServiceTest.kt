@@ -5,16 +5,24 @@
 package fi.tampere.trevaka.titania
 
 import fi.espoo.evaka.attendance.StaffAttendanceType
+import fi.espoo.evaka.attendance.upsertStaffAttendance
 import fi.espoo.evaka.pis.createEmployee
+import fi.espoo.evaka.shared.AreaId
 import fi.espoo.evaka.shared.EmployeeId
+import fi.espoo.evaka.shared.dev.DevDaycare
+import fi.espoo.evaka.shared.dev.DevDaycareGroup
+import fi.espoo.evaka.shared.dev.insertTestDaycare
+import fi.espoo.evaka.shared.dev.insertTestDaycareGroup
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.catchThrowable
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
+import java.util.UUID
 
 internal class TitaniaServiceTest : AbstractIntegrationTest() {
 
@@ -151,19 +159,85 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
 
     @Test
     fun `getStampedWorkingTimeEvents`() {
+        runInTransaction { tx ->
+            val unitId = tx.insertTestDaycare(
+                DevDaycare(
+                    areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
+                )
+            )
+            val groupId = tx.insertTestDaycareGroup(
+                DevDaycareGroup(
+                    daycareId = unitId,
+                )
+            )
+            tx.createEmployee(
+                testEmployee.copy(
+                    firstName = "IINES",
+                    lastName = "ANKKA",
+                    employeeNumber = "177111",
+                )
+            ).let { (employeeId) ->
+                tx.upsertStaffAttendance(
+                    attendanceId = null,
+                    employeeId = employeeId,
+                    groupId = groupId,
+                    arrivalTime = HelsinkiDateTime.of(LocalDate.of(2014, 3, 3), LocalTime.of(7, 0)),
+                    departureTime = HelsinkiDateTime.of(LocalDate.of(2014, 3, 3), LocalTime.of(15, 0)),
+                    occupancyCoefficient = BigDecimal("7.0"),
+                    type = StaffAttendanceType.PRESENT,
+                )
+                tx.upsertStaffAttendance(
+                    attendanceId = null,
+                    employeeId = employeeId,
+                    groupId = groupId,
+                    arrivalTime = HelsinkiDateTime.of(LocalDate.of(2014, 3, 4), LocalTime.of(6, 30)),
+                    departureTime = HelsinkiDateTime.of(LocalDate.of(2014, 3, 4), LocalTime.of(12, 0)),
+                    occupancyCoefficient = BigDecimal("7.0"),
+                    type = StaffAttendanceType.OVERTIME,
+                )
+            }
+            tx.createEmployee(
+                testEmployee.copy(
+                    firstName = "HESSU",
+                    lastName = "HOPO",
+                    employeeNumber = "255145",
+                )
+            ).let { (employeeId) ->
+                tx.upsertStaffAttendance(
+                    attendanceId = null,
+                    employeeId = employeeId,
+                    groupId = groupId,
+                    arrivalTime = HelsinkiDateTime.of(LocalDate.of(2014, 3, 3), LocalTime.of(7, 0)),
+                    departureTime = HelsinkiDateTime.of(LocalDate.of(2014, 3, 3), LocalTime.of(11, 0)),
+                    occupancyCoefficient = BigDecimal("7.0"),
+                    type = StaffAttendanceType.PRESENT,
+                )
+                tx.upsertStaffAttendance(
+                    attendanceId = null,
+                    employeeId = employeeId,
+                    groupId = groupId,
+                    arrivalTime = HelsinkiDateTime.of(LocalDate.of(2014, 3, 3), LocalTime.of(12, 5)),
+                    departureTime = HelsinkiDateTime.of(LocalDate.of(2014, 3, 3), LocalTime.of(16, 10)),
+                    occupancyCoefficient = BigDecimal("7.0"),
+                    type = StaffAttendanceType.PRESENT,
+                )
+                tx.upsertStaffAttendance(
+                    attendanceId = null,
+                    employeeId = employeeId,
+                    groupId = groupId,
+                    arrivalTime = HelsinkiDateTime.of(LocalDate.of(2014, 3, 4), LocalTime.of(10, 15)),
+                    departureTime = HelsinkiDateTime.of(LocalDate.of(2014, 3, 4), LocalTime.of(17, 15)),
+                    occupancyCoefficient = BigDecimal("7.0"),
+                    type = StaffAttendanceType.OTHER_WORK,
+                )
+            }
+        }
+
         val response = runInTransaction { tx ->
             titaniaService.getStampedWorkingTimeEvents(tx, titaniaGetRequestValidExampleData)
         }
 
-        assertThat(response).returns(
-            listOf(
-                TitaniaStampedUnitResponse(
-                    code = "E1100",
-                    name = "Suunnittelupiste A",
-                    person = emptyList()
-                )
-            )
-        ) { it.schedulingUnit }
+        assertThat(response).isEqualTo(titaniaGetResponseValidExampleData)
     }
 
 }

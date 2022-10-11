@@ -30,7 +30,7 @@ internal val titaniaUpdateRequestValidExampleData = UpdateWorkingTimeEventsReque
                 TitaniaOccupation(
                     code = "15510", name = "Kodinhoitaja", person = listOf(
                         TitaniaPerson(
-                            employeeId = "176716",
+                            employeeId = "00176716",
                             name = "ANKKA IINES",
                             TitaniaWorkingTimeEvents(
                                 event = listOf(
@@ -81,7 +81,7 @@ internal val titaniaUpdateRequestValidMinimalData = UpdateWorkingTimeEventsReque
                 TitaniaOccupation(
                     code = "15510", name = "Kodinhoitaja", person = listOf(
                         TitaniaPerson(
-                            employeeId = "176716",
+                            employeeId = "00176716",
                             name = "ANKKA IINES",
                             actualWorkingTimeEvents = TitaniaWorkingTimeEvents(
                                 event = listOf(
@@ -114,11 +114,11 @@ internal val titaniaGetRequestValidExampleData = GetStampedWorkingTimeEventsRequ
             name = "Suunnittelupiste A",
             person = listOf(
                 TitaniaStampedPersonRequest(
-                    employeeId = "177111",
+                    employeeId = "00177111",
                     name = "ANKKA IINES"
                 ),
                 TitaniaStampedPersonRequest(
-                    employeeId = "255145",
+                    employeeId = "00255145",
                     name = "HOPO HESSU"
                 )
             )
@@ -134,61 +134,45 @@ internal val titaniaGetResponseValidExampleData = GetStampedWorkingTimeEventsRes
             name = "Suunnittelupiste A",
             person = listOf(
                 TitaniaStampedPersonResponse(
-                    employeeId = "177111",
+                    employeeId = "00177111",
                     name = "ANKKA IINES",
                     stampedWorkingTimeEvents = TitaniaStampedWorkingTimeEvents(
                         event = listOf(
                             TitaniaStampedWorkingTimeEvent(
                                 date = LocalDate.of(2014, 3, 3),
-                                beginTime = LocalTime.of(7, 0)
-                            ),
-                            TitaniaStampedWorkingTimeEvent(
-                                date = LocalDate.of(2014, 3, 3),
-                                endTime = LocalTime.of(15, 0)
+                                beginTime = LocalTime.of(7, 0),
+                                endTime = LocalTime.of(15, 0),
                             ),
                             TitaniaStampedWorkingTimeEvent(
                                 date = LocalDate.of(2014, 3, 4),
                                 beginTime = LocalTime.of(6, 30),
-                                beginReasonCode = "YT"
-                            ),
-                            TitaniaStampedWorkingTimeEvent(
-                                date = LocalDate.of(2014, 3, 4),
                                 endTime = LocalTime.of(12, 0),
-                                endReasonCode = "SA"
-                            )
+                                beginReasonCode = "YT",
+                            ),
                         )
                     )
                 ),
                 TitaniaStampedPersonResponse(
-                    employeeId = "255145",
+                    employeeId = "00255145",
                     name = "HOPO HESSU",
                     stampedWorkingTimeEvents = TitaniaStampedWorkingTimeEvents(
                         event = listOf(
                             TitaniaStampedWorkingTimeEvent(
                                 date = LocalDate.of(2014, 3, 3),
                                 beginTime = LocalTime.of(7, 0),
-                            ),
-                            TitaniaStampedWorkingTimeEvent(
-                                date = LocalDate.of(2014, 3, 3),
-                                endTime = LocalTime.of(11, 0)
+                                endTime = LocalTime.of(11, 0),
                             ),
                             TitaniaStampedWorkingTimeEvent(
                                 date = LocalDate.of(2014, 3, 3),
                                 beginTime = LocalTime.of(12, 5),
-                            ),
-                            TitaniaStampedWorkingTimeEvent(
-                                date = LocalDate.of(2014, 3, 3),
-                                endTime = LocalTime.of(16, 10)
+                                endTime = LocalTime.of(16, 10),
                             ),
                             TitaniaStampedWorkingTimeEvent(
                                 date = LocalDate.of(2014, 3, 4),
                                 beginTime = LocalTime.of(10, 15),
-                                beginReasonCode = "TA"
+                                beginReasonCode = "TA",
+                                endTime = LocalTime.of(17, 15),
                             ),
-                            TitaniaStampedWorkingTimeEvent(
-                                date = LocalDate.of(2014, 3, 4),
-                                endTime = LocalTime.of(17, 15)
-                            )
                         )
                     )
                 )

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service
 private val logger = KotlinLogging.logger {}
 
 @Service
-class TitaniaService {
+class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
 
     fun updateWorkingTimeEvents(
         tx: Database.Transaction,
@@ -35,7 +35,7 @@ class TitaniaService {
         val period = request.period.toDateRange()
         val persons = request.schedulingUnit.flatMap { unit ->
             unit.occupation.flatMap { occupation ->
-                occupation.person.map { person -> person.employeeId to person.actualWorkingTimeEvents }
+                occupation.person.map { person -> idConverter.fromTitania(person.employeeId) to person.actualWorkingTimeEvents }
             }
         }
         val employeeNumbers = persons.map { (employeeNumber, _) -> employeeNumber }.distinct()
@@ -86,7 +86,7 @@ class TitaniaService {
         logger.debug { "Titania request: $request" }
         val period = request.period.toDateRange()
         val employeeNumbers = request.schedulingUnit
-            .flatMap { unit -> unit.person.map { person -> person.employeeId } }
+            .flatMap { unit -> unit.person.map { person -> idConverter.fromTitania(person.employeeId) } }
             .distinct()
         val employeeIdToNumber = tx.getEmployeeIdsByNumbersMapById(employeeNumbers)
         logger.info { "Finding staff attendances for ${employeeIdToNumber.size} employees in period $period" }
@@ -101,7 +101,7 @@ class TitaniaService {
             .groupBy { EmployeeKey(it.employeeId, it.firstName, it.lastName) }
             .map { (employee, attendances) ->
                 TitaniaStampedPersonResponse(
-                    employeeId = employeeIdToNumber[employee.id]!!,
+                    employeeId = idConverter.toTitania(employeeIdToNumber[employee.id]!!),
                     name = "${employee.lastName} ${employee.firstName}".uppercase(),
                     stampedWorkingTimeEvents = TitaniaStampedWorkingTimeEvents(
                         event = attendances.flatMap(::splitOvernight).map { attendance ->
@@ -110,7 +110,7 @@ class TitaniaService {
                                 beginTime = attendance.arrived.toLocalTime(),
                                 beginReasonCode = attendance.type.asTitaniaReasonCode(),
                                 endTime = attendance.departed?.toLocalTime(),
-                                endReasonCode = attendance.type.asTitaniaReasonCode()
+                                endReasonCode = null,
                             )
                         }
                     )
@@ -134,3 +134,15 @@ data class TitaniaUpdateResponse(
     val deleted: List<StaffAttendancePlan>,
     val inserted: List<StaffAttendancePlan>,
 )
+
+interface TitaniaEmployeeIdConverter {
+    fun fromTitania(employeeId: String): String
+    fun toTitania(employeeNumber: String): String
+
+    companion object {
+        fun default(): TitaniaEmployeeIdConverter = object : TitaniaEmployeeIdConverter {
+            override fun fromTitania(employeeId: String): String  = employeeId
+            override fun toTitania(employeeNumber: String) = employeeNumber
+        }
+    }
+}
