@@ -15,6 +15,7 @@ import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.presigner.S3Presigner
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.shared.auth.UserRole
+import fi.tampere.trevaka.titania.TitaniaEmployeeIdConverter
 
 @Configuration
 class TampereConfig {
@@ -49,4 +50,10 @@ class TampereConfig {
 
     @Bean
     fun actionRuleMapping(): ActionRuleMapping = TampereActionRuleMapping()
+
+    @Bean
+    fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter = object : TitaniaEmployeeIdConverter {
+        override fun fromTitania(employeeId: String): String = employeeId.trimStart('0')
+        override fun toTitania(employeeNumber: String): String = employeeNumber.padStart(8, '0')
+    }
 }
