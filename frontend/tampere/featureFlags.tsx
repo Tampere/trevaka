@@ -35,7 +35,8 @@ const features: Features = {
       leops: true,
       citizenVasu: true,
       assistanceNeedDecisions: true,
-      staffAttendanceTypes: true
+      staffAttendanceTypes: true,
+      fosterParents: true
     },
     adminSettingsEnabled: true
   },
