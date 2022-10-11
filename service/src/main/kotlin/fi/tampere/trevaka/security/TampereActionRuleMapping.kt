@@ -48,6 +48,12 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR)
             )
         }
+        Action.Global.REPORTS_PAGE,
+        Action.Global.READ_ATTENDANCE_RESERVATION_REPORT-> {
+            action.defaultRules.asSequence() + sequenceOf(
+                HasUnitRole(UserRole.STAFF).inAnyUnit()
+            )
+        }
         Action.Global.PIN_CODE_PAGE -> sequenceOf(
             // removed director from default rules
             HasGlobalRole(UserRole.REPORT_VIEWER, UserRole.SERVICE_WORKER),
@@ -241,11 +247,16 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasUnitRole(UserRole.SPECIAL_EDUCATION_TEACHER).inUnit() as ScopedActionRule<in T>
             )
         }
-        Action.Unit.READ_ASSISTANCE_NEED_DECISIONS_REPORT,
-        Action.Unit.READ_ATTENDANCE_RESERVATION_REPORT -> {
+        Action.Unit.READ_ASSISTANCE_NEED_DECISIONS_REPORT -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.UNIT_SUPERVISOR).inUnit() as ScopedActionRule<in T>
+            )
+        }
+        Action.Unit.READ_ATTENDANCE_RESERVATION_REPORT -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasUnitRole(UserRole.UNIT_SUPERVISOR, UserRole.STAFF).inUnit() as ScopedActionRule<in T>
             )
         }
         Action.VoucherValueDecision.READ -> {
