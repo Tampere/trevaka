@@ -423,7 +423,7 @@ jobs:
       - run:
           name: Verify commit
           command: |
-            if [ "$CIRCLE_USERNAME" != "trevaka-ci" ]; then
+            if [ "$(git show -s --format='%cn')" != "trevaka-ci" ]; then
                 circleci-agent step halt
             fi
       - run: git checkout main
