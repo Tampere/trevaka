@@ -60,7 +60,7 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                                 message = "Unknown employee number: $employeeNumber"
                             )
                         ),
-                        StaffAttendanceType.PRESENT,
+                        event.code?.let { staffAttendanceTypeFromTitaniaEventCode(it) } ?: StaffAttendanceType.PRESENT,
                         HelsinkiDateTime.of(event.date, event.beginTime!!),
                         HelsinkiDateTime.of(event.date, event.endTime!!),
                         event.description

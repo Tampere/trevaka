@@ -15,11 +15,11 @@ import java.time.LocalTime
 
 internal val IGNORED_EVENT_CODES = listOf(
     // Työrupeamat
-    "U", "(", "£", "&", "€",
+    "(", "£", "&", "€",
     // Vapaapäivät
     "V", "L", ":", "/", ")", "%", "T", "!", "k", "Q", "q", "v", "+",
     // Koulutukset
-    "K", "N", "n",
+    "N", "n",
     // Varallaolo ja hälytystyö
     "1", "2", "3", "4", "5", "9", "8",
     // Vuosilomat
