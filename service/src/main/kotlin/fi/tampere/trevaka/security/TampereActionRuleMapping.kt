@@ -256,7 +256,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
         Action.Unit.READ_ATTENDANCE_RESERVATION_REPORT -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
-                HasUnitRole(UserRole.UNIT_SUPERVISOR, UserRole.STAFF).inUnit() as ScopedActionRule<in T>
+                HasUnitRole(UserRole.STAFF).inUnit() as ScopedActionRule<in T>
             )
         }
         Action.VoucherValueDecision.READ -> {
