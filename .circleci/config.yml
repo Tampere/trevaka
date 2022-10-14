@@ -96,7 +96,6 @@ executors:
   reuse_tool:
     docker:
       - image: *reuse_image
-    resource_class: small
     working_directory: *workspace_root
   nodejs_executor:
     <<: *node_config
@@ -121,7 +120,6 @@ executors:
     <<: *node_config
     machine:
       image: *ubuntu_machine_image
-    resource_class: large
     environment:
       NODE_ENV: development
 
@@ -364,6 +362,7 @@ jobs:
         type: boolean
         default: false
     executor: base_executor
+    resource_class: small
     steps:
       - checkout
       - when:
@@ -381,6 +380,7 @@ jobs:
   fetch_private_dependencies:
     <<: *default_config
     executor: aws-cli/default
+    resource_class: small
     steps:
       - *restore_repo
       - aws-cli/install
@@ -401,6 +401,7 @@ jobs:
 
   commit_and_push_branch:
     executor: base_executor
+    resource_class: small
     steps:
       - *restore_repo
       - setup_git
@@ -417,6 +418,7 @@ jobs:
 
   merge_branch:
     executor: base_executor
+    resource_class: small
     steps:
       - *restore_repo
       - setup_git
@@ -433,6 +435,7 @@ jobs:
 
   check_licenses:
     executor: reuse_tool
+    resource_class: small
     steps:
       - *restore_repo
       - run:
@@ -451,6 +454,7 @@ jobs:
 
   build_base_image:
     executor: base_executor
+    resource_class: medium
     steps:
       - *restore_repo
       - setup_authenticated_remote_docker:
@@ -478,6 +482,7 @@ jobs:
 
   apigw_build_image:
     executor: base_executor
+    resource_class: medium
     steps:
       - *restore_repo
       - setup_authenticated_remote_docker:
@@ -492,6 +497,7 @@ jobs:
   apigw_push_image:
     <<: *default_config
     executor: aws-cli/default
+    resource_class: small
     steps:
       - *restore_repo
       - restore:
@@ -540,6 +546,7 @@ jobs:
   frontend_upload_archive:
     <<: *default_config
     executor: aws-cli/default
+    resource_class: small
     steps:
       - *restore_repo
       - restore:
@@ -559,6 +566,7 @@ jobs:
 
   proxy_build_image:
     executor: base_executor
+    resource_class: medium
     steps:
       - *restore_repo
       - setup_authenticated_remote_docker
@@ -571,6 +579,7 @@ jobs:
   proxy_push_image:
     <<: *default_config
     executor: aws-cli/default
+    resource_class: small
     steps:
       - *restore_repo
       - restore:
@@ -612,6 +621,7 @@ jobs:
 
   service_build_image:
     executor: base_executor
+    resource_class: medium
     steps:
       - *restore_repo
       - restore:
@@ -631,6 +641,7 @@ jobs:
   service_push_image:
     <<: *default_config
     executor: aws-cli/default
+    resource_class: small
     steps:
       - *restore_repo
       - restore:
@@ -643,6 +654,7 @@ jobs:
 
   auth_build_image:
     executor: base_executor
+    resource_class: medium
     steps:
       - *restore_repo
       - setup_authenticated_remote_docker:
@@ -659,6 +671,7 @@ jobs:
   auth_push_image:
     <<: *default_config
     executor: aws-cli/default
+    resource_class: small
     steps:
       - *restore_repo
       - restore:
@@ -671,6 +684,7 @@ jobs:
 
   trigger_deploy:
     executor: base_executor
+    resource_class: small
     steps:
       - run:
           name: Trigger deploy
@@ -685,11 +699,13 @@ jobs:
 
   e2e-build-playwright:
     executor: nodejs_executor
+    resource_class: medium
     steps:
       - e2e_build
 
   e2e-test-playwright:
     executor: e2e_executor
+    resource_class: large
     steps:
       - e2e_test
 
