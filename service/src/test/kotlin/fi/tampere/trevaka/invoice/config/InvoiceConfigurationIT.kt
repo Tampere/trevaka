@@ -9,6 +9,7 @@ import fi.espoo.evaka.invoicing.domain.DecisionIncome
 import fi.espoo.evaka.invoicing.domain.FeeAlterationWithEffect
 import fi.espoo.evaka.invoicing.domain.FeeDecision
 import fi.espoo.evaka.invoicing.domain.FeeDecisionChild
+import fi.espoo.evaka.invoicing.domain.FeeDecisionDifference
 import fi.espoo.evaka.invoicing.domain.FeeDecisionPlacement
 import fi.espoo.evaka.invoicing.domain.FeeDecisionServiceNeed
 import fi.espoo.evaka.invoicing.domain.FeeDecisionStatus
@@ -279,6 +280,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
         children: List<FeeDecisionChild>,
         partnerId: PersonId? = null,
         feeThresholds: FeeDecisionThresholds = testFeeThresholds.getFeeDecisionThresholds(children.size + 1),
+        difference: Set<FeeDecisionDifference> = emptySet(),
         headOfFamilyIncome: DecisionIncome? = null
     ) = FeeDecision(
         id = FeeDecisionId(UUID.randomUUID()),
@@ -291,6 +293,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
         partnerIncome = null,
         familySize = children.size + 1,
         feeThresholds = feeThresholds,
+        difference = difference,
         children = children,
     )
 
