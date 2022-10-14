@@ -583,6 +583,7 @@ jobs:
 
   service_build:
     executor: openjdk_executor
+    resource_class: medium+
     steps:
       - *restore_repo
       - *restore_service_gradle
@@ -596,6 +597,7 @@ jobs:
 
   service_test:
     executor: service_test_executor
+    resource_class: medium+
     steps:
       - *restore_repo
       - *restore_service_gradle
