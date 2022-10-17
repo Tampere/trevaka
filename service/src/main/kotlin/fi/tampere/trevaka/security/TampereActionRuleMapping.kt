@@ -97,6 +97,12 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>
             )
         }
+        Action.AssistanceNeedDecision.READ_IN_REPORT -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasUnitRole(UserRole.UNIT_SUPERVISOR).inUnit() as ScopedActionRule<in T>
+            )
+        }
         Action.Attachment.READ_APPLICATION_ATTACHMENT,
         Action.Attachment.READ_INCOME_STATEMENT_ATTACHMENT,
         Action.Attachment.READ_INCOME_ATTACHMENT -> {
@@ -245,12 +251,6 @@ class TampereActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.SPECIAL_EDUCATION_TEACHER).inUnit() as ScopedActionRule<in T>
-            )
-        }
-        Action.Unit.READ_ASSISTANCE_NEED_DECISIONS_REPORT -> {
-            @Suppress("UNCHECKED_CAST")
-            action.defaultRules.asSequence() + sequenceOf(
-                HasUnitRole(UserRole.UNIT_SUPERVISOR).inUnit() as ScopedActionRule<in T>
             )
         }
         Action.Unit.READ_ATTENDANCE_RESERVATION_REPORT -> {
