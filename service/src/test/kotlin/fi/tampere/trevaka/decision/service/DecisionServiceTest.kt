@@ -13,8 +13,8 @@ import fi.espoo.evaka.decision.DecisionStatus
 import fi.espoo.evaka.decision.DecisionType
 import fi.espoo.evaka.decision.DecisionUnit
 import fi.espoo.evaka.decision.createDecisionPdf
-import fi.espoo.evaka.emailclient.IEmailMessageProvider
 import fi.espoo.evaka.identity.ExternalIdentifier
+import fi.espoo.evaka.invoicing.service.DocumentLang
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.setting.SettingType
 import fi.espoo.evaka.shared.ApplicationId
@@ -45,9 +45,6 @@ class DecisionServiceTest : AbstractIntegrationTest() {
 
     @Autowired
     private lateinit var messageProvider: IMessageProvider
-
-    @Autowired
-    private lateinit var emailMessageProvider: IEmailMessageProvider
 
     @Autowired
     private lateinit var templateProvider: ITemplateProvider
@@ -86,7 +83,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                     )
                 )
             },
-            lang = "fi",
+            lang = DocumentLang.FI,
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
         )
 
@@ -112,7 +109,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                 partTime = false,
                 serviceNeedOption = null
             ),
-            lang = "fi",
+            lang = DocumentLang.FI,
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
         )
 
@@ -141,7 +138,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                     ServiceNeedOptionId(UUID.randomUUID()), "Palveluntarve 1", "Palveluntarve 1", "Palveluntarve 1"
                 )
             ),
-            lang = "fi",
+            lang = DocumentLang.FI,
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
         )
 
@@ -172,7 +169,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                     "Palveluntarve 1"
                 )
             ),
-            lang = "fi",
+            lang = DocumentLang.FI,
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
         )
 
@@ -203,7 +200,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                     "Palveluntarve 1"
                 )
             ),
-            lang = "fi",
+            lang = DocumentLang.FI,
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
         )
 
@@ -234,7 +231,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                     "Palveluntarve 1"
                 )
             ),
-            lang = "fi",
+            lang = DocumentLang.FI,
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
         )
 
