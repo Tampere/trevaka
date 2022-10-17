@@ -68,7 +68,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     fun generateFeeDecisionPdf() {
         val decision = validFeeDecision()
 
-        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -78,7 +78,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     fun generateFeeDecisionPdfWithIncome() {
         val decision = validFeeDecision().copy(headOfFamilyIncome = testDecisionIncome)
 
-        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-head-of-family-income.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -89,7 +89,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     fun generateFeeDecisionPdfType(decisionType: FeeDecisionType) {
         val decision = validFeeDecision().copy(decisionType = decisionType)
 
-        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-type-$decisionType.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -107,7 +107,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
             partnerIsCodebtor = true
         )
 
-        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-partner.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -127,7 +127,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
             partnerIsCodebtor = true
         )
 
-        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-partner-income.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -139,7 +139,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
             children = listOf(validFeeDecisionChild().copy(childIncome = testDecisionIncome))
         )
 
-        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-child-income.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -186,7 +186,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
             )
         )
 
-        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-incomes.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -198,7 +198,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
         val validFrom = validTo.minusYears(1)
         val decision = validFeeDecision().copy(validDuring = DateRange(validFrom, validTo))
 
-        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-valid-to.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -215,7 +215,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
             )
         )
 
-        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, "fi"))
+        val bytes = pdfService.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
         val filepath = "${reportsPath}/PDFServiceTest-fee-decision-empty-address.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
@@ -224,7 +224,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     @Test
     fun generateVoucherValueDecisionPdf() {
         val decision = validVoucherValueDecision()
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.fi)
+        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
 
         val bytes = pdfService.generateVoucherValueDecisionPdf(data)
 
@@ -235,7 +235,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     @Test
     fun generateVoucherValueDecisionPdfWithIncome() {
         val decision = validVoucherValueDecision().copy(headOfFamilyIncome = testDecisionIncome)
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.fi)
+        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
 
         val bytes = pdfService.generateVoucherValueDecisionPdf(data)
 
@@ -246,7 +246,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     @Test
     fun generateVoucherValueDecisionPdfWithChildIncome() {
         val decision = validVoucherValueDecision().copy(childIncome = testDecisionIncome)
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.fi)
+        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
 
         val bytes = pdfService.generateVoucherValueDecisionPdf(data)
 
@@ -265,7 +265,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
             ),
             partnerIsCodebtor = true
         )
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.fi)
+        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
 
         val bytes = pdfService.generateVoucherValueDecisionPdf(data)
 
@@ -278,7 +278,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
         val validTo = LocalDate.now().minusDays(1)
         val validFrom = validTo.minusYears(1)
         val decision = validVoucherValueDecision().copy(validFrom = validFrom, validTo = validTo)
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.fi)
+        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
 
         val bytes = pdfService.generateVoucherValueDecisionPdf(data)
 
@@ -296,7 +296,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
                 "", null, "", null, restrictedDetailsEnabled = false
             )
         )
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.fi)
+        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
 
         val bytes = pdfService.generateVoucherValueDecisionPdf(data)
 
@@ -313,7 +313,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
                 FeeAlterationWithEffect(FeeAlteration.Type.RELIEF, 50, false, -10800)
             )
         )
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.fi)
+        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
 
         val bytes = pdfService.generateVoucherValueDecisionPdf(data)
 
@@ -330,7 +330,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
                 FeeAlterationWithEffect(FeeAlteration.Type.RELIEF, 50, false, -100)
             )
         )
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.fi)
+        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
 
         val bytes = pdfService.generateVoucherValueDecisionPdf(data)
 
@@ -344,7 +344,7 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
             validTo = LocalDate.now().plusYears(1),
             decisionType = VoucherValueDecisionType.RELIEF_REJECTED
         )
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.fi)
+        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
 
         val bytes = pdfService.generateVoucherValueDecisionPdf(data)
 
