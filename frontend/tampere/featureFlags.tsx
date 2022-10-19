@@ -56,7 +56,8 @@ const features: Features = {
       personalDetailsPage: true,
       mobileMessages: true,
       assistanceNeedDecisions: true,
-      staffAttendanceTypes: false
+      staffAttendanceTypes: false,
+      fosterParents: true
     },
     adminSettingsEnabled: true
   },
@@ -76,7 +77,8 @@ const features: Features = {
       personalDetailsPage: true,
       mobileMessages: true,
       assistanceNeedDecisions: true,
-      staffAttendanceTypes: false
+      staffAttendanceTypes: false,
+      fosterParents: true
     },
     adminSettingsEnabled: true
   }
