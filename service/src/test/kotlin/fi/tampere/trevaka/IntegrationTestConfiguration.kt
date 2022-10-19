@@ -49,11 +49,10 @@ class IntegrationTestConfiguration {
             )
             .build()
 
-        client.createBucket { it.bucket(bucketEnv.decisions) }
-        client.createBucket { it.bucket(bucketEnv.feeDecisions) }
-        client.createBucket { it.bucket(bucketEnv.voucherValueDecisions) }
-        client.createBucket { it.bucket(bucketEnv.attachments) }
-        client.createBucket { it.bucket(bucketEnv.data) }
+        val existingBuckets = client.listBuckets().buckets().map { it.name() }
+        bucketEnv.allBuckets()
+            .filterNot { bucket -> existingBuckets.contains(bucket) }
+            .forEach { bucket -> client.createBucket { it.bucket(bucket) } }
 
         return client
     }
