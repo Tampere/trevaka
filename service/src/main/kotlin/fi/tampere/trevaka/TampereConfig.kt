@@ -39,6 +39,7 @@ class TampereConfig {
         assistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
         requestedStartUpperLimit = 14,
         partialAbsenceThresholdsEnabled = false,
+        postOffice = "TAMPERE",
     )
 
     @Bean
