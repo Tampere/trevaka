@@ -11,8 +11,10 @@ import fi.espoo.evaka.shared.AreaId
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.dev.DevDaycare
 import fi.espoo.evaka.shared.dev.DevDaycareGroup
+import fi.espoo.evaka.shared.dev.DevStaffAttendancePlan
 import fi.espoo.evaka.shared.dev.insertTestDaycare
 import fi.espoo.evaka.shared.dev.insertTestDaycareGroup
+import fi.espoo.evaka.shared.dev.insertTestStaffAttendancePlan
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
@@ -22,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.temporal.ChronoUnit
 import java.util.UUID
 
 internal class TitaniaServiceTest : AbstractIntegrationTest() {
@@ -238,6 +241,297 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
         }
 
         assertThat(response).isEqualTo(titaniaGetResponseValidExampleData)
+    }
+
+    @Test
+    fun `getStampedWorkingTimeEvents with plan and overtime`() {
+        runInTransaction { tx ->
+            val unitId = tx.insertTestDaycare(
+                DevDaycare(
+                    areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
+                )
+            )
+            val groupId = tx.insertTestDaycareGroup(
+                DevDaycareGroup(
+                    daycareId = unitId,
+                )
+            )
+            tx.createEmployee(
+                testEmployee.copy(
+                    firstName = "IINES",
+                    lastName = "ANKKA",
+                    employeeNumber = "177111",
+                )
+            ).let { (employeeId) ->
+                tx.insertTestStaffAttendancePlan(
+                    DevStaffAttendancePlan(
+                        employeeId = employeeId,
+                        type = StaffAttendanceType.PRESENT,
+                        startTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(8, 0)),
+                        endTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(16, 0)),
+                        description = null,
+                    )
+                )
+                tx.upsertStaffAttendance(
+                    attendanceId = null,
+                    employeeId = employeeId,
+                    groupId = groupId,
+                    arrivalTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(7, 42)),
+                    departureTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(8, 2)),
+                    occupancyCoefficient = BigDecimal("7.0"),
+                    type = StaffAttendanceType.OVERTIME,
+                )
+                tx.upsertStaffAttendance(
+                    attendanceId = null,
+                    employeeId = employeeId,
+                    groupId = groupId,
+                    arrivalTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(8, 2)),
+                    departureTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(16, 3)),
+                    occupancyCoefficient = BigDecimal("7.0"),
+                    type = StaffAttendanceType.PRESENT,
+                )
+            }
+        }
+
+        val response = runInTransaction { tx ->
+            titaniaService.getStampedWorkingTimeEvents(
+                tx, GetStampedWorkingTimeEventsRequest(
+                    period = TitaniaPeriod(
+                        beginDate = LocalDate.of(2022, 10, 19),
+                        endDate = LocalDate.of(2022, 10, 19),
+                    ),
+                    schedulingUnit = listOf(
+                        TitaniaStampedUnitRequest(
+                            code = "from titania",
+                            person = listOf(
+                                TitaniaStampedPersonRequest(
+                                    employeeId = "00177111",
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        }
+
+        assertThat(response).isEqualTo(
+            GetStampedWorkingTimeEventsResponse(
+                schedulingUnit = listOf(
+                    TitaniaStampedUnitResponse(
+                        code = "from titania",
+                        person = listOf(
+                            TitaniaStampedPersonResponse(
+                                employeeId = "00177111",
+                                name = "ANKKA IINES",
+                                stampedWorkingTimeEvents = TitaniaStampedWorkingTimeEvents(
+                                    event = listOf(
+                                        TitaniaStampedWorkingTimeEvent(
+                                            date = LocalDate.of(2022, 10, 19),
+                                            beginTime = LocalTime.of(7, 42),
+                                            beginReasonCode = "YT",
+                                            endTime = LocalTime.of(8, 0),
+                                            endReasonCode = null,
+                                        ), TitaniaStampedWorkingTimeEvent(
+                                            date = LocalDate.of(2022, 10, 19),
+                                            beginTime = LocalTime.of(8, 0),
+                                            beginReasonCode = null,
+                                            endTime = LocalTime.of(16, 0),
+                                            endReasonCode = null
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    }
+
+    @Test
+    fun `getStampedWorkingTimeEvents with overnight plan`() {
+        runInTransaction { tx ->
+            val unitId = tx.insertTestDaycare(
+                DevDaycare(
+                    areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
+                )
+            )
+            val groupId = tx.insertTestDaycareGroup(
+                DevDaycareGroup(
+                    daycareId = unitId,
+                )
+            )
+            tx.createEmployee(
+                testEmployee.copy(
+                    firstName = "IINES",
+                    lastName = "ANKKA",
+                    employeeNumber = "177111",
+                )
+            ).let { (employeeId) ->
+                tx.insertTestStaffAttendancePlan(
+                    DevStaffAttendancePlan(
+                        employeeId = employeeId,
+                        type = StaffAttendanceType.PRESENT,
+                        startTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 20), LocalTime.of(20, 0)),
+                        endTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 21), LocalTime.of(8, 0)),
+                        description = null,
+                    )
+                )
+                tx.upsertStaffAttendance(
+                    attendanceId = null,
+                    employeeId = employeeId,
+                    groupId = groupId,
+                    arrivalTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 20), LocalTime.of(20, 5)),
+                    departureTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 21), LocalTime.of(7, 56)),
+                    occupancyCoefficient = BigDecimal("7.0"),
+                    type = StaffAttendanceType.PRESENT,
+                )
+            }
+        }
+
+        val response = runInTransaction { tx ->
+            titaniaService.getStampedWorkingTimeEvents(
+                tx, GetStampedWorkingTimeEventsRequest(
+                    period = TitaniaPeriod(
+                        beginDate = LocalDate.of(2022, 10, 20),
+                        endDate = LocalDate.of(2022, 10, 20),
+                    ),
+                    schedulingUnit = listOf(
+                        TitaniaStampedUnitRequest(
+                            code = "from titania",
+                            person = listOf(
+                                TitaniaStampedPersonRequest(
+                                    employeeId = "00177111",
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        }
+
+        assertThat(response).isEqualTo(
+            GetStampedWorkingTimeEventsResponse(
+                schedulingUnit = listOf(
+                    TitaniaStampedUnitResponse(
+                        code = "from titania",
+                        person = listOf(
+                            TitaniaStampedPersonResponse(
+                                employeeId = "00177111",
+                                name = "ANKKA IINES",
+                                stampedWorkingTimeEvents = TitaniaStampedWorkingTimeEvents(
+                                    event = listOf(
+                                        TitaniaStampedWorkingTimeEvent(
+                                            date = LocalDate.of(2022, 10, 20),
+                                            beginTime = LocalTime.of(20, 0),
+                                            beginReasonCode = null,
+                                            endTime = LocalTime.MAX.truncatedTo(ChronoUnit.MICROS),
+                                            endReasonCode = null,
+                                        ), TitaniaStampedWorkingTimeEvent(
+                                            date = LocalDate.of(2022, 10, 21),
+                                            beginTime = LocalTime.MIN,
+                                            beginReasonCode = null,
+                                            endTime = LocalTime.of(8, 0),
+                                            endReasonCode = null
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    }
+
+    @Test
+    fun `getStampedWorkingTimeEvents with attendance not within plan`() {
+        runInTransaction { tx ->
+            val unitId = tx.insertTestDaycare(
+                DevDaycare(
+                    areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
+                )
+            )
+            val groupId = tx.insertTestDaycareGroup(
+                DevDaycareGroup(
+                    daycareId = unitId,
+                )
+            )
+            tx.createEmployee(
+                testEmployee.copy(
+                    firstName = "IINES",
+                    lastName = "ANKKA",
+                    employeeNumber = "177111",
+                )
+            ).let { (employeeId) ->
+                tx.insertTestStaffAttendancePlan(
+                    DevStaffAttendancePlan(
+                        employeeId = employeeId,
+                        type = StaffAttendanceType.PRESENT,
+                        startTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 20), LocalTime.of(8, 0)),
+                        endTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 20), LocalTime.of(16, 0)),
+                        description = null,
+                    )
+                )
+                tx.upsertStaffAttendance(
+                    attendanceId = null,
+                    employeeId = employeeId,
+                    groupId = groupId,
+                    arrivalTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 20), LocalTime.of(7, 54)),
+                    departureTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 20), LocalTime.of(16, 6)),
+                    occupancyCoefficient = BigDecimal("7.0"),
+                    type = StaffAttendanceType.PRESENT,
+                )
+            }
+        }
+
+        val response = runInTransaction { tx ->
+            titaniaService.getStampedWorkingTimeEvents(
+                tx, GetStampedWorkingTimeEventsRequest(
+                    period = TitaniaPeriod(
+                        beginDate = LocalDate.of(2022, 10, 20),
+                        endDate = LocalDate.of(2022, 10, 20),
+                    ),
+                    schedulingUnit = listOf(
+                        TitaniaStampedUnitRequest(
+                            code = "from titania",
+                            person = listOf(
+                                TitaniaStampedPersonRequest(
+                                    employeeId = "00177111",
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        }
+
+        assertThat(response).isEqualTo(
+            GetStampedWorkingTimeEventsResponse(
+                schedulingUnit = listOf(
+                    TitaniaStampedUnitResponse(
+                        code = "from titania",
+                        person = listOf(
+                            TitaniaStampedPersonResponse(
+                                employeeId = "00177111",
+                                name = "ANKKA IINES",
+                                stampedWorkingTimeEvents = TitaniaStampedWorkingTimeEvents(
+                                    event = listOf(
+                                        TitaniaStampedWorkingTimeEvent(
+                                            date = LocalDate.of(2022, 10, 20),
+                                            beginTime = LocalTime.of(7, 54),
+                                            beginReasonCode = null,
+                                            endTime = LocalTime.of(16, 6),
+                                            endReasonCode = null,
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
     }
 
 }
