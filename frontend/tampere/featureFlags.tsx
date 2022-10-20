@@ -18,69 +18,50 @@ type Features = {
 
 const features: Features = {
   default: {
-    citizenShiftCareAbsenceEnabled: false,
+    citizenShiftCareAbsence: false,
     daycareApplication: {
-      dailyTimesEnabled: false
+      dailyTimes: false
     },
-    groupsTableServiceNeedsEnabled: true,
-    evakaLogin: true,
-    financeBasicsPage: true,
-    urgencyAttachmentsEnabled: false,
-    preschoolEnabled: true,
-    assistanceActionOtherEnabled: false,
+    groupsTableServiceNeeds: true,
+    urgencyAttachments: false,
+    preschool: true,
+    assistanceActionOther: false,
     experimental: {
-      messageAttachments: true,
-      personalDetailsPage: true,
-      mobileMessages: true,
       leops: true,
-      citizenVasu: true,
       assistanceNeedDecisions: true,
       staffAttendanceTypes: true,
       fosterParents: true
-    },
-    adminSettingsEnabled: true
+    }
   },
   staging: {
-    citizenShiftCareAbsenceEnabled: false,
+    citizenShiftCareAbsence: false,
     daycareApplication: {
-      dailyTimesEnabled: false
+      dailyTimes: false
     },
-    groupsTableServiceNeedsEnabled: true,
-    evakaLogin: true,
-    financeBasicsPage: true,
-    urgencyAttachmentsEnabled: false,
-    preschoolEnabled: true,
-    assistanceActionOtherEnabled: false,
+    groupsTableServiceNeeds: true,
+    urgencyAttachments: false,
+    preschool: true,
+    assistanceActionOther: false,
     experimental: {
-      messageAttachments: true,
-      personalDetailsPage: true,
-      mobileMessages: true,
       assistanceNeedDecisions: true,
       staffAttendanceTypes: false,
       fosterParents: true
-    },
-    adminSettingsEnabled: true
+    }
   },
   prod: {
-    citizenShiftCareAbsenceEnabled: false,
+    citizenShiftCareAbsence: false,
     daycareApplication: {
-      dailyTimesEnabled: false
+      dailyTimes: false
     },
-    groupsTableServiceNeedsEnabled: true,
-    evakaLogin: true,
-    financeBasicsPage: true,
-    urgencyAttachmentsEnabled: false,
-    preschoolEnabled: false,
-    assistanceActionOtherEnabled: false,
+    groupsTableServiceNeeds: true,
+    urgencyAttachments: false,
+    preschool: false,
+    assistanceActionOther: false,
     experimental: {
-      messageAttachments: true,
-      personalDetailsPage: true,
-      mobileMessages: true,
       assistanceNeedDecisions: true,
       staffAttendanceTypes: false,
       fosterParents: true
-    },
-    adminSettingsEnabled: true
+    }
   }
 }
 
