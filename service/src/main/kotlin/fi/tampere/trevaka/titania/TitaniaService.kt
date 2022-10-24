@@ -10,8 +10,11 @@ import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
+import java.time.Duration
 
 private val logger = KotlinLogging.logger {}
+
+private val MAX_DRIFT: Duration = Duration.ofMinutes(5)
 
 @Service
 class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
@@ -94,22 +97,29 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
             employeeIds = employeeIdToNumber.keys,
             period = period
         )
+        val plans = tx.findStaffAttendancePlansBy(
+            employeeIds = employeeIdToNumber.keys,
+            period = period
+        ).groupBy { it.employeeId }
 
         data class EmployeeKey(val id: EmployeeId, val firstName: String, val lastName: String)
 
         val persons = attendances
             .groupBy { EmployeeKey(it.employeeId, it.firstName, it.lastName) }
             .map { (employee, attendances) ->
+                val employeePlans = plans[employee.id]
                 TitaniaStampedPersonResponse(
                     employeeId = idConverter.toTitania(employeeIdToNumber[employee.id]!!),
                     name = "${employee.lastName} ${employee.firstName}".uppercase(),
                     stampedWorkingTimeEvents = TitaniaStampedWorkingTimeEvents(
                         event = attendances.flatMap(::splitOvernight).map { attendance ->
+                            val arrived = calculateFromPlans(employeePlans, attendance.arrived)
+                            val departed = calculateFromPlans(employeePlans, attendance.departed)
                             TitaniaStampedWorkingTimeEvent(
                                 date = attendance.arrived.toLocalDate(),
-                                beginTime = attendance.arrived.toLocalTime(),
+                                beginTime = arrived?.toLocalTime(),
                                 beginReasonCode = attendance.type.asTitaniaReasonCode(),
-                                endTime = attendance.departed?.toLocalTime(),
+                                endTime = departed?.toLocalTime(),
                                 endReasonCode = null,
                             )
                         }
@@ -128,6 +138,18 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
         return response
     }
 
+    private fun calculateFromPlans(plans: List<StaffAttendancePlan>?, event: HelsinkiDateTime?): HelsinkiDateTime? {
+        if (event == null) {
+            return null
+        }
+        return plans?.firstNotNullOfOrNull { plan ->
+            when {
+                event.durationSince(plan.startTime).abs() <= MAX_DRIFT -> plan.startTime
+                event.durationSince(plan.endTime).abs() <= MAX_DRIFT -> plan.endTime
+                else -> null
+            }
+        } ?: event
+    }
 }
 
 data class TitaniaUpdateResponse(
