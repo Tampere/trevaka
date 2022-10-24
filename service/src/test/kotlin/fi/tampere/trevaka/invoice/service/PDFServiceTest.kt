@@ -483,7 +483,8 @@ private fun validVoucherValueDecision() = VoucherValueDecisionDetailed(
         feeDescriptionFi = "eka",
         feeDescriptionSv = "toka",
         voucherValueDescriptionFi = "kolmas",
-        voucherValueDescriptionSv = "neljäs"
+        voucherValueDescriptionSv = "neljäs",
+        missing = false
     ),
     baseCoPayment = 1,
     siblingDiscount = 1,
