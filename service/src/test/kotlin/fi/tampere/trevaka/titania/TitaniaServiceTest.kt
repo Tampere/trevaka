@@ -18,6 +18,8 @@ import fi.tampere.trevaka.AbstractIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.catchThrowable
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 import org.springframework.beans.factory.annotation.Autowired
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -77,6 +79,76 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
         }
         assertThat(response2.deleted).isEqualTo(response1.inserted)
         assertThat(response2.inserted).isEqualTo(response1.inserted)
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        value = [
+            // vakiokoodit
+            "U, PRESENT",
+            "K, TRAINING",
+            // muut koodit (aina PRESENT)
+            "X, PRESENT",
+            "a, PRESENT",
+        ]
+    )
+    fun `event code is mapped to attendance type correctly`(givenEventCode: String, expectedType: StaffAttendanceType) {
+        val employeeId = runInTransaction { tx -> tx.createEmployee(testEmployee.copy(employeeNumber = "176716")).id }
+
+        val response = runInTransaction { tx ->
+            titaniaService.updateWorkingTimeEventsInternal(
+                tx, UpdateWorkingTimeEventsRequest(
+                    period = TitaniaPeriod(
+                        beginDate = LocalDate.of(2022, 10, 12),
+                        endDate = LocalDate.of(2022, 10, 12),
+                    ),
+                    schedulingUnit = listOf(
+                        TitaniaSchedulingUnit(
+                            code = "",
+                            occupation = listOf(
+                                TitaniaOccupation(
+                                    code = "",
+                                    name = "",
+                                    person = listOf(
+                                        TitaniaPerson(
+                                            employeeId = "176716",
+                                            name = "",
+                                            actualWorkingTimeEvents = TitaniaWorkingTimeEvents(
+                                                event = listOf(
+                                                    TitaniaWorkingTimeEvent(
+                                                        date = LocalDate.of(2022, 10, 12),
+                                                        code = givenEventCode,
+                                                        beginTime = LocalTime.of(9, 42),
+                                                        endTime = LocalTime.of(9, 44)
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        }
+
+        assertThat(response.deleted).isEmpty()
+        assertThat(response.inserted).containsExactlyInAnyOrder(
+            StaffAttendancePlan(
+                employeeId = employeeId,
+                type = expectedType,
+                HelsinkiDateTime.of(
+                    LocalDate.of(2022, 10, 12),
+                    LocalTime.of(9, 42)
+                ),
+                HelsinkiDateTime.of(
+                    LocalDate.of(2022, 10, 12),
+                    LocalTime.of(9, 44)
+                ),
+                description = null
+            )
+        )
     }
 
     @Test

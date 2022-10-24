@@ -39,3 +39,9 @@ fun StaffAttendanceType.asTitaniaReasonCode(): String? = when (this) {
     StaffAttendanceType.OVERTIME -> "YT"
     StaffAttendanceType.JUSTIFIED_CHANGE -> "PM"
 }
+
+fun staffAttendanceTypeFromTitaniaEventCode(code: String): StaffAttendanceType = when (code) {
+    "U" -> StaffAttendanceType.PRESENT
+    "K" -> StaffAttendanceType.TRAINING
+    else -> StaffAttendanceType.PRESENT
+}
