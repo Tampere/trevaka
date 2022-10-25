@@ -1,3 +1,7 @@
+-- SPDX-FileCopyrightText: 2021-2022 City of Tampere
+--
+-- SPDX-License-Identifier: LGPL-2.1-or-later
+
 INSERT INTO preschool_term
     (id, finnish_preschool, swedish_preschool, extended_term, application_period)
 VALUES

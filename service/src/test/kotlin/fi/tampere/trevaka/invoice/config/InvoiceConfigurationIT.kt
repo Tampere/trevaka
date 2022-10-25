@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021-2022 City of Tampere
+//
+// SPDX-License-Identifier: LGPL-2.1-or-later
+
 package fi.tampere.trevaka.invoice.config
 
 import fi.espoo.evaka.invoicing.data.flatten
