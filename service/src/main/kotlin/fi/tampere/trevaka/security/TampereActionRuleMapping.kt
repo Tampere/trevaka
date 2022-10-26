@@ -91,6 +91,8 @@ class TampereActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.UNIT_SUPERVISOR).inUnit() as ScopedActionRule<in T>
+            ) + sequenceOf(
+                HasUnitRole(UserRole.SPECIAL_EDUCATION_TEACHER).inPlacementUnitOfChildOfAssistanceNeedDecision() as ScopedActionRule<in T>
             )
         }
         Action.Attachment.READ_APPLICATION_ATTACHMENT,
