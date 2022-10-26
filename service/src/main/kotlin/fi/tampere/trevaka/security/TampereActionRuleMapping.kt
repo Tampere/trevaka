@@ -31,14 +31,8 @@ class TampereActionRuleMapping : ActionRuleMapping {
         Action.Global.SEARCH_INVOICES,
         Action.Global.READ_UNITS,
         Action.Global.READ_DECISION_UNITS,
-        Action.Global.READ_APPLICATIONS_REPORT,
-        Action.Global.READ_CHILD_IN_DIFFERENT_ADDRESS_REPORT,
         Action.Global.READ_ENDED_PLACEMENTS_REPORT,
-        Action.Global.READ_FAMILY_CONFLICT_REPORT,
         Action.Global.READ_INVOICE_REPORT,
-        Action.Global.READ_MISSING_HEAD_OF_FAMILY_REPORT,
-        Action.Global.READ_MISSING_SERVICE_NEED_REPORT,
-        Action.Global.READ_PARTNERS_IN_DIFFERENT_ADDRESS_REPORT,
         Action.Global.READ_PLACEMENT_SKETCHING_REPORT,
         Action.Global.READ_STARTING_PLACEMENTS_REPORT,
         Action.Global.READ_INCOME_TYPES,
@@ -48,8 +42,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR)
             )
         }
-        Action.Global.REPORTS_PAGE,
-        Action.Global.READ_ATTENDANCE_RESERVATION_REPORT-> {
+        Action.Global.REPORTS_PAGE-> {
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.STAFF).inAnyUnit()
             )
@@ -64,9 +57,6 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY
             ).inAnyUnit()
         )
-        Action.Global.READ_ASSISTANCE_NEED_DECISIONS_REPORT -> {
-            action.defaultRules.asSequence() + sequenceOf(HasUnitRole(UserRole.UNIT_SUPERVISOR).inAnyUnit())
-        }
         else -> action.defaultRules.asSequence()
     }
 
@@ -240,6 +230,12 @@ class TampereActionRuleMapping : ActionRuleMapping {
         Action.Unit.READ_BACKUP_CARE,
         Action.Unit.READ_PLACEMENT,
         Action.Unit.READ_PLACEMENT_PLAN,
+        Action.Unit.READ_APPLICATIONS_REPORT,
+        Action.Unit.READ_CHILD_IN_DIFFERENT_ADDRESS_REPORT,
+        Action.Unit.READ_FAMILY_CONFLICT_REPORT,
+        Action.Unit.READ_MISSING_HEAD_OF_FAMILY_REPORT,
+        Action.Unit.READ_MISSING_SERVICE_NEED_REPORT,
+        Action.Unit.READ_PARTNERS_IN_DIFFERENT_ADDRESS_REPORT,
         Action.Unit.READ_SERVICE_VOUCHER_VALUES_REPORT,
         Action.Unit.READ_MISSING_GROUP_PLACEMENTS -> {
             @Suppress("UNCHECKED_CAST")
