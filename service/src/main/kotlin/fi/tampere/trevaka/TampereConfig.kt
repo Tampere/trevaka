@@ -40,6 +40,7 @@ class TampereConfig {
         requestedStartUpperLimit = 14,
         partialAbsenceThresholdsEnabled = false,
         postOffice = "TAMPERE",
+        municipalMessageAccountName = "Tampereen kaupunki",
     )
 
     @Bean
