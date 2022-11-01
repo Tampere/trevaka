@@ -71,7 +71,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                 ),
                 HelsinkiDateTime.of(
                     LocalDate.of(2011, 1, 3),
-                    LocalTime.of(15, 0)
+                    LocalTime.of(23, 59)
                 ),
                 description = null
             )
@@ -82,6 +82,135 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
         }
         assertThat(response2.deleted).isEqualTo(response1.inserted)
         assertThat(response2.inserted).isEqualTo(response1.inserted)
+    }
+
+    @Test
+    fun `updateWorkingTimeEventsInternal merge overnight events`() {
+        val employee1Id = runInTransaction { tx -> tx.createEmployee(testEmployee.copy(employeeNumber = "176716")).id }
+        val employee2Id = runInTransaction { tx -> tx.createEmployee(testEmployee.copy(employeeNumber = "949382")).id }
+
+        val request = UpdateWorkingTimeEventsRequest(
+            period = TitaniaPeriod(beginDate = LocalDate.of(2022, 10, 31), endDate = LocalDate.of(2022, 11, 2)),
+            schedulingUnit = listOf(
+                TitaniaSchedulingUnit(
+                    code = "",
+                    occupation = listOf(
+                        TitaniaOccupation(
+                            code = "",
+                            name = "",
+                            person = listOf(
+                                TitaniaPerson(
+                                    employeeId = "00176716",
+                                    name = "",
+                                    actualWorkingTimeEvents = TitaniaWorkingTimeEvents(
+                                        event = listOf(
+                                            TitaniaWorkingTimeEvent(
+                                                date = LocalDate.of(2022, 11, 1),
+                                                beginTime = LocalTime.of(0, 0),
+                                                endTime = LocalTime.of(8, 0)
+                                            ),
+                                            TitaniaWorkingTimeEvent(
+                                                date = LocalDate.of(2022, 11, 1),
+                                                beginTime = LocalTime.of(20, 0),
+                                                endTime = LocalTime.of(23, 59)
+                                            ), TitaniaWorkingTimeEvent(
+                                                date = LocalDate.of(2022, 10, 31),
+                                                beginTime = LocalTime.of(20, 0),
+                                                endTime = LocalTime.of(0, 0) // 24:00 from titania
+                                            ), TitaniaWorkingTimeEvent(
+                                                date = LocalDate.of(2022, 11, 2),
+                                                beginTime = LocalTime.of(0, 0),
+                                                endTime = LocalTime.of(8, 0)
+                                            )
+                                        )
+                                    )
+                                ),
+                                TitaniaPerson(
+                                    employeeId = "00949382",
+                                    name = "",
+                                    actualWorkingTimeEvents = TitaniaWorkingTimeEvents(
+                                        event = listOf(
+                                            TitaniaWorkingTimeEvent(
+                                                date = LocalDate.of(2022, 11, 2),
+                                                beginTime = LocalTime.of(0, 0),
+                                                endTime = LocalTime.of(6, 0)
+                                            ),
+                                            TitaniaWorkingTimeEvent(
+                                                date = LocalDate.of(2022, 11, 1),
+                                                beginTime = LocalTime.of(0, 0),
+                                                endTime = LocalTime.of(23, 59)
+                                            ), TitaniaWorkingTimeEvent(
+                                                date = LocalDate.of(2022, 10, 31),
+                                                beginTime = LocalTime.of(23, 0),
+                                                endTime = LocalTime.of(23, 58)
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+
+        val response = runInTransaction { tx -> titaniaService.updateWorkingTimeEventsInternal(tx, request) }
+
+        assertThat(response.deleted).isEmpty()
+        assertThat(response.inserted).containsExactlyInAnyOrder(
+            StaffAttendancePlan(
+                employeeId = employee1Id,
+                type = StaffAttendanceType.PRESENT,
+                HelsinkiDateTime.of(
+                    LocalDate.of(2022, 10, 31),
+                    LocalTime.of(20, 0)
+                ),
+                HelsinkiDateTime.of(
+                    LocalDate.of(2022, 11, 1),
+                    LocalTime.of(8, 0)
+                ),
+                description = null
+            ),
+            StaffAttendancePlan(
+                employeeId = employee1Id,
+                type = StaffAttendanceType.PRESENT,
+                HelsinkiDateTime.of(
+                    LocalDate.of(2022, 11, 1),
+                    LocalTime.of(20, 0)
+                ),
+                HelsinkiDateTime.of(
+                    LocalDate.of(2022, 11, 2),
+                    LocalTime.of(8, 0)
+                ),
+                description = null
+            ),
+            StaffAttendancePlan(
+                employeeId = employee2Id,
+                type = StaffAttendanceType.PRESENT,
+                HelsinkiDateTime.of(
+                    LocalDate.of(2022, 10, 31),
+                    LocalTime.of(23, 0)
+                ),
+                HelsinkiDateTime.of(
+                    LocalDate.of(2022, 10, 31),
+                    LocalTime.of(23, 58)
+                ),
+                description = null
+            ),
+            StaffAttendancePlan(
+                employeeId = employee2Id,
+                type = StaffAttendanceType.PRESENT,
+                HelsinkiDateTime.of(
+                    LocalDate.of(2022, 11, 1),
+                    LocalTime.of(0, 0)
+                ),
+                HelsinkiDateTime.of(
+                    LocalDate.of(2022, 11, 2),
+                    LocalTime.of(6, 0)
+                ),
+                description = null
+            )
+        )
     }
 
     @ParameterizedTest

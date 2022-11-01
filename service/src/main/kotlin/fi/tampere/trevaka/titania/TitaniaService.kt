@@ -11,6 +11,7 @@ import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
 import java.time.Duration
+import java.time.LocalTime
 
 private val logger = KotlinLogging.logger {}
 
@@ -43,11 +44,12 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
         }
         val employeeNumbers = persons.map { (employeeNumber, _) -> employeeNumber }.distinct()
         val employeeNumberToId = tx.getEmployeeIdsByNumbers(employeeNumbers)
-        val newPlans = persons.flatMap { (employeeNumber, events) ->
+        val newPlans = persons.sortedBy { it.first }.flatMap { (employeeNumber, events) ->
             events.event
                 .filter { event -> !IGNORED_EVENT_CODES.contains(event.code) }
                 .filter { event -> event.beginTime != null && event.endTime != null }
-                .map { event ->
+                .sortedWith(compareBy({ it.date }, { it.beginTime }))
+                .fold(mutableListOf<StaffAttendancePlan>()) { plans, event ->
                     if (!period.includes(event.date)) {
                         throw TitaniaException(
                             TitaniaErrorDetail(
@@ -56,7 +58,8 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                             )
                         )
                     }
-                    StaffAttendancePlan(
+                    val previous = plans.lastOrNull()
+                    val next = StaffAttendancePlan(
                         employeeNumberToId[employeeNumber] ?: throw TitaniaException(
                             TitaniaErrorDetail(
                                 errorcode = TitaniaError.UNKNOWN_EMPLOYEE_NUMBER,
@@ -65,9 +68,21 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                         ),
                         event.code?.let { staffAttendanceTypeFromTitaniaEventCode(it) } ?: StaffAttendanceType.PRESENT,
                         HelsinkiDateTime.of(event.date, event.beginTime!!),
-                        HelsinkiDateTime.of(event.date, event.endTime!!),
+                        HelsinkiDateTime.of(event.date, event.endTime!!.let {
+                            when (it) {
+                                LocalTime.MIN -> LocalTime.of(23, 59)
+                                else -> it
+                            }
+                        }),
                         event.description
                     )
+                    if (previous?.canMerge(next) == true) {
+                        plans.remove(previous)
+                        plans.add(previous.copy(endTime = next.endTime))
+                    } else {
+                        plans.add(next)
+                    }
+                    plans
                 }
         }
 
