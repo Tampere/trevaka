@@ -103,10 +103,10 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
     ): GetStampedWorkingTimeEventsResponse {
         logger.debug { "Titania request: $request" }
         val period = request.period.toDateRange()
-        val employeeNumbers = request.schedulingUnit
-            .flatMap { unit -> unit.person.map { person -> idConverter.fromTitania(person.employeeId) } }
-            .distinct()
-        val employeeIdToNumber = tx.getEmployeeIdsByNumbersMapById(employeeNumbers)
+        val convertedEmployeeNumbers = request.schedulingUnit
+            .flatMap { unit -> unit.person.map { person -> person.employeeId } }
+            .associateBy { idConverter.fromTitania(it) } // key=converted, value=original
+        val employeeIdToNumber = tx.getEmployeeIdsByNumbersMapById(convertedEmployeeNumbers.keys)
         logger.info { "Finding staff attendances for ${employeeIdToNumber.size} employees in period $period" }
         val attendances = tx.findStaffAttendancesBy(
             employeeIds = employeeIdToNumber.keys,
@@ -123,8 +123,10 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
             .groupBy { EmployeeKey(it.employeeId, it.firstName, it.lastName) }
             .map { (employee, attendances) ->
                 val employeePlans = plans[employee.id]
+                val convertedEmployeeNumber = employeeIdToNumber[employee.id]!!
                 TitaniaStampedPersonResponse(
-                    employeeId = idConverter.toTitania(employeeIdToNumber[employee.id]!!),
+                    employeeId = convertedEmployeeNumbers[convertedEmployeeNumber]
+                        ?: throw RuntimeException("Cannot find original employee number for converted: $convertedEmployeeNumber"),
                     name = "${employee.lastName} ${employee.firstName}".uppercase(),
                     stampedWorkingTimeEvents = TitaniaStampedWorkingTimeEvents(
                         event = attendances.flatMap(::splitOvernight).map { attendance ->
@@ -174,12 +176,10 @@ data class TitaniaUpdateResponse(
 
 interface TitaniaEmployeeIdConverter {
     fun fromTitania(employeeId: String): String
-    fun toTitania(employeeNumber: String): String
 
     companion object {
         fun default(): TitaniaEmployeeIdConverter = object : TitaniaEmployeeIdConverter {
-            override fun fromTitania(employeeId: String): String  = employeeId
-            override fun toTitania(employeeNumber: String) = employeeNumber
+            override fun fromTitania(employeeId: String): String = employeeId
         }
     }
 }

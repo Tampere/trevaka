@@ -23,7 +23,7 @@ fun Database.Read.getEmployeeIdsByNumbers(employeeNumbers: List<String>): Map<St
         .associate { it.employeeNumber to it.id }
 }
 
-fun Database.Read.getEmployeeIdsByNumbersMapById(employeeNumbers: List<String>): Map<EmployeeId, String> {
+fun Database.Read.getEmployeeIdsByNumbersMapById(employeeNumbers: Collection<String>): Map<EmployeeId, String> {
     val sql = """
         SELECT id, employee_number
         FROM employee

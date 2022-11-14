@@ -5,17 +5,17 @@
 package fi.tampere.trevaka
 
 import fi.espoo.evaka.BucketEnv
+import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.s3.DocumentService
 import fi.espoo.evaka.shared.FeatureConfig
+import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.tampere.trevaka.security.TampereActionRuleMapping
+import fi.tampere.trevaka.titania.TitaniaEmployeeIdConverter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.presigner.S3Presigner
-import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
-import fi.espoo.evaka.shared.auth.UserRole
-import fi.tampere.trevaka.titania.TitaniaEmployeeIdConverter
 
 @Configuration
 class TampereConfig {
@@ -56,6 +56,5 @@ class TampereConfig {
     @Bean
     fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter = object : TitaniaEmployeeIdConverter {
         override fun fromTitania(employeeId: String): String = employeeId.trimStart('0')
-        override fun toTitania(employeeNumber: String): String = employeeNumber.padStart(8, '0')
     }
 }
