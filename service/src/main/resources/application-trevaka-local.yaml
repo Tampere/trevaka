@@ -29,6 +29,11 @@ logging:
 evaka:
   aws:
     region: eu-west-1
+  email:
+    sender_address: evaka@localhost
+    sender_name:
+      fi: evaka_local_fi
+      sv: evaka_local_sv
   five_years_old_daycare:
     enabled: false
   integration:

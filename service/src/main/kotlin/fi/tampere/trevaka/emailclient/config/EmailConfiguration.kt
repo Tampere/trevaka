@@ -4,12 +4,18 @@
 
 package fi.tampere.trevaka.emailclient.config
 
+import fi.espoo.evaka.daycare.domain.Language
+import fi.espoo.evaka.emailclient.EmailContent
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
 import fi.espoo.evaka.shared.AssistanceNeedDecisionId
 import fi.espoo.evaka.shared.ChildId
+import fi.espoo.evaka.shared.domain.FiniteDateRange
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.Locale
 
 @Profile("trevaka")
 @Configuration
@@ -233,4 +239,31 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
 
         Päätös on nähtävissä eVakassa osoitteessa https://varhaiskasvatus.tampere.fi/.
     """.trimIndent()
+
+    override fun missingReservationsNotification(language: Language, checkedRange: FiniteDateRange): EmailContent {
+        val start =
+            checkedRange.start.format(
+                DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale("fi", "FI"))
+            )
+        return EmailContent(
+            subject =
+            "Läsnäolovarauksia puuttuu / There are missing attendance reservations",
+            text =
+            """
+Läsnäolovarauksia puuttuu seuraavalta viikolta: $start. Käythän merkitsemässä ne mahdollisimman pian.
+
+----
+
+There are missing attendance reservations for the following week: $start. Please mark them as soon as possible.
+                """
+                .trimIndent(),
+            html =
+            """
+<p>Läsnäolovarauksia puuttuu seuraavalta viikolta: $start. Käythän merkitsemässä ne mahdollisimman pian.</p>
+<hr>
+<p>There are missing attendance reservations for the following week: $start. Please mark them as soon as possible.</p>
+            """
+                .trimIndent()
+        )
+    }
 }

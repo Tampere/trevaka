@@ -19,6 +19,11 @@ evaka:
     flyway:
       username: evaka_it
       password: evaka_it
+  email:
+    sender_address: evaka@localhost
+    sender_name:
+      fi: evaka_it_fi
+      sv: evaka_it_sv
   frontend:
     base_url:
       fi: http://localhost:${server.port}
