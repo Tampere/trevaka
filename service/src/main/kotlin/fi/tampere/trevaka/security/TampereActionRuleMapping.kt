@@ -52,7 +52,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
         }
         Action.Global.PIN_CODE_PAGE -> sequenceOf(
             // removed director from default rules
-            HasGlobalRole(UserRole.REPORT_VIEWER, UserRole.SERVICE_WORKER),
+            HasGlobalRole(UserRole.ADMIN, UserRole.REPORT_VIEWER, UserRole.SERVICE_WORKER),
             HasUnitRole(
                 UserRole.UNIT_SUPERVISOR,
                 UserRole.STAFF,
