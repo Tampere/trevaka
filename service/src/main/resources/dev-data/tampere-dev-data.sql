@@ -334,13 +334,7 @@ INSERT INTO daycare_acl (daycare_id, employee_id, role) VALUES
     ('3f667508-a1bc-11eb-b62e-9bdec02ff105', '00000000-0000-0000-0007-000000000000', 'EARLY_CHILDHOOD_EDUCATION_SECRETARY');
 
 INSERT INTO message_account (employee_id)
-SELECT id
-FROM employee e
-WHERE EXISTS(
-    SELECT 1
-    FROM daycare_acl acl
-    WHERE acl.employee_id = e.id
-    AND acl.role IN ('UNIT_SUPERVISOR', 'SPECIAL_EDUCATION_TEACHER', 'EARLY_CHILDHOOD_EDUCATION_SECRETARY'));
+SELECT DISTINCT employee_id FROM daycare_acl;
 
 INSERT INTO fee_thresholds (
     valid_during,

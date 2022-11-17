@@ -10,6 +10,9 @@ import fi.espoo.evaka.shared.security.PilotFeature
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.shared.security.actionrule.HasGlobalRole
 import fi.espoo.evaka.shared.security.actionrule.HasUnitRole
+import fi.espoo.evaka.shared.security.actionrule.IsCitizen
+import fi.espoo.evaka.shared.security.actionrule.IsEmployee
+import fi.espoo.evaka.shared.security.actionrule.IsMobile
 import fi.espoo.evaka.shared.security.actionrule.ScopedActionRule
 import fi.espoo.evaka.shared.security.actionrule.UnscopedActionRule
 
@@ -189,6 +192,18 @@ class TampereActionRuleMapping : ActionRuleMapping {
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>
             )
+        }
+        Action.MessageAccount.ACCESS -> {
+            // removed special education teacher from default rules
+            @Suppress("UNCHECKED_CAST")
+            sequenceOf(IsEmployee.hasPersonalMessageAccount() as ScopedActionRule<in T>) +
+                    sequenceOf(HasUnitRole(UserRole.UNIT_SUPERVISOR).hasDaycareMessageAccount() as ScopedActionRule<in T>) +
+                    sequenceOf(IsEmployee.hasDaycareGroupMessageAccount() as ScopedActionRule<in T>) +
+                    sequenceOf(IsEmployee.hasMunicipalMessageAccount() as ScopedActionRule<in T>) +
+                    sequenceOf(IsMobile(requirePinLogin = true).hasPersonalMessageAccount() as ScopedActionRule<in T>) +
+                    sequenceOf(IsMobile(requirePinLogin = true).hasDaycareMessageAccount(UserRole.UNIT_SUPERVISOR) as ScopedActionRule<in T>) +
+                    sequenceOf(IsMobile(requirePinLogin = true).hasDaycareGroupMessageAccount() as ScopedActionRule<in T>) +
+                    sequenceOf(IsCitizen(allowWeakLogin = true).hasMessageAccount() as ScopedActionRule<in T>)
         }
         Action.Parentship.READ -> {
             @Suppress("UNCHECKED_CAST")
