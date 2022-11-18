@@ -18,7 +18,7 @@ aliases:
   - &workspace_auth /home/circleci/repo/auth
   - &workspace_compose /home/circleci/repo/compose
 
-  - &remote_docker_version "20.10.17"
+  - &remote_docker_version "20.10.18"
   - &base_image cimg/base:current-22.04
   - &reuse_image fsfe/reuse:0.13.0 # NOTE: Update bin/add-license-headers.sh to match
   - &nodejs_image cimg/node:16.18
