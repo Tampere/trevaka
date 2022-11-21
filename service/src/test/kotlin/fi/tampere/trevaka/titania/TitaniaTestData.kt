@@ -114,7 +114,7 @@ internal val titaniaGetRequestValidExampleData = GetStampedWorkingTimeEventsRequ
             name = "Suunnittelupiste A",
             person = listOf(
                 TitaniaStampedPersonRequest(
-                    employeeId = "00177111",
+                    employeeId = "177111",
                     name = "ANKKA IINES"
                 ),
                 TitaniaStampedPersonRequest(
@@ -134,7 +134,7 @@ internal val titaniaGetResponseValidExampleData = GetStampedWorkingTimeEventsRes
             name = "Suunnittelupiste A",
             person = listOf(
                 TitaniaStampedPersonResponse(
-                    employeeId = "00177111",
+                    employeeId = "177111",
                     name = "ANKKA IINES",
                     stampedWorkingTimeEvents = TitaniaStampedWorkingTimeEvents(
                         event = listOf(
