@@ -258,7 +258,8 @@ private fun validDecision(type: DecisionType, decisionUnit: DecisionUnit) = Deci
     sentDate = LocalDate.now(),
     DecisionStatus.ACCEPTED,
     requestedStartDate = null,
-    resolved = null
+    resolved = null,
+    resolvedByName = null,
 )
 
 private fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(
