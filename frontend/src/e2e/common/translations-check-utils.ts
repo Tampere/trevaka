@@ -23,13 +23,15 @@ const unwantedTexts: UnwantedText[] = [
     }
 ]
 
-const checkTampereTranslation = (key: string, value: string, errors: TranslationError[]) => {
-    unwantedTexts.forEach(unwantedText => {
-        if (unwantedText.valueCheck(value.toLowerCase())) {
-            let error = { key, value }
-            errors.push(error);
-        }
-    })
+const checkTampereTranslation = (key: string, value: string | null, errors: TranslationError[]) => {
+    if (value !== null) {
+        unwantedTexts.forEach(unwantedText => {
+            if (unwantedText.valueCheck(value.toLowerCase())) {
+                let error = { key, value }
+                errors.push(error);
+            }
+        })
+    }
 }
 
 const checkTampereTranslationInner = (translationKeyAgg: string, object: any, errors: TranslationError[]) => {

@@ -25,6 +25,7 @@ const features: Features = {
     groupsTableServiceNeeds: true,
     urgencyAttachments: false,
     preschool: true,
+    preparatory: false,
     assistanceActionOther: false,
     experimental: {
       leops: true,
@@ -41,6 +42,7 @@ const features: Features = {
     groupsTableServiceNeeds: true,
     urgencyAttachments: false,
     preschool: true,
+    preparatory: false,
     assistanceActionOther: false,
     experimental: {
       assistanceNeedDecisions: true,
@@ -56,6 +58,7 @@ const features: Features = {
     groupsTableServiceNeeds: true,
     urgencyAttachments: false,
     preschool: false,
+    preparatory: false,
     assistanceActionOther: false,
     experimental: {
       assistanceNeedDecisions: true,

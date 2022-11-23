@@ -108,7 +108,13 @@ const customizations: CitizenCustomizations = {
   footerLogo: TampereFooter,
   routeLinkRootUrl: 'https://reittiopas.tampere.fi/reitti/',
   mapConfig,
-  featureFlags
+  featureFlags,
+  getMaxPreferredUnits(type) {
+    if (type === 'PRESCHOOL') {
+      return 1
+    }
+    return 3
+  }
 }
 
 export default customizations

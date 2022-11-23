@@ -15,6 +15,15 @@ import { Gap } from 'lib-components/white-space'
 import { Translations } from 'lib-customizations/citizen'
 import { DeepPartial } from 'lib-customizations/types'
 
+import { env } from './env'
+import featureFlags from './featureFlags'
+
+// TODO: preschool prod
+const environment = env()
+export const preschoolEnabled =
+  featureFlags.preschool &&
+  (environment === 'default' || environment === 'staging')
+
 const customerContactText = function () {
   return (
     <>
@@ -38,10 +47,11 @@ const fi: DeepPartial<Translations> = {
         'Varhaiskasvatushakemuksella haetaan paikkaa kunnallisesta päiväkodista tai perhepäivähoidosta, ostopalvelupäiväkodista tai palvelusetelillä tuetusta päiväkodista.',
       clubInfo:
         'Kerhohakemuksella haetaan paikkaa kunnallisista tai palvelusetelillä tuetuista kerhoista.',
+      preschoolLabel: 'Esiopetukseen ilmoittautuminen',
       preschoolInfo:
-        'TODO: Maksutonta esiopetusta on neljä tuntia päivässä. Tämän lisäksi lapselle voidaan hakea maksullista täydentävää varhaiskasvatusta, jota tarjotaan esiopetuspaikoissa aamulla ennen esiopetuksen alkua ja iltapäivisin esiopetuksen jälkeen. Täydentävään varhaiskasvatukseen voi hakea myös palveluseteliä, valitsemalla Hakutoiveet-kohtaan palveluseteliyksikön, johon halutaan hakea. Hakemuksen täydentävään varhaiskasvatukseen voi tehdä esiopetukseen ilmoittautumisen yhteydessä tai erillisenä hakemuksena opetuksen jo alettua. Samalla hakemuksella voit hakea myös maksuttomaan valmistavaan opetukseen sekä valmistavaa opetusta täydentävään varhaiskasvatukseen.',
+        'Maksutonta esiopetusta on neljä tuntia päivässä. Tämän lisäksi lapselle voidaan hakea maksullista täydentävää toimintaa. Hakemuksen täydentävään toimintaan voi tehdä esiopetukseen ilmoittautumisen yhteydessä tai erillisenä hakemuksena opetuksen jo alettua.',
       preschoolDaycareInfo:
-        'TODO: Täydentävän varhaiskasvatuksen hakeminen lapsille, jotka ilmoitetaan / on ilmoitettu esiopetukseen tai perusopetukseen valmistavaan opetukseen',
+        'Täydentävän toiminnan hakeminen lapsille, jotka ilmoitetaan / on ilmoitettu esiopetukseen',
       applicationInfo: (
         <P>
           Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa siihen asti,
@@ -56,22 +66,57 @@ const fi: DeepPartial<Translations> = {
         DAYCARE:
           'Lapsella on jo paikka Tampereen varhaiskasvatuksessa. Tällä hakemuksella voit hakea siirtoa toiseen varhaiskasvatusta tarjoavaan yksikköön Tampereella.',
         PRESCHOOL:
-          'TODO: Lapsella on jo esiopetuspaikka. Tällä hakemuksella voit hakea esiopetusta täydentävää varhaiskasvatusta tai siirtoa toiseen esiopetusta tarjoavaan yksikköön.'
+          'Lapsella on jo esiopetuspaikka. Tällä hakemuksella voit hakea esiopetusta täydentävää toimintaa tai siirtoa toiseen esiopetusta tarjoavaan yksikköön.'
       }
     },
     editor: {
       verification: {
         serviceNeed: {
           connectedDaycare: {
-            title: 'TODO: Esiopetusta täydentävän varhaiskasvatuksen tarve',
-            label: 'TODO: Täydentävä varhaiskasvatus',
-            withConnectedDaycare:
-              'TODO: Haen myös esiopetusta täydentävää varhaiskasvatusta.'
+            label: 'Esiopetusta täydentävä toiminta',
+            withConnectedDaycare: 'Haen esiopetusta täydentävää toimintaa.'
           }
         }
       },
       unitPreference: {
+        siblingBasis: {
+          checkbox: {
+            PRESCHOOL:
+              'Toivomme ensisijaisesti esiopetukseen samaan kouluun, jossa lapsen vanhempi sisarus on.'
+          },
+          info: {
+            PRESCHOOL: null
+          }
+        },
         units: {
+          info: {
+            PRESCHOOL: (
+              <>
+                <P>
+                  Esiopetuspaikka määräytyy lapsen kotiosoitteen mukaan, tulevan
+                  koulupolun mukaisesti. Ilmoittautuessa lapsi ilmoitetaan
+                  koulupolun mukaiseen esiopetukseen tai painotettuun
+                  esiopetukseen. Mikäli lapsi tarvitsee säännöllisesti ilta- tai
+                  vuorohoitoa, hänet ilmoitetaan ilta- tai vuorohoidon
+                  esiopetukseen.
+                </P>
+                <P>
+                  Tieto tulevasta esiopetuspaikasta ilmoitetaan huoltajille
+                  sähköisesti Suomi.fi-viestit palvelun kautta. Mikäli huoltaja
+                  ei ole ottanut palvelua käyttöönsä, tieto lähetetään hänelle
+                  kirjeitse.
+                </P>
+                <P>
+                  Lisätietoa{' '}
+                  <ExternalLink
+                    href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus"
+                    text="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus"
+                    newTab
+                  />
+                </P>
+              </>
+            )
+          },
           serviceVoucherLink:
             'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit'
         }
@@ -107,6 +152,29 @@ const fi: DeepPartial<Translations> = {
               <P fitted={true}>* Tähdellä merkityt tiedot ovat pakollisia</P>
             </>
           ),
+          PRESCHOOL: (
+            <>
+              <P>
+                Perusopetuslain (26 a §) mukaan lasten on oppivelvollisuuden
+                alkamista edeltävänä vuonna osallistuttava vuoden kestävään
+                esiopetukseen tai muuhun esiopetuksen tavoitteet saavuttavaan
+                toimintaan. Esiopetus on maksutonta.
+              </P>
+              <P>
+                Päätökset tulevat{' '}
+                <a
+                  href="https://www.suomi.fi/viestit"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Suomi.fi-viestit
+                </a>{' '}
+                -palveluun tai postitse, mikäli et ole ottanut Suomi.fi
+                -palvelua käyttöön.
+              </P>
+              <P fitted={true}>* Tähdellä merkityt tiedot ovat pakollisia</P>
+            </>
+          ),
           CLUB: (
             <>
               <P>
@@ -135,18 +203,24 @@ const fi: DeepPartial<Translations> = {
       },
       serviceNeed: {
         startDate: {
-          instructions: (
-            <>
-              Toivottua aloituspäivää on mahdollista muuttaa myöhemmäksi niin
-              kauan, kun hakemusta ei ole otettu käsittelyyn. Tämän jälkeen
-              toivotun aloituspäivän muutokset tehdään ottamalla yhteyttä
-              {customerContactText()}
-            </>
-          ),
+          instructions: {
+            DAYCARE: (
+              <>
+                Toivottua aloituspäivää on mahdollista muuttaa myöhemmäksi niin
+                kauan, kun hakemusta ei ole otettu käsittelyyn. Tämän jälkeen
+                toivotun aloituspäivän muutokset tehdään ottamalla yhteyttä
+                {customerContactText()}
+              </>
+            ),
+            PRESCHOOL: null
+          },
           info: {
             PRESCHOOL: [
-              'TODO: Suomen- ja ruotsinkielinen esiopetus alkaa 11.8.2022. Jos tarvitsette varhaiskasvatusta 1.8.2022 lähtien ennen esiopetuksen alkua, voitte hakea sitä tällä hakemuksella valitsemalla ”Haen myös esiopetusta täydentävää varhaiskasvatusta'
+              'Lukuvuosi 2023–2024 alkaa keskiviikkona 9.8.2023 ja päättyy perjantaina 31.5.2024.'
             ]
+          },
+          label: {
+            PRESCHOOL: 'Tarve alkaen'
           }
         },
         clubDetails: {
@@ -170,7 +244,7 @@ const fi: DeepPartial<Translations> = {
         },
         shiftCare: {
           instructions:
-            'Päiväkodit palvelevat normaalisti arkisin klo 6.00–18.00. Iltahoito on tarkoitettu lapsille, jotka vanhempien työn tai tutkintoon johtavan opiskelun vuoksi tarvitsevat säännöllisesti hoitoa klo 18.00 jälkeen. Iltahoitoa tarjoavat päiväkodit aukeavat tarvittaessa klo 5.30 ja menevät kiinni viimeistään klo 22.30. Osa iltahoitoa antavista päiväkodeista on auki myös viikonloppuisin. Vuorohoito on tarkoitettu lapsille, joiden vanhemmat tekevät vuorotyötä ja lapsen hoitoon sisältyy myös öitä.',
+            'Mikäli lapsi tarvitsee esiopetuksen lisäksi ilta-/vuorohoitoa, hänet pitää ilmoittaa ilta- tai vuorohoidon esiopetukseen. Lisäksi täydentäväksi toiminnaksi on lapselle valittava täydentävä varhaiskasvatus, yli 5h päivässä. Päiväkodit palvelevat normaalisti arkisin klo 6.00–18.00. Iltahoito on tarkoitettu lapsille, jotka vanhempien työn tai tutkintoon johtavan opiskelun vuoksi tarvitsevat säännöllisesti hoitoa klo 18.00 jälkeen. Iltahoitoa tarjoavat päiväkodit aukeavat tarvittaessa klo 5.30 ja menevät kiinni viimeistään klo 22.30. Osa iltahoitoa antavista päiväkodeista on auki myös viikonloppuisin. Vuorohoito on tarkoitettu niille lapsille, joiden vanhemmat tekevät vuorotyötä ja lapsen hoitoon sisältyy myös öitä.',
           message: {
             text: 'Ilta- ja vuorohoito on tarkoitettu lapsille, jotka vanhempien työn tai tutkintoon johtavan opiskelun vuoksi tarvitsevat ilta- ja vuorohoitoa. Hakemuksen liitteeksi on toimitettava vanhempien osalta työnantajan todistus vuorotyöstä tai opiskelusta johtuvasta ilta- tai vuorohoidon tarpeesta.'
           },
@@ -181,7 +255,9 @@ const fi: DeepPartial<Translations> = {
         assistanceNeedInstructions: {
           DAYCARE:
             'Tehostettua tai erityistä tukea annetaan lapselle heti tarpeen ilmettyä. Mikäli lapsella on olemassa tuen tarpeesta asiantuntijalausunto, tämä tulee ilmoittaa varhaiskasvatushakemuksella. Tukitoimet toteutuvat lapsen arjessa osana varhaiskasvatuksen toimintaa. Tampereen varhaiskasvatuksesta otetaan erikseen yhteyttä hakemuksen jättämisen jälkeen, jos lapsella on tuen tarve.',
-          CLUB: 'Jos lapsella on tuen tarve, Tampereen varhaiskasvatuksesta otetaan yhteyttä hakemuksen jättämisen jälkeen.'
+          CLUB: 'Jos lapsella on tuen tarve, Tampereen varhaiskasvatuksesta otetaan yhteyttä hakemuksen jättämisen jälkeen.',
+          PRESCHOOL:
+            'Valitse hakemuksesta tämä kohta, jos lapsi tarvitsee kehitykselleen ja/tai oppimiselleen tukea esiopetusvuonna. Tukea toteutetaan lapsen arjessa osana esiopetuksen toimintaa. Osa esiopetuspaikoista on varattu tukea tarvitseville lapsille. Jos lapsellanne on kehityksen ja/tai oppimisen tuen tarvetta, varhaiskasvatuksen erityisopettaja ottaa teihin yhteyttä, jotta lapsen tarpeet voidaan ottaa huomioon esiopetuspaikkaa osoitettaessa.'
         },
         partTime: {
           true: 'Osapäiväinen'
@@ -189,46 +265,29 @@ const fi: DeepPartial<Translations> = {
         dailyTime: {
           label: {
             DAYCARE: 'Palveluntarve',
-            PRESCHOOL: 'TODO: Esiopetusta täydentävän varhaiskasvatuksen tarve'
+            PRESCHOOL: 'Esiopetusta täydentävä toiminta'
           },
-          connectedDaycare:
-            'TODO: Haen myös esiopetusta täydentävää varhaiskasvatusta.',
+          connectedDaycare: 'Haen esiopetusta täydentävää toimintaa.',
           connectedDaycareInfo: (
             <>
               <P>
-                TODO: Voit hakea lapselle tarvittaessa{' '}
-                <strong>
-                  esiopetusta täydentävää varhaiskasvatusta, joka on maksullista
-                  ja jota annetaan esiopetuksen (4 tuntia/päivä) lisäksi
-                </strong>{' '}
-                aamuisin ja/tai iltapäivisin samassa paikassa kuin esiopetus.
-                Jos haluat aloittaa varhaiskasvatuksen myöhemmin kuin esiopetus
-                alkaa, kirjoita haluttu aloituspäivämäärä hakemuksen “Muut
-                lisätiedot” -kohtaan.
+                Esiopetusaika on neljä tuntia päivässä, pääsääntöisesti klo
+                9–13. Esiopetuksen lisäksi lapsi voi osallistua maksulliseen
+                täydentävään toimintaan aamuisin ja iltapäivisin. Täydentävän
+                toiminnan vaihtoehtoina ovat päiväkodeissa annettava täydentävä
+                varhaiskasvatus ja kouluilla annettava esiopetuksen kerho.
               </P>
               <P>
-                Yksityisiin esiopetusyksiköihin haettassa täydentävä
-                varhaiskasvatus haetaan suoraan yksiköstä (pois lukien
-                palveluseteliyksiköt). Yksiköt informoivat asiakkaita
-                hakutavasta. Näissä tapauksissa palveluohjaus muuttaa hakemuksen
-                pelkäksi esiopetushakemukseksi.
+                Lisätietoa täydentävästä toiminnasta ja asiakasmaksuista{' '}
+                <ExternalLink
+                  href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus/esiopetusta-taydentava-toiminta"
+                  text="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus/esiopetusta-taydentava-toiminta"
+                  newTab
+                />
               </P>
               <P>
-                Palveluseteliä haetaan valitsemalla hakutoiveeksi se
-                palveluseteliyksikkö, johon halutaan hakea.
-              </P>
-              <P>
-                Saat varhaiskasvatuspaikasta erillisen kirjallisen päätöksen, ja
-                päätös tulee{' '}
-                <a
-                  href="https://www.suomi.fi/viestit"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Suomi.fi-viestit
-                </a>{' '}
-                -palveluun tai postitse, mikäli et ole ottanut Suomi.fi-viestit
-                -palvelua käyttöön.
+                Päätökset tulevat Suomi.fi-viestit -palveluun tai postitse,
+                mikäli et ole ottanut Suomi.fi -palvelua käyttöön.
               </P>
             </>
           )
@@ -248,14 +307,18 @@ const fi: DeepPartial<Translations> = {
             . Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen
             erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle
             että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on
-            päivittynyt väestötietojärjestelmään. Varhaiskasvatus- ja
-            palvelusetelipäätös sekä tieto avoimen varhaiskasvatuksen
-            kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa
-            asuvalle väestötiedoista löytyvälle huoltajalle.
+            päivittynyt väestötietojärjestelmään. Varhaiskasvatus-
+            {preschoolEnabled
+              ? ', palveluseteli- ja esiopetuspäätös'
+              : ' ja palvelusetelipäätös'}{' '}
+            sekä tieto avoimen varhaiskasvatuksen kerhopaikasta toimitetaan
+            automaattisesti myös eri osoitteessa asuvalle väestötiedoista
+            löytyvälle huoltajalle.
           </P>
         ),
-        futureAddressInfo:
-          'Tampereen varhaiskasvatuksessa virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.'
+        futureAddressInfo: `Tampereen varhaiskasvatuksessa${
+          preschoolEnabled ? ' ja esiopetuksessa' : ''
+        } virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.`
       },
       fee: {
         info: {
@@ -273,11 +336,11 @@ const fi: DeepPartial<Translations> = {
           ),
           PRESCHOOL: (
             <P>
-              TODO: Esiopetus on maksutonta, mutta sitä täydentävä
-              varhaiskasvatus on maksullista. Jos lapsi osallistuu täydentävään
-              varhaiskasvatukseen, perhe toimittaa tuloselvityksen
-              bruttotuloistaan tuloselvityslomakkeella viimeistään kahden viikon
-              kuluessa siitä, kun lapsi on aloittanut varhaiskasvatuksessa.
+              Esiopetus on maksutonta, mutta sitä täydentävä toiminta on
+              maksullista. Jos lapsi osallistuu esiopetusta täydentävään
+              toimintaan, perhe toimittaa tuloselvityksen bruttotuloistaan
+              tuloselvityslomakkeella viimeistään kahden viikon kuluessa siitä,
+              kun lapsi on aloittanut esiopetuksen.
             </P>
           )
         },
@@ -295,8 +358,9 @@ const fi: DeepPartial<Translations> = {
       additionalDetails: {
         dietInfo: (
           <>
-            Erityisruokavaliosta huoltaja toimittaa varhaiskasvatuspaikkaan
-            lääkärin tai ravitsemusterapeutin täyttämän ja allekirjoittaman{' '}
+            Erityisruokavaliosta huoltaja toimittaa varhaiskasvatus
+            {preschoolEnabled ? ' tai esiopetuspaikkaan' : 'paikkaan'} lääkärin
+            tai ravitsemusterapeutin täyttämän ja allekirjoittaman{' '}
             <ExternalLink
               href="https://www.tampere.fi/erityisruokavaliot"
               text="Selvitys erityisruokavaliosta -lomakkeen"
