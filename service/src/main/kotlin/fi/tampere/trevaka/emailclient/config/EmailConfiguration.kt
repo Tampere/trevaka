@@ -182,7 +182,7 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
         return """
             <p>Hyvä huoltaja,</p>
 
-            <p>lapsenne esiopetushakemus on vastaanotettu.</p>
+            <p>lapsenne esiopetukseen ilmoittautuminen on vastaanotettu.</p>
 
             <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a> siihen saakka, kunnes se on otettu käsittelyyn.</p> 
 
@@ -207,7 +207,7 @@ internal class EmailMessageProvider(): IEmailMessageProvider {
         return """
             Hyvä huoltaja,
 
-            lapsenne esiopetushakemus on vastaanotettu.
+            lapsenne esiopetukseen ilmoittautuminen on vastaanotettu.
 
             Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa varhaiskasvatus.tampere.fi siihen saakka, kunnes se on otettu käsittelyyn.
 

@@ -60,7 +60,6 @@ const en: DeepPartial<Translations> = {
       verification: {
         serviceNeed: {
           connectedDaycare: {
-            title: 'TODO: Esiopetusta täydentävän varhaiskasvatuksen tarve',
             label: 'TODO: Täydentävä varhaiskasvatus',
             withConnectedDaycare:
               'TODO: Haen myös esiopetusta täydentävää varhaiskasvatusta.'
@@ -135,14 +134,17 @@ const en: DeepPartial<Translations> = {
       },
       serviceNeed: {
         startDate: {
-          instructions: (
-            <>
-              It is possible to postpone the preferred starting day as long as
-              the application has not been processed by the customer service.
-              After this, any desired amendments can be made by contacting the
-              {customerContactText()}
-            </>
-          ),
+          instructions: {
+            DAYCARE: (
+              <>
+                It is possible to postpone the preferred starting day as long as
+                the application has not been processed by the customer service.
+                After this, any desired amendments can be made by contacting the{' '}
+                {customerContactText()}
+              </>
+            ),
+            PRESCHOOL: null
+          },
           info: {
             PRESCHOOL: [
               'TODO: Suomen- ja ruotsinkielinen esiopetus alkaa 11.8.2022. Jos tarvitsette varhaiskasvatusta 1.8.2022 lähtien ennen esiopetuksen alkua, voitte hakea sitä tällä hakemuksella valitsemalla ”Haen myös esiopetusta täydentävää varhaiskasvatusta'

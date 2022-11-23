@@ -51,7 +51,7 @@ describe('Citizen applications page', () => {
     )
     await waitUntilEqual(
       () => applicationRadios.nth(1).find('label').innerText,
-      'Ilmoittautuminen esiopetukseen ja / tai valmistavaan opetukseen'
+      'Esiopetukseen ilmoittautuminen'
     )
     await waitUntilEqual(
       () => applicationRadios.nth(2).find('label').innerText,
@@ -171,7 +171,7 @@ describe('Citizen applications page', () => {
     await shiftcareCheckbox.waitUntilChecked()
     await waitUntilEqual(
       () => page.find('[data-qa="shiftcare-instructions-text"]').innerText,
-      'Päiväkodit palvelevat normaalisti arkisin klo 6.00–18.00. Iltahoito on tarkoitettu lapsille, jotka vanhempien työn tai tutkintoon johtavan opiskelun vuoksi tarvitsevat säännöllisesti hoitoa klo 18.00 jälkeen. Iltahoitoa tarjoavat päiväkodit aukeavat tarvittaessa klo 5.30 ja menevät kiinni viimeistään klo 22.30. Osa iltahoitoa antavista päiväkodeista on auki myös viikonloppuisin. Vuorohoito on tarkoitettu lapsille, joiden vanhemmat tekevät vuorotyötä ja lapsen hoitoon sisältyy myös öitä.'
+      'Mikäli lapsi tarvitsee esiopetuksen lisäksi ilta-/vuorohoitoa, hänet pitää ilmoittaa ilta- tai vuorohoidon esiopetukseen. Lisäksi täydentäväksi toiminnaksi on lapselle valittava täydentävä varhaiskasvatus, yli 5h päivässä. Päiväkodit palvelevat normaalisti arkisin klo 6.00–18.00. Iltahoito on tarkoitettu lapsille, jotka vanhempien työn tai tutkintoon johtavan opiskelun vuoksi tarvitsevat säännöllisesti hoitoa klo 18.00 jälkeen. Iltahoitoa tarjoavat päiväkodit aukeavat tarvittaessa klo 5.30 ja menevät kiinni viimeistään klo 22.30. Osa iltahoitoa antavista päiväkodeista on auki myös viikonloppuisin. Vuorohoito on tarkoitettu niille lapsille, joiden vanhemmat tekevät vuorotyötä ja lapsen hoitoon sisältyy myös öitä.'
     )
     await waitUntilEqual(
       () => page.find('[data-qa="shiftcare-attachments-message"]').innerText,
@@ -187,7 +187,7 @@ describe('Citizen applications page', () => {
     let contactInfoText = page.find('[data-qa="contactInfo-section"] p[data-qa="contact-info-text"]')
     await waitUntilEqual(
       () => contactInfoText.innerText,
-      'Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän tiedot Digi- ja Väestötietoviraston sivuilla . Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on päivittynyt väestötietojärjestelmään. Varhaiskasvatus- ja palvelusetelipäätös sekä tieto avoimen varhaiskasvatuksen kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa asuvalle väestötiedoista löytyvälle huoltajalle.'
+      'Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän tiedot Digi- ja Väestötietoviraston sivuilla . Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on päivittynyt väestötietojärjestelmään. Varhaiskasvatus-, palveluseteli- ja esiopetuspäätös sekä tieto avoimen varhaiskasvatuksen kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa asuvalle väestötiedoista löytyvälle huoltajalle.'
     )
     await waitUntilEqual(
       () => contactInfoText.find('a').getAttribute('href'),
@@ -197,12 +197,12 @@ describe('Citizen applications page', () => {
     await childFutureAddrInfo.click()
     await waitUntilEqual(
       () => page.find('[data-qa="child-future-address-info-text"]').innerText,
-      'Tampereen varhaiskasvatuksessa virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.'
+      'Tampereen varhaiskasvatuksessa ja esiopetuksessa virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.'
     )
     await page.find('[data-qa="guardian-future-address-info"]').click()
     await waitUntilEqual(
       () => page.find('[data-qa="guardian-future-address-info-text"]').innerText,
-      'Tampereen varhaiskasvatuksessa virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.'
+      'Tampereen varhaiskasvatuksessa ja esiopetuksessa virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.'
   )
     await editorPage.openSection('fee')
     await waitUntilEqual(
@@ -222,7 +222,7 @@ describe('Citizen applications page', () => {
     await dietInfo.click()
     await waitUntilEqual(
       () => page.find('[data-qa="diet-expanding-info-text"]').innerText,
-      'Erityisruokavaliosta huoltaja toimittaa varhaiskasvatuspaikkaan lääkärin tai ravitsemusterapeutin täyttämän ja allekirjoittaman Selvitys erityisruokavaliosta -lomakkeen , joka on määräaikainen.'
+      'Erityisruokavaliosta huoltaja toimittaa varhaiskasvatus tai esiopetuspaikkaan lääkärin tai ravitsemusterapeutin täyttämän ja allekirjoittaman Selvitys erityisruokavaliosta -lomakkeen , joka on määräaikainen.'
     )
     await waitUntilEqual(
       () => page.find('[data-qa="diet-expanding-info-text"] a').getAttribute('href'),
@@ -267,17 +267,17 @@ describe('Citizen applications page', () => {
     await editorPage.openSection('contactInfo')
     await waitUntilEqual(
       () => page.find('[data-qa="contactInfo-section"] p[data-qa="contact-info-text"]').innerText,
-      'Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän tiedot Digi- ja Väestötietoviraston sivuilla . Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on päivittynyt väestötietojärjestelmään. Varhaiskasvatus- ja palvelusetelipäätös sekä tieto avoimen varhaiskasvatuksen kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa asuvalle väestötiedoista löytyvälle huoltajalle.'
+      'Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän tiedot Digi- ja Väestötietoviraston sivuilla . Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on päivittynyt väestötietojärjestelmään. Varhaiskasvatus-, palveluseteli- ja esiopetuspäätös sekä tieto avoimen varhaiskasvatuksen kerhopaikasta toimitetaan automaattisesti myös eri osoitteessa asuvalle väestötiedoista löytyvälle huoltajalle.'
     )
     await page.find('[data-qa="child-future-address-info"]').click()
     await waitUntilEqual(
       () => page.find('[data-qa="child-future-address-info-text"]').innerText,
-      'Tampereen varhaiskasvatuksessa virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.'
+      'Tampereen varhaiskasvatuksessa ja esiopetuksessa virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.'
     )
     await page.find('[data-qa="guardian-future-address-info"]').click()
     await waitUntilEqual(
       () => page.find('[data-qa="guardian-future-address-info-text"]').innerText,
-      'Tampereen varhaiskasvatuksessa virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.'
+      'Tampereen varhaiskasvatuksessa ja esiopetuksessa virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.'
     )
   })
 })
