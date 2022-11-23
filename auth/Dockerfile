@@ -10,6 +10,10 @@ COPY theme-fi.sed ./
 COPY TampereLogo.png evaka/login/resources/img/EspooLogo.png
 RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties && \
     sed -i -e '/<#--/d' -e '/-->/d' evaka/login/login-update-profile.ftl && \
+    sed -i -r 's/totp\.policy\.supportedApplications/totp\.supportedApplications/' evaka/login/login-config-totp-text.ftl && \
+    sed -i -r 's/\$\{app\}/\$\{msg(app)\}/' evaka/login/login-config-totp-text.ftl && \
+    sed -i -r 's/totp\.policy\.supportedApplications/totp\.supportedApplications/' evaka/login/login-config-totp.ftl && \
+    sed -i -r 's/\$\{app\}/\$\{msg(app)\}/' evaka/login/login-config-totp.ftl && \
     sed -i -r 's/ lib\/zocial\/zocial.css//' evaka/login/theme.properties
 RUN npm run build
 
