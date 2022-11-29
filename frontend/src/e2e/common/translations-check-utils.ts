@@ -5,6 +5,11 @@
 import React from 'react'
 import { isArray, toArray, isObject } from 'lodash'
 
+const ignoredKeys = [
+    'placement.type.PREPARATORY_WITH_DAYCARE',
+    'placement.type.PREPARATORY_DAYCARE',
+]
+
 type TranslationError = {
     key: string,
     value: string
@@ -24,7 +29,7 @@ const unwantedTexts: UnwantedText[] = [
 ]
 
 const checkTampereTranslation = (key: string, value: string | null, errors: TranslationError[]) => {
-    if (value !== null) {
+    if (!ignoredKeys.includes(key) && value !== null) {
         unwantedTexts.forEach(unwantedText => {
             if (unwantedText.valueCheck(value.toLowerCase())) {
                 let error = { key, value }

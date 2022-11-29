@@ -397,12 +397,8 @@ const en: DeepPartial<Translations> = {
   },
   placement: {
     type: {
-      PRESCHOOL_DAYCARE: 'TODO: Esiopetus ja täydentävä varhaiskasvatus',
-      PRESCHOOL_WITH_DAYCARE: 'TODO: Esiopetus ja täydentävä varhaiskasvatus',
-      PREPARATORY_WITH_DAYCARE:
-        'TODO: Valmistava opetus ja täydentävä varhaiskasvatus',
-      PREPARATORY_DAYCARE:
-        'TODO: Valmistava opetus ja täydentävä varhaiskasvatus'
+      PRESCHOOL_DAYCARE: 'Preschool daycare',
+      PRESCHOOL_WITH_DAYCARE: 'Preschool daycare'
     }
   },
   income: {
