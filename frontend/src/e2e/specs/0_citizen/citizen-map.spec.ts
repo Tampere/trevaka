@@ -26,7 +26,7 @@ describe('Citizen map page', () => {
     let mapMainInfo = page.find('[data-qa="map-main-info"]')
     await waitUntilEqual(
       () => mapMainInfo.innerText,
-      'Tässä näkymässä voit hakea kartalta kaikki Tampereen varhaiskasvatusyksiköt sekä kerhot. Kartalta löytyvät myös seudulliset palveluseteliyksiköt ja -kerhot.'
+      'Tässä näkymässä voit hakea kartalta kaikki Tampereen varhaiskasvatusyksiköt sekä kerhot. Kartalta löytyvät myös seudulliset palveluseteliyksiköt ja -kerhot. Esiopetusta järjestetään pääsääntöisesti kouluilla.'
     )
     let privateUnitInfo = mapMainInfo.findAll('span')
     await waitUntilEqual(() => privateUnitInfo.first().innerText, '')

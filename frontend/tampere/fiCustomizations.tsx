@@ -373,12 +373,14 @@ const fi: DeepPartial<Translations> = {
     }
   },
   applicationsList: {
-    title: 'Hakeminen varhaiskasvatukseen',
+    title: `Hakeminen varhaiskasvatukseen${
+      preschoolEnabled ? ' ja esiopetukseen' : ''
+    }`,
     summary: (
       <P width="800px">
-        Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen ja
-        kerhoon. Huoltajan lasten tiedot haetaan tähän näkymään automaattisesti
-        Väestötietojärjestelmästä.
+        Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen
+        {preschoolEnabled ? ', esiopetukseen' : ''} ja kerhoon. Huoltajan lasten
+        tiedot haetaan tähän näkymään automaattisesti Väestötietojärjestelmästä.
       </P>
     )
   },
@@ -412,21 +414,34 @@ const fi: DeepPartial<Translations> = {
   loginPage: {
     applying: {
       infoBullets: [
-        'hakea lapsellesi varhaiskasvatus- tai kerhopaikkaa tai tarkastella aiemmin tekemääsi hakemusta',
-        'tarkastella lapsesi varhaiskasvatukseen liittyviä kuvia ja muita dokumentteja',
+        `hakea lapsellesi varhaiskasvatus-${
+          preschoolEnabled ? ', esiopetus' : ''
+        } tai kerhopaikkaa tai tarkastella aiemmin tekemääsi hakemusta`,
+        `tarkastella lapsesi varhaiskasvatukseen${
+          preschoolEnabled ? ' ja esiopetukseen' : ''
+        } liittyviä kuvia ja muita dokumentteja`,
         'ilmoittaa omat tai lapsesi tulotiedot',
-        'hyväksyä lapsesi varhaiskasvatus- tai kerhopaikan',
+        `hyväksyä lapsesi varhaiskasvatus-${
+          preschoolEnabled ? ', esiopetus-' : ''
+        } tai kerhopaikan`,
         'irtisanoa lapsen varhaiskasvatus- tai kerhopaikan.'
       ]
     },
     login: {
-      paragraph:
-        'Huoltajat, joiden lapsi on jo varhaiskasvatuksessa: hoida lapsesi päivittäisiä varhaiskasvatusasioita kuten lue viestejä ja ilmoita lapsen läsnäoloajat ja poissaolot.'
+      paragraph: `Huoltajat, joiden lapsi on jo varhaiskasvatuksessa${
+        preschoolEnabled ? ' tai esiopetuksessa' : ''
+      }: hoida lapsesi päivittäisiä asioita kuten lue viestejä ja ilmoita lapsen läsnäoloajat ja poissaolot.`
     },
-    title: 'Tampereen kaupungin varhaiskasvatus'
+    title: `Tampereen kaupungin varhaiskasvatus${
+      preschoolEnabled ? ' ja esiopetus' : ''
+    }`
   },
   map: {
-    mainInfo: `Tässä näkymässä voit hakea kartalta kaikki Tampereen varhaiskasvatusyksiköt sekä kerhot. Kartalta löytyvät myös seudulliset palveluseteliyksiköt ja -kerhot.`,
+    mainInfo: `Tässä näkymässä voit hakea kartalta kaikki Tampereen varhaiskasvatusyksiköt sekä kerhot. Kartalta löytyvät myös seudulliset palveluseteliyksiköt ja -kerhot.${
+      preschoolEnabled
+        ? '  Esiopetusta järjestetään pääsääntöisesti kouluilla.'
+        : ''
+    }`,
     privateUnitInfo: <></>,
     serviceVoucherLink:
       'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit',

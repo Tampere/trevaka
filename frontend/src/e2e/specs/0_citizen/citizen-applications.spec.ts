@@ -40,7 +40,7 @@ const customerContactTelHref = 'tel:+358408007260'
 describe('Citizen applications page', () => {
   test('Applications and ApplicationCreation customizations', async () => {
     await header.selectTab('applications')
-    await waitUntilEqual(() => page.find('h1 + p').innerText, 'Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen ja kerhoon. Huoltajan lasten tiedot haetaan tähän näkymään automaattisesti Väestötietojärjestelmästä.')
+    await waitUntilEqual(() => page.find('h1 + p').innerText, 'Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen, esiopetukseen ja kerhoon. Huoltajan lasten tiedot haetaan tähän näkymään automaattisesti Väestötietojärjestelmästä.')
     await page.find(`[data-qa="new-application-${enduserChildFixturePorriHatterRestricted.id}"]`).click()
     // Check that all options are visible
     let applicationRadios = await page.findAll('[data-qa^="type-radio-"]')

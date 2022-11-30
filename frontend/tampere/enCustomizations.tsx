@@ -15,6 +15,8 @@ import { Gap } from 'lib-components/white-space'
 import { Translations } from 'lib-customizations/citizen'
 import { DeepPartial } from 'lib-customizations/types'
 
+import { preschoolEnabled } from './fiCustomizations'
+
 const customerContactText = function () {
   return (
     <>
@@ -315,12 +317,15 @@ const en: DeepPartial<Translations> = {
     }
   },
   applicationsList: {
-    title: 'Applying for early childhood education',
+    title: `Applying for early childhood education${
+      preschoolEnabled ? ' and pre-primary education' : ''
+    }`,
     summary: (
       <P width="800px">
-        The child&apos;s custodian can apply for early childhood education and a
-        club for the child. Information about the custodian&apos;s children is
-        automatically retrieved from the Population data register for this view.
+        The child&apos;s custodian can apply for early childhood education
+        {preschoolEnabled ? ', pre-primary education' : ''} and a club for the
+        child. Information about the custodian&apos;s children is automatically
+        retrieved from the Population data register for this view.
       </P>
     )
   },
@@ -354,17 +359,34 @@ const en: DeepPartial<Translations> = {
   loginPage: {
     applying: {
       infoBullets: [
-        'apply for an early childhood or club place for your child or view a previous application',
-        'view pictures and other documents related to your child’s early childhood',
+        `apply for an early childhood${
+          preschoolEnabled ? ', pre-primary' : ''
+        } or club place for your child or view a previous application`,
+        `view pictures and other documents related to your child’s early childhood${
+          preschoolEnabled ? ' and pre-primary' : ''
+        }`,
         "report your or your child's income information",
-        "accept your child's early childhood or club place",
+        `accept your child's early childhood${
+          preschoolEnabled ? ', pre-primary' : ''
+        } or club place`,
         "terminate your child's early childhood or club place."
       ]
     },
-    title: 'City of Tampere early childhood education'
+    login: {
+      paragraph: `Guardians whose child is already in early childhood education${
+        preschoolEnabled ? ' or preschool' : ''
+      }: take care of your child's daily affairs, such as reading messages and reporting the child's attendance and absence times.`
+    },
+    title: `City of Tampere early childhood${
+      preschoolEnabled ? ' and pre-primary' : ''
+    } education`
   },
   map: {
-    mainInfo: `In this view you can locate on the map all of Tampere’s early childhood education units and clubs. Regional service voucher units and clubs can also be found on the map.`,
+    mainInfo: `In this view you can locate on the map all of Tampere’s early childhood education units and clubs. Regional service voucher units and clubs can also be found on the map.${
+      preschoolEnabled
+        ? ' Pre-primary education is mainly organized in schools.'
+        : ''
+    }`,
     privateUnitInfo: <></>,
     serviceVoucherLink:
       'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit',
