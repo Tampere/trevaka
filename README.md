@@ -9,6 +9,21 @@ treVaka aka eVaka Tampere – ERP for early childhood education in Tampere
 
 This repository contains the code for customizing, configuring and extending the Espoo eVaka ERP for use in Tampere early education.
 
+## Checkout
+
+treVaka utilizes the [eVaka-fork](https://github.com/tampere/evaka) as its submodule. When cloning the repository use `--recurse-submodules` or manually initialize and update the submodule after cloning with `git submodule update --init`.
+
+It is also recommended to add [eVaka-repository](https://github.com/espoon-voltti/evaka) as remote to be able to pull changes from there:
+
+    cd evaka
+    git remote add upstream git@github.com:espoon-voltti/evaka.git
+    git fetch upstream
+
+Frontend customizations [must be linked](frontend/README.md) under eVaka-repository:
+
+    cd frontend
+    ./link.sh
+
 ## Getting treVaka dev environment up and running
 
 ### Prerequisites - needed software and tools
@@ -32,11 +47,6 @@ See [eVaka README](evaka/compose/README.md#Dependencies)
 ### For WSL users:
 
 Install a tool for running X Window System, eg. [GWSL](https://www.microsoft.com/en-us/p/gwsl/9nl6kd1h33v3#activetab=pivot:overviewtab).
-
-
-## Submodules
-treVaka utilizes the [eVaka-repository](https://github.com/espoon-voltti/evaka) as its submodule. When cloning the repository use `--recurse-submodules` or manually initialize and update the submodule after cloning with `git submodule update --init`.
-
 
 ## License
 
