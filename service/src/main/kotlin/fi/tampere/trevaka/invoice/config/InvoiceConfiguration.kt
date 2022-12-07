@@ -132,7 +132,8 @@ class TampereInvoiceProductProvider : InvoiceProductProvider {
             PlacementType.DAYCARE_FIVE_YEAR_OLDS,
             PlacementType.DAYCARE_PART_TIME_FIVE_YEAR_OLDS ->
                 Product.DAYCARE
-            PlacementType.PRESCHOOL_DAYCARE ->
+            PlacementType.PRESCHOOL_DAYCARE,
+            PlacementType.PRESCHOOL_CLUB ->
                 Product.PRESCHOOL_WITH_DAYCARE
             PlacementType.PREPARATORY_DAYCARE ->
                 Product.PRESCHOOL_WITH_DAYCARE

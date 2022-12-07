@@ -79,7 +79,8 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                         ServiceNeedOptionId(UUID.randomUUID()),
                         "Palveluntarve 1",
                         "Palveluntarve 1",
-                        "Palveluntarve 1"
+                        "Palveluntarve 1",
+                        null
                     )
                 )
             },
@@ -135,7 +136,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                 shiftCare = false,
                 partTime = false,
                 ServiceNeedOption(
-                    ServiceNeedOptionId(UUID.randomUUID()), "Palveluntarve 1", "Palveluntarve 1", "Palveluntarve 1"
+                    ServiceNeedOptionId(UUID.randomUUID()), "Palveluntarve 1", "Palveluntarve 1", "Palveluntarve 1", null
                 )
             ),
             lang = DocumentLang.FI,
@@ -166,7 +167,8 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                     ServiceNeedOptionId(UUID.randomUUID()),
                     "Palveluntarve 1",
                     "Palveluntarve 1",
-                    "Palveluntarve 1"
+                    "Palveluntarve 1",
+                    null
                 )
             ),
             lang = DocumentLang.FI,
@@ -197,7 +199,8 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                     ServiceNeedOptionId(UUID.randomUUID()),
                     "Palveluntarve 1",
                     "Palveluntarve 1",
-                    "Palveluntarve 1"
+                    "Palveluntarve 1",
+                    null
                 )
             ),
             lang = DocumentLang.FI,
@@ -228,7 +231,8 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                     ServiceNeedOptionId(UUID.randomUUID()),
                     "Palveluntarve 1",
                     "Palveluntarve 1",
-                    "Palveluntarve 1"
+                    "Palveluntarve 1",
+                    null
                 )
             ),
             lang = DocumentLang.FI,
