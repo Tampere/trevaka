@@ -18,7 +18,6 @@ class TampereActionRuleMapping : ActionRuleMapping {
         Action.Global.APPLICATIONS_PAGE,
         Action.Global.FINANCE_PAGE,
         Action.Global.PERSON_SEARCH_PAGE,
-        Action.Global.UNITS_PAGE,
         Action.Global.FETCH_INCOME_STATEMENTS_AWAITING_HANDLER,
         Action.Global.READ_PERSON_APPLICATION,
         Action.Global.READ_SERVICE_WORKER_APPLICATION_NOTES,
@@ -227,14 +226,11 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>
             )
         }
-        Action.Unit.READ,
-        Action.Unit.READ_BASIC,
+        Action.Unit.READ_APPLICATIONS_AND_PLACEMENT_PLANS,
         Action.Unit.READ_ATTENDANCES,
-        Action.Unit.READ_DETAILED,
+        Action.Unit.READ_GROUP_DETAILS,
         Action.Unit.READ_GROUPS,
         Action.Unit.READ_CHILD_CAPACITY_FACTORS,
-        Action.Unit.READ_CHILD_ATTENDANCES,
-        Action.Unit.READ_OCCUPANCIES,
         Action.Unit.READ_BACKUP_CARE,
         Action.Unit.READ_PLACEMENT,
         Action.Unit.READ_PLACEMENT_PLAN,
@@ -242,7 +238,6 @@ class TampereActionRuleMapping : ActionRuleMapping {
         Action.Unit.READ_CHILD_IN_DIFFERENT_ADDRESS_REPORT,
         Action.Unit.READ_FAMILY_CONFLICT_REPORT,
         Action.Unit.READ_MISSING_HEAD_OF_FAMILY_REPORT,
-        Action.Unit.READ_MISSING_SERVICE_NEED_REPORT,
         Action.Unit.READ_PARTNERS_IN_DIFFERENT_ADDRESS_REPORT,
         Action.Unit.READ_SERVICE_VOUCHER_VALUES_REPORT,
         Action.Unit.READ_MISSING_GROUP_PLACEMENTS -> {
@@ -251,16 +246,18 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>
             )
         }
-        Action.Unit.READ_ATTENDANCE_RESERVATIONS -> {
-            @Suppress("UNCHECKED_CAST")
-            action.defaultRules.asSequence() + sequenceOf(
-                HasUnitRole(UserRole.SPECIAL_EDUCATION_TEACHER).inUnit() as ScopedActionRule<in T>
-            )
-        }
         Action.Unit.READ_ATTENDANCE_RESERVATION_REPORT -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.STAFF).inUnit() as ScopedActionRule<in T>
+            )
+        }
+        Action.Unit.READ_CHILD_ATTENDANCES -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>
+            ) + sequenceOf(
+                HasUnitRole(UserRole.SPECIAL_EDUCATION_TEACHER).inUnit() as ScopedActionRule<in T>
             )
         }
         Action.VoucherValueDecision.READ -> {
