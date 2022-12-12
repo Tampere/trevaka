@@ -4,6 +4,7 @@
 
 package fi.tampere.trevaka.security
 
+import fi.espoo.evaka.daycare.domain.ProviderType
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.Action
 import fi.espoo.evaka.shared.security.PilotFeature
@@ -32,13 +33,25 @@ class TampereActionRuleMapping : ActionRuleMapping {
         Action.Global.READ_DECISION_UNITS,
         Action.Global.READ_ENDED_PLACEMENTS_REPORT,
         Action.Global.READ_INVOICE_REPORT,
-        Action.Global.READ_PLACEMENT_SKETCHING_REPORT,
         Action.Global.READ_STARTING_PLACEMENTS_REPORT,
         Action.Global.READ_INCOME_TYPES,
         Action.Global.READ_INVOICE_CODES,
         Action.Global.READ_EMPLOYEES -> {
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR)
+            )
+        }
+        Action.Global.READ_PLACEMENT_SKETCHING_REPORT -> {
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.DIRECTOR)
+            ) + sequenceOf(
+                HasUnitRole(UserRole.UNIT_SUPERVISOR).withUnitProviderTypes(
+                    ProviderType.MUNICIPAL,
+                    ProviderType.PURCHASED,
+                    ProviderType.PRIVATE,
+                    ProviderType.MUNICIPAL_SCHOOL,
+                    ProviderType.EXTERNAL_PURCHASED
+                ).inAnyUnit()
             )
         }
         Action.Global.REPORTS_PAGE-> {
