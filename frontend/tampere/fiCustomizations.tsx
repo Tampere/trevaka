@@ -285,10 +285,6 @@ const fi: DeepPartial<Translations> = {
                   newTab
                 />
               </P>
-              <P>
-                Päätökset tulevat Suomi.fi-viestit -palveluun tai postitse,
-                mikäli et ole ottanut Suomi.fi -palvelua käyttöön.
-              </P>
             </>
           )
         }
