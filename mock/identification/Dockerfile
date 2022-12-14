@@ -2,14 +2,14 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-FROM openjdk:17-alpine AS builder
+FROM eclipse-temurin:17-alpine AS builder
 COPY gradle gradle
 COPY gradlew build.gradle.kts settings.gradle.kts ./
-RUN ./gradlew build
+RUN ./gradlew dependencies
 COPY . .
-RUN ./gradlew build
+RUN ./gradlew --offline build
 
-FROM openjdk:17-alpine
+FROM eclipse-temurin:17-alpine
 RUN mkdir -p /etc/cas/saml
 COPY --from=builder build/libs/identification-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
