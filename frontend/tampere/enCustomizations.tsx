@@ -42,7 +42,7 @@ const en: DeepPartial<Translations> = {
       preschoolInfo:
         'There are four hours of free pre-school education per day. In addition, supplementary activities, for which a fee is charged, can be applied for the child. An application for supplementary activities can be made when enrolling for pre-school education or as a separate application once education has started.',
       preschoolDaycareInfo:
-        'TODO: Täydentävän toiminnan hakeminen lapsille, jotka ilmoitetaan / on ilmoitettu esiopetukseen',
+        'Applying for supplementary activities for children who are enrolled / have been enrolled in preschool',
       applicationInfo: (
         <P>
           The custodian can make amendments to the application on the web up
