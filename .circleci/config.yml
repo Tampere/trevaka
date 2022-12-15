@@ -44,33 +44,6 @@ aliases:
       GRADLE_USER_HOME: /home/circleci/repo/.gradle-user-home
       JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=80"
 
-  - &restore_repo
-    attach_workspace:
-      at: .
-
-  - &store_repo
-    persist_to_workspace:
-      root: .
-      paths:
-        - .
-
-  - &restore_service_gradle
-    restore_cache:
-      keys:
-        - gradle-home-service-v2-{{ checksum ".circleci/config.yml" }}-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
-        - gradle-home-service-v2-
-        - gradle-home-service-
-
-  - &store_service_gradle
-    save_cache:
-      key: gradle-home-service-v2-{{ checksum ".circleci/config.yml" }}-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
-      paths:
-        - service/buildSrc/.gradle
-        - service/.gradle
-        - .gradle-user-home/wrapper
-        - .gradle-user-home/caches
-        - .gradle-user-home/notifications
-
 executors:
   base_executor:
     <<: *default_config
@@ -107,6 +80,17 @@ executors:
       NODE_ENV: development
 
 commands:
+  store_repo:
+    steps:
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  restore_repo:
+    steps:
+      - attach_workspace:
+          at: .
+
   # Caching commands
 
   save:
@@ -127,6 +111,25 @@ commands:
       - restore_cache:
           name: Restore << parameters.path >>
           key: workspace-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-<< parameters.path >>
+
+  restore_service_gradle:
+    steps:
+      - restore_cache:
+          keys:
+            - gradle-home-service-v2-{{ checksum ".circleci/config.yml" }}-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
+            - gradle-home-service-v2-
+            - gradle-home-service-
+
+  store_service_gradle:
+    steps:
+    - save_cache:
+        key: gradle-home-service-v2-{{ checksum ".circleci/config.yml" }}-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
+        paths:
+          - service/buildSrc/.gradle
+          - service/.gradle
+          - .gradle-user-home/wrapper
+          - .gradle-user-home/caches
+          - .gradle-user-home/notifications
 
   store_service_build_cache:
     steps:
@@ -267,7 +270,7 @@ commands:
 
   e2e_build:
     steps:
-      - *restore_repo
+      - restore_repo
       - setup_authenticated_remote_docker
       - run:
           name: "Setup E2E_IMAGE"
@@ -291,7 +294,7 @@ commands:
 
   e2e_test:
     steps:
-      - *restore_repo
+      - restore_repo
       - restore:
           path: evaka/frontend/dist
       - restore:
@@ -379,14 +382,14 @@ jobs:
           condition: << parameters.latest_upstream >>
           steps:
             - run: git submodule update --remote --merge
-      - *store_repo
+      - store_repo
 
   fetch_private_dependencies:
     <<: *default_config
     executor: aws-cli/default
     resource_class: small
     steps:
-      - *restore_repo
+      - restore_repo
       - aws-cli/install
       - run:
           name: Fetch build customizations
@@ -407,7 +410,7 @@ jobs:
     executor: base_executor
     resource_class: small
     steps:
-      - *restore_repo
+      - restore_repo
       - setup_git
       - run:
           name: Verify changes
@@ -424,7 +427,7 @@ jobs:
     executor: base_executor
     resource_class: small
     steps:
-      - *restore_repo
+      - restore_repo
       - setup_git
       - run:
           name: Verify commit
@@ -441,7 +444,7 @@ jobs:
     executor: reuse_tool
     resource_class: small
     steps:
-      - *restore_repo
+      - restore_repo
       - run:
           name: reuse lint
           # TODO: remove "true" to enforce check
@@ -460,7 +463,7 @@ jobs:
     executor: base_executor
     resource_class: medium
     steps:
-      - *restore_repo
+      - restore_repo
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - run:
@@ -488,7 +491,7 @@ jobs:
     executor: base_executor
     resource_class: medium
     steps:
-      - *restore_repo
+      - restore_repo
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - load_base_image
@@ -503,7 +506,7 @@ jobs:
     executor: aws-cli/default
     resource_class: small
     steps:
-      - *restore_repo
+      - restore_repo
       - restore:
           path: evaka/apigw/image.tar
       - setup_authenticated_remote_docker
@@ -516,7 +519,7 @@ jobs:
     executor: nodejs_executor
     resource_class: medium+
     steps:
-      - *restore_repo
+      - restore_repo
       - restore_cache:
           keys:
             - yarn-cache-frontend-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}
@@ -543,7 +546,7 @@ jobs:
     executor: nodejs_executor
     resource_class: medium+
     steps:
-      - *restore_repo
+      - restore_repo
       - restore_frontend_node_modules
       - restore:
           path: customizations
@@ -565,7 +568,7 @@ jobs:
     executor: aws-cli/default
     resource_class: small
     steps:
-      - *restore_repo
+      - restore_repo
       - restore:
           path: evaka/frontend/dist
       - aws-cli/install
@@ -585,7 +588,7 @@ jobs:
     executor: base_executor
     resource_class: medium
     steps:
-      - *restore_repo
+      - restore_repo
       - setup_authenticated_remote_docker
       - build_docker_image:
           image: trevaka/proxy
@@ -598,7 +601,7 @@ jobs:
     executor: aws-cli/default
     resource_class: small
     steps:
-      - *restore_repo
+      - restore_repo
       - restore:
           path: evaka/proxy/image.tar
       - setup_authenticated_remote_docker
@@ -611,12 +614,12 @@ jobs:
     executor: openjdk_executor
     resource_class: medium+
     steps:
-      - *restore_repo
-      - *restore_service_gradle
+      - restore_repo
+      - restore_service_gradle
       - run:
           working_directory: *workspace_service
           command: ./gradlew assemble
-      - *store_service_gradle
+      - store_service_gradle
       - store_service_build_cache
       - save:
           path: service/build/libs/trevaka-service.jar
@@ -625,8 +628,8 @@ jobs:
     executor: service_test_executor
     resource_class: medium+
     steps:
-      - *restore_repo
-      - *restore_service_gradle
+      - restore_repo
+      - restore_service_gradle
       - restore_service_build_cache
       - run:
           command: PGPASSWORD=postgres psql -U postgres -h localhost -p 15432 -f "evaka/compose/db-integration-test/init-evaka-it.sql"
@@ -640,7 +643,7 @@ jobs:
     executor: base_executor
     resource_class: medium
     steps:
-      - *restore_repo
+      - restore_repo
       - restore:
           path: service/build/libs/trevaka-service.jar
       - setup_authenticated_remote_docker
@@ -660,7 +663,7 @@ jobs:
     executor: aws-cli/default
     resource_class: small
     steps:
-      - *restore_repo
+      - restore_repo
       - restore:
           path: service/image.tar
       - setup_authenticated_remote_docker
@@ -673,7 +676,7 @@ jobs:
     executor: base_executor
     resource_class: medium
     steps:
-      - *restore_repo
+      - restore_repo
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - restore:
@@ -690,7 +693,7 @@ jobs:
     executor: aws-cli/default
     resource_class: small
     steps:
-      - *restore_repo
+      - restore_repo
       - restore:
           path: auth/image.tar
       - setup_authenticated_remote_docker
@@ -703,7 +706,7 @@ jobs:
     executor: base_executor
     resource_class: medium
     steps:
-      - *restore_repo
+      - restore_repo
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - build_docker_image:
@@ -717,7 +720,7 @@ jobs:
     executor: aws-cli/default
     resource_class: small
     steps:
-      - *restore_repo
+      - restore_repo
       - restore:
           path: scheduled-tasks/reporting/image.tar
       - setup_authenticated_remote_docker
