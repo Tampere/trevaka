@@ -58,7 +58,7 @@ const en: DeepPartial<Translations> = {
         DAYCARE:
           'The child already has a place in early childhood education in Tampere. With this application you can apply for a transfer to another unit offering early childhood education in Tampere.',
         PRESCHOOL:
-          'TODO: Lapsella on jo esiopetuspaikka. Tällä hakemuksella voit hakea esiopetusta täydentävää toimintaa tai siirtoa toiseen esiopetusta tarjoavaan yksikköön.'
+          'The child already has a pre-school place. With this application, you can apply for activities that supplement preschool education or transfer to another unit that offers preschool education.'
       }
     },
     editor: {
