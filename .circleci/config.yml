@@ -319,15 +319,15 @@ commands:
       - restore_cache:
           name: Restore e2e yarn cache
           keys:
-            - yarn-cache-e2e-v1-{{ checksum "frontend/yarn.lock" }}
-            - yarn-cache-e2e-v1-
+            - yarn-cache-e2e-v2-{{ checksum "frontend/yarn.lock" }}
+            - yarn-cache-e2e-v2-
             - yarn-cache-e2e-
       - run:
           working_directory: *workspace_tre_frontend
           command: yarn install --immutable
       - save_cache:
           name: Store e2e yarn cache
-          key: yarn-cache-e2e-v1-{{ checksum "frontend/yarn.lock" }}
+          key: yarn-cache-e2e-v2-{{ checksum "frontend/yarn.lock" }}
           paths:
             - /home/circleci/.cache/yarn
       - restore_cache:
