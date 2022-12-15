@@ -38,8 +38,11 @@ const en: DeepPartial<Translations> = {
         'An applicant for early childhood education applies for a place in a municipal day care centre or family day care, an outsourced service day care centre or a day care centre supported by a service voucher.',
       clubInfo:
         'With a club application one may apply for a place at municipal clubs or clubs supported by a service voucher.',
+      preschoolLabel: 'Enrolment in pre-primary education',
       preschoolInfo:
-        'TODO: Maksutonta esiopetusta on neljä tuntia päivässä. Tämän lisäksi lapselle voidaan hakea maksullista täydentävää varhaiskasvatusta, jota tarjotaan esiopetuspaikoissa aamulla ennen esiopetuksen alkua ja iltapäivisin esiopetuksen jälkeen. Täydentävään varhaiskasvatukseen voi hakea myös palveluseteliä, valitsemalla Hakutoiveet-kohtaan palveluseteliyksikön, johon halutaan hakea. Hakemuksen täydentävään varhaiskasvatukseen voi tehdä esiopetukseen ilmoittautumisen yhteydessä tai erillisenä hakemuksena opetuksen jo alettua. Samalla hakemuksella voit hakea myös maksuttomaan valmistavaan opetukseen sekä valmistavaa opetusta täydentävään varhaiskasvatukseen.',
+        'There are four hours of free pre-school education per day. In addition, supplementary activities, for which a fee is charged, can be applied for the child. An application for supplementary activities can be made when enrolling for pre-school education or as a separate application once education has started.',
+      preschoolDaycareInfo:
+        'Applying for supplementary activities for children who are enrolled / have been enrolled in preschool',
       applicationInfo: (
         <P>
           The custodian can make amendments to the application on the web up
@@ -55,21 +58,58 @@ const en: DeepPartial<Translations> = {
         DAYCARE:
           'The child already has a place in early childhood education in Tampere. With this application you can apply for a transfer to another unit offering early childhood education in Tampere.',
         PRESCHOOL:
-          'TODO: Lapsella on jo esiopetuspaikka. Tällä hakemuksella voit hakea esiopetusta täydentävää varhaiskasvatusta tai siirtoa toiseen esiopetusta tarjoavaan yksikköön.'
+          'The child already has a pre-school place. With this application, you can apply for activities that supplement preschool education or transfer to another unit that offers preschool education.'
       }
     },
     editor: {
       verification: {
         serviceNeed: {
           connectedDaycare: {
-            label: 'TODO: Täydentävä varhaiskasvatus',
+            label: 'Activities supplementing pre-primary education',
             withConnectedDaycare:
-              'TODO: Haen myös esiopetusta täydentävää varhaiskasvatusta.'
+              'I am applying for a supplementary activity to pre-school education.'
           }
         }
       },
       unitPreference: {
+        siblingBasis: {
+          checkbox: {
+            PRESCHOOL:
+              "It is our greatest wish that the child is allocated in pre-primary education to the same school as the child's older sibling."
+          },
+          info: {
+            PRESCHOOL: null
+          }
+        },
         units: {
+          info: {
+            PRESCHOOL: (
+              <>
+                <P>
+                  The pre-school place is determined by the child&apos;s home
+                  address, in accordance with the future school path. At the
+                  time of enrolment, the child is enrolled in a pre-school or
+                  weighted pre-school according to the school path. If the child
+                  needs regular evening or shift care, he or she is enrolled in
+                  evening or shift care in early childhood education.
+                </P>
+                <P>
+                  Information about the future pre-school place is communicated
+                  to the custodians electronically via the Suomi.fi message
+                  service. If the custodian has not registered for the service,
+                  the information will be sent to them by letter.
+                </P>
+                <P>
+                  Further information{' '}
+                  <ExternalLink
+                    href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus"
+                    text="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus"
+                    newTab
+                  />
+                </P>
+              </>
+            )
+          },
           serviceVoucherLink:
             'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit'
         }
@@ -101,6 +141,32 @@ const en: DeepPartial<Translations> = {
                 />
                 . If you do not activate the Suomi.fi Messages service, the
                 decision will be sent to you by post.
+              </P>
+              <P fitted={true}>
+                * The information denoted with an asterisk is mandatory.
+              </P>
+            </>
+          ),
+          PRESCHOOL: (
+            <>
+              <P>
+                In accordance with the Basic Education Act (Section 26 a §),
+                children must participate in pre-primary education or other
+                activities that achieve the goals of pre-primary education in
+                the year preceding the commencement of compulsory education.
+                Pre-primary education is free of charge.
+              </P>
+              <P>
+                The decisions will be sent to the{' '}
+                <a
+                  href="https://www.suomi.fi/viestit"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Suomi.fi Messages
+                </a>{' '}
+                service or by post, if the applicant does not use the Suomi.fi
+                Messages service.
               </P>
               <P fitted={true}>
                 * The information denoted with an asterisk is mandatory.
@@ -149,8 +215,11 @@ const en: DeepPartial<Translations> = {
           },
           info: {
             PRESCHOOL: [
-              'TODO: Suomen- ja ruotsinkielinen esiopetus alkaa 11.8.2022. Jos tarvitsette varhaiskasvatusta 1.8.2022 lähtien ennen esiopetuksen alkua, voitte hakea sitä tällä hakemuksella valitsemalla ”Haen myös esiopetusta täydentävää varhaiskasvatusta'
+              'The school year 2023–2024 starts on Wednesday 9.8.2023 and ends on Friday 31.5.2024'
             ]
+          },
+          label: {
+            PRESCHOOL: 'The need starting from'
           }
         },
         clubDetails: {
@@ -174,7 +243,7 @@ const en: DeepPartial<Translations> = {
         },
         shiftCare: {
           instructions:
-            'The day care centres are normally open on weekdays from 6.00am to 6pm. Evening care is intended for the children who, due to the parents’ work or studies that lead to a qualification, regularly require care after 6pm. Day care centres that offer evening care open, if necessary, at 5.30am and close at 10.30pm at the latest. Some day care centres that offer evening care are also open during the weekends. Shift care is intended for children whose parents work in shifts, when the child’s care also includes nights.',
+            "If a child needs evening or day care in addition to pre-school education, he or she must be enrolled in evening or day care pre-school education. In addition, the child must be enrolled in supplementary early childhood education and care, for more than 5 hours per day. The day care centres are open normally on weekdays, from 6 am to 6 pm. Evening care is for children who, due to their parents' work or studies leading to a degree, require regular care after 6 pm. Day care centres offering evening care open at 5.30 am if necessary and close at 10.30 pm at the latest. Some day care centres providing evening care are also open at weekends. Shift care is for children whose parents work shifts and whose care also includes nights.",
           message: {
             text: 'Evening and shift care is intended for those children who, due to the parents work or studies that lead to a qualification, require evening and shift care. In the case of the parents, an employer’s certificate of a need for evening or shift care due to shift work or study must be attached to the application.'
           },
@@ -185,7 +254,9 @@ const en: DeepPartial<Translations> = {
         assistanceNeedInstructions: {
           DAYCARE:
             'Intensified or special care is given to a child as soon as the need arises. If a child has received an expert opinion backing the need for support, this must be notified in the early childhood education application. The support measures are carried out in the child’s daily life as part of the early childhood educational activities. Tampere’s early childhood education will separately be in contact after the application has been submitted, if the child has a need for support.',
-          CLUB: 'If the child has a need for support, the staff of Tampere’s early childhood education will get in contact the application has been submitted.'
+          CLUB: 'If the child has a need for support, the staff of Tampere’s early childhood education will get in contact the application has been submitted.',
+          PRESCHOOL:
+            "Select this box on the application form, if your child needs support for his/her development and/or learning during the pre-school year. This support is provided in the child's everyday life as a part of pre-school activities. Some places in pre-school are reserved for children who need support. If your child has developmental and/or learning support needs, you will be contacted by the special needs teacher for early childhood education, so that your child's needs can be taken into account when allocating a pre-school place."
         },
         partTime: {
           true: 'Part-time'
@@ -193,46 +264,28 @@ const en: DeepPartial<Translations> = {
         dailyTime: {
           label: {
             DAYCARE: 'Service options',
-            PRESCHOOL: 'TODO: Esiopetusta täydentävän varhaiskasvatuksen tarve'
+            PRESCHOOL: 'Activities supplementing pre-primary education'
           },
           connectedDaycare:
-            'TODO: Haen myös esiopetusta täydentävää varhaiskasvatusta.',
+            'I am applying for a supplementary activity to pre-school education.',
           connectedDaycareInfo: (
             <>
               <P>
-                TODO: Voit hakea lapselle tarvittaessa{' '}
-                <strong>
-                  esiopetusta täydentävää varhaiskasvatusta, joka on maksullista
-                  ja jota annetaan esiopetuksen (4 tuntia/päivä) lisäksi
-                </strong>{' '}
-                aamuisin ja/tai iltapäivisin samassa paikassa kuin esiopetus.
-                Jos haluat aloittaa varhaiskasvatuksen myöhemmin kuin esiopetus
-                alkaa, kirjoita haluttu aloituspäivämäärä hakemuksen “Muut
-                lisätiedot” -kohtaan.
+                Pre-school education lasts for four hours a day, generally from
+                9 am to 1 pm. In addition, the child can participate in paid
+                supplementary activities in the mornings and in the afternoons.
+                Options for supplementary activities are supplementary early
+                childhood education in day care centres and pre-school clubs in
+                schools.
               </P>
               <P>
-                Yksityisiin esiopetusyksiköihin haettassa täydentävä
-                varhaiskasvatus haetaan suoraan yksiköstä (pois lukien
-                palveluseteliyksiköt). Yksiköt informoivat asiakkaita
-                hakutavasta. Näissä tapauksissa palveluohjaus muuttaa hakemuksen
-                pelkäksi esiopetushakemukseksi.
-              </P>
-              <P>
-                Palveluseteliä haetaan valitsemalla hakutoiveeksi se
-                palveluseteliyksikkö, johon halutaan hakea.
-              </P>
-              <P>
-                Saat varhaiskasvatuspaikasta erillisen kirjallisen päätöksen, ja
-                päätös tulee{' '}
-                <a
-                  href="https://www.suomi.fi/viestit"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Suomi.fi-viestit
-                </a>{' '}
-                -palveluun tai postitse, mikäli et ole ottanut Suomi.fi-viestit
-                -palvelua käyttöön.
+                Further information about supplementary activities and client
+                fees{' '}
+                <ExternalLink
+                  href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus/esiopetusta-taydentava-toiminta"
+                  text="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus/esiopetusta-taydentava-toiminta"
+                  newTab
+                />
               </P>
             </>
           )
@@ -241,27 +294,29 @@ const en: DeepPartial<Translations> = {
       contactInfo: {
         info: (
           <P data-qa="contact-info-text">
-            The personal information has been retrieved from the population data
-            services and cannot be changed with this application. If the
-            personal information is incorrect, please update the information on{' '}
+            The personal data have been retrieved from the population data and
+            cannot be changed with this application. If there are any errors in
+            the personal data, please update the information on the website of
+            the{' '}
             <ExternalLink
-              text="dvv.fi"
-              href="https://dvv.fi/en/certificates-from-the-population-information-system."
+              text="Digital and Population Data Services Agency"
+              href="https://dvv.fi/en/individuals"
               newTab
             />
-            . If your address is about to change, you can add the new address in
-            a separate field in the application. Add a future address for both
-            the child and guardian. The address information will be official
-            only when it has been updated to the database of the Digital and
-            Population Data Services Agency. The decision on both early
-            childhood education and service vouchers as well as the information
-            about a club place for open early childhood education is
-            automatically submitted to a custodian living at another address
-            based on the information in the population data register.
+            . If your address is about to change, you can add the future address
+            in a separate box on the application form; add the future address
+            both for the child and the custodian. The address information is
+            only considered official once it has been updated in the population
+            data system. Decisions on early childhood education and care,
+            service vouchers{preschoolEnabled ? ', pre-school education' : ''}{' '}
+            and information on open early childhood education places are also
+            automatically sent to the custodian at a different address found in
+            the population data.
           </P>
         ),
-        futureAddressInfo:
-          'In Tampere’s early childhood education, the official address is considered the one obtainable from the population data register. The address in the population data register changes when an applicant gives notice of a move to the post office or to the registry office.'
+        futureAddressInfo: `For early childhood education${
+          preschoolEnabled ? ' and pre-school education' : ''
+        } in Tampere, the official address is the address obtained from population data. The address in the population data register changes when the applicant submits a notification of change of address to the post office or the local register office.`
       },
       fee: {
         info: {
@@ -279,11 +334,11 @@ const en: DeepPartial<Translations> = {
           ),
           PRESCHOOL: (
             <P>
-              TODO: Esiopetus on maksutonta, mutta sitä täydentävä
-              varhaiskasvatus on maksullista. Jos lapsi osallistuu täydentävään
-              varhaiskasvatukseen, perhe toimittaa tuloselvityksen
-              bruttotuloistaan tuloselvityslomakkeella viimeistään kahden viikon
-              kuluessa siitä, kun lapsi on aloittanut varhaiskasvatuksessa.
+              TODO: Esiopetus on maksutonta, mutta sitä täydentävä toiminta on
+              maksullista. Jos lapsi osallistuu esiopetusta täydentävään
+              toimintaan, perhe toimittaa tuloselvityksen bruttotuloistaan
+              tuloselvityslomakkeella viimeistään kahden viikon kuluessa siitä,
+              kun lapsi on aloittanut esiopetuksen.
             </P>
           )
         },
@@ -302,15 +357,16 @@ const en: DeepPartial<Translations> = {
       additionalDetails: {
         dietInfo: (
           <>
-            For special diets, a custodian shall submit to the early childhood
-            education location{' '}
+            In the case of a special diet, the custodian submits to the early
+            childhood education
+            {preschoolEnabled ? ' or pre-school education centre' : ''} a{' '}
             <ExternalLink
               href="https://www.tampere.fi/erityisruokavaliot"
-              text="the form ‘Clarification of a special diet’"
+              text="Notification of Special Diet form"
               newTab
             />
-            , filled in and signed by a doctor or a nutritional therapist, which
-            is for a fixed time period.
+            , completed and signed by a doctor or nutritionist, which is valid
+            for a limited period of time.
           </>
         )
       }
@@ -419,8 +475,11 @@ const en: DeepPartial<Translations> = {
   },
   placement: {
     type: {
-      PRESCHOOL_DAYCARE: 'Preschool daycare',
-      PRESCHOOL_WITH_DAYCARE: 'Preschool daycare'
+      PRESCHOOL_DAYCARE:
+        'Supplementary early childhood education in day care centre',
+      PRESCHOOL_CLUB: 'Pre-school clubs in school from 7 am to 5 pm',
+      PRESCHOOL_WITH_DAYCARE:
+        'Supplementary early childhood education in day care centre'
     }
   },
   income: {
