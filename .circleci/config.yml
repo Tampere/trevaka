@@ -54,23 +54,6 @@ aliases:
       paths:
         - .
 
-  - &restore_frontend_deps
-    restore_cache:
-      keys:
-        - yarn-cache-frontend-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}-{{ checksum "frontend/yarn.lock" }}
-        - yarn-cache-frontend-v1-
-        - yarn-cache-frontend-
-
-  - &store_frontend_deps
-    save_cache:
-      key: yarn-cache-frontend-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}-{{ checksum "frontend/yarn.lock" }}
-      paths:
-        - evaka/frontend/.yarn/cache
-        - evaka/frontend/node_modules
-        - frontend/.yarn/cache
-        - frontend/node_modules
-        - /home/circleci/.npm/sentry-cli
-
   - &restore_service_gradle
     restore_cache:
       keys:
@@ -165,6 +148,15 @@ commands:
           keys:
             - gradle-service-build-cache-v1-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-{{ checksum ".circleci/config.yml" }}
             - gradle-service-build-cache-v1-
+
+  store_frontend_node_modules:
+    steps:
+      - save:
+          path: evaka/frontend/node_modules
+  restore_frontend_node_modules:
+    steps:
+      - restore:
+          path: evaka/frontend/node_modules
 
   # Misc commands
 
@@ -320,9 +312,21 @@ commands:
           working_directory: *workspace_compose
           command: |
             CI=true LOCAL_DIR='../evaka/frontend' ./compose-e2e up -d --build
-      - *restore_frontend_deps
-      - restore:
-          path: evaka/frontend/vendor/fortawesome
+      - restore_frontend_node_modules
+      - restore_cache:
+          name: Restore e2e yarn cache
+          keys:
+            - yarn-cache-e2e-v1-{{ checksum "frontend/yarn.lock" }}
+            - yarn-cache-e2e-v1-
+            - yarn-cache-e2e-
+      - run:
+          working_directory: *workspace_tre_frontend
+          command: yarn install --immutable
+      - save_cache:
+          name: Store e2e yarn cache
+          key: yarn-cache-e2e-v1-{{ checksum "frontend/yarn.lock" }}
+          paths:
+            - frontend/.yarn/cache
       - restore_cache:
           name: Restore Docker image from cache
           key: playwright-image-v2-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}
@@ -508,28 +512,41 @@ jobs:
           image: trevaka/api-gateway
           dir: *workspace_apigw
 
-  frontend_build:
+  frontend_dependencies:
     executor: nodejs_executor
     resource_class: medium+
     steps:
       - *restore_repo
-      - *restore_frontend_deps
+      - restore_cache:
+          keys:
+            - yarn-cache-frontend-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}
+            - yarn-cache-frontend-v1-
+            - yarn-cache-frontend-
       - restore:
           path: evaka/frontend/vendor/fortawesome
-      - restore:
-          path: customizations
       - run:
           working_directory: *workspace_evaka_frontend
-          command: yarn install --immutable
-      - run:
-          working_directory: *workspace_tre_frontend
           command: yarn install --immutable
       - run:
           name: Unpack commercial frontend dependencies
           working_directory: *workspace_evaka_frontend
           command: |
             ./unpack-pro-icons.sh
-      - *store_frontend_deps
+      - save_cache:
+          key: yarn-cache-frontend-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}
+          paths:
+            - evaka/frontend/.yarn/cache
+            - /home/circleci/.npm/sentry-cli
+      - store_frontend_node_modules
+
+  frontend_build:
+    executor: nodejs_executor
+    resource_class: medium+
+    steps:
+      - *restore_repo
+      - restore_frontend_node_modules
+      - restore:
+          path: customizations
       - build_frontend
       - save:
           path: evaka/frontend/dist
@@ -765,9 +782,12 @@ workflows:
           requires:
             - apigw_build_image
 
-      - frontend_build:
+      - frontend_dependencies:
           requires:
             - fetch_private_dependencies
+      - frontend_build:
+          requires:
+            - frontend_dependencies
 
       - frontend_upload_archive:
           context:
