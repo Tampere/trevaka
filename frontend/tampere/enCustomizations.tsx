@@ -314,8 +314,9 @@ const en: DeepPartial<Translations> = {
             the population data.
           </P>
         ),
-        futureAddressInfo:
-          'In Tampere’s early childhood education, the official address is considered the one obtainable from the population data register. The address in the population data register changes when an applicant gives notice of a move to the post office or to the registry office.'
+        futureAddressInfo: `For early childhood education${
+          preschoolEnabled ? ' and pre-school education' : ''
+        } in Tampere, the official address is the address obtained from population data. The address in the population data register changes when the applicant submits a notification of change of address to the post office or the local register office.`
       },
       fee: {
         info: {
