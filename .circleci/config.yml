@@ -329,7 +329,7 @@ commands:
           name: Store e2e yarn cache
           key: yarn-cache-e2e-v1-{{ checksum "frontend/yarn.lock" }}
           paths:
-            - frontend/.yarn/cache
+            - /home/circleci/.cache/yarn
       - restore_cache:
           name: Restore Docker image from cache
           key: playwright-image-v2-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}
