@@ -38,5 +38,6 @@
     "modulePathIgnorePatterns": [
       "<rootDir>/node_modules/"
     ]
-  }
+  },
+  "packageManager": "yarn@3.3.0"
 }
