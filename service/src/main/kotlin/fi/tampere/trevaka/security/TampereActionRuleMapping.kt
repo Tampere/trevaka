@@ -271,6 +271,15 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>
             )
         }
+        Action.Unit.READ_STAFF_OCCUPANCY_COEFFICIENTS,
+        Action.Unit.UPSERT_STAFF_OCCUPANCY_COEFFICIENTS,
+        Action.Unit.DELETE_STAFF_ATTENDANCES,
+        Action.Unit.UPDATE_STAFF_ATTENDANCES -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+              HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inUnit() as ScopedActionRule<in T>
+            )
+        }
         Action.VoucherValueDecision.READ -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
@@ -284,6 +293,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
                     .inPlacementUnitOfChildOfVasuDocument() as ScopedActionRule<in T>
             )
         }
+
         else -> action.defaultRules.asSequence()
     }
 }
