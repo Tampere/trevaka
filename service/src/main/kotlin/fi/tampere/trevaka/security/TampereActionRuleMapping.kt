@@ -269,8 +269,6 @@ class TampereActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>
-            ) + sequenceOf(
-                HasUnitRole(UserRole.SPECIAL_EDUCATION_TEACHER).inUnit() as ScopedActionRule<in T>
             )
         }
         Action.VoucherValueDecision.READ -> {
