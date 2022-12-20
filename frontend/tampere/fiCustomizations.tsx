@@ -70,6 +70,15 @@ const fi: DeepPartial<Translations> = {
       }
     },
     editor: {
+      actions: {
+        allowOtherGuardianAccess: (
+          <span>
+            Ymmärrän, että tieto hakemuksesta menee myös lapsen toiselle
+            huoltajalle. Jos tieto ei saa mennä toiselle huoltajalle, ole
+            yhteydessä {customerContactText()}
+          </span>
+        )
+      },
       verification: {
         serviceNeed: {
           connectedDaycare: {

@@ -62,6 +62,15 @@ const en: DeepPartial<Translations> = {
       }
     },
     editor: {
+      actions: {
+        allowOtherGuardianAccess: (
+          <span>
+            I understand that the application will also be visible to the other
+            guardian. If the other guardian should not be able to see this
+            application, please contact {customerContactText()}
+          </span>
+        )
+      },
       verification: {
         serviceNeed: {
           connectedDaycare: {
