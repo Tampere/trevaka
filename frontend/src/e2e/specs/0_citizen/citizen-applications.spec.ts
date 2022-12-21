@@ -204,19 +204,6 @@ describe('Citizen applications page', () => {
       () => page.find('[data-qa="guardian-future-address-info-text"]').innerText,
       'Tampereen varhaiskasvatuksessa ja esiopetuksessa virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.'
   )
-    await editorPage.openSection('fee')
-    await waitUntilEqual(
-      () => page.find('[data-qa="fee-section"] p:first-of-type').innerText,
-      'Kunnallisen varhaiskasvatuksen asiakasmaksu ja palvelusetelin omavastuuosuus perustuu varhaiskasvatuksen asiakasmaksuista annettuun lakiin (Laki varhaiskasvatuksen asiakasmaksuista (1503/2016)). Asiakasmaksu määräytyy perheen koon, palveluntarpeen sekä bruttotulojen mukaan. Uusien asiakkaiden tulee täyttää asiakasmaksulomake ja toimittaa tarvittavat liitteet Varhaiskasvatuksen asiakasmaksuihin viimeistään kuukauden kuluessa hoidon alkamisesta.'
-    )
-    await waitUntilEqual(
-      () => page.find('[data-qa="fee-section"] p:last-of-type').innerText,
-      'Lisätietoa varhaiskasvatuksen asiakasmaksuista löydät Tampereen kaupungin sivuilta '
-    )
-    await waitUntilEqual(
-      () => page.find('[data-qa="fee-section"] p:last-of-type a').getAttribute('href'),
-      'https://www.tampere.fi/varhaiskasvatusasiakasmaksut'
-    )
     await editorPage.openSection('additionalDetails')
     const dietInfo = page.find('[data-qa="diet-expanding-info"]')
     await dietInfo.click()
