@@ -93,18 +93,18 @@ describe('Citizen attendance reservations', () => {
         const dayView = await calendarPage.openDayView(reservationDay)
         await dayView.createAbsence()
         await waitUntilEqual(
-            () => page.find('[data-qa="title"]').innerText,
+            () => page.find('[data-qa="title"]').text,
             'Ilmoita poissaolo'
         )
         let absenceChips = await page.findAll('[data-qa^="absence-"]')
         expect(await absenceChips.count()).toBe(2)
 
         await waitUntilEqual(
-            () => page.findByDataQa('absence-SICKLEAVE').find('label').innerText,
+            () => page.findByDataQa('absence-SICKLEAVE').find('label').text,
             'Sairaus'
         )
         await waitUntilEqual(
-            () => page.findByDataQa('absence-OTHER_ABSENCE').find('label').innerText,
+            () => page.findByDataQa('absence-OTHER_ABSENCE').find('label').text,
             'Poissaolo'
         )
     })
