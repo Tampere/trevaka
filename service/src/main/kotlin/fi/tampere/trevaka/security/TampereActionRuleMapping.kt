@@ -239,6 +239,13 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>
             )
         }
+        Action.Person.READ_FOSTER_CHILDREN,
+        Action.Person.READ_FOSTER_PARENTS -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.FINANCE_ADMIN) as ScopedActionRule<in T>
+            )
+        }
         Action.Unit.READ_APPLICATIONS_AND_PLACEMENT_PLANS,
         Action.Unit.READ_ATTENDANCES,
         Action.Unit.READ_GROUP_DETAILS,
