@@ -10,19 +10,14 @@ import fi.espoo.evaka.shared.ServiceNeedOptionVoucherValueId
 import fi.espoo.evaka.shared.db.Database
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
-import org.jdbi.v3.core.Jdbi
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
 import java.math.BigDecimal
 
 internal class VoucherValueDecisionsTest : AbstractIntegrationTest() {
 
-    @Autowired
-    private lateinit var jdbi: Jdbi
-
     @Test
     fun `voucher value settings are in sync`() {
-        val options = Database(jdbi).connect { dbc -> dbc.read { tx -> tx.getVoucherValues() } }
+        val options = runInTransaction { tx -> tx.getVoucherValues() }
 
         assertThat(options).isNotEmpty
         options.forEach {

@@ -8,6 +8,7 @@ import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.dev.runDevScript
 import fi.tampere.trevaka.database.resetTampereDatabaseForE2ETests
+import io.opentracing.noop.NoopTracerFactory
 import org.jdbi.v3.core.Jdbi
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -52,7 +53,7 @@ abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean = 
 
     @BeforeAll
     protected fun initializeJdbi() {
-        db = Database(jdbi).connectWithManualLifecycle()
+        db = Database(jdbi, NoopTracerFactory.create()).connectWithManualLifecycle()
         db.transaction {
             it.runDevScript("reset-tampere-database-for-e2e-tests.sql")
             if (!resetDbBeforeEach) {
@@ -78,7 +79,7 @@ abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean = 
     }
 
     protected fun <T> runInTransaction(function: Function<Database.Transaction, T>) =
-        Database(jdbi).connect { dbc -> dbc.transaction { tx -> function.apply(tx) } }
+        db.transaction { tx -> function.apply(tx) }
 
 }
 

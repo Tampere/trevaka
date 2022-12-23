@@ -29,6 +29,7 @@ dependencies {
     implementation("org.jdbi:jdbi3-core")
     implementation("org.jdbi:jdbi3-kotlin")
     implementation("software.amazon.awssdk:s3")
+    implementation("io.opentracing:opentracing-util")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit-pioneer:junit-pioneer:${TrevakaServiceDeps.junitPioneer}") // for CartesianProductTest
