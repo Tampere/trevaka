@@ -87,9 +87,6 @@ const customizations: EmployeeCustomizations = {
         }
       },
       common: {
-        careTypeLabels: {
-          preschool: 'Esiopetusta täydentävä toiminta'
-        },
         types: {
           PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus',
           PREPARATORY_DAYCARE: 'Täydentävä varhaiskasvatus'
