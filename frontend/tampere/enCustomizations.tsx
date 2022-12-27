@@ -465,20 +465,22 @@ const en: DeepPartial<Translations> = {
     ),
     applicationDecisions: {
       type: {
-        PRESCHOOL_DAYCARE: 'TODO: täydentävästä varhaiskasvatuksesta'
+        PRESCHOOL_DAYCARE: 'supplementary early childhood education'
       },
       confirmationInfo: {
         preschool:
-          'TODO: Esiopetuksen, valmistavan opetuksen ja/tai täydentävän varhaiskasvatuksen hyväksymis- tai hylkäämisilmoitus on toimitettava välittömästi, viimeistään kahden viikon kuluessa tämän ilmoituksen saamisesta. Jos olet hakenut useampaa palvelua, saat jokaisesta oman päätöksen erikseen vahvistettavaksi'
+          'The place of pre-primary education and/or the place of activities that supplement pre-primary education must be received or rejected without delay, no later than within two weeks of receiving notification of the decision. If you have applied for both pre-primary education and activities that supplement pre-primary education, you will receive separate decisions on both.'
       },
+      summary:
+        'The place indicated in the decision must be received or rejected without delay, no later than two weeks after the decision has been notified.',
       warnings: {
         doubleRejectWarning: {
-          text: 'TODO: Olet hylkäämässä tarjotun esiopetus / valmistavan paikan. Täydentävän varhaiskasvatuksen paikka merkitään samalla hylätyksi.'
+          text: 'You are rejecting an offer on pre-primary placement. The activities supplementing pre-primary education placement will also be rejected.'
         }
       },
       response: {
         disabledInfo:
-          'TODO: HUOM! Pääset hyväksymään/hylkäämään täydentävää varhaiskasvatusta koskevan päätöksen mikäli hyväksyt ensin esiopetusta / valmistavaa opetusta koskevan päätöksen.'
+          'N.B! You will be able to receive / reject the place of activities that complement preschool education only after you have received a place in preschool education.'
       }
     }
   },

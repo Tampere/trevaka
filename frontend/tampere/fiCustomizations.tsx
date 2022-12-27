@@ -460,20 +460,22 @@ const fi: DeepPartial<Translations> = {
     ),
     applicationDecisions: {
       type: {
-        PRESCHOOL_DAYCARE: 'TODO: täydentävästä varhaiskasvatuksesta'
+        PRESCHOOL_DAYCARE: 'täydentävästä varhaiskasvatuksesta'
       },
       confirmationInfo: {
         preschool:
-          'TODO: Esiopetuksen, valmistavan opetuksen ja/tai täydentävän varhaiskasvatuksen hyväksymis- tai hylkäämisilmoitus on toimitettava välittömästi, viimeistään kahden viikon kuluessa tämän ilmoituksen saamisesta. Jos olet hakenut useampaa palvelua, saat jokaisesta oman päätöksen erikseen vahvistettavaksi'
+          'Esiopetuspaikka ja/tai esiopetusta täydentävän toiminnan paikka tulee vastaanottaa tai hylätä viipymättä, viimeistään kahden viikon kuluessa päätöksen tiedoksisaannista. Mikäli olet hakenut sekä esiopetukseen että esiopetusta täydentävään toimintaan, saat molemmista erilliset päätökset.'
       },
+      summary:
+        'Päätöksessä ilmoitettu paikka tulee vastaanottaa tai hylätä viipymättä, viimeistään kahden viikon kuluessa päätöksen tiedoksisaannista.',
       warnings: {
         doubleRejectWarning: {
-          text: 'TODO: Olet hylkäämässä tarjotun esiopetus / valmistavan paikan. Täydentävän varhaiskasvatuksen paikka merkitään samalla hylätyksi.'
+          text: 'Olet hylkäämässä tarjotun esiopetuspaikan. Täydentävän toiminnan paikka merkitään samalla hylätyksi.'
         }
       },
       response: {
         disabledInfo:
-          'TODO: HUOM! Pääset hyväksymään/hylkäämään täydentävää varhaiskasvatusta koskevan päätöksen mikäli hyväksyt ensin esiopetusta / valmistavaa opetusta koskevan päätöksen.'
+          'HUOM! Pystyt vastaanottamaan / hylkäämään esiopetusta täydentävän toiminnan paikan vasta sen jälkeen, kun olet vastaanottanut esiopetuspaikan.'
       }
     },
     assistanceDecisions: {
