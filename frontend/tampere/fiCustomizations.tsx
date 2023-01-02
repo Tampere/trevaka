@@ -672,6 +672,9 @@ const fi: DeepPartial<Translations> = {
   },
   calendar: {
     absenceModal: {
+      absenceTypes: {
+        PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo'
+      },
       selectChildrenInfo: 'Ilmoita tässä vain koko päivän poissaolot.'
     }
   },
