@@ -260,7 +260,7 @@ const customizations: EmployeeCustomizations = {
         }
       },
       placementDraft: {
-        preschoolDaycare: 'Täydentävä varhaiskasvatus'
+        preschoolDaycare: 'Täydentävä toiminta'
       },
       footer: {
         cityLabel: 'Tampereen kaupunki',

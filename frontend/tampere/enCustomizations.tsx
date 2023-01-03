@@ -465,7 +465,8 @@ const en: DeepPartial<Translations> = {
     ),
     applicationDecisions: {
       type: {
-        PRESCHOOL_DAYCARE: 'supplementary early childhood education'
+        PRESCHOOL_DAYCARE: 'supplementary early childhood education',
+        PRESCHOOL_CLUB: 'pre-school club'
       },
       confirmationInfo: {
         preschool:
