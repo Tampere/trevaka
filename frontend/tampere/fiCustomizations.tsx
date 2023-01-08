@@ -84,6 +84,11 @@ const fi: DeepPartial<Translations> = {
           connectedDaycare: {
             label: 'Esiopetusta täydentävä toiminta',
             withConnectedDaycare: 'Haen esiopetusta täydentävää toimintaa.'
+          },
+          startDate: {
+            title: {
+              PRESCHOOL: 'Esiopetuksen aloitus'
+            }
           }
         }
       },
