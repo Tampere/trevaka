@@ -181,7 +181,7 @@ commands:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "c1:be:36:91:9c:6a:0e:58:4e:2d:a2:52:bb:bf:85:49"
+            - "2f:a2:97:5b:b2:61:e5:f1:f0:91:4a:63:46:88:d6:5b"
       - run: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: Setup git
