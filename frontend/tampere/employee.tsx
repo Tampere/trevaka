@@ -36,9 +36,10 @@ const customizations: EmployeeCustomizations = {
       },
       applications: {
         types: {
-          PRESCHOOL_DAYCARE: 'Esiopetus & täydentävä',
+          PRESCHOOL_DAYCARE: 'Esiopetus & täydentävä varhaiskasvatus',
+          PRESCHOOL_CLUB: 'Esiopetus & esiopetuksen kerho',
           PREPARATORY_DAYCARE: 'Valmistava & täydentävä',
-          DAYCARE_ONLY: 'Myöhemmin haettu täydentävä'
+          DAYCARE_ONLY: 'Myöhemmin haettu täydentävä toiminta'
         }
       },
       absences: {
