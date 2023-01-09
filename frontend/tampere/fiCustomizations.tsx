@@ -15,14 +15,9 @@ import { Gap } from 'lib-components/white-space'
 import { Translations } from 'lib-customizations/citizen'
 import { DeepPartial } from 'lib-customizations/types'
 
-import { env } from './env'
 import featureFlags from './featureFlags'
 
-// TODO: preschool prod
-const environment = env()
-export const preschoolEnabled =
-  featureFlags.preschool &&
-  (environment === 'default' || environment === 'staging')
+export const preschoolEnabled = featureFlags.preschool
 
 const customerContactText = function () {
   return (
@@ -84,6 +79,11 @@ const fi: DeepPartial<Translations> = {
           connectedDaycare: {
             label: 'Esiopetusta täydentävä toiminta',
             withConnectedDaycare: 'Haen esiopetusta täydentävää toimintaa.'
+          },
+          startDate: {
+            title: {
+              PRESCHOOL: 'Esiopetuksen aloitus'
+            }
           }
         }
       },

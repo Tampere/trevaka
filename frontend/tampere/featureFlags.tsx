@@ -75,7 +75,7 @@ const features: Features = {
     decisionDraftMultipleUnits: true,
     groupsTableServiceNeeds: true,
     urgencyAttachments: false,
-    preschool: false,
+    preschool: true,
     preparatory: false,
     assistanceActionOther: false,
     experimental: {

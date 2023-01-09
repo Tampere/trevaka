@@ -77,6 +77,11 @@ const en: DeepPartial<Translations> = {
             label: 'Activities supplementing pre-primary education',
             withConnectedDaycare:
               'I am applying for a supplementary activity to pre-school education.'
+          },
+          startDate: {
+            title: {
+              PRESCHOOL: 'Start of pre-primary education'
+            }
           }
         }
       },
