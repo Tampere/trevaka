@@ -15,14 +15,9 @@ import { Gap } from 'lib-components/white-space'
 import { Translations } from 'lib-customizations/citizen'
 import { DeepPartial } from 'lib-customizations/types'
 
-import { env } from './env'
 import featureFlags from './featureFlags'
 
-// TODO: preschool prod
-const environment = env()
-export const preschoolEnabled =
-  featureFlags.preschool &&
-  (environment === 'default' || environment === 'staging')
+export const preschoolEnabled = featureFlags.preschool
 
 const customerContactText = function () {
   return (

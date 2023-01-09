@@ -13,7 +13,6 @@ import { H3, P } from 'lib-components/typography'
 import { EmployeeCustomizations } from 'lib-customizations/types'
 
 import TampereLogo from './city-logo.svg'
-import { env } from './env'
 import featureFlags from './featureFlags'
 
 const customizations: EmployeeCustomizations = {
@@ -355,7 +354,7 @@ const customizations: EmployeeCustomizations = {
     src: TampereLogo,
     alt: 'Tampere logo'
   },
-  featureFlags: { ...featureFlags, preschool: true },
+  featureFlags,
   absenceTypes: [
     'OTHER_ABSENCE',
     'SICKLEAVE',
@@ -371,10 +370,9 @@ const customizations: EmployeeCustomizations = {
     'DAYCARE',
     'DAYCARE_PART_TIME',
     'TEMPORARY_DAYCARE',
-    ...(['default', 'staging'].includes(env())
-      ? (['PRESCHOOL', 'PRESCHOOL_CLUB'] as const)
-      : []), // TODO: preschool prod
+    'PRESCHOOL',
     'PRESCHOOL_DAYCARE',
+    'PRESCHOOL_CLUB',
     'CLUB',
     'SCHOOL_SHIFT_CARE'
   ],
