@@ -20,17 +20,22 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 <div class="page first-page">
     <address th:replace="~{ tampere/shared/common :: address}"></address>
 
-    <h1 th:text="#{decision.title}"></h1>
+    <h1 th:text="${#messages.msgOrNull('decision.title.' + decision.type)} ?: #{decision.title}"></h1>
     <div th:replace="~{ tampere/shared/common :: child-and-unit-details}"></div>
 
-    <div th:utext="#{decision.instructions}"></div>
-    <div th:utext="#{decision.instructions2}"></div>
-    <div th:utext="#{decision.legalInstructions}"></div>
+    <div th:utext="${#messages.msgOrNull('decision.instructions.' + decision.type)} ?: #{decision.instructions}"></div>
     <div th:replace="~{ tampere/shared/common :: decision-details }"></div>
 </div>
 
 <div class="page last-page">
-    <div th:replace="~{tampere/shared/daycare-correction :: correction}"></div>
+    <th:block th:switch="${decision.type.name()}">
+        <th:block th:case="'PRESCHOOL'">
+            <div th:replace="~{tampere/shared/preschool-correction :: correction}" />
+        </th:block>
+        <th:block th:case="*">
+            <div th:replace="~{tampere/shared/daycare-correction :: correction}" />
+        </th:block>
+    </th:block>
 </div>
 
 </body>

@@ -242,7 +242,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         <div class="headerRight">
             <div class="left-column">
                 <div th:text="#{header.1}">PÄÄTÖS</div>
-                <div th:text="#{header.2}"></div>
+                <div th:text="${#messages.msgOrNull('header.2.' + decision.type)} ?: #{header.2}"></div>
                 <div><span th:replace="~{tampere/shared/common :: decision-date(type = ${type})}"></span></div>
                 <div th:unless="${type == 'notice'}">
                     <span th:text="#{header.decisionNumber}">Päätöksen numero</span>
@@ -331,29 +331,26 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         <p>
             <span th:utext="#{decision.details.child(${child.firstName}, ${child.lastName}, ${#temporals.format(child.dateOfBirth, 'd.M.yyyy')})}">Lapsellenne</span>
             <br/>
-            <span th:utext="#{decision.details.date}">on tehty varhaiskasvatuspäätös varhaiskasvatukseen
-                ajalle</span>
+            <span th:utext="${#messages.msgOrNull('decision.details.date.' + decision.type)} ?: #{decision.details.date}">on myönnetty varhaiskasvatuspaikka ajalle</span>
             <span th:replace="~{tampere/shared/common :: placement-dates}"></span>
         </p>
     </div>
 
-    <div th:if="${serviceNeed != null && serviceNeed.serviceNeedOption != null}">
+    <div th:if="${decision.type.name() != 'PRESCHOOL' && serviceNeed != null && serviceNeed.serviceNeedOption != null}">
         <span class="strong" th:text="#{decision.serviceNeed} + ': '"></span>
         <span th:text="${serviceNeed.serviceNeedOption.nameFi}"></span>
     </div>
 
+    <div th:if="${decision.type.name() == 'PRESCHOOL'}">
+        <p>Maksuton esiopetus 4 tuntia päivässä.</p>
+        <p>Esiopetus on velvoittavaa (Perusopetuslaki 26 a §) ja se alkaa päätöksen osoittamana ajankohtana.</p>
+    </div>
+
     <div class="decision-details-container">
         <div class="decision-details">
-            <div th:text="#{decision.placement.unit}">Varhaiskasvatusyksikkö</div>
+            <div th:text="${#messages.msgOrNull('decision.placement.unit.' + decision.type)} ?: #{decision.placement.unit}">Varhaiskasvatusyksikkö</div>
             <div style="text-indent: 6em">
-                <th:block th:switch="${decision.type.toString()}">
-                    <div th:case="'PRESCHOOL_DAYCARE'"
-                         th:text="${#strings.isEmpty(decision.unit.preschoolDecisionName)} ? ${decision.unit.name} : ${decision.unit.preschoolDecisionName}" />
-                    <div th:case="'CLUB'"
-                         th:text="${decision.unit.name}" />
-                    <div th:case="*"
-                         th:text="${#strings.isEmpty(decision.unit.daycareDecisionName)} ? ${decision.unit.name} : ${decision.unit.daycareDecisionName}" />
-                </th:block>
+                <div th:text="${decisionUnitName}"></div>
                 <div th:if="${not #strings.isEmpty(decision.unit.streetAddress)}"
                      th:text="${decision.unit.streetAddress} + ', ' + ${decision.unit.postalCode} + ' ' + ${decision.unit.postOffice}"></div>
                 <div th:if="${not #strings.isEmpty(decision.unit.phone)}"
@@ -363,7 +360,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         </div>
 
         <div class="decision-details">
-            <div th:text="#{decision.unitsupervisor}">Päiväkodin johtaja</div>
+            <div th:text="${#messages.msgOrNull('decision.unitsupervisor.' + decision.type)} ?: #{decision.unitsupervisor}">Päiväkodin johtaja</div>
             <div style="text-indent: 6em">
                 <div th:text="${manager.name}"></div>
                 <div th:text="#{decision.unitmanagertitle}"></div>
@@ -387,8 +384,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             <span th:text="#{notice.noticeMethod.sent}">Lähetetty</span>
         </p>
         <p>
-            <strong th:if="${type == 'notice'}" th:text="#{notice.approver.prefix}">Ilmoituksentekijä</strong>
-            <strong th:unless="${type == 'notice'}" th:text="#{decision.approver.prefix}">Päätöksentekijä</strong>
+            <strong th:text="${#messages.msgOrNull('decision.approver.prefix.' + decision.type)} ?: #{decision.approver.prefix}">Päätöksentekijä</strong>
         </p>
         <th:block th:if="${type == 'notice'}">
             <div th:text="${decision.createdBy}"></div>
@@ -403,15 +399,16 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         </th:block>
         <br/>
         <p>
-            <strong th:if="${type == 'notice'}" th:utext="#{notice.approver.help}">Lisätietoja kerhopaikasta:</strong>
-            <strong th:unless="${type == 'notice'}" th:utext="#{decision.approver.help}">Lisätietoja myönnetystä varhaiskasvatuspaikasta:</strong>
+            <strong th:utext="${#messages.msgOrNull('decision.approver.help.' + decision.type)} ?: #{decision.approver.help}">Lisätietoja myönnetystä varhaiskasvatuspaikasta:</strong>
         </p>
-        <div th:utext="#{decision.approver.title}">Varhaiskasvatuksen palveluohjaaja</div>
-        <div>
-            <a th:href="'mailto:' + #{decision.approver.email.email}"
-               th:text="#{decision.approver.email.email}"></a>
-        </div>
-        <div th:utext="#{decision.approver.phoneNumber}"></div>
+        <th:block th:if="${decision.type.name() != 'PRESCHOOL'}">
+            <div th:utext="#{decision.approver.title}">Varhaiskasvatuksen palveluohjaaja</div>
+            <div>
+                <a th:href="'mailto:' + #{decision.approver.email.email}"
+                   th:text="#{decision.approver.email.email}"></a>
+            </div>
+            <div th:utext="#{decision.approver.phoneNumber}"></div>
+        </th:block>
     </div>
     <p>
     <div th:text="#{decision.inform.guardians}"></div>
