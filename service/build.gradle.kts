@@ -4,6 +4,7 @@ plugins {
     id("org.springframework.boot") version TrevakaServiceDeps.springBoot
     id("org.unbroken-dome.xjc") version TrevakaServiceDeps.xjc
     id("com.gorylenko.gradle-git-properties") version "2.4.1"
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 }
 
 repositories {
