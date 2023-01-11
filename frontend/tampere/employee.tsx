@@ -23,7 +23,9 @@ const customizations: EmployeeCustomizations = {
       application: {
         serviceNeed: {
           connectedLabel: 'Täydentävä varhaiskasvatus',
-          connectedValue: 'Haen myös täydentävää varhaiskasvatusta'
+          connectedValue: 'Haen myös täydentävää varhaiskasvatusta',
+          connectedDaycarePreferredStartDateLabel:
+            'Täydentävän toivottu aloituspäivä'
         },
         types: {
           PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus'
