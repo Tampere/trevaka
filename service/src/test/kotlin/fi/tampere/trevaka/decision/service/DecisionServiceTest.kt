@@ -28,8 +28,7 @@ import fi.espoo.evaka.shared.template.ITemplateProvider
 import fi.espoo.voltti.pdfgen.PDFService
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.EnumSource
+import org.junitpioneer.jupiter.cartesian.CartesianTest
 import org.springframework.beans.factory.annotation.Autowired
 import java.io.FileOutputStream
 import java.nio.file.Paths
@@ -52,22 +51,29 @@ class DecisionServiceTest : AbstractIntegrationTest() {
     @Autowired
     private lateinit var pdfService: PDFService
 
-    @ParameterizedTest
-    @EnumSource(
-        value = DecisionType::class,
-        names = ["PRESCHOOL", "PRESCHOOL_DAYCARE", "PREPARATORY_EDUCATION"],
-        mode = EnumSource.Mode.EXCLUDE
-    )
-    fun createDecisionPdf(decisionType: DecisionType) {
+    @CartesianTest
+    fun createDecisionPdf(
+        @CartesianTest.Enum(
+            value = DecisionType::class,
+            names = ["PREPARATORY_EDUCATION"],
+            mode = CartesianTest.Enum.Mode.EXCLUDE
+        ) decisionType: DecisionType,
+        @CartesianTest.Enum(
+            value = ProviderType::class,
+            names = ["MUNICIPAL", "PRIVATE_SERVICE_VOUCHER"],
+            mode = CartesianTest.Enum.Mode.INCLUDE
+        ) providerType: ProviderType,
+        @CartesianTest.Values(booleans = [false, true]) isTransferApplication: Boolean,
+    ) {
         val bytes = createDecisionPdf(
             messageProvider,
             templateProvider,
             pdfService,
             settings,
-            validDecision(decisionType, validDecisionUnit(ProviderType.MUNICIPAL)),
+            validDecision(decisionType, validDecisionUnit(providerType)),
             guardian = validGuardian(),
             child = validChild(),
-            isTransferApplication = false,
+            isTransferApplication = isTransferApplication,
             serviceNeed = when (decisionType) {
                 DecisionType.CLUB -> null
                 else -> ServiceNeed(
@@ -88,7 +94,9 @@ class DecisionServiceTest : AbstractIntegrationTest() {
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
         )
 
-        val filepath = "${Paths.get("build").toAbsolutePath()}/reports/DecisionServiceTest-$decisionType.pdf"
+        val filename =
+            "DecisionServiceTest-$decisionType-$providerType${if (isTransferApplication) "-transfer" else ""}.pdf"
+        val filepath = "${Paths.get("build").toAbsolutePath()}/reports/$filename"
         FileOutputStream(filepath).use { it.write(bytes) }
     }
 
@@ -136,7 +144,11 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                 shiftCare = false,
                 partTime = false,
                 ServiceNeedOption(
-                    ServiceNeedOptionId(UUID.randomUUID()), "Palveluntarve 1", "Palveluntarve 1", "Palveluntarve 1", null
+                    ServiceNeedOptionId(UUID.randomUUID()),
+                    "Palveluntarve 1",
+                    "Palveluntarve 1",
+                    "Palveluntarve 1",
+                    null
                 )
             ),
             lang = DocumentLang.FI,
@@ -144,70 +156,6 @@ class DecisionServiceTest : AbstractIntegrationTest() {
         )
 
         val filepath = "${Paths.get("build").toAbsolutePath()}/reports/DecisionServiceTest-DAYCARE-without-settings.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
-    }
-
-    @Test
-    fun createDaycareTransferDecisionPdf() {
-        val bytes = createDecisionPdf(
-            messageProvider,
-            templateProvider,
-            pdfService,
-            settings,
-            validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.MUNICIPAL)),
-            guardian = validGuardian(),
-            child = validChild(),
-            isTransferApplication = true,
-            serviceNeed = ServiceNeed(
-                startTime = "08:00",
-                endTime = "16:00",
-                shiftCare = false,
-                partTime = false,
-                ServiceNeedOption(
-                    ServiceNeedOptionId(UUID.randomUUID()),
-                    "Palveluntarve 1",
-                    "Palveluntarve 1",
-                    "Palveluntarve 1",
-                    null
-                )
-            ),
-            lang = DocumentLang.FI,
-            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
-        )
-
-        val filepath = "${Paths.get("build").toAbsolutePath()}/reports/DecisionServiceTest-DAYCARE-transfer.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
-    }
-
-    @Test
-    fun createDaycareVoucherDecisionPdf() {
-        val bytes = createDecisionPdf(
-            messageProvider,
-            templateProvider,
-            pdfService,
-            settings,
-            validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.PRIVATE_SERVICE_VOUCHER)),
-            guardian = validGuardian(),
-            child = validChild(),
-            isTransferApplication = false,
-            serviceNeed = ServiceNeed(
-                startTime = "08:00",
-                endTime = "16:00",
-                shiftCare = false,
-                partTime = false,
-                ServiceNeedOption(
-                    ServiceNeedOptionId(UUID.randomUUID()),
-                    "Palveluntarve 1",
-                    "Palveluntarve 1",
-                    "Palveluntarve 1",
-                    null
-                )
-            ),
-            lang = DocumentLang.FI,
-            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
-        )
-
-        val filepath = "${Paths.get("build").toAbsolutePath()}/reports/DecisionServiceTest-DAYCARE-voucher.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
     }
 
