@@ -80,7 +80,6 @@ abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean = 
 
     protected fun <T> runInTransaction(function: Function<Database.Transaction, T>) =
         db.transaction { tx -> function.apply(tx) }
-
 }
 
 fun resourceAsString(resource: Resource, charset: Charset = StandardCharsets.UTF_8) =

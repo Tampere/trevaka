@@ -78,5 +78,4 @@ class ReportsController() {
         logger.info { "Freeze voucher value report rows $yearMonth" }
         freezeVoucherValueReportRows(tx, yearMonth.year, yearMonth.monthValue, takenAt)
     }
-
 }

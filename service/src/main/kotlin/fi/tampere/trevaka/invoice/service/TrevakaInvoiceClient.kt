@@ -51,7 +51,8 @@ private const val maxItemProfitCenterLength = 10
 private const val maxTextRowLength = 70
 
 class TrevakaInvoiceClient(
-    private val webServiceTemplate: WebServiceTemplate, private val properties: InvoiceProperties
+    private val webServiceTemplate: WebServiceTemplate,
+    private val properties: InvoiceProperties
 ) :
     InvoiceIntegrationClient {
 
@@ -154,14 +155,18 @@ class TrevakaInvoiceClient(
             unitPrice = priceInEuros(it.unitPrice)
             quantity = it.amount.toFloat().toString()
             plant = properties.plant
-            text.addAll(listOf(Text().apply {
-                textRow.addAll(
-                    listOf(
-                        "${it.child.lastName} ${it.child.firstName}".take(maxTextRowLength),
-                        "${it.periodStart.format(dateFormatter)} - ${it.periodEnd.format(dateFormatter)}"
-                    )
+            text.addAll(
+                listOf(
+                    Text().apply {
+                        textRow.addAll(
+                            listOf(
+                                "${it.child.lastName} ${it.child.firstName}".take(maxTextRowLength),
+                                "${it.periodStart.format(dateFormatter)} - ${it.periodEnd.format(dateFormatter)}"
+                            )
+                        )
+                    }
                 )
-            }))
+            )
         }
     }
 
@@ -180,7 +185,6 @@ class TrevakaInvoiceClient(
             null
         }
     }
-
 }
 
 internal fun toInvoicePerson(person: PersonDetailed): InvoicePerson {
@@ -202,9 +206,9 @@ internal fun toInvoicePerson(person: PersonDetailed): InvoicePerson {
 }
 
 internal fun hasInvoicingAddress(person: PersonDetailed): Boolean {
-    return person.invoicingStreetAddress.isNotBlank()
-            && person.invoicingPostalCode.isNotBlank()
-            && person.invoicingPostOffice.isNotBlank()
+    return person.invoicingStreetAddress.isNotBlank() &&
+        person.invoicingPostalCode.isNotBlank() &&
+        person.invoicingPostOffice.isNotBlank()
 }
 
 internal data class InvoicePerson(

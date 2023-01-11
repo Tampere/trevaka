@@ -47,5 +47,4 @@ internal class PersonDetailsServiceIT : AbstractIntegrationTest() {
                 .withHeader("SOAPAction", equalTo("\"\""))
         )
     }
-
 }

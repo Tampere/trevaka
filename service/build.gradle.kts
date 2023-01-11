@@ -11,7 +11,6 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
     implementation(platform(":evaka-bom"))
     testImplementation(platform(":evaka-bom"))
@@ -72,4 +71,8 @@ tasks {
     bootRun {
         systemProperty("spring.profiles.active", "local,trevaka-local")
     }
+}
+
+configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+    disabledRules.set(setOf("no-wildcard-imports"))
 }

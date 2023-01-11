@@ -15,5 +15,4 @@ class SchedulerConfiguration {
 
     @Bean
     fun jobSchedule(env: ScheduledJobsEnv): JobSchedule = DefaultJobSchedule(env)
-
 }

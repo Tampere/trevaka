@@ -54,7 +54,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 ).inAnyUnit()
             )
         }
-        Action.Global.REPORTS_PAGE-> {
+        Action.Global.REPORTS_PAGE -> {
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.STAFF).inAnyUnit()
             )
@@ -297,7 +297,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
         Action.Unit.UPDATE_STAFF_ATTENDANCES -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
-              HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inUnit() as ScopedActionRule<in T>
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inUnit() as ScopedActionRule<in T>
             )
         }
         Action.VoucherValueDecision.READ -> {

@@ -18,5 +18,4 @@ class DevDataInitializerTest : AbstractIntegrationTest() {
     fun init() {
         DevDataInitializer(jdbi)
     }
-
 }

@@ -49,5 +49,4 @@ class PersonConfiguration {
     fun basicAuthCustomizer(properties: TrevakaProperties) = DvvModificationRequestCustomizer { request ->
         request.authentication().basic(properties.ipaas.username, properties.ipaas.password)
     }
-
 }

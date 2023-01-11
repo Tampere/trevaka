@@ -113,11 +113,13 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                                 date = LocalDate.of(2022, 11, 1),
                                                 beginTime = LocalTime.of(20, 0),
                                                 endTime = LocalTime.of(23, 59)
-                                            ), TitaniaWorkingTimeEvent(
+                                            ),
+                                            TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 10, 31),
                                                 beginTime = LocalTime.of(20, 0),
                                                 endTime = LocalTime.of(0, 0) // 24:00 from titania
-                                            ), TitaniaWorkingTimeEvent(
+                                            ),
+                                            TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 11, 2),
                                                 beginTime = LocalTime.of(0, 0),
                                                 endTime = LocalTime.of(8, 0)
@@ -139,7 +141,8 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                                 date = LocalDate.of(2022, 11, 1),
                                                 beginTime = LocalTime.of(0, 0),
                                                 endTime = LocalTime.of(23, 59)
-                                            ), TitaniaWorkingTimeEvent(
+                                            ),
+                                            TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 10, 31),
                                                 beginTime = LocalTime.of(23, 0),
                                                 endTime = LocalTime.of(23, 58)
@@ -229,7 +232,8 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
 
         val response = runInTransaction { tx ->
             titaniaService.updateWorkingTimeEventsInternal(
-                tx, UpdateWorkingTimeEventsRequest(
+                tx,
+                UpdateWorkingTimeEventsRequest(
                     period = TitaniaPeriod(
                         beginDate = LocalDate.of(2022, 10, 12),
                         endDate = LocalDate.of(2022, 10, 12),
@@ -496,7 +500,8 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
 
         val response = runInTransaction { tx ->
             titaniaService.getStampedWorkingTimeEvents(
-                tx, GetStampedWorkingTimeEventsRequest(
+                tx,
+                GetStampedWorkingTimeEventsRequest(
                     period = TitaniaPeriod(
                         beginDate = LocalDate.of(2022, 10, 19),
                         endDate = LocalDate.of(2022, 10, 19),
@@ -532,7 +537,8 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             beginReasonCode = "YT",
                                             endTime = LocalTime.of(8, 0),
                                             endReasonCode = null,
-                                        ), TitaniaStampedWorkingTimeEvent(
+                                        ),
+                                        TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 19),
                                             beginTime = LocalTime.of(8, 0),
                                             beginReasonCode = null,
@@ -592,7 +598,8 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
 
         val response = runInTransaction { tx ->
             titaniaService.getStampedWorkingTimeEvents(
-                tx, GetStampedWorkingTimeEventsRequest(
+                tx,
+                GetStampedWorkingTimeEventsRequest(
                     period = TitaniaPeriod(
                         beginDate = LocalDate.of(2022, 10, 20),
                         endDate = LocalDate.of(2022, 10, 20),
@@ -628,7 +635,8 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             beginReasonCode = null,
                                             endTime = LocalTime.MAX.truncatedTo(ChronoUnit.MICROS),
                                             endReasonCode = null,
-                                        ), TitaniaStampedWorkingTimeEvent(
+                                        ),
+                                        TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 21),
                                             beginTime = LocalTime.MIN,
                                             beginReasonCode = null,
@@ -688,7 +696,8 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
 
         val response = runInTransaction { tx ->
             titaniaService.getStampedWorkingTimeEvents(
-                tx, GetStampedWorkingTimeEventsRequest(
+                tx,
+                GetStampedWorkingTimeEventsRequest(
                     period = TitaniaPeriod(
                         beginDate = LocalDate.of(2022, 10, 20),
                         endDate = LocalDate.of(2022, 10, 20),
@@ -734,5 +743,4 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
             )
         )
     }
-
 }

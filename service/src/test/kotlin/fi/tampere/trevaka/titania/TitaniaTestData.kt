@@ -26,9 +26,11 @@ internal val titaniaUpdateRequestValidExampleData = UpdateWorkingTimeEventsReque
     ),
     schedulingUnit = listOf(
         TitaniaSchedulingUnit(
-            code = "E1100", name = "Suunnittelupiste A", occupation = listOf(
+            code = "E1100", name = "Suunnittelupiste A",
+            occupation = listOf(
                 TitaniaOccupation(
-                    code = "15510", name = "Kodinhoitaja", person = listOf(
+                    code = "15510", name = "Kodinhoitaja",
+                    person = listOf(
                         TitaniaPerson(
                             employeeId = "00176716",
                             name = "ANKKA IINES",
@@ -77,9 +79,11 @@ internal val titaniaUpdateRequestValidMinimalData = UpdateWorkingTimeEventsReque
     ),
     schedulingUnit = listOf(
         TitaniaSchedulingUnit(
-            code = "E1100", occupation = listOf(
+            code = "E1100",
+            occupation = listOf(
                 TitaniaOccupation(
-                    code = "15510", name = "Kodinhoitaja", person = listOf(
+                    code = "15510", name = "Kodinhoitaja",
+                    person = listOf(
                         TitaniaPerson(
                             employeeId = "00176716",
                             name = "ANKKA IINES",

@@ -21,5 +21,4 @@ internal class PDFServiceTest : AbstractIntegrationTest() {
     fun render() {
         pdfService.render(Page(Template("test"), Context()))
     }
-
 }

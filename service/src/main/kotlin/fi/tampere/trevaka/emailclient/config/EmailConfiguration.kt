@@ -25,7 +25,7 @@ class EmailConfiguration {
     fun emailMessageProvider(): IEmailMessageProvider = EmailMessageProvider()
 }
 
-internal class EmailMessageProvider(): IEmailMessageProvider {
+internal class EmailMessageProvider() : IEmailMessageProvider {
     override val subjectForPendingDecisionEmail: String = "Toimenpiteitäsi odotetaan"
     override val subjectForClubApplicationReceivedEmail: String = "Hakemus vastaanotettu"
     override val subjectForDaycareApplicationReceivedEmail: String = "Hakemus vastaanotettu"

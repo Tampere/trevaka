@@ -68,12 +68,15 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                         ),
                         event.code?.let { staffAttendanceTypeFromTitaniaEventCode(it) } ?: StaffAttendanceType.PRESENT,
                         HelsinkiDateTime.of(event.date, event.beginTime!!),
-                        HelsinkiDateTime.of(event.date, event.endTime!!.let {
-                            when (it) {
-                                LocalTime.MIN -> LocalTime.of(23, 59)
-                                else -> it
+                        HelsinkiDateTime.of(
+                            event.date,
+                            event.endTime!!.let {
+                                when (it) {
+                                    LocalTime.MIN -> LocalTime.of(23, 59)
+                                    else -> it
+                                }
                             }
-                        }),
+                        ),
                         event.description
                     )
                     if (previous?.canMerge(next) == true) {
@@ -144,13 +147,15 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                 )
             }
 
-        val response = GetStampedWorkingTimeEventsResponse(schedulingUnit = request.schedulingUnit.map { unit ->
-            TitaniaStampedUnitResponse(
-                code = unit.code,
-                name = unit.name,
-                person = persons.filter { unit.person.find { person -> person.employeeId == it.employeeId } != null }
-            )
-        })
+        val response = GetStampedWorkingTimeEventsResponse(
+            schedulingUnit = request.schedulingUnit.map { unit ->
+                TitaniaStampedUnitResponse(
+                    code = unit.code,
+                    name = unit.name,
+                    person = persons.filter { unit.person.find { person -> person.employeeId == it.employeeId } != null }
+                )
+            }
+        )
         logger.debug { "Titania response: $response" }
         return response
     }

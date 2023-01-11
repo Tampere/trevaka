@@ -51,7 +51,6 @@ internal class TitaniaHelpersTest {
             attendance.copy(arrived = attendance.arrived.plusDays(2).atStartOfDay())
         )
     }
-
 }
 
 private val testAttendance = RawAttendance(
