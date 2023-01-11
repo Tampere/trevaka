@@ -243,7 +243,6 @@ class DecisionServiceTest : AbstractIntegrationTest() {
             "${Paths.get("build").toAbsolutePath()}/reports/DecisionServiceTest-DAYCARE-restricted-details-enabled.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
     }
-
 }
 
 private fun validDecision(type: DecisionType, decisionUnit: DecisionUnit) = Decision(

@@ -57,5 +57,4 @@ internal class DvvModificationsServiceClientIT : AbstractIntegrationTest() {
                 .withBasicAuth(BasicCredentials("user", "pass"))
         )
     }
-
 }

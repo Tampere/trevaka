@@ -4,7 +4,6 @@
 
 package fi.tampere.trevaka.invoice.service
 
-
 import fi.espoo.evaka.daycare.CareType
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
@@ -180,18 +179,20 @@ internal class TrevakaInvoiceClientTest {
 
         server.verify()
     }
-
 }
 
 fun validInvoice(): InvoiceDetailed {
     val headOfFamily = validPerson()
     val invoiceRow1 = validInvoiceRow(24300)
-    val invoiceRow2 = validInvoiceRow(48200).copy(child = PersonDetailed(
+    val invoiceRow2 = validInvoiceRow(48200).copy(
+        child = PersonDetailed(
             PersonId(UUID.randomUUID()), LocalDate.of(2015, 11, 26), null,
             "Maiju", "Meikäläinen",
             null, "", "", "",
             "", null, "", null, restrictedDetailsEnabled = false
-        ), costCenter = "284823", product = ProductKey("PRESCHOOL_WITH_DAYCARE"), description = "kuvaus2")
+        ),
+        costCenter = "284823", product = ProductKey("PRESCHOOL_WITH_DAYCARE"), description = "kuvaus2"
+    )
     return InvoiceDetailed(
         (InvoiceId(UUID.randomUUID())),
         InvoiceStatus.WAITING_FOR_SENDING,
@@ -211,12 +212,14 @@ fun validInvoice(): InvoiceDetailed {
 }
 
 fun validInvoiceRow(unitPrice: Int, productKey: ProductKey = ProductKey("DAYCARE"), costCenter: String = "131885", description: String = "kuvaus1") = InvoiceRowDetailed(
-    InvoiceRowId(UUID.randomUUID()), PersonDetailed(
+    InvoiceRowId(UUID.randomUUID()),
+    PersonDetailed(
         PersonId(UUID.randomUUID()), LocalDate.of(2018, 1, 1), null,
         "Matti", "Meikäläinen",
         null, "", "", "",
         "", null, "", null, restrictedDetailsEnabled = false
-    ), 1, unitPrice,
+    ),
+    1, unitPrice,
     LocalDate.of(2021, 1, 1),
     LocalDate.of(2021, 1, 31),
     productKey, DaycareId(UUID.randomUUID()), setOf(CareType.CENTRE), costCenter, null, null, description,

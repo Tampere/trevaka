@@ -47,7 +47,6 @@ class TitaniaController(private val titaniaService: TitaniaService) {
         if (user.type != AuthenticatedUserType.integration) throw Forbidden()
         return db.connect { dbc -> dbc.read { tx -> titaniaService.getStampedWorkingTimeEvents(tx, request) } }
     }
-
 }
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -66,5 +65,4 @@ class TitaniaExceptionHandlers() {
             .status(ex.status)
             .body(TitaniaErrorResponse(faultactor = req.requestURI, detail = ex.detail))
     }
-
 }

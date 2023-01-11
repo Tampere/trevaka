@@ -75,5 +75,4 @@ class IntegrationTestConfiguration {
         val jwtPublicKey = kf.generatePublic(spec) as RSAPublicKey
         return Algorithm.RSA256(jwtPublicKey, null)
     }
-
 }

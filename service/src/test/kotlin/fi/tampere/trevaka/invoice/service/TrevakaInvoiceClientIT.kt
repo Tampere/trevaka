@@ -96,5 +96,4 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
                 .withoutHeader("SOAPAction")
         )
     }
-
 }

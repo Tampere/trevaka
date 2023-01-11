@@ -63,5 +63,4 @@ class TitaniaJsonSchemaTest : AbstractIntegrationTest() {
         val jsonSchemaFactory = JsonSchemaFactory.getInstance(SpecVersionDetector.detect(jsonNode))
         return jsonSchemaFactory.getSchema(jsonNode)
     }
-
 }

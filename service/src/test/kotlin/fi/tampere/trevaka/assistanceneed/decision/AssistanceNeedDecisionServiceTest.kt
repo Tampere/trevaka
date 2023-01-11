@@ -50,7 +50,7 @@ class AssistanceNeedDecisionServiceTest : AbstractIntegrationTest() {
             guardian = headOfFamily
         )
 
-        val filepath = "${reportsPath}/AssistanceNeedDecisionServiceTest-assistance-need-decision.pdf"
+        val filepath = "$reportsPath/AssistanceNeedDecisionServiceTest-assistance-need-decision.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
     }
 
@@ -66,7 +66,7 @@ class AssistanceNeedDecisionServiceTest : AbstractIntegrationTest() {
         )
 
         val filepath =
-            "${reportsPath}/AssistanceNeedDecisionServiceTest-assistance-need-decision-without-guardian.pdf"
+            "$reportsPath/AssistanceNeedDecisionServiceTest-assistance-need-decision-without-guardian.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
     }
 
@@ -96,7 +96,7 @@ class AssistanceNeedDecisionServiceTest : AbstractIntegrationTest() {
         )
 
         val filepath =
-            "${reportsPath}/AssistanceNeedDecisionServiceTest-assistance-need-decision-with-prepared-by.pdf"
+            "$reportsPath/AssistanceNeedDecisionServiceTest-assistance-need-decision-with-prepared-by.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
     }
 
@@ -122,10 +122,9 @@ class AssistanceNeedDecisionServiceTest : AbstractIntegrationTest() {
         )
 
         val filepath =
-            "${reportsPath}/AssistanceNeedDecisionServiceTest-assistance-need-decision-with-empty-prepared-by.pdf"
+            "$reportsPath/AssistanceNeedDecisionServiceTest-assistance-need-decision-with-empty-prepared-by.pdf"
         FileOutputStream(filepath).use { it.write(bytes) }
     }
-
 }
 
 private val validAssistanceNeedDecision = AssistanceNeedDecision(

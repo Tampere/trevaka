@@ -28,7 +28,6 @@ class MessageConfiguration {
         val messageSource = YamlMessageSource(ClassPathResource("messages.yaml"))
         return TrevakaMessageProvider(messageSource)
     }
-
 }
 
 internal class TrevakaMessageProvider(val messageSource: MessageSource) : IMessageProvider {
@@ -94,5 +93,4 @@ internal class YamlMessageSource(resource: Resource) : AbstractMessageSource() {
 
     override fun resolveCode(code: String, locale: Locale): MessageFormat? =
         properties.getProperty("$code.${locale.language.lowercase()}")?.let { MessageFormat(it, locale) }
-
 }

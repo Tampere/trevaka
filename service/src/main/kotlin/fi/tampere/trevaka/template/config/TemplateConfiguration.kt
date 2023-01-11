@@ -13,7 +13,6 @@ class TemplateConfiguration {
 
     @Bean
     fun templateProvider(): ITemplateProvider = TrevakaTemplateProvider()
-
 }
 
 internal class TrevakaTemplateProvider : ITemplateProvider {

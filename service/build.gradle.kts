@@ -4,12 +4,12 @@ plugins {
     id("org.springframework.boot") version TrevakaServiceDeps.springBoot
     id("org.unbroken-dome.xjc") version TrevakaServiceDeps.xjc
     id("com.gorylenko.gradle-git-properties") version "2.4.1"
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 }
 
 repositories {
     mavenCentral()
 }
-
 
 dependencies {
     implementation(platform(":evaka-bom"))
@@ -71,4 +71,8 @@ tasks {
     bootRun {
         systemProperty("spring.profiles.active", "local,trevaka-local")
     }
+}
+
+configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+    disabledRules.set(setOf("no-wildcard-imports"))
 }

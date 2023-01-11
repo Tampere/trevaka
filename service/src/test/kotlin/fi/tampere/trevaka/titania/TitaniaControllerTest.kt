@@ -74,7 +74,8 @@ internal class TitaniaControllerTest : AbstractIntegrationTest() {
         whenever(titaniaService.updateWorkingTimeEvents(any(), any()))
             .thenThrow(
                 TitaniaException(
-                    HttpStatus.BAD_REQUEST, listOf(
+                    HttpStatus.BAD_REQUEST,
+                    listOf(
                         TitaniaErrorDetail(TitaniaError.UNKNOWN_EMPLOYEE_NUMBER, "Error description"),
                         TitaniaErrorDetail(TitaniaError.UNKNOWN_EMPLOYEE_NUMBER, "Error description"),
                     )
@@ -102,7 +103,8 @@ internal class TitaniaControllerTest : AbstractIntegrationTest() {
             "message": "Error description"
         }
     ]
-}""", res.body().asString("application/json"), JSONCompareMode.STRICT
+}""",
+            res.body().asString("application/json"), JSONCompareMode.STRICT
         )
 
         verify(titaniaService).updateWorkingTimeEvents(any(), eq(titaniaUpdateRequestValidExampleData))
@@ -154,5 +156,4 @@ internal class TitaniaControllerTest : AbstractIntegrationTest() {
         assertThat(res).returns(400) { it.statusCode }
         verifyNoInteractions(titaniaService)
     }
-
 }

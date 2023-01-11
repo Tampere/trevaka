@@ -89,7 +89,7 @@ class InvoiceConfiguration {
     fun invoiceProductProvider(): InvoiceProductProvider = TampereInvoiceProductProvider()
 
     @Bean
-    fun invoiceGenerationLogicChooser(properties: TrevakaProperties) : InvoiceGenerationLogicChooser = TampereInvoiceGeneratorLogicChooser(properties.summertimeAbsenceProperties)
+    fun invoiceGenerationLogicChooser(properties: TrevakaProperties): InvoiceGenerationLogicChooser = TampereInvoiceGeneratorLogicChooser(properties.summertimeAbsenceProperties)
 }
 
 class TampereIncomeTypesProvider : IncomeTypesProvider {
@@ -166,7 +166,6 @@ class TampereInvoiceProductProvider : InvoiceProductProvider {
         }
         return product.key
     }
-
 }
 
 fun findProduct(key: ProductKey) = Product.values().find { it.key == key }
@@ -201,7 +200,6 @@ class TampereInvoiceGeneratorLogicChooser(
             else -> InvoiceGenerationLogic.Default
         }
     }
-
 }
 
 fun Database.Read.hasFreeSummerAbsence(childId: ChildId, year: Int): Boolean {
