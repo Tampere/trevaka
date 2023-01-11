@@ -645,7 +645,7 @@ jobs:
           command: PGPASSWORD=postgres psql -U postgres -h localhost -p 15432 -f "evaka/compose/db-integration-test/init-evaka-it.sql"
       - run:
           working_directory: *workspace_service
-          command: ./gradlew test
+          command: ./gradlew check
       - store_artifacts:
           path: /home/circleci/repo/service/build/reports/
 
