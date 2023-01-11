@@ -342,9 +342,8 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         <span th:text="${serviceNeed.serviceNeedOption.nameFi}"></span>
     </div>
 
-    <div th:if="${decision.type.name() == 'PRESCHOOL'}">
-        <p>Maksuton esiopetus 4 tuntia päivässä.</p>
-        <p>Esiopetus on velvoittavaa (Perusopetuslaki 26 a §) ja se alkaa päätöksen osoittamana ajankohtana.</p>
+    <div th:if="${decision.type.name() == 'PRESCHOOL'}" th:utext="#{decision.details.preschool}">
+        Maksuton esiopetus 4 tuntia päivässä...
     </div>
 
     <div class="decision-details-container">
