@@ -12,8 +12,8 @@ RUN apt-get update \
        jq \
  && rm -rf /var/lib/apt/lists/*
 
-ARG DD_JAVA_AGENT_VERSION="1.2.0"
-ARG DD_JAVA_AGENT_SHA256="8a384cc67574e34efb85e75dba29bb114d150d3b53a127eb76d9f7f058744249"
+ARG DD_JAVA_AGENT_VERSION="1.4.0"
+ARG DD_JAVA_AGENT_SHA256="a8fcc0b614d47872a98cf1fe3ab099ec626935b5d5027a873ca3e47ca2ed3a65"
 
 RUN curl -sSfo /opt/dd-java-agent.jar "https://repo1.maven.org/maven2/com/datadoghq/dd-java-agent/${DD_JAVA_AGENT_VERSION}/dd-java-agent-${DD_JAVA_AGENT_VERSION}.jar" \
  && echo "${DD_JAVA_AGENT_SHA256}  /opt/dd-java-agent.jar" | sha256sum -c -
