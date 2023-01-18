@@ -40,7 +40,7 @@ const en: DeepPartial<Translations> = {
         'With a club application one may apply for a place at municipal clubs or clubs supported by a service voucher.',
       preschoolLabel: 'Enrolment in pre-primary education',
       preschoolInfo:
-        'There are four hours of free pre-school education per day. In addition, supplementary activities, for which a fee is charged, can be applied for the child. An application for supplementary activities can be made when enrolling for pre-school education or as a separate application once education has started.',
+        'There are four hours of free pre-school education per day. In addition, supplementary activities, for which a fee is charged, can be applied for the child. An application for supplementary activities can be made when enrolling for pre-school education or as a separate application once education has started. The unit for supplementary activities cannot be selected in the application as it is always determined by the preschool unit. If a place in supplementary activities is applied for later, the need for pre-primary education will also be entered in the application.',
       preschoolDaycareInfo:
         'Applying for supplementary activities for children who are enrolled / have been enrolled in preschool',
       applicationInfo: (
