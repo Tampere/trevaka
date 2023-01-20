@@ -403,14 +403,14 @@ jobs:
           name: Fetch build customizations
           working_directory: *workspace_root
           command: |
-            aws s3 sync s3://trevaka-dev-deployment/customizations/ ./customizations/
+            aws s3 sync s3://trevaka-artifacts/customizations/ ./customizations/
       - save:
           path: customizations
       - run:
           name: Fetch commercial frontend dependencies
           working_directory: *workspace_evaka_frontend
           command: |
-            aws s3 sync s3://trevaka-dev-deployment/frontend/vendor/fortawesome/ ./vendor/fortawesome/
+            aws s3 sync s3://trevaka-artifacts/vendor/fortawesome/ ./vendor/fortawesome/
       - save:
           path: evaka/frontend/vendor/fortawesome
 
@@ -776,7 +776,7 @@ workflows:
       - checkout_repo
       - fetch_private_dependencies:
           context:
-            - trevaka-dev
+            - trevaka-utility
           requires:
             - checkout_repo
       - check_licenses:
