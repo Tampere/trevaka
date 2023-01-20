@@ -22,8 +22,8 @@ const customizations: EmployeeCustomizations = {
       // override translations here
       application: {
         serviceNeed: {
-          connectedLabel: 'Täydentävä varhaiskasvatus',
-          connectedValue: 'Haen myös täydentävää varhaiskasvatusta',
+          connectedLabel: 'Täydentävä toiminta',
+          connectedValue: 'Haen myös täydentävää toimintaa',
           connectedDaycarePreferredStartDateLabel:
             'Täydentävän toivottu aloituspäivä'
         },
