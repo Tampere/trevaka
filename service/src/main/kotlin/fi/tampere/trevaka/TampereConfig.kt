@@ -41,6 +41,7 @@ class TampereConfig {
         partialAbsenceThresholdsEnabled = false,
         postOffice = "TAMPERE",
         municipalMessageAccountName = "Tampereen kaupunki",
+        serviceWorkerMessageAccountName = "Tampereen kaupungin palveluohjaus"
     )
 
     @Bean
