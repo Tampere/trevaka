@@ -37,7 +37,8 @@ const features: Features = {
       leops: true,
       assistanceNeedDecisions: true,
       staffAttendanceTypes: true,
-      fosterParents: true
+      fosterParents: true,
+      serviceWorkerMessaging: true
     }
   },
   staging: {
