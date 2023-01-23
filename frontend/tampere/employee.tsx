@@ -97,7 +97,6 @@ const customizations: EmployeeCustomizations = {
       childInformation: {
         assistanceNeed: {
           fields: {
-            /* eslint-disable */
             capacityFactorInfo: (
               <ol style={{ margin: '0', padding: '0 1em' }}>
                 <li>
@@ -106,8 +105,8 @@ const customizations: EmployeeCustomizations = {
                   tukea saaville lapsille ja missä tahansa ryhmässä kotoutumisen
                   tukea saaville lapsille. Lisäksi kerroin voidaan merkitä missä
                   tahansa ryhmässä olevalle tehostettua tai erityistä tukea
-                  saavalle lapselle, mikäli näin on yksikössä sovittu.
-                  Kertoimen tallentaa varhaiskasvatuksen erityisopettaja.
+                  saavalle lapselle, mikäli näin on yksikössä sovittu. Kertoimen
+                  tallentaa varhaiskasvatuksen erityisopettaja.
                 </li>
                 <li>
                   Mikäli ostopalvelu- tai palvelusetelipäiväkodissa olevalla
@@ -115,12 +114,12 @@ const customizations: EmployeeCustomizations = {
                   hänelle määritellä tuen kerroin. Hallintopäätöksen lapsen
                   tuesta tekee palvelupäällikkö. Päätöksen palvelusetelin
                   korotuksesta tekee varhaiskasvatusjohtaja. Molemmat päätökset
-                  tehdään varhaiskasvatuksen erityisopettajan esityksen perusteella.
-                  Kertoimen tallentaa varhaiskasvatuksen erityisopettaja.
+                  tehdään varhaiskasvatuksen erityisopettajan esityksen
+                  perusteella. Kertoimen tallentaa varhaiskasvatuksen
+                  erityisopettaja.
                 </li>
               </ol>
-            ) as any,
-            /* eslint-enable */
+            ),
             bases: 'Tuen tarve'
           }
         },
