@@ -42,6 +42,14 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
             unit.occupation.flatMap { occupation ->
                 occupation.person.map { person ->
                     val employeeNumber = idConverter.fromTitania(person.employeeId)
+                    if (employeeNumber == "") {
+                        throw TitaniaException(
+                            TitaniaErrorDetail(
+                                errorcode = TitaniaError.INVALID_EMPLOYEE_NUMBER,
+                                message = "Invalid employee number: (empty string)"
+                            )
+                        )
+                    }
                     employeeNumber to person.copy(employeeId = employeeNumber)
                 }
             }
