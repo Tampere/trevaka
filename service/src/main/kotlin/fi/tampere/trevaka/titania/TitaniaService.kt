@@ -5,6 +5,7 @@
 package fi.tampere.trevaka.titania
 
 import fi.espoo.evaka.attendance.StaffAttendanceType
+import fi.espoo.evaka.pis.NewEmployee
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
@@ -39,13 +40,37 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
         val period = request.period.toDateRange()
         val persons = request.schedulingUnit.flatMap { unit ->
             unit.occupation.flatMap { occupation ->
-                occupation.person.map { person -> idConverter.fromTitania(person.employeeId) to person.actualWorkingTimeEvents }
+                occupation.person.map { person ->
+                    val employeeNumber = idConverter.fromTitania(person.employeeId)
+                    if (employeeNumber == "") {
+                        throw TitaniaException(
+                            TitaniaErrorDetail(
+                                errorcode = TitaniaError.INVALID_EMPLOYEE_NUMBER,
+                                message = "Invalid employee number: (empty string)"
+                            )
+                        )
+                    }
+                    employeeNumber to person.copy(employeeId = employeeNumber)
+                }
             }
         }
         val employeeNumbers = persons.map { (employeeNumber, _) -> employeeNumber }.distinct()
         val employeeNumberToId = tx.getEmployeeIdsByNumbers(employeeNumbers)
-        val newPlans = persons.sortedBy { it.first }.flatMap { (employeeNumber, events) ->
-            events.event
+        val unknownEmployeeNumbers = employeeNumbers - employeeNumberToId.keys
+        val unknownEmployees: List<NewEmployee> = unknownEmployeeNumbers
+            .map { employeeNumber -> persons.find { person -> person.first == employeeNumber }!!.second }
+            .map { person ->
+                NewEmployee(
+                    firstName = person.firstName(),
+                    lastName = person.lastName(),
+                    email = null,
+                    externalId = null,
+                    employeeNumber = person.employeeId
+                )
+            }
+        val allEmployeeNumberToId = employeeNumberToId + tx.createEmployees(unknownEmployees)
+        val newPlans = persons.sortedBy { it.first }.flatMap { (employeeNumber, person) ->
+            person.actualWorkingTimeEvents.event
                 .filter { event -> !IGNORED_EVENT_CODES.contains(event.code) }
                 .filter { event -> event.beginTime != null && event.endTime != null }
                 .sortedWith(compareBy({ it.date }, { it.beginTime }))
@@ -60,12 +85,7 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                     }
                     val previous = plans.lastOrNull()
                     val next = StaffAttendancePlan(
-                        employeeNumberToId[employeeNumber] ?: throw TitaniaException(
-                            TitaniaErrorDetail(
-                                errorcode = TitaniaError.UNKNOWN_EMPLOYEE_NUMBER,
-                                message = "Unknown employee number: $employeeNumber"
-                            )
-                        ),
+                        allEmployeeNumberToId[employeeNumber]!!,
                         event.code?.let { staffAttendanceTypeFromTitaniaEventCode(it) } ?: StaffAttendanceType.PRESENT,
                         HelsinkiDateTime.of(event.date, event.beginTime!!),
                         HelsinkiDateTime.of(

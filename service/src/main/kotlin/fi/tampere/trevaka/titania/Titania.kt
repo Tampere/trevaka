@@ -111,7 +111,10 @@ data class TitaniaPerson(
     val name: String,
     val actualWorkingTimeEvents: TitaniaWorkingTimeEvents,
     val payrollItems: TitaniaPayrollItems? = null,
-)
+) {
+    fun firstName() = name.indexOf(' ').let { if (it == -1) "" else name.substring(it + 1) }
+    fun lastName() = name.indexOf(' ').let { if (it == -1) name else name.substring(0, it) }
+}
 
 data class TitaniaWorkingTimeEvents(
     val event: List<TitaniaWorkingTimeEvent>,
@@ -223,7 +226,7 @@ data class TitaniaErrorResponse(
 
 enum class TitaniaError(val status: HttpStatus) {
     @JsonProperty("101")
-    UNKNOWN_EMPLOYEE_NUMBER(HttpStatus.BAD_REQUEST),
+    INVALID_EMPLOYEE_NUMBER(HttpStatus.BAD_REQUEST),
 
     @JsonProperty("102")
     EVENT_DATE_OUT_OF_PERIOD(HttpStatus.BAD_REQUEST),

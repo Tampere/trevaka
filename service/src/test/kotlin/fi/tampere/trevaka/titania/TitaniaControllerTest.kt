@@ -76,8 +76,8 @@ internal class TitaniaControllerTest : AbstractIntegrationTest() {
                 TitaniaException(
                     HttpStatus.BAD_REQUEST,
                     listOf(
-                        TitaniaErrorDetail(TitaniaError.UNKNOWN_EMPLOYEE_NUMBER, "Error description"),
-                        TitaniaErrorDetail(TitaniaError.UNKNOWN_EMPLOYEE_NUMBER, "Error description"),
+                        TitaniaErrorDetail(TitaniaError.INVALID_EMPLOYEE_NUMBER, "Error description"),
+                        TitaniaErrorDetail(TitaniaError.INVALID_EMPLOYEE_NUMBER, "Error description"),
                     )
                 )
             )
