@@ -111,7 +111,10 @@ data class TitaniaPerson(
     val name: String,
     val actualWorkingTimeEvents: TitaniaWorkingTimeEvents,
     val payrollItems: TitaniaPayrollItems? = null,
-)
+) {
+    fun firstName() = name.indexOf(' ').let { if (it == -1) "" else name.substring(it + 1) }
+    fun lastName() = name.indexOf(' ').let { if (it == -1) name else name.substring(0, it) }
+}
 
 data class TitaniaWorkingTimeEvents(
     val event: List<TitaniaWorkingTimeEvent>,

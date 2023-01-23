@@ -5,6 +5,7 @@
 package fi.tampere.trevaka.titania
 
 import fi.espoo.evaka.attendance.RawAttendance
+import fi.espoo.evaka.pis.NewEmployee
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.FiniteDateRange
@@ -19,6 +20,19 @@ fun Database.Read.getEmployeeIdsByNumbers(employeeNumbers: List<String>): Map<St
     """.trimIndent()
     return createQuery(sql)
         .bind("employeeNumbers", employeeNumbers.toTypedArray())
+        .mapTo<EmployeeIdEmployeeNumber>()
+        .associate { it.employeeNumber to it.id }
+}
+
+fun Database.Transaction.createEmployees(employees: List<NewEmployee>): Map<String, EmployeeId> {
+    val sql = """
+        INSERT INTO employee (first_name, last_name, email, external_id, employee_number, roles)
+        VALUES (:employee.firstName, :employee.lastName, :employee.email, :employee.externalId, :employee.employeeNumber, :employee.roles::user_role[])
+        RETURNING id, employee_number
+    """.trimIndent()
+    val batch = prepareBatch(sql)
+    employees.forEach { employee -> batch.bindKotlin("employee", employee).add() }
+    return batch.executeAndReturn()
         .mapTo<EmployeeIdEmployeeNumber>()
         .associate { it.employeeNumber to it.id }
 }

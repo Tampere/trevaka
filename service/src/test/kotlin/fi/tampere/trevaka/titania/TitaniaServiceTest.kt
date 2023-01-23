@@ -7,6 +7,7 @@ package fi.tampere.trevaka.titania
 import fi.espoo.evaka.attendance.StaffAttendanceType
 import fi.espoo.evaka.attendance.upsertStaffAttendance
 import fi.espoo.evaka.pis.createEmployee
+import fi.espoo.evaka.pis.getEmployees
 import fi.espoo.evaka.shared.AreaId
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.dev.DevDaycare
@@ -19,6 +20,7 @@ import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.catchThrowable
+import org.assertj.core.groups.Tuple
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -327,7 +329,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
     }
 
     @Test
-    fun `updateWorkingTimeEvents throws when unknown employee numbers`() {
+    fun `updateWorkingTimeEventsInternal with unknown employee numbers`() {
         val request = UpdateWorkingTimeEventsRequest(
             period = TitaniaPeriod.from(LocalDate.of(2022, 6, 15)),
             schedulingUnit = listOf(
@@ -339,7 +341,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                             name = "Occupation 2",
                             person = listOf(
                                 TitaniaPerson(
-                                    employeeId = "emp1",
+                                    employeeId = "001234",
                                     name = "Employee 1",
                                     actualWorkingTimeEvents = TitaniaWorkingTimeEvents(
                                         event = listOf(
@@ -358,11 +360,28 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
             )
         )
 
-        val response = catchThrowable { runInTransaction { tx -> titaniaService.updateWorkingTimeEvents(tx, request) } }
+        val response = runInTransaction { tx -> titaniaService.updateWorkingTimeEventsInternal(tx, request) }
 
-        assertThat(response)
-            .isExactlyInstanceOf(TitaniaException::class.java)
-            .hasMessage("Unknown employee number: emp1")
+        assertThat(response.deleted).isEmpty()
+        assertThat(response.inserted).extracting({ it.type }, { it.startTime }, { it.endTime }, { it.description })
+            .containsExactly(
+                Tuple(
+                    StaffAttendanceType.PRESENT,
+                    HelsinkiDateTime.of(LocalDate.of(2022, 6, 15), LocalTime.of(9, 6)),
+                    HelsinkiDateTime.of(LocalDate.of(2022, 6, 15), LocalTime.of(15, 22)),
+                    null
+                )
+            )
+
+        val employees = runInTransaction { tx -> tx.getEmployees() }
+
+        assertThat(employees)
+            .extracting({ it.firstName }, { it.lastName })
+            .containsExactly(Tuple("1", "Employee"))
+
+        val numbers = runInTransaction { tx -> tx.getEmployeeIdsByNumbers(listOf("1234"))}
+
+        assertThat(numbers).containsOnlyKeys("1234")
     }
 
     @Test
