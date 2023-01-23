@@ -379,7 +379,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
             .extracting({ it.firstName }, { it.lastName })
             .containsExactly(Tuple("1", "Employee"))
 
-        val numbers = runInTransaction { tx -> tx.getEmployeeIdsByNumbers(listOf("1234"))}
+        val numbers = runInTransaction { tx -> tx.getEmployeeIdsByNumbers(listOf("1234")) }
 
         assertThat(numbers).containsOnlyKeys("1234")
     }
