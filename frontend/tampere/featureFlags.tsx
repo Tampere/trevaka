@@ -43,7 +43,7 @@ const features: Features = {
   },
   staging: {
     citizenShiftCareAbsence: false,
-    citizenContractDayAbsence: false,
+    citizenContractDayAbsence: true,
     daycareApplication: {
       dailyTimes: false
     },
@@ -65,7 +65,7 @@ const features: Features = {
   },
   prod: {
     citizenShiftCareAbsence: false,
-    citizenContractDayAbsence: false,
+    citizenContractDayAbsence: true,
     daycareApplication: {
       dailyTimes: false
     },
