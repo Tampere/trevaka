@@ -91,6 +91,13 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>
             )
         }
+        Action.AssistanceAction.READ_PRE_PRESCHOOL_ASSISTANCE_ACTION,
+        Action.AssistanceNeed.READ_PRE_PRESCHOOL_ASSISTANCE_NEED -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.SERVICE_WORKER, UserRole.FINANCE_ADMIN) as ScopedActionRule<in T>
+            )
+        }
         Action.AssistanceNeedDecision.DECIDE,
         Action.AssistanceNeedDecision.MARK_AS_OPENED -> {
             @Suppress("UNCHECKED_CAST")
@@ -159,7 +166,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.STAFF).inPlacementUnitOfChild() as ScopedActionRule<in T>
-            ) + sequenceOf(HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>)
+            ) + sequenceOf(HasGlobalRole(UserRole.DIRECTOR, UserRole.FINANCE_ADMIN) as ScopedActionRule<in T>)
         }
         Action.Child.READ_VASU_DOCUMENT -> {
             @Suppress("UNCHECKED_CAST")
