@@ -59,7 +59,7 @@ const features: Features = {
     assistanceActionOther: false,
     experimental: {
       assistanceNeedDecisions: true,
-      staffAttendanceTypes: false,
+      staffAttendanceTypes: true,
       fosterParents: true
     }
   },
@@ -81,7 +81,7 @@ const features: Features = {
     assistanceActionOther: false,
     experimental: {
       assistanceNeedDecisions: true,
-      staffAttendanceTypes: false,
+      staffAttendanceTypes: true,
       fosterParents: true
     }
   }
