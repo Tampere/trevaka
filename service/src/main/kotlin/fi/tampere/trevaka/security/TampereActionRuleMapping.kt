@@ -52,6 +52,8 @@ class TampereActionRuleMapping : ActionRuleMapping {
                     ProviderType.MUNICIPAL_SCHOOL,
                     ProviderType.EXTERNAL_PURCHASED
                 ).inAnyUnit()
+            ) + sequenceOf(
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inAnyUnit()
             )
         }
         Action.Global.REPORTS_PAGE -> {
@@ -180,6 +182,16 @@ class TampereActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.FINANCE_ADMIN) as ScopedActionRule<in T>
+            ) + sequenceOf(
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY)
+                    .inPlacementUnitOfChild() as ScopedActionRule<in T>
+            )
+        }
+        Action.Child.CREATE_ATTENDANCE_RESERVATION -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY)
+                    .inPlacementUnitOfChild() as ScopedActionRule<in T>
             )
         }
         Action.Decision.DOWNLOAD_PDF -> {
@@ -199,14 +211,25 @@ class TampereActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.FINANCE_ADMIN) as ScopedActionRule<in T>
+            ) + sequenceOf(
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY)
+                    .inUnitOfGroup() as ScopedActionRule<in T>
             )
         }
-        Action.Group.READ_ABSENCES,
         Action.Group.READ_STAFF_ATTENDANCES,
         Action.Group.READ_CARETAKERS -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>
+            )
+        }
+        Action.Group.READ_ABSENCES -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>
+            ) + sequenceOf(
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY)
+                    .inUnitOfGroup() as ScopedActionRule<in T>
             )
         }
         Action.Invoice.READ -> {
