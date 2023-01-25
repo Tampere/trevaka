@@ -152,7 +152,7 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                         ?: throw RuntimeException("Cannot find original employee number for converted: $convertedEmployeeNumber"),
                     name = "${employee.lastName} ${employee.firstName}".uppercase(),
                     stampedWorkingTimeEvents = TitaniaStampedWorkingTimeEvents(
-                        event = attendances.flatMap(::splitOvernight).map { attendance ->
+                        event = attendances.flatMap(::splitOvernight).sortedBy { it.arrived }.map { attendance ->
                             val arrived = calculateFromPlans(employeePlans, attendance.arrived)
                             val departed = calculateFromPlans(employeePlans, attendance.departed)
                             TitaniaStampedWorkingTimeEvent(
