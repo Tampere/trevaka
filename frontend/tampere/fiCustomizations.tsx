@@ -433,6 +433,21 @@ const fi: DeepPartial<Translations> = {
       ]
     },
     login: {
+      infoBoxText: (
+        <>
+          <P>
+            Mikäli kirjautuminen tästä ei onnistu, katso ohjeet{' '}
+            <a
+              href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatus/evaka-tampere-jarjestelma"
+              target="_blank"
+              rel="noreferrer"
+            >
+              eVaka | Tampereen kaupunki
+            </a>
+            . Voit kirjautua myös käyttämällä vahvaa tunnistautumista.
+          </P>
+        </>
+      ),
       paragraph: `Huoltajat, joiden lapsi on jo varhaiskasvatuksessa${
         preschoolEnabled ? ' tai esiopetuksessa' : ''
       }: hoida lapsesi päivittäisiä asioita kuten lue viestejä ja ilmoita lapsen läsnäoloajat ja poissaolot.`
