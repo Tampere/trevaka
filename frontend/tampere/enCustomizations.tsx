@@ -443,6 +443,21 @@ const en: DeepPartial<Translations> = {
       ]
     },
     login: {
+      infoBoxText: (
+        <>
+          <P>
+            If you are not able to log in here, see the instructions{' '}
+            <a
+              href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatus/evaka-tampere-jarjestelma"
+              target="_blank"
+              rel="noreferrer"
+            >
+              eVaka | Tampereen kaupunki
+            </a>
+            . You can also log in with strong authentication.
+          </P>
+        </>
+      ),
       paragraph: `Guardians whose child is already in early childhood education${
         preschoolEnabled ? ' or preschool' : ''
       }: take care of your child's daily affairs, such as reading messages and reporting the child's attendance and absence times.`
