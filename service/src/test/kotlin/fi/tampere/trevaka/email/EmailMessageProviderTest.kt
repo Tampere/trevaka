@@ -9,40 +9,79 @@ import fi.espoo.evaka.shared.AssistanceNeedDecisionId
 import fi.espoo.evaka.shared.ChildId
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 import org.springframework.beans.factory.annotation.Autowired
 import java.util.UUID
+import java.util.stream.Stream
 
 internal class EmailMessageProviderTest : AbstractIntegrationTest() {
 
     @Autowired
     private lateinit var emailMessageProvider: IEmailMessageProvider
 
-    @Test
-    fun testNonPreschoolMessagesDoNotContainEspooText() {
-        assertNotContainEspooText(emailMessageProvider.getDaycareApplicationReceivedEmailText())
-        assertNotContainEspooText(emailMessageProvider.getDaycareApplicationReceivedEmailHtml())
-        assertNotContainEspooText(emailMessageProvider.getClubApplicationReceivedEmailText())
-        assertNotContainEspooText(emailMessageProvider.getClubApplicationReceivedEmailHtml())
-        assertNotContainEspooText(emailMessageProvider.getPendingDecisionEmailText())
-        assertNotContainEspooText(emailMessageProvider.getPendingDecisionEmailHtml())
-        assertNotContainEspooText(emailMessageProvider.getPreschoolApplicationReceivedEmailHtml(true))
-        assertNotContainEspooText(emailMessageProvider.getPreschoolApplicationReceivedEmailText(true))
-        assertNotContainEspooText(emailMessageProvider.getPreschoolApplicationReceivedEmailHtml(false))
-        assertNotContainEspooText(emailMessageProvider.getPreschoolApplicationReceivedEmailText(false))
-        assertNotContainEspooText(
-            emailMessageProvider.getDecisionEmailText(
-                ChildId(UUID.randomUUID()),
-                AssistanceNeedDecisionId(UUID.randomUUID())
-            )
-        )
-        assertNotContainEspooText(
-            emailMessageProvider.getDecisionEmailHtml(
-                ChildId(UUID.randomUUID()),
-                AssistanceNeedDecisionId(UUID.randomUUID())
-            )
-        )
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("contents")
+    fun testContentDoNotContainEspooText(name: String, content: String) {
+        assertNotContainEspooText(content)
     }
+
+    fun contents(): Stream<Arguments> = listOf(
+        Arguments.of(
+            "getDaycareApplicationReceivedEmailText",
+            emailMessageProvider.getDaycareApplicationReceivedEmailText()
+        ),
+        Arguments.of(
+            "getDaycareApplicationReceivedEmailHtml",
+            emailMessageProvider.getDaycareApplicationReceivedEmailHtml()
+        ),
+        Arguments.of(
+            "getClubApplicationReceivedEmailText",
+            emailMessageProvider.getClubApplicationReceivedEmailText()
+        ),
+        Arguments.of(
+            "getClubApplicationReceivedEmailHtml",
+            emailMessageProvider.getClubApplicationReceivedEmailHtml()
+        ),
+        Arguments.of(
+            "getPendingDecisionEmailText",
+            emailMessageProvider.getPendingDecisionEmailText()
+        ),
+        Arguments.of(
+            "getPendingDecisionEmailHtml",
+            emailMessageProvider.getPendingDecisionEmailHtml()
+        ),
+        Arguments.of(
+            "getPreschoolApplicationReceivedEmailHtmlWithinApplicationPeriodTrue",
+            emailMessageProvider.getPreschoolApplicationReceivedEmailHtml(true)
+        ),
+        Arguments.of(
+            "getPreschoolApplicationReceivedEmailTextWithinApplicationPeriodTrue",
+            emailMessageProvider.getPreschoolApplicationReceivedEmailText(true)
+        ),
+        Arguments.of(
+            "getPreschoolApplicationReceivedEmailHtmlWithinApplicationPeriodFalse",
+            emailMessageProvider.getPreschoolApplicationReceivedEmailHtml(false)
+        ),
+        Arguments.of(
+            "getPreschoolApplicationReceivedEmailTextWithinApplicationPeriodFalse",
+            emailMessageProvider.getPreschoolApplicationReceivedEmailText(false)
+        ),
+        Arguments.of(
+            "getDecisionEmailText",
+            emailMessageProvider.getDecisionEmailText(
+                ChildId(UUID.randomUUID()), AssistanceNeedDecisionId(UUID.randomUUID())
+            )
+        ),
+        Arguments.of(
+            "getDecisionEmailHtml",
+            emailMessageProvider.getDecisionEmailHtml(
+                ChildId(UUID.randomUUID()), AssistanceNeedDecisionId(UUID.randomUUID())
+            )
+        )
+    )
+        .stream()
 
     private fun assertNotContainEspooText(message: String) {
         assertThat(message.also(::println))
