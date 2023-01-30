@@ -181,6 +181,7 @@ private val validAssistanceNeedDecision = AssistanceNeedDecision(
     otherRepresentativeDetails = null,
     assistanceLevels = setOf(AssistanceLevel.ENHANCED_ASSISTANCE),
     motivationForDecision = null,
+    annulmentReason = "",
     hasDocument = false
 )
 
