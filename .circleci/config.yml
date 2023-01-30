@@ -628,7 +628,7 @@ jobs:
       - restore_service_gradle
       - run:
           working_directory: *workspace_service
-          command: ./gradlew assemble
+          command: ./gradlew --build-cache assemble testClasses
       - store_service_gradle
       - store_service_build_cache
       - save:
@@ -645,7 +645,7 @@ jobs:
           command: PGPASSWORD=postgres psql -U postgres -h localhost -p 15432 -f "evaka/compose/db-integration-test/init-evaka-it.sql"
       - run:
           working_directory: *workspace_service
-          command: ./gradlew check
+          command: ./gradlew --offline --build-cache check
       - store_artifacts:
           path: /home/circleci/repo/service/build/reports/
 
