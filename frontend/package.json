@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "type-check": "tsc -b .",
-    "e2e-playwright": "jest --testTimeout 60000 --runInBand src/e2e/specs",
-    "e2e-ci-playwright": "LANG=fi-FI LANGUAGE=fi_FI BASE_URL=${BASE_URL:-http://evaka-proxy:8080} jest --testTimeout 60000 --runInBand --bail 1 --retries=2 src/e2e/specs"
+    "test": "jest src/e2e/specs/**/*translations.spec.ts",
+    "e2e-playwright": "jest --testTimeout 60000 --runInBand src/e2e/specs --testPathIgnorePatterns src/e2e/specs/**/*translations.spec.ts",
+    "e2e-ci-playwright": "LANG=fi-FI LANGUAGE=fi_FI BASE_URL=${BASE_URL:-http://evaka-proxy:8080} jest --testTimeout 60000 --runInBand --bail 1 --retries=2 src/e2e/specs --testPathIgnorePatterns src/e2e/specs/**/*translations.spec.ts"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",

@@ -189,6 +189,34 @@ commands:
             git config user.email "89396184+trevaka-ci@users.noreply.github.com"
             git config user.name "trevaka-ci"
 
+  frontend_install:
+    steps:
+      - restore_cache:
+          name: Restore e2e yarn cache
+          keys:
+            - yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
+            - yarn-cache-e2e-v3-
+            - yarn-cache-e2e-
+      - restore_cache:
+          name: Restore playwright browser cache
+          keys:
+            - playwright-browser-cache-v1-{{ checksum "frontend/yarn.lock" }}
+            - playwright-browser-cache-v1-
+            - playwright-browser-cache-
+      - run:
+          working_directory: *workspace_tre_frontend
+          command: yarn install --immutable
+      - save_cache:
+          name: Store playwright browser cache
+          key: playwright-browser-cache-v1-{{ checksum "frontend/yarn.lock" }}
+          paths:
+            - /home/circleci/.cache/ms-playwright
+      - save_cache:
+          name: Store e2e yarn cache
+          key: yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
+          paths:
+            - frontend/.yarn/cache
+
   build_frontend:
     steps:
       - run:
@@ -313,31 +341,7 @@ commands:
           command: |
             CI=true LOCAL_DIR='../evaka/frontend' ./compose-e2e up -d --build
       - restore_frontend_node_modules
-      - restore_cache:
-          name: Restore e2e yarn cache
-          keys:
-            - yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
-            - yarn-cache-e2e-v3-
-            - yarn-cache-e2e-
-      - restore_cache:
-          name: Restore playwright browser cache
-          keys:
-            - playwright-browser-cache-v1-{{ checksum "frontend/yarn.lock" }}
-            - playwright-browser-cache-v1-
-            - playwright-browser-cache-
-      - run:
-          working_directory: *workspace_tre_frontend
-          command: yarn install --immutable
-      - save_cache:
-          name: Store playwright browser cache
-          key: playwright-browser-cache-v1-{{ checksum "frontend/yarn.lock" }}
-          paths:
-            - /home/circleci/.cache/ms-playwright
-      - save_cache:
-          name: Store e2e yarn cache
-          key: yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
-          paths:
-            - frontend/.yarn/cache
+      - frontend_install
       - restore_cache:
           name: Restore Docker image from cache
           key: playwright-image-v2-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}
@@ -552,6 +556,28 @@ jobs:
             - /home/circleci/.npm/sentry-cli
       - store_frontend_node_modules
 
+  frontend_test:
+    executor: nodejs_executor
+    resource_class: medium+
+    steps:
+      - restore_repo
+      - restore_frontend_node_modules
+      - restore:
+          path: customizations
+      - frontend_install
+      - run:
+          working_directory: *workspace_tre_frontend
+          command: yarn test
+      - run:
+          name: yarn lint
+          working_directory: *workspace_evaka_frontend
+          command: |
+            echo 'src/*' >> .eslintignore
+            echo '!src/lib-customizations' >> .eslintignore
+            echo 'src/lib-customizations/*' >> .eslintignore
+            echo '!src/lib-customizations/tampere' >> .eslintignore
+            yarn lint
+
   frontend_build:
     executor: nodejs_executor
     resource_class: medium+
@@ -563,15 +589,6 @@ jobs:
       - build_frontend
       - save:
           path: evaka/frontend/dist
-      - run:
-          name: yarn lint
-          working_directory: *workspace_evaka_frontend
-          command: |
-            echo 'src/*' >> .eslintignore
-            echo '!src/lib-customizations' >> .eslintignore
-            echo 'src/lib-customizations/*' >> .eslintignore
-            echo '!src/lib-customizations/tampere' >> .eslintignore
-            yarn lint
 
   frontend_upload_archive:
     <<: *default_config
@@ -798,6 +815,9 @@ workflows:
       - frontend_dependencies:
           requires:
             - fetch_private_dependencies
+      - frontend_test:
+          requires:
+            - frontend_dependencies
       - frontend_build:
           requires:
             - frontend_dependencies
@@ -868,6 +888,7 @@ workflows:
           requires:
             - check_licenses
             - apigw_push_image
+            - frontend_test
             - frontend_upload_archive
             - proxy_push_image
             - service_test
@@ -884,6 +905,7 @@ workflows:
           requires:
             - check_licenses
             - apigw_push_image
+            - frontend_test
             - frontend_upload_archive
             - proxy_push_image
             - service_test
