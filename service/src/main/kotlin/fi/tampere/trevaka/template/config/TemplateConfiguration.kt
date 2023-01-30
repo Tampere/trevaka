@@ -4,6 +4,8 @@
 
 package fi.tampere.trevaka.template.config
 
+import fi.espoo.evaka.decision.DecisionType
+import fi.espoo.evaka.invoicing.service.DocumentLang
 import fi.espoo.evaka.shared.template.ITemplateProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -16,6 +18,17 @@ class TemplateConfiguration {
 }
 
 internal class TrevakaTemplateProvider : ITemplateProvider {
+    override fun getLocalizedFilename(type: DecisionType, lang: DocumentLang): String =
+        when (type) {
+            DecisionType.CLUB -> "Kerhopäätös"
+            DecisionType.DAYCARE,
+            DecisionType.DAYCARE_PART_TIME -> "Varhaiskasvatuspäätös"
+            DecisionType.PRESCHOOL -> "Esiopetuspäätös"
+            DecisionType.PRESCHOOL_DAYCARE,
+            DecisionType.PRESCHOOL_CLUB -> "Esiopetusta_täydentävän_toiminnan_päätös"
+            DecisionType.PREPARATORY_EDUCATION -> throw Error("Not supported")
+        }
+
     override fun getFeeDecisionPath(): String = "tampere/fee-decision/decision"
     override fun getVoucherValueDecisionPath(): String = "tampere/fee-decision/voucher-value-decision"
     override fun getClubDecisionPath(): String = "tampere/club/decision"
