@@ -4,15 +4,18 @@
 
 package fi.tampere.trevaka.email
 
+import fi.espoo.evaka.daycare.domain.Language
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
 import fi.espoo.evaka.shared.AssistanceNeedDecisionId
 import fi.espoo.evaka.shared.ChildId
+import fi.espoo.evaka.shared.domain.FiniteDateRange
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import org.springframework.beans.factory.annotation.Autowired
+import java.time.LocalDate
 import java.util.UUID
 import java.util.stream.Stream
 
@@ -79,6 +82,20 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
             emailMessageProvider.getDecisionEmailHtml(
                 ChildId(UUID.randomUUID()), AssistanceNeedDecisionId(UUID.randomUUID())
             )
+        ),
+        Arguments.of(
+            "missingReservationsNotificationText",
+            emailMessageProvider.missingReservationsNotification(
+                Language.fi,
+                LocalDate.of(2023, 2, 13).let { FiniteDateRange(it, it.plusDays(6)) }
+            ).text
+        ),
+        Arguments.of(
+            "missingReservationsNotificationHtml",
+            emailMessageProvider.missingReservationsNotification(
+                Language.fi,
+                LocalDate.of(2023, 2, 13).let { FiniteDateRange(it, it.plusDays(6)) }
+            ).html
         )
     )
         .stream()
