@@ -89,6 +89,9 @@ const customizations: EmployeeCustomizations = {
         }
       },
       common: {
+        careTypeLabels: {
+          'connected-daycare': 'Täydentävä'
+        },
         types: {
           PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus',
           PREPARATORY_DAYCARE: 'Täydentävä varhaiskasvatus'
