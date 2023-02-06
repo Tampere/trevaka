@@ -5,13 +5,11 @@
 package fi.tampere.trevaka
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.ConstructorBinding
 import java.time.Month
 
 /**
  * All trevaka-specific configuration properties.
  */
-@ConstructorBinding
 @ConfigurationProperties(prefix = "trevaka", ignoreUnknownFields = false)
 data class TrevakaProperties(
     val ipaas: IpaasProperties,
