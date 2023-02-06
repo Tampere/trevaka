@@ -23,6 +23,7 @@ import fi.tampere.messages.sapsd.salesorder.v11.Text
 import fi.tampere.services.sapsd.salesorder.v1.SendSalesOrderRequest
 import fi.tampere.trevaka.InvoiceProperties
 import fi.tampere.trevaka.invoice.config.findProduct
+import jakarta.xml.bind.JAXBIntrospector
 import mu.KotlinLogging
 import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.client.SoapFaultClientException
@@ -33,7 +34,6 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
-import javax.xml.bind.JAXBIntrospector
 import javax.xml.datatype.DatatypeFactory
 import javax.xml.datatype.XMLGregorianCalendar
 

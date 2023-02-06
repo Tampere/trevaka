@@ -336,6 +336,7 @@ const customizations: EmployeeCustomizations = {
       },
       reports: {
         decisions: {
+          connectedDaycareOnly: 'Myöhemmin haetun täydentävän päätöksiä',
           preschoolDaycare: 'Esiopetus+täydentävä päätöksiä',
           preparatoryDaycare: 'Valmistava+täydentävä päätöksiä'
         },

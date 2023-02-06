@@ -8,6 +8,7 @@ import fi.espoo.evaka.shared.auth.AuthenticatedUser
 import fi.espoo.evaka.shared.auth.AuthenticatedUserType
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.Forbidden
+import jakarta.servlet.http.HttpServletRequest
 import mu.KotlinLogging
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import javax.servlet.http.HttpServletRequest
 
 private val logger = KotlinLogging.logger {}
 

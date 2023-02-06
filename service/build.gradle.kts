@@ -9,9 +9,19 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven("https://build.shibboleth.net/maven/releases") {
+        content {
+            includeGroup("net.shibboleth")
+            includeGroup("net.shibboleth.utilities")
+            includeGroup("org.opensaml")
+        }
+    }
 }
 
 dependencies {
+    xjcTool("com.sun.xml.bind:jaxb-xjc:3.0.2")
+    xjcTool("com.sun.xml.bind:jaxb-impl:3.0.2")
+
     implementation(platform(":evaka-bom"))
     testImplementation(platform(":evaka-bom"))
 
@@ -23,7 +33,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-web-services")
 
-    implementation("javax.xml.bind:jaxb-api")
     implementation("org.apache.httpcomponents:httpclient")
     implementation("com.github.kittinunf.fuel:fuel")
     implementation("org.jdbi:jdbi3-core")
