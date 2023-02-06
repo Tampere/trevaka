@@ -233,19 +233,6 @@ commands:
             export APP_COMMIT="$CIRCLE_SHA1"
             ICONS=pro yarn build
 
-  load_base_image:
-    steps:
-      - restore:
-          path: evaka-base.tar
-      - restore:
-          path: evaka-yarn.tar
-      - run:
-          name: Load base images
-          working_directory: *workspace_root
-          command: |
-            docker load -i evaka-base.tar
-            docker load -i evaka-yarn.tar
-
   build_docker_image:
     parameters:
       image:
@@ -471,7 +458,7 @@ jobs:
 
   # BUILD JOBS
 
-  build_base_image:
+  apigw_build_image:
     executor: base_executor
     resource_class: medium
     steps:
@@ -486,27 +473,6 @@ jobs:
           name: Build base image
           working_directory: *workspace_evaka_base
           command: docker build -t evaka-yarn -f yarn.Dockerfile .
-      - run:
-          name: Save base image
-          working_directory: *workspace_root
-          command: docker save evaka-base > evaka-base.tar
-      - run:
-          name: Save base image
-          working_directory: *workspace_root
-          command: docker save evaka-yarn > evaka-yarn.tar
-      - save:
-          path: evaka-base.tar
-      - save:
-          path: evaka-yarn.tar
-
-  apigw_build_image:
-    executor: base_executor
-    resource_class: medium
-    steps:
-      - restore_repo
-      - setup_authenticated_remote_docker:
-          docker_layer_caching: true
-      - load_base_image
       - build_docker_image:
           image: trevaka/api-gateway
           dir: *workspace_apigw
@@ -673,12 +639,12 @@ jobs:
       - restore_repo
       - restore:
           path: service/build/libs/trevaka-service.jar
-      - setup_authenticated_remote_docker
+      - setup_authenticated_remote_docker:
+          docker_layer_caching: true
       - run:
           name: Unzip executable
           working_directory: *workspace_service
           command: unzip -q build/libs/trevaka-service.jar -d target
-      - load_base_image
       - build_docker_image:
           image: trevaka/service
           dir: *workspace_service
@@ -799,13 +765,10 @@ workflows:
       - check_licenses:
           requires:
             - checkout_repo
-      - build_base_image:
-          requires:
-            - checkout_repo
 
       - apigw_build_image:
           requires:
-            - build_base_image
+            - checkout_repo
       - apigw_push_image:
           context:
             - trevaka-utility
@@ -856,7 +819,6 @@ workflows:
             - service_build
       - service_build_image:
           requires:
-            - build_base_image
             - service_build
       - service_push_image:
           context:
