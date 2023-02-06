@@ -2,15 +2,43 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-FROM evaka-base:latest
+FROM ubuntu:22.04
 
-USER root
-RUN apt-get update \
- && apt-get -y --no-install-recommends install \
-       curl \
-       openjdk-17-jre-headless \
-       jq \
- && rm -rf /var/lib/apt/lists/*
+LABEL maintainer="https://github.com/tampere/trevaka"
+
+# Increment this if we ever explicitly want to e.g. run apt-get upgrade
+ARG CACHE_BUST=2022-11-08
+
+# Use bash instead of dash
+SHELL ["/bin/bash", "-c"]
+
+# Install required packages and update time zone information
+ENV LC_ALL C.UTF-8
+ENV LANG C.UTF-8
+ENV LANGUAGE C.UTF-8
+RUN set -euxo pipefail \
+    && apt-get update \
+    && apt-get -y dist-upgrade \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        tzdata \
+        ca-certificates \
+        curl \
+        openjdk-17-jre-headless \
+        jq \
+    && ln -fs /usr/share/zoneinfo/Europe/Helsinki /etc/localtime \
+    && dpkg-reconfigure --frontend noninteractive tzdata \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set evaka username
+ENV USERNAME evaka
+ENV HOME_DIR /home/${USERNAME}
+ENV USER_ID 1000
+
+# Create a new user named evaka which should be used to run any software.
+RUN adduser ${USERNAME} --gecos "" -q --home ${HOME_DIR} --uid ${USER_ID} --disabled-password
+
+# Used for downloading keys from S3
+ADD --chown=evaka:evaka https://github.com/espoon-voltti/s3-downloader/releases/download/v1.3.0/s3downloader-linux-amd64 /usr/local/bin/s3download
 
 ARG DD_JAVA_AGENT_VERSION="1.4.0"
 ARG DD_JAVA_AGENT_SHA256="a8fcc0b614d47872a98cf1fe3ab099ec626935b5d5027a873ca3e47ca2ed3a65"

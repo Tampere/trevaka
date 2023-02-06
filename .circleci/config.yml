@@ -673,12 +673,12 @@ jobs:
       - restore_repo
       - restore:
           path: service/build/libs/trevaka-service.jar
-      - setup_authenticated_remote_docker
+      - setup_authenticated_remote_docker:
+          docker_layer_caching: true
       - run:
           name: Unzip executable
           working_directory: *workspace_service
           command: unzip -q build/libs/trevaka-service.jar -d target
-      - load_base_image
       - build_docker_image:
           image: trevaka/service
           dir: *workspace_service
@@ -856,7 +856,6 @@ workflows:
             - service_build
       - service_build_image:
           requires:
-            - build_base_image
             - service_build
       - service_push_image:
           context:
