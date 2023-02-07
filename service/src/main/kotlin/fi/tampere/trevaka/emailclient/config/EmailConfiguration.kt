@@ -4,10 +4,12 @@
 
 package fi.tampere.trevaka.emailclient.config
 
+import fi.espoo.evaka.EvakaEnv
 import fi.espoo.evaka.daycare.domain.Language
 import fi.espoo.evaka.emailclient.EmailContent
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
-import fi.espoo.evaka.shared.AssistanceNeedDecisionId
+import fi.espoo.evaka.messaging.MessageThreadStub
+import fi.espoo.evaka.messaging.MessageType
 import fi.espoo.evaka.shared.ChildId
 import fi.espoo.evaka.shared.domain.FiniteDateRange
 import org.springframework.context.annotation.Bean
@@ -22,17 +24,48 @@ import java.util.Locale
 class EmailConfiguration {
 
     @Bean
-    fun emailMessageProvider(): IEmailMessageProvider = EmailMessageProvider()
+    fun emailMessageProvider(env: EvakaEnv): IEmailMessageProvider = EmailMessageProvider(env)
 }
 
-internal class EmailMessageProvider() : IEmailMessageProvider {
-    override val subjectForPendingDecisionEmail: String = "Toimenpiteitäsi odotetaan"
-    override val subjectForClubApplicationReceivedEmail: String = "Hakemus vastaanotettu"
-    override val subjectForDaycareApplicationReceivedEmail: String = "Hakemus vastaanotettu"
-    override val subjectForPreschoolApplicationReceivedEmail: String = "Hakemus vastaanotettu"
-    override val subjectForDecisionEmail: String = "Päätös eVakassa"
+internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessageProvider {
+    private fun baseUrl(@Suppress("UNUSED_PARAMETER") language: Language) = env.frontendBaseUrlFi
+    private val subjectForPendingDecisionEmail: String = "Toimenpiteitäsi odotetaan"
+    private val subjectForClubApplicationReceivedEmail: String = "Hakemus vastaanotettu"
+    private val subjectForDaycareApplicationReceivedEmail: String = "Hakemus vastaanotettu"
+    private val subjectForPreschoolApplicationReceivedEmail: String = "Hakemus vastaanotettu"
+    private val subjectForDecisionEmail: String = "Päätös eVakassa"
 
-    override fun getPendingDecisionEmailHtml(): String {
+    override fun pendingDecisionNotification(language: Language): EmailContent = EmailContent(
+        subject = subjectForPendingDecisionEmail,
+        text = getPendingDecisionEmailText(),
+        html = getPendingDecisionEmailHtml()
+    )
+
+    override fun clubApplicationReceived(language: Language): EmailContent = EmailContent(
+        subject = subjectForClubApplicationReceivedEmail,
+        text = getClubApplicationReceivedEmailText(),
+        html = getClubApplicationReceivedEmailHtml()
+    )
+
+    override fun daycareApplicationReceived(language: Language): EmailContent = EmailContent(
+        subject = subjectForDaycareApplicationReceivedEmail,
+        text = getDaycareApplicationReceivedEmailText(),
+        html = getDaycareApplicationReceivedEmailHtml(),
+    )
+
+    override fun preschoolApplicationReceived(language: Language, withinApplicationPeriod: Boolean): EmailContent = EmailContent(
+        subject = subjectForPreschoolApplicationReceivedEmail,
+        text = getPreschoolApplicationReceivedEmailText(),
+        html = getPreschoolApplicationReceivedEmailHtml(),
+    )
+
+    override fun assistanceNeedDecisionNotification(language: Language): EmailContent = EmailContent(
+        subject = subjectForDecisionEmail,
+        text = getDecisionEmailText(),
+        html = getDecisionEmailHtml(),
+    )
+
+    private fun getPendingDecisionEmailHtml(): String {
         return """
             <p>Olet saanut päätöksen/ilmoituksen Tampereen varhaiskasvatukselta, joka odottaa toimenpiteitäsi. Myönnetty varhaiskasvatus-/kerhopaikka tulee hyväksyä tai hylätä kahden viikon sisällä päätöksen saapumisesta.</p>
             
@@ -42,7 +75,7 @@ internal class EmailMessageProvider() : IEmailMessageProvider {
         """.trimIndent()
     }
 
-    override fun getPendingDecisionEmailText(): String {
+    private fun getPendingDecisionEmailText(): String {
         return """
             Olet saanut päätöksen/ilmoituksen Tampereen varhaiskasvatukselta, joka odottaa toimenpiteitäsi. Myönnetty varhaiskasvatus-/kerhopaikka tulee hyväksyä tai hylätä kahden viikon sisällä päätöksen saapumisesta.
             
@@ -52,7 +85,7 @@ internal class EmailMessageProvider() : IEmailMessageProvider {
         """.trimIndent()
     }
 
-    override fun getClubApplicationReceivedEmailHtml(): String {
+    private fun getClubApplicationReceivedEmailHtml(): String {
         return """
             <p>Hyvä huoltaja,</p>
             
@@ -80,7 +113,7 @@ internal class EmailMessageProvider() : IEmailMessageProvider {
         """.trimIndent()
     }
 
-    override fun getClubApplicationReceivedEmailText(): String {
+    private fun getClubApplicationReceivedEmailText(): String {
         return """
             Hyvä huoltaja, 
 
@@ -106,7 +139,7 @@ internal class EmailMessageProvider() : IEmailMessageProvider {
         """.trimIndent()
     }
 
-    override fun getDaycareApplicationReceivedEmailHtml(): String {
+    private fun getDaycareApplicationReceivedEmailHtml(): String {
         return """
             <p>Hyvä huoltaja,</p>
             
@@ -143,7 +176,7 @@ internal class EmailMessageProvider() : IEmailMessageProvider {
         """.trimIndent()
     }
 
-    override fun getDaycareApplicationReceivedEmailText(): String {
+    private fun getDaycareApplicationReceivedEmailText(): String {
         return """
             Hyvä huoltaja,
 
@@ -178,7 +211,7 @@ internal class EmailMessageProvider() : IEmailMessageProvider {
         """.trimIndent()
     }
 
-    override fun getPreschoolApplicationReceivedEmailHtml(withinApplicationPeriod: Boolean): String {
+    private fun getPreschoolApplicationReceivedEmailHtml(): String {
         return """
             <p>Hyvä huoltaja,</p>
 
@@ -203,7 +236,7 @@ internal class EmailMessageProvider() : IEmailMessageProvider {
         """.trimIndent()
     }
 
-    override fun getPreschoolApplicationReceivedEmailText(withinApplicationPeriod: Boolean): String {
+    private fun getPreschoolApplicationReceivedEmailText(): String {
         return """
             Hyvä huoltaja,
 
@@ -226,13 +259,13 @@ internal class EmailMessageProvider() : IEmailMessageProvider {
         """.trimIndent()
     }
 
-    override fun getDecisionEmailHtml(childId: ChildId, decisionId: AssistanceNeedDecisionId): String = """
+    private fun getDecisionEmailHtml(): String = """
         <p>Hyvä(t) huoltaja(t),</p>
         <p>Lapsellenne on tehty päätös.</p>
         <p>Päätös on nähtävissä eVakassa osoitteessa <a href="https://varhaiskasvatus.tampere.fi/">https://varhaiskasvatus.tampere.fi/</a>.</p>
     """.trimIndent()
 
-    override fun getDecisionEmailText(childId: ChildId, decisionId: AssistanceNeedDecisionId): String = """
+    private fun getDecisionEmailText(): String = """
         Hyvä(t) huoltaja(t),
 
         Lapsellenne on tehty päätös.
@@ -263,6 +296,109 @@ There are missing attendance reservations for the week starting $start. Please m
 <hr>
 <p>There are missing attendance reservations for the week starting $start. Please mark them as soon as possible.</p>
             """
+                .trimIndent()
+        )
+    }
+
+    override fun messageNotification(language: Language, thread: MessageThreadStub): EmailContent {
+        val messageUrl = "${baseUrl(language)}/messages/${thread.id}"
+        val (typeFi, typeEn) =
+            when (thread.type) {
+                MessageType.MESSAGE ->
+                    if (thread.urgent) Pair("kiireellinen viesti", "urgent message")
+                    else Pair("viesti", "message")
+                MessageType.BULLETIN ->
+                    if (thread.urgent) Pair("kiireellinen tiedote", "urgent bulletin")
+                    else Pair("tiedote", "bulletin")
+            }
+        return EmailContent(
+            subject = "Uusi $typeFi eVakassa / New $typeEn in eVaka",
+            text =
+            """
+                Sinulle on saapunut uusi $typeFi eVakaan. Lue viesti ${if (thread.urgent) "mahdollisimman pian " else ""}täältä: $messageUrl
+
+                Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.
+
+                -----
+
+                You have received a new $typeEn in eVaka. Read the message ${if (thread.urgent) "as soon as possible " else ""}here: $messageUrl
+
+                This is an automatic message from the eVaka system. Do not reply to this message.
+        """
+                .trimIndent(),
+            html =
+            """
+                <p>Sinulle on saapunut uusi $typeFi eVakaan. Lue viesti ${if (thread.urgent) "mahdollisimman pian " else ""}täältä: <a href="$messageUrl">$messageUrl</a></p>
+                <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+
+                <hr>
+
+                <p>You have received a new $typeEn in eVaka. Read the message ${if (thread.urgent) "as soon as possible " else ""}here: <a href="$messageUrl">$messageUrl</a></p>
+                <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+        """
+                .trimIndent()
+        )
+    }
+
+    override fun vasuNotification(language: Language, childId: ChildId): EmailContent {
+        val documentsUrl = "${baseUrl(language)}/children/$childId"
+        return EmailContent(
+            subject = "Uusi dokumentti eVakassa / New document in eVaka",
+            text =
+            """
+                Sinulle on saapunut uusi dokumentti eVakaan. Lue dokumentti täältä: $documentsUrl
+
+                Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.
+
+                -----
+
+                You have received a new eVaka document. Read the document here: $documentsUrl
+
+                This is an automatic message from the eVaka system. Do not reply to this message.
+        """
+                .trimIndent(),
+            html =
+            """
+                <p>Sinulle on saapunut uusi dokumentti eVakaan. Lue dokumentti täältä: <a href="$documentsUrl">$documentsUrl</a></p>
+                <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+
+                <hr>
+
+                <p>You have received a new eVaka document. Read the document here: <a href="$documentsUrl">$documentsUrl</a></p>
+                <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+        """
+                .trimIndent()
+        )
+    }
+
+    override fun pedagogicalDocumentNotification(language: Language): EmailContent {
+        val documentsUrl = "${baseUrl(language)}/pedagogical-documents"
+        return EmailContent(
+            subject =
+            "Uusi pedagoginen dokumentti eVakassa / New pedagogical document in eVaka",
+            text =
+            """
+                Sinulle on saapunut uusi pedagoginen dokumentti eVakaan. Lue dokumentti täältä: $documentsUrl
+
+                Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.
+
+                -----
+
+                You have received a new eVaka pedagogical document. Read the document here: $documentsUrl
+
+                This is an automatic message from the eVaka system. Do not reply to this message.
+        """
+                .trimIndent(),
+            html =
+            """
+                <p>Sinulle on saapunut uusi pedagoginen dokumentti eVakaan. Lue dokumentti täältä: <a href="$documentsUrl">$documentsUrl</a></p>
+                <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+
+                <hr>
+
+                <p>You have received a new eVaka pedagogical document. Read the document here: <a href="$documentsUrl">$documentsUrl</a></p>
+                <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+        """
                 .trimIndent()
         )
     }
