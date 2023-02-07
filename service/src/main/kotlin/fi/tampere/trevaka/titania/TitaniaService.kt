@@ -160,7 +160,7 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                                 beginTime = arrived?.toLocalTime(),
                                 beginReasonCode = attendance.type.asTitaniaReasonCode(),
                                 endTime = departed?.toLocalTime(),
-                                endReasonCode = null,
+                                endReasonCode = attendance.type.asTitaniaReasonCode(),
                             )
                         }
                     )

@@ -21,7 +21,7 @@
                 "beginTime": "0630",
                 "beginReasonCode": "YT",
                 "endTime": "1200",
-                "endReasonCode": null
+                "endReasonCode": "YT"
               }
             ]
           }
@@ -50,7 +50,7 @@
                 "beginTime": "1015",
                 "beginReasonCode": "TA",
                 "endTime": "1715",
-                "endReasonCode": null
+                "endReasonCode": "TA"
               }
             ]
           }

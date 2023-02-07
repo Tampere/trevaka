@@ -555,7 +555,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             beginTime = LocalTime.of(7, 42),
                                             beginReasonCode = "YT",
                                             endTime = LocalTime.of(8, 0),
-                                            endReasonCode = null,
+                                            endReasonCode = "YT",
                                         ),
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 19),

@@ -152,6 +152,7 @@ internal val titaniaGetResponseValidExampleData = GetStampedWorkingTimeEventsRes
                                 beginTime = LocalTime.of(6, 30),
                                 endTime = LocalTime.of(12, 0),
                                 beginReasonCode = "YT",
+                                endReasonCode = "YT",
                             ),
                         )
                     )
@@ -176,6 +177,7 @@ internal val titaniaGetResponseValidExampleData = GetStampedWorkingTimeEventsRes
                                 beginTime = LocalTime.of(10, 15),
                                 beginReasonCode = "TA",
                                 endTime = LocalTime.of(17, 15),
+                                endReasonCode = "TA",
                             ),
                         )
                     )
