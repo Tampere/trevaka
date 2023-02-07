@@ -5,9 +5,12 @@
 package fi.tampere.trevaka.email
 
 import fi.espoo.evaka.daycare.domain.Language
+import fi.espoo.evaka.emailclient.EmailContent
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
-import fi.espoo.evaka.shared.AssistanceNeedDecisionId
+import fi.espoo.evaka.messaging.MessageThreadStub
+import fi.espoo.evaka.messaging.MessageType
 import fi.espoo.evaka.shared.ChildId
+import fi.espoo.evaka.shared.MessageThreadId
 import fi.espoo.evaka.shared.domain.FiniteDateRange
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
@@ -26,76 +29,64 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
 
     @ParameterizedTest(name = "{0}")
     @MethodSource("contents")
-    fun testContentDoNotContainEspooText(name: String, content: String) {
-        assertNotContainEspooText(content)
+    fun testContentDoNotContainEspooText(name: String, content: EmailContent) {
+        assertNotContainEspooText(content.subject)
+        assertNotContainEspooText(content.text)
+        assertNotContainEspooText(content.html)
     }
 
     fun contents(): Stream<Arguments> = listOf(
         Arguments.of(
-            "getDaycareApplicationReceivedEmailText",
-            emailMessageProvider.getDaycareApplicationReceivedEmailText()
+            "daycareApplicationReceived",
+            emailMessageProvider.daycareApplicationReceived(Language.fi)
         ),
         Arguments.of(
-            "getDaycareApplicationReceivedEmailHtml",
-            emailMessageProvider.getDaycareApplicationReceivedEmailHtml()
+            "clubApplicationReceived",
+            emailMessageProvider.clubApplicationReceived(Language.fi)
         ),
         Arguments.of(
-            "getClubApplicationReceivedEmailText",
-            emailMessageProvider.getClubApplicationReceivedEmailText()
+            "pendingDecisionNotification",
+            emailMessageProvider.pendingDecisionNotification(Language.fi)
         ),
         Arguments.of(
-            "getClubApplicationReceivedEmailHtml",
-            emailMessageProvider.getClubApplicationReceivedEmailHtml()
+            "preschoolApplicationReceivedWithinApplicationPeriodTrue",
+            emailMessageProvider.preschoolApplicationReceived(Language.fi, true)
         ),
         Arguments.of(
-            "getPendingDecisionEmailText",
-            emailMessageProvider.getPendingDecisionEmailText()
+            "preschoolApplicationReceivedWithinApplicationPeriodFalse",
+            emailMessageProvider.preschoolApplicationReceived(Language.fi, false)
         ),
         Arguments.of(
-            "getPendingDecisionEmailHtml",
-            emailMessageProvider.getPendingDecisionEmailHtml()
+            "assistanceNeedDecisionNotification",
+            emailMessageProvider.assistanceNeedDecisionNotification(Language.fi)
         ),
         Arguments.of(
-            "getPreschoolApplicationReceivedEmailHtmlWithinApplicationPeriodTrue",
-            emailMessageProvider.getPreschoolApplicationReceivedEmailHtml(true)
-        ),
-        Arguments.of(
-            "getPreschoolApplicationReceivedEmailTextWithinApplicationPeriodTrue",
-            emailMessageProvider.getPreschoolApplicationReceivedEmailText(true)
-        ),
-        Arguments.of(
-            "getPreschoolApplicationReceivedEmailHtmlWithinApplicationPeriodFalse",
-            emailMessageProvider.getPreschoolApplicationReceivedEmailHtml(false)
-        ),
-        Arguments.of(
-            "getPreschoolApplicationReceivedEmailTextWithinApplicationPeriodFalse",
-            emailMessageProvider.getPreschoolApplicationReceivedEmailText(false)
-        ),
-        Arguments.of(
-            "getDecisionEmailText",
-            emailMessageProvider.getDecisionEmailText(
-                ChildId(UUID.randomUUID()), AssistanceNeedDecisionId(UUID.randomUUID())
-            )
-        ),
-        Arguments.of(
-            "getDecisionEmailHtml",
-            emailMessageProvider.getDecisionEmailHtml(
-                ChildId(UUID.randomUUID()), AssistanceNeedDecisionId(UUID.randomUUID())
-            )
-        ),
-        Arguments.of(
-            "missingReservationsNotificationText",
+            "missingReservationsNotification",
             emailMessageProvider.missingReservationsNotification(
                 Language.fi,
                 LocalDate.of(2023, 2, 13).let { FiniteDateRange(it, it.plusDays(6)) }
-            ).text
+            )
         ),
         Arguments.of(
-            "missingReservationsNotificationHtml",
-            emailMessageProvider.missingReservationsNotification(
+            "messageNotification",
+            emailMessageProvider.messageNotification(
                 Language.fi,
-                LocalDate.of(2023, 2, 13).let { FiniteDateRange(it, it.plusDays(6)) }
-            ).html
+                MessageThreadStub(
+                    id = MessageThreadId(UUID.randomUUID()),
+                    type = MessageType.MESSAGE,
+                    title = "Ensi viikolla uimaan",
+                    urgent = false,
+                    isCopy = false
+                )
+            )
+        ),
+        Arguments.of(
+            "vasuNotification",
+            emailMessageProvider.vasuNotification(Language.fi, ChildId(UUID.randomUUID()))
+        ),
+        Arguments.of(
+            "pedagogicalDocumentNotification",
+            emailMessageProvider.pedagogicalDocumentNotification(Language.fi)
         )
     )
         .stream()
