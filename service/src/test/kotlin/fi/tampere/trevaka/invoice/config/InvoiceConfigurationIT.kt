@@ -224,6 +224,8 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
         feeCoefficient = BigDecimal("1.00"),
         occupancyCoefficient = BigDecimal("1.00"),
         occupancyCoefficientUnder3y = BigDecimal("1.75"),
+        realizedOccupancyCoefficient = BigDecimal("1.00"),
+        realizedOccupancyCoefficientUnder3y = BigDecimal("1.75"),
         daycareHoursPerWeek = 35,
         contractDaysPerMonth = null,
         partDay = false,
