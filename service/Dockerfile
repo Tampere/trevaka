@@ -41,8 +41,8 @@ RUN adduser ${USERNAME} --gecos "" -q --home ${HOME_DIR} --uid ${USER_ID} --disa
 ADD --chown=evaka:evaka https://github.com/espoon-voltti/s3-downloader/releases/download/v1.3.0/s3downloader-linux-amd64 /usr/local/bin/s3download
 RUN chmod u+x /usr/local/bin/s3download
 
-ARG DD_JAVA_AGENT_VERSION="1.4.0"
-ARG DD_JAVA_AGENT_SHA256="a8fcc0b614d47872a98cf1fe3ab099ec626935b5d5027a873ca3e47ca2ed3a65"
+ARG DD_JAVA_AGENT_VERSION="1.7.0"
+ARG DD_JAVA_AGENT_SHA256="9c05cd65d927cd17ac4e298f3dfee941698828e7afd3cd11eed5a45039174e0b"
 
 RUN curl -sSfo /opt/dd-java-agent.jar "https://repo1.maven.org/maven2/com/datadoghq/dd-java-agent/${DD_JAVA_AGENT_VERSION}/dd-java-agent-${DD_JAVA_AGENT_VERSION}.jar" \
  && echo "${DD_JAVA_AGENT_SHA256}  /opt/dd-java-agent.jar" | sha256sum -c -
