@@ -38,8 +38,8 @@ FROM daycare CROSS JOIN generate_series(1, 3) AS r;
 INSERT INTO daycare_caretaker (group_id, amount, start_date, end_date)
 SELECT id, 3, start_date, end_date FROM daycare_group;
 
-INSERT INTO message_account (daycare_group_id)
-SELECT id FROM daycare_group;
+INSERT INTO message_account (daycare_group_id, type)
+SELECT id, 'GROUP'::message_account_type FROM daycare_group;
 
 INSERT INTO employee (first_name, last_name, email, roles) VALUES
     ('Päivi', 'Pääkäyttäjä', 'paivi.paakayttaja@tampere.fi', '{ADMIN, SERVICE_WORKER, FINANCE_ADMIN}'::user_role[]),
@@ -69,8 +69,8 @@ INSERT INTO daycare_acl (daycare_id, employee_id, role) VALUES
     ((SELECT id FROM daycare WHERE name = 'Päiväkoti A'), (SELECT id FROM employee WHERE first_name = 'Vallu'), 'EARLY_CHILDHOOD_EDUCATION_SECRETARY'),
     ((SELECT id FROM daycare WHERE name = 'Päiväkoti B'), (SELECT id FROM employee WHERE first_name = 'Vallu'), 'EARLY_CHILDHOOD_EDUCATION_SECRETARY');
 
-INSERT INTO message_account (employee_id)
-SELECT DISTINCT employee_id FROM daycare_acl;
+INSERT INTO message_account (employee_id, type)
+SELECT DISTINCT employee_id, 'PERSONAL'::message_account_type FROM daycare_acl;
 
 INSERT INTO fee_thresholds (
     valid_during,
