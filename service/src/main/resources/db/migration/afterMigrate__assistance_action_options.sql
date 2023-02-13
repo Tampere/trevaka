@@ -13,7 +13,8 @@ VALUES
     ('60', 'Osa-aikainen erityisopetus', 'Lapsi saa osa-aikaista erityisopetusta. Mikäli lapsi on integroidussa varhaiskasvatusryhmässä tai erityisryhmässä, tätä vaihtoehtoa ei valita.', 60),
     ('70', 'Veon tuki', 'Lapsen ryhmän henkilökunta saa veon tukea ja konsultaatiota ja/tai veo on samanaikaisopettajana lapsen ryhmässä. Mikäli lapsi on integroidussa varhaiskasvatusryhmässä tai erityisryhmässä, tätä vaihtoehtoa ei valita.', 70),
     ('80', 'Tulkitsemispalvelut', 'Lapsi saa tulkitsemispalveluita. Huoltajien kanssa käytettävät tulkkipalvelut eivät sisälly tähän.', 80),
-    ('90', 'Kuljetusetu', 'Lapsi on saanut päätöksen kuljetusedusta.', 90)
+    ('90', 'Kuljetusetu', 'Lapsi on saanut päätöksen kuljetusedusta.', 90),
+    ('100', 'Ryhmän pienennys', 'Ryhmän pienennys rakenteellisen tuen muotona eli lapsiryhmää pienennetään, jotta lasten tuki toteutuu tarkoituksenmukaisesti. Kirjaa myös tuen kerroin sille varattuun paikkaan.', 100)
 ON CONFLICT (value) DO
 UPDATE SET
     name_fi = EXCLUDED.name_fi,
