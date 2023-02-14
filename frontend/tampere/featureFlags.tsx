@@ -28,7 +28,6 @@ const features: Features = {
       serviceNeedOption: true
     },
     decisionDraftMultipleUnits: true,
-    groupsTableServiceNeeds: true,
     urgencyAttachments: false,
     preschool: true,
     preparatory: false,
@@ -53,7 +52,6 @@ const features: Features = {
       serviceNeedOption: true
     },
     decisionDraftMultipleUnits: true,
-    groupsTableServiceNeeds: true,
     urgencyAttachments: false,
     preschool: true,
     preparatory: false,
@@ -75,7 +73,6 @@ const features: Features = {
       serviceNeedOption: true
     },
     decisionDraftMultipleUnits: true,
-    groupsTableServiceNeeds: true,
     urgencyAttachments: false,
     preschool: true,
     preparatory: false,
