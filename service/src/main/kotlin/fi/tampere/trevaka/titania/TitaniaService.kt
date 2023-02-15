@@ -153,14 +153,14 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                     name = "${employee.lastName} ${employee.firstName}".uppercase(),
                     stampedWorkingTimeEvents = TitaniaStampedWorkingTimeEvents(
                         event = attendances.flatMap(::splitOvernight).sortedBy { it.arrived }.map { attendance ->
-                            val arrived = calculateFromPlans(employeePlans, attendance.arrived)
-                            val departed = calculateFromPlans(employeePlans, attendance.departed)
+                            val (arrived, arrivedFromPlan) = calculateFromPlans(employeePlans, attendance.arrived)
+                            val (departed, departedFromPlan) = calculateFromPlans(employeePlans, attendance.departed)
                             TitaniaStampedWorkingTimeEvent(
                                 date = attendance.arrived.toLocalDate(),
                                 beginTime = arrived?.toLocalTime(),
-                                beginReasonCode = attendance.type.asTitaniaReasonCode(),
+                                beginReasonCode = if (arrivedFromPlan) null else attendance.type.asTitaniaReasonCode(),
                                 endTime = departed?.toLocalTime(),
-                                endReasonCode = attendance.type.asTitaniaReasonCode(),
+                                endReasonCode = if (departedFromPlan) null else attendance.type.asTitaniaReasonCode(),
                             )
                         }
                     )
@@ -180,17 +180,17 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
         return response
     }
 
-    private fun calculateFromPlans(plans: List<StaffAttendancePlan>?, event: HelsinkiDateTime?): HelsinkiDateTime? {
+    private fun calculateFromPlans(plans: List<StaffAttendancePlan>?, event: HelsinkiDateTime?): Pair<HelsinkiDateTime?, Boolean> {
         if (event == null) {
-            return null
+            return Pair(null, false)
         }
         return plans?.firstNotNullOfOrNull { plan ->
             when {
-                event.durationSince(plan.startTime).abs() <= MAX_DRIFT -> plan.startTime
-                event.durationSince(plan.endTime).abs() <= MAX_DRIFT -> plan.endTime
+                event.durationSince(plan.startTime).abs() <= MAX_DRIFT -> Pair(plan.startTime, true)
+                event.durationSince(plan.endTime).abs() <= MAX_DRIFT -> Pair(plan.endTime, true)
                 else -> null
             }
-        } ?: event
+        } ?: Pair(event, false)
     }
 }
 
