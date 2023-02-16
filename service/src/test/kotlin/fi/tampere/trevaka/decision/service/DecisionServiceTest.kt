@@ -15,6 +15,7 @@ import fi.espoo.evaka.decision.DecisionUnit
 import fi.espoo.evaka.decision.createDecisionPdf
 import fi.espoo.evaka.identity.ExternalIdentifier
 import fi.espoo.evaka.invoicing.service.DocumentLang
+import fi.espoo.evaka.pdfgen.PdfGenerator
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.setting.SettingType
 import fi.espoo.evaka.shared.ApplicationId
@@ -25,7 +26,6 @@ import fi.espoo.evaka.shared.PersonId
 import fi.espoo.evaka.shared.ServiceNeedOptionId
 import fi.espoo.evaka.shared.message.IMessageProvider
 import fi.espoo.evaka.shared.template.ITemplateProvider
-import fi.espoo.voltti.pdfgen.PDFService
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.junit.jupiter.api.Test
 import org.junitpioneer.jupiter.cartesian.CartesianTest
@@ -49,7 +49,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
     private lateinit var templateProvider: ITemplateProvider
 
     @Autowired
-    private lateinit var pdfService: PDFService
+    private lateinit var pdfGenerator: PdfGenerator
 
     @CartesianTest
     fun createDecisionPdf(
@@ -68,7 +68,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
         val bytes = createDecisionPdf(
             messageProvider,
             templateProvider,
-            pdfService,
+            pdfGenerator,
             settings,
             validDecision(decisionType, validDecisionUnit(providerType)),
             guardian = validGuardian(),
@@ -105,7 +105,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
         val bytes = createDecisionPdf(
             messageProvider,
             templateProvider,
-            pdfService,
+            pdfGenerator,
             settings,
             validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.MUNICIPAL)),
             guardian = validGuardian(),
@@ -132,7 +132,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
         val bytes = createDecisionPdf(
             messageProvider,
             templateProvider,
-            pdfService,
+            pdfGenerator,
             mapOf(),
             validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.MUNICIPAL)),
             guardian = validGuardian(),
@@ -164,7 +164,7 @@ class DecisionServiceTest : AbstractIntegrationTest() {
         val bytes = createDecisionPdf(
             messageProvider,
             templateProvider,
-            pdfService,
+            pdfGenerator,
             settings,
             validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.MUNICIPAL)),
             guardian = validGuardian(true),
