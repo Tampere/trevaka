@@ -572,19 +572,19 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                     attendanceId = null,
                     employeeId = employeeId,
                     groupId = groupId,
-                    arrivalTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(7, 42)),
-                    departureTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(8, 2)),
+                    arrivalTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(8, 0)),
+                    departureTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(13, 10)),
                     occupancyCoefficient = BigDecimal("7.0"),
-                    type = StaffAttendanceType.OVERTIME,
+                    type = StaffAttendanceType.PRESENT,
                 )
                 tx.upsertStaffAttendance(
                     attendanceId = null,
                     employeeId = employeeId,
                     groupId = groupId,
-                    arrivalTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(8, 2)),
-                    departureTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(16, 3)),
+                    arrivalTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(13, 10)),
+                    departureTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(16, 11)),
                     occupancyCoefficient = BigDecimal("7.0"),
-                    type = StaffAttendanceType.PRESENT,
+                    type = StaffAttendanceType.OVERTIME,
                 )
             }
         }
@@ -624,17 +624,17 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                     event = listOf(
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 19),
-                                            beginTime = LocalTime.of(7, 42),
-                                            beginReasonCode = "YT",
-                                            endTime = LocalTime.of(8, 0),
+                                            beginTime = LocalTime.of(8, 0),
+                                            beginReasonCode = null,
+                                            endTime = LocalTime.of(13, 10),
                                             endReasonCode = null,
                                         ),
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 19),
-                                            beginTime = LocalTime.of(8, 0),
+                                            beginTime = LocalTime.of(13, 10),
                                             beginReasonCode = null,
-                                            endTime = LocalTime.of(16, 0),
-                                            endReasonCode = null
+                                            endTime = LocalTime.of(16, 11),
+                                            endReasonCode = "YT",
                                         )
                                     )
                                 )

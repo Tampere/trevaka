@@ -9,6 +9,7 @@ import fi.espoo.evaka.pis.NewEmployee
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
+import fi.espoo.evaka.shared.domain.HelsinkiDateTimeRange
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
 import java.time.Duration
@@ -153,8 +154,8 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                     name = "${employee.lastName} ${employee.firstName}".uppercase(),
                     stampedWorkingTimeEvents = TitaniaStampedWorkingTimeEvents(
                         event = attendances.flatMap(::splitOvernight).sortedBy { it.arrived }.map { attendance ->
-                            val (arrived, arrivedFromPlan) = calculateFromPlans(employeePlans, attendance.arrived)
-                            val (departed, departedFromPlan) = calculateFromPlans(employeePlans, attendance.departed)
+                            val (arrived, arrivedWithinPlan) = calculateFromPlans(employeePlans, attendance.arrived)
+                            val (departed, departedWithinPlan) = calculateFromPlans(employeePlans, attendance.departed)
                             TitaniaStampedWorkingTimeEvent(
                                 date = attendance.arrived.toLocalDate(),
                                 beginTime = arrived?.toLocalTime(),
@@ -162,16 +163,16 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                                     StaffAttendanceType.PRESENT -> null
                                     StaffAttendanceType.OTHER_WORK -> "TA"
                                     StaffAttendanceType.TRAINING -> "KO"
-                                    StaffAttendanceType.OVERTIME -> if (arrivedFromPlan) null else "YT"
-                                    StaffAttendanceType.JUSTIFIED_CHANGE -> if (arrivedFromPlan) null else "PM"
+                                    StaffAttendanceType.OVERTIME -> if (arrivedWithinPlan) null else "YT"
+                                    StaffAttendanceType.JUSTIFIED_CHANGE -> if (arrivedWithinPlan) null else "PM"
                                 },
                                 endTime = departed?.toLocalTime(),
                                 endReasonCode = when (attendance.type) {
                                     StaffAttendanceType.PRESENT -> null
                                     StaffAttendanceType.OTHER_WORK -> null
                                     StaffAttendanceType.TRAINING -> null
-                                    StaffAttendanceType.OVERTIME -> if (departedFromPlan) null else "YT"
-                                    StaffAttendanceType.JUSTIFIED_CHANGE -> if (departedFromPlan) null else "PM"
+                                    StaffAttendanceType.OVERTIME -> if (departedWithinPlan) null else "YT"
+                                    StaffAttendanceType.JUSTIFIED_CHANGE -> if (departedWithinPlan) null else "PM"
                                 },
                             )
                         }
@@ -202,7 +203,14 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                 event.durationSince(plan.endTime).abs() <= MAX_DRIFT -> Pair(plan.endTime, true)
                 else -> null
             }
-        } ?: Pair(event, false)
+        } ?: Pair(
+            event,
+            plans?.any { plan ->
+                HelsinkiDateTimeRange(plan.startTime, plan.endTime).contains(
+                    HelsinkiDateTimeRange(event, event)
+                )
+            } ?: false
+        )
     }
 }
 
