@@ -158,9 +158,21 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                             TitaniaStampedWorkingTimeEvent(
                                 date = attendance.arrived.toLocalDate(),
                                 beginTime = arrived?.toLocalTime(),
-                                beginReasonCode = if (arrivedFromPlan) null else attendance.type.asTitaniaReasonCode(),
+                                beginReasonCode = when (attendance.type) {
+                                    StaffAttendanceType.PRESENT -> null
+                                    StaffAttendanceType.OTHER_WORK -> "TA"
+                                    StaffAttendanceType.TRAINING -> "KO"
+                                    StaffAttendanceType.OVERTIME -> if (arrivedFromPlan) null else "YT"
+                                    StaffAttendanceType.JUSTIFIED_CHANGE -> if (arrivedFromPlan) null else "PM"
+                                },
                                 endTime = departed?.toLocalTime(),
-                                endReasonCode = if (departedFromPlan) null else attendance.type.asTitaniaReasonCode(),
+                                endReasonCode = when (attendance.type) {
+                                    StaffAttendanceType.PRESENT -> null
+                                    StaffAttendanceType.OTHER_WORK -> null
+                                    StaffAttendanceType.TRAINING -> null
+                                    StaffAttendanceType.OVERTIME -> if (departedFromPlan) null else "YT"
+                                    StaffAttendanceType.JUSTIFIED_CHANGE -> if (departedFromPlan) null else "PM"
+                                },
                             )
                         }
                     )

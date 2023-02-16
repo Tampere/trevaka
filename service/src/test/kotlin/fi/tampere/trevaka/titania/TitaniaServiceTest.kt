@@ -527,7 +527,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             beginTime = LocalTime.of(8, 0),
                                             beginReasonCode = "TA",
                                             endTime = LocalTime.of(15, 39),
-                                            endReasonCode = "TA",
+                                            endReasonCode = null,
                                         )
                                     )
                                 )
