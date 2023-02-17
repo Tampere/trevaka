@@ -4,6 +4,7 @@
 
 package fi.tampere.trevaka.titania
 
+import fi.espoo.evaka.attendance.RawAttendance
 import fi.espoo.evaka.attendance.StaffAttendanceType
 import fi.espoo.evaka.pis.NewEmployee
 import fi.espoo.evaka.shared.EmployeeId
@@ -154,25 +155,25 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                     name = "${employee.lastName} ${employee.firstName}".uppercase(),
                     stampedWorkingTimeEvents = TitaniaStampedWorkingTimeEvents(
                         event = attendances.flatMap(::splitOvernight).sortedBy { it.arrived }.map { attendance ->
-                            val (arrived, arrivedWithinPlan) = calculateFromPlans(employeePlans, attendance.arrived)
-                            val (departed, departedWithinPlan) = calculateFromPlans(employeePlans, attendance.departed)
+                            val (arrived, arrivedPlan) = calculateFromPlans(employeePlans, attendance.arrived)
+                            val (departed, departedPlan) = calculateFromPlan(employeePlans, attendance.departed) ?: Pair(null, null)
                             TitaniaStampedWorkingTimeEvent(
                                 date = attendance.arrived.toLocalDate(),
-                                beginTime = arrived?.toLocalTime(),
+                                beginTime = arrived.toLocalTime(),
                                 beginReasonCode = when (attendance.type) {
                                     StaffAttendanceType.PRESENT -> null
                                     StaffAttendanceType.OTHER_WORK -> "TA"
                                     StaffAttendanceType.TRAINING -> "KO"
-                                    StaffAttendanceType.OVERTIME -> if (arrivedWithinPlan) null else "YT"
-                                    StaffAttendanceType.JUSTIFIED_CHANGE -> if (arrivedWithinPlan) null else "PM"
+                                    StaffAttendanceType.OVERTIME -> if (arrivedPlan != null) null else "YT"
+                                    StaffAttendanceType.JUSTIFIED_CHANGE -> if (isNotFirstInPlan(arrived, arrivedPlan, attendances)) null else "PM"
                                 },
                                 endTime = departed?.toLocalTime(),
                                 endReasonCode = when (attendance.type) {
                                     StaffAttendanceType.PRESENT -> null
                                     StaffAttendanceType.OTHER_WORK -> null
                                     StaffAttendanceType.TRAINING -> null
-                                    StaffAttendanceType.OVERTIME -> if (departedWithinPlan) null else "YT"
-                                    StaffAttendanceType.JUSTIFIED_CHANGE -> if (departedWithinPlan) null else "PM"
+                                    StaffAttendanceType.OVERTIME -> if (departed == null || departedPlan != null) null else "YT"
+                                    StaffAttendanceType.JUSTIFIED_CHANGE -> if (departed == null || isNotLastInPlan(arrived, departedPlan, attendances)) null else "PM"
                                 },
                             )
                         }
@@ -193,25 +194,35 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
         return response
     }
 
-    private fun calculateFromPlans(plans: List<StaffAttendancePlan>?, event: HelsinkiDateTime?): Pair<HelsinkiDateTime?, Boolean> {
-        if (event == null) {
-            return Pair(null, false)
-        }
+    private fun calculateFromPlan(plans: List<StaffAttendancePlan>?, event: HelsinkiDateTime?): Pair<HelsinkiDateTime?, StaffAttendancePlan?>? =
+        event?.let { calculateFromPlans(plans, it) }
+
+    private fun calculateFromPlans(plans: List<StaffAttendancePlan>?, event: HelsinkiDateTime): Pair<HelsinkiDateTime, StaffAttendancePlan?> {
         return plans?.firstNotNullOfOrNull { plan ->
             when {
-                event.durationSince(plan.startTime).abs() <= MAX_DRIFT -> Pair(plan.startTime, true)
-                event.durationSince(plan.endTime).abs() <= MAX_DRIFT -> Pair(plan.endTime, true)
+                event.durationSince(plan.startTime).abs() <= MAX_DRIFT -> Pair(plan.startTime, plan)
+                event.durationSince(plan.endTime).abs() <= MAX_DRIFT -> Pair(plan.endTime, plan)
                 else -> null
             }
         } ?: Pair(
             event,
-            plans?.any { plan ->
+            plans?.find { plan ->
                 HelsinkiDateTimeRange(plan.startTime, plan.endTime).contains(
                     HelsinkiDateTimeRange(event, event)
                 )
-            } ?: false
+            }
         )
     }
+
+    private fun isNotFirstInPlan(event: HelsinkiDateTime, plan: StaffAttendancePlan?, attendances: List<RawAttendance>) =
+        plan != null && attendances.any { isInPlan(it, plan) && it.arrived < event }
+
+    private fun isNotLastInPlan(event: HelsinkiDateTime, plan: StaffAttendancePlan?, attendances: List<RawAttendance>) =
+        plan != null && attendances.any { isInPlan(it, plan) && it.arrived > event }
+
+    private fun isInPlan(attendance: RawAttendance, plan: StaffAttendancePlan) =
+        attendance.departed != null &&
+            HelsinkiDateTimeRange(plan.startTime, plan.endTime).contains(HelsinkiDateTimeRange(attendance.arrived, attendance.departed!!))
 }
 
 data class TitaniaUpdateResponse(
