@@ -9,7 +9,6 @@ orbs:
 
 aliases:
   - &workspace_root /home/circleci/repo
-  - &workspace_evaka_base /home/circleci/repo/evaka/evaka-base
   - &workspace_apigw /home/circleci/repo/evaka/apigw
   - &workspace_evaka_frontend /home/circleci/repo/evaka/frontend
   - &workspace_tre_frontend /home/circleci/repo/frontend
@@ -465,14 +464,6 @@ jobs:
       - restore_repo
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
-      - run:
-          name: Build base image
-          working_directory: *workspace_evaka_base
-          command: docker build -t evaka-base .
-      - run:
-          name: Build base image
-          working_directory: *workspace_evaka_base
-          command: docker build -t evaka-yarn -f yarn.Dockerfile .
       - build_docker_image:
           image: trevaka/api-gateway
           dir: *workspace_apigw
