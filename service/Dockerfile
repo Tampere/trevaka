@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-FROM ubuntu:22.04
+FROM eclipse-temurin:17-jammy
 
 LABEL maintainer="https://github.com/tampere/trevaka"
 
@@ -23,7 +23,6 @@ RUN set -euxo pipefail \
         tzdata \
         ca-certificates \
         curl \
-        openjdk-17-jre-headless \
         jq \
     && ln -fs /usr/share/zoneinfo/Europe/Helsinki /etc/localtime \
     && dpkg-reconfigure --frontend noninteractive tzdata \
