@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-FROM eclipse-temurin:17-jammy
+FROM eclipse-temurin:17-jre-jammy
 
 LABEL maintainer="https://github.com/tampere/trevaka"
 
