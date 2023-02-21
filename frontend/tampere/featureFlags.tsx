@@ -59,7 +59,8 @@ const features: Features = {
     experimental: {
       assistanceNeedDecisions: true,
       staffAttendanceTypes: true,
-      fosterParents: true
+      fosterParents: true,
+      serviceWorkerMessaging: true
     }
   },
   prod: {
@@ -80,7 +81,8 @@ const features: Features = {
     experimental: {
       assistanceNeedDecisions: true,
       staffAttendanceTypes: true,
-      fosterParents: true
+      fosterParents: true,
+      serviceWorkerMessaging: true
     }
   }
 }
