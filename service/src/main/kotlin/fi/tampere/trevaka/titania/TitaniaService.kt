@@ -154,8 +154,11 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                         ?: throw RuntimeException("Cannot find original employee number for converted: $convertedEmployeeNumber"),
                     name = "${employee.lastName} ${employee.firstName}".uppercase(),
                     stampedWorkingTimeEvents = TitaniaStampedWorkingTimeEvents(
-                        event = attendances.flatMap(::splitOvernight).sortedBy { it.arrived }.map { attendance ->
+                        event = attendances.flatMap(::splitOvernight).sortedBy { it.arrived }.mapNotNull { attendance ->
                             val (arrived, arrivedPlan) = calculateFromPlans(employeePlans, attendance.arrived)
+                            if (!period.includes(arrived.toLocalDate())) {
+                                return@mapNotNull null
+                            }
                             val (departed, departedPlan) = calculateFromPlan(employeePlans, attendance.departed) ?: Pair(null, null)
                             TitaniaStampedWorkingTimeEvent(
                                 date = attendance.arrived.toLocalDate(),
@@ -173,7 +176,7 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                                     StaffAttendanceType.OTHER_WORK -> null
                                     StaffAttendanceType.TRAINING -> null
                                     StaffAttendanceType.OVERTIME -> if (departed == null || departedPlan != null) null else "YT"
-                                    StaffAttendanceType.JUSTIFIED_CHANGE -> if (departed == null || isNotLastInPlan(arrived, departedPlan, attendances)) null else "PM"
+                                    StaffAttendanceType.JUSTIFIED_CHANGE -> if (departed == null || isNotLastInPlan(departed, departedPlan, attendances)) null else "PM"
                                 },
                             )
                         }
@@ -218,7 +221,7 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
         plan != null && attendances.any { isInPlan(it, plan) && it.arrived < event }
 
     private fun isNotLastInPlan(event: HelsinkiDateTime, plan: StaffAttendancePlan?, attendances: List<RawAttendance>) =
-        plan != null && attendances.any { isInPlan(it, plan) && it.arrived > event }
+        plan != null && attendances.any { isInPlan(it, plan) && it.departed != null && it.departed!! > event }
 
     private fun isInPlan(attendance: RawAttendance, plan: StaffAttendancePlan) =
         attendance.departed != null &&
