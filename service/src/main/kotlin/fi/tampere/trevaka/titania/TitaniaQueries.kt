@@ -115,7 +115,7 @@ SELECT
     emp.last_name,
     soc.coefficient AS currentOccupancyCoefficient
 FROM staff_attendance_realtime sa
-JOIN daycare_group dg on sa.group_id = dg.id
+LEFT JOIN daycare_group dg on sa.group_id = dg.id
 JOIN employee emp ON sa.employee_id = emp.id
 LEFT JOIN staff_occupancy_coefficient soc ON soc.daycare_id = dg.daycare_id AND soc.employee_id = emp.id
 WHERE (:employeeIds::uuid[] IS NULL OR sa.employee_id = ANY(:employeeIds))

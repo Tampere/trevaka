@@ -50,7 +50,7 @@
                 "beginTime": "1015",
                 "beginReasonCode": "TA",
                 "endTime": "1715",
-                "endReasonCode": "TA"
+                "endReasonCode": null
               }
             ]
           }

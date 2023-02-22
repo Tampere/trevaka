@@ -177,7 +177,7 @@ internal val titaniaGetResponseValidExampleData = GetStampedWorkingTimeEventsRes
                                 beginTime = LocalTime.of(10, 15),
                                 beginReasonCode = "TA",
                                 endTime = LocalTime.of(17, 15),
-                                endReasonCode = "TA",
+                                endReasonCode = null,
                             ),
                         )
                     )

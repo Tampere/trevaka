@@ -4,11 +4,13 @@
 
 package fi.tampere.trevaka.titania
 
+import fi.espoo.evaka.attendance.RawAttendance
 import fi.espoo.evaka.attendance.StaffAttendanceType
 import fi.espoo.evaka.pis.NewEmployee
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
+import fi.espoo.evaka.shared.domain.HelsinkiDateTimeRange
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
 import java.time.Duration
@@ -152,15 +154,30 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                         ?: throw RuntimeException("Cannot find original employee number for converted: $convertedEmployeeNumber"),
                     name = "${employee.lastName} ${employee.firstName}".uppercase(),
                     stampedWorkingTimeEvents = TitaniaStampedWorkingTimeEvents(
-                        event = attendances.flatMap(::splitOvernight).sortedBy { it.arrived }.map { attendance ->
-                            val arrived = calculateFromPlans(employeePlans, attendance.arrived)
-                            val departed = calculateFromPlans(employeePlans, attendance.departed)
+                        event = attendances.flatMap(::splitOvernight).sortedBy { it.arrived }.mapNotNull { attendance ->
+                            val (arrived, arrivedPlan) = calculateFromPlans(employeePlans, attendance.arrived)
+                            if (!period.includes(arrived.toLocalDate())) {
+                                return@mapNotNull null
+                            }
+                            val (departed, departedPlan) = calculateFromPlan(employeePlans, attendance.departed) ?: Pair(null, null)
                             TitaniaStampedWorkingTimeEvent(
                                 date = attendance.arrived.toLocalDate(),
-                                beginTime = arrived?.toLocalTime(),
-                                beginReasonCode = attendance.type.asTitaniaReasonCode(),
+                                beginTime = arrived.toLocalTime(),
+                                beginReasonCode = when (attendance.type) {
+                                    StaffAttendanceType.PRESENT -> null
+                                    StaffAttendanceType.OTHER_WORK -> "TA"
+                                    StaffAttendanceType.TRAINING -> "KO"
+                                    StaffAttendanceType.OVERTIME -> if (arrivedPlan != null) null else "YT"
+                                    StaffAttendanceType.JUSTIFIED_CHANGE -> if (isNotFirstInPlan(arrived, arrivedPlan, attendances)) null else "PM"
+                                },
                                 endTime = departed?.toLocalTime(),
-                                endReasonCode = attendance.type.asTitaniaReasonCode(),
+                                endReasonCode = when (attendance.type) {
+                                    StaffAttendanceType.PRESENT -> null
+                                    StaffAttendanceType.OTHER_WORK -> null
+                                    StaffAttendanceType.TRAINING -> null
+                                    StaffAttendanceType.OVERTIME -> if (departed == null || departedPlan != null) null else "YT"
+                                    StaffAttendanceType.JUSTIFIED_CHANGE -> if (departed == null || isNotLastInPlan(departed, departedPlan, attendances)) null else "PM"
+                                },
                             )
                         }
                     )
@@ -180,18 +197,35 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
         return response
     }
 
-    private fun calculateFromPlans(plans: List<StaffAttendancePlan>?, event: HelsinkiDateTime?): HelsinkiDateTime? {
-        if (event == null) {
-            return null
-        }
+    private fun calculateFromPlan(plans: List<StaffAttendancePlan>?, event: HelsinkiDateTime?): Pair<HelsinkiDateTime?, StaffAttendancePlan?>? =
+        event?.let { calculateFromPlans(plans, it) }
+
+    private fun calculateFromPlans(plans: List<StaffAttendancePlan>?, event: HelsinkiDateTime): Pair<HelsinkiDateTime, StaffAttendancePlan?> {
         return plans?.firstNotNullOfOrNull { plan ->
             when {
-                event.durationSince(plan.startTime).abs() <= MAX_DRIFT -> plan.startTime
-                event.durationSince(plan.endTime).abs() <= MAX_DRIFT -> plan.endTime
+                event.durationSince(plan.startTime).abs() <= MAX_DRIFT -> Pair(plan.startTime, plan)
+                event.durationSince(plan.endTime).abs() <= MAX_DRIFT -> Pair(plan.endTime, plan)
                 else -> null
             }
-        } ?: event
+        } ?: Pair(
+            event,
+            plans?.find { plan ->
+                HelsinkiDateTimeRange(plan.startTime, plan.endTime).contains(
+                    HelsinkiDateTimeRange(event, event)
+                )
+            }
+        )
     }
+
+    private fun isNotFirstInPlan(event: HelsinkiDateTime, plan: StaffAttendancePlan?, attendances: List<RawAttendance>) =
+        plan != null && attendances.any { isInPlan(it, plan) && it.arrived < event }
+
+    private fun isNotLastInPlan(event: HelsinkiDateTime, plan: StaffAttendancePlan?, attendances: List<RawAttendance>) =
+        plan != null && attendances.any { isInPlan(it, plan) && it.departed != null && it.departed!! > event }
+
+    private fun isInPlan(attendance: RawAttendance, plan: StaffAttendancePlan) =
+        attendance.departed != null &&
+            HelsinkiDateTimeRange(plan.startTime, plan.endTime).contains(HelsinkiDateTimeRange(attendance.arrived, attendance.departed!!))
 }
 
 data class TitaniaUpdateResponse(

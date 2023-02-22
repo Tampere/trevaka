@@ -27,19 +27,6 @@ internal fun splitOvernight(attendance: RawAttendance): Iterable<RawAttendance> 
     }.toList()
 }
 
-/**
- * Returns type as Titania reason code.
- *
- * From Titania_WS_Sanomakuvaus_HaeLeimaustiedot.pdf v1.1
- */
-fun StaffAttendanceType.asTitaniaReasonCode(): String? = when (this) {
-    StaffAttendanceType.PRESENT -> null
-    StaffAttendanceType.OTHER_WORK -> "TA"
-    StaffAttendanceType.TRAINING -> "KO"
-    StaffAttendanceType.OVERTIME -> "YT"
-    StaffAttendanceType.JUSTIFIED_CHANGE -> "PM"
-}
-
 fun staffAttendanceTypeFromTitaniaEventCode(code: String): StaffAttendanceType = when (code) {
     "U" -> StaffAttendanceType.PRESENT
     "K" -> StaffAttendanceType.TRAINING
