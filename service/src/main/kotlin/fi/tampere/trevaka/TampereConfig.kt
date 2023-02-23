@@ -6,14 +6,18 @@ package fi.tampere.trevaka
 
 import fi.espoo.evaka.BucketEnv
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
+import fi.espoo.evaka.logging.defaultAccessLoggingValve
 import fi.espoo.evaka.s3.DocumentService
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.tampere.trevaka.security.TampereActionRuleMapping
 import fi.tampere.trevaka.titania.TitaniaEmployeeIdConverter
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory
+import org.springframework.boot.web.server.WebServerFactoryCustomizer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.env.Environment
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.presigner.S3Presigner
 
@@ -59,4 +63,10 @@ class TampereConfig {
     fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter = object : TitaniaEmployeeIdConverter {
         override fun fromTitania(employeeId: String): String = employeeId.trimStart('0')
     }
+
+    @Bean
+    fun tomcatCustomizer(env: Environment) =
+        WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
+            it.addContextValves(defaultAccessLoggingValve(env))
+        }
 }
