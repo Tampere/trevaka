@@ -27,8 +27,9 @@ dependencies {
 
     implementation(":evaka-service")
 
+    implementation("ch.qos.logback:logback-access")
     implementation("io.github.microutils:kotlin-logging-jvm")
-    implementation("dev.akkinoc.spring.boot:logback-access-spring-boot-starter")
+    implementation("net.logstash.logback:logstash-logback-encoder")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-web-services")
