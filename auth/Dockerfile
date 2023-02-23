@@ -17,7 +17,7 @@ RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties && \
     sed -i -r 's/ lib\/zocial\/zocial.css//' evaka/login/theme.properties
 RUN npm run build
 
-FROM quay.io/keycloak/keycloak:20.0.3
+FROM quay.io/keycloak/keycloak:20.0.5
 COPY --from=theme evaka /opt/keycloak/themes/evaka
 RUN /opt/keycloak/bin/kc.sh build --db=postgres --http-relative-path=/auth --health-enabled=true
 RUN /opt/keycloak/bin/kc.sh show-config
