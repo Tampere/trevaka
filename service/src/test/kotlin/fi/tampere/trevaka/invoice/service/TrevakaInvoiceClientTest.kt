@@ -229,7 +229,7 @@ fun validInvoiceRow(unitPrice: Int, productKey: ProductKey = ProductKey("DAYCARE
     1, unitPrice,
     LocalDate.of(2021, 1, 1),
     LocalDate.of(2021, 1, 31),
-    productKey, DaycareId(UUID.randomUUID()), setOf(CareType.CENTRE), costCenter, null, null, description,
+    productKey, DaycareId(UUID.randomUUID()), "unit1", setOf(CareType.CENTRE), costCenter, null, null, description,
     correctionId = null,
     note = null
 )
