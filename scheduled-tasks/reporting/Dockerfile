@@ -4,6 +4,7 @@
 
 FROM ubuntu:22.04
 
+ARG CACHE_BUST=2023-03-06
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     && apt-get -y dist-upgrade \
