@@ -7,6 +7,7 @@ package fi.tampere.trevaka.email
 import fi.espoo.evaka.daycare.domain.Language
 import fi.espoo.evaka.emailclient.EmailContent
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
+import fi.espoo.evaka.invoicing.service.IncomeNotificationType
 import fi.espoo.evaka.messaging.MessageThreadStub
 import fi.espoo.evaka.messaging.MessageType
 import fi.espoo.evaka.shared.ChildId
@@ -87,6 +88,18 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
         Arguments.of(
             "pedagogicalDocumentNotification",
             emailMessageProvider.pedagogicalDocumentNotification(Language.fi)
+        ),
+        Arguments.of(
+            "outdatedIncomeNotificationInitial",
+            emailMessageProvider.outdatedIncomeNotification(IncomeNotificationType.INITIAL_EMAIL, Language.fi)
+        ),
+        Arguments.of(
+            "outdatedIncomeNotificationReminder",
+            emailMessageProvider.outdatedIncomeNotification(IncomeNotificationType.REMINDER_EMAIL, Language.fi)
+        ),
+        Arguments.of(
+            "outdatedIncomeNotificationExpired",
+            emailMessageProvider.outdatedIncomeNotification(IncomeNotificationType.EXPIRED_EMAIL, Language.fi)
         )
     )
         .stream()
