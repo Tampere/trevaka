@@ -8,6 +8,7 @@ import fi.espoo.evaka.EvakaEnv
 import fi.espoo.evaka.daycare.domain.Language
 import fi.espoo.evaka.emailclient.EmailContent
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
+import fi.espoo.evaka.invoicing.service.IncomeNotificationType
 import fi.espoo.evaka.messaging.MessageThreadStub
 import fi.espoo.evaka.messaging.MessageType
 import fi.espoo.evaka.shared.ChildId
@@ -399,6 +400,214 @@ There are missing attendance reservations for the week starting $start. Please m
                 <p>You have received a new eVaka pedagogical document. Read the document here: <a href="$documentsUrl">$documentsUrl</a></p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
         """
+                .trimIndent()
+        )
+    }
+
+    override fun outdatedIncomeNotification(
+        notificationType: IncomeNotificationType,
+        language: Language
+    ): EmailContent {
+        return when (notificationType) {
+            IncomeNotificationType.INITIAL_EMAIL -> outdatedIncomeNotificationInitial(language)
+            IncomeNotificationType.REMINDER_EMAIL -> outdatedIncomeNotificationReminder(language)
+            IncomeNotificationType.EXPIRED_EMAIL -> outdatedIncomeNotificationExpired()
+        }
+    }
+
+    private fun outdatedIncomeNotificationInitial(language: Language): EmailContent {
+        val documentsUrl = "${baseUrl(language)}/income"
+        return EmailContent(
+            subject =
+            "Tulotietojen tarkastus- kehotus / Request to review income information",
+            text =
+            """
+                Hyvä asiakkaamme
+                
+                Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.
+                
+                Pyydämme toimittamaan tuloselvityksen eVakassa 14 päivän kuluessa tästä ilmoituksesta.eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.
+                
+                Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Puuttuvilla tulotiedoilla määrättyä maksua ei korjata takautuvasti.
+                
+                Lisätietoja saatte tarvittaessa: asiakasmaksut.varhaiskasvatus@tampere.fi.
+                
+                Tulotiedot: $documentsUrl
+                
+                Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.
+                
+                -----
+                
+                Dear client
+                
+                The income information used for determining the early childhood education fee or the out-of-pocket cost of a service voucher is reviewed every year.
+                
+                We ask you to submit your income statement through eVaka within 14 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.
+                
+                If you do not provide your latest income information, your client fee will be determined based on the highest fee category. We will not retroactively reimburse you for fees charged in a situation where you have not provided your income information.
+                
+                Inquiries: asiakasmaksut.varhaiskasvatus@tampere.fi
+                
+                Income information: $documentsUrl
+                
+                This is an automatic message from the eVaka system. Do not reply to this message.
+        """
+                .trimIndent(),
+            html =
+            """
+                <p>Hyvä asiakkaamme</p>
+                
+                <p>Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.</p>
+                
+                <p>Pyydämme toimittamaan tuloselvityksen eVakassa 14 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön. </p>
+                
+                <p>Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Puuttuvilla tulotiedoilla määrättyä maksua ei korjata takautuvasti.</p>
+                
+                <p>Lisätietoja saatte tarvittaessa: asiakasmaksut.varhaiskasvatus@tampere.fi.</p>
+                
+                <p>Tulotiedot: <a href="$documentsUrl">$documentsUrl</a></p>
+                
+                <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+                
+                <hr>
+                
+                <p>Dear client</p>
+                
+                <p>The income information used for determining the early childhood education fee or the out-of-pocket cost of a service voucher is reviewed every year.</p>
+                
+                <p>We ask you to submit your income statement through eVaka within 14 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.</p>
+                
+                <p>If you do not provide your latest income information, your client fee will be determined based on the highest fee category. We will not retroactively reimburse you for fees charged in a situation where you have not provided your income information.</p>
+                
+                <p>Inquiries: asiakasmaksut.varhaiskasvatus@tampere.fi</p>
+                
+                <p>Income information: <a href="$documentsUrl">$documentsUrl</a></p>
+                
+                <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+        """
+                .trimIndent()
+        )
+    }
+
+    private fun outdatedIncomeNotificationReminder(language: Language): EmailContent {
+        val documentsUrl = "${baseUrl(language)}/income"
+        return EmailContent(
+            subject =
+            "Tulotietojen tarkastus- kehotus / Request to review income information",
+            text =
+            """
+                Hyvä asiakkaamme
+                
+                Ette ole vielä toimittaneet uusia tulotietoja. Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.
+                
+                Pyydämme toimittamaan tuloselvityksen eVakassa 7 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.
+                
+                Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Puuttuvilla tulotiedoilla määrättyä maksua ei korjata takautuvasti.
+                
+                Lisätietoja saatte tarvittaessa: asiakasmaksut.varhaiskasvatus@tampere.fi.
+                
+                Tulotiedot: $documentsUrl
+                
+                Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.
+                
+                -----
+                
+                Dear client
+                
+                You have not yet submitted your latest income information. The income information used for determining the early childhood education fee or the out-of-pocket cost of a service voucher is reviewed every year.
+                
+                We ask you to submit your income statement through eVaka within 7 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.
+                
+                If you do not provide your latest income information, your client fee will be determined based on the highest fee category. We will not retroactively reimburse you for fees charged in a situation where you have not provided your income information.
+                
+                Inquiries: asiakasmaksut.varhaiskasvatus@tampere.fi
+                
+                Income information: $documentsUrl
+                
+                This is an automatic message from the eVaka system. Do not reply to this message.
+        """
+                .trimIndent(),
+            html =
+            """
+                <p>Hyvä asiakkaamme</p>
+                
+                <p>Ette ole vielä toimittaneet uusia tulotietoja. Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.</p>
+                
+                <p>Pyydämme toimittamaan tuloselvityksen eVakassa 7 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.</p>
+                
+                <p>Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Puuttuvilla tulotiedoilla määrättyä maksua ei korjata takautuvasti.</p>
+                
+                <p>Lisätietoja saatte tarvittaessa: asiakasmaksut.varhaiskasvatus@tampere.fi.</p>
+                
+                <p>Tulotiedot: <a href="$documentsUrl">$documentsUrl</a></p>
+                
+                <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+                
+                <hr>
+                
+                <p>Dear client</p>
+                
+                <p>You have not yet submitted your latest income information. The income information used for determining the early childhood education fee or the out-of-pocket cost of a service voucher is reviewed every year.</p>
+                
+                <p>We ask you to submit your income statement through eVaka within 7 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.</p>
+                
+                <p>If you do not provide your latest income information, your client fee will be determined based on the highest fee category. We will not retroactively reimburse you for fees charged in a situation where you have not provided your income information.</p>
+                
+                <p>Inquiries: asiakasmaksut.varhaiskasvatus@tampere.fi</p>
+                
+                <p>Income information: <a href="$documentsUrl">$documentsUrl</a></p>
+                
+                <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+        """
+                .trimIndent()
+        )
+    }
+
+    private fun outdatedIncomeNotificationExpired(): EmailContent {
+        return EmailContent(
+            subject =
+            "Tulotietojen tarkastus- kehotus / Request to review income information",
+            text =
+            """
+                Hyvä asiakkaamme
+                
+                Seuraava asiakasmaksunne määräytyy korkeimman maksuluokan mukaan, sillä ette ole toimittaneet uusia tulotietoja määräaikaan mennessä.
+                
+                Lisätietoja saatte tarvittaessa: asiakasmaksut.varhaiskasvatus@tampere.fi.
+                
+                Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.
+                
+                -----
+                
+                Dear client
+                
+                Your next client fee will be determined based on the highest fee category as you did not provide your latest income information by the deadline.
+                
+                Inquiries: asiakasmaksut.varhaiskasvatus@tampere.fi
+                
+                This is an automatic message from the eVaka system. Do not reply to this message.
+        """
+                .trimIndent(),
+            html =
+            """
+                <p>Hyvä asiakkaamme</p>
+                
+                <p>Seuraava asiakasmaksunne määräytyy korkeimman maksuluokan mukaan, sillä ette ole toimittaneet uusia tulotietoja määräaikaan mennessä.</p>
+                
+                <p>Lisätietoja saatte tarvittaessa: asiakasmaksut.varhaiskasvatus@tampere.fi</p>
+                
+                <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+                
+                <hr>
+                
+                <p>Dear client</p>
+                
+                <p>Your next client fee will be determined based on the highest fee category as you did not provide your latest income information by the deadline.</p>
+                
+                <p>Inquiries: asiakasmaksut.varhaiskasvatus@tampere.fi</p>
+                
+                <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+               """
                 .trimIndent()
         )
     }
