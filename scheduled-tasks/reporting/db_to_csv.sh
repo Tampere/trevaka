@@ -28,7 +28,7 @@ date=$(date --iso-8601)
 basepath="export/$date"
 mkdir -p "$basepath"
 
-table_names=$(psql -c "COPY (SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_type NOT IN ('VIEW') AND table_name NOT IN ('async_job', 'dvv_modification_token', 'employee_pin', 'flyway_schema_history', 'income_notification', 'mobile_device', 'scheduled_tasks', 'setting', 'unit_manager', 'varda_organizer_child', 'varda_reset_child', 'varda_service_need', 'varda_unit') ORDER BY table_name) TO STDOUT;")
+table_names=$(psql -c "COPY (SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_type NOT IN ('VIEW') AND table_name NOT IN ('async_job', 'dvv_modification_token', 'employee_pin', 'flyway_schema_history', 'income_notification', 'mobile_device', 'mobile_device_push_subscription', 'scheduled_tasks', 'setting', 'unit_manager', 'varda_organizer_child', 'varda_reset_child', 'varda_service_need', 'varda_unit') ORDER BY table_name) TO STDOUT;")
 
 for table_name in $table_names
 do
