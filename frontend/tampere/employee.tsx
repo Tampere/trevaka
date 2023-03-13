@@ -288,7 +288,7 @@ const customizations: EmployeeCustomizations = {
       },
       placement: {
         type: {
-          DAYCARE: 'Varhaiskasvatus',
+          DAYCARE: 'Kokopäiväinen varhaiskasvatus',
           DAYCARE_PART_TIME: 'Osapäiväinen varhaiskasvatus',
           TEMPORARY_DAYCARE: 'Tilapäinen kokopäiväinen varhaiskasvatus',
           PRESCHOOL_DAYCARE: 'Esiopetusta täydentävä varhaiskasvatus',
