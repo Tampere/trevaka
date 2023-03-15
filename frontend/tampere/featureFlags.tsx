@@ -60,7 +60,8 @@ const features: Features = {
       assistanceNeedDecisions: true,
       staffAttendanceTypes: true,
       fosterParents: true,
-      serviceWorkerMessaging: true
+      serviceWorkerMessaging: true,
+      personDuplicate: true
     }
   },
   prod: {
@@ -82,7 +83,8 @@ const features: Features = {
       assistanceNeedDecisions: true,
       staffAttendanceTypes: true,
       fosterParents: true,
-      serviceWorkerMessaging: true
+      serviceWorkerMessaging: true,
+      personDuplicate: true
     }
   }
 }
