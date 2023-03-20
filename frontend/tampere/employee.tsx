@@ -237,7 +237,13 @@ const customizations: EmployeeCustomizations = {
         assistanceAction: {
           title: 'Tukitoimet ja tukipalvelut',
           fields: {
-            actions: 'Tukitoimet ja tukipalvelut'
+            actions: 'Tukitoimet ja tukipalvelut',
+            measureTypes: {
+              SPECIAL_ASSISTANCE_DECISION_INFO:
+                'Laita varhaiskasvatuksessa olevalle lapselle merkintä tähän kohtaan siitä päivästä lukien, kun päätös/kuuleminen on tehty. Laita esiopetuksessa olevalle lapselle merkintä, kun perusopetuslain mukainen erityisen tuen päätös on tehty. Esiopetuksessa ja täydentävässä varhaiskasvatuksessa merkintä laitetaan aina esiopetusajan päätöksen mukaan.',
+              INTENSIFIED_ASSISTANCE_INFO:
+                'Laita varhaiskasvatuksessa olevalle lapselle merkintä tähän kohtaan siitä päivästä lukien, kun päätös on tehty. Laita esiopetuksessa merkintä, kun tehostetusta tuesta on sovittu. Esiopetuksessa ja täydentävässä varhaiskasvatuksessa merkintä laitetaan aina esiopetusajan päätöksen mukaan.'
+            }
           }
         },
         dailyServiceTimes: {
