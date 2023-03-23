@@ -28,7 +28,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
-import java.time.temporal.ChronoUnit
 import java.util.UUID
 
 internal class TitaniaServiceTest : AbstractIntegrationTest() {
@@ -108,23 +107,23 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                         event = listOf(
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 11, 1),
-                                                beginTime = LocalTime.of(0, 0),
-                                                endTime = LocalTime.of(8, 0)
+                                                beginTime = "0000",
+                                                endTime = "0800"
                                             ),
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 11, 1),
-                                                beginTime = LocalTime.of(20, 0),
-                                                endTime = LocalTime.of(23, 59)
+                                                beginTime = "2000",
+                                                endTime = "2359"
                                             ),
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 10, 31),
-                                                beginTime = LocalTime.of(20, 0),
-                                                endTime = LocalTime.of(0, 0) // 24:00 from titania
+                                                beginTime = "2000",
+                                                endTime = "2400"
                                             ),
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 11, 2),
-                                                beginTime = LocalTime.of(0, 0),
-                                                endTime = LocalTime.of(8, 0)
+                                                beginTime = "0000",
+                                                endTime = "0800"
                                             )
                                         )
                                     )
@@ -136,18 +135,18 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                         event = listOf(
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 11, 2),
-                                                beginTime = LocalTime.of(0, 0),
-                                                endTime = LocalTime.of(6, 0)
+                                                beginTime = "0000",
+                                                endTime = "0600"
                                             ),
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 11, 1),
-                                                beginTime = LocalTime.of(0, 0),
-                                                endTime = LocalTime.of(23, 59)
+                                                beginTime = "0000",
+                                                endTime = "2359"
                                             ),
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 10, 31),
-                                                beginTime = LocalTime.of(23, 0),
-                                                endTime = LocalTime.of(23, 58)
+                                                beginTime = "2300",
+                                                endTime = "2358"
                                             )
                                         )
                                     )
@@ -256,8 +255,8 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                                     TitaniaWorkingTimeEvent(
                                                         date = LocalDate.of(2022, 10, 12),
                                                         code = givenEventCode,
-                                                        beginTime = LocalTime.of(9, 42),
-                                                        endTime = LocalTime.of(9, 44)
+                                                        beginTime = "0942",
+                                                        endTime = "0944"
                                                     )
                                                 )
                                             )
@@ -308,8 +307,8 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                         event = listOf(
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 6, 14),
-                                                beginTime = LocalTime.of(9, 6),
-                                                endTime = LocalTime.of(15, 22)
+                                                beginTime = "0906",
+                                                endTime = "1522"
                                             )
                                         )
                                     )
@@ -347,8 +346,8 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                         event = listOf(
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 6, 15),
-                                                beginTime = LocalTime.of(9, 6),
-                                                endTime = LocalTime.of(15, 22)
+                                                beginTime = "0906",
+                                                endTime = "1522"
                                             )
                                         )
                                     )
@@ -524,9 +523,9 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                     event = listOf(
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2023, 2, 6),
-                                            beginTime = LocalTime.of(8, 0),
+                                            beginTime = "0800",
                                             beginReasonCode = "TA",
-                                            endTime = LocalTime.of(15, 39),
+                                            endTime = "1539",
                                             endReasonCode = null,
                                         )
                                     )
@@ -624,16 +623,16 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                     event = listOf(
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 19),
-                                            beginTime = LocalTime.of(8, 0),
+                                            beginTime = "0800",
                                             beginReasonCode = null,
-                                            endTime = LocalTime.of(13, 10),
+                                            endTime = "1310",
                                             endReasonCode = null,
                                         ),
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 19),
-                                            beginTime = LocalTime.of(13, 10),
+                                            beginTime = "1310",
                                             beginReasonCode = null,
-                                            endTime = LocalTime.of(16, 11),
+                                            endTime = "1611",
                                             endReasonCode = "YT",
                                         )
                                     )
@@ -731,14 +730,14 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                     event = listOf(
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 19),
-                                            beginTime = LocalTime.of(8, 0),
+                                            beginTime = "0800",
                                             beginReasonCode = null,
-                                            endTime = LocalTime.of(13, 10),
+                                            endTime = "1310",
                                             endReasonCode = null,
                                         ),
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 19),
-                                            beginTime = LocalTime.of(13, 10),
+                                            beginTime = "1310",
                                             beginReasonCode = null,
                                             endTime = null,
                                             endReasonCode = null,
@@ -847,23 +846,23 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                     event = listOf(
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 19),
-                                            beginTime = LocalTime.of(8, 21),
+                                            beginTime = "0821",
                                             beginReasonCode = "PM",
-                                            endTime = LocalTime.of(9, 52),
+                                            endTime = "0952",
                                             endReasonCode = null,
                                         ),
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 19),
-                                            beginTime = LocalTime.of(9, 52),
+                                            beginTime = "0952",
                                             beginReasonCode = "TA",
-                                            endTime = LocalTime.of(10, 48),
+                                            endTime = "1048",
                                             endReasonCode = null,
                                         ),
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 19),
-                                            beginTime = LocalTime.of(10, 48),
+                                            beginTime = "1048",
                                             beginReasonCode = null,
-                                            endTime = LocalTime.of(15, 21),
+                                            endTime = "1521",
                                             endReasonCode = "PM",
                                         )
                                     )
@@ -970,23 +969,23 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                     event = listOf(
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 19),
-                                            beginTime = LocalTime.of(7, 39),
+                                            beginTime = "0739",
                                             beginReasonCode = "PM",
-                                            endTime = LocalTime.of(9, 52),
+                                            endTime = "0952",
                                             endReasonCode = null,
                                         ),
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 19),
-                                            beginTime = LocalTime.of(9, 52),
+                                            beginTime = "0952",
                                             beginReasonCode = "TA",
-                                            endTime = LocalTime.of(10, 48),
+                                            endTime = "1048",
                                             endReasonCode = null,
                                         ),
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 19),
-                                            beginTime = LocalTime.of(10, 48),
+                                            beginTime = "1048",
                                             beginReasonCode = null,
-                                            endTime = LocalTime.of(16, 39),
+                                            endTime = "1639",
                                             endReasonCode = "PM",
                                         )
                                     )
@@ -1075,7 +1074,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                     event = listOf(
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 19),
-                                            beginTime = LocalTime.of(8, 21),
+                                            beginTime = "0821",
                                             beginReasonCode = "PM",
                                             endTime = null,
                                             endReasonCode = null,
@@ -1166,9 +1165,9 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                     event = listOf(
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 20),
-                                            beginTime = LocalTime.of(20, 0),
+                                            beginTime = "2000",
                                             beginReasonCode = null,
-                                            endTime = LocalTime.MAX.truncatedTo(ChronoUnit.MICROS),
+                                            endTime = "2400",
                                             endReasonCode = null,
                                         )
                                     )
@@ -1270,30 +1269,30 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
         val expected = listOf(
             TitaniaStampedWorkingTimeEvent(
                 date = LocalDate.of(2022, 10, 20),
-                beginTime = LocalTime.of(20, 30),
+                beginTime = "2030",
                 beginReasonCode = "PM",
-                endTime = LocalTime.of(21, 15),
+                endTime = "2115",
                 endReasonCode = null,
             ),
             TitaniaStampedWorkingTimeEvent(
                 date = LocalDate.of(2022, 10, 20),
-                beginTime = LocalTime.of(21, 15),
+                beginTime = "2115",
                 beginReasonCode = "TA",
-                endTime = LocalTime.of(23, 10),
+                endTime = "2310",
                 endReasonCode = null,
             ),
             TitaniaStampedWorkingTimeEvent(
                 date = LocalDate.of(2022, 10, 20),
-                beginTime = LocalTime.of(23, 10),
+                beginTime = "2310",
                 beginReasonCode = null,
-                endTime = LocalTime.MAX.truncatedTo(ChronoUnit.MICROS),
+                endTime = "2400",
                 endReasonCode = null,
             ),
             TitaniaStampedWorkingTimeEvent(
                 date = LocalDate.of(2022, 10, 21),
-                beginTime = LocalTime.of(0, 0),
+                beginTime = "0000",
                 beginReasonCode = null,
-                endTime = LocalTime.of(7, 30),
+                endTime = "0730",
                 endReasonCode = "PM",
             )
         )
@@ -1376,9 +1375,9 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                     event = listOf(
                                         TitaniaStampedWorkingTimeEvent(
                                             date = LocalDate.of(2022, 10, 20),
-                                            beginTime = LocalTime.of(7, 54),
+                                            beginTime = "0754",
                                             beginReasonCode = null,
-                                            endTime = LocalTime.of(16, 6),
+                                            endTime = "1606",
                                             endReasonCode = null,
                                         )
                                     )

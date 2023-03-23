@@ -6,7 +6,6 @@ package fi.tampere.trevaka.titania
 
 import fi.espoo.evaka.pis.NewEmployee
 import java.time.LocalDate
-import java.time.LocalTime
 
 internal val testEmployee = NewEmployee(
     firstName = "Test",
@@ -39,8 +38,8 @@ internal val titaniaUpdateRequestValidExampleData = UpdateWorkingTimeEventsReque
                                     TitaniaWorkingTimeEvent(
                                         date = LocalDate.of(2011, 1, 3),
                                         code = "A",
-                                        beginTime = LocalTime.of(7, 0),
-                                        endTime = LocalTime.of(0, 0),
+                                        beginTime = "0700",
+                                        endTime = "2400",
                                         placement = TitaniaCodeName("VV", "Vuorovastaava"),
                                         administrativeUnit = TitaniaCodeName("110", "Vastuuyksikkö"),
                                         operativeUnit = TitaniaCodeName("110A", "Toimipiste"),
@@ -144,13 +143,13 @@ internal val titaniaGetResponseValidExampleData = GetStampedWorkingTimeEventsRes
                         event = listOf(
                             TitaniaStampedWorkingTimeEvent(
                                 date = LocalDate.of(2014, 3, 3),
-                                beginTime = LocalTime.of(7, 0),
-                                endTime = LocalTime.of(15, 0),
+                                beginTime = "0700",
+                                endTime = "1500",
                             ),
                             TitaniaStampedWorkingTimeEvent(
                                 date = LocalDate.of(2014, 3, 4),
-                                beginTime = LocalTime.of(6, 30),
-                                endTime = LocalTime.of(12, 0),
+                                beginTime = "0630",
+                                endTime = "1200",
                                 beginReasonCode = "YT",
                                 endReasonCode = "YT",
                             ),
@@ -164,19 +163,19 @@ internal val titaniaGetResponseValidExampleData = GetStampedWorkingTimeEventsRes
                         event = listOf(
                             TitaniaStampedWorkingTimeEvent(
                                 date = LocalDate.of(2014, 3, 3),
-                                beginTime = LocalTime.of(7, 0),
-                                endTime = LocalTime.of(11, 0),
+                                beginTime = "0700",
+                                endTime = "1100",
                             ),
                             TitaniaStampedWorkingTimeEvent(
                                 date = LocalDate.of(2014, 3, 3),
-                                beginTime = LocalTime.of(12, 5),
-                                endTime = LocalTime.of(16, 10),
+                                beginTime = "1205",
+                                endTime = "1610",
                             ),
                             TitaniaStampedWorkingTimeEvent(
                                 date = LocalDate.of(2014, 3, 4),
-                                beginTime = LocalTime.of(10, 15),
+                                beginTime = "1015",
                                 beginReasonCode = "TA",
-                                endTime = LocalTime.of(17, 15),
+                                endTime = "1715",
                                 endReasonCode = null,
                             ),
                         )

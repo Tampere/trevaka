@@ -9,7 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import fi.espoo.evaka.shared.domain.FiniteDateRange
 import org.springframework.http.HttpStatus
 import java.time.LocalDate
-import java.time.LocalTime
+
+internal const val TITANIA_DATE_FORMAT = "yyyyMMdd"
+internal const val TITANIA_TIME_FORMAT = "HHmm"
 
 // from Titania_Vakiotyöaikatapahtumakoodit_Julkinen.pdf v1.3
 
@@ -49,9 +51,9 @@ data class TitaniaCodeName(
 )
 
 data class TitaniaPeriod(
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = TITANIA_DATE_FORMAT)
     val beginDate: LocalDate,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = TITANIA_DATE_FORMAT)
     val endDate: LocalDate,
 ) {
     fun toDateRange() = FiniteDateRange(beginDate, endDate)
@@ -121,14 +123,12 @@ data class TitaniaWorkingTimeEvents(
 )
 
 data class TitaniaWorkingTimeEvent(
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = TITANIA_DATE_FORMAT)
     val date: LocalDate,
     val code: String? = null,
     val description: String? = null,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HHmm")
-    val beginTime: LocalTime? = null,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HHmm")
-    val endTime: LocalTime? = null,
+    val beginTime: String? = null,
+    val endTime: String? = null,
     val administrativeUnit: TitaniaCodeName? = null,
     val placement: TitaniaCodeName? = null,
     val operativeUnit: TitaniaCodeName? = null,
@@ -197,13 +197,11 @@ data class TitaniaStampedWorkingTimeEvents(
 )
 
 data class TitaniaStampedWorkingTimeEvent(
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = TITANIA_DATE_FORMAT)
     val date: LocalDate,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HHmm")
-    val beginTime: LocalTime? = null,
+    val beginTime: String? = null,
     val beginReasonCode: String? = null,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HHmm")
-    val endTime: LocalTime? = null,
+    val endTime: String? = null,
     val endReasonCode: String? = null,
 )
 
