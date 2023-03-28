@@ -15,6 +15,8 @@ import mu.KotlinLogging
 import org.springframework.stereotype.Service
 import java.time.Duration
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
 private val logger = KotlinLogging.logger {}
 
@@ -89,13 +91,13 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                     val next = StaffAttendancePlan(
                         allEmployeeNumberToId[employeeNumber]!!,
                         event.code?.let { staffAttendanceTypeFromTitaniaEventCode(it) } ?: StaffAttendanceType.PRESENT,
-                        HelsinkiDateTime.of(event.date, event.beginTime!!),
+                        HelsinkiDateTime.of(event.date, LocalTime.parse(event.beginTime!!, DateTimeFormatter.ofPattern(TITANIA_TIME_FORMAT))),
                         HelsinkiDateTime.of(
                             event.date,
                             event.endTime!!.let {
                                 when (it) {
-                                    LocalTime.MIN -> LocalTime.of(23, 59)
-                                    else -> it
+                                    "2400" -> LocalTime.of(23, 59)
+                                    else -> LocalTime.parse(it, DateTimeFormatter.ofPattern(TITANIA_TIME_FORMAT))
                                 }
                             }
                         ),
@@ -162,7 +164,7 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                             val (departed, departedPlan) = calculateFromPlan(employeePlans, attendance.departed) ?: Pair(null, null)
                             TitaniaStampedWorkingTimeEvent(
                                 date = attendance.arrived.toLocalDate(),
-                                beginTime = arrived.toLocalTime(),
+                                beginTime = arrived.toLocalTime().format(DateTimeFormatter.ofPattern(TITANIA_TIME_FORMAT)),
                                 beginReasonCode = when (attendance.type) {
                                     StaffAttendanceType.PRESENT -> null
                                     StaffAttendanceType.OTHER_WORK -> "TA"
@@ -170,7 +172,11 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                                     StaffAttendanceType.OVERTIME -> if (arrivedPlan != null) null else "YT"
                                     StaffAttendanceType.JUSTIFIED_CHANGE -> if (isNotFirstInPlan(arrived, arrivedPlan, attendances)) null else "PM"
                                 },
-                                endTime = departed?.toLocalTime(),
+                                endTime = when (departed?.toLocalTime()) {
+                                    null -> null
+                                    LocalTime.MAX.truncatedTo(ChronoUnit.MICROS) -> "2400"
+                                    else -> departed.toLocalTime().format(DateTimeFormatter.ofPattern(TITANIA_TIME_FORMAT))
+                                },
                                 endReasonCode = when (attendance.type) {
                                     StaffAttendanceType.PRESENT -> null
                                     StaffAttendanceType.OTHER_WORK -> null
