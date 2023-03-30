@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2021-2023 City of Tampere
+#
+# SPDX-License-Identifier: LGPL-2.1-or-later
+
+version: 2
+updates:
+  - package-ecosystem: "docker"
+    directory: "/auth"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "node"
+        update-types: ["version-update:semver-major"]
+  - package-ecosystem: "gradle"
+    directory: "/mock/identification"
+    schedule:
+      interval: "daily"
