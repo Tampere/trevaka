@@ -78,6 +78,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasUnitRole(UserRole.SPECIAL_EDUCATION_TEACHER).inAnyUnit()
             )
         }
+        Action.Global.SEND_PATU_REPORT, Action.Global.SUBMIT_PATU_REPORT -> emptySequence()
         else -> action.defaultRules.asSequence()
     }
 
