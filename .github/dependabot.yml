@@ -15,3 +15,7 @@ updates:
     directory: "/mock/identification"
     schedule:
       interval: "daily"
+    ignore:
+      - dependency-name: "org.springframework.boot"
+      - dependency-name: "jvm"
+      - dependency-name: "plugin.spring"
