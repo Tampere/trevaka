@@ -11,6 +11,13 @@ updates:
     ignore:
       - dependency-name: "node"
         update-types: ["version-update:semver-major"]
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "gradle"
     directory: "/mock/identification"
     schedule:
@@ -19,3 +26,13 @@ updates:
       - dependency-name: "org.springframework.boot"
       - dependency-name: "jvm"
       - dependency-name: "plugin.spring"
+  - package-ecosystem: "gradle"
+    directory: "/service"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "org.jetbrains.kotlin.jvm"
+      - dependency-name: "org.jetbrains.kotlin.plugin.spring"
+      - dependency-name: "org.springframework.boot"
+      - dependency-name: "com.sun.xml.bind:jaxb-xjc"
+      - dependency-name: "com.sun.xml.bind:jaxb-impl"
