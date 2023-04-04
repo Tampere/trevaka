@@ -22,7 +22,7 @@
     "lib-customizations": "link:../evaka/frontend/src/lib-customizations",
     "playwright": "1.32.1",
     "react": "^17.0.2",
-    "styled-components": "5.3.5",
+    "styled-components": "5.3.9",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "tslib": "^2.5.0",
