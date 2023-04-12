@@ -419,18 +419,18 @@ There are missing attendance reservations for the week starting $start. Please m
         val documentsUrl = "${baseUrl(language)}/income"
         return EmailContent(
             subject =
-            "Tulotietojen tarkastus- kehotus / Request to review income information",
+            "Tulotietojen tarkastuskehotus / Request to review income information",
             text =
             """
                 Hyvä asiakkaamme
                 
                 Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.
                 
-                Pyydämme toimittamaan tuloselvityksen eVakassa 14 päivän kuluessa tästä ilmoituksesta.eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.
+                Pyydämme toimittamaan tuloselvityksen eVakassa 28 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.
                 
-                Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Puuttuvilla tulotiedoilla määrättyä maksua ei korjata takautuvasti.
+                Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Uusi maksupäätös astuu voimaan sen kuukauden alusta, kun tulotiedot on toimitettu asiakasmaksuihin.
                 
-                Lisätietoja saatte tarvittaessa: asiakasmaksut.varhaiskasvatus@tampere.fi.
+                Lisätietoja saatte tarvittaessa: https://www.tampere.fi/varhaiskasvatusasiakasmaksut
                 
                 Tulotiedot: $documentsUrl
                 
@@ -442,11 +442,11 @@ There are missing attendance reservations for the week starting $start. Please m
                 
                 The income information used for determining the early childhood education fee or the out-of-pocket cost of a service voucher is reviewed every year.
                 
-                We ask you to submit your income statement through eVaka within 14 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.
+                We ask you to submit your income statement through eVaka within 28 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.
                 
-                If you do not provide your latest income information, your client fee will be determined based on the highest fee category. We will not retroactively reimburse you for fees charged in a situation where you have not provided your income information.
+                If you do not provide your latest income information, your client fee will be determined based on the highest fee category. The new payment decision takes effect at the beginning of the month when the income information has been submitted to customer services.
                 
-                Inquiries: asiakasmaksut.varhaiskasvatus@tampere.fi
+                Inquiries: https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary
                 
                 Income information: $documentsUrl
                 
@@ -459,11 +459,11 @@ There are missing attendance reservations for the week starting $start. Please m
                 
                 <p>Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.</p>
                 
-                <p>Pyydämme toimittamaan tuloselvityksen eVakassa 14 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön. </p>
+                <p>Pyydämme toimittamaan tuloselvityksen eVakassa 28 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.</p>
                 
-                <p>Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Puuttuvilla tulotiedoilla määrättyä maksua ei korjata takautuvasti.</p>
+                <p>Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Uusi maksupäätös astuu voimaan sen kuukauden alusta, kun tulotiedot on toimitettu asiakasmaksuihin.</p>
                 
-                <p>Lisätietoja saatte tarvittaessa: asiakasmaksut.varhaiskasvatus@tampere.fi.</p>
+                <p>Lisätietoja saatte tarvittaessa: <a href="https://www.tampere.fi/varhaiskasvatusasiakasmaksut">https://www.tampere.fi/varhaiskasvatusasiakasmaksut</a></p>
                 
                 <p>Tulotiedot: <a href="$documentsUrl">$documentsUrl</a></p>
                 
@@ -475,11 +475,11 @@ There are missing attendance reservations for the week starting $start. Please m
                 
                 <p>The income information used for determining the early childhood education fee or the out-of-pocket cost of a service voucher is reviewed every year.</p>
                 
-                <p>We ask you to submit your income statement through eVaka within 14 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.</p>
+                <p>We ask you to submit your income statement through eVaka within 28 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.</p>
                 
-                <p>If you do not provide your latest income information, your client fee will be determined based on the highest fee category. We will not retroactively reimburse you for fees charged in a situation where you have not provided your income information.</p>
+                <p>If you do not provide your latest income information, your client fee will be determined based on the highest fee category. The new payment decision takes effect at the beginning of the month when the income information has been submitted to customer services.</p>
                 
-                <p>Inquiries: asiakasmaksut.varhaiskasvatus@tampere.fi</p>
+                <p>Inquiries: <a href="https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary">https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary</a></p>
                 
                 <p>Income information: <a href="$documentsUrl">$documentsUrl</a></p>
                 
@@ -493,18 +493,18 @@ There are missing attendance reservations for the week starting $start. Please m
         val documentsUrl = "${baseUrl(language)}/income"
         return EmailContent(
             subject =
-            "Tulotietojen tarkastus- kehotus / Request to review income information",
+            "Tulotietojen tarkastuskehotus / Request to review income information",
             text =
             """
                 Hyvä asiakkaamme
                 
                 Ette ole vielä toimittaneet uusia tulotietoja. Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.
                 
-                Pyydämme toimittamaan tuloselvityksen eVakassa 7 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.
+                Pyydämme toimittamaan tuloselvityksen eVakassa 14 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.
                 
-                Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Puuttuvilla tulotiedoilla määrättyä maksua ei korjata takautuvasti.
+                Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Uusi maksupäätös astuu voimaan sen kuukauden alusta, kun tulotiedot on toimitettu asiakasmaksuihin.
                 
-                Lisätietoja saatte tarvittaessa: asiakasmaksut.varhaiskasvatus@tampere.fi.
+                Lisätietoja saatte tarvittaessa: https://www.tampere.fi/varhaiskasvatusasiakasmaksut
                 
                 Tulotiedot: $documentsUrl
                 
@@ -516,11 +516,11 @@ There are missing attendance reservations for the week starting $start. Please m
                 
                 You have not yet submitted your latest income information. The income information used for determining the early childhood education fee or the out-of-pocket cost of a service voucher is reviewed every year.
                 
-                We ask you to submit your income statement through eVaka within 7 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.
+                We ask you to submit your income statement through eVaka within 14 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.
                 
-                If you do not provide your latest income information, your client fee will be determined based on the highest fee category. We will not retroactively reimburse you for fees charged in a situation where you have not provided your income information.
+                If you do not provide your latest income information, your client fee will be determined based on the highest fee category. The new payment decision takes effect at the beginning of the month when the income information has been submitted to customer services.
                 
-                Inquiries: asiakasmaksut.varhaiskasvatus@tampere.fi
+                Inquiries: https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary
                 
                 Income information: $documentsUrl
                 
@@ -533,11 +533,11 @@ There are missing attendance reservations for the week starting $start. Please m
                 
                 <p>Ette ole vielä toimittaneet uusia tulotietoja. Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.</p>
                 
-                <p>Pyydämme toimittamaan tuloselvityksen eVakassa 7 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.</p>
+                <p>Pyydämme toimittamaan tuloselvityksen eVakassa 14 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.</p>
                 
-                <p>Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Puuttuvilla tulotiedoilla määrättyä maksua ei korjata takautuvasti.</p>
+                <p>Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Uusi maksupäätös astuu voimaan sen kuukauden alusta, kun tulotiedot on toimitettu asiakasmaksuihin.</p>
                 
-                <p>Lisätietoja saatte tarvittaessa: asiakasmaksut.varhaiskasvatus@tampere.fi.</p>
+                <p>Lisätietoja saatte tarvittaessa: <a href="https://www.tampere.fi/varhaiskasvatusasiakasmaksut">https://www.tampere.fi/varhaiskasvatusasiakasmaksut</a></p>
                 
                 <p>Tulotiedot: <a href="$documentsUrl">$documentsUrl</a></p>
                 
@@ -549,11 +549,11 @@ There are missing attendance reservations for the week starting $start. Please m
                 
                 <p>You have not yet submitted your latest income information. The income information used for determining the early childhood education fee or the out-of-pocket cost of a service voucher is reviewed every year.</p>
                 
-                <p>We ask you to submit your income statement through eVaka within 7 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.</p>
+                <p>We ask you to submit your income statement through eVaka within 14 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.</p>
                 
-                <p>If you do not provide your latest income information, your client fee will be determined based on the highest fee category. We will not retroactively reimburse you for fees charged in a situation where you have not provided your income information.</p>
+                <p>If you do not provide your latest income information, your client fee will be determined based on the highest fee category. The new payment decision takes effect at the beginning of the month when the income information has been submitted to customer services.</p>
                 
-                <p>Inquiries: asiakasmaksut.varhaiskasvatus@tampere.fi</p>
+                <p>Inquiries: <a href="https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary">https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary</a></p>
                 
                 <p>Income information: <a href="$documentsUrl">$documentsUrl</a></p>
                 
@@ -566,14 +566,14 @@ There are missing attendance reservations for the week starting $start. Please m
     private fun outdatedIncomeNotificationExpired(): EmailContent {
         return EmailContent(
             subject =
-            "Tulotietojen tarkastus- kehotus / Request to review income information",
+            "Tulotietojen tarkastuskehotus / Request to review income information",
             text =
             """
                 Hyvä asiakkaamme
                 
                 Seuraava asiakasmaksunne määräytyy korkeimman maksuluokan mukaan, sillä ette ole toimittaneet uusia tulotietoja määräaikaan mennessä.
                 
-                Lisätietoja saatte tarvittaessa: asiakasmaksut.varhaiskasvatus@tampere.fi.
+                Lisätietoja saatte tarvittaessa: https://www.tampere.fi/varhaiskasvatusasiakasmaksut
                 
                 Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.
                 
@@ -583,7 +583,7 @@ There are missing attendance reservations for the week starting $start. Please m
                 
                 Your next client fee will be determined based on the highest fee category as you did not provide your latest income information by the deadline.
                 
-                Inquiries: asiakasmaksut.varhaiskasvatus@tampere.fi
+                Inquiries: https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary
                 
                 This is an automatic message from the eVaka system. Do not reply to this message.
         """
@@ -594,7 +594,7 @@ There are missing attendance reservations for the week starting $start. Please m
                 
                 <p>Seuraava asiakasmaksunne määräytyy korkeimman maksuluokan mukaan, sillä ette ole toimittaneet uusia tulotietoja määräaikaan mennessä.</p>
                 
-                <p>Lisätietoja saatte tarvittaessa: asiakasmaksut.varhaiskasvatus@tampere.fi</p>
+                <p>Lisätietoja saatte tarvittaessa: <a href="https://www.tampere.fi/varhaiskasvatusasiakasmaksut">https://www.tampere.fi/varhaiskasvatusasiakasmaksut</a></p>
                 
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 
@@ -604,7 +604,7 @@ There are missing attendance reservations for the week starting $start. Please m
                 
                 <p>Your next client fee will be determined based on the highest fee category as you did not provide your latest income information by the deadline.</p>
                 
-                <p>Inquiries: asiakasmaksut.varhaiskasvatus@tampere.fi</p>
+                <p>Inquiries: <a href="https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary">https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary</a></p>
                 
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                """
