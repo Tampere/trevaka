@@ -74,30 +74,62 @@ SELECT DISTINCT employee_id, 'PERSONAL'::message_account_type FROM daycare_acl;
 
 INSERT INTO fee_thresholds (
     valid_during,
+    max_fee, min_fee,
     min_income_threshold_2, min_income_threshold_3, min_income_threshold_4, min_income_threshold_5, min_income_threshold_6,
     income_multiplier_2, income_multiplier_3, income_multiplier_4, income_multiplier_5, income_multiplier_6,
     max_income_threshold_2, max_income_threshold_3, max_income_threshold_4, max_income_threshold_5, max_income_threshold_6,
     income_threshold_increase_6_plus,
     sibling_discount_2, sibling_discount_2_plus,
-    max_fee, min_fee,
     temporary_fee, temporary_fee_part_day, temporary_fee_sibling, temporary_fee_sibling_part_day
-) VALUES (
-    daterange('2000-01-01', '2020-07-31', '[]'),
+)
+VALUES
+(
+    daterange('2023-03-01', NULL, '[]'),
+    29500, 2800,
+    387400, 499800, 567500, 635300, 702800,
+    0.1070, 0.1070, 0.1070, 0.1070, 0.1070,
+    662640, 775040, 842740, 910540, 978040,
+    26200,
+    0.6, 0.8,
+    2000, 2000, 2000, 2000
+),
+(
+    daterange('2022-08-01', '2023-02-28', '[]'),
+    29500, 2800,
+    291300, 375800, 426700, 477700, 528400,
+    0.1070, 0.1070, 0.1070, 0.1070, 0.1070,
+    566600, 651100, 702000, 753000, 803700,
+    19700,
+    0.6, 0.8,
+    2000, 2000, 2000, 2000
+),
+(
+    daterange('2021-08-01', '2022-07-31', '[]'),
+    28800, 2700,
+    279800, 361000, 409900, 458800, 507500,
+    0.1070, 0.1070, 0.1070, 0.1070, 0.1070,
+    548500, 629700, 678600, 727500, 776200,
+    18900,
+    0.6, 0.8,
+    2000, 2000, 2000, 2000
+),
+(
+    daterange('2020-08-01', '2021-07-31', '[]'),
+    28800, 2700,
+    213600, 275600, 312900, 350200, 387400,
+    0.1070, 0.1070, 0.1070, 0.1070, 0.1070,
+    482300, 544300, 581600, 618900, 656100,
+    14400,
+    0.5, 0.8,
+    2000, 2000, 2000, 2000
+),
+(
+    daterange('2018-08-01', '2020-07-31', '[]'),
+    28900, 2700,
     210200, 271300, 308000, 344700, 381300,
     0.1070, 0.1070, 0.1070, 0.1070, 0.1070,
     479900, 541000, 577700, 614400, 651000,
     14200,
     0.5, 0.8,
-    28900, 2700,
-    2900, 1500, 1500, 800
-),
-(
-    daterange('2020-08-01', NULL),
-    213600, 275600, 312900, 350200, 387400,
-    0.1070, 0.1070, 0.1070, 0.1070, 0.1070,
-    482300, 544300, 581600, 618900, 656100,
-    14200,
-    0.5, 0.8,
-    28800, 2700,
-    2900, 1500, 1500, 800
+    2000, 2000, 2000, 2000
 );
