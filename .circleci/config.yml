@@ -434,6 +434,7 @@ jobs:
                 circleci-agent step halt
             fi
       - run: git checkout main
+      - run: git pull
       - run: git merge --no-ff --no-edit ${CIRCLE_BRANCH}
       - run: git push
       - run: git push --delete origin ${CIRCLE_BRANCH}
