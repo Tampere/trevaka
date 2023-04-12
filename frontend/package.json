@@ -20,7 +20,7 @@
     "lib-common": "link:../evaka/frontend/src/lib-common",
     "lib-components": "link:../evaka/frontend/src/lib-components",
     "lib-customizations": "link:../evaka/frontend/src/lib-customizations",
-    "playwright": "1.32.2",
+    "playwright": "1.32.3",
     "react": "^17.0.2",
     "styled-components": "5.3.9",
     "ts-jest": "^29.1.0",
