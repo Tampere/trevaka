@@ -24,8 +24,6 @@ updates:
       interval: "daily"
     ignore:
       - dependency-name: "org.springframework.boot"
-      - dependency-name: "jvm"
-      - dependency-name: "plugin.spring"
   - package-ecosystem: "gradle"
     directory: "/service"
     schedule:

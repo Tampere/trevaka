@@ -7,8 +7,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "2.7.3"
     id("io.freefair.lombok") version "8.0.1"
-    kotlin("jvm") version "1.7.21"
-    kotlin("plugin.spring") version "1.7.21"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.spring)
 }
 
 group = "com.example"
