@@ -46,7 +46,7 @@ class TampereConfig {
         postOffice = "TAMPERE",
         municipalMessageAccountName = "Tampereen kaupunki",
         serviceWorkerMessageAccountName = "Tampereen kaupungin palveluohjaus",
-        applyPlacementUnitFromDecision = true
+        applyPlacementUnitFromDecision = true,
     )
 
     @Bean

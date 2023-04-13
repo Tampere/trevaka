@@ -34,7 +34,7 @@ class IntegrationTestConfiguration {
             6379,
             Protocol.DEFAULT_TIMEOUT,
             null,
-            database
+            database,
         )
     }
 
@@ -45,7 +45,7 @@ class IntegrationTestConfiguration {
             .serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build())
             .endpointOverride(bucketEnv.s3MockUrl)
             .credentialsProvider(
-                StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar"))
+                StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar")),
             )
             .build()
 
@@ -64,7 +64,7 @@ class IntegrationTestConfiguration {
             .serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build())
             .endpointOverride(bucketEnv.s3MockUrl)
             .credentialsProvider(
-                StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar"))
+                StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar")),
             )
             .build()
 

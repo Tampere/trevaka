@@ -71,7 +71,7 @@ internal class TrevakaInvoiceClientTest {
         val properties = TrevakaProperties(
             IpaasProperties("user", "pass"),
             InvoiceProperties("http://localhost:8080/salesOrder"),
-            SummertimeAbsenceProperties()
+            SummertimeAbsenceProperties(),
         )
         val configuration = InvoiceConfiguration()
         val webServiceTemplate = configuration.webServiceTemplate(configuration.httpClient(properties), properties)
@@ -102,8 +102,8 @@ internal class TrevakaInvoiceClientTest {
                 invoiceRecipientName = "Leena Meikäläinen",
                 invoicingStreetAddress = "Kotikatu 3",
                 invoicingPostalCode = "33960",
-                invoicingPostOffice = "PIRKKALA"
-            )
+                invoicingPostOffice = "PIRKKALA",
+            ),
         )
         server.expect(connectionTo("http://localhost:8080/salesOrder"))
             .andExpect(payload(ClassPathResource("invoice-client/sales-order-request-invoicing-details.xml")))
@@ -196,9 +196,11 @@ fun validInvoice(): InvoiceDetailed {
             PersonId(UUID.randomUUID()), LocalDate.of(2015, 11, 26), null,
             "Maiju", "Meikäläinen",
             null, "", "", "",
-            "", null, "", null, restrictedDetailsEnabled = false
+            "", null, "", null, restrictedDetailsEnabled = false,
         ),
-        costCenter = "284823", product = ProductKey("PRESCHOOL_WITH_DAYCARE"), description = "kuvaus2"
+        costCenter = "284823",
+        product = ProductKey("PRESCHOOL_WITH_DAYCARE"),
+        description = "kuvaus2",
     )
     return InvoiceDetailed(
         (InvoiceId(UUID.randomUUID())),
@@ -214,7 +216,7 @@ fun validInvoice(): InvoiceDetailed {
         listOf(invoiceRow1, invoiceRow2),
         null,
         null,
-        null
+        null,
     )
 }
 
@@ -224,26 +226,26 @@ fun validInvoiceRow(unitPrice: Int, productKey: ProductKey = ProductKey("DAYCARE
         PersonId(UUID.randomUUID()), LocalDate.of(2018, 1, 1), null,
         "Matti", "Meikäläinen",
         null, "", "", "",
-        "", null, "", null, restrictedDetailsEnabled = false
+        "", null, "", null, restrictedDetailsEnabled = false,
     ),
     1, unitPrice,
     LocalDate.of(2021, 1, 1),
     LocalDate.of(2021, 1, 31),
     productKey, DaycareId(UUID.randomUUID()), "unit1", setOf(CareType.CENTRE), costCenter, null, null, description,
     correctionId = null,
-    note = null
+    note = null,
 )
 
 fun validPerson() = PersonDetailed(
     PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
     "Maija", "Meikäläinen",
     "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
-    "", null, "", null, restrictedDetailsEnabled = false
+    "", null, "", null, restrictedDetailsEnabled = false,
 )
 
 fun personWithoutSSN() = PersonDetailed(
     PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
     "Maija", "Meikäläinen",
     null, "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
-    "", null, "", null, restrictedDetailsEnabled = false
+    "", null, "", null, restrictedDetailsEnabled = false,
 )

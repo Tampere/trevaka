@@ -52,7 +52,7 @@ private const val maxTextRowLength = 70
 
 class TrevakaInvoiceClient(
     private val webServiceTemplate: WebServiceTemplate,
-    private val properties: InvoiceProperties
+    private val properties: InvoiceProperties,
 ) :
     InvoiceIntegrationClient {
 
@@ -60,11 +60,15 @@ class TrevakaInvoiceClient(
         DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale("fi"))
 
     private fun priceInEuros(priceInCents: Int?): BigDecimal? =
-        if (priceInCents != null) BigDecimal(priceInCents).divide(
-            BigDecimal(100),
-            2,
-            RoundingMode.HALF_UP
-        ) else null
+        if (priceInCents != null) {
+            BigDecimal(priceInCents).divide(
+                BigDecimal(100),
+                2,
+                RoundingMode.HALF_UP,
+            )
+        } else {
+            null
+        }
 
     override fun send(invoices: List<InvoiceDetailed>): SendResult {
         logger.info("Invoice batch started")
@@ -75,8 +79,9 @@ class TrevakaInvoiceClient(
             try {
                 val request = toRequest(withSSN)
                 val response = webServiceTemplate.marshalSendAndReceive(
-                    properties.url, request,
-                    SoapActionCallback("http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder")
+                    properties.url,
+                    request,
+                    SoapActionCallback("http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder"),
                 )
                 when (val value = JAXBIntrospector.getValue(response)) {
                     is SimpleAcknowledgementResponseType -> logger.info("Invoice batch ended with status ${value.statusMessage}")
@@ -161,11 +166,11 @@ class TrevakaInvoiceClient(
                         textRow.addAll(
                             listOf(
                                 "${it.child.lastName} ${it.child.firstName}".take(maxTextRowLength),
-                                "${it.periodStart.format(dateFormatter)} - ${it.periodEnd.format(dateFormatter)}"
-                            )
+                                "${it.periodStart.format(dateFormatter)} - ${it.periodEnd.format(dateFormatter)}",
+                            ),
                         )
-                    }
-                )
+                    },
+                ),
             )
         }
     }
@@ -190,18 +195,25 @@ class TrevakaInvoiceClient(
 internal fun toInvoicePerson(person: PersonDetailed): InvoicePerson {
     val ssn = person.ssn
     val (lastName, firstName) =
-        if (person.invoiceRecipientName.isNotBlank()) person.invoiceRecipientName.trim() to ""
-        else person.lastName.trim() to person.firstName.trim()
+        if (person.invoiceRecipientName.isNotBlank()) {
+            person.invoiceRecipientName.trim() to ""
+        } else {
+            person.lastName.trim() to person.firstName.trim()
+        }
     val restrictedDetailsEnabled = person.restrictedDetailsEnabled
-    val (streetName, postalCode, postOffice) = if (hasInvoicingAddress(person)) Triple(
-        person.invoicingStreetAddress.trim(),
-        person.invoicingPostalCode.trim(),
-        person.invoicingPostOffice.trim()
-    ) else Triple(
-        person.streetAddress.trim(),
-        person.postalCode.trim(),
-        person.postOffice.trim()
-    )
+    val (streetName, postalCode, postOffice) = if (hasInvoicingAddress(person)) {
+        Triple(
+            person.invoicingStreetAddress.trim(),
+            person.invoicingPostalCode.trim(),
+            person.invoicingPostOffice.trim(),
+        )
+    } else {
+        Triple(
+            person.streetAddress.trim(),
+            person.postalCode.trim(),
+            person.postOffice.trim(),
+        )
+    }
     return InvoicePerson(ssn!!, lastName, firstName, restrictedDetailsEnabled, streetName, postalCode, postOffice)
 }
 
@@ -218,7 +230,7 @@ internal data class InvoicePerson(
     val restrictedDetailsEnabled: Boolean,
     val streetName: String,
     val postalCode: String,
-    val postOffice: String
+    val postOffice: String,
 ) {
     fun name(): String = "$lastName $firstName".trim()
     fun address(): Address = when (restrictedDetailsEnabled) {

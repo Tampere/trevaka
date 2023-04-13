@@ -25,8 +25,8 @@ internal class DvvModificationsServiceClientIT : AbstractIntegrationTest() {
                 aResponse()
                     .withStatus(200)
                     .withHeader("Content-Type", "application/json")
-                    .withBodyFile("modifications-client/first-modification-token-response-ok.json")
-            )
+                    .withBodyFile("modifications-client/first-modification-token-response-ok.json"),
+            ),
         )
 
         val response = dvvModificationsServiceClient.getFirstModificationToken(LocalDate.of(2021, 4, 1))
@@ -34,7 +34,7 @@ internal class DvvModificationsServiceClientIT : AbstractIntegrationTest() {
 
         verify(
             getRequestedFor(urlEqualTo("/mock/modifications/kirjausavain/2021-04-01"))
-                .withBasicAuth(BasicCredentials("user", "pass"))
+                .withBasicAuth(BasicCredentials("user", "pass")),
         )
     }
 
@@ -45,8 +45,8 @@ internal class DvvModificationsServiceClientIT : AbstractIntegrationTest() {
                 aResponse()
                     .withStatus(200)
                     .withHeader("Content-Type", "application/json")
-                    .withBodyFile("modifications-client/modifications-response-ok.json")
-            )
+                    .withBodyFile("modifications-client/modifications-response-ok.json"),
+            ),
         )
 
         val response = dvvModificationsServiceClient.getModifications("5446623423", listOf())
@@ -54,7 +54,7 @@ internal class DvvModificationsServiceClientIT : AbstractIntegrationTest() {
 
         verify(
             postRequestedFor(urlEqualTo("/mock/modifications/muutokset"))
-                .withBasicAuth(BasicCredentials("user", "pass"))
+                .withBasicAuth(BasicCredentials("user", "pass")),
         )
     }
 }

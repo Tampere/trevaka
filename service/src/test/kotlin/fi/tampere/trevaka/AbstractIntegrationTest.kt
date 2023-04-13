@@ -32,7 +32,7 @@ val reportsPath: String = "${Paths.get("build").toAbsolutePath()}/reports"
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(
     webEnvironment = WebEnvironment.RANDOM_PORT,
-    classes = [IntegrationTestConfiguration::class]
+    classes = [IntegrationTestConfiguration::class],
 )
 @AutoConfigureWireMock(port = 0)
 abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean = true) {

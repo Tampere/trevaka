@@ -99,7 +99,7 @@ fun Database.Transaction.deleteStaffAttendancePlansBy(
 
 fun Database.Read.findStaffAttendancesBy(
     employeeIds: Collection<EmployeeId>? = null,
-    period: FiniteDateRange? = null
+    period: FiniteDateRange? = null,
 ): List<RawAttendance> =
     createQuery(
         """
@@ -120,7 +120,7 @@ JOIN employee emp ON sa.employee_id = emp.id
 LEFT JOIN staff_occupancy_coefficient soc ON soc.daycare_id = dg.daycare_id AND soc.employee_id = emp.id
 WHERE (:employeeIds::uuid[] IS NULL OR sa.employee_id = ANY(:employeeIds))
 AND (:start IS NULL OR :end IS NULL OR daterange((sa.arrived at time zone 'Europe/Helsinki')::date, (sa.departed at time zone 'Europe/Helsinki')::date, '[]') && daterange(:start, :end, '[]'))
-        """.trimIndent()
+        """.trimIndent(),
     )
         .bind("employeeIds", employeeIds?.toTypedArray())
         .bind("start", period?.start)

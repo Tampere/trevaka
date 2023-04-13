@@ -28,15 +28,15 @@ internal class PersonDetailsServiceIT : AbstractIntegrationTest() {
                     .withHeader("Content-Type", "text/xml")
                     .withBodyFile("person-client/henkilotunnuskysely-response-ok.xml")
                     .withTransformers("response-template")
-                    .withTransformerParameter("ssn", "070644-937X")
-            )
+                    .withTransformerParameter("ssn", "070644-937X"),
+            ),
         )
 
         val person = personDetailsService.getBasicDetailsFor(
             IPersonDetailsService.DetailsQuery(
                 AuthenticatedUser.SystemInternalUser.evakaUserId,
-                ExternalIdentifier.SSN.getInstance("070644-937X")
-            )
+                ExternalIdentifier.SSN.getInstance("070644-937X"),
+            ),
         )
 
         assertThat(person).returns("070644-937X", { it.socialSecurityNumber })
@@ -44,7 +44,7 @@ internal class PersonDetailsServiceIT : AbstractIntegrationTest() {
             postRequestedFor(urlEqualTo("/mock/vtj"))
                 .withBasicAuth(BasicCredentials("user", "pass"))
                 .withHeader("Content-Type", equalTo("text/xml; charset=UTF-8"))
-                .withHeader("SOAPAction", equalTo("\"\""))
+                .withHeader("SOAPAction", equalTo("\"\"")),
         )
     }
 }

@@ -35,7 +35,7 @@ internal val IGNORED_EVENT_CODES = listOf(
     // Muut poissaolot
     "t", "#", "l", "{", "\\", "[",
     // Muut tapahtumat
-    ".", "*", "@", "<"
+    ".", "*", "@", "<",
 )
 
 // from updateWorkingTimeEvents.wsdl, version 1.2 25.8.2020 & getStampedWorkingTimeEvents.wsdl, version 1.1 14.8.2020
@@ -150,7 +150,7 @@ data class TitaniaPayrollItem(
 )
 
 data class UpdateWorkingTimeEventsResponse(
-    val message: String
+    val message: String,
 ) {
     companion object {
         fun ok() = UpdateWorkingTimeEventsResponse("OK")
@@ -219,7 +219,7 @@ data class TitaniaErrorResponse(
     val faultcode: String = "Server",
     val faultstring: String = "multiple",
     val faultactor: String,
-    val detail: List<TitaniaErrorDetail>
+    val detail: List<TitaniaErrorDetail>,
 )
 
 enum class TitaniaError(val status: HttpStatus) {

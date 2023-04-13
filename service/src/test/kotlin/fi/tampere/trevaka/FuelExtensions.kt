@@ -30,7 +30,7 @@ fun Request.asUser(user: AuthenticatedUser, clock: Clock? = Clock.systemDefaultZ
         JWT.create()
             .withKeyId("integration-test").withIssuer("integration-test")
             .withIssuedAt(Date.from(now.toInstant()))
-            .withExpiresAt(Date.from(now.plusHours(12).toInstant()))
+            .withExpiresAt(Date.from(now.plusHours(12).toInstant())),
     ).sign(algorithm)
     return this.header("Authorization", "Bearer $token")
 }

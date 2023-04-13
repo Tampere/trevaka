@@ -78,8 +78,8 @@ internal class TitaniaControllerTest : AbstractIntegrationTest() {
                     listOf(
                         TitaniaErrorDetail(TitaniaError.INVALID_EMPLOYEE_NUMBER, "Error description"),
                         TitaniaErrorDetail(TitaniaError.INVALID_EMPLOYEE_NUMBER, "Error description"),
-                    )
-                )
+                    ),
+                ),
             )
 
         val (_, res, _) = http.put("/integration/titania/working-time-events")
@@ -104,7 +104,8 @@ internal class TitaniaControllerTest : AbstractIntegrationTest() {
         }
     ]
 }""",
-            res.body().asString("application/json"), JSONCompareMode.STRICT
+            res.body().asString("application/json"),
+            JSONCompareMode.STRICT,
         )
 
         verify(titaniaService).updateWorkingTimeEvents(any(), eq(titaniaUpdateRequestValidExampleData))
@@ -124,7 +125,7 @@ internal class TitaniaControllerTest : AbstractIntegrationTest() {
         assertEquals(
             resourceAsString(ClassPathResource("titania/titania-get-response-valid-example-data.json")),
             res.body().asString("application/json"),
-            JSONCompareMode.STRICT
+            JSONCompareMode.STRICT,
         )
         verify(titaniaService).getStampedWorkingTimeEvents(any(), eq(titaniaGetRequestValidExampleData))
     }

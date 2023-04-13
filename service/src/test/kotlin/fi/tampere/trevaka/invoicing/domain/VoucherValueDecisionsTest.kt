@@ -47,5 +47,5 @@ private fun Database.Read.getVoucherValues(): List<ServiceNeedOptionVoucherValue
             coefficient_under_3y,
             value_under_3y
         FROM service_need_option_voucher_value
-    """.trimIndent()
+    """.trimIndent(),
 ).mapTo<ServiceNeedOptionVoucherValue>().list()

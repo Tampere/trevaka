@@ -20,8 +20,8 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan
         FlywayAutoConfiguration::class,
         SecurityAutoConfiguration::class,
         SecurityFilterAutoConfiguration::class,
-        TransactionAutoConfiguration::class
-    ]
+        TransactionAutoConfiguration::class,
+    ],
 )
 @ConfigurationPropertiesScan(basePackages = ["fi.tampere.trevaka"])
 class TrevakaMain

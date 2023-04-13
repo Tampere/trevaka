@@ -39,34 +39,34 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
     fun contents(): Stream<Arguments> = listOf(
         Arguments.of(
             "daycareApplicationReceived",
-            emailMessageProvider.daycareApplicationReceived(Language.fi)
+            emailMessageProvider.daycareApplicationReceived(Language.fi),
         ),
         Arguments.of(
             "clubApplicationReceived",
-            emailMessageProvider.clubApplicationReceived(Language.fi)
+            emailMessageProvider.clubApplicationReceived(Language.fi),
         ),
         Arguments.of(
             "pendingDecisionNotification",
-            emailMessageProvider.pendingDecisionNotification(Language.fi)
+            emailMessageProvider.pendingDecisionNotification(Language.fi),
         ),
         Arguments.of(
             "preschoolApplicationReceivedWithinApplicationPeriodTrue",
-            emailMessageProvider.preschoolApplicationReceived(Language.fi, true)
+            emailMessageProvider.preschoolApplicationReceived(Language.fi, true),
         ),
         Arguments.of(
             "preschoolApplicationReceivedWithinApplicationPeriodFalse",
-            emailMessageProvider.preschoolApplicationReceived(Language.fi, false)
+            emailMessageProvider.preschoolApplicationReceived(Language.fi, false),
         ),
         Arguments.of(
             "assistanceNeedDecisionNotification",
-            emailMessageProvider.assistanceNeedDecisionNotification(Language.fi)
+            emailMessageProvider.assistanceNeedDecisionNotification(Language.fi),
         ),
         Arguments.of(
             "missingReservationsNotification",
             emailMessageProvider.missingReservationsNotification(
                 Language.fi,
-                LocalDate.of(2023, 2, 13).let { FiniteDateRange(it, it.plusDays(6)) }
-            )
+                LocalDate.of(2023, 2, 13).let { FiniteDateRange(it, it.plusDays(6)) },
+            ),
         ),
         Arguments.of(
             "messageNotification",
@@ -77,30 +77,30 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
                     type = MessageType.MESSAGE,
                     title = "Ensi viikolla uimaan",
                     urgent = false,
-                    isCopy = false
-                )
-            )
+                    isCopy = false,
+                ),
+            ),
         ),
         Arguments.of(
             "vasuNotification",
-            emailMessageProvider.vasuNotification(Language.fi, ChildId(UUID.randomUUID()))
+            emailMessageProvider.vasuNotification(Language.fi, ChildId(UUID.randomUUID())),
         ),
         Arguments.of(
             "pedagogicalDocumentNotification",
-            emailMessageProvider.pedagogicalDocumentNotification(Language.fi)
+            emailMessageProvider.pedagogicalDocumentNotification(Language.fi),
         ),
         Arguments.of(
             "outdatedIncomeNotificationInitial",
-            emailMessageProvider.outdatedIncomeNotification(IncomeNotificationType.INITIAL_EMAIL, Language.fi)
+            emailMessageProvider.outdatedIncomeNotification(IncomeNotificationType.INITIAL_EMAIL, Language.fi),
         ),
         Arguments.of(
             "outdatedIncomeNotificationReminder",
-            emailMessageProvider.outdatedIncomeNotification(IncomeNotificationType.REMINDER_EMAIL, Language.fi)
+            emailMessageProvider.outdatedIncomeNotification(IncomeNotificationType.REMINDER_EMAIL, Language.fi),
         ),
         Arguments.of(
             "outdatedIncomeNotificationExpired",
-            emailMessageProvider.outdatedIncomeNotification(IncomeNotificationType.EXPIRED_EMAIL, Language.fi)
-        )
+            emailMessageProvider.outdatedIncomeNotification(IncomeNotificationType.EXPIRED_EMAIL, Language.fi),
+        ),
     )
         .stream()
 

@@ -28,7 +28,7 @@ class ReportsController() {
     fun freezeVoucherValueReportRows(
         db: Database,
         user: AuthenticatedUser,
-        clock: EvakaClock
+        clock: EvakaClock,
     ) {
         if (!user.isAdmin) throw Forbidden()
         logger.info { "Freeze all voucher value report rows" }
@@ -56,7 +56,7 @@ class ReportsController() {
         user: AuthenticatedUser,
         clock: EvakaClock,
         @PathVariable year: Int,
-        @PathVariable month: Int
+        @PathVariable month: Int,
     ) {
         if (!user.isAdmin) throw Forbidden()
         db.connect { dbc ->
@@ -64,7 +64,7 @@ class ReportsController() {
                 freezeVoucherValueReportRows(
                     tx,
                     YearMonth.of(year, month),
-                    clock.now()
+                    clock.now(),
                 )
             }
         }
@@ -73,7 +73,7 @@ class ReportsController() {
     internal fun freezeVoucherValueReportRows(
         tx: Database.Transaction,
         yearMonth: YearMonth,
-        takenAt: HelsinkiDateTime
+        takenAt: HelsinkiDateTime,
     ) {
         logger.info { "Freeze voucher value report rows $yearMonth" }
         freezeVoucherValueReportRows(tx, yearMonth.year, yearMonth.monthValue, takenAt)

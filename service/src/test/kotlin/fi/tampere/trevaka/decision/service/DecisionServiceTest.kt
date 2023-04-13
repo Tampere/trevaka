@@ -37,7 +37,7 @@ import java.util.UUID
 
 private val settings = mapOf(
     SettingType.DECISION_MAKER_NAME to "Paula Palvelupäällikkö",
-    SettingType.DECISION_MAKER_TITLE to "Asiakaspalvelupäällikkö"
+    SettingType.DECISION_MAKER_TITLE to "Asiakaspalvelupäällikkö",
 )
 
 class DecisionServiceTest : AbstractIntegrationTest() {
@@ -56,12 +56,12 @@ class DecisionServiceTest : AbstractIntegrationTest() {
         @CartesianTest.Enum(
             value = DecisionType::class,
             names = ["PREPARATORY_EDUCATION"],
-            mode = CartesianTest.Enum.Mode.EXCLUDE
+            mode = CartesianTest.Enum.Mode.EXCLUDE,
         ) decisionType: DecisionType,
         @CartesianTest.Enum(
             value = ProviderType::class,
             names = ["MUNICIPAL", "PRIVATE_SERVICE_VOUCHER"],
-            mode = CartesianTest.Enum.Mode.INCLUDE
+            mode = CartesianTest.Enum.Mode.INCLUDE,
         ) providerType: ProviderType,
         @CartesianTest.Values(booleans = [false, true]) isTransferApplication: Boolean,
     ) {
@@ -86,12 +86,12 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                         "Palveluntarve 1",
                         "Palveluntarve 1",
                         "Palveluntarve 1",
-                        null
-                    )
+                        null,
+                    ),
                 )
             },
             lang = DocumentLang.FI,
-            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
+            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
         val filename =
@@ -116,10 +116,10 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                 endTime = "16:00",
                 shiftCare = false,
                 partTime = false,
-                serviceNeedOption = null
+                serviceNeedOption = null,
             ),
             lang = DocumentLang.FI,
-            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
+            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
         val filepath =
@@ -148,11 +148,11 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                     "Palveluntarve 1",
                     "Palveluntarve 1",
                     "Palveluntarve 1",
-                    null
-                )
+                    null,
+                ),
             ),
             lang = DocumentLang.FI,
-            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
+            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
         val filepath = "${Paths.get("build").toAbsolutePath()}/reports/DecisionServiceTest-DAYCARE-without-settings.pdf"
@@ -180,11 +180,11 @@ class DecisionServiceTest : AbstractIntegrationTest() {
                     "Palveluntarve 1",
                     "Palveluntarve 1",
                     "Palveluntarve 1",
-                    null
-                )
+                    null,
+                ),
             ),
             lang = DocumentLang.FI,
-            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234")
+            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
         val filepath =
@@ -225,7 +225,7 @@ private fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(
     phone = "+35850 1234564",
     decisionHandler = "Vuoreksen kerho",
     decisionHandlerAddress = "Rautiolanrinne 2, 33870 Tampere",
-    providerType
+    providerType,
 )
 
 private fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
@@ -244,7 +244,7 @@ private fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO
     postalCode = "33870",
     postOffice = "Tampere",
     residenceCode = "",
-    restrictedDetailsEnabled = restrictedDetailsEnabled
+    restrictedDetailsEnabled = restrictedDetailsEnabled,
 )
 
 private fun validChild(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
@@ -263,5 +263,5 @@ private fun validChild(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
     postalCode = "33870",
     postOffice = "Tampere",
     residenceCode = "",
-    restrictedDetailsEnabled = restrictedDetailsEnabled
+    restrictedDetailsEnabled = restrictedDetailsEnabled,
 )

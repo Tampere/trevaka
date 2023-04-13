@@ -26,8 +26,8 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
                 aResponse()
                     .withStatus(200)
                     .withHeader("Content-Type", "application/soap+xml")
-                    .withBodyFile("invoice-client/sales-order-response-ok.xml")
-            )
+                    .withBodyFile("invoice-client/sales-order-response-ok.xml"),
+            ),
         )
 
         assertThat(client.send(listOf(invoice1)))
@@ -39,9 +39,9 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
                 .withBasicAuth(BasicCredentials("user", "pass"))
                 .withHeader(
                     "Content-Type",
-                    equalTo("application/soap+xml; charset=utf-8;   \taction=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\"")
+                    equalTo("application/soap+xml; charset=utf-8;   \taction=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\""),
                 )
-                .withoutHeader("SOAPAction")
+                .withoutHeader("SOAPAction"),
         )
     }
 
@@ -53,8 +53,8 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
                 aResponse()
                     .withStatus(400)
                     .withHeader("Content-Type", "application/soap+xml")
-                    .withBodyFile("invoice-client/sales-order-response-application-fault.xml")
-            )
+                    .withBodyFile("invoice-client/sales-order-response-application-fault.xml"),
+            ),
         )
 
         val thrown = catchThrowable { client.send(listOf(invoice1)) }
@@ -65,9 +65,9 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
                 .withBasicAuth(BasicCredentials("user", "pass"))
                 .withHeader(
                     "Content-Type",
-                    equalTo("application/soap+xml; charset=utf-8;   \taction=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\"")
+                    equalTo("application/soap+xml; charset=utf-8;   \taction=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\""),
                 )
-                .withoutHeader("SOAPAction")
+                .withoutHeader("SOAPAction"),
         )
     }
 
@@ -79,8 +79,8 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
                 aResponse()
                     .withStatus(500)
                     .withHeader("Content-Type", "application/soap+xml")
-                    .withBodyFile("invoice-client/sales-order-response-system-fault.xml")
-            )
+                    .withBodyFile("invoice-client/sales-order-response-system-fault.xml"),
+            ),
         )
 
         val thrown = catchThrowable { client.send(listOf(invoice1)) }
@@ -91,9 +91,9 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
                 .withBasicAuth(BasicCredentials("user", "pass"))
                 .withHeader(
                     "Content-Type",
-                    equalTo("application/soap+xml; charset=utf-8;   \taction=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\"")
+                    equalTo("application/soap+xml; charset=utf-8;   \taction=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\""),
                 )
-                .withoutHeader("SOAPAction")
+                .withoutHeader("SOAPAction"),
         )
     }
 }

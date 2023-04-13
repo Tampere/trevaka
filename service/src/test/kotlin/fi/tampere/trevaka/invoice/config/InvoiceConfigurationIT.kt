@@ -73,7 +73,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
                 """
                 INSERT INTO holiday_period_questionnaire(id, type, absence_type, requires_strong_auth, active, title, description, description_link, condition_continuous_placement, period_options, period_option_label)
                 VALUES (:questionnaireId, 'FIXED_PERIOD', 'FREE_ABSENCE', false, daterange('2022-04-13', '2022-04-29'), '{"fi": "title"}', '{"fi": "description"}', '{"fi": "link"}', daterange('2021-08-31', '2022-06-30'), array[daterange('2022-06-06', '2022-07-31', '[]'), daterange('2022-06-13', '2022-08-07', '[]'), daterange('2022-06-20', '2022-08-14', '[]'), daterange('2022-06-27', '2022-08-21', '[]'), daterange('2022-07-04', '2022-08-28', '[]')], '{"fi": "period option label"}')
-                """
+                """,
             ).bind("questionnaireId", questionnaireId).execute()
             tx.insertTestFeeThresholds(
                 FeeThresholds(
@@ -101,8 +101,8 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
                     temporaryFee = 2900,
                     temporaryFeePartDay = 1500,
                     temporaryFeeSibling = 1500,
-                    temporaryFeeSiblingPartDay = 800
-                )
+                    temporaryFeeSiblingPartDay = 800,
+                ),
             )
             tx.insertTestDaycare(testDaycare)
             tx.insertTestPerson(testChild)
@@ -126,23 +126,22 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
                         serviceNeed = snDaycareFullDay.toFeeDecisionServiceNeed(),
                         baseFee = 28900,
                         fee = 28900,
-                        feeAlterations = listOf()
-                    )
-                )
-            )
+                        feeAlterations = listOf(),
+                    ),
+                ),
+            ),
         )
         insertDecisionsAndPlacements(decisions)
     }
 
     @Test
     fun test8WeeksReserved() {
-
         db.transaction { tx ->
             tx.createUpdate(
                 """
                 INSERT INTO absence(child_id, date, absence_type, modified_by, category, questionnaire_id)
                 VALUES (:childId, generate_series('2022-06-06', '2022-07-31', interval '1 day')::date, 'FREE_ABSENCE', :evakaUserId, 'BILLABLE', :questionnaireId)
-                """
+                """,
             ).bind("childId", testChild.id).bind("evakaUserId", evakaUserId).bind("questionnaireId", questionnaireId)
                 .execute()
         }
@@ -155,13 +154,12 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
 
     @Test
     fun test7WeeksReserved() {
-
         db.transaction { tx ->
             tx.createUpdate(
                 """
                 INSERT INTO absence(child_id, date, absence_type, modified_by, category, questionnaire_id)
                 VALUES (:childId, generate_series('2022-06-13', '2022-07-31', interval '1 day')::date, 'FREE_ABSENCE', :evakaUserId, 'BILLABLE', :questionnaireId)
-                """
+                """,
             ).bind("childId", testChild.id).bind("evakaUserId", evakaUserId).bind("questionnaireId", questionnaireId)
                 .execute()
         }
@@ -181,7 +179,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
         streetAddress = "Kamreerintie 2",
         postalCode = "02770",
         postOffice = "Espoo",
-        restrictedDetailsEnabled = false
+        restrictedDetailsEnabled = false,
     )
 
     private final val testAdult = DevPerson(
@@ -193,7 +191,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
         streetAddress = "Kamreerintie 2",
         postalCode = "02770",
         postOffice = "Espoo",
-        restrictedDetailsEnabled = false
+        restrictedDetailsEnabled = false,
     )
 
     private final val testParentship = DevParentship(
@@ -201,7 +199,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
         headOfChildId = testAdult.id,
         childId = testChild.id,
         startDate = testChild.dateOfBirth,
-        endDate = testChild.dateOfBirth.plusYears(18).minusDays(1)
+        endDate = testChild.dateOfBirth.plusYears(18).minusDays(1),
     )
 
     private final val defaultMunicipalOrganizerOid = "1.2.246.562.10.888888888888"
@@ -211,7 +209,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
         name = "Test Daycare",
         areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")), // Etelä
         ophOrganizerOid = defaultMunicipalOrganizerOid,
-        enabledPilotFeatures = setOf(PilotFeature.MESSAGING, PilotFeature.MOBILE, PilotFeature.RESERVATIONS, PilotFeature.PLACEMENT_TERMINATION)
+        enabledPilotFeatures = setOf(PilotFeature.MESSAGING, PilotFeature.MOBILE, PilotFeature.RESERVATIONS, PilotFeature.PLACEMENT_TERMINATION),
     )
 
     private final val snDaycareFullDay = ServiceNeedOption(
@@ -234,7 +232,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
         feeDescriptionSv = "",
         voucherValueDescriptionFi = "",
         voucherValueDescriptionSv = "",
-        active = true
+        active = true,
     )
 
     private val getAllInvoices: (Database.Read) -> List<Invoice> = { r ->
@@ -242,7 +240,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
             """
             $invoiceQueryBase
             ORDER BY invoice.id, row.idx
-            """.trimIndent()
+            """.trimIndent(),
         )
             .map(toInvoice)
             .list()
@@ -275,7 +273,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
         temporaryFee = 2900,
         temporaryFeePartDay = 1500,
         temporaryFeeSibling = 1500,
-        temporaryFeeSiblingPartDay = 800
+        temporaryFeeSiblingPartDay = 800,
     )
 
     private fun createFeeDecisionFixture(
@@ -287,7 +285,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
         partnerId: PersonId? = null,
         feeThresholds: FeeDecisionThresholds = testFeeThresholds.getFeeDecisionThresholds(children.size + 1),
         difference: Set<FeeDecisionDifference> = emptySet(),
-        headOfFamilyIncome: DecisionIncome? = null
+        headOfFamilyIncome: DecisionIncome? = null,
     ) = FeeDecision(
         id = FeeDecisionId(UUID.randomUUID()),
         status = status,
@@ -308,7 +306,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
         contractDaysPerMonth = this.contractDaysPerMonth,
         descriptionFi = this.feeDescriptionFi,
         descriptionSv = this.feeDescriptionSv,
-        missing = this.defaultOption
+        missing = this.defaultOption,
     )
 
     private fun createFeeDecisionChildFixture(
@@ -330,7 +328,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
         fee = fee,
         feeAlterations = feeAlterations,
         finalFee = fee + feeAlterations.sumOf { it.effect },
-        childIncome = null
+        childIncome = null,
     )
 
     private fun insertDecisionsAndPlacements(feeDecisions: List<FeeDecision>) = db.transaction { tx ->
@@ -342,7 +340,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
                     unitId = part.placement.unitId,
                     startDate = decision.validFrom,
                     endDate = decision.validTo!!,
-                    type = part.placement.type
+                    type = part.placement.type,
                 )
             }
         }

@@ -33,7 +33,8 @@ internal class MessageProviderTest : AbstractIntegrationTest() {
         fun methodsWithLang(): ArgumentSets {
             val allMethods = getAllMethods(
                 IMessageProvider::class.java,
-                withParametersAssignableTo(MessageLanguage::class.java), withReturnType(String::class.java)
+                withParametersAssignableTo(MessageLanguage::class.java),
+                withReturnType(String::class.java),
             )
             return ArgumentSets.create()
                 .argumentsForNextParameter(allMethods)

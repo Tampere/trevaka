@@ -52,13 +52,13 @@ class InvoiceConfiguration {
     @Bean(name = ["trevakaInvoiceIntegrationClient"])
     fun invoiceIntegrationClient(
         @Qualifier(WEB_SERVICE_TEMPLATE_INVOICE) webServiceTemplate: WebServiceTemplate,
-        properties: TrevakaProperties
+        properties: TrevakaProperties,
     ): InvoiceIntegrationClient = TrevakaInvoiceClient(webServiceTemplate, properties.invoice)
 
     @Bean(WEB_SERVICE_TEMPLATE_INVOICE)
     fun webServiceTemplate(
         @Qualifier(HTTP_CLIENT_INVOICE) httpClient: HttpClient,
-        properties: TrevakaProperties
+        properties: TrevakaProperties,
     ): WebServiceTemplate {
         val messageFactory = SaajSoapMessageFactory().apply {
             setSoapVersion(SoapVersion.SOAP_12)
@@ -130,7 +130,8 @@ class TampereInvoiceProductProvider : InvoiceProductProvider {
             PlacementType.DAYCARE,
             PlacementType.DAYCARE_PART_TIME,
             PlacementType.DAYCARE_FIVE_YEAR_OLDS,
-            PlacementType.DAYCARE_PART_TIME_FIVE_YEAR_OLDS ->
+            PlacementType.DAYCARE_PART_TIME_FIVE_YEAR_OLDS,
+            ->
                 Product.DAYCARE
             PlacementType.PRESCHOOL_DAYCARE ->
                 Product.PRESCHOOL_WITH_DAYCARE
@@ -139,13 +140,15 @@ class TampereInvoiceProductProvider : InvoiceProductProvider {
             PlacementType.PREPARATORY_DAYCARE ->
                 Product.PRESCHOOL_WITH_DAYCARE
             PlacementType.TEMPORARY_DAYCARE,
-            PlacementType.TEMPORARY_DAYCARE_PART_DAY ->
+            PlacementType.TEMPORARY_DAYCARE_PART_DAY,
+            ->
                 Product.TEMPORARY_CARE
             PlacementType.SCHOOL_SHIFT_CARE ->
                 Product.SCHOOL_SHIFT_CARE
             PlacementType.PRESCHOOL,
             PlacementType.PREPARATORY,
-            PlacementType.CLUB ->
+            PlacementType.CLUB,
+            ->
                 error("No product mapping found for placement type $placementType")
         }
         return product.key
@@ -154,13 +157,16 @@ class TampereInvoiceProductProvider : InvoiceProductProvider {
     override fun mapToFeeAlterationProduct(productKey: ProductKey, feeAlterationType: FeeAlteration.Type): ProductKey {
         val product = when (findProduct(productKey) to feeAlterationType) {
             Product.DAYCARE to FeeAlteration.Type.DISCOUNT,
-            Product.DAYCARE to FeeAlteration.Type.RELIEF ->
+            Product.DAYCARE to FeeAlteration.Type.RELIEF,
+            ->
                 Product.DAYCARE_DISCOUNT
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.DISCOUNT,
-            Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.RELIEF ->
+            Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.RELIEF,
+            ->
                 Product.PRESCHOOL_WITH_DAYCARE_DISCOUNT
             Product.DAYCARE to FeeAlteration.Type.INCREASE,
-            Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.INCREASE ->
+            Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.INCREASE,
+            ->
                 Product.CORRECTION
             else ->
                 error("No product mapping found for product + fee alteration type combo ($productKey + $feeAlterationType)")
@@ -187,13 +193,14 @@ enum class Product(val nameFi: String, val code: String) {
     CORRECTION("Oikaisu", "500177"),
     FREE_MONTH("Maksuton kuukausi", "500156"),
     OVER_CONTRACT("Sopimuksen ylitys", "500538"),
-    UNANNOUNCED_ABSENCE("Ilmoittamaton päivystysajan poissaolo", "507292");
+    UNANNOUNCED_ABSENCE("Ilmoittamaton päivystysajan poissaolo", "507292"),
+    ;
 
     val key = ProductKey(this.name)
 }
 
 class TampereInvoiceGeneratorLogicChooser(
-    private val summertimeAbsenceProperties: SummertimeAbsenceProperties
+    private val summertimeAbsenceProperties: SummertimeAbsenceProperties,
 ) : InvoiceGenerationLogicChooser {
 
     override fun logicForMonth(tx: Database.Read, year: Int, month: Month, childId: ChildId): InvoiceGenerationLogic {

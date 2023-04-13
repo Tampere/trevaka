@@ -75,8 +75,8 @@ internal class TitaniaQueriesTest : AbstractIntegrationTest() {
                         startTime = HelsinkiDateTime.of(LocalDate.of(2022, 5, 31), LocalTime.of(7, 32)),
                         endTime = HelsinkiDateTime.of(LocalDate.of(2022, 5, 31), LocalTime.of(14, 54)),
                         description = null,
-                    )
-                )
+                    ),
+                ),
             )
             assertThat(inserted)
                 .containsExactlyInAnyOrder(1, 1, 1, 1)
@@ -91,8 +91,8 @@ internal class TitaniaQueriesTest : AbstractIntegrationTest() {
             val existing = tx.findStaffAttendancePlansBy(
                 period = FiniteDateRange(
                     LocalDate.of(2022, 1, 1),
-                    LocalDate.of(2022, 12, 31)
-                )
+                    LocalDate.of(2022, 12, 31),
+                ),
             )
             assertThat(existing).extracting<EmployeeId> { it.employeeId }
                 .containsExactlyInAnyOrder(employee1.id, employee2.id)
