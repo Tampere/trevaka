@@ -27,7 +27,7 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
 
     fun updateWorkingTimeEvents(
         tx: Database.Transaction,
-        request: UpdateWorkingTimeEventsRequest
+        request: UpdateWorkingTimeEventsRequest,
     ): UpdateWorkingTimeEventsResponse {
         logger.debug { "Titania request: $request" }
         val internal = updateWorkingTimeEventsInternal(tx, request)
@@ -39,7 +39,7 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
 
     internal fun updateWorkingTimeEventsInternal(
         tx: Database.Transaction,
-        request: UpdateWorkingTimeEventsRequest
+        request: UpdateWorkingTimeEventsRequest,
     ): TitaniaUpdateResponse {
         val period = request.period.toDateRange()
         val persons = request.schedulingUnit.flatMap { unit ->
@@ -50,8 +50,8 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                         throw TitaniaException(
                             TitaniaErrorDetail(
                                 errorcode = TitaniaError.INVALID_EMPLOYEE_NUMBER,
-                                message = "Invalid employee number: (empty string)"
-                            )
+                                message = "Invalid employee number: (empty string)",
+                            ),
                         )
                     }
                     employeeNumber to person.copy(employeeId = employeeNumber)
@@ -70,7 +70,7 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                     email = null,
                     externalId = null,
                     employeeNumber = person.employeeId,
-                    temporaryInUnitId = null
+                    temporaryInUnitId = null,
                 )
             }
         val allEmployeeNumberToId = employeeNumberToId + tx.createEmployees(unknownEmployees)
@@ -84,8 +84,8 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                         throw TitaniaException(
                             TitaniaErrorDetail(
                                 errorcode = TitaniaError.EVENT_DATE_OUT_OF_PERIOD,
-                                message = "Event date ${event.date} is out of period (${period.start} - ${period.end})"
-                            )
+                                message = "Event date ${event.date} is out of period (${period.start} - ${period.end})",
+                            ),
                         )
                     }
                     val previous = plans.lastOrNull()
@@ -100,9 +100,9 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                                     "2400" -> LocalTime.of(23, 59)
                                     else -> LocalTime.parse(it, DateTimeFormatter.ofPattern(TITANIA_TIME_FORMAT))
                                 }
-                            }
+                            },
                         ),
-                        event.description
+                        event.description,
                     )
                     if (previous?.canMerge(next) == true) {
                         plans.remove(previous)
@@ -127,7 +127,7 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
 
     fun getStampedWorkingTimeEvents(
         tx: Database.Read,
-        request: GetStampedWorkingTimeEventsRequest
+        request: GetStampedWorkingTimeEventsRequest,
     ): GetStampedWorkingTimeEventsResponse {
         logger.debug { "Titania request: $request" }
         val period = request.period.toDateRange()
@@ -138,11 +138,11 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
         logger.info { "Finding staff attendances for ${employeeIdToNumber.size} employees in period $period" }
         val attendances = tx.findStaffAttendancesBy(
             employeeIds = employeeIdToNumber.keys,
-            period = period
+            period = period,
         )
         val plans = tx.findStaffAttendancePlansBy(
             employeeIds = employeeIdToNumber.keys,
-            period = period
+            period = period,
         ).groupBy { it.employeeId }
 
         data class EmployeeKey(val id: EmployeeId, val firstName: String, val lastName: String)
@@ -186,8 +186,8 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                                     StaffAttendanceType.JUSTIFIED_CHANGE -> if (departed == null || isNotLastInPlan(departed, departedPlan, attendances)) null else "PM"
                                 },
                             )
-                        }
-                    )
+                        },
+                    ),
                 )
             }
 
@@ -196,9 +196,9 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                 TitaniaStampedUnitResponse(
                     code = unit.code,
                     name = unit.name,
-                    person = persons.filter { unit.person.find { person -> person.employeeId == it.employeeId } != null }
+                    person = persons.filter { unit.person.find { person -> person.employeeId == it.employeeId } != null },
                 )
-            }
+            },
         )
         logger.debug { "Titania response: $response" }
         return response
@@ -218,9 +218,9 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
             event,
             plans?.find { plan ->
                 HelsinkiDateTimeRange(plan.startTime, plan.endTime).contains(
-                    HelsinkiDateTimeRange(event, event)
+                    HelsinkiDateTimeRange(event, event),
                 )
-            }
+            },
         )
     }
 

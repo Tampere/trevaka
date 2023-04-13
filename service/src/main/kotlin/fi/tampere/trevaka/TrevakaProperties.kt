@@ -14,12 +14,12 @@ import java.time.Month
 data class TrevakaProperties(
     val ipaas: IpaasProperties,
     val invoice: InvoiceProperties,
-    val summertimeAbsenceProperties: SummertimeAbsenceProperties = SummertimeAbsenceProperties()
+    val summertimeAbsenceProperties: SummertimeAbsenceProperties = SummertimeAbsenceProperties(),
 )
 
 data class IpaasProperties(
     val username: String,
-    val password: String
+    val password: String,
 )
 
 data class InvoiceProperties(
@@ -30,7 +30,7 @@ data class InvoiceProperties(
     val division: String = "00",
     val salesOrderType: String = "ZPH",
     val interfaceID: String = "352",
-    val plant: String = "1310"
+    val plant: String = "1310",
 )
 
 data class SummertimeAbsenceProperties(

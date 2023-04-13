@@ -39,13 +39,13 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
     override fun pendingDecisionNotification(language: Language): EmailContent = EmailContent(
         subject = subjectForPendingDecisionEmail,
         text = getPendingDecisionEmailText(),
-        html = getPendingDecisionEmailHtml()
+        html = getPendingDecisionEmailHtml(),
     )
 
     override fun clubApplicationReceived(language: Language): EmailContent = EmailContent(
         subject = subjectForClubApplicationReceivedEmail,
         text = getClubApplicationReceivedEmailText(),
-        html = getClubApplicationReceivedEmailHtml()
+        html = getClubApplicationReceivedEmailHtml(),
     )
 
     override fun daycareApplicationReceived(language: Language): EmailContent = EmailContent(
@@ -277,7 +277,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
     override fun missingReservationsNotification(language: Language, checkedRange: FiniteDateRange): EmailContent {
         val start =
             checkedRange.start.format(
-                DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale("fi", "FI"))
+                DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale("fi", "FI")),
             )
         return EmailContent(
             subject =
@@ -297,7 +297,7 @@ There are missing attendance reservations for the week starting $start. Please m
 <hr>
 <p>There are missing attendance reservations for the week starting $start. Please mark them as soon as possible.</p>
             """
-                .trimIndent()
+                .trimIndent(),
         )
     }
 
@@ -306,11 +306,17 @@ There are missing attendance reservations for the week starting $start. Please m
         val (typeFi, typeEn) =
             when (thread.type) {
                 MessageType.MESSAGE ->
-                    if (thread.urgent) Pair("kiireellinen viesti", "urgent message")
-                    else Pair("viesti", "message")
+                    if (thread.urgent) {
+                        Pair("kiireellinen viesti", "urgent message")
+                    } else {
+                        Pair("viesti", "message")
+                    }
                 MessageType.BULLETIN ->
-                    if (thread.urgent) Pair("kiireellinen tiedote", "urgent bulletin")
-                    else Pair("tiedote", "bulletin")
+                    if (thread.urgent) {
+                        Pair("kiireellinen tiedote", "urgent bulletin")
+                    } else {
+                        Pair("tiedote", "bulletin")
+                    }
             }
         return EmailContent(
             subject = "Uusi $typeFi eVakassa / New $typeEn in eVaka",
@@ -337,7 +343,7 @@ There are missing attendance reservations for the week starting $start. Please m
                 <p>You have received a new $typeEn in eVaka. Read the message ${if (thread.urgent) "as soon as possible " else ""}here: <a href="$messageUrl">$messageUrl</a></p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
         """
-                .trimIndent()
+                .trimIndent(),
         )
     }
 
@@ -368,7 +374,7 @@ There are missing attendance reservations for the week starting $start. Please m
                 <p>You have received a new eVaka document. Read the document here: <a href="$documentsUrl">$documentsUrl</a></p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
         """
-                .trimIndent()
+                .trimIndent(),
         )
     }
 
@@ -400,13 +406,13 @@ There are missing attendance reservations for the week starting $start. Please m
                 <p>You have received a new eVaka pedagogical document. Read the document here: <a href="$documentsUrl">$documentsUrl</a></p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
         """
-                .trimIndent()
+                .trimIndent(),
         )
     }
 
     override fun outdatedIncomeNotification(
         notificationType: IncomeNotificationType,
-        language: Language
+        language: Language,
     ): EmailContent {
         return when (notificationType) {
             IncomeNotificationType.INITIAL_EMAIL -> outdatedIncomeNotificationInitial(language)
@@ -485,7 +491,7 @@ There are missing attendance reservations for the week starting $start. Please m
                 
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
         """
-                .trimIndent()
+                .trimIndent(),
         )
     }
 
@@ -559,7 +565,7 @@ There are missing attendance reservations for the week starting $start. Please m
                 
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
         """
-                .trimIndent()
+                .trimIndent(),
         )
     }
 
@@ -608,7 +614,7 @@ There are missing attendance reservations for the week starting $start. Please m
                 
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                """
-                .trimIndent()
+                .trimIndent(),
         )
     }
 }

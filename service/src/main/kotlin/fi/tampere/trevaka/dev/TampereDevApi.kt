@@ -24,7 +24,7 @@ import java.time.Duration
 @RequestMapping("/dev-api/tampere")
 @ExcludeCodeGen
 class TampereDevApi(
-    private val asyncJobRunner: AsyncJobRunner<AsyncJob>
+    private val asyncJobRunner: AsyncJobRunner<AsyncJob>,
 ) {
     @GetMapping
     fun healthCheck(): ResponseEntity<Unit> {

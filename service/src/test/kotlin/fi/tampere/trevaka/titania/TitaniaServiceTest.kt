@@ -68,14 +68,14 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                 type = StaffAttendanceType.PRESENT,
                 HelsinkiDateTime.of(
                     LocalDate.of(2011, 1, 3),
-                    LocalTime.of(7, 0)
+                    LocalTime.of(7, 0),
                 ),
                 HelsinkiDateTime.of(
                     LocalDate.of(2011, 1, 3),
-                    LocalTime.of(23, 59)
+                    LocalTime.of(23, 59),
                 ),
-                description = null
-            )
+                description = null,
+            ),
         )
 
         val response2 = runInTransaction { tx ->
@@ -108,25 +108,25 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 11, 1),
                                                 beginTime = "0000",
-                                                endTime = "0800"
+                                                endTime = "0800",
                                             ),
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 11, 1),
                                                 beginTime = "2000",
-                                                endTime = "2359"
+                                                endTime = "2359",
                                             ),
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 10, 31),
                                                 beginTime = "2000",
-                                                endTime = "2400"
+                                                endTime = "2400",
                                             ),
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 11, 2),
                                                 beginTime = "0000",
-                                                endTime = "0800"
-                                            )
-                                        )
-                                    )
+                                                endTime = "0800",
+                                            ),
+                                        ),
+                                    ),
                                 ),
                                 TitaniaPerson(
                                     employeeId = "00949382",
@@ -136,26 +136,26 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 11, 2),
                                                 beginTime = "0000",
-                                                endTime = "0600"
+                                                endTime = "0600",
                                             ),
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 11, 1),
                                                 beginTime = "0000",
-                                                endTime = "2359"
+                                                endTime = "2359",
                                             ),
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 10, 31),
                                                 beginTime = "2300",
-                                                endTime = "2358"
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
+                                                endTime = "2358",
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         )
 
         val response = runInTransaction { tx -> titaniaService.updateWorkingTimeEventsInternal(tx, request) }
@@ -167,53 +167,53 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                 type = StaffAttendanceType.PRESENT,
                 HelsinkiDateTime.of(
                     LocalDate.of(2022, 10, 31),
-                    LocalTime.of(20, 0)
+                    LocalTime.of(20, 0),
                 ),
                 HelsinkiDateTime.of(
                     LocalDate.of(2022, 11, 1),
-                    LocalTime.of(8, 0)
+                    LocalTime.of(8, 0),
                 ),
-                description = null
+                description = null,
             ),
             StaffAttendancePlan(
                 employeeId = employee1Id,
                 type = StaffAttendanceType.PRESENT,
                 HelsinkiDateTime.of(
                     LocalDate.of(2022, 11, 1),
-                    LocalTime.of(20, 0)
+                    LocalTime.of(20, 0),
                 ),
                 HelsinkiDateTime.of(
                     LocalDate.of(2022, 11, 2),
-                    LocalTime.of(8, 0)
+                    LocalTime.of(8, 0),
                 ),
-                description = null
+                description = null,
             ),
             StaffAttendancePlan(
                 employeeId = employee2Id,
                 type = StaffAttendanceType.PRESENT,
                 HelsinkiDateTime.of(
                     LocalDate.of(2022, 10, 31),
-                    LocalTime.of(23, 0)
+                    LocalTime.of(23, 0),
                 ),
                 HelsinkiDateTime.of(
                     LocalDate.of(2022, 10, 31),
-                    LocalTime.of(23, 58)
+                    LocalTime.of(23, 58),
                 ),
-                description = null
+                description = null,
             ),
             StaffAttendancePlan(
                 employeeId = employee2Id,
                 type = StaffAttendanceType.PRESENT,
                 HelsinkiDateTime.of(
                     LocalDate.of(2022, 11, 1),
-                    LocalTime.of(0, 0)
+                    LocalTime.of(0, 0),
                 ),
                 HelsinkiDateTime.of(
                     LocalDate.of(2022, 11, 2),
-                    LocalTime.of(6, 0)
+                    LocalTime.of(6, 0),
                 ),
-                description = null
-            )
+                description = null,
+            ),
         )
     }
 
@@ -226,7 +226,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
             // muut koodit (aina PRESENT)
             "X, PRESENT",
             "a, PRESENT",
-        ]
+        ],
     )
     fun `event code is mapped to attendance type correctly`(givenEventCode: String, expectedType: StaffAttendanceType) {
         val employeeId = runInTransaction { tx -> tx.createEmployee(testEmployee.copy(employeeNumber = "176716")).id }
@@ -256,17 +256,17 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                                         date = LocalDate.of(2022, 10, 12),
                                                         code = givenEventCode,
                                                         beginTime = "0942",
-                                                        endTime = "0944"
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
+                                                        endTime = "0944",
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
             )
         }
 
@@ -277,14 +277,14 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                 type = expectedType,
                 HelsinkiDateTime.of(
                     LocalDate.of(2022, 10, 12),
-                    LocalTime.of(9, 42)
+                    LocalTime.of(9, 42),
                 ),
                 HelsinkiDateTime.of(
                     LocalDate.of(2022, 10, 12),
-                    LocalTime.of(9, 44)
+                    LocalTime.of(9, 44),
                 ),
-                description = null
-            )
+                description = null,
+            ),
         )
     }
 
@@ -308,16 +308,16 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 6, 14),
                                                 beginTime = "0906",
-                                                endTime = "1522"
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
+                                                endTime = "1522",
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         )
 
         val response = catchThrowable { runInTransaction { tx -> titaniaService.updateWorkingTimeEvents(tx, request) } }
@@ -347,16 +347,16 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             TitaniaWorkingTimeEvent(
                                                 date = LocalDate.of(2022, 6, 15),
                                                 beginTime = "0906",
-                                                endTime = "1522"
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
+                                                endTime = "1522",
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         )
 
         val response = runInTransaction { tx -> titaniaService.updateWorkingTimeEventsInternal(tx, request) }
@@ -368,8 +368,8 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                     StaffAttendanceType.PRESENT,
                     HelsinkiDateTime.of(LocalDate.of(2022, 6, 15), LocalTime.of(9, 6)),
                     HelsinkiDateTime.of(LocalDate.of(2022, 6, 15), LocalTime.of(15, 22)),
-                    null
-                )
+                    null,
+                ),
             )
 
         val employees = runInTransaction { tx -> tx.getEmployees() }
@@ -389,19 +389,19 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
             val unitId = tx.insertTestDaycare(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
-                )
+                ),
             )
             val groupId = tx.insertTestDaycareGroup(
                 DevDaycareGroup(
                     daycareId = unitId,
-                )
+                ),
             )
             tx.createEmployee(
                 testEmployee.copy(
                     firstName = "IINES",
                     lastName = "ANKKA",
                     employeeNumber = "177111",
-                )
+                ),
             ).let { (employeeId) ->
                 tx.upsertStaffAttendance(
                     attendanceId = null,
@@ -427,7 +427,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                     firstName = "HESSU",
                     lastName = "HOPO",
                     employeeNumber = "255145",
-                )
+                ),
             ).let { (employeeId) ->
                 tx.upsertStaffAttendance(
                     attendanceId = null,
@@ -474,7 +474,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                     firstName = "IINES",
                     lastName = "ANKKA",
                     employeeNumber = "177111",
-                )
+                ),
             ).let { (employeeId) ->
                 tx.upsertStaffAttendance(
                     attendanceId = null,
@@ -502,11 +502,11 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                             person = listOf(
                                 TitaniaStampedPersonRequest(
                                     employeeId = "00177111",
-                                )
-                            )
-                        )
-                    )
-                )
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
             )
         }
 
@@ -527,14 +527,14 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             beginReasonCode = "TA",
                                             endTime = "1539",
                                             endReasonCode = null,
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         )
     }
 
@@ -544,19 +544,19 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
             val unitId = tx.insertTestDaycare(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
-                )
+                ),
             )
             val groupId = tx.insertTestDaycareGroup(
                 DevDaycareGroup(
                     daycareId = unitId,
-                )
+                ),
             )
             tx.createEmployee(
                 testEmployee.copy(
                     firstName = "IINES",
                     lastName = "ANKKA",
                     employeeNumber = "177111",
-                )
+                ),
             ).let { (employeeId) ->
                 tx.insertTestStaffAttendancePlan(
                     DevStaffAttendancePlan(
@@ -565,7 +565,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                         startTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(8, 0)),
                         endTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(16, 0)),
                         description = null,
-                    )
+                    ),
                 )
                 tx.upsertStaffAttendance(
                     attendanceId = null,
@@ -602,11 +602,11 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                             person = listOf(
                                 TitaniaStampedPersonRequest(
                                     employeeId = "00177111",
-                                )
-                            )
-                        )
-                    )
-                )
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
             )
         }
 
@@ -634,14 +634,14 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             beginReasonCode = null,
                                             endTime = "1611",
                                             endReasonCode = "YT",
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         )
     }
 
@@ -651,19 +651,19 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
             val unitId = tx.insertTestDaycare(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
-                )
+                ),
             )
             val groupId = tx.insertTestDaycareGroup(
                 DevDaycareGroup(
                     daycareId = unitId,
-                )
+                ),
             )
             tx.createEmployee(
                 testEmployee.copy(
                     firstName = "IINES",
                     lastName = "ANKKA",
                     employeeNumber = "177111",
-                )
+                ),
             ).let { (employeeId) ->
                 tx.insertTestStaffAttendancePlan(
                     DevStaffAttendancePlan(
@@ -672,7 +672,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                         startTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(8, 0)),
                         endTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(16, 0)),
                         description = null,
-                    )
+                    ),
                 )
                 tx.upsertStaffAttendance(
                     attendanceId = null,
@@ -709,11 +709,11 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                             person = listOf(
                                 TitaniaStampedPersonRequest(
                                     employeeId = "00177111",
-                                )
-                            )
-                        )
-                    )
-                )
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
             )
         }
 
@@ -741,14 +741,14 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             beginReasonCode = null,
                                             endTime = null,
                                             endReasonCode = null,
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         )
     }
 
@@ -758,19 +758,19 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
             val unitId = tx.insertTestDaycare(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
-                )
+                ),
             )
             val groupId = tx.insertTestDaycareGroup(
                 DevDaycareGroup(
                     daycareId = unitId,
-                )
+                ),
             )
             tx.createEmployee(
                 testEmployee.copy(
                     firstName = "IINES",
                     lastName = "ANKKA",
                     employeeNumber = "177111",
-                )
+                ),
             ).let { (employeeId) ->
                 tx.insertTestStaffAttendancePlan(
                     DevStaffAttendancePlan(
@@ -779,7 +779,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                         startTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(8, 0)),
                         endTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(16, 0)),
                         description = null,
-                    )
+                    ),
                 )
                 tx.upsertStaffAttendance(
                     attendanceId = null,
@@ -825,11 +825,11 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                             person = listOf(
                                 TitaniaStampedPersonRequest(
                                     employeeId = "00177111",
-                                )
-                            )
-                        )
-                    )
-                )
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
             )
         }
 
@@ -864,14 +864,14 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             beginReasonCode = null,
                                             endTime = "1521",
                                             endReasonCode = "PM",
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         )
     }
 
@@ -881,19 +881,19 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
             val unitId = tx.insertTestDaycare(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
-                )
+                ),
             )
             val groupId = tx.insertTestDaycareGroup(
                 DevDaycareGroup(
                     daycareId = unitId,
-                )
+                ),
             )
             tx.createEmployee(
                 testEmployee.copy(
                     firstName = "IINES",
                     lastName = "ANKKA",
                     employeeNumber = "177111",
-                )
+                ),
             ).let { (employeeId) ->
                 tx.insertTestStaffAttendancePlan(
                     DevStaffAttendancePlan(
@@ -902,7 +902,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                         startTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(8, 0)),
                         endTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(16, 0)),
                         description = null,
-                    )
+                    ),
                 )
                 tx.upsertStaffAttendance(
                     attendanceId = null,
@@ -948,11 +948,11 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                             person = listOf(
                                 TitaniaStampedPersonRequest(
                                     employeeId = "00177111",
-                                )
-                            )
-                        )
-                    )
-                )
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
             )
         }
 
@@ -987,14 +987,14 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             beginReasonCode = null,
                                             endTime = "1639",
                                             endReasonCode = "PM",
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         )
     }
 
@@ -1004,19 +1004,19 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
             val unitId = tx.insertTestDaycare(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
-                )
+                ),
             )
             val groupId = tx.insertTestDaycareGroup(
                 DevDaycareGroup(
                     daycareId = unitId,
-                )
+                ),
             )
             tx.createEmployee(
                 testEmployee.copy(
                     firstName = "IINES",
                     lastName = "ANKKA",
                     employeeNumber = "177111",
-                )
+                ),
             ).let { (employeeId) ->
                 tx.insertTestStaffAttendancePlan(
                     DevStaffAttendancePlan(
@@ -1025,7 +1025,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                         startTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(8, 0)),
                         endTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 19), LocalTime.of(16, 0)),
                         description = null,
-                    )
+                    ),
                 )
                 tx.upsertStaffAttendance(
                     attendanceId = null,
@@ -1053,11 +1053,11 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                             person = listOf(
                                 TitaniaStampedPersonRequest(
                                     employeeId = "00177111",
-                                )
-                            )
-                        )
-                    )
-                )
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
             )
         }
 
@@ -1078,14 +1078,14 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             beginReasonCode = "PM",
                                             endTime = null,
                                             endReasonCode = null,
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         )
     }
 
@@ -1095,19 +1095,19 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
             val unitId = tx.insertTestDaycare(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
-                )
+                ),
             )
             val groupId = tx.insertTestDaycareGroup(
                 DevDaycareGroup(
                     daycareId = unitId,
-                )
+                ),
             )
             tx.createEmployee(
                 testEmployee.copy(
                     firstName = "IINES",
                     lastName = "ANKKA",
                     employeeNumber = "177111",
-                )
+                ),
             ).let { (employeeId) ->
                 tx.insertTestStaffAttendancePlan(
                     DevStaffAttendancePlan(
@@ -1116,7 +1116,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                         startTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 20), LocalTime.of(20, 0)),
                         endTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 21), LocalTime.of(8, 0)),
                         description = null,
-                    )
+                    ),
                 )
                 tx.upsertStaffAttendance(
                     attendanceId = null,
@@ -1144,11 +1144,11 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                             person = listOf(
                                 TitaniaStampedPersonRequest(
                                     employeeId = "00177111",
-                                )
-                            )
-                        )
-                    )
-                )
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
             )
         }
 
@@ -1169,14 +1169,14 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             beginReasonCode = null,
                                             endTime = "2400",
                                             endReasonCode = null,
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         )
     }
 
@@ -1186,19 +1186,19 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
             val unitId = tx.insertTestDaycare(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
-                )
+                ),
             )
             val groupId = tx.insertTestDaycareGroup(
                 DevDaycareGroup(
                     daycareId = unitId,
-                )
+                ),
             )
             tx.createEmployee(
                 testEmployee.copy(
                     firstName = "IINES",
                     lastName = "ANKKA",
                     employeeNumber = "177111",
-                )
+                ),
             ).let { (employeeId) ->
                 tx.insertTestStaffAttendancePlan(
                     DevStaffAttendancePlan(
@@ -1207,7 +1207,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                         startTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 20), LocalTime.of(20, 0)),
                         endTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 21), LocalTime.of(8, 0)),
                         description = null,
-                    )
+                    ),
                 )
                 tx.upsertStaffAttendance(
                     attendanceId = null,
@@ -1253,11 +1253,11 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                             person = listOf(
                                 TitaniaStampedPersonRequest(
                                     employeeId = "00177111",
-                                )
-                            )
-                        )
-                    )
-                )
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
             )
         }
 
@@ -1294,7 +1294,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                 beginReasonCode = null,
                 endTime = "0730",
                 endReasonCode = "PM",
-            )
+            ),
         )
         assertThat(actual).containsExactlyInAnyOrderElementsOf(expected)
     }
@@ -1305,19 +1305,19 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
             val unitId = tx.insertTestDaycare(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
-                )
+                ),
             )
             val groupId = tx.insertTestDaycareGroup(
                 DevDaycareGroup(
                     daycareId = unitId,
-                )
+                ),
             )
             tx.createEmployee(
                 testEmployee.copy(
                     firstName = "IINES",
                     lastName = "ANKKA",
                     employeeNumber = "177111",
-                )
+                ),
             ).let { (employeeId) ->
                 tx.insertTestStaffAttendancePlan(
                     DevStaffAttendancePlan(
@@ -1326,7 +1326,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                         startTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 20), LocalTime.of(8, 0)),
                         endTime = HelsinkiDateTime.of(LocalDate.of(2022, 10, 20), LocalTime.of(16, 0)),
                         description = null,
-                    )
+                    ),
                 )
                 tx.upsertStaffAttendance(
                     attendanceId = null,
@@ -1354,11 +1354,11 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                             person = listOf(
                                 TitaniaStampedPersonRequest(
                                     employeeId = "00177111",
-                                )
-                            )
-                        )
-                    )
-                )
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
             )
         }
 
@@ -1379,14 +1379,14 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                                             beginReasonCode = null,
                                             endTime = "1606",
                                             endReasonCode = null,
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         )
     }
 }

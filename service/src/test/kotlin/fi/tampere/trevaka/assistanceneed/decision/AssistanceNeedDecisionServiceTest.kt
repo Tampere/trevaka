@@ -47,7 +47,7 @@ class AssistanceNeedDecisionServiceTest : AbstractIntegrationTest() {
             sentDate = LocalDate.of(2022, 9, 12),
             decision = decision,
             sendAddress = DecisionSendAddress.fromPerson(headOfFamily.toPersonDetailed()),
-            guardian = headOfFamily
+            guardian = headOfFamily,
         )
 
         val filepath = "$reportsPath/AssistanceNeedDecisionServiceTest-assistance-need-decision.pdf"
@@ -62,7 +62,7 @@ class AssistanceNeedDecisionServiceTest : AbstractIntegrationTest() {
             sentDate = LocalDate.of(2022, 9, 12),
             decision = decision,
             sendAddress = null,
-            guardian = null
+            guardian = null,
         )
 
         val filepath =
@@ -77,13 +77,13 @@ class AssistanceNeedDecisionServiceTest : AbstractIntegrationTest() {
                 employeeId = EmployeeId(UUID.randomUUID()),
                 title = "Palvelupäällikkö",
                 name = "Vallu Valmistelija",
-                phoneNumber = "0501234567"
+                phoneNumber = "0501234567",
             ),
             preparedBy2 = AssistanceNeedDecisionEmployee(
                 employeeId = EmployeeId(UUID.randomUUID()),
                 title = "Palvelupäällikkö",
                 name = "Valle Valmistelija",
-                phoneNumber = "0507654321"
+                phoneNumber = "0507654321",
             ),
         )
         val headOfFamily = validPersonDTO
@@ -92,7 +92,7 @@ class AssistanceNeedDecisionServiceTest : AbstractIntegrationTest() {
             sentDate = LocalDate.of(2022, 9, 12),
             decision = decision,
             sendAddress = DecisionSendAddress.fromPerson(headOfFamily.toPersonDetailed()),
-            guardian = headOfFamily
+            guardian = headOfFamily,
         )
 
         val filepath =
@@ -118,7 +118,7 @@ class AssistanceNeedDecisionServiceTest : AbstractIntegrationTest() {
             sentDate = LocalDate.of(2022, 9, 12),
             decision = decision,
             sendAddress = DecisionSendAddress.fromPerson(headOfFamily.toPersonDetailed()),
-            guardian = headOfFamily
+            guardian = headOfFamily,
         )
 
         val filepath =
@@ -133,7 +133,7 @@ private val validAssistanceNeedDecision = AssistanceNeedDecision(
     child = AssistanceNeedDecisionChild(
         id = ChildId(UUID.randomUUID()),
         name = "Matti Meikäläinen",
-        dateOfBirth = LocalDate.of(2020, 1, 5)
+        dateOfBirth = LocalDate.of(2020, 1, 5),
     ),
     validityPeriod = DateRange(LocalDate.of(2022, 8, 2), LocalDate.of(2022, 12, 31)),
     status = AssistanceNeedDecisionStatus.ACCEPTED,
@@ -145,14 +145,14 @@ private val validAssistanceNeedDecision = AssistanceNeedDecision(
         name = "Amurin päiväkoti",
         streetAddress = "Amurinpolku 1",
         postalCode = "33100",
-        postOffice = "Tampere"
+        postOffice = "Tampere",
     ),
     preparedBy1 = null,
     preparedBy2 = null,
     decisionMaker = AssistanceNeedDecisionMaker(
         employeeId = EmployeeId(UUID.randomUUID()),
         title = "Asiakaspalvelupäällikkö",
-        name = "Paula Palvelupäällikkö"
+        name = "Paula Palvelupäällikkö",
     ),
     pedagogicalMotivation = null,
     structuralMotivationOptions = StructuralMotivationOptions(
@@ -161,7 +161,7 @@ private val validAssistanceNeedDecision = AssistanceNeedDecision(
         smallGroup = false,
         groupAssistant = false,
         childAssistant = false,
-        additionalStaff = false
+        additionalStaff = false,
     ),
     structuralMotivationDescription = null,
     careMotivation = null,
@@ -170,7 +170,7 @@ private val validAssistanceNeedDecision = AssistanceNeedDecision(
         partTimeSpecialEd = false,
         fullTimeSpecialEd = false,
         interpretationAndAssistanceServices = false,
-        specialAides = false
+        specialAides = false,
     ),
     servicesMotivation = null,
     expertResponsibilities = null,
@@ -182,7 +182,7 @@ private val validAssistanceNeedDecision = AssistanceNeedDecision(
     assistanceLevels = setOf(AssistanceLevel.ENHANCED_ASSISTANCE),
     motivationForDecision = null,
     annulmentReason = "",
-    hasDocument = false
+    hasDocument = false,
 )
 
 private val validPersonDTO = PersonDTO(
@@ -201,7 +201,7 @@ private val validPersonDTO = PersonDTO(
     streetAddress = "Meikäläisenkuja 6 B 7",
     postalCode = "33730",
     postOffice = "TAMPERE",
-    residenceCode = ""
+    residenceCode = "",
 )
 
 fun PersonDTO.toPersonDetailed() = PersonDetailed(

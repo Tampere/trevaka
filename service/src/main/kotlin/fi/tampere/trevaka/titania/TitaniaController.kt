@@ -32,7 +32,7 @@ class TitaniaController(private val titaniaService: TitaniaService) {
     fun updateWorkingTimeEvents(
         @RequestBody request: UpdateWorkingTimeEventsRequest,
         user: AuthenticatedUser,
-        db: Database
+        db: Database,
     ): UpdateWorkingTimeEventsResponse {
         if (user.type != AuthenticatedUserType.integration) throw Forbidden()
         return db.connect { dbc -> dbc.transaction { tx -> titaniaService.updateWorkingTimeEvents(tx, request) } }
@@ -42,7 +42,7 @@ class TitaniaController(private val titaniaService: TitaniaService) {
     fun getStampedWorkingTimeEvents(
         @RequestBody request: GetStampedWorkingTimeEventsRequest,
         user: AuthenticatedUser,
-        db: Database
+        db: Database,
     ): GetStampedWorkingTimeEventsResponse {
         if (user.type != AuthenticatedUserType.integration) throw Forbidden()
         return db.connect { dbc -> dbc.read { tx -> titaniaService.getStampedWorkingTimeEvents(tx, request) } }

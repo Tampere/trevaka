@@ -14,15 +14,15 @@ class TitaniaPersonTest {
             "ANKKA PROFESSORI TAAVI,PROFESSORI TAAVI,ANKKA",
             "'ANKKA ','',ANKKA",
             "' ANKKA',ANKKA,''",
-            "'','',''"
-        ]
+            "'','',''",
+        ],
     )
     fun firstNameAndLastName(name: String, expectedFirstName: String, expectedLastName: String) {
         val person = TitaniaPerson(
             employeeId = "123456",
             name = name,
             actualWorkingTimeEvents = TitaniaWorkingTimeEvents(event = emptyList()),
-            payrollItems = null
+            payrollItems = null,
         )
 
         assertThat(person)

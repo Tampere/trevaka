@@ -22,14 +22,16 @@ internal val titaniaUpdateRequestValidExampleData = UpdateWorkingTimeEventsReque
     organisation = TitaniaCode(code = "88888", name = "Virtuaaliorganisaatio"),
     period = TitaniaPeriod(
         beginDate = LocalDate.of(2011, 1, 3),
-        endDate = LocalDate.of(2011, 1, 23)
+        endDate = LocalDate.of(2011, 1, 23),
     ),
     schedulingUnit = listOf(
         TitaniaSchedulingUnit(
-            code = "E1100", name = "Suunnittelupiste A",
+            code = "E1100",
+            name = "Suunnittelupiste A",
             occupation = listOf(
                 TitaniaOccupation(
-                    code = "15510", name = "Kodinhoitaja",
+                    code = "15510",
+                    name = "Kodinhoitaja",
                     person = listOf(
                         TitaniaPerson(
                             employeeId = "00176716",
@@ -44,14 +46,14 @@ internal val titaniaUpdateRequestValidExampleData = UpdateWorkingTimeEventsReque
                                         placement = TitaniaCodeName("VV", "Vuorovastaava"),
                                         administrativeUnit = TitaniaCodeName("110", "Vastuuyksikkö"),
                                         operativeUnit = TitaniaCodeName("110A", "Toimipiste"),
-                                        project = TitaniaCodeName("P2000", "Projekti 2000")
+                                        project = TitaniaCodeName("P2000", "Projekti 2000"),
                                     ),
                                     TitaniaWorkingTimeEvent(
                                         date = LocalDate.of(2011, 1, 4),
                                         code = "V",
-                                        description = "Vapaapaiva"
-                                    )
-                                )
+                                        description = "Vapaapaiva",
+                                    ),
+                                ),
                             ),
                             payrollItems = TitaniaPayrollItems(
                                 item = listOf(
@@ -60,29 +62,30 @@ internal val titaniaUpdateRequestValidExampleData = UpdateWorkingTimeEventsReque
                                         type = TitaniaPayrollItemType.THIS,
                                         name = "Saldo",
                                         value = "90",
-                                        unit = TitaniaPayrollItemUnit.MINUTE
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    )
+                                        unit = TitaniaPayrollItemUnit.MINUTE,
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
 )
 
 internal val titaniaUpdateRequestValidMinimalData = UpdateWorkingTimeEventsRequest(
     period = TitaniaPeriod(
         beginDate = LocalDate.of(2011, 1, 3),
-        endDate = LocalDate.of(2011, 1, 23)
+        endDate = LocalDate.of(2011, 1, 23),
     ),
     schedulingUnit = listOf(
         TitaniaSchedulingUnit(
             code = "E1100",
             occupation = listOf(
                 TitaniaOccupation(
-                    code = "15510", name = "Kodinhoitaja",
+                    code = "15510",
+                    name = "Kodinhoitaja",
                     person = listOf(
                         TitaniaPerson(
                             employeeId = "00176716",
@@ -91,26 +94,26 @@ internal val titaniaUpdateRequestValidMinimalData = UpdateWorkingTimeEventsReque
                                 event = listOf(
                                     TitaniaWorkingTimeEvent(
                                         date = LocalDate.of(2010, 1, 1),
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    )
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
 )
 
 // titania/titania-get-request-valid-example-data.json
 internal val titaniaGetRequestValidExampleData = GetStampedWorkingTimeEventsRequest(
     organisation = TitaniaCode(
         code = "88888",
-        name = "Virtuaaliorganisaatio"
+        name = "Virtuaaliorganisaatio",
     ),
     period = TitaniaPeriod(
         beginDate = LocalDate.of(2014, 3, 3),
-        endDate = LocalDate.of(2014, 3, 23)
+        endDate = LocalDate.of(2014, 3, 23),
     ),
     schedulingUnit = listOf(
         TitaniaStampedUnitRequest(
@@ -119,15 +122,15 @@ internal val titaniaGetRequestValidExampleData = GetStampedWorkingTimeEventsRequ
             person = listOf(
                 TitaniaStampedPersonRequest(
                     employeeId = "177111",
-                    name = "ANKKA IINES"
+                    name = "ANKKA IINES",
                 ),
                 TitaniaStampedPersonRequest(
                     employeeId = "00255145",
-                    name = "HOPO HESSU"
-                )
-            )
-        )
-    )
+                    name = "HOPO HESSU",
+                ),
+            ),
+        ),
+    ),
 )
 
 // titania/titania-get-response-valid-example-data.json
@@ -154,8 +157,8 @@ internal val titaniaGetResponseValidExampleData = GetStampedWorkingTimeEventsRes
                                 beginReasonCode = "YT",
                                 endReasonCode = "YT",
                             ),
-                        )
-                    )
+                        ),
+                    ),
                 ),
                 TitaniaStampedPersonResponse(
                     employeeId = "00255145",
@@ -179,10 +182,10 @@ internal val titaniaGetResponseValidExampleData = GetStampedWorkingTimeEventsRes
                                 endTime = "1715",
                                 endReasonCode = null,
                             ),
-                        )
-                    )
-                )
-            )
+                        ),
+                    ),
+                ),
+            ),
         ),
-    )
+    ),
 )

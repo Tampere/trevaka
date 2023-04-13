@@ -63,7 +63,7 @@ internal class TrevakaMessageProvider(val messageSource: MessageSource) : IMessa
             postOffice = "Tampere",
             row1 = "Varhaiskasvatus ja esiopetus",
             row2 = "Asiakaspalvelu",
-            row3 = "PL 487, 33101 Tampere"
+            row3 = "PL 487, 33101 Tampere",
         )
         MessageLanguage.SV -> DecisionSendAddress(
             street = "PL 487",
@@ -71,7 +71,7 @@ internal class TrevakaMessageProvider(val messageSource: MessageSource) : IMessa
             postOffice = "Tampere",
             row1 = "Varhaiskasvatus ja esiopetus",
             row2 = "Asiakaspalvelu",
-            row3 = "PL 487, 33101 Tampere"
+            row3 = "PL 487, 33101 Tampere",
         )
     }
 

@@ -22,7 +22,7 @@ internal fun splitOvernight(attendance: RawAttendance): Iterable<RawAttendance> 
     return FiniteDateRange(arrivedDate, departedDate).dates().map { date ->
         attendance.copy(
             arrived = if (date == arrivedDate) attendance.arrived else HelsinkiDateTime.of(date, LocalTime.MIN),
-            departed = if (date == departedDate) attendance.departed else HelsinkiDateTime.of(date, LocalTime.MAX)
+            departed = if (date == departedDate) attendance.departed else HelsinkiDateTime.of(date, LocalTime.MAX),
         )
     }.toList()
 }
