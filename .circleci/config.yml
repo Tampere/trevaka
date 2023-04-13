@@ -112,16 +112,15 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - gradle-home-service-v2-{{ checksum ".circleci/config.yml" }}-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
+            - gradle-home-service-v2-{{ checksum ".circleci/config.yml" }}-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/gradle/libs.versions.toml" }}
             - gradle-home-service-v2-
             - gradle-home-service-
 
   store_service_gradle:
     steps:
     - save_cache:
-        key: gradle-home-service-v2-{{ checksum ".circleci/config.yml" }}-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/buildSrc/build.gradle.kts" }}-{{ checksum "service/buildSrc/src/main/kotlin/TrevakaServiceDeps.kt" }}
+        key: gradle-home-service-v2-{{ checksum ".circleci/config.yml" }}-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/gradle/libs.versions.toml" }}
         paths:
-          - service/buildSrc/.gradle
           - service/.gradle
           - .gradle-user-home/wrapper
           - .gradle-user-home/caches
@@ -134,7 +133,6 @@ commands:
           key: gradle-service-build-cache-v1-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - service/build
-            - service/buildSrc/build
             - evaka/service/build
             - evaka/service/buildSrc/build
             - evaka/service/sficlient/build
