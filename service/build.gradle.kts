@@ -1,11 +1,13 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version TrevakaServiceDeps.kotlin
-    id("org.jetbrains.kotlin.plugin.spring") version TrevakaServiceDeps.kotlin
-    id("org.springframework.boot") version TrevakaServiceDeps.springBoot
-    id("org.unbroken-dome.xjc") version TrevakaServiceDeps.xjc
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.spring)
+    alias(libs.plugins.spring.boot)
+    id("org.unbroken-dome.xjc") version "2.0.0"
     id("com.gorylenko.gradle-git-properties") version "2.4.1"
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 }
+
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
@@ -42,12 +44,12 @@ dependencies {
     implementation("io.opentracing:opentracing-util")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.junit-pioneer:junit-pioneer:${TrevakaServiceDeps.junitPioneer}") // for CartesianProductTest
+    testImplementation("org.junit-pioneer:junit-pioneer:2.0.0") // for CartesianProductTest
     testImplementation("org.mockito.kotlin:mockito-kotlin")
     testImplementation("org.springframework.ws:spring-ws-test")
-    testImplementation(platform("org.springframework.cloud:spring-cloud-dependencies:${TrevakaServiceDeps.springCloud}"))
+    testImplementation(platform("org.springframework.cloud:spring-cloud-dependencies:2022.0.1"))
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
-    testImplementation("org.reflections:reflections:${TrevakaServiceDeps.reflections}")
+    testImplementation("org.reflections:reflections:0.10.2")
     testImplementation("redis.clients:jedis")
     testImplementation("com.auth0:java-jwt")
     testImplementation("org.thymeleaf:thymeleaf")
@@ -59,17 +61,10 @@ springBoot {
     mainClass.set("fi.tampere.trevaka.TrevakaMainKt")
 }
 
-allprojects {
-    tasks.withType<JavaCompile> {
-        sourceCompatibility = TrevakaServiceDeps.java
-        targetCompatibility = TrevakaServiceDeps.java
-    }
-}
-
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
-        jvmTarget = TrevakaServiceDeps.java
-        allWarningsAsErrors = name != "compileIntegrationTestKotlin"
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "17"
     }
 }
 
