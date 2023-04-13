@@ -74,6 +74,7 @@ executors:
       image: *ubuntu_machine_image
     environment:
       NODE_ENV: development
+      BUILDKIT_PROGRESS: plain
 
 commands:
   store_repo:
