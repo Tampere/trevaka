@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.5.2-labs
 # SPDX-FileCopyrightText: 2021 City of Tampere
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
@@ -37,14 +38,15 @@ ENV USER_ID 1000
 RUN adduser ${USERNAME} --gecos "" -q --home ${HOME_DIR} --uid ${USER_ID} --disabled-password
 
 # Used for downloading keys from S3
-ADD --chown=evaka:evaka https://github.com/espoon-voltti/s3-downloader/releases/download/v1.3.0/s3downloader-linux-amd64 /usr/local/bin/s3download
-RUN chmod u+x /usr/local/bin/s3download
+ADD --chown=evaka:evaka --chmod=0700 \
+    --checksum=sha256:d0ee074cbc04c1a36fb8cee6f99d9ff591fee89ea38d34a328d0ee1acb039a48 \
+    https://github.com/espoon-voltti/s3-downloader/releases/download/v1.3.0/s3downloader-linux-amd64 \
+    /usr/local/bin/s3download
 
-ARG DD_JAVA_AGENT_VERSION="1.10.0"
-ARG DD_JAVA_AGENT_SHA256="427417f99ee0a6e7381ed491254cd5129485af093ecf3e56731fb98beae7b21a"
-
-RUN curl -sSfo /opt/dd-java-agent.jar "https://repo1.maven.org/maven2/com/datadoghq/dd-java-agent/${DD_JAVA_AGENT_VERSION}/dd-java-agent-${DD_JAVA_AGENT_VERSION}.jar" \
- && echo "${DD_JAVA_AGENT_SHA256}  /opt/dd-java-agent.jar" | sha256sum -c -
+ADD --chmod=0644 \
+    --checksum=sha256:427417f99ee0a6e7381ed491254cd5129485af093ecf3e56731fb98beae7b21a \
+    https://repo1.maven.org/maven2/com/datadoghq/dd-java-agent/1.10.0/dd-java-agent-1.10.0.jar \
+    /opt/dd-java-agent.jar
 
 ADD ./dd-jmxfetch/ /etc/jmxfetch/
 
