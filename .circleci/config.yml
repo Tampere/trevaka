@@ -278,30 +278,6 @@ commands:
             docker tag << parameters.image >> 518207624130.dkr.ecr.eu-west-1.amazonaws.com/<< parameters.image >>:${CIRCLE_SHA1}
             docker push 518207624130.dkr.ecr.eu-west-1.amazonaws.com/<< parameters.image >>:${CIRCLE_SHA1}
 
-  e2e_build:
-    steps:
-      - restore_repo
-      - setup_authenticated_remote_docker
-      - run:
-          name: "Setup E2E_IMAGE"
-          command: |
-            echo 'export E2E_IMAGE="trevaka/e2e-playwright:latest"' >> $BASH_ENV
-      - run:
-          name: Build E2E image
-          working_directory: *workspace_compose
-          command: |
-            docker build -t "$E2E_IMAGE" --cache-from "$E2E_IMAGE" -f "./e2e/playwright.Dockerfile" ./e2e/
-      - run:
-          name: Package E2E playwright image
-          working_directory: *workspace_root
-          command: |
-            docker save "$E2E_IMAGE" > "e2e-playwright.tar"
-      - save_cache:
-          name: Store Docker image in cache
-          key: playwright-image-v2-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}
-          paths:
-            - "e2e-playwright.tar"
-
   e2e_test:
     steps:
       - restore_repo
@@ -316,30 +292,23 @@ commands:
       - load_docker_image:
           dir: *workspace_service
       - run:
-          name: Tag docker images for apigw and service
-          command: |
-            docker tag trevaka/api-gateway evaka/api-gateway
-            docker tag trevaka/service evaka/service
-      - run:
           name: Start up compose stack
           working_directory: *workspace_compose
           command: |
             CI=true LOCAL_DIR='../evaka/frontend' ./compose-e2e up -d --build
       - restore_frontend_node_modules
       - frontend_install
-      - restore_cache:
-          name: Restore Docker image from cache
-          key: playwright-image-v2-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}
       - run:
-          name: Load E2E image
-          working_directory: *workspace_root
-          command: |
-            docker load -i e2e-playwright.tar
+          name: Waiting for compose stack to be up...
+          working_directory: *workspace_evaka_frontend
+          command: ./wait-for-url.sh "http://localhost:9999/api/internal/dev-api"
       - run:
-          name: Run E2E tests against compose inside a docker-compose
-          working_directory: *workspace_root
-          command: |
-            CI=true ./bin/circleci-e2e.sh
+          name: Run E2E tests
+          working_directory: *workspace_tre_frontend
+          command: yarn e2e-ci-playwright
+          environment:
+            HEADLESS: true
+            BASE_URL: http://localhost:9999
       - run:
           name: Collect docker-compose logs
           working_directory: *workspace_compose
@@ -726,15 +695,7 @@ jobs:
               --header 'content-type: application/json' \
               --data '{"branch":"main","parameters":{"workflow":"deploy_pipeline","version":"'$CIRCLE_SHA1'"}}'
 
-  #E2E JOBS
-
-  e2e-build-playwright:
-    executor: nodejs_executor
-    resource_class: medium
-    steps:
-      - e2e_build
-
-  e2e-test-playwright:
+  e2e_test:
     executor: e2e_executor
     resource_class: large
     steps:
@@ -782,13 +743,8 @@ workflows:
           requires:
             - frontend_build
 
-      - e2e-build-playwright:
+      - e2e_test:
           requires:
-            - checkout_repo
-
-      - e2e-test-playwright:
-          requires:
-            - e2e-build-playwright
             - frontend_build
             - apigw_build_image
             - service_build_image
@@ -848,7 +804,7 @@ workflows:
             - service_push_image
             - auth_push_image
             - scheduled_tasks_reporting_push_image
-            - e2e-test-playwright
+            - e2e_test
           filters:
             branches:
               only:
@@ -865,7 +821,7 @@ workflows:
             - service_push_image
             - auth_push_image
             - scheduled_tasks_reporting_push_image
-            - e2e-test-playwright
+            - e2e_test
           filters:
             branches:
               only:
