@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-FROM node:18.15 AS theme
+FROM node:18.16 AS theme
 COPY theme/package*.json ./
 RUN npm ci
 COPY theme .
