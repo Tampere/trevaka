@@ -3492,23 +3492,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.32.3":
-  version: 1.32.3
-  resolution: "playwright-core@npm:1.32.3"
+"playwright-core@npm:1.25.0":
+  version: 1.25.0
+  resolution: "playwright-core@npm:1.25.0"
   bin:
     playwright: cli.js
-  checksum: 7ea091c41a7d1bb97b445bc541a85b123ffcf167bcc00fb7e13e9079f06c92f59fd27caf9d1c1d7e0054f2b5765d1a16d198833c2be7266cebb9dbb916cd90f4
+  checksum: 78a9c8857428c8e9fe3a2061672a2e9ce0106afec473281d3a6389ec29918fd1d29c9d2792edde90bfd92c4477151fbd2d8f9f5061fbddaf8c6995a91c9cf2de
   languageName: node
   linkType: hard
 
-"playwright@npm:1.32.3":
-  version: 1.32.3
-  resolution: "playwright@npm:1.32.3"
+"playwright@npm:1.25.0":
+  version: 1.25.0
+  resolution: "playwright@npm:1.25.0"
   dependencies:
-    playwright-core: 1.32.3
+    playwright-core: 1.25.0
   bin:
     playwright: cli.js
-  checksum: 9627771a131ab96a26d702757e89dcf09a228f0038c43a14f982cc59a2eca672cb27c9d92c324ddc2c44457b82d77c30b3562b386601969e0456b52dba5df176
+  checksum: f2a0c32d463dbc4a36c1c5e56f67a4daa3a9ab7cf4267453b561d677654cc69e6c8e18ae739cd112fd765e51311cf273c8c1d26d90d9880ff21c2b24c1edccae
   languageName: node
   linkType: hard
 
@@ -4073,7 +4073,7 @@ __metadata:
     lib-common: "link:../evaka/frontend/src/lib-common"
     lib-components: "link:../evaka/frontend/src/lib-components"
     lib-customizations: "link:../evaka/frontend/src/lib-customizations"
-    playwright: 1.32.3
+    playwright: 1.25.0
     react: ^17.0.2
     styled-components: 5.3.9
     ts-jest: ^29.1.0
