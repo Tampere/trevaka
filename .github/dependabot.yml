@@ -16,6 +16,7 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      - dependency-name: "playwright" # version must match with core
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
   - package-ecosystem: "gradle"
