@@ -50,7 +50,6 @@ dependencies {
     testImplementation(platform("org.springframework.cloud:spring-cloud-dependencies:2022.0.1"))
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
     testImplementation("org.reflections:reflections:0.10.2")
-    testImplementation("redis.clients:jedis")
     testImplementation("com.auth0:java-jwt")
     testImplementation("org.thymeleaf:thymeleaf")
     testImplementation("com.networknt:json-schema-validator:1.0.72")

@@ -23,7 +23,6 @@ aliases:
   - &nodejs_image cimg/node:18.12
   - &openjdk_image cimg/openjdk:17.0
   - &postgres_image cimg/postgres:14.6
-  - &redis_image cimg/redis:7.0
   - &s3mock_image adobe/s3mock:2.8.0
   - &ubuntu_machine_image ubuntu-2204:2023.04.1
 
@@ -66,7 +65,6 @@ executors:
           PGPORT: 15432
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-      - image: *redis_image
       - image: *s3mock_image
   e2e_executor:
     <<: *node_config
