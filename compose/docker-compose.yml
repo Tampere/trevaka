@@ -67,7 +67,6 @@ services:
     hostname: trevaka-srv
     depends_on:
       - db
-      - redis
     env_file:
       - .env
     environment:
@@ -100,10 +99,6 @@ services:
       FI_ESPOO_INTEGRATION_KOSKI_USER: ""
       FI_ESPOO_INTEGRATION_KOSKI_SECRET: ""
       FI_ESPOO_INTEGRATION_KOSKI_SOURCE_SYSTEM: ""
-      REDIS_URL: ${EVAKA_REDIS_HOST}
-      REDIS_PORT: ${EVAKA_REDIS_PORT}
-      REDIS_PASSWORD: ""
-      REDIS_SSL: "false"
     restart: unless-stopped
 
 

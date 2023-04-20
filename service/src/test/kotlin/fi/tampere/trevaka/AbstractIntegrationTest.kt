@@ -21,7 +21,6 @@ import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
 import org.springframework.core.io.Resource
 import org.springframework.util.StreamUtils
-import redis.clients.jedis.JedisPool
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.nio.file.Paths
@@ -42,9 +41,6 @@ abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean = 
 
     @Autowired
     private lateinit var jdbi: Jdbi
-
-    @Autowired
-    private lateinit var redisPool: JedisPool
 
     @Autowired
     protected lateinit var http: FuelManager
@@ -69,7 +65,6 @@ abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean = 
                 it.resetTampereDatabaseForE2ETests()
             }
         }
-        redisPool.resource.use { it.flushDB() }
         http.basePath = "http://localhost:$httpPort/"
     }
 

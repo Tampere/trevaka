@@ -62,6 +62,3 @@ trevaka:
     password: pass
   invoice:
     url: http://localhost:${wiremock.server.port}/mock/ipaas/salesOrder
-spring:
-  main:
-    allow-bean-definition-overriding: true # for redisPool
