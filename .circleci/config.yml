@@ -307,6 +307,7 @@ commands:
           environment:
             HEADLESS: true
             BASE_URL: http://localhost:9999
+            JEST_JUNIT_OUTPUT_DIR: test-results
       - run:
           name: Collect docker-compose logs
           working_directory: *workspace_compose
@@ -492,6 +493,10 @@ jobs:
       - run:
           working_directory: *workspace_tre_frontend
           command: yarn test
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: test-results
+      - store_test_results:
+          path: frontend/test-results
       - run:
           name: yarn lint
           working_directory: *workspace_evaka_frontend
@@ -587,6 +592,8 @@ jobs:
       - run:
           working_directory: *workspace_service
           command: ./gradlew --build-cache check
+      - store_test_results:
+          path: /home/circleci/repo/service/build/test-results/
       - store_artifacts:
           path: /home/circleci/repo/service/build/reports/
 
