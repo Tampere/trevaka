@@ -587,6 +587,8 @@ jobs:
       - run:
           working_directory: *workspace_service
           command: ./gradlew --build-cache check
+      - store_test_results:
+          path: /home/circleci/repo/service/build/test-results/
       - store_artifacts:
           path: /home/circleci/repo/service/build/reports/
 
