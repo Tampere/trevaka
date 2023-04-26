@@ -36,7 +36,6 @@ aliases:
     <<: *default_config
     environment:
       GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-XX:MaxRAMPercentage=80"'
-      GRADLE_USER_HOME: /home/circleci/repo/.gradle-user-home
       JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=80"
 
 executors:
@@ -107,43 +106,58 @@ commands:
           name: Restore << parameters.path >>
           key: workspace-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-<< parameters.path >>
 
-  restore_service_gradle:
-    steps:
-      - restore_cache:
-          keys:
-            - gradle-home-service-v2-{{ checksum ".circleci/config.yml" }}-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/gradle/libs.versions.toml" }}
-            - gradle-home-service-v2-
-            - gradle-home-service-
-
-  store_service_gradle:
-    steps:
-    - save_cache:
-        key: gradle-home-service-v2-{{ checksum ".circleci/config.yml" }}-{{ checksum "service/build.gradle.kts" }}-{{ checksum "service/settings.gradle.kts" }}-{{ checksum "service/gradle/libs.versions.toml" }}
-        paths:
-          - service/.gradle
-          - .gradle-user-home/wrapper
-          - .gradle-user-home/caches
-          - .gradle-user-home/notifications
-
-  store_service_build_cache:
+  store_service_gradle_wrapper:
     steps:
       - save_cache:
-          name: Store build cache
-          key: gradle-service-build-cache-v1-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-{{ checksum ".circleci/config.yml" }}
+          name: Store gradle wrapper
+          key: gradle-wrapper-service-v1-{{ checksum "service/gradle/wrapper/gradle-wrapper.properties" }}
           paths:
-            - service/build
-            - evaka/service/build
-            - evaka/service/buildSrc/build
-            - evaka/service/sficlient/build
-            - evaka/service/vtjclient/build
-            - evaka/service-lib/build
-  restore_service_build_cache:
+            - ~/.gradle/wrapper
+            - ~/.gradle/notifications
+  restore_service_gradle_wrapper:
     steps:
       - restore_cache:
-          name: Restore build cache
+          name: Restore gradle wrapper
           keys:
-            - gradle-service-build-cache-v1-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-{{ checksum ".circleci/config.yml" }}
-            - gradle-service-build-cache-v1-
+            - gradle-wrapper-service-v1-{{ checksum "service/gradle/wrapper/gradle-wrapper.properties" }}
+
+  store_service_gradle_dependencies:
+    steps:
+      - save_cache:
+          name: Store gradle dependencies
+          key: gradle-dependencies-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "evaka/service/gradle/libs.versions.toml" }}-{{ checksum "evaka/evaka-bom/build.gradle.kts" }}
+          paths:
+            - ~/.gradle/caches/jars-9
+            - ~/.gradle/caches/journal-1
+            - ~/.gradle/caches/modules-2
+            - ~/.gradle/caches/transforms-3
+  restore_service_gradle_dependencies:
+    steps:
+      - restore_cache:
+          name: Restore gradle dependencies
+          keys:
+            - gradle-dependencies-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "evaka/service/gradle/libs.versions.toml" }}-{{ checksum "evaka/evaka-bom/build.gradle.kts" }}
+            - gradle-dependencies-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "evaka/service/gradle/libs.versions.toml" }}-
+            - gradle-dependencies-service-v1-{{ checksum "service/build.gradle.kts" }}-
+            - gradle-dependencies-service-v1-
+
+  store_service_gradle_build_cache:
+    steps:
+      - save_cache:
+          name: Store gradle build cache
+          key: gradle-build-cache-service-v1-{{ .Branch }}-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}
+          paths:
+            - ~/.gradle/caches/8.1
+            - ~/.gradle/caches/build-cache-1
+  restore_service_gradle_build_cache:
+    steps:
+      - restore_cache:
+          name: Restore gradle build cache
+          keys:
+            - gradle-build-cache-service-v1-{{ .Branch }}-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}
+            - gradle-build-cache-service-v1-{{ .Branch }}-
+            - gradle-build-cache-service-v1-main-
+            - gradle-build-cache-service-v1-
 
   store_frontend_node_modules:
     steps:
@@ -571,12 +585,15 @@ jobs:
     resource_class: medium+
     steps:
       - restore_repo
-      - restore_service_gradle
+      - restore_service_gradle_wrapper
+      - restore_service_gradle_dependencies
+      - restore_service_gradle_build_cache
       - run:
           working_directory: *workspace_service
           command: ./gradlew --build-cache assemble testClasses
-      - store_service_gradle
-      - store_service_build_cache
+      - store_service_gradle_build_cache
+      - store_service_gradle_dependencies
+      - store_service_gradle_wrapper
       - save:
           path: service/build/libs/trevaka-service.jar
 
@@ -585,8 +602,9 @@ jobs:
     resource_class: medium+
     steps:
       - restore_repo
-      - restore_service_gradle
-      - restore_service_build_cache
+      - restore_service_gradle_wrapper
+      - restore_service_gradle_dependencies
+      - restore_service_gradle_build_cache
       - run:
           command: PGPASSWORD=postgres psql -U postgres -h localhost -p 15432 -f "evaka/compose/db-integration-test/init-evaka-it.sql"
       - run:
