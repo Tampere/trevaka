@@ -21,7 +21,6 @@ class TampereActionRuleMapping : ActionRuleMapping {
         Action.Global.FINANCE_PAGE,
         Action.Global.PERSON_SEARCH_PAGE,
         Action.Global.FETCH_INCOME_STATEMENTS_AWAITING_HANDLER,
-        Action.Global.READ_PERSON_APPLICATION,
         Action.Global.READ_SERVICE_WORKER_APPLICATION_NOTES,
         Action.Global.SEARCH_PEOPLE,
         Action.Global.SEARCH_PEOPLE_UNRESTRICTED,
@@ -279,6 +278,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+        Action.Person.READ_APPLICATIONS,
         Action.Person.READ_CHILD_PLACEMENT_PERIODS,
         Action.Person.READ_DECISIONS,
         Action.Person.READ_FAMILY_OVERVIEW,
