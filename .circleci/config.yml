@@ -61,9 +61,9 @@ executors:
       - image: *openjdk_image
       - image: *postgres_image
         environment:
-          PGPORT: 15432
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: evaka_it
+          POSTGRES_PASSWORD: evaka_it
+          POSTGRES_DB: evaka_it
       - image: *s3mock_image
   e2e_executor:
     <<: *node_config
@@ -605,8 +605,6 @@ jobs:
       - restore_service_gradle_wrapper
       - restore_service_gradle_dependencies
       - restore_service_gradle_build_cache
-      - run:
-          command: PGPASSWORD=postgres psql -U postgres -h localhost -p 15432 -f "evaka/compose/db-integration-test/init-evaka-it.sql"
       - run:
           working_directory: *workspace_service
           command: ./gradlew --build-cache check
