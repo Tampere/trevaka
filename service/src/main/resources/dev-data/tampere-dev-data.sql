@@ -80,7 +80,8 @@ INSERT INTO fee_thresholds (
     max_income_threshold_2, max_income_threshold_3, max_income_threshold_4, max_income_threshold_5, max_income_threshold_6,
     income_threshold_increase_6_plus,
     sibling_discount_2, sibling_discount_2_plus,
-    temporary_fee, temporary_fee_part_day, temporary_fee_sibling, temporary_fee_sibling_part_day
+    temporary_fee, temporary_fee_part_day, temporary_fee_sibling, temporary_fee_sibling_part_day,
+    preschool_club_fee, preschool_club_sibling_discount
 )
 VALUES
 (
@@ -91,7 +92,8 @@ VALUES
     662640, 775040, 842740, 910540, 978040,
     26200,
     0.6, 0.8,
-    2000, 2000, 2000, 2000
+    2000, 2000, 2000, 2000,
+    14000, 0.4
 ),
 (
     daterange('2022-08-01', '2023-02-28', '[]'),
@@ -101,7 +103,8 @@ VALUES
     566600, 651100, 702000, 753000, 803700,
     19700,
     0.6, 0.8,
-    2000, 2000, 2000, 2000
+    2000, 2000, 2000, 2000,
+    null, null
 ),
 (
     daterange('2021-08-01', '2022-07-31', '[]'),
@@ -111,7 +114,8 @@ VALUES
     548500, 629700, 678600, 727500, 776200,
     18900,
     0.6, 0.8,
-    2000, 2000, 2000, 2000
+    2000, 2000, 2000, 2000,
+    null, null
 ),
 (
     daterange('2020-08-01', '2021-07-31', '[]'),
@@ -121,7 +125,8 @@ VALUES
     482300, 544300, 581600, 618900, 656100,
     14400,
     0.5, 0.8,
-    2000, 2000, 2000, 2000
+    2000, 2000, 2000, 2000,
+    null, null
 ),
 (
     daterange('2018-08-01', '2020-07-31', '[]'),
@@ -131,5 +136,6 @@ VALUES
     479900, 541000, 577700, 614400, 651000,
     14200,
     0.5, 0.8,
-    2000, 2000, 2000, 2000
+    2000, 2000, 2000, 2000,
+    null, null
 );

@@ -13,7 +13,7 @@ evaka:
     fee_decisions: trevaka-paymentdecisions-it
     voucher_value_decisions: trevaka-vouchervaluedecisions-it
   database:
-    url: jdbc:postgresql://localhost:15432/evaka_it
+    url: jdbc:postgresql://localhost:5432/evaka_it
     username: evaka_it
     password: evaka_it
     flyway:
