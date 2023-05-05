@@ -251,7 +251,7 @@ const customizations: EmployeeCustomizations = {
           info2: ''
         },
         vasu: {
-          title: 'Varhaiskasvatussuunnitelma'
+          title: 'Varhaiskasvatussuunnitelma ja esiopetuksen oppimissuunnitelma'
         },
         application: {
           types: {
