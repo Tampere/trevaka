@@ -249,15 +249,22 @@ commands:
         type: string
       dir:
         type: string
+      contexts:
+        type: string
+        default: ""
     steps:
       - run:
           name: Build docker image
           working_directory: << parameters.dir >>
           command: |
+            for context in $(eval echo << parameters.contexts >> | tr ',' '\n'); do
+              CONTEXT_ARGS="$CONTEXT_ARGS --build-context=$context"
+            done
             docker buildx build --progress=plain \
               -t << parameters.image >> \
               --build-arg "build=${CIRCLE_BUILD_NUM}" \
               --build-arg "commit=${CIRCLE_SHA1}" \
+              $CONTEXT_ARGS \
               .
       - run:
           name: Save docker image
@@ -659,6 +666,7 @@ jobs:
       - build_docker_image:
           image: trevaka/auth
           dir: *workspace_auth
+          contexts: core=../evaka/keycloak
       - save:
           path: auth/image.tar
 
