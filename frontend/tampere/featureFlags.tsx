@@ -38,8 +38,7 @@ const features: Features = {
       staffAttendanceTypes: true,
       fosterParents: true,
       serviceWorkerMessaging: true,
-      personDuplicate: true,
-      temporaryEmployee: true
+      personDuplicate: true
     }
   },
   staging: {
@@ -62,8 +61,7 @@ const features: Features = {
       staffAttendanceTypes: true,
       fosterParents: true,
       serviceWorkerMessaging: true,
-      personDuplicate: true,
-      temporaryEmployee: true
+      personDuplicate: true
     }
   },
   prod: {
@@ -86,8 +84,7 @@ const features: Features = {
       staffAttendanceTypes: true,
       fosterParents: true,
       serviceWorkerMessaging: true,
-      personDuplicate: true,
-      temporaryEmployee: true
+      personDuplicate: true
     }
   }
 }
