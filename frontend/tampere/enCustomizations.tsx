@@ -25,8 +25,8 @@ const customerContactText = function () {
       <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">
         varhaiskasvatus.asiakaspalvelu@tampere.fi
       </a>{' '}
-      / <a href="tel:+358408007260">040 800 7260</a> (Mon–Fri between 9am and
-      12noon).
+      / <a href="tel:+358408007260">040 800 7260</a> (Mon–Thu between 9am and
+      11am).
     </>
   )
 }
@@ -680,7 +680,7 @@ const en: DeepPartial<Translations> = {
         </a>
         <br />
         telephone <a href="tel:040 800 7260">040 800 7260</a>, calling hours
-        Mon-Fri 9.00–12.00
+        Mon-Thu 9.00–11.00
       </P>
       <H2>Give feedback</H2>
       <P>
