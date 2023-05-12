@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.spring)
     alias(libs.plugins.spring.boot)
     id("org.unbroken-dome.xjc") version "2.0.0"
-    id("com.gorylenko.gradle-git-properties") version "2.4.1"
     id("org.jlleitschuh.gradle.ktlint") version "11.3.1"
 }
 
