@@ -13,7 +13,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
     <style th:replace="~{tampere/fee-decision/fee-decision-css.html}"></style>
 </head>
 
-<body>
+<body th:with="derivedPlacementType=${#strings.contains(#strings.listJoin(distinctPlacementTypes, ','), 'PRESCHOOL_CLUB') and #lists.size(distinctPlacementTypes) > 1 ? 'DAYCARE_AND_PRESCHOOL_CLUB' : #strings.equals(#strings.listJoin(distinctPlacementTypes, ','), 'PRESCHOOL_CLUB') ? 'PRESCHOOL_CLUB_ONLY' : 'DAYCARE_ONLY'}">
 
 <header th:replace="~{ tampere/shared/common :: feeDecisionHeader}"></header>
 <footer th:replace="~{ tampere/shared/common :: footer}"></footer>
@@ -27,24 +27,24 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         <div th:if="${not #strings.isEmpty(sendAddress.row3)}" th:text="${sendAddress.row3}"></div>
     </div>
 
-    <h1 th:if="${isReliefDecision}" th:text="#{text.relief.title}"></h1>
-    <h1 th:unless="${isReliefDecision}" th:text="#{text.title}"></h1>
+    <h1 th:if="${isReliefDecision}" th:text="${#messages.msg('text.relief.title.' + derivedPlacementType)}"></h1>
+    <h1 th:unless="${isReliefDecision}" th:text="${#messages.msg('text.title.' + derivedPlacementType)}"></h1>
 
 
     <p th:unless="${decisionType == 'NORMAL'}">
         <th:block th:text="#{text.relief.handled}">Maksuvapautushakemuksenne on käsitelty.</th:block>
-        <th:block th:if="${decisionType == 'RELIEF_ACCEPTED'}" th:text="#{text.relief.accepted}"></th:block>
-        <th:block th:if="${decisionType == 'RELIEF_REJECTED'}" th:text="#{text.relief.rejected}"></th:block>
+        <th:block th:if="${decisionType == 'RELIEF_ACCEPTED'}" th:text="${#messages.msg('text.relief.accepted.' + derivedPlacementType)}"></th:block>
+        <th:block th:if="${decisionType == 'RELIEF_REJECTED'}" th:text="${#messages.msg('text.relief.rejected.' + derivedPlacementType)}"></th:block>
     </p>
 
     <p th:if="${isReliefDecision}"
-       th:utext="${showValidTo}? #{text.relief.decision_retroactive(${totalFee}, ${validFrom}, ${validTo})} : #{text.relief.decision(${totalFee}, ${validFrom})}"></p>
+       th:utext="${showValidTo}? ${#messages.msg('text.relief.decision_retroactive.' + derivedPlacementType, totalFee, validFrom, validTo)} : ${#messages.msg('text.relief.decision.' + derivedPlacementType, totalFee, validFrom)}"></p>
     <p th:unless="${isReliefDecision}"
-       th:utext="${showValidTo}? #{text.decision_retroactive(${totalFee}, ${validFrom}, ${validTo})} : #{text.decision(${totalFee}, ${validFrom})}"></p>
+       th:utext="${showValidTo}? ${#messages.msg('text.decision_retroactive.' + derivedPlacementType, totalFee, validFrom, validTo)} : ${#messages.msg('text.decision.' + derivedPlacementType, totalFee, validFrom)}"></p>
 
-    <p th:text="#{text.table.intro}"></p>
+    <p th:unless="${derivedPlacementType == 'PRESCHOOL_CLUB_ONLY'}" th:text="#{text.table.intro.DAYCARE_ONLY}"></p>
 
-    <table class="narrow">
+    <table th:unless="${derivedPlacementType == 'PRESCHOOL_CLUB_ONLY'}" class="narrow">
         <tbody>
         <tr th:if="${hasChildIncome}">
             <td colspan="2">
@@ -98,10 +98,12 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         </tbody>
     </table>
 
-    <p>
+    <p th:unless="${derivedPlacementType == 'PRESCHOOL_CLUB_ONLY'}">
         <span th:text="#{decision.familySize}"></span>
         <span th:text="${familySize}"></span>
     </p>
+
+    <p th:unless="${derivedPlacementType == 'DAYCARE_ONLY'}" th:text="#{text.table.intro.PRESCHOOL_CLUB_ONLY}"></p>
 
     <table class="narrow">
         <tbody th:each="part: ${parts}">
@@ -148,12 +150,9 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 
 <div class="page">
 
-    <div class="legal-content">
-        <p th:text="#{text.legal.p1}"></p>
-        <p th:text="#{text.legal.p2}"></p>
-    </div>
+    <div class="legal-content" th:utext="${#messages.msg('text.legal.' + derivedPlacementType)}"></div>
 
-    <div th:utext="#{decision.legalInstructions}"></div>
+    <div th:unless="${derivedPlacementType == 'PRESCHOOL_CLUB_ONLY'}" th:utext="#{decision.legalInstructions}"></div>
 
     <div class="decision-details-container">
         <p>
