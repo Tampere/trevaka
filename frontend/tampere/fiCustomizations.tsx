@@ -30,7 +30,7 @@ const customerContactText = function () {
       >
         varhaiskasvatus.asiakaspalvelu@tampere.fi
       </a>{' '}
-      / <a href="tel:+358408007260">040 800 7260</a> (ma–pe klo 9–12).
+      / <a href="tel:+358408007260">040 800 7260</a> (ma–to klo 9–11).
     </>
   )
 }
@@ -780,8 +780,8 @@ const fi: DeepPartial<Translations> = {
           varhaiskasvatus.asiakaspalvelu@tampere.fi
         </a>
         <br />
-        puhelin <a href="tel:040 800 7260">040 800 7260</a>, soittoaika ma–pe
-        klo 9.00–12.00
+        puhelin <a href="tel:040 800 7260">040 800 7260</a>, soittoaika ma–to
+        klo 9.00–11.00
       </P>
       <H2>Anna palautetta</H2>
       <P>
