@@ -42,7 +42,7 @@ const theme: Theme = {
       a6turquoise: '#91C9EA',
       a7mint: '#8CC1B3',
       a8lightBlue: '#CAD6E2',
-      a9pink: '#D77094',
+      a9pink: '#FCA5C7',
       a10powder: '#CAD6E2'
     },
     absences: {
