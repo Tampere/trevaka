@@ -9,6 +9,9 @@
 #
 # example:
 # PGHOST=postgres.example.org PGUSER=postgres PGPASSWORD=postgres PGDATABASE=database_name_here S3_BUCKET=bucket_name_here ./db_to_csv.sh
+#
+# local:
+# PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres PGDATABASE=evaka_local S3_BUCKET=scheduled-task-reporting AWS_ACCESS_KEY_ID=local AWS_SECRET_ACCESS_KEY=local ./db_to_csv.sh
 
 set -e
 
@@ -19,7 +22,7 @@ fi
 
 s3_args=()
 if [[ -n "${S3_ENDPOINT_URL}" ]]; then
-    s3_args+=("--endpoint-url ${S3_ENDPOINT_URL}")
+    s3_args+=("--endpoint-url=${S3_ENDPOINT_URL}")
 fi
 
 include_schema=${INCLUDE_SCHEMA:-false}
