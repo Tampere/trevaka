@@ -8,7 +8,7 @@
 # Use environment variables to configure connection: https://www.postgresql.org/docs/13/libpq-envars.html
 #
 # example:
-# PGHOST=postgres.example.org PGUSER=postgres PGPASSWORD=postgres PGDATABASE=database_name_here ./db_to_csv.sh
+# PGHOST=postgres.example.org PGUSER=postgres PGPASSWORD=postgres PGDATABASE=database_name_here S3_BUCKET=bucket_name_here ./db_to_csv.sh
 
 set -e
 
