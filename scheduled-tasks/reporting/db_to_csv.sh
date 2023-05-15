@@ -28,6 +28,17 @@ date=$(date --iso-8601)
 basepath="export/$date"
 mkdir -p "$basepath"
 
+upload_to_s3() {
+    file_name=$1
+    query=${2:-$file_name}
+
+    filepath="$basepath/$file_name.csv"
+    echo "Exporting $file_name data to $filepath"
+    psql -c "COPY $query TO STDOUT WITH DELIMITER ',' CSV HEADER;" > "$filepath"
+    zip -j "$basepath/${file_name}_$date.zip" "$filepath"
+    aws s3 cp "$basepath/${file_name}_$date.zip" "s3://${S3_BUCKET}/${file_name}_$date.zip" "${s3_args[@]}"
+}
+
 table_names=$(psql -c "COPY (SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_type NOT IN ('VIEW') AND table_name NOT IN ('async_job', 'child_document', 'document_template', 'dvv_modification_token', 'employee_pin', 'flyway_schema_history', 'income_notification', 'mobile_device', 'mobile_device_push_subscription', 'scheduled_tasks', 'setting', 'varda_organizer_child', 'varda_reset_child', 'varda_service_need', 'varda_unit') ORDER BY table_name) TO STDOUT;")
 
 for table_name in $table_names
@@ -38,10 +49,8 @@ do
         pg_dump --schema=public --no-owner --schema-only --table="$table_name" --no-acl > "$schemapath"
     fi
 
-    filepath="$basepath/$table_name.csv"
-    echo "Exporting $table_name data to $filepath"
-    psql -c "COPY $table_name TO STDOUT WITH DELIMITER ',' CSV HEADER;" > "$filepath"
-
-    zip -j "$basepath/${table_name}_$date.zip" "$filepath"
-    aws s3 cp "$basepath/${table_name}_$date.zip" "s3://${S3_BUCKET}/${table_name}_$date.zip" "${s3_args[@]}"
+    upload_to_s3 "$table_name"
 done
+
+upload_to_s3 "absence_DELTA" "(SELECT * FROM absence WHERE modified_at >= (current_date AT TIME ZONE 'Europe/Helsinki' - interval '30 days')::date)"
+upload_to_s3 "child_attendance_DELTA" "(SELECT * FROM child_attendance WHERE updated >= (current_date AT TIME ZONE 'Europe/Helsinki' - interval '30 days')::date)"
