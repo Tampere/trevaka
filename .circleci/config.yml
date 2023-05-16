@@ -147,7 +147,7 @@ commands:
           name: Store gradle build cache
           key: gradle-build-cache-service-v1-{{ .Branch }}-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}
           paths:
-            - ~/.gradle/caches/8.1
+            - ~/.gradle/caches/8.1.1
             - ~/.gradle/caches/build-cache-1
   restore_service_gradle_build_cache:
     steps:
