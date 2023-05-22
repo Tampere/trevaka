@@ -55,5 +55,5 @@ do
     upload_to_s3 "$table_name"
 done
 
-upload_to_s3 "absence_DELTA" "(SELECT * FROM absence WHERE modified_at >= (current_date AT TIME ZONE 'Europe/Helsinki' - interval '30 days')::date)"
-upload_to_s3 "child_attendance_DELTA" "(SELECT * FROM child_attendance WHERE updated >= (current_date AT TIME ZONE 'Europe/Helsinki' - interval '30 days')::date)"
+upload_to_s3 "absence_DELTA" "(SELECT * FROM absence WHERE modified_at >= (current_date AT TIME ZONE 'Europe/Helsinki' - interval '60 days')::date)"
+upload_to_s3 "child_attendance_DELTA" "(SELECT * FROM child_attendance WHERE updated >= (current_date AT TIME ZONE 'Europe/Helsinki' - interval '60 days')::date)"
