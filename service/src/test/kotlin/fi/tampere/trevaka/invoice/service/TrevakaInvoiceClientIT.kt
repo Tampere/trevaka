@@ -39,7 +39,7 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
                 .withBasicAuth(BasicCredentials("user", "pass"))
                 .withHeader(
                     "Content-Type",
-                    equalTo("application/soap+xml; charset=utf-8;   \taction=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\""),
+                    equalTo("application/soap+xml; charset=utf-8; action=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\""),
                 )
                 .withoutHeader("SOAPAction"),
         )
@@ -65,7 +65,7 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
                 .withBasicAuth(BasicCredentials("user", "pass"))
                 .withHeader(
                     "Content-Type",
-                    equalTo("application/soap+xml; charset=utf-8;   \taction=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\""),
+                    equalTo("application/soap+xml; charset=utf-8; action=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\""),
                 )
                 .withoutHeader("SOAPAction"),
         )
@@ -91,7 +91,7 @@ internal class TrevakaInvoiceClientIT : AbstractIntegrationTest() {
                 .withBasicAuth(BasicCredentials("user", "pass"))
                 .withHeader(
                     "Content-Type",
-                    equalTo("application/soap+xml; charset=utf-8;   \taction=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\""),
+                    equalTo("application/soap+xml; charset=utf-8; action=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\""),
                 )
                 .withoutHeader("SOAPAction"),
         )
