@@ -39,7 +39,8 @@ const features: Features = {
       staffAttendanceTypes: true,
       fosterParents: true,
       serviceWorkerMessaging: true,
-      personDuplicate: true
+      personDuplicate: true,
+      childDocuments: true
     }
   },
   staging: {
