@@ -25,7 +25,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    implementation(platform("org.apereo.cas:cas-server-support-bom:6.6.7"))
+    implementation(platform("org.apereo.cas:cas-server-support-bom:6.6.8"))
     implementation("org.apereo.cas:cas-server-webapp-starter-tomcat")
 
     implementation("org.apereo.cas:cas-server-support-generic")
