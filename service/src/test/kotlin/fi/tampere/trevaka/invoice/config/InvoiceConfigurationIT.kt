@@ -24,6 +24,7 @@ import fi.espoo.evaka.invoicing.domain.Invoice
 import fi.espoo.evaka.invoicing.service.InvoiceGenerator
 import fi.espoo.evaka.placement.PlacementType
 import fi.espoo.evaka.serviceneed.ServiceNeedOption
+import fi.espoo.evaka.serviceneed.findServiceNeedOptionById
 import fi.espoo.evaka.shared.AreaId
 import fi.espoo.evaka.shared.ChildId
 import fi.espoo.evaka.shared.DaycareId
@@ -68,7 +69,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
 
     @BeforeEach
     fun insertBaseData() {
-        db.transaction { tx ->
+        val serviceNeedOption = db.transaction { tx ->
             tx.createUpdate(
                 """
                 INSERT INTO holiday_period_questionnaire(id, type, absence_type, requires_strong_auth, active, title, description, description_link, condition_continuous_placement, period_options, period_option_label)
@@ -112,6 +113,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
             tx.insertTestPerson(testAdult)
             tx.insertTestParentship(testParentship)
             tx.insertEvakaUser(EvakaUser(evakaUserId, "integration-test", EvakaUserType.UNKNOWN))
+            tx.findServiceNeedOptionById(ServiceNeedOptionId(UUID.fromString("86ef70a0-bf85-11eb-91e6-1fb57a101161")))!!
         }
         val decisions = listOf(
             createFeeDecisionFixture(
@@ -125,7 +127,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
                         dateOfBirth = testChild.dateOfBirth,
                         placementUnitId = testDaycare.id,
                         placementType = PlacementType.DAYCARE,
-                        serviceNeed = snDaycareFullDay.toFeeDecisionServiceNeed(),
+                        serviceNeed = serviceNeedOption.toFeeDecisionServiceNeed(),
                         baseFee = 28900,
                         fee = 28900,
                         feeAlterations = listOf(),
@@ -214,29 +216,6 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
         enabledPilotFeatures = setOf(PilotFeature.MESSAGING, PilotFeature.MOBILE, PilotFeature.RESERVATIONS, PilotFeature.PLACEMENT_TERMINATION),
     )
 
-    private final val snDaycareFullDay = ServiceNeedOption(
-        id = ServiceNeedOptionId(UUID.randomUUID()),
-        nameFi = "Kokopäiväinen",
-        nameSv = "Kokopäiväinen",
-        nameEn = "Kokopäiväinen",
-        validPlacementType = PlacementType.DAYCARE,
-        defaultOption = false,
-        feeCoefficient = BigDecimal("1.00"),
-        occupancyCoefficient = BigDecimal("1.00"),
-        occupancyCoefficientUnder3y = BigDecimal("1.75"),
-        realizedOccupancyCoefficient = BigDecimal("1.00"),
-        realizedOccupancyCoefficientUnder3y = BigDecimal("1.75"),
-        daycareHoursPerWeek = 35,
-        contractDaysPerMonth = null,
-        partDay = false,
-        partWeek = false,
-        feeDescriptionFi = "",
-        feeDescriptionSv = "",
-        voucherValueDescriptionFi = "",
-        voucherValueDescriptionSv = "",
-        active = true,
-    )
-
     private val getAllInvoices: (Database.Read) -> List<Invoice> = { r ->
         r.createQuery(
             """
@@ -306,6 +285,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
     )
 
     private fun ServiceNeedOption.toFeeDecisionServiceNeed() = FeeDecisionServiceNeed(
+        optionId = this.id,
         feeCoefficient = this.feeCoefficient,
         contractDaysPerMonth = this.contractDaysPerMonth,
         descriptionFi = this.feeDescriptionFi,

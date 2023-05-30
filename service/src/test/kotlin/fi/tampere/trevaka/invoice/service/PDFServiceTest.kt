@@ -36,6 +36,7 @@ import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.FeeAlterationId
 import fi.espoo.evaka.shared.FeeDecisionId
 import fi.espoo.evaka.shared.PersonId
+import fi.espoo.evaka.shared.ServiceNeedOptionId
 import fi.espoo.evaka.shared.VoucherValueDecisionId
 import fi.espoo.evaka.shared.domain.DateRange
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
@@ -427,6 +428,7 @@ private fun validFeeDecisionChild(
         areaName = "Alue 1",
         language = "fi",
     ),
+    serviceNeedOptionId = ServiceNeedOptionId(UUID.randomUUID()),
     serviceNeedFeeCoefficient = BigDecimal.ONE,
     serviceNeedDescriptionFi = "Kokopäiväinen",
     serviceNeedDescriptionSv = "Kokopäiväinen (sv)",
