@@ -72,7 +72,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             
             <p>Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla osoitteeseen <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a> tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.</p>
             
-            <p>Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun: <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a>, puh. <a href="tel:+358408007260">040 800 7260</a> (ma–to klo 9–11).</p>
+            <p>Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun: <a href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot">https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot</a></p>
         """.trimIndent()
     }
 
@@ -82,7 +82,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             
             Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla osoitteeseen https://varhaiskasvatus.tampere.fi tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.
             
-            Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun: varhaiskasvatus.asiakaspalvelu@tampere.fi, puh. 040 800 7260 (ma–to klo 9–11).
+            Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun:  https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot
         """.trimIndent()
     }
 
