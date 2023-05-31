@@ -21,4 +21,4 @@ ADD --chmod=0644 \
 COPY --from=theme evaka /opt/keycloak/themes/evaka
 RUN /opt/keycloak/bin/kc.sh build --db=postgres --http-relative-path=/auth --health-enabled=true
 RUN /opt/keycloak/bin/kc.sh show-config
-CMD ["start"]
+CMD ["start","--optimized"]
