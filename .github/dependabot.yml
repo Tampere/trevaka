@@ -30,8 +30,5 @@ updates:
     schedule:
       interval: "daily"
     ignore:
-      - dependency-name: "org.jetbrains.kotlin.jvm"
-      - dependency-name: "org.jetbrains.kotlin.plugin.spring"
-      - dependency-name: "org.springframework.boot"
       - dependency-name: "com.sun.xml.bind:jaxb-xjc"
       - dependency-name: "com.sun.xml.bind:jaxb-impl"
