@@ -215,7 +215,8 @@ class TampereActionRuleMapping : ActionRuleMapping {
             )
         }
         Action.Child.READ_PEDAGOGICAL_DOCUMENTS,
-        Action.Child.CREATE_PEDAGOGICAL_DOCUMENT -> {
+        Action.Child.CREATE_PEDAGOGICAL_DOCUMENT,
+        -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).withUnitFeatures(PilotFeature.VASU_AND_PEDADOC)
@@ -300,7 +301,8 @@ class TampereActionRuleMapping : ActionRuleMapping {
         }
         Action.PedagogicalDocument.DELETE,
         Action.PedagogicalDocument.UPDATE,
-        Action.PedagogicalDocument.CREATE_ATTACHMENT -> {
+        Action.PedagogicalDocument.CREATE_ATTACHMENT,
+        -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY)
