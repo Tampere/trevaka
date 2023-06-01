@@ -53,7 +53,7 @@ dependencies {
     testImplementation("org.reflections:reflections:0.10.2")
     testImplementation("com.auth0:java-jwt")
     testImplementation("org.thymeleaf:thymeleaf")
-    testImplementation("com.networknt:json-schema-validator:1.0.72")
+    testImplementation("com.networknt:json-schema-validator:1.0.83")
     testImplementation("org.skyscreamer:jsonassert")
 }
 
