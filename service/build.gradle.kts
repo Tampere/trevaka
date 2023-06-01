@@ -48,7 +48,7 @@ dependencies {
     testImplementation("org.junit-pioneer:junit-pioneer:2.0.1") // for CartesianProductTest
     testImplementation("org.mockito.kotlin:mockito-kotlin")
     testImplementation("org.springframework.ws:spring-ws-test")
-    testImplementation(platform("org.springframework.cloud:spring-cloud-dependencies:2022.0.1"))
+    testImplementation(platform("org.springframework.cloud:spring-cloud-dependencies:2022.0.3"))
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
     testImplementation("org.reflections:reflections:0.10.2")
     testImplementation("com.auth0:java-jwt")
