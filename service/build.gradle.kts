@@ -45,7 +45,7 @@ dependencies {
     implementation("io.opentracing:opentracing-util")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.junit-pioneer:junit-pioneer:2.0.0") // for CartesianProductTest
+    testImplementation("org.junit-pioneer:junit-pioneer:2.0.1") // for CartesianProductTest
     testImplementation("org.mockito.kotlin:mockito-kotlin")
     testImplementation("org.springframework.ws:spring-ws-test")
     testImplementation(platform("org.springframework.cloud:spring-cloud-dependencies:2022.0.1"))
