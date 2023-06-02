@@ -105,9 +105,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             Sivistyspalvelut<br/>
             Varhaiskasvatus ja esiopetus<br/>
             Asiakaspalvelu<br/>
-            <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a><br/>
-            Puh. <a href="tel:+358408007260">040&nbsp;800&nbsp;7260</a> (ma–to klo 9–11)<br/>
-            <a href="https://www.tampere.fi/varhaiskasvatus">www.tampere.fi/varhaiskasvatus</a>
+            <a href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot">https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot</a>
             </p>
             
             <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
@@ -132,9 +130,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             Sivistyspalvelut
             Varhaiskasvatus ja esiopetus
             Asiakaspalvelu
-            varhaiskasvatus.asiakaspalvelu@tampere.fi
-            Puh. 040 800 7260 (ma–to klo 9–11)
-            www.tampere.fi/varhaiskasvatus
+            https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot
             
             Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.
         """.trimIndent()
@@ -150,7 +146,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             
             <p>Saatte tiedon lapsenne varhaiskasvatuspaikasta noin kuukautta ennen palvelutarpeen alkamista tai hakemuksen lakisääteisen järjestelyajan päättymistä. Hakemuksen lakisääteinen järjestelyaika on neljä (4) kuukautta hakemuksen saapumisesta.</p> 
             
-            <p>Mikäli hakemuksenne on kiireellinen, ottakaa yhteyttä viipymättä Varhaiskasvatuksen asiakaspalveluun: <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a>, puh. <a href="tel:0408007260">040&nbsp;800&nbsp;7260</a> (ma–to klo 9–11). Hakuaika kiireellisissä hakemuksissa on minimissään kaksi (2) viikkoa ja se alkaa siitä päivästä, kun olette olleet yhteydessä asiakaspalveluun.</p>
+            <p>Mikäli hakemuksenne on kiireellinen, ottakaa yhteyttä viipymättä Varhaiskasvatuksen asiakaspalveluun: <a href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot">https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot</a>. Hakuaika kiireellisissä hakemuksissa on minimissään kaksi (2) viikkoa ja se alkaa siitä päivästä, kun olette olleet yhteydessä asiakaspalveluun.</p>
             
             <p>Kirjallinen päätös varhaiskasvatuspaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, päätös lähetetään hänelle postitse.</p>
             
@@ -167,10 +163,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             Sivistyspalvelut<br/>
             Varhaiskasvatus ja esiopetus<br/>
             Asiakaspalvelu<br/>
-            <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a><br/>
-            Puh. <a href="tel:+358408007260">040&nbsp;800&nbsp;7260</a>, ma–to klo 9–11<br/>
-            Postiosoite: PL 487, 33101 Tampere<br/>
-            <a href="https://www.tampere.fi/varhaiskasvatus">www.tampere.fi/varhaiskasvatus</a>
+            <a href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot">https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot</a>
             </p>
             
             <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
@@ -187,7 +180,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             
             Saatte tiedon lapsenne varhaiskasvatuspaikasta noin kuukautta ennen palvelutarpeen alkamista tai hakemuksen lakisääteisen järjestelyajan päättymistä. Hakemuksen lakisääteinen järjestelyaika on neljä (4) kuukautta hakemuksen saapumisesta.
             
-            Mikäli hakemuksenne on kiireellinen, ottakaa yhteyttä viipymättä Varhaiskasvatuksen asiakaspalveluun: varhaiskasvatus.asiakaspalvelu@tampere.fi, puh. 040 800 7260 (ma–to klo 9–11). Hakuaika kiireellisissä hakemuksissa on minimissään kaksi (2) viikkoa ja se alkaa siitä päivästä, kun olette olleet yhteydessä asiakaspalveluun.
+            Mikäli hakemuksenne on kiireellinen, ottakaa yhteyttä viipymättä Varhaiskasvatuksen asiakaspalveluun: https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot. Hakuaika kiireellisissä hakemuksissa on minimissään kaksi (2) viikkoa ja se alkaa siitä päivästä, kun olette olleet yhteydessä asiakaspalveluun.
             
             Kirjallinen päätös varhaiskasvatuspaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, päätös lähetetään hänelle postitse.
             
@@ -203,10 +196,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             Sivistyspalvelut
             Varhaiskasvatus ja esiopetus
             Asiakaspalvelu
-            varhaiskasvatus.asiakaspalvelu@tampere.fi
-            Puh. 040 800 7260, ma–to klo 9–11
-            Postiosoite: PL 487, 33101 Tampere
-            www.tampere.fi/varhaiskasvatus
+            https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot
             
             Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.
         """.trimIndent()
@@ -227,10 +217,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             Sivistyspalvelut<br/>
             Varhaiskasvatus ja esiopetus<br/>
             Asiakaspalvelu<br/>
-            <a href="mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi">varhaiskasvatus.asiakaspalvelu@tampere.fi</a><br/>
-            Puh. <a href="tel:+358408007260">040&nbsp;800&nbsp;7260</a>, ma–to klo 9–11<br/>
-            Postiosoite: PL 487, 33101 Tampere<br/>
-            <a href="https://www.tampere.fi/varhaiskasvatus">www.tampere.fi/varhaiskasvatus</a>
+            <a href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot">https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot</a>
             </p>
 
             <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
@@ -251,10 +238,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             Sivistyspalvelut
             Varhaiskasvatus ja esiopetus
             Asiakaspalvelu
-            varhaiskasvatus.asiakaspalvelu@tampere.fi
-            Puh. 040 800 7260, ma–to klo 9–11
-            Postiosoite: PL 487, 33101 Tampere
-            www.tampere.fi/varhaiskasvatus
+            https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot
 
             Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.
         """.trimIndent()
