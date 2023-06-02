@@ -149,6 +149,14 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+        Action.Attachment.DELETE_PEDAGOGICAL_DOCUMENT_ATTACHMENT -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY)
+                    .withUnitFeatures(PilotFeature.VASU_AND_PEDADOC)
+                    .inPlacementUnitOfChildOfPedagogicalDocumentOfAttachment() as ScopedActionRule<in T>,
+            )
+        }
         Action.BackupCare.UPDATE,
         Action.BackupCare.DELETE,
         -> {
@@ -203,6 +211,15 @@ class TampereActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.STAFF).withUnitFeatures(PilotFeature.VASU_AND_PEDADOC)
+                    .inPlacementUnitOfChild() as ScopedActionRule<in T>,
+            )
+        }
+        Action.Child.READ_PEDAGOGICAL_DOCUMENTS,
+        Action.Child.CREATE_PEDAGOGICAL_DOCUMENT,
+        -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).withUnitFeatures(PilotFeature.VASU_AND_PEDADOC)
                     .inPlacementUnitOfChild() as ScopedActionRule<in T>,
             )
         }
@@ -280,6 +297,17 @@ class TampereActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
+            )
+        }
+        Action.PedagogicalDocument.DELETE,
+        Action.PedagogicalDocument.UPDATE,
+        Action.PedagogicalDocument.CREATE_ATTACHMENT,
+        -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY)
+                    .withUnitFeatures(PilotFeature.VASU_AND_PEDADOC)
+                    .inPlacementUnitOfChildOfPedagogicalDocument() as ScopedActionRule<in T>,
             )
         }
         Action.Person.READ_APPLICATIONS,
