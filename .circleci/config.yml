@@ -44,9 +44,9 @@ executors:
     docker:
       - image: *base_image
   reuse_tool:
+    <<: *default_config
     docker:
       - image: *reuse_image
-    working_directory: *workspace_root
   nodejs_executor:
     <<: *node_config
     docker:
