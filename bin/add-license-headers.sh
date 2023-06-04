@@ -53,7 +53,7 @@ function run_reuse() {
 
 function addheader() {
     local file="$1"
-    run_reuse addheader --license "LGPL-2.1-or-later" --copyright "City of Tampere" --year "$REUSE_YEARS" "$file"
+    run_reuse annotate --license "LGPL-2.1-or-later" --copyright "City of Tampere" --year "$REUSE_YEARS" "$file"
 }
 
 # MAIN SCRIPT
