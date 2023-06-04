@@ -378,13 +378,6 @@ jobs:
       - restore_repo
       - aws-cli/install
       - run:
-          name: Fetch build customizations
-          working_directory: *workspace_root
-          command: |
-            aws s3 sync s3://trevaka-artifacts/customizations/ ./customizations/
-      - save:
-          path: customizations
-      - run:
           name: Fetch commercial frontend dependencies
           working_directory: *workspace_evaka_frontend
           command: |
@@ -507,8 +500,6 @@ jobs:
     steps:
       - restore_repo
       - restore_frontend_node_modules
-      - restore:
-          path: customizations
       - frontend_install
       - run:
           working_directory: *workspace_tre_frontend
@@ -533,8 +524,6 @@ jobs:
     steps:
       - restore_repo
       - restore_frontend_node_modules
-      - restore:
-          path: customizations
       - build_frontend
       - save:
           path: evaka/frontend/dist
@@ -659,9 +648,6 @@ jobs:
       - restore_repo
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
-      - restore:
-          path: customizations
-      - run: cp customizations/footer-logo-citizen.png auth/TampereLogo.png
       - build_docker_image:
           image: trevaka/auth
           dir: *workspace_auth
@@ -830,7 +816,7 @@ workflows:
 
       - auth_build_image:
           requires:
-            - fetch_private_dependencies
+            - checkout_repo
       - auth_push_image:
           context:
             - trevaka-utility
