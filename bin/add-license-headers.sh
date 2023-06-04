@@ -9,7 +9,7 @@ set -euo pipefail
 
 # Configuration
 DEBUG=${DEBUG:-false}
-REUSE_VERSION=0.13.0 # NOTE: Update .circleci/config.yml to match
+REUSE_VERSION=1.1.2 # NOTE: Update .circleci/config.yml to match
 START_YEAR=2021
 CURRENT_YEAR=$(date +"%Y")
 if [ "${START_YEAR}" == "${CURRENT_YEAR}" ]; then
@@ -47,7 +47,7 @@ if [ "${1:-X}" = '--help' ]; then
 fi
 
 function run_reuse() {
-    docker run --rm --volume "${REPO_ROOT}:/data" --workdir "/data${REPO_PREFIX}" "fsfe/reuse:${REUSE_VERSION}" "$@"
+    docker run -u "${UID}" --rm --volume "${REPO_ROOT}:/data" --workdir "/data${REPO_PREFIX}" "fsfe/reuse:${REUSE_VERSION}" "$@"
 }
 
 function addheader() {
