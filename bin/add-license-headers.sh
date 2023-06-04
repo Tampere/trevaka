@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # SPDX-FileCopyrightText: 2017-2020 City of Espoo
 # SPDX-FileCopyrightText: 2021 City of Tampere
@@ -13,10 +13,12 @@ REUSE_VERSION=1.1.2 # NOTE: Update .circleci/config.yml to match
 START_YEAR=2021
 CURRENT_YEAR=$(date +"%Y")
 if [ "${START_YEAR}" == "${CURRENT_YEAR}" ]; then
-    REUSE_YEARS=${REUSE_YEARS:-"${CURRENT_YEAR}"}
+    REUSE_YEARS="${CURRENT_YEAR}"
 else
-    REUSE_YEARS=${REUSE_YEARS:-"${START_YEAR}-${CURRENT_YEAR}"}
+    REUSE_YEARS="${START_YEAR}-${CURRENT_YEAR}"
 fi
+
+REUSE_IMAGE="fsfe/reuse:${REUSE_VERSION}"
 
 if [ "$DEBUG" = "true" ]; then
     set -x
@@ -24,7 +26,6 @@ fi
 
 # Figure out absolute path to git repository root
 REPO_ROOT=$(git rev-parse --show-superproject-working-tree) # first, let's assume the working directory is in a git submodule
-
 if [ -z "${REPO_ROOT}" ]; then
   # not in a submodule -> just get the repository root
   REPO_ROOT=$(git rev-parse --show-toplevel)
@@ -35,11 +36,10 @@ REPO_PREFIX=${PWD#"${REPO_ROOT}"}
 
 if [ "${1:-X}" = '--help' ]; then
   echo 'Usage: ./bin/add-license-headers.sh [OPTIONS]'
-  echo -e
+  echo ''
   echo 'Helper script to attempt automatically adding missing license headers to all source code files.'
   echo 'Any missing license files are downloaded automatically to LICENSES/.'
-  echo 'NOTE: Known non-compliant files are excluded from automatic fixes but not from linting.'
-  echo -e
+  echo ''
   echo 'Options:'
   echo "    --lint-only     Only lint for missing headers, don't attempt to add anything"
   echo '    --help          Print this help'
@@ -47,14 +47,16 @@ if [ "${1:-X}" = '--help' ]; then
 fi
 
 function run_reuse() {
-    docker run -u "${UID}" --rm --volume "${REPO_ROOT}:/data" --workdir "/data${REPO_PREFIX}" "fsfe/reuse:${REUSE_VERSION}" "$@"
+    run_args=("$@")
+    docker run -u "${UID}" --rm --volume "${REPO_ROOT}:/data" --workdir "/data${REPO_PREFIX}" "$REUSE_IMAGE" "${run_args[@]}"
 }
 
 function addheader() {
     local file="$1"
-    shift
-    run_reuse addheader --license "LGPL-2.1-or-later" --copyright "City of Tampere" --year "$REUSE_YEARS" "$@" "$file"
+    run_reuse addheader --license "LGPL-2.1-or-later" --copyright "City of Tampere" --year "$REUSE_YEARS" "$file"
 }
+
+# MAIN SCRIPT
 
 set +e
 REUSE_OUTPUT=$(run_reuse lint)
@@ -84,20 +86,22 @@ fi
 # -> find all quoted license IDs and download them automatically
 # shellcheck disable=SC2207
 MISSING_LICENSES=($(echo "$REUSE_OUTPUT" | grep '^* Missing licenses:' | cut -d ' ' -f 4- | tr ', ' ' '))
+echo "${MISSING_LICENSES[@]}"
 for license in "${MISSING_LICENSES[@]}"; do
     if [ -z "$license" ]; then
         continue
     fi
 
-    run_reuse download "$license"
+    if [ ! -f "${REPO_ROOT}/LICENSES/${license}.txt" ]; then
+        run_reuse download "$license"
+    fi
 done
 
 # Unfortunately reuse tool doesn't provide a machine-readable output currently,
 # so some ugly parsing is necessary.
-# TODO: Remove excludes when we have reuse-compatible licensing info for them
 NONCOMPLIANT_FILES=$(echo "$REUSE_OUTPUT" \
-    | awk '/^$/ {next} /following/ {next} /schema\/.*\.xsd/ {next} /schema\/.*\.wsdl/ {next} /city-logo/ {next} /MISSING COPYRIGHT AND LICENSING INFORMATION/{flag=1; next} /SUMMARY/{flag=0} flag' \
-    | cut -d' ' -f2
+    | awk '/^$/ {next} /following/ {next} /MISSING COPYRIGHT AND LICENSING INFORMATION/{flag=1; next} /SUMMARY/{flag=0} flag' \
+    | cut -d' ' -f2-
 )
 
 while IFS= read -r file; do
@@ -105,14 +109,7 @@ while IFS= read -r file; do
         continue
     fi
 
-    # Explicitly define styles for some common files not yet recognized by a released version of reuse:
-    if [[ "$file" = *kts ]]; then
-        addheader "$file" --style c
-    elif [[ "$file" = *properties ]]; then
-        addheader "$file" --style python
-    else
-        addheader "$file"
-    fi
+    addheader "$file"
 done <<< "$NONCOMPLIANT_FILES"
 
-echo 'All files are REUSE compliant, excluding known compliant files'
+echo 'All files are REUSE compliant'
