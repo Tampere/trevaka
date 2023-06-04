@@ -88,7 +88,7 @@ beforeEach(async () => {
 
 describe('Citizen attendance reservations', () => {
     test('Open absence modal and check Tampere options', async () => {
-        const reservationDay = LocalDate.todayInHelsinkiTz().addDays(14)
+        const reservationDay = LocalDate.todayInHelsinkiTz().addBusinessDays(10)
 
         const dayView = await calendarPage.openDayView(reservationDay)
         await dayView.createAbsence()
