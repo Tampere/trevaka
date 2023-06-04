@@ -19,7 +19,7 @@ aliases:
 
   - &remote_docker_version "20.10.18"
   - &base_image cimg/base:current-22.04
-  - &reuse_image fsfe/reuse:0.13.0 # NOTE: Update bin/add-license-headers.sh to match
+  - &reuse_image fsfe/reuse:1.1.2 # NOTE: Update bin/add-license-headers.sh to match
   - &nodejs_image cimg/node:18.16
   - &openjdk_image cimg/openjdk:17.0
   - &postgres_image cimg/postgres:14.6
@@ -44,9 +44,9 @@ executors:
     docker:
       - image: *base_image
   reuse_tool:
+    <<: *default_config
     docker:
       - image: *reuse_image
-    working_directory: *workspace_root
   nodejs_executor:
     <<: *node_config
     docker:
@@ -434,9 +434,8 @@ jobs:
       - restore_repo
       - run:
           name: reuse lint
-          # TODO: remove "true" to enforce check
           command: |
-            reuse lint || true || {
+            reuse lint || {
               echo '';
               echo '=========================================';
               echo 'Please run: ./bin/add-license-headers.sh';
