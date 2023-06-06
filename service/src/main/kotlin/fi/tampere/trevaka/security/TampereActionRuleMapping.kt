@@ -149,7 +149,9 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
-        Action.Attachment.DELETE_PEDAGOGICAL_DOCUMENT_ATTACHMENT -> {
+        Action.Attachment.READ_PEDAGOGICAL_DOCUMENT_ATTACHMENT,
+        Action.Attachment.DELETE_PEDAGOGICAL_DOCUMENT_ATTACHMENT,
+        -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY)
