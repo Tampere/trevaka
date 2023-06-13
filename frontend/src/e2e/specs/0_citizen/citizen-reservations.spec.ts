@@ -72,8 +72,8 @@ beforeEach(async () => {
                 uuidv4(),
                 child.id,
                 daycareFixture.id,
-                LocalDate.todayInHelsinkiTz().formatIso(),
-                LocalDate.todayInHelsinkiTz().addYears(1).formatIso()
+                LocalDate.todayInHelsinkiTz(),
+                LocalDate.todayInHelsinkiTz().addYears(1)
             )
         )
     )
