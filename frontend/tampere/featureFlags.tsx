@@ -40,7 +40,8 @@ const features: Features = {
       fosterParents: true,
       serviceWorkerMessaging: true,
       personDuplicate: true,
-      childDocuments: true
+      childDocuments: true,
+      intermittentShiftCare: true
     }
   },
   staging: {
