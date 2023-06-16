@@ -42,7 +42,7 @@ upload_to_s3() {
     aws s3 cp "$basepath/${file_name}_$date.zip" "s3://${S3_BUCKET}/${file_name}_$date.zip" "${s3_args[@]}"
 }
 
-table_names=$(psql -c "COPY (SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_type NOT IN ('VIEW') AND table_name NOT IN ('async_job', 'child_document', 'document_template', 'dvv_modification_token', 'employee_pin', 'flyway_schema_history', 'income_notification', 'mobile_device', 'mobile_device_push_subscription', 'scheduled_tasks', 'setting', 'varda_organizer_child', 'varda_reset_child', 'varda_service_need', 'varda_unit') ORDER BY table_name) TO STDOUT;")
+table_names=$(psql -c "COPY (SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_type NOT IN ('VIEW') AND table_name NOT IN ('absence', 'async_job', 'child_attendance', 'child_document', 'document_template', 'dvv_modification_token', 'employee_pin', 'flyway_schema_history', 'income_notification', 'mobile_device', 'mobile_device_push_subscription', 'scheduled_tasks', 'setting', 'varda_organizer_child', 'varda_reset_child', 'varda_service_need', 'varda_unit') ORDER BY table_name) TO STDOUT;")
 
 for table_name in $table_names
 do
