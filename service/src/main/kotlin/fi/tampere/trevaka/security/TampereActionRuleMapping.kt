@@ -401,7 +401,8 @@ class TampereActionRuleMapping : ActionRuleMapping {
         Action.Unit.READ_TEMPORARY_EMPLOYEE,
         Action.Unit.CREATE_TEMPORARY_EMPLOYEE,
         Action.Unit.UPDATE_TEMPORARY_EMPLOYEE,
-        Action.Unit.DELETE_TEMPORARY_EMPLOYEE -> {
+        Action.Unit.DELETE_TEMPORARY_EMPLOYEE,
+        -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inUnit() as ScopedActionRule<in T>,
