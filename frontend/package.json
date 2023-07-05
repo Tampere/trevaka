@@ -14,7 +14,7 @@
     "e2e-test": "link:../evaka/frontend/src/e2e-test",
     "jest": "^29.5.0",
     "jest-circus": "^29.5.0",
-    "jest-environment-jsdom": "^29.5.0",
+    "jest-environment-jsdom": "^29.6.0",
     "jest-environment-node": "^29.5.0",
     "jest-junit": "^15.0.0",
     "lib-common": "link:../evaka/frontend/src/lib-common",
