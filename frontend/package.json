@@ -12,7 +12,7 @@
     "@types/jest": "^29.5.2",
     "axios": "^1.4.0",
     "e2e-test": "link:../evaka/frontend/src/e2e-test",
-    "jest": "^29.5.0",
+    "jest": "^29.6.0",
     "jest-circus": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
     "jest-environment-node": "^29.5.0",
