@@ -40,4 +40,5 @@ internal class TrevakaTemplateProvider : ITemplateProvider {
     override fun getPreschoolDecisionPath(): String = "tampere/daycare/decision"
     override fun getPreparatoryDecisionPath(): String = throw Error("Not supported")
     override fun getAssistanceNeedDecisionPath(): String = "tampere/assistance/decision"
+    override fun getAssistanceNeedPreschoolDecisionPath(): String = "tampere/assistance-need-preschool/decision"
 }
