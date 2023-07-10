@@ -2759,6 +2759,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-environment-node@npm:^29.6.1":
+  version: 29.6.1
+  resolution: "jest-environment-node@npm:29.6.1"
+  dependencies:
+    "@jest/environment": ^29.6.1
+    "@jest/fake-timers": ^29.6.1
+    "@jest/types": ^29.6.1
+    "@types/node": "*"
+    jest-mock: ^29.6.1
+    jest-util: ^29.6.1
+  checksum: a50287e1ff29d131646bd09acc3222ac6ea0ad61e86bf73851d318ef2be0633a421b8558c4a15ddc67e0ffcfc32da7f6a0d8a2ddbfa85453837899dec88d256c
+  languageName: node
+  linkType: hard
+
 "jest-get-type@npm:^29.4.3":
   version: 29.4.3
   resolution: "jest-get-type@npm:29.4.3"
@@ -4501,7 +4515,7 @@ __metadata:
     jest: ^29.5.0
     jest-circus: ^29.6.1
     jest-environment-jsdom: ^29.5.0
-    jest-environment-node: ^29.5.0
+    jest-environment-node: ^29.6.1
     jest-junit: ^15.0.0
     lib-common: "link:../evaka/frontend/src/lib-common"
     lib-components: "link:../evaka/frontend/src/lib-components"
