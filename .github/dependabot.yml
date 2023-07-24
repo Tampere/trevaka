@@ -25,6 +25,18 @@ updates:
       - dependency-name: "playwright" # version must match with core
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
+    groups:
+      jest:
+        patterns:
+          - "@types/jest"
+          - "jest*"
+          - "ts-jest"
+        exclude-patterns:
+          - "jest-junit"
+      typescript:
+        patterns:
+          - "tslib"
+          - "typescript"
   - package-ecosystem: "gradle"
     directory: "/mock/identification"
     schedule:
