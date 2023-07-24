@@ -1,3 +1,3 @@
 [submodule "evaka"]
 	path = evaka
-	url = https://github.com/Tampere/evaka.git
+	url = https://github.com/espoon-voltti/evaka.git
