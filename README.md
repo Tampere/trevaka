@@ -69,11 +69,6 @@ request), run:
 ./bin/add-license-headers.sh --help
 ```
 
-**NOTE:** The tool has no concept for "no license", so currently it will
-always fail for the following files:
-
-- [invoicing WSDL files](service/src/main/schema)
-
 ### Automatically add licensing headers
 
 To **attempt** automatically adding licensing headers to all source files, run:
