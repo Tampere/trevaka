@@ -11,13 +11,7 @@ This repository contains the code for customizing, configuring and extending the
 
 ## Checkout
 
-treVaka utilizes the [eVaka-fork](https://github.com/tampere/evaka) as its submodule. When cloning the repository use `--recurse-submodules` or manually initialize and update the submodule after cloning with `git submodule update --init`.
-
-It is also recommended to add [eVaka-repository](https://github.com/espoon-voltti/evaka) as remote to be able to pull changes from there:
-
-    cd evaka
-    git remote add upstream git@github.com:espoon-voltti/evaka.git
-    git fetch upstream
+treVaka utilizes the [eVaka](https://github.com/espoon-voltti/evaka) as its submodule. When cloning the repository use `--recurse-submodules` or manually initialize and update the submodule after cloning with `git submodule update --init`.
 
 Frontend customizations [must be linked](frontend/README.md) under eVaka-repository:
 
