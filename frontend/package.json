@@ -16,7 +16,7 @@
     "jest-circus": "^29.6.1",
     "jest-environment-jsdom": "^29.6.1",
     "jest-environment-node": "^29.6.1",
-    "jest-junit": "^15.0.0",
+    "jest-junit": "^16.0.0",
     "lib-common": "link:../evaka/frontend/src/lib-common",
     "lib-components": "link:../evaka/frontend/src/lib-components",
     "lib-customizations": "link:../evaka/frontend/src/lib-customizations",
