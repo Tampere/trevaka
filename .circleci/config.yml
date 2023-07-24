@@ -187,18 +187,6 @@ commands:
           docker_layer_caching: << parameters.docker_layer_caching >>
       #- login_docker_hub
 
-  setup_git:
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "2f:a2:97:5b:b2:61:e5:f1:f0:91:4a:63:46:88:d6:5b"
-      - run: ssh-keyscan github.com >> ~/.ssh/known_hosts
-      - run:
-          name: Setup git
-          command: |
-            git config user.email "89396184+trevaka-ci@users.noreply.github.com"
-            git config user.name "trevaka-ci"
-
   frontend_install:
     steps:
       - restore_cache:
@@ -351,24 +339,12 @@ jobs:
   # MISC JOBS
 
   checkout_repo:
-    parameters:
-      latest_upstream:
-        type: boolean
-        default: false
     executor: base_executor
     resource_class: small
     steps:
       - checkout
-      - when:
-          condition: << parameters.latest_upstream >>
-          steps:
-            - run: git submodule set-url evaka https://github.com/espoon-voltti/evaka.git
       - run: git submodule sync
       - run: git submodule update --init
-      - when:
-          condition: << parameters.latest_upstream >>
-          steps:
-            - run: git submodule update --remote --merge
       - store_repo
 
   fetch_private_dependencies:
@@ -385,41 +361,6 @@ jobs:
             aws s3 sync s3://trevaka-artifacts/vendor/fortawesome/ ./vendor/fortawesome/
       - save:
           path: evaka/frontend/vendor/fortawesome
-
-  commit_and_push_branch:
-    executor: base_executor
-    resource_class: small
-    steps:
-      - restore_repo
-      - setup_git
-      - run:
-          name: Verify changes
-          command: |
-            if [ -z "$(git status --porcelain -- evaka)" ]; then
-                circleci-agent step halt
-            fi
-      - run: git checkout -b evaka-update/$(date --iso-8601)
-      - run: git add evaka
-      - run: git commit -m "Update evaka submodule"
-      - run: git push --set-upstream origin evaka-update/$(date --iso-8601)
-
-  merge_branch:
-    executor: base_executor
-    resource_class: small
-    steps:
-      - restore_repo
-      - setup_git
-      - run:
-          name: Verify commit
-          command: |
-            if [ "$(git show -s --format='%cn')" != "trevaka-ci" ]; then
-                circleci-agent step halt
-            fi
-      - run: git checkout main
-      - run: git pull
-      - run: git merge --no-ff --no-edit ${CIRCLE_BRANCH}
-      - run: git push
-      - run: git push --delete origin ${CIRCLE_BRANCH}
 
   check_licenses:
     executor: reuse_tool
@@ -860,34 +801,3 @@ workflows:
             branches:
               only:
                 - main
-
-      - merge_branch:
-          requires:
-            - check_licenses
-            - apigw_push_image
-            - frontend_test
-            - frontend_upload_archive
-            - proxy_push_image
-            - service_test
-            - service_push_image
-            - auth_push_image
-            - scheduled_tasks_reporting_push_image
-            - scheduled_tasks_logs_push_image
-            - e2e_test
-          filters:
-            branches:
-              only:
-                - /evaka-update\/.*/
-
-  update_upstream:
-    # trigger is configured with circleci ui (project settings -> triggers)
-    when:
-      and:
-        - equal: [scheduled_pipeline, << pipeline.trigger_source >>]
-        - equal: ["update upstream", << pipeline.schedule.name >>]
-    jobs:
-      - checkout_repo:
-          latest_upstream: true
-      - commit_and_push_branch:
-          requires:
-            - checkout_repo
