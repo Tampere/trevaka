@@ -79,5 +79,5 @@ tasks {
 }
 
 configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
-    version.set("0.49.1")
+    version.set("0.50.0")
 }
