@@ -51,7 +51,7 @@ services:
       retries: 5
 
   trevaka-srv:
-    image: trevaka/service
+    image: ${EVAKA_SRV_IMAGE}
     ports:
       - "8888:8888"
     hostname: trevaka-srv
