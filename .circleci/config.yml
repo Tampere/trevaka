@@ -21,7 +21,6 @@ aliases:
   - &base_image cimg/base:current-22.04
   - &aws_image cimg/aws:2023.07
   - &reuse_image fsfe/reuse:1.1.2 # NOTE: Update bin/add-license-headers.sh to match
-  - &nodejs_image cimg/node:18.16
   - &openjdk_image cimg/openjdk:17.0
   - &postgres_image cimg/postgres:14.6
   - &s3mock_image adobe/s3mock:3.0.0
@@ -29,9 +28,6 @@ aliases:
 
   - &default_config
     working_directory: *workspace_root
-
-  - &node_config
-    <<: *default_config
 
   - &jvm_config
     <<: *default_config
@@ -52,10 +48,6 @@ executors:
     <<: *default_config
     docker:
       - image: *reuse_image
-  nodejs_executor:
-    <<: *node_config
-    docker:
-      - image: *nodejs_image
   openjdk_executor:
     <<: *jvm_config
     docker:
@@ -71,7 +63,7 @@ executors:
           POSTGRES_DB: evaka_it
       - image: *s3mock_image
   e2e_executor:
-    <<: *node_config
+    <<: *default_config
     machine:
       image: *ubuntu_machine_image
     environment:
@@ -164,15 +156,6 @@ commands:
             - gradle-build-cache-service-v1-main-
             - gradle-build-cache-service-v1-
 
-  store_frontend_node_modules:
-    steps:
-      - save:
-          path: evaka/frontend/node_modules
-  restore_frontend_node_modules:
-    steps:
-      - restore:
-          path: evaka/frontend/node_modules
-
   # Misc commands
 
   login_docker_hub:
@@ -198,49 +181,55 @@ commands:
       #- login_docker_hub
 
   frontend_install:
+    parameters:
+      include_e2e:
+        type: boolean
+        default: false
     steps:
       - restore_cache:
-          name: Restore e2e yarn cache
           keys:
-            - yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
-            - yarn-cache-e2e-v3-
-            - yarn-cache-e2e-
-      - restore_cache:
-          name: Restore playwright browser cache
-          keys:
-            - playwright-browser-cache-v1-{{ checksum "frontend/yarn.lock" }}
-            - playwright-browser-cache-v1-
-            - playwright-browser-cache-
+            - yarn-cache-frontend-v1-{{ checksum "evaka/frontend/yarn.lock" }}
+            - yarn-cache-frontend-v1-
+            - yarn-cache-frontend-
       - run:
-          working_directory: *workspace_tre_frontend
+          working_directory: *workspace_evaka_frontend
           command: yarn install --immutable
-      - save_cache:
-          name: Store playwright browser cache
-          key: playwright-browser-cache-v1-{{ checksum "frontend/yarn.lock" }}
-          paths:
-            - /home/circleci/.cache/ms-playwright
-      - save_cache:
-          name: Store e2e yarn cache
-          key: yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
-          paths:
-            - frontend/.yarn/cache
-
-  build_frontend:
-    steps:
-      - run:
-          name: link customizations
-          working_directory: *workspace_evaka_frontend
-          command: ln -v -s $(readlink -f ../../frontend/tampere) src/lib-customizations/tampere
-      - run:
-          name: yarn build
-          working_directory: *workspace_evaka_frontend
           environment:
-            SENTRY_NO_PROGRESS_BAR: "1"
-            EVAKA_CUSTOMIZATIONS: tampere
-            NODE_OPTIONS: "--max-old-space-size=4096"
-          command: |
-            export APP_COMMIT="$CIRCLE_SHA1"
-            ICONS=pro yarn build
+            PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+      - save_cache:
+          key: yarn-cache-frontend-v1-{{ checksum "evaka/frontend/yarn.lock" }}
+          paths:
+            - evaka/frontend/.yarn/cache
+            - /home/circleci/.npm/sentry-cli
+      - when:
+          condition:
+            equal: [true, << parameters.include_e2e >>]
+          steps:
+            - restore_cache:
+                name: Restore e2e yarn cache
+                keys:
+                  - yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
+                  - yarn-cache-e2e-v3-
+                  - yarn-cache-e2e-
+            - restore_cache:
+                name: Restore playwright browser cache
+                keys:
+                  - playwright-browser-cache-v1-{{ checksum "frontend/yarn.lock" }}
+                  - playwright-browser-cache-v1-
+                  - playwright-browser-cache-
+            - run:
+                working_directory: *workspace_tre_frontend
+                command: yarn install --immutable
+            - save_cache:
+                name: Store playwright browser cache
+                key: playwright-browser-cache-v1-{{ checksum "frontend/yarn.lock" }}
+                paths:
+                  - /home/circleci/.cache/ms-playwright
+            - save_cache:
+                name: Store e2e yarn cache
+                key: yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
+                paths:
+                  - frontend/.yarn/cache
 
   build_docker_image:
     parameters:
@@ -268,51 +257,6 @@ commands:
               --push \
               .
 
-  e2e_test:
-    steps:
-      - restore_repo
-      - restore:
-          path: evaka/frontend/dist
-      - login_ecr
-      - run:
-          name: Start up compose stack
-          working_directory: *workspace_compose
-          command: |
-            CI=true LOCAL_DIR='../evaka/frontend' \
-            EVAKA_GW_IMAGE=518207624130.dkr.ecr.eu-west-1.amazonaws.com/trevaka/api-gateway:${CIRCLE_SHA1} \
-            EVAKA_SRV_IMAGE=518207624130.dkr.ecr.eu-west-1.amazonaws.com/trevaka/service:${CIRCLE_SHA1} \
-            ./compose-e2e up -d --build
-      - restore_frontend_node_modules
-      - frontend_install
-      - run:
-          name: Waiting for compose stack to be up...
-          working_directory: *workspace_evaka_frontend
-          command: ./wait-for-url.sh "http://localhost:9999/api/internal/dev-api"
-      - run:
-          name: Run E2E tests
-          working_directory: *workspace_tre_frontend
-          command: yarn e2e-ci-playwright
-          environment:
-            HEADLESS: true
-            BASE_URL: http://localhost:9999
-            JEST_JUNIT_OUTPUT_DIR: test-results
-      - run:
-          name: Collect docker-compose logs
-          working_directory: *workspace_compose
-          command: ./compose-e2e logs --tail=all > /tmp/docker-compose-logs.txt
-          when: always
-      - store_artifacts:
-          path: /tmp/docker-compose-logs.txt
-          destination: docker-compose-logs.txt
-      - store_artifacts:
-          path: frontend/screenshots
-          destination: screenshots
-      - store_artifacts:
-          path: frontend/videos
-          destination: videos
-      - store_test_results:
-          path: frontend/test-results
-
 jobs:
   # MISC JOBS
 
@@ -324,21 +268,6 @@ jobs:
       - run: git submodule sync
       - run: git submodule update --init
       - store_repo
-
-  fetch_private_dependencies:
-    <<: *default_config
-    executor: aws-cli/default
-    resource_class: small
-    steps:
-      - restore_repo
-      - aws-cli/install
-      - run:
-          name: Fetch commercial frontend dependencies
-          working_directory: *workspace_evaka_frontend
-          command: |
-            aws s3 sync s3://trevaka-artifacts/vendor/fortawesome/ ./vendor/fortawesome/
-      - save:
-          path: evaka/frontend/vendor/fortawesome
 
   check_licenses:
     executor: reuse_tool
@@ -369,78 +298,38 @@ jobs:
           image: trevaka/api-gateway
           dir: *workspace_apigw
 
-  frontend_dependencies:
-    executor: nodejs_executor
+  frontend_build:
+    executor: aws_executor
     resource_class: medium+
     steps:
       - restore_repo
-      - restore_cache:
-          keys:
-            - yarn-cache-frontend-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}
-            - yarn-cache-frontend-v1-
-            - yarn-cache-frontend-
-      - restore:
-          path: evaka/frontend/vendor/fortawesome
+      - frontend_install
       - run:
+          name: Fetch commercial frontend dependencies
           working_directory: *workspace_evaka_frontend
-          command: yarn install --immutable
-          environment:
-            PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+          command: |
+            aws s3 sync s3://trevaka-artifacts/vendor/fortawesome/ ./vendor/fortawesome/
       - run:
           name: Unpack commercial frontend dependencies
           working_directory: *workspace_evaka_frontend
           command: |
             ./unpack-pro-icons.sh
-      - save_cache:
-          key: yarn-cache-frontend-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum "evaka/frontend/yarn.lock" }}
-          paths:
-            - evaka/frontend/.yarn/cache
-            - /home/circleci/.npm/sentry-cli
-      - store_frontend_node_modules
-
-  frontend_test:
-    executor: nodejs_executor
-    resource_class: medium+
-    steps:
-      - restore_repo
-      - restore_frontend_node_modules
-      - frontend_install
       - run:
-          working_directory: *workspace_tre_frontend
-          command: yarn test
-          environment:
-            JEST_JUNIT_OUTPUT_DIR: test-results
-      - store_test_results:
-          path: frontend/test-results
-      - run:
-          name: yarn lint
+          name: link customizations
           working_directory: *workspace_evaka_frontend
+          command: ln -v -s $(readlink -f ../../frontend/tampere) src/lib-customizations/tampere
+      - run:
+          name: yarn build
+          working_directory: *workspace_evaka_frontend
+          environment:
+            SENTRY_NO_PROGRESS_BAR: "1"
+            EVAKA_CUSTOMIZATIONS: tampere
+            NODE_OPTIONS: "--max-old-space-size=4096"
           command: |
-            echo 'src/*' >> .eslintignore
-            echo '!src/lib-customizations' >> .eslintignore
-            echo 'src/lib-customizations/*' >> .eslintignore
-            echo '!src/lib-customizations/tampere' >> .eslintignore
-            yarn lint
-
-  frontend_build:
-    executor: nodejs_executor
-    resource_class: medium+
-    steps:
-      - restore_repo
-      - restore_frontend_node_modules
-      - build_frontend
+            export APP_COMMIT="$CIRCLE_SHA1"
+            ICONS=pro yarn build
       - save:
           path: evaka/frontend/dist
-
-  frontend_upload_archive:
-    <<: *default_config
-    executor: aws-cli/default
-    resource_class: small
-    steps:
-      - restore_repo
-      - restore:
-          path: evaka/frontend/dist
-      - aws-cli/install
       - run:
           name: Create archive
           working_directory: /home/circleci/repo/evaka
@@ -564,7 +453,57 @@ jobs:
     executor: e2e_executor
     resource_class: large
     steps:
-      - e2e_test
+      - restore_repo
+      - restore:
+          path: evaka/frontend/dist
+      - login_ecr
+      - run:
+          name: Start up compose stack
+          working_directory: *workspace_compose
+          command: |
+            CI=true LOCAL_DIR='../evaka/frontend' \
+            EVAKA_GW_IMAGE=518207624130.dkr.ecr.eu-west-1.amazonaws.com/trevaka/api-gateway:${CIRCLE_SHA1} \
+            EVAKA_SRV_IMAGE=518207624130.dkr.ecr.eu-west-1.amazonaws.com/trevaka/service:${CIRCLE_SHA1} \
+            ./compose-e2e up -d --build
+      - frontend_install:
+          include_e2e: true
+      - run:
+          name: Waiting for compose stack to be up...
+          working_directory: *workspace_evaka_frontend
+          command: ./wait-for-url.sh "http://localhost:9999/api/internal/dev-api"
+      - run:
+          name: Run E2E tests
+          working_directory: *workspace_tre_frontend
+          command: yarn e2e-ci-playwright
+          environment:
+            HEADLESS: true
+            BASE_URL: http://localhost:9999
+            JEST_JUNIT_OUTPUT_DIR: test-results
+      - run:
+          name: yarn lint
+          working_directory: *workspace_evaka_frontend
+          command: |
+            echo 'src/*' >> .eslintignore
+            echo '!src/lib-customizations' >> .eslintignore
+            echo 'src/lib-customizations/*' >> .eslintignore
+            echo '!src/lib-customizations/tampere' >> .eslintignore
+            yarn lint
+      - run:
+          name: Collect docker-compose logs
+          working_directory: *workspace_compose
+          command: ./compose-e2e logs --tail=all > /tmp/docker-compose-logs.txt
+          when: always
+      - store_artifacts:
+          path: /tmp/docker-compose-logs.txt
+          destination: docker-compose-logs.txt
+      - store_artifacts:
+          path: frontend/screenshots
+          destination: screenshots
+      - store_artifacts:
+          path: frontend/videos
+          destination: videos
+      - store_test_results:
+          path: frontend/test-results
 
 workflows:
   version: 2
@@ -574,11 +513,6 @@ workflows:
         equal: [scheduled_pipeline, << pipeline.trigger_source >>]
     jobs:
       - checkout_repo
-      - fetch_private_dependencies:
-          context:
-            - trevaka-utility
-          requires:
-            - checkout_repo
       - check_licenses:
           requires:
             - checkout_repo
@@ -589,21 +523,11 @@ workflows:
           requires:
             - checkout_repo
 
-      - frontend_dependencies:
-          requires:
-            - fetch_private_dependencies
-      - frontend_test:
-          requires:
-            - frontend_dependencies
       - frontend_build:
-          requires:
-            - frontend_dependencies
-
-      - frontend_upload_archive:
           context:
             - trevaka-utility
           requires:
-            - frontend_build
+            - checkout_repo
 
       - e2e_test:
           context:
@@ -653,8 +577,6 @@ workflows:
             - trevaka-infra
           requires:
             - check_licenses
-            - frontend_test
-            - frontend_upload_archive
             - proxy_build_image
             - service_test
             - auth_build_image
