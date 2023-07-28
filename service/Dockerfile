@@ -54,10 +54,10 @@ USER evaka
 WORKDIR /home/evaka
 
 COPY --chown=evaka:evaka "entrypoint.sh" "entrypoint.sh"
-COPY --chown=evaka:evaka "target/org/" "org/"
-COPY --chown=evaka:evaka "target/META-INF" "META-INF/"
-COPY --chown=evaka:evaka "target/BOOT-INF/lib" "BOOT-INF/lib/"
-COPY --chown=evaka:evaka "target/BOOT-INF/classes" "BOOT-INF/classes/"
+COPY --chown=evaka:evaka "target/dependencies/" "./"
+COPY --chown=evaka:evaka "target/spring-boot-loader/" "./"
+COPY --chown=evaka:evaka "target/snapshot-dependencies/" "./"
+COPY --chown=evaka:evaka "target/application/" "./"
 
 # Add build and commit environment variables and labels
 # for tracing the image to the commit and build from which the image has been built.
