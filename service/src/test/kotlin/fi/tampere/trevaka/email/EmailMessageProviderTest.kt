@@ -62,6 +62,10 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
             emailMessageProvider.assistanceNeedDecisionNotification(Language.fi),
         ),
         Arguments.of(
+            "assistanceNeedPreschoolDecisionNotification",
+            emailMessageProvider.assistanceNeedPreschoolDecisionNotification(Language.fi),
+        ),
+        Arguments.of(
             "missingReservationsNotification",
             emailMessageProvider.missingReservationsNotification(
                 Language.fi,

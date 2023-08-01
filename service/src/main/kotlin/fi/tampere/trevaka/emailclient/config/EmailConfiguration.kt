@@ -66,6 +66,12 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
         html = getDecisionEmailHtml(),
     )
 
+    override fun assistanceNeedPreschoolDecisionNotification(language: Language): EmailContent = EmailContent(
+        subject = subjectForDecisionEmail,
+        text = getDecisionEmailText(),
+        html = getDecisionEmailHtml(),
+    )
+
     private fun getPendingDecisionEmailHtml(): String {
         return """
             <p>Olet saanut päätöksen/ilmoituksen Tampereen varhaiskasvatukselta, joka odottaa toimenpiteitäsi. Myönnetty varhaiskasvatus-/kerhopaikka tulee hyväksyä tai hylätä kahden viikon sisällä päätöksen saapumisesta.</p>
