@@ -201,6 +201,11 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasUnitRole(UserRole.STAFF).inPlacementUnitOfChild() as ScopedActionRule<in T>,
             )
         }
+        Action.Child.READ_ASSISTANCE,
+        Action.Child.READ_ASSISTANCE_FACTORS,
+        Action.Child.READ_DAYCARE_ASSISTANCES,
+        Action.Child.READ_PRESCHOOL_ASSISTANCES,
+        Action.Child.READ_OTHER_ASSISTANCE_MEASURES,
         Action.Child.READ_ASSISTANCE_ACTION,
         Action.Child.READ_ASSISTANCE_NEED,
         -> {
