@@ -76,8 +76,8 @@ internal class TitaniaControllerTest : AbstractIntegrationTest() {
                 TitaniaException(
                     HttpStatus.BAD_REQUEST,
                     listOf(
-                        TitaniaErrorDetail(TitaniaError.INVALID_EMPLOYEE_NUMBER, "Error description"),
-                        TitaniaErrorDetail(TitaniaError.INVALID_EMPLOYEE_NUMBER, "Error description"),
+                        TitaniaErrorDetail(TitaniaError.EVENT_DATE_OUT_OF_PERIOD, "Error description"),
+                        TitaniaErrorDetail(TitaniaError.EVENT_DATE_OUT_OF_PERIOD, "Error description"),
                     ),
                 ),
             )
@@ -95,11 +95,11 @@ internal class TitaniaControllerTest : AbstractIntegrationTest() {
     "faultactor": "/integration/titania/working-time-events",
     "detail": [
         {
-            "errorcode": "101",
+            "errorcode": "102",
             "message": "Error description"
         },
         {
-            "errorcode": "101",
+            "errorcode": "102",
             "message": "Error description"
         }
     ]

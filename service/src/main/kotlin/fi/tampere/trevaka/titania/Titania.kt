@@ -223,9 +223,6 @@ data class TitaniaErrorResponse(
 )
 
 enum class TitaniaError(val status: HttpStatus) {
-    @JsonProperty("101")
-    INVALID_EMPLOYEE_NUMBER(HttpStatus.BAD_REQUEST),
-
     @JsonProperty("102")
     EVENT_DATE_OUT_OF_PERIOD(HttpStatus.BAD_REQUEST),
 }
