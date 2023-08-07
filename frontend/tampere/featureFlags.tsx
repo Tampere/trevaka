@@ -44,7 +44,8 @@ const features: Features = {
       serviceWorkerMessaging: true,
       personDuplicate: true,
       childDocuments: true,
-      intermittentShiftCare: true
+      intermittentShiftCare: true,
+      citizenEmailNotificationSettings: true
     }
   },
   staging: {
