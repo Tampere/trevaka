@@ -44,15 +44,11 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
         val period = request.period.toDateRange()
         val persons = request.schedulingUnit.flatMap { unit ->
             unit.occupation.flatMap { occupation ->
-                occupation.person.map { person ->
+                occupation.person.mapNotNull { person ->
                     val employeeNumber = idConverter.fromTitania(person.employeeId)
                     if (employeeNumber == "") {
-                        throw TitaniaException(
-                            TitaniaErrorDetail(
-                                errorcode = TitaniaError.INVALID_EMPLOYEE_NUMBER,
-                                message = "Invalid employee number: (empty string)",
-                            ),
-                        )
+                        logger.warn { "Invalid employee number: (empty string)" }
+                        return@mapNotNull null
                     }
                     employeeNumber to person.copy(employeeId = employeeNumber)
                 }
