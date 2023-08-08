@@ -14,6 +14,11 @@ import { EmployeeCustomizations } from 'lib-customizations/types'
 
 import TampereLogo from './city-logo.svg'
 import featureFlags from './featureFlags'
+import {
+  daycareAssistanceLevels,
+  otherAssistanceMeasureTypes,
+  preschoolAssistanceLevels
+} from 'lib-common/generated/api-types/assistance'
 
 const customizations: EmployeeCustomizations = {
   appConfig: {},
@@ -377,6 +382,10 @@ const customizations: EmployeeCustomizations = {
     'UNAUTHORIZED_ABSENCE'
   ],
   assistanceMeasures: [],
+  daycareAssistanceLevels: daycareAssistanceLevels.filter(
+    (level) => level !== 'GENERAL_SUPPORT'
+  ),
+  otherAssistanceMeasureTypes: [...otherAssistanceMeasureTypes],
   placementTypes: [
     'DAYCARE',
     'DAYCARE_PART_TIME',
@@ -388,6 +397,7 @@ const customizations: EmployeeCustomizations = {
     'SCHOOL_SHIFT_CARE'
   ],
   placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER'],
+  preschoolAssistanceLevels: [...preschoolAssistanceLevels],
   unitProviderTypes: [
     'MUNICIPAL',
     'PURCHASED',
