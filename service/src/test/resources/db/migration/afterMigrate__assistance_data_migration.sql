@@ -16,11 +16,45 @@ FROM assistance_need;
 -- daycare assistance
 INSERT INTO daycare_assistance (child_id, modified, modified_by, valid_during, level)
 SELECT child_id, modified, modified_by, valid_during, 'INTENSIFIED_SUPPORT'
-FROM assistance_need_view WHERE value = 'INTENSIFIED_ASSISTANCE';
+FROM assistance_need_view intensified WHERE value = 'INTENSIFIED_ASSISTANCE'
+AND NOT EXISTS (
+    SELECT
+    FROM assistance_need_view special
+    WHERE intensified.child_id = special.child_id
+    AND intensified.valid_during = special.valid_during
+    AND special.value = 'SPECIAL_ASSISTANCE_DECISION'
+);
 
 INSERT INTO daycare_assistance (child_id, modified, modified_by, valid_during, level)
 SELECT child_id, modified, modified_by, valid_during, 'SPECIAL_SUPPORT'
-FROM assistance_need_view WHERE value = 'SPECIAL_ASSISTANCE_DECISION';
+FROM assistance_need_view special WHERE value = 'SPECIAL_ASSISTANCE_DECISION'
+AND NOT EXISTS (
+    SELECT
+    FROM assistance_need_view intensified
+    WHERE special.child_id = intensified.child_id
+    AND special.valid_during = intensified.valid_during
+    AND intensified.value = 'INTENSIFIED_ASSISTANCE'
+);
+
+INSERT INTO daycare_assistance (child_id, modified, modified_by, valid_during, level)
+SELECT intensified.child_id, intensified.modified, intensified.modified_by, intensified.valid_during,
+    CASE
+        WHEN array_length(array_agg(previous.value), 1) > 1 THEN 'SPECIAL_SUPPORT'::daycare_assistance_level
+        WHEN (array_agg(previous.value))[1] = 'SPECIAL_ASSISTANCE_DECISION' THEN 'INTENSIFIED_SUPPORT'::daycare_assistance_level
+        WHEN (array_agg(previous.value))[1] = 'INTENSIFIED_ASSISTANCE' THEN 'SPECIAL_SUPPORT'::daycare_assistance_level
+        ELSE 'INTENSIFIED_SUPPORT'::daycare_assistance_level
+    END
+FROM assistance_need_view intensified, assistance_need_view special, assistance_need_view previous
+WHERE intensified.child_id = special.child_id AND
+    previous.child_id = intensified.child_id AND
+    previous.child_id = special.child_id AND
+    intensified.valid_during = special.valid_during AND
+    upper(previous.valid_during) = lower(intensified.valid_during) AND
+    upper(previous.valid_during) = lower(special.valid_during) AND
+    intensified.value = 'INTENSIFIED_ASSISTANCE' AND
+    special.value = 'SPECIAL_ASSISTANCE_DECISION' AND
+    previous.value IN ('SPECIAL_ASSISTANCE_DECISION', 'INTENSIFIED_ASSISTANCE')
+GROUP BY 1, 2, 3, 4;
 
 -- preschool assistance
 INSERT INTO preschool_assistance (child_id, modified, modified_by, valid_during, level)
