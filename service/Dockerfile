@@ -44,8 +44,8 @@ ADD --chown=evaka:evaka --chmod=0700 \
     /usr/local/bin/s3download
 
 ADD --chmod=0644 \
-    --checksum=sha256:4fb7e51ec88b99a5da80851634771b5de6ccbb23a4d862f264475410be86096e \
-    https://github.com/DataDog/dd-trace-java/releases/download/v1.18.3/dd-java-agent-1.18.3.jar \
+    --checksum=sha256:8c0b4c2fd6b70084813599b38e8c5ab73cc607580df09637eaefffa5050c6f87 \
+    https://github.com/DataDog/dd-trace-java/releases/download/v1.19.0/dd-java-agent-1.19.0.jar \
     /opt/dd-java-agent.jar
 
 ADD ./dd-jmxfetch/ /etc/jmxfetch/
