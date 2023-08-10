@@ -78,7 +78,4 @@ SELECT child_id, modified, modified_by, valid_during, 'ACCULTURATION_SUPPORT'
 FROM assistance_need_view WHERE value = 'CHILD_ACCULTURATION_SUPPORT';
 
 -- cleanup
-DELETE FROM assistance_action action
-WHERE NOT EXISTS (SELECT FROM assistance_action_option_ref ref WHERE ref.action_id = action.id);
-
 DELETE FROM assistance_action_option WHERE value = '90';
