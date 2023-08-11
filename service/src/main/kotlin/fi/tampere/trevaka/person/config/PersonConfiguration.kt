@@ -8,16 +8,16 @@ import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.extensions.authentication
 import fi.espoo.evaka.dvv.DvvModificationRequestCustomizer
 import fi.tampere.trevaka.TrevakaProperties
+import fi.tampere.trevaka.util.NoConnectionReuseStrategy
 import fi.tampere.trevaka.util.basicAuthInterceptor
-import org.apache.http.client.HttpClient
-import org.apache.http.impl.NoConnectionReuseStrategy
-import org.apache.http.impl.client.HttpClientBuilder
+import org.apache.hc.client5.http.classic.HttpClient
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.ws.transport.WebServiceMessageSender
-import org.springframework.ws.transport.http.HttpComponentsMessageSender
-import org.springframework.ws.transport.http.HttpComponentsMessageSender.RemoveSoapHeadersInterceptor
+import org.springframework.ws.transport.http.HttpComponents5MessageSender
+import org.springframework.ws.transport.http.HttpComponents5MessageSender.RemoveSoapHeadersInterceptor
 
 const val HTTP_CLIENT_PERSON = "httpClientPerson"
 
@@ -29,13 +29,13 @@ class PersonConfiguration {
      */
     @Bean
     fun webServiceMessageSender(@Qualifier(HTTP_CLIENT_PERSON) httpClient: HttpClient): WebServiceMessageSender {
-        return HttpComponentsMessageSender(httpClient)
+        return HttpComponents5MessageSender(httpClient)
     }
 
     @Bean(HTTP_CLIENT_PERSON)
     fun httpClient(properties: TrevakaProperties) = HttpClientBuilder.create()
-        .addInterceptorFirst(RemoveSoapHeadersInterceptor())
-        .addInterceptorFirst(basicAuthInterceptor(properties.ipaas.username, properties.ipaas.password))
+        .addRequestInterceptorFirst(RemoveSoapHeadersInterceptor())
+        .addRequestInterceptorFirst(basicAuthInterceptor(properties.ipaas.username, properties.ipaas.password))
         .setConnectionReuseStrategy(NoConnectionReuseStrategy.INSTANCE) // fix random "connection reset" errors
         .build()
 
