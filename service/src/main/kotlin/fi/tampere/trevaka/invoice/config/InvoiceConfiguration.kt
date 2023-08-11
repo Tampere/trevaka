@@ -19,10 +19,10 @@ import fi.espoo.evaka.shared.db.Database
 import fi.tampere.trevaka.SummertimeAbsenceProperties
 import fi.tampere.trevaka.TrevakaProperties
 import fi.tampere.trevaka.invoice.service.TrevakaInvoiceClient
+import fi.tampere.trevaka.util.NoConnectionReuseStrategy
 import fi.tampere.trevaka.util.basicAuthInterceptor
-import org.apache.http.client.HttpClient
-import org.apache.http.impl.NoConnectionReuseStrategy
-import org.apache.http.impl.client.HttpClientBuilder
+import org.apache.hc.client5.http.classic.HttpClient
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -32,8 +32,8 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller
 import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.SoapVersion
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory
-import org.springframework.ws.transport.http.HttpComponentsMessageSender
-import org.springframework.ws.transport.http.HttpComponentsMessageSender.RemoveSoapHeadersInterceptor
+import org.springframework.ws.transport.http.HttpComponents5MessageSender
+import org.springframework.ws.transport.http.HttpComponents5MessageSender.RemoveSoapHeadersInterceptor
 import java.time.Month
 
 const val WEB_SERVICE_TEMPLATE_INVOICE = "webServiceTemplateInvoice"
@@ -71,14 +71,14 @@ class InvoiceConfiguration {
         return WebServiceTemplate(messageFactory).apply {
             this.marshaller = marshaller
             unmarshaller = marshaller
-            setMessageSender(HttpComponentsMessageSender(httpClient))
+            setMessageSender(HttpComponents5MessageSender(httpClient))
         }
     }
 
     @Bean(HTTP_CLIENT_INVOICE)
     fun httpClient(properties: TrevakaProperties) = HttpClientBuilder.create()
-        .addInterceptorFirst(RemoveSoapHeadersInterceptor())
-        .addInterceptorFirst(basicAuthInterceptor(properties.ipaas.username, properties.ipaas.password))
+        .addRequestInterceptorFirst(RemoveSoapHeadersInterceptor())
+        .addRequestInterceptorFirst(basicAuthInterceptor(properties.ipaas.username, properties.ipaas.password))
         .setConnectionReuseStrategy(NoConnectionReuseStrategy.INSTANCE) // fix random "connection reset" errors
         .build()
 
