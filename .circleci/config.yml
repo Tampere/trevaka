@@ -23,7 +23,7 @@ aliases:
   - &reuse_image fsfe/reuse:1.1.2 # NOTE: Update bin/add-license-headers.sh to match
   - &openjdk_image cimg/openjdk:17.0
   - &postgres_image cimg/postgres:14.6
-  - &s3mock_image adobe/s3mock:3.0.1
+  - &s3mock_image adobe/s3mock:3.1.0
   - &ubuntu_machine_image ubuntu-2204:2023.07.2
 
   - &default_config
