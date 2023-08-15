@@ -45,7 +45,8 @@ const features: Features = {
       personDuplicate: true,
       childDocuments: true,
       intermittentShiftCare: true,
-      citizenEmailNotificationSettings: true
+      citizenEmailNotificationSettings: true,
+      citizenAttendanceSummary: true
     }
   },
   staging: {
