@@ -11,7 +11,7 @@ COPY theme-fi.sed ./
 COPY TampereLogo.svg evaka/login/resources/img/EspooLogoBlue.svg
 RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties && \
     sed -i -e '/<#--/d' -e '/-->/d' evaka/login/login-update-profile.ftl
-RUN npm run build
+RUN npm run build && rm -r evaka/account
 
 FROM quay.io/keycloak/keycloak:22.0.1
 ADD --chmod=0644 \
