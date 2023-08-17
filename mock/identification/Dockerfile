@@ -5,7 +5,7 @@
 FROM eclipse-temurin:17-jammy AS builder
 COPY gradle gradle
 COPY gradlew build.gradle.kts settings.gradle.kts ./
-RUN ./gradlew dependencies
+RUN ./gradlew resolveDependencies
 COPY . .
 RUN ./gradlew --offline build
 
