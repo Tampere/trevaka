@@ -691,7 +691,11 @@ const fi: DeepPartial<Translations> = {
         PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo'
       },
       selectChildrenInfo: 'Ilmoita tässä vain koko päivän poissaolot.'
-    }
+    },
+    absences: {
+      PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo'
+    },
+    absentPlanned: 'Sopimuksen mukainen poissaolo'
   },
   accessibilityStatement: (
     <>
