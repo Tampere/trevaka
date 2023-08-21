@@ -5,6 +5,7 @@
 package fi.tampere.trevaka.email
 
 import fi.espoo.evaka.daycare.domain.Language
+import fi.espoo.evaka.emailclient.CalendarEventNotificationData
 import fi.espoo.evaka.emailclient.EmailContent
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
 import fi.espoo.evaka.invoicing.service.IncomeNotificationType
@@ -104,6 +105,16 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
         Arguments.of(
             "outdatedIncomeNotificationExpired",
             emailMessageProvider.outdatedIncomeNotification(IncomeNotificationType.EXPIRED_EMAIL, Language.fi),
+        ),
+        Arguments.of(
+            "calendarEventNotification",
+            emailMessageProvider.calendarEventNotification(
+                Language.fi,
+                listOf(
+                    CalendarEventNotificationData("Tapahtuma 1", FiniteDateRange(LocalDate.of(2023, 8, 21), LocalDate.of(2023, 8, 21))),
+                    CalendarEventNotificationData("Tapahtuma 2", FiniteDateRange(LocalDate.of(2023, 8, 22), LocalDate.of(2023, 8, 23))),
+                ),
+            ),
         ),
     )
         .stream()

@@ -6,6 +6,7 @@ package fi.tampere.trevaka.emailclient.config
 
 import fi.espoo.evaka.EvakaEnv
 import fi.espoo.evaka.daycare.domain.Language
+import fi.espoo.evaka.emailclient.CalendarEventNotificationData
 import fi.espoo.evaka.emailclient.EmailContent
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
 import fi.espoo.evaka.invoicing.service.IncomeNotificationType
@@ -605,6 +606,36 @@ There are missing attendance reservations for the week starting $start. Please m
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                """
                 .trimIndent(),
+        )
+    }
+
+    override fun calendarEventNotification(
+        language: Language,
+        events: List<CalendarEventNotificationData>,
+    ): EmailContent {
+        val format =
+            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale("fi", "FI"))
+        return EmailContent.fromHtml(
+            subject =
+            "Uusia kalenteritapahtumia eVakassa / New calendar events in eVaka",
+            html =
+            """
+                <p>eVakaan on lisätty uusia kalenteritapahtumia / New calendar events have been added to eVaka:</p>
+                
+                """
+                .trimIndent() +
+                events.joinToString("\n\n") { event ->
+                    var period = event.period.start.format(format)
+                    if (event.period.end != event.period.start) {
+                        period += "-${event.period.end.format(format)}"
+                    }
+                    "<p>$period: ${event.title}</p>"
+                } +
+                """
+                    
+                    <p>Katso lisää kalenterissa / See more in the calendar: ${baseUrl(language)}/calendar</p>
+                    """
+                    .trimIndent(),
         )
     }
 }
