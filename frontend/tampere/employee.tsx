@@ -283,6 +283,179 @@ const customizations: EmployeeCustomizations = {
           jurisdictionText:
             'Delegointipäätös pohjautuu Sivistys- ja kulttuurilautakunnan toimivallan siirtämiseen viranhaltijoille 14.6.2022 § 116: Varhaiskasvatuksen palvelupäällikkö päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista yksityisessä varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku) ja päiväkodin johtaja päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista kunnallisessa varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku)'
         },
+        assistanceNeedPreschoolDecision: {
+          validFromInfo: (
+            <div>
+              <p>
+                Valitse mistä asiasta päätös tehdään: erityisen tuen alkamisesta/jatkumisesta/päättymisestä.
+              </p>
+              <p>
+                Jos tuen voimassaolo alkaa ns. heti, kenttään laitetaan huoltajien kuulemisen päivämäärä.
+              </p>
+              <p>
+                Jos taas päätös tehdään etukäteen, kenttään laitetaan esim. lukuvuoden alkamispäivä tai muu sovittu, 
+                tulevaisuuden päivämäärä.
+              </p>
+            </div>
+          ),
+          extendedCompulsoryEducationInfoInfo: (
+            <div>
+              <p>
+                Pidennetyn oppivelvollisuuden ja samalla kertaa tehtävän erityisen tuen ensikertaisen päätöksen perusteluina tulee olla psykologinen tai lääketieteellinen lausunto, josta tulisi käydä ilmi asiantuntijan näkemys vammaisuuden asteesta. Mikäli lapselle on jo aiemmin tehty päätös pidennetystä oppivelvollisuudesta, uutta lausuntoa ei tarvita.
+              </p>
+              <p>
+                Jos lapselle on jo POV-suosituksessa suositeltu kahta esiopetusvuotta, kirjoita se tähän.
+              </p>
+              <p>
+                Kirjoita tähän, koskeeko tämä päätös pidennetyn oppivelvollisuuden ensimmäistä vai toista esiopetusvuotta.
+              </p>
+            </div>
+          ),
+          grantedAssistanceSectionInfo: (
+            <>
+              Valitse lapsen tarvitsemat palvelut tai apuvälineet. Apuvälineet, joista lapsella on jo päätös muualta, eivät sisälly tähän päätökseen.
+            </>
+          ),
+          primaryGroupInfo: (
+            <>
+              Kirjoita tähän, millaisessa ryhmässä lapsi saa esiopetusta (esim. integroitu varhaiskasvatusryhmä, esiopetusryhmä, integroitu esiopetusryhmä, esiopetuksen erityisryhmä). Ryhmän nimeä ei kirjoiteta tähän.
+            </>
+          ),
+          decisionBasisInfo: (
+            <>
+              Perustele, miksi lapsi tarvitsee mainittua tukea ja tukimuotoja.
+            </>
+          ),
+          documentBasisInfo: (
+            <>
+              Valitse, mitä asiakirjoja on tehty ennen tätä päätöstä.
+            </>
+          ),
+          heardGuardiansInfo: (
+            <div>
+              <p>
+                Kirjaa tähän millä keinoin huoltajaa on kuultu (esim. palaveri, etäyhteys, huoltajan kirjallinen vastine).
+                Jos huoltajaa ei ole kuultu, kirjaa tähän selvitys siitä, miten ja milloin hänet on kutsuttu kuultavaksi,
+                ja miten ja milloin lapsen varhaiskasvatussuunnitelma on annettu huoltajalle tiedoksi.
+              </p>
+
+              <p>
+                Kaikilla lapsen huoltajilla tulee olla mahdollisuus tulla kuulluksi.
+                Huoltaja voi tarvittaessa valtuuttaa toisen huoltajan edustamaan itseään valtakirjalla
+              </p>
+            </div>
+          ),
+          viewOfGuardiansInfo: (
+            <p>
+              Kirjaa tähän huoltajien näkemys lapselle esitetystä tuesta.
+            </p>
+          ),
+
+          appealInstructions: (
+            <>
+              <H3>Oikaisuvaatimusoikeus</H3>
+              <P>
+                Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
+                jonka oikeuteen, velvollisuuteen tai etuun päätös välittömästi
+                vaikuttaa (asianosainen).
+              </P>
+              <H3>Oikaisuvaatimusaika</H3>
+              <P>
+                Oikaisuvaatimus on tehtävä 30 päivän kuluessa päätöksen
+                tiedoksisaannista.
+              </P>
+              <H3>Tiedoksisaanti</H3>
+              <P>
+                Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
+                näytetä, seitsemän päivän kuluttua kirjeen lähettämisestä tai
+                saantitodistukseen tai tiedoksiantotodistukseen merkittynä
+                päivänä. Käytettäessä tavallista sähköistä tiedoksiantoa
+                asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
+                näytetä kolmantena päivänä viestin lähettämisestä.
+                Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan
+                viimeinen päivä on pyhäpäivä, itsenäisyyspäivä, vapunpäivä,
+                joulu- tai juhannusaatto tai arkilauantai, saa tehtävän
+                toimittaa ensimmäisenä arkipäivänä sen jälkeen.
+              </P>
+              <H3>Oikaisuviranomainen</H3>
+              <P>
+                Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle
+                (Vaasan päätoimipaikka).
+              </P>
+              <P>
+                Länsi- ja Sisä-Suomen aluehallintovirasto
+                <br />
+                Wolffintie 35
+                <br />
+                PL 200, 65101 Vaasa
+                <br />
+                faksi: 06 317 4817
+                <br />
+                sähköposti:{' '}
+                <ExternalLink
+                  href="mailto:kirjaamo.lansi@avi.fi"
+                  text="kirjaamo.lansi@avi.fi"
+                  newTab
+                />
+              </P>
+              <H3>Oikaisuvaatimuksen muoto ja sisältö</H3>
+              <P>
+                Oikaisuvaatimus on tehtävä kirjallisesti. Myös sähköinen
+                asiakirja täyttää vaatimuksen kirjallisesta muodosta.
+              </P>
+              <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
+              <ul>
+                <li>
+                  Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite,
+                  puhelinnumero ja muut asian hoitamiseksi tarvittavat
+                  yhteystiedot
+                </li>
+                <li>päätös, johon haetaan oikaisua</li>
+                <li>
+                  miltä osin päätökseen haetaan oikaisua ja mitä oikaisua siihen
+                  vaaditaan tehtäväksi
+                </li>
+                <li>vaatimuksen perusteet</li>
+              </ul>
+              <P>
+                Jos oikaisuvaatimuspäätös voidaan antaa tiedoksi sähköisenä
+                viestinä, yhteystietona pyydetään ilmoittamaan myös
+                sähköpostiosoite.
+              </P>
+              <P>
+                Jos oikaisuvaatimuksen tekijän puhevaltaa käyttää hänen
+                laillinen edustajansa tai asiamiehensä tai jos
+                oikaisuvaatimuksen laatijana on joku muu henkilö,
+                oikaisuvaatimuksessa on ilmoitettava myös tämän nimi ja
+                kotikunta.
+              </P>
+              <P noMargin>Oikaisuvaatimukseen on liitettävä</P>
+              <ul>
+                <li>
+                  päätös, johon haetaan oikaisua, alkuperäisenä tai
+                  jäljennöksenä
+                </li>
+                <li>
+                  todistus siitä, minä päivänä päätös on annettu tiedoksi, tai
+                  muu selvitys oikaisuvaatimusajan alkamisen ajankohdasta
+                </li>
+                <li>
+                  asiakirjat, joihin oikaisuvaatimuksen tekijä vetoaa
+                  oikaisuvaatimuksensa tueksi, jollei niitä ole jo aikaisemmin
+                  toimitettu viranomaiselle.
+                </li>
+              </ul>
+              <H3>Oikaisuvaatimuksen toimittaminen</H3>
+              <P>
+                Oikaisuvaatimuskirjelmä on toimitettava oikaisuvaatimusajan
+                kuluessa oikaisuvaatimusviranomaiselle. Oikaisuvaatimuskirjelmän
+                tulee olla perillä oikaisuvaatimusajan viimeisenä päivänä ennen
+                viraston aukiolon päättymistä. Oikaisuvaatimuksen lähettäminen
+                postitse tai sähköisesti tapahtuu lähettäjän omalla vastuulla.
+              </P>
+            </>
+          )
+        },
         assistanceAction: {
           title: 'Tukitoimet ja tukipalvelut',
           fields: {
