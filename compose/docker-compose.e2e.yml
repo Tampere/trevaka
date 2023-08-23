@@ -16,7 +16,7 @@ services:
       - "9999:8080"
     hostname: evaka-proxy
     volumes:
-      - ../evaka/compose/proxy/nginx.conf:/etc/nginx/conf.d/evaka-nginx.conf
+      - ./proxy/nginx.conf:/etc/nginx/conf.d/evaka-nginx.conf
       - ./s3-mount:/static
     # Enable for debug logging
     # command: [nginx-debug, '-g', 'daemon off;']
