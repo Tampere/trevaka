@@ -284,7 +284,7 @@ const customizations: EmployeeCustomizations = {
             'Delegointipäätös pohjautuu Sivistys- ja kulttuurilautakunnan toimivallan siirtämiseen viranhaltijoille 14.6.2022 § 116: Varhaiskasvatuksen palvelupäällikkö päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista yksityisessä varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku) ja päiväkodin johtaja päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista kunnallisessa varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku)'
         },
         assistanceNeedPreschoolDecision: {
-          validFromInfo: (
+          validFromInfo: () => (
             <div>
               <p>
                 Valitse mistä asiasta päätös tehdään: erityisen tuen alkamisesta/jatkumisesta/päättymisestä.
@@ -293,12 +293,12 @@ const customizations: EmployeeCustomizations = {
                 Jos tuen voimassaolo alkaa ns. heti, kenttään laitetaan huoltajien kuulemisen päivämäärä.
               </p>
               <p>
-                Jos taas päätös tehdään etukäteen, kenttään laitetaan esim. lukuvuoden alkamispäivä tai muu sovittu, 
+                Jos taas päätös tehdään etukäteen, kenttään laitetaan esim. lukuvuoden alkamispäivä tai muu sovittu,
                 tulevaisuuden päivämäärä.
               </p>
             </div>
           ),
-          extendedCompulsoryEducationInfoInfo: (
+          extendedCompulsoryEducationInfoInfo: () => (
             <div>
               <p>
                 Pidennetyn oppivelvollisuuden ja samalla kertaa tehtävän erityisen tuen ensikertaisen päätöksen perusteluina tulee olla psykologinen tai lääketieteellinen lausunto, josta tulisi käydä ilmi asiantuntijan näkemys vammaisuuden asteesta. Mikäli lapselle on jo aiemmin tehty päätös pidennetystä oppivelvollisuudesta, uutta lausuntoa ei tarvita.
@@ -311,27 +311,11 @@ const customizations: EmployeeCustomizations = {
               </p>
             </div>
           ),
-          grantedAssistanceSectionInfo: (
-            <>
-              Valitse lapsen tarvitsemat palvelut tai apuvälineet. Apuvälineet, joista lapsella on jo päätös muualta, eivät sisälly tähän päätökseen.
-            </>
-          ),
-          primaryGroupInfo: (
-            <>
-              Kirjoita tähän, millaisessa ryhmässä lapsi saa esiopetusta (esim. integroitu varhaiskasvatusryhmä, esiopetusryhmä, integroitu esiopetusryhmä, esiopetuksen erityisryhmä). Ryhmän nimeä ei kirjoiteta tähän.
-            </>
-          ),
-          decisionBasisInfo: (
-            <>
-              Perustele, miksi lapsi tarvitsee mainittua tukea ja tukimuotoja.
-            </>
-          ),
-          documentBasisInfo: (
-            <>
-              Valitse, mitä asiakirjoja on tehty ennen tätä päätöstä.
-            </>
-          ),
-          heardGuardiansInfo: (
+          grantedAssistanceSectionInfo: () => 'Valitse lapsen tarvitsemat palvelut tai apuvälineet. Apuvälineet, joista lapsella on jo päätös muualta, eivät sisälly tähän päätökseen.',
+          primaryGroupInfo: () => 'Kirjoita tähän, millaisessa ryhmässä lapsi saa esiopetusta (esim. integroitu varhaiskasvatusryhmä, esiopetusryhmä, integroitu esiopetusryhmä, esiopetuksen erityisryhmä). Ryhmän nimeä ei kirjoiteta tähän.',
+          decisionBasisInfo: () => 'Perustele, miksi lapsi tarvitsee mainittua tukea ja tukimuotoja.',
+          documentBasisInfo: () => 'Valitse, mitä asiakirjoja on tehty ennen tätä päätöstä.',
+          heardGuardiansInfo: () => (
             <div>
               <p>
                 Kirjaa tähän millä keinoin huoltajaa on kuultu (esim. palaveri, etäyhteys, huoltajan kirjallinen vastine).
@@ -345,12 +329,7 @@ const customizations: EmployeeCustomizations = {
               </p>
             </div>
           ),
-          viewOfGuardiansInfo: (
-            <p>
-              Kirjaa tähän huoltajien näkemys lapselle esitetystä tuesta.
-            </p>
-          ),
-
+          viewOfGuardiansInfo: () => 'Kirjaa tähän huoltajien näkemys lapselle esitetystä tuesta.',
           appealInstructions: (
             <>
               <H3>Oikaisuvaatimusoikeus</H3>
