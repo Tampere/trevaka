@@ -233,6 +233,9 @@ commands:
         type: string
       dir:
         type: string
+      build_args:
+        type: string
+        default: ""
       contexts:
         type: string
         default: ""
@@ -242,6 +245,9 @@ commands:
           name: Build docker image
           working_directory: << parameters.dir >>
           command: |
+            for build_arg in $(eval echo << parameters.build_args >> | tr ',' '\n'); do
+              BUILD_ARGS="$BUILD_ARGS --build-arg=$build_arg"
+            done
             for context in $(eval echo << parameters.contexts >> | tr ',' '\n'); do
               CONTEXT_ARGS="$CONTEXT_ARGS --build-context=$context"
             done
@@ -249,6 +255,7 @@ commands:
               -t 518207624130.dkr.ecr.eu-west-1.amazonaws.com/<< parameters.image >>:${CIRCLE_SHA1} \
               --build-arg "build=${CIRCLE_BUILD_NUM}" \
               --build-arg "commit=${CIRCLE_SHA1}" \
+              $BUILD_ARGS \
               $CONTEXT_ARGS \
               --push \
               .
@@ -337,6 +344,32 @@ jobs:
           name: Upload archive
           working_directory: /home/circleci/repo/evaka
           command: aws s3 cp dist.tar.gz s3://trevaka-artifacts/frontend/${CIRCLE_SHA1}.tar.gz
+
+  frontend_build_image:
+    executor: aws_executor
+    resource_class: medium+
+    steps:
+      - restore_repo
+      - run:
+          name: Fetch commercial frontend dependencies
+          working_directory: *workspace_evaka_frontend
+          command: |
+            aws s3 sync s3://trevaka-artifacts/vendor/fortawesome/ ./vendor/fortawesome/
+      - run:
+          name: Unpack commercial frontend dependencies
+          working_directory: *workspace_evaka_frontend
+          command: |
+            ./unpack-pro-icons.sh
+      - run:
+          name: Copy customizations
+          working_directory: *workspace_root
+          command: cp -rp frontend/tampere evaka/frontend/src/lib-customizations
+      - setup_authenticated_remote_docker:
+          docker_layer_caching: true
+      - build_docker_image:
+          image: trevaka/frontend
+          dir: *workspace_evaka_frontend
+          build_args: EVAKA_CUSTOMIZATIONS=tampere,ICONS=pro
 
   proxy_build_image:
     executor: aws_executor
@@ -511,6 +544,12 @@ workflows:
             - apigw_build_image
             - service_build_image
 
+      - frontend_build_image:
+          context:
+            - trevaka-utility
+          requires:
+            - checkout_repo
+
       - proxy_build_image:
           context:
             - trevaka-utility
@@ -545,6 +584,7 @@ workflows:
             - trevaka-infra
           requires:
             - check_licenses
+            - frontend_build_image
             - proxy_build_image
             - auth_build_image
             - scheduled_tasks_reporting_build_image
