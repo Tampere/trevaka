@@ -11,15 +11,23 @@ version: '3.5'
 
 services:
   evaka-proxy:
-    image: nginx:1.21.3-alpine
+    image: ${EVAKA_FRONTEND_IMAGE}
     ports:
       - "9999:8080"
-    hostname: evaka-proxy
-    volumes:
-      - ./proxy/nginx.conf:/etc/nginx/conf.d/evaka-nginx.conf
-      - ./s3-mount:/static
+    environment:
+      RESOLVER: "127.0.0.11 ipv6=off"
+      ENDUSER_GW_URL: "http://enduser-gw:3010"
+      INTERNAL_GW_URL: "http://internal-gw:3020"
+      STATIC_FILES_ENDPOINT_URL: "http://s3.mock.evaka:9090/static/frontend"
+      RATE_LIMIT_CIDR_WHITELIST: "0.0.0.0/0;::/0"
+      HTTP_SCHEME: "http"
     # Enable for debug logging
     # command: [nginx-debug, '-g', 'daemon off;']
+    depends_on:
+      - enduser-gw
+      - internal-gw
+      - trevaka-srv
+      - s3.mock.evaka
 
   enduser-gw:
     image: ${EVAKA_GW_IMAGE}
