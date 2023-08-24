@@ -599,7 +599,105 @@ const fi: DeepPartial<Translations> = {
         ),
         jurisdictionText:
           'Delegointipäätös pohjautuu Sivistys- ja kulttuurilautakunnan toimivallan siirtämiseen viranhaltijoille 14.6.2022 § 116: Varhaiskasvatuksen palvelupäällikkö päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista yksityisessä varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku) ja päiväkodin johtaja päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista kunnallisessa varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku)'
-      }
+      },
+    },
+    assistancePreschoolDecisions: {
+      appealInstructions: (
+        <>
+          <P>
+            Tähän päätökseen tyytymätön voi tehdä kirjallisen oikaisuvaatimuksen.
+          </P>
+
+          <H3>Oikaisuvaatimusoikeus</H3>
+          <P>
+            Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai jonka oikeuteen,
+            velvollisuuteen tai etuun päätös välittömästi vaikuttaa (asianosainen). Alle 15-vuotiaan lapsen
+            päätökseen oikaisua voi hakea lapsen huoltaja tai muu laillinen edustaja.
+          </P>
+
+          <H3>Oikaisuviranomainen</H3>
+          <P>
+            Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle
+            (Vaasan päätoimipaikka).
+          </P>
+          <P>
+            Länsi- ja Sisä-Suomen aluehallintovirasto
+            <br />
+            Wolffintie 35
+            <br />
+            PL 200, 65101 Vaasa
+            <br />
+            faksi: 06 317 4817
+            <br />
+            sähköposti:{' '}
+            <ExternalLink
+              href="mailto:kirjaamo.lansi@avi.fi"
+              text="kirjaamo.lansi@avi.fi"
+              newTab
+            />
+          </P>
+          <H3>Oikaisuvaatimusaika</H3>
+          <P>
+            Oikaisuvaatimus on tehtävä 14 päivän kuluessa päätöksen tiedoksisaannista.
+          </P>
+          <H3>Tiedoksisaanti</H3>
+          <P>
+            Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta näytetä, 7 päivän kuluttua
+            kirjeen lähettämisestä, 3 päivän kuluttua sähköpostin lähettämisestä, saantitodistuksen
+            osoittamana aikana tai erilliseen tiedoksisaantitodistukseen merkittynä aikana.
+            Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan viimeinen päivä on pyhäpäivä.
+          </P>
+
+          <H3>Oikaisuvaatimus</H3>
+          <P>
+            Oikaisuvaatimus on tehtävä kirjallisesti. Myös sähköinen
+            asiakirja täyttää vaatimuksen kirjallisesta muodosta.
+          </P>
+          <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
+          <ul>
+            <li>
+              Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite,
+              puhelinnumero
+            </li>
+            <li>päätös, johon haetaan oikaisua</li>
+            <li>
+              miltä osin päätökseen haetaan oikaisua ja mitä oikaisua siihen
+              vaaditaan tehtäväksi
+            </li>
+            <li>vaatimuksen perusteet</li>
+          </ul>
+
+          <P noMargin>Oikaisuvaatimukseen on liitettävä</P>
+          <ul>
+            <li>
+              päätös, johon haetaan oikaisua, alkuperäisenä tai
+              jäljennöksenä
+            </li>
+            <li>
+              todistus siitä, minä päivänä päätös on annettu tiedoksi, tai
+              muu selvitys oikaisuvaatimusajan alkamisen ajankohdasta
+            </li>
+            <li>
+              asiakirjat, joihin oikaisuvaatimuksen tekijä vetoaa
+              oikaisuvaatimuksensa tueksi, jollei niitä ole jo aikaisemmin
+              toimitettu viranomaiselle.
+            </li>
+          </ul>
+
+          <P>
+            Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten oikeudenkäynnistä hallintoasioissa
+            annetun lain (808/2019) 32 §:ssä säädetään
+          </P>
+          <H3>Oikaisuvaatimuksen toimittaminen</H3>
+          <P>
+            Oikaisuvaatimuskirjelmä on toimitettava oikaisuvaatimusajan
+            kuluessa oikaisuvaatimusviranomaiselle. Oikaisuvaatimuskirjelmän
+            tulee olla perillä oikaisuvaatimusajan viimeisenä päivänä ennen
+            viraston aukiolon päättymistä. Oikaisuvaatimuksen lähettäminen
+            postitse tai sähköisesti tapahtuu lähettäjän omalla vastuulla.
+          </P>
+        </>
+      )
     }
   },
   placement: {
