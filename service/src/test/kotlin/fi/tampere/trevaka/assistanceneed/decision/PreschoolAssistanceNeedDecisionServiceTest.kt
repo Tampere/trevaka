@@ -156,6 +156,10 @@ private val validAssistanceNeedPreschoolDecisionForm =
         preparer2PhoneNumber = "",
         decisionMakerEmployeeId = EmployeeId(UUID.randomUUID()),
         decisionMakerTitle = "Päätöksentekijän titteli",
+        basisDocumentDoctorStatementDate = LocalDate.of(2022, 8, 2),
+        basisDocumentPedagogicalReportDate = LocalDate.of(2022, 8, 2),
+        basisDocumentPsychologistStatementDate = LocalDate.of(2022, 8, 2),
+        basisDocumentSocialReportDate = LocalDate.of(2022, 8, 2),
     )
 
 private val validAssistanceNeedPreschoolDecision =

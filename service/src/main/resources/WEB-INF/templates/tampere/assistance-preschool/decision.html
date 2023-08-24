@@ -104,26 +104,28 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         <div class="decision-details">
             <h3 th:text="#{basisDocuments}"></h3>
             <ul>
-                <li
-                        th:if="${decision.form.basisDocumentPedagogicalReport}"
-                        th:text="#{basisDocumentPedagogicalReport}"
-                ></li>
-                <li
-                        th:if="${decision.form.basisDocumentPsychologistStatement}"
-                        th:text="#{basisDocumentPsychologistStatement}"
-                ></li>
-                <li
-                        th:if="${decision.form.basisDocumentSocialReport}"
-                        th:text="#{basisDocumentSocialReport}"
-                ></li>
-                <li
-                        th:if="${decision.form.basisDocumentDoctorStatement}"
-                        th:text="#{basisDocumentDoctorStatement}"
-                ></li>
-                <li
-                        th:if="${decision.form.basisDocumentOtherOrMissing}"
-                        th:text="${decision.form.basisDocumentOtherOrMissingInfo}"
-                ></li>
+                <li th:if="${decision.form.basisDocumentPedagogicalReport}">
+                    <span th:text="#{basisDocumentPedagogicalReport}"></span>
+                    <span th:if="${decision.form.basisDocumentPedagogicalReportDate}"
+                          th:replace="~{shared/common :: format-date(${decision.form.basisDocumentPedagogicalReportDate})}"></span>
+                </li>
+                <li th:if="${decision.form.basisDocumentPsychologistStatement}">
+                    <span th:text="#{basisDocumentPsychologistStatement}"></span>
+                    <span th:if="${decision.form.basisDocumentPsychologistStatementDate}"
+                          th:replace="~{shared/common :: format-date(${decision.form.basisDocumentPsychologistStatementDate})}"></span>
+                </li>
+                <li th:if="${decision.form.basisDocumentSocialReport}">
+                    <span th:text="#{basisDocumentSocialReport}"></span>
+                    <span th:if="${decision.form.basisDocumentSocialReportDate}"
+                          th:replace="~{shared/common :: format-date(${decision.form.basisDocumentSocialReportDate})}"></span>
+                </li>
+                <li th:if="${decision.form.basisDocumentDoctorStatement}">
+                    <span th:text="#{basisDocumentDoctorStatement}"></span>
+                    <span th:if="${decision.form.basisDocumentDoctorStatementDate}"
+                          th:replace="~{shared/common :: format-date(${decision.form.basisDocumentDoctorStatementDate})}"></span>
+                </li>
+                <li th:if="${decision.form.basisDocumentOtherOrMissing}"
+                    th:text="${decision.form.basisDocumentOtherOrMissingInfo}"></li>
             </ul>
         </div>
 
