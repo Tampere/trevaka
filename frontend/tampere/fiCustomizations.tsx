@@ -642,17 +642,15 @@ const fi: DeepPartial<Translations> = {
           </P>
           <H3>Tiedoksisaanti</H3>
           <P>
-            Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta näytetä, 7 päivän kuluttua
-            kirjeen lähettämisestä, 3 päivän kuluttua sähköpostin lähettämisestä, saantitodistuksen
-            osoittamana aikana tai erilliseen tiedoksisaantitodistukseen merkittynä aikana.
-            Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan viimeinen päivä on pyhäpäivä.
+            Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta näytetä, 7 päivän kuluttua 
+            kirjeen lähettämisestä, 3 päivän kuluttua sähköpostin lähettämisestä, saantitodistuksen 
+            osoittamana aikana tai erilliseen tiedoksisaantitodistukseen merkittynä aikana. 
+            Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan viimeinen päivä on pyhäpäivä, 
+            itsenäisyyspäivä, vapunpäivä, joulu- tai juhannusaatto tai arkilauantai, saa tehtävän toimittaa 
+            ensimmäisenä arkipäivänä sen jälkeen.
           </P>
 
           <H3>Oikaisuvaatimus</H3>
-          <P>
-            Oikaisuvaatimus on tehtävä kirjallisesti. Myös sähköinen
-            asiakirja täyttää vaatimuksen kirjallisesta muodosta.
-          </P>
           <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
           <ul>
             <li>
