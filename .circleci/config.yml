@@ -67,37 +67,7 @@ executors:
       BUILDKIT_PROGRESS: plain
 
 commands:
-  store_repo:
-    steps:
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-  restore_repo:
-    steps:
-      - attach_workspace:
-          at: .
-
   # Caching commands
-
-  save:
-    parameters:
-      path:
-        type: string
-    steps:
-      - save_cache:
-          name: Save << parameters.path >>
-          key: workspace-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-<< parameters.path >>
-          paths:
-            - << parameters.path >>
-  restore:
-    parameters:
-      path:
-        type: string
-    steps:
-      - restore_cache:
-          name: Restore << parameters.path >>
-          key: workspace-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}-<< parameters.path >>
 
   store_service_gradle_wrapper:
     steps:
@@ -153,6 +123,12 @@ commands:
             - gradle-build-cache-service-v1-
 
   # Misc commands
+
+  checkout_with_submodules:
+    steps:
+      - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
 
   login_docker_hub:
     description: Log in to Docker Hub for authenticated pulls
@@ -263,20 +239,11 @@ commands:
 jobs:
   # MISC JOBS
 
-  checkout_repo:
-    executor: base_executor
-    resource_class: small
-    steps:
-      - checkout
-      - run: git submodule sync
-      - run: git submodule update --init
-      - store_repo
-
   check_licenses:
     executor: reuse_tool
     resource_class: small
     steps:
-      - restore_repo
+      - checkout
       - run:
           name: reuse lint
           command: |
@@ -294,62 +261,18 @@ jobs:
     executor: aws_executor
     resource_class: medium
     steps:
-      - restore_repo
+      - checkout_with_submodules
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - build_docker_image:
           image: trevaka/api-gateway
           dir: *workspace_apigw
 
-  frontend_build:
-    executor: aws_executor
-    resource_class: medium+
-    steps:
-      - restore_repo
-      - frontend_install
-      - run:
-          name: Fetch commercial frontend dependencies
-          working_directory: *workspace_evaka_frontend
-          command: |
-            aws s3 sync s3://trevaka-artifacts/vendor/fortawesome/ ./vendor/fortawesome/
-      - run:
-          name: Unpack commercial frontend dependencies
-          working_directory: *workspace_evaka_frontend
-          command: |
-            ./unpack-pro-icons.sh
-      - run:
-          name: link customizations
-          working_directory: *workspace_evaka_frontend
-          command: ln -v -s $(readlink -f ../../frontend/tampere) src/lib-customizations/tampere
-      - run:
-          name: yarn build
-          working_directory: *workspace_evaka_frontend
-          environment:
-            SENTRY_NO_PROGRESS_BAR: "1"
-            EVAKA_CUSTOMIZATIONS: tampere
-            NODE_OPTIONS: "--max-old-space-size=4096"
-          command: |
-            export APP_COMMIT="$CIRCLE_SHA1"
-            ICONS=pro yarn build
-      - save:
-          path: evaka/frontend/dist
-      - run:
-          name: Create archive
-          working_directory: /home/circleci/repo/evaka
-          command: |
-            tar -cvf dist.tar --directory frontend/dist/bundle/ --transform 's,^\.,frontend,' .
-            tar -rvf dist.tar --directory frontend/src/ --transform 's,^,frontend/,' maintenance-page-frontend
-            gzip dist.tar
-      - run:
-          name: Upload archive
-          working_directory: /home/circleci/repo/evaka
-          command: aws s3 cp dist.tar.gz s3://trevaka-artifacts/frontend/${CIRCLE_SHA1}.tar.gz
-
   frontend_build_image:
     executor: aws_executor
     resource_class: medium+
     steps:
-      - restore_repo
+      - checkout_with_submodules
       - run:
           name: Fetch commercial frontend dependencies
           working_directory: *workspace_evaka_frontend
@@ -371,21 +294,11 @@ jobs:
           dir: *workspace_evaka_frontend
           build_args: EVAKA_CUSTOMIZATIONS=tampere,ICONS=pro
 
-  proxy_build_image:
-    executor: aws_executor
-    resource_class: medium
-    steps:
-      - restore_repo
-      - setup_authenticated_remote_docker
-      - build_docker_image:
-          image: trevaka/proxy
-          dir: *workspace_proxy
-
   service_build_image:
     executor: service_build_executor
     resource_class: medium+
     steps:
-      - restore_repo
+      - checkout_with_submodules
       - restore_service_gradle_wrapper
       - restore_service_gradle_dependencies
       - restore_service_gradle_build_cache
@@ -413,7 +326,7 @@ jobs:
     executor: aws_executor
     resource_class: medium
     steps:
-      - restore_repo
+      - checkout_with_submodules
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - build_docker_image:
@@ -425,7 +338,7 @@ jobs:
     executor: aws_executor
     resource_class: medium
     steps:
-      - restore_repo
+      - checkout
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - build_docker_image:
@@ -436,7 +349,7 @@ jobs:
     executor: aws_executor
     resource_class: medium
     steps:
-      - restore_repo
+      - checkout
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - build_docker_image:
@@ -460,9 +373,7 @@ jobs:
     executor: e2e_executor
     resource_class: large
     steps:
-      - restore_repo
-      - restore:
-          path: evaka/frontend/dist
+      - checkout_with_submodules
       - login_ecr
       - run:
           name: Start up compose stack
@@ -520,22 +431,11 @@ workflows:
       not:
         equal: [scheduled_pipeline, << pipeline.trigger_source >>]
     jobs:
-      - checkout_repo
-      - check_licenses:
-          requires:
-            - checkout_repo
+      - check_licenses
 
       - apigw_build_image:
           context:
             - trevaka-utility
-          requires:
-            - checkout_repo
-
-      - frontend_build:
-          context:
-            - trevaka-utility
-          requires:
-            - checkout_repo
 
       - e2e_test:
           context:
@@ -548,45 +448,27 @@ workflows:
       - frontend_build_image:
           context:
             - trevaka-utility
-          requires:
-            - checkout_repo
-
-      - proxy_build_image:
-          context:
-            - trevaka-utility
-          requires:
-            - checkout_repo
 
       - service_build_image:
           context:
             - trevaka-utility
-          requires:
-            - checkout_repo
 
       - auth_build_image:
           context:
             - trevaka-utility
-          requires:
-            - checkout_repo
 
       - scheduled_tasks_reporting_build_image:
           context:
             - trevaka-utility
-          requires:
-            - checkout_repo
       - scheduled_tasks_logs_build_image:
           context:
             - trevaka-utility
-          requires:
-            - checkout_repo
 
       - trigger_deploy:
           context:
             - trevaka-infra
           requires:
             - check_licenses
-            - frontend_build
-            - proxy_build_image
             - auth_build_image
             - scheduled_tasks_reporting_build_image
             - scheduled_tasks_logs_build_image
