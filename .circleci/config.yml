@@ -67,17 +67,6 @@ executors:
       BUILDKIT_PROGRESS: plain
 
 commands:
-  store_repo:
-    steps:
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-  restore_repo:
-    steps:
-      - attach_workspace:
-          at: .
-
   # Caching commands
 
   store_service_gradle_wrapper:
@@ -134,6 +123,12 @@ commands:
             - gradle-build-cache-service-v1-
 
   # Misc commands
+
+  checkout_with_submodules:
+    steps:
+      - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
 
   login_docker_hub:
     description: Log in to Docker Hub for authenticated pulls
@@ -244,20 +239,11 @@ commands:
 jobs:
   # MISC JOBS
 
-  checkout_repo:
-    executor: base_executor
-    resource_class: small
-    steps:
-      - checkout
-      - run: git submodule sync
-      - run: git submodule update --init
-      - store_repo
-
   check_licenses:
     executor: reuse_tool
     resource_class: small
     steps:
-      - restore_repo
+      - checkout
       - run:
           name: reuse lint
           command: |
@@ -275,7 +261,7 @@ jobs:
     executor: aws_executor
     resource_class: medium
     steps:
-      - restore_repo
+      - checkout_with_submodules
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - build_docker_image:
@@ -286,7 +272,7 @@ jobs:
     executor: aws_executor
     resource_class: medium+
     steps:
-      - restore_repo
+      - checkout_with_submodules
       - run:
           name: Fetch commercial frontend dependencies
           working_directory: *workspace_evaka_frontend
@@ -312,7 +298,7 @@ jobs:
     executor: service_build_executor
     resource_class: medium+
     steps:
-      - restore_repo
+      - checkout_with_submodules
       - restore_service_gradle_wrapper
       - restore_service_gradle_dependencies
       - restore_service_gradle_build_cache
@@ -340,7 +326,7 @@ jobs:
     executor: aws_executor
     resource_class: medium
     steps:
-      - restore_repo
+      - checkout_with_submodules
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - build_docker_image:
@@ -352,7 +338,7 @@ jobs:
     executor: aws_executor
     resource_class: medium
     steps:
-      - restore_repo
+      - checkout
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - build_docker_image:
@@ -363,7 +349,7 @@ jobs:
     executor: aws_executor
     resource_class: medium
     steps:
-      - restore_repo
+      - checkout
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - build_docker_image:
@@ -387,7 +373,7 @@ jobs:
     executor: e2e_executor
     resource_class: large
     steps:
-      - restore_repo
+      - checkout_with_submodules
       - login_ecr
       - run:
           name: Start up compose stack
@@ -445,16 +431,11 @@ workflows:
       not:
         equal: [scheduled_pipeline, << pipeline.trigger_source >>]
     jobs:
-      - checkout_repo
-      - check_licenses:
-          requires:
-            - checkout_repo
+      - check_licenses
 
       - apigw_build_image:
           context:
             - trevaka-utility
-          requires:
-            - checkout_repo
 
       - e2e_test:
           context:
@@ -467,31 +448,21 @@ workflows:
       - frontend_build_image:
           context:
             - trevaka-utility
-          requires:
-            - checkout_repo
 
       - service_build_image:
           context:
             - trevaka-utility
-          requires:
-            - checkout_repo
 
       - auth_build_image:
           context:
             - trevaka-utility
-          requires:
-            - checkout_repo
 
       - scheduled_tasks_reporting_build_image:
           context:
             - trevaka-utility
-          requires:
-            - checkout_repo
       - scheduled_tasks_logs_build_image:
           context:
             - trevaka-utility
-          requires:
-            - checkout_repo
 
       - trigger_deploy:
           context:
