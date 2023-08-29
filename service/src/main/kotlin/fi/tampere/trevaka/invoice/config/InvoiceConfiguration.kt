@@ -189,7 +189,7 @@ enum class Product(val nameFi: String, val code: String) {
     PRESCHOOL_WITH_DAYCARE("Esiopetusta täydentävä varhaiskasvatus", "500220"),
     PRESCHOOL_WITH_DAYCARE_DISCOUNT("Alennus - Esiopetusta täydentävä varhaiskasvatus", "509565"),
     PRESCHOOL_WITH_CLUB("Esiopetuksen kerho", "503745"),
-    PRESCHOOL_WITH_CLUB_DISCOUNT("Alennus - esiopetuksen kerhotoiminta", "509787"),
+    PRESCHOOL_WITH_CLUB_DISCOUNT("Alennus - Esiopetuksen kerhotoiminta", "509787"),
     TEMPORARY_CARE("Tilapäinen varhaiskasvatus", "500576"),
     SCHOOL_SHIFT_CARE("Koululaisen vuorohoito", "500949"),
     SICK_LEAVE_50("Laskuun vaikuttava poissaolo 50%", "500283"),
