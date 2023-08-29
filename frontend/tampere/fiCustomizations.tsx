@@ -695,7 +695,9 @@ const fi: DeepPartial<Translations> = {
             postitse tai sähköisesti tapahtuu lähettäjän omalla vastuulla.
           </P>
         </>
-      )
+      ),
+      jurisdictionText: 'Kasvatus- ja opetuslautakunnan päätös 20.6.2023 § 11 (Kasvatus- ja opetuslautakunnan toimivallan siirto viranhaltijoille), jonka 4 §:n mukaan varhaiskasvatuksen palvelupäällikkö päättää esiopetuksessa annettavasta tuesta ja tukipalveluista.',
+      lawReference: 'Laki viranomaisen toiminnan julkisuudesta 24 § 1 mom. 30 kohta'
     }
   },
   placement: {
