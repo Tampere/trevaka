@@ -28,12 +28,12 @@ VALUES
     ('0a58da38-6fd1-11ed-a75e-9b2790b0b4f5', 'Täydentävä varhaiskasvatus, yli 5h päivässä', 'Täydentävä varhaiskasvatus, yli 5h päivässä', 'Preschool daycare – over 5 h per day', 'PRESCHOOL_DAYCARE', FALSE, 0.8, 0.5, 0.5, 0.5, 0.5, 32, NULL, FALSE, FALSE, 'Täydentävä varhaiskasvatus, yli 5h päivässä', 'Täydentävä varhaiskasvatus, yli 5h päivässä', 'Täydentävä varhaiskasvatus, yli 5h päivässä', 'Täydentävä varhaiskasvatus, yli 5h päivässä', TRUE, TRUE, 2300),
     ('0a58dcae-6fd1-11ed-a75e-b3e10433b948', 'Täydentävä varhaiskasvatus, yli 5h päivässä; 10 pv sopimus', 'Täydentävä varhaiskasvatus, yli 5h päivässä; 10 pv sopimus', 'Preschool daycare – over 5 h per day; 10 day agreement', 'PRESCHOOL_DAYCARE', FALSE, 0.4, 0.25, 0.25, 0.5, 0.5, 18, 10, FALSE, TRUE, 'Täydentävä varhaiskasvatus, yli 5h päivässä; 10 pv sopimus', 'Täydentävä varhaiskasvatus, yli 5h päivässä; 10 pv sopimus', 'Täydentävä varhaiskasvatus, yli 5h päivässä; 10 pv sopimus', 'Täydentävä varhaiskasvatus, yli 5h päivässä; 10 pv sopimus', TRUE, TRUE, 2400),
     ('0a58dd94-6fd1-11ed-a75e-8390cdc6af62', 'Täydentävä varhaiskasvatus, yli 5h päivässä; 15 pv sopimus', 'Täydentävä varhaiskasvatus, yli 5h päivässä; 15 pv sopimus', 'Preschool daycare – over 5 h per day; 15 day agreement', 'PRESCHOOL_DAYCARE', FALSE, 0.6, 0.5, 0.5, 0.5, 0.5, 24, 15, FALSE, TRUE, 'Täydentävä varhaiskasvatus, yli 5h päivässä; 15 pv sopimus', 'Täydentävä varhaiskasvatus, yli 5h päivässä; 15 pv sopimus', 'Täydentävä varhaiskasvatus, yli 5h päivässä; 15 pv sopimus', 'Täydentävä varhaiskasvatus, yli 5h päivässä; 15 pv sopimus', TRUE, TRUE, 2500),
-    ('88f3bf1e-6646-11ed-8202-8f213a9146c2', 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', 'Preschool club - 1-3 h per day', 'PRESCHOOL_CLUB', TRUE, 0.42, 0, 0, 0, 0, 15, NULL, TRUE, FALSE, 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', TRUE, TRUE, null),
-    ('88f3dfd0-6646-11ed-8202-4fe90b8e5485', 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', 'Preschool club - 1-3 h per day', 'PRESCHOOL_CLUB', FALSE, 0.42, 0, 0, 0, 0, 15, NULL, TRUE, FALSE, 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', TRUE, TRUE, 3000),
-    ('88f3e214-6646-11ed-8202-f77aa4749644', 'Esiopetuksen kerho 3-5h päivässä', 'Esiopetuksen kerho 3-5h päivässä', 'Preschool club – 3-5 h per day', 'PRESCHOOL_CLUB', FALSE, 0.83, 0, 0, 0, 0, 25, NULL, TRUE, FALSE, 'Esiopetuksen kerho 3-5h päivässä', 'Esiopetuksen kerho 3-5h päivässä', 'Esiopetuksen kerho 3-5h päivässä', 'Esiopetuksen kerho 3-5h päivässä', TRUE, TRUE, 3100),
+    ('88f3bf1e-6646-11ed-8202-8f213a9146c2', 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', 'Preschool club - 1-3 h per day', 'PRESCHOOL_CLUB', TRUE, 1.0, 0, 0, 0, 0, 15, NULL, TRUE, FALSE, 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', TRUE, TRUE, null),
+    ('88f3dfd0-6646-11ed-8202-4fe90b8e5485', 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', 'Preschool club - 1-3 h per day', 'PRESCHOOL_CLUB', FALSE, 1.0, 0, 0, 0, 0, 15, NULL, TRUE, FALSE, 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', 'Esiopetuksen kerho 1-3h päivässä', TRUE, TRUE, 3000),
+    ('88f3e214-6646-11ed-8202-f77aa4749644', 'Esiopetuksen kerho 3-5h päivässä', 'Esiopetuksen kerho 3-5h päivässä', 'Preschool club – 3-5 h per day', 'PRESCHOOL_CLUB', FALSE, 1.0, 0, 0, 0, 0, 25, NULL, TRUE, FALSE, 'Esiopetuksen kerho 3-5h päivässä', 'Esiopetuksen kerho 3-5h päivässä', 'Esiopetuksen kerho 3-5h päivässä', 'Esiopetuksen kerho 3-5h päivässä', TRUE, TRUE, 3100),
     ('88f3e3e0-6646-11ed-8202-3bc1b45aaa73', 'Esiopetuksen kerho yli 5h päivässä', 'Esiopetuksen kerho yli 5h päivässä', 'Preschool club – over 5 h per day', 'PRESCHOOL_CLUB', FALSE, 1.0, 0, 0, 0, 0, 32, NULL, FALSE, FALSE, 'Esiopetuksen kerho yli 5h päivässä', 'Esiopetuksen kerho yli 5h päivässä', 'Esiopetuksen kerho yli 5h päivässä', 'Esiopetuksen kerho yli 5h päivässä', TRUE, TRUE, 3200),
-    ('88f3e5a2-6646-11ed-8202-0b8db1a29ca5', 'Esiopetuksen kerho 1-3h päivässä; 10 pv sopimus', 'Esiopetuksen kerho 1-3h päivässä; 10 pv sopimus', 'Preschool club – 1-3 h per day; 10 day agreement', 'PRESCHOOL_CLUB', FALSE, 0.25, 0, 0, 0, 0, 7, 10, TRUE, TRUE, 'Esiopetuksen kerho 1-3h päivässä; 10 pv sopimus', 'Esiopetuksen kerho 1-3h päivässä; 10 pv sopimus', 'Esiopetuksen kerho 1-3h päivässä; 10 pv sopimus', 'Esiopetuksen kerho 1-3h päivässä; 10 pv sopimus', TRUE, TRUE, 3300),
-    ('88f3e75a-6646-11ed-8202-b7867ae6358a', 'Esiopetuksen kerho 3-5h päivässä; 10pv sopimus', 'Esiopetuksen kerho 3-5h päivässä; 10pv sopimus', 'Preschool club – 3-5 h per day; 10 day agreement', 'PRESCHOOL_CLUB', FALSE, 0.42, 0, 0, 0, 0, 12, 10, TRUE, TRUE, 'Esiopetuksen kerho 3-5h päivässä; 10pv sopimus', 'Esiopetuksen kerho 3-5h päivässä; 10pv sopimus', 'Esiopetuksen kerho 3-5h päivässä; 10pv sopimus', 'Esiopetuksen kerho 3-5h päivässä; 10pv sopimus', TRUE, TRUE, 3400),
+    ('88f3e5a2-6646-11ed-8202-0b8db1a29ca5', 'Esiopetuksen kerho 1-3h päivässä; 10 pv sopimus', 'Esiopetuksen kerho 1-3h päivässä; 10 pv sopimus', 'Preschool club – 1-3 h per day; 10 day agreement', 'PRESCHOOL_CLUB', FALSE, 0.6, 0, 0, 0, 0, 7, 10, TRUE, TRUE, 'Esiopetuksen kerho 1-3h päivässä; 10 pv sopimus', 'Esiopetuksen kerho 1-3h päivässä; 10 pv sopimus', 'Esiopetuksen kerho 1-3h päivässä; 10 pv sopimus', 'Esiopetuksen kerho 1-3h päivässä; 10 pv sopimus', TRUE, TRUE, 3300),
+    ('88f3e75a-6646-11ed-8202-b7867ae6358a', 'Esiopetuksen kerho 3-5h päivässä; 10pv sopimus', 'Esiopetuksen kerho 3-5h päivässä; 10pv sopimus', 'Preschool club – 3-5 h per day; 10 day agreement', 'PRESCHOOL_CLUB', FALSE, 0.5, 0, 0, 0, 0, 12, 10, TRUE, TRUE, 'Esiopetuksen kerho 3-5h päivässä; 10pv sopimus', 'Esiopetuksen kerho 3-5h päivässä; 10pv sopimus', 'Esiopetuksen kerho 3-5h päivässä; 10pv sopimus', 'Esiopetuksen kerho 3-5h päivässä; 10pv sopimus', TRUE, TRUE, 3400),
     ('88f3e912-6646-11ed-8202-bb9fe8059b4a', 'Esiopetuksen kerho yli 5h päivässä; 10pv sopimus', 'Esiopetuksen kerho yli 5h päivässä; 10pv sopimus', 'Preschool club – over 5 h per day; 10 day agreement', 'PRESCHOOL_CLUB', FALSE, 0.5, 0, 0, 0, 0, 18, 10, FALSE, TRUE, 'Esiopetuksen kerho yli 5h päivässä; 10pv sopimus', 'Esiopetuksen kerho yli 5h päivässä; 10pv sopimus', 'Esiopetuksen kerho yli 5h päivässä; 10pv sopimus', 'Esiopetuksen kerho yli 5h päivässä; 10pv sopimus', TRUE, TRUE, 3500),
     ('ff6ddcd4-fa8a-11eb-8592-2f2b4e398fcb', 'Kerho', 'Kerho', 'Club', 'CLUB', TRUE, 0.0, 1.0, 1.0, 1.0, 1.0, 0, NULL, TRUE, TRUE, 'Kerho', 'Kerho', 'Kerho', 'Kerho', TRUE, TRUE, null),
     ('d8681652-246b-11ed-b02b-ebe37c3347e8', 'Esiopetus', 'Esiopetus', 'Preschool', 'PRESCHOOL', TRUE, 0.0, 0.5, 0.5, 0.5, 0.5, 0, NULL, TRUE, TRUE, 'Esiopetus', 'Esiopetus', 'Esiopetus', 'Esiopetus', TRUE, TRUE, null),
@@ -83,6 +83,35 @@ WHERE
     service_need_option.active <> EXCLUDED.active OR
     service_need_option.show_for_citizen <> EXCLUDED.show_for_citizen OR
     service_need_option.display_order <> EXCLUDED.display_order;
+
+INSERT INTO service_need_option_fee
+    (id, service_need_option_id, validity, base_fee, sibling_discount_2, sibling_fee_2, sibling_discount_2_plus, sibling_fee_2_plus)
+VALUES
+    -- 2000-01-01 -
+    ('f3a1936c-9410-4086-ad10-8767e6d8d27c', '88f3bf1e-6646-11ed-8202-8f213a9146c2', daterange('2000-01-01', NULL, '[]'), 5000, 0.4, 3000, 0.4, 3000),
+    ('e549d486-26b4-429a-a102-160df7df36f7', '88f3dfd0-6646-11ed-8202-4fe90b8e5485', daterange('2000-01-01', NULL, '[]'), 5000, 0.4, 3000, 0.4, 3000),
+    ('d8d8ee0e-398c-4b3d-bb3b-28951a581c0d', '88f3e214-6646-11ed-8202-f77aa4749644', daterange('2000-01-01', NULL, '[]'), 10000, 0.4, 6000, 0.4, 6000),
+    ('007ec41b-77dd-4ad7-bece-332771bab262', '88f3e3e0-6646-11ed-8202-3bc1b45aaa73', daterange('2000-01-01', NULL, '[]'), 12000, 0.4, 7000, 0.4, 7000),
+    ('63fb7f18-eb41-491a-8c70-765d980aa248', '88f3e5a2-6646-11ed-8202-0b8db1a29ca5', daterange('2000-01-01', NULL, '[]'), 5000, 0.4, 3000, 0.4, 3000),
+    ('9e42259d-f28d-436c-9059-865fb1458df0', '88f3e75a-6646-11ed-8202-b7867ae6358a', daterange('2000-01-01', NULL, '[]'), 10000, 0.4, 6000, 0.4, 6000),
+    ('2cb13db3-0f76-444f-bb8f-ebd90f3181a0', '88f3e912-6646-11ed-8202-bb9fe8059b4a', daterange('2000-01-01', NULL, '[]'), 12000, 0.4, 7200, 0.4, 7200)
+ON CONFLICT (id) DO
+UPDATE SET
+    service_need_option_id = EXCLUDED.service_need_option_id,
+    validity = EXCLUDED.validity,
+    base_fee = EXCLUDED.base_fee,
+    sibling_discount_2 = EXCLUDED.sibling_discount_2,
+    sibling_fee_2 = EXCLUDED.sibling_fee_2,
+    sibling_discount_2_plus = EXCLUDED.sibling_discount_2_plus,
+    sibling_fee_2_plus = EXCLUDED.sibling_fee_2_plus
+WHERE
+    service_need_option_fee.service_need_option_id <> EXCLUDED.service_need_option_id OR
+    service_need_option_fee.validity <> EXCLUDED.validity OR
+    service_need_option_fee.base_fee <> EXCLUDED.base_fee OR
+    service_need_option_fee.sibling_discount_2 <> EXCLUDED.sibling_discount_2 OR
+    service_need_option_fee.sibling_fee_2 <> EXCLUDED.sibling_fee_2 OR
+    service_need_option_fee.sibling_discount_2_plus <> EXCLUDED.sibling_discount_2_plus OR
+    service_need_option_fee.sibling_fee_2_plus <> EXCLUDED.sibling_fee_2_plus;
 
 INSERT INTO service_need_option_voucher_value
     (id, service_need_option_id, validity, base_value, coefficient, value, base_value_under_3y, coefficient_under_3y, value_under_3y)
