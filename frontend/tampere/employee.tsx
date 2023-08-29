@@ -337,8 +337,8 @@ const customizations: EmployeeCustomizations = {
               </P>
               <H3>Oikaisuvaatimusoikeus</H3>
               <P>
-                Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai jonka oikeuteen, 
-                velvollisuuteen tai etuun päätös välittömästi vaikuttaa (asianosainen). Alle 15-vuotiaan lapsen 
+                Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai jonka oikeuteen,
+                velvollisuuteen tai etuun päätös välittömästi vaikuttaa (asianosainen). Alle 15-vuotiaan lapsen
                 päätökseen oikaisua voi hakea lapsen huoltaja tai muu laillinen edustaja.
               </P>
               <H3>Oikaisuviranomainen</H3>
@@ -368,11 +368,11 @@ const customizations: EmployeeCustomizations = {
               </P>
               <H3>Tiedoksisaanti</H3>
               <P>
-                Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta näytetä, 7 päivän kuluttua 
-                kirjeen lähettämisestä, 3 päivän kuluttua sähköpostin lähettämisestä, saantitodistuksen 
-                osoittamana aikana tai erilliseen tiedoksisaantitodistukseen merkittynä aikana. 
-                Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan viimeinen päivä on pyhäpäivä, 
-                itsenäisyyspäivä, vapunpäivä, joulu- tai juhannusaatto tai arkilauantai, saa tehtävän toimittaa 
+                Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta näytetä, 7 päivän kuluttua
+                kirjeen lähettämisestä, 3 päivän kuluttua sähköpostin lähettämisestä, saantitodistuksen
+                osoittamana aikana tai erilliseen tiedoksisaantitodistukseen merkittynä aikana.
+                Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan viimeinen päivä on pyhäpäivä,
+                itsenäisyyspäivä, vapunpäivä, joulu- tai juhannusaatto tai arkilauantai, saa tehtävän toimittaa
                 ensimmäisenä arkipäivänä sen jälkeen.
               </P>
               <H3>Oikaisuvaatimus</H3>
@@ -418,7 +418,9 @@ const customizations: EmployeeCustomizations = {
                 postitse tai sähköisesti tapahtuu lähettäjän omalla vastuulla.
               </P>
             </>
-          )
+          ),
+          jurisdictionText: 'Kasvatus- ja opetuslautakunnan päätös 20.6.2023 § 11 (Kasvatus- ja opetuslautakunnan toimivallan siirto viranhaltijoille), jonka 4 §:n mukaan varhaiskasvatuksen palvelupäällikkö päättää esiopetuksessa annettavasta tuesta ja tukipalveluista.',
+          lawReference: 'Laki viranomaisen toiminnan julkisuudesta 24 § 1 mom. 30 kohta'
         },
         assistanceAction: {
           title: 'Tukitoimet ja tukipalvelut',
