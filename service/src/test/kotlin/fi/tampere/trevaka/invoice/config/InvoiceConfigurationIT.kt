@@ -103,8 +103,6 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
                     temporaryFeePartDay = 1500,
                     temporaryFeeSibling = 1500,
                     temporaryFeeSiblingPartDay = 800,
-                    preschoolClubFee = 14000,
-                    preschoolClubSiblingDiscount = BigDecimal("0.4"),
                 ),
             )
             tx.insertTestDaycare(testDaycare)
@@ -255,8 +253,6 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
         temporaryFeePartDay = 1500,
         temporaryFeeSibling = 1500,
         temporaryFeeSiblingPartDay = 800,
-        preschoolClubFee = 14000,
-        preschoolClubSiblingDiscount = BigDecimal("0.4"),
     )
 
     private fun createFeeDecisionFixture(
