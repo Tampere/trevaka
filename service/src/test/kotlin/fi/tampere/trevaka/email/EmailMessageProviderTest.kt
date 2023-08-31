@@ -92,7 +92,7 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
         ),
         Arguments.of(
             "pedagogicalDocumentNotification",
-            emailMessageProvider.pedagogicalDocumentNotification(Language.fi),
+            emailMessageProvider.pedagogicalDocumentNotification(Language.fi, ChildId(UUID.randomUUID())),
         ),
         Arguments.of(
             "outdatedIncomeNotificationInitial",
