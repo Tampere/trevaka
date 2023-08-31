@@ -369,8 +369,8 @@ There are missing attendance reservations for the week starting $start. Please m
         )
     }
 
-    override fun pedagogicalDocumentNotification(language: Language): EmailContent {
-        val documentsUrl = "${baseUrl(language)}/pedagogical-documents"
+    override fun pedagogicalDocumentNotification(language: Language, childId: ChildId): EmailContent {
+        val documentsUrl = "${baseUrl(language)}/children/$childId"
         return EmailContent(
             subject =
             "Uusi pedagoginen dokumentti eVakassa / New pedagogical document in eVaka",
