@@ -14,6 +14,8 @@ updates:
     directory: "/auth"
     schedule:
       interval: "daily"
+      time: "10:00"
+      timezone: "Europe/Helsinki"
     ignore:
       - dependency-name: "node"
         update-types: ["version-update:semver-major"]
@@ -21,6 +23,8 @@ updates:
     directory: "/frontend"
     schedule:
       interval: "daily"
+      time: "10:00"
+      timezone: "Europe/Helsinki"
     ignore:
       - dependency-name: "playwright" # version must match with core
       - dependency-name: "*"
@@ -41,12 +45,16 @@ updates:
     directory: "/mock/identification"
     schedule:
       interval: "daily"
+      time: "10:00"
+      timezone: "Europe/Helsinki"
     ignore:
       - dependency-name: "org.springframework.boot"
   - package-ecosystem: "gradle"
     directory: "/service"
     schedule:
       interval: "daily"
+      time: "10:00"
+      timezone: "Europe/Helsinki"
     ignore:
       - dependency-name: "com.sun.xml.bind:jaxb-xjc"
       - dependency-name: "com.sun.xml.bind:jaxb-impl"
