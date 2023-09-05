@@ -37,39 +37,33 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
     private val subjectForPreschoolApplicationReceivedEmail: String = "Hakemus vastaanotettu"
     private val subjectForDecisionEmail: String = "Päätös eVakassa"
 
-    override fun pendingDecisionNotification(language: Language): EmailContent = EmailContent(
+    override fun pendingDecisionNotification(language: Language): EmailContent = EmailContent.fromHtml(
         subject = subjectForPendingDecisionEmail,
-        text = getPendingDecisionEmailText(),
         html = getPendingDecisionEmailHtml(),
     )
 
-    override fun clubApplicationReceived(language: Language): EmailContent = EmailContent(
+    override fun clubApplicationReceived(language: Language): EmailContent = EmailContent.fromHtml(
         subject = subjectForClubApplicationReceivedEmail,
-        text = getClubApplicationReceivedEmailText(),
         html = getClubApplicationReceivedEmailHtml(),
     )
 
-    override fun daycareApplicationReceived(language: Language): EmailContent = EmailContent(
+    override fun daycareApplicationReceived(language: Language): EmailContent = EmailContent.fromHtml(
         subject = subjectForDaycareApplicationReceivedEmail,
-        text = getDaycareApplicationReceivedEmailText(),
         html = getDaycareApplicationReceivedEmailHtml(),
     )
 
-    override fun preschoolApplicationReceived(language: Language, withinApplicationPeriod: Boolean): EmailContent = EmailContent(
+    override fun preschoolApplicationReceived(language: Language, withinApplicationPeriod: Boolean): EmailContent = EmailContent.fromHtml(
         subject = subjectForPreschoolApplicationReceivedEmail,
-        text = getPreschoolApplicationReceivedEmailText(),
         html = getPreschoolApplicationReceivedEmailHtml(),
     )
 
-    override fun assistanceNeedDecisionNotification(language: Language): EmailContent = EmailContent(
+    override fun assistanceNeedDecisionNotification(language: Language): EmailContent = EmailContent.fromHtml(
         subject = subjectForDecisionEmail,
-        text = getDecisionEmailText(),
         html = getDecisionEmailHtml(),
     )
 
-    override fun assistanceNeedPreschoolDecisionNotification(language: Language): EmailContent = EmailContent(
+    override fun assistanceNeedPreschoolDecisionNotification(language: Language): EmailContent = EmailContent.fromHtml(
         subject = subjectForDecisionEmail,
-        text = getDecisionEmailText(),
         html = getDecisionEmailHtml(),
     )
 
@@ -80,16 +74,6 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             <p>Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla osoitteeseen <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a> tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.</p>
             
             <p>Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun: <a href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot">https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot</a></p>
-        """.trimIndent()
-    }
-
-    private fun getPendingDecisionEmailText(): String {
-        return """
-            Olet saanut päätöksen/ilmoituksen Tampereen varhaiskasvatukselta, joka odottaa toimenpiteitäsi. Myönnetty varhaiskasvatus-/kerhopaikka tulee hyväksyä tai hylätä kahden viikon sisällä päätöksen saapumisesta.
-            
-            Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla osoitteeseen https://varhaiskasvatus.tampere.fi tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.
-            
-            Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun:  https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot
         """.trimIndent()
     }
 
@@ -116,30 +100,6 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             </p>
             
             <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
-        """.trimIndent()
-    }
-
-    private fun getClubApplicationReceivedEmailText(): String {
-        return """
-            Hyvä huoltaja, 
-
-            lapsenne kerhohakemus on vastaanotettu.
-            
-            Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa varhaiskasvatus.tampere.fi siihen saakka, kunnes se on otettu käsittelyyn asiakaspalvelussa.
-
-            Kirjallinen ilmoitus myönnetystä kerhopaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, ilmoitus lähetetään hänelle postitse.
-            
-            Myönnetyn kerhopaikan voi hyväksyä / hylätä sähköisesti Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa varhaiskasvatus.tampere.fi. Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kauden päättyessä hakemus poistetaan järjestelmästä.
-            
-            Lisätietoa hakemuksen käsittelystä ja kerhopaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta:
-            
-            Tampereen kaupunki
-            Sivistyspalvelut
-            Varhaiskasvatus ja esiopetus
-            Asiakaspalvelu
-            https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot
-            
-            Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.
         """.trimIndent()
     }
 
@@ -177,38 +137,6 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
         """.trimIndent()
     }
 
-    private fun getDaycareApplicationReceivedEmailText(): String {
-        return """
-            Hyvä huoltaja,
-
-            lapsenne varhaiskasvatushakemus on vastaanotettu.
-            
-            Varhaiskasvatushakemuksella on neljän (4) kuukauden hakuaika. Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa varhaiskasvatus.tampere.fi siihen saakka, kunnes se on otettu käsittelyyn.
-            
-            Saatte tiedon lapsenne varhaiskasvatuspaikasta noin kuukautta ennen palvelutarpeen alkamista tai hakemuksen lakisääteisen järjestelyajan päättymistä. Hakemuksen lakisääteinen järjestelyaika on neljä (4) kuukautta hakemuksen saapumisesta.
-            
-            Mikäli hakemuksenne on kiireellinen, ottakaa yhteyttä viipymättä Varhaiskasvatuksen asiakaspalveluun: https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot. Hakuaika kiireellisissä hakemuksissa on minimissään kaksi (2) viikkoa ja se alkaa siitä päivästä, kun olette olleet yhteydessä asiakaspalveluun.
-            
-            Kirjallinen päätös varhaiskasvatuspaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, päätös lähetetään hänelle postitse.
-            
-            Myönnetyn varhaiskasvatuspaikan voi hyväksyä / hylätä sähköisesti Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa varhaiskasvatus.tampere.fi. Mikäli haette paikkaa palvelusetelipäiväkodista, olkaa yhteydessä kyseiseen päiväkotiin viimeistään hakemuksen jättämisen jälkeen.
-            
-            Ilta- ja vuorohoitoa haettaessa, hakemuksen liitteeksi tulee toimittaa molempien samassa taloudessa asuvien huoltajien todistukset työnantajalta vuorotyöstä tai oppilaitoksesta iltaisin tapahtuvasta opiskelusta. Hakemusta käsitellään vuorohoidon hakemuksena vasta sen jälkeen, kun edellä mainitut todistukset on toimitettu. Tarvittavat liitteet voi lisätä suoraan sähköiselle hakemukselle tai toimittaa postitse osoitteeseen Tampereen kaupunki, Varhaiskasvatuksen asiakaspalvelu, PL 487, 33101 Tampere.
-            
-            Hakiessanne lapsellenne siirtoa toiseen varhaiskasvatusyksikköön, hakemuksella ei ole hakuaikaa. Siirrot pystytään toteuttamaan pääsääntöisesti elokuusta alkaen. Mikäli lapsen nykyinen hoitopaikka irtisanotaan, myös siirtohakemus poistuu.
-            
-            Lisätietoa hakemuksen käsittelystä ja varhaiskasvatuspaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta:
-            
-            Tampereen kaupunki
-            Sivistyspalvelut
-            Varhaiskasvatus ja esiopetus
-            Asiakaspalvelu
-            https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot
-            
-            Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.
-        """.trimIndent()
-    }
-
     private fun getPreschoolApplicationReceivedEmailHtml(): String {
         return """
             <p>Hyvä huoltaja,</p>
@@ -231,38 +159,10 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
         """.trimIndent()
     }
 
-    private fun getPreschoolApplicationReceivedEmailText(): String {
-        return """
-            Hyvä huoltaja,
-
-            lapsenne esiopetukseen ilmoittautuminen on vastaanotettu.
-
-            Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa varhaiskasvatus.tampere.fi siihen saakka, kunnes se on otettu käsittelyyn.
-
-            Lisätietoa hakemuksen käsittelystä ja esiopetuspaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta:
-
-            Tampereen kaupunki
-            Sivistyspalvelut
-            Varhaiskasvatus ja esiopetus
-            Asiakaspalvelu
-            https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot
-
-            Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.
-        """.trimIndent()
-    }
-
     private fun getDecisionEmailHtml(): String = """
         <p>Hyvä(t) huoltaja(t),</p>
         <p>Lapsellenne on tehty päätös.</p>
         <p>Päätös on nähtävissä eVakassa osoitteessa <a href="https://varhaiskasvatus.tampere.fi/">https://varhaiskasvatus.tampere.fi/</a>.</p>
-    """.trimIndent()
-
-    private fun getDecisionEmailText(): String = """
-        Hyvä(t) huoltaja(t),
-
-        Lapsellenne on tehty päätös.
-
-        Päätös on nähtävissä eVakassa osoitteessa https://varhaiskasvatus.tampere.fi/.
     """.trimIndent()
 
     override fun missingReservationsNotification(language: Language, checkedRange: FiniteDateRange): EmailContent {
@@ -270,18 +170,9 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             checkedRange.start.format(
                 DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale("fi", "FI")),
             )
-        return EmailContent(
+        return EmailContent.fromHtml(
             subject =
             "Läsnäolovarauksia puuttuu / There are missing attendance reservations",
-            text =
-            """
-Läsnäolovarauksia puuttuu $start alkavalta viikolta. Käythän merkitsemässä ne mahdollisimman pian.
-
-----
-
-There are missing attendance reservations for the week starting $start. Please mark them as soon as possible.
-                """
-                .trimIndent(),
             html =
             """
 <p>Läsnäolovarauksia puuttuu $start alkavalta viikolta. Käythän merkitsemässä ne mahdollisimman pian.</p>
@@ -309,21 +200,8 @@ There are missing attendance reservations for the week starting $start. Please m
                         Pair("tiedote", "bulletin")
                     }
             }
-        return EmailContent(
+        return EmailContent.fromHtml(
             subject = "Uusi $typeFi eVakassa / New $typeEn in eVaka",
-            text =
-            """
-                Sinulle on saapunut uusi $typeFi eVakaan. Lue viesti ${if (thread.urgent) "mahdollisimman pian " else ""}täältä: $messageUrl
-
-                Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.
-
-                -----
-
-                You have received a new $typeEn in eVaka. Read the message ${if (thread.urgent) "as soon as possible " else ""}here: $messageUrl
-
-                This is an automatic message from the eVaka system. Do not reply to this message.
-        """
-                .trimIndent(),
             html =
             """
                 <p>Sinulle on saapunut uusi $typeFi eVakaan. Lue viesti ${if (thread.urgent) "mahdollisimman pian " else ""}täältä: <a href="$messageUrl">$messageUrl</a></p>
@@ -340,21 +218,8 @@ There are missing attendance reservations for the week starting $start. Please m
 
     override fun vasuNotification(language: Language, childId: ChildId): EmailContent {
         val documentsUrl = "${baseUrl(language)}/children/$childId"
-        return EmailContent(
+        return EmailContent.fromHtml(
             subject = "Uusi dokumentti eVakassa / New document in eVaka",
-            text =
-            """
-                Sinulle on saapunut uusi dokumentti eVakaan. Lue dokumentti täältä: $documentsUrl
-
-                Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.
-
-                -----
-
-                You have received a new eVaka document. Read the document here: $documentsUrl
-
-                This is an automatic message from the eVaka system. Do not reply to this message.
-        """
-                .trimIndent(),
             html =
             """
                 <p>Sinulle on saapunut uusi dokumentti eVakaan. Lue dokumentti täältä: <a href="$documentsUrl">$documentsUrl</a></p>
@@ -371,22 +236,9 @@ There are missing attendance reservations for the week starting $start. Please m
 
     override fun pedagogicalDocumentNotification(language: Language, childId: ChildId): EmailContent {
         val documentsUrl = "${baseUrl(language)}/children/$childId"
-        return EmailContent(
+        return EmailContent.fromHtml(
             subject =
             "Uusi pedagoginen dokumentti eVakassa / New pedagogical document in eVaka",
-            text =
-            """
-                Sinulle on saapunut uusi pedagoginen dokumentti eVakaan. Lue dokumentti täältä: $documentsUrl
-
-                Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.
-
-                -----
-
-                You have received a new eVaka pedagogical document. Read the document here: $documentsUrl
-
-                This is an automatic message from the eVaka system. Do not reply to this message.
-        """
-                .trimIndent(),
             html =
             """
                 <p>Sinulle on saapunut uusi pedagoginen dokumentti eVakaan. Lue dokumentti täältä: <a href="$documentsUrl">$documentsUrl</a></p>
@@ -414,42 +266,9 @@ There are missing attendance reservations for the week starting $start. Please m
 
     private fun outdatedIncomeNotificationInitial(language: Language): EmailContent {
         val documentsUrl = "${baseUrl(language)}/income"
-        return EmailContent(
+        return EmailContent.fromHtml(
             subject =
             "Tulotietojen tarkastuskehotus / Request to review income information",
-            text =
-            """
-                Hyvä asiakkaamme
-                
-                Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.
-                
-                Pyydämme toimittamaan tuloselvityksen eVakassa 28 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.
-                
-                Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Uusi maksupäätös astuu voimaan sen kuukauden alusta, kun tulotiedot on toimitettu asiakasmaksuihin.
-                
-                Lisätietoja saatte tarvittaessa: https://www.tampere.fi/varhaiskasvatusasiakasmaksut
-                
-                Tulotiedot: $documentsUrl
-                
-                Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.
-                
-                -----
-                
-                Dear client
-                
-                The income information used for determining the early childhood education fee or the out-of-pocket cost of a service voucher is reviewed every year.
-                
-                We ask you to submit your income statement through eVaka within 28 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.
-                
-                If you do not provide your latest income information, your client fee will be determined based on the highest fee category. The new payment decision takes effect at the beginning of the month when the income information has been submitted to customer services.
-                
-                Inquiries: https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary
-                
-                Income information: $documentsUrl
-                
-                This is an automatic message from the eVaka system. Do not reply to this message.
-        """
-                .trimIndent(),
             html =
             """
                 <p>Hyvä asiakkaamme</p>
@@ -488,42 +307,9 @@ There are missing attendance reservations for the week starting $start. Please m
 
     private fun outdatedIncomeNotificationReminder(language: Language): EmailContent {
         val documentsUrl = "${baseUrl(language)}/income"
-        return EmailContent(
+        return EmailContent.fromHtml(
             subject =
             "Tulotietojen tarkastuskehotus / Request to review income information",
-            text =
-            """
-                Hyvä asiakkaamme
-                
-                Ette ole vielä toimittaneet uusia tulotietoja. Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.
-                
-                Pyydämme toimittamaan tuloselvityksen eVakassa 14 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.
-                
-                Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Uusi maksupäätös astuu voimaan sen kuukauden alusta, kun tulotiedot on toimitettu asiakasmaksuihin.
-                
-                Lisätietoja saatte tarvittaessa: https://www.tampere.fi/varhaiskasvatusasiakasmaksut
-                
-                Tulotiedot: $documentsUrl
-                
-                Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.
-                
-                -----
-                
-                Dear client
-                
-                You have not yet submitted your latest income information. The income information used for determining the early childhood education fee or the out-of-pocket cost of a service voucher is reviewed every year.
-                
-                We ask you to submit your income statement through eVaka within 14 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.
-                
-                If you do not provide your latest income information, your client fee will be determined based on the highest fee category. The new payment decision takes effect at the beginning of the month when the income information has been submitted to customer services.
-                
-                Inquiries: https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary
-                
-                Income information: $documentsUrl
-                
-                This is an automatic message from the eVaka system. Do not reply to this message.
-        """
-                .trimIndent(),
             html =
             """
                 <p>Hyvä asiakkaamme</p>
@@ -561,30 +347,9 @@ There are missing attendance reservations for the week starting $start. Please m
     }
 
     private fun outdatedIncomeNotificationExpired(): EmailContent {
-        return EmailContent(
+        return EmailContent.fromHtml(
             subject =
             "Tulotietojen tarkastuskehotus / Request to review income information",
-            text =
-            """
-                Hyvä asiakkaamme
-                
-                Seuraava asiakasmaksunne määräytyy korkeimman maksuluokan mukaan, sillä ette ole toimittaneet uusia tulotietoja määräaikaan mennessä.
-                
-                Lisätietoja saatte tarvittaessa: https://www.tampere.fi/varhaiskasvatusasiakasmaksut
-                
-                Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.
-                
-                -----
-                
-                Dear client
-                
-                Your next client fee will be determined based on the highest fee category as you did not provide your latest income information by the deadline.
-                
-                Inquiries: https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary
-                
-                This is an automatic message from the eVaka system. Do not reply to this message.
-        """
-                .trimIndent(),
             html =
             """
                 <p>Hyvä asiakkaamme</p>
