@@ -391,27 +391,29 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
     ): EmailContent {
         val format =
             DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale("fi", "FI"))
+        val eventsHtml =
+            "<ul>" +
+                events.joinToString("\n") { event ->
+                    var period = event.period.start.format(format)
+                    if (event.period.end != event.period.start) {
+                        period += "-${event.period.end.format(format)}"
+                    }
+                    "<li>$period: ${event.title}</li>"
+                } +
+                "</ul>"
         return EmailContent.fromHtml(
             subject =
             "Uusia kalenteritapahtumia eVakassa / New calendar events in eVaka",
             html =
             """
-                <p>eVakaan on lisätty uusia kalenteritapahtumia / New calendar events have been added to eVaka:</p>
-                
-                """
-                .trimIndent() +
-                events.joinToString("\n\n") { event ->
-                    var period = event.period.start.format(format)
-                    if (event.period.end != event.period.start) {
-                        period += "-${event.period.end.format(format)}"
-                    }
-                    "<p>$period: ${event.title}</p>"
-                } +
-                """
-                    
-                    <p>Katso lisää kalenterissa / See more in the calendar: ${calendarLink(language)}/calendar</p>
-                    """
-                    .trimIndent(),
+<p>eVakaan on lisätty uusia kalenteritapahtumia:</p>
+$eventsHtml
+<p>Katso lisää kalenterissa: ${calendarLink(Language.fi)}</p>
+<hr>
+<p>New calendar events in eVaka:</p>
+$eventsHtml
+<p>See more in the calendar: ${calendarLink(Language.en)}</p>
+""",
         )
     }
 }
