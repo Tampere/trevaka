@@ -13,6 +13,7 @@ import fi.espoo.evaka.invoicing.service.IncomeNotificationType
 import fi.espoo.evaka.messaging.MessageThreadStub
 import fi.espoo.evaka.messaging.MessageType
 import fi.espoo.evaka.shared.ChildId
+import fi.espoo.evaka.shared.MessageThreadId
 import fi.espoo.evaka.shared.domain.FiniteDateRange
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -30,7 +31,22 @@ class EmailConfiguration {
 }
 
 internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessageProvider {
-    private fun baseUrl(@Suppress("UNUSED_PARAMETER") language: Language) = env.frontendBaseUrlFi
+    private fun link(language: Language, path: String): String {
+        val baseUrl =
+            when (language) {
+                Language.sv -> env.frontendBaseUrlSv
+                else -> env.frontendBaseUrlFi
+            }
+        val url = "$baseUrl$path"
+        return """<a href="$url">$url</a>"""
+    }
+    private fun frontPageLink(language: Language) = link(language, "")
+    private fun calendarLink(language: Language) = link(language, "/calendar")
+    private fun messageLink(language: Language, threadId: MessageThreadId) =
+        link(language, "/messages/$threadId")
+    private fun childLink(language: Language, childId: ChildId) =
+        link(language, "/children/$childId")
+    private fun incomeLink(language: Language) = link(language, "/income")
     private val subjectForPendingDecisionEmail: String = "Toimenpiteitäsi odotetaan"
     private val subjectForClubApplicationReceivedEmail: String = "Hakemus vastaanotettu"
     private val subjectForDaycareApplicationReceivedEmail: String = "Hakemus vastaanotettu"
@@ -71,7 +87,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
         return """
             <p>Olet saanut päätöksen/ilmoituksen Tampereen varhaiskasvatukselta, joka odottaa toimenpiteitäsi. Myönnetty varhaiskasvatus-/kerhopaikka tulee hyväksyä tai hylätä kahden viikon sisällä päätöksen saapumisesta.</p>
             
-            <p>Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla osoitteeseen <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a> tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.</p>
+            <p>Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla osoitteeseen ${frontPageLink(Language.fi)} tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.</p>
             
             <p>Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun: <a href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot">https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot</a></p>
         """.trimIndent()
@@ -83,11 +99,11 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             
             <p>lapsenne kerhohakemus on vastaanotettu.</p>
             
-            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a> siihen saakka, kunnes se on otettu käsittelyyn asiakaspalvelussa.</p>
+            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa ${frontPageLink(Language.fi)} siihen saakka, kunnes se on otettu käsittelyyn asiakaspalvelussa.</p>
             
             <p>Kirjallinen ilmoitus myönnetystä kerhopaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, ilmoitus lähetetään hänelle postitse.</p> 
             
-            <p>Myönnetyn kerhopaikan voi hyväksyä / hylätä sähköisesti Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a>. Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kauden päättyessä hakemus poistetaan järjestelmästä.</p>
+            <p>Myönnetyn kerhopaikan voi hyväksyä / hylätä sähköisesti Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa ${frontPageLink(Language.fi)}. Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kauden päättyessä hakemus poistetaan järjestelmästä.</p>
             
             <p>Lisätietoa hakemuksen käsittelystä ja kerhopaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta:</p>
             
@@ -109,7 +125,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             
             <p>lapsenne varhaiskasvatushakemus on vastaanotettu.</p>
             
-            <p>Varhaiskasvatushakemuksella on neljän (4) kuukauden hakuaika. Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a> siihen saakka, kunnes se on otettu käsittelyyn.</p>
+            <p>Varhaiskasvatushakemuksella on neljän (4) kuukauden hakuaika. Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa ${frontPageLink(Language.fi)} siihen saakka, kunnes se on otettu käsittelyyn.</p>
             
             <p>Saatte tiedon lapsenne varhaiskasvatuspaikasta noin kuukautta ennen palvelutarpeen alkamista tai hakemuksen lakisääteisen järjestelyajan päättymistä. Hakemuksen lakisääteinen järjestelyaika on neljä (4) kuukautta hakemuksen saapumisesta.</p> 
             
@@ -117,7 +133,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             
             <p>Kirjallinen päätös varhaiskasvatuspaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, päätös lähetetään hänelle postitse.</p>
             
-            <p>Myönnetyn varhaiskasvatuspaikan voi hyväksyä / hylätä sähköisesti Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a>. Mikäli haette paikkaa palvelusetelipäiväkodista, olkaa yhteydessä kyseiseen päiväkotiin viimeistään hakemuksen jättämisen jälkeen.</p>
+            <p>Myönnetyn varhaiskasvatuspaikan voi hyväksyä / hylätä sähköisesti Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa ${frontPageLink(Language.fi)}. Mikäli haette paikkaa palvelusetelipäiväkodista, olkaa yhteydessä kyseiseen päiväkotiin viimeistään hakemuksen jättämisen jälkeen.</p>
             
             <p>Ilta- ja vuorohoitoa haettaessa, hakemuksen liitteeksi tulee toimittaa molempien samassa taloudessa asuvien huoltajien todistukset työnantajalta vuorotyöstä tai oppilaitoksesta iltaisin tapahtuvasta opiskelusta. Hakemusta käsitellään vuorohoidon hakemuksena vasta sen jälkeen, kun edellä mainitut todistukset on toimitettu. Tarvittavat liitteet voi lisätä suoraan sähköiselle hakemukselle tai toimittaa postitse osoitteeseen Tampereen kaupunki, Varhaiskasvatuksen asiakaspalvelu, PL 487, 33101 Tampere.</p> 
             
@@ -143,7 +159,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
 
             <p>lapsenne esiopetukseen ilmoittautuminen on vastaanotettu.</p>
 
-            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa <a href="https://varhaiskasvatus.tampere.fi">varhaiskasvatus.tampere.fi</a> siihen saakka, kunnes se on otettu käsittelyyn.</p> 
+            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa ${frontPageLink(Language.fi)} siihen saakka, kunnes se on otettu käsittelyyn.</p> 
 
             <p>Lisätietoa hakemuksen käsittelystä ja esiopetuspaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta:</p>
 
@@ -162,7 +178,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
     private fun getDecisionEmailHtml(): String = """
         <p>Hyvä(t) huoltaja(t),</p>
         <p>Lapsellenne on tehty päätös.</p>
-        <p>Päätös on nähtävissä eVakassa osoitteessa <a href="https://varhaiskasvatus.tampere.fi/">https://varhaiskasvatus.tampere.fi/</a>.</p>
+        <p>Päätös on nähtävissä eVakassa osoitteessa ${frontPageLink(Language.fi)}.</p>
     """.trimIndent()
 
     override fun missingReservationsNotification(language: Language, checkedRange: FiniteDateRange): EmailContent {
@@ -184,7 +200,6 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
     }
 
     override fun messageNotification(language: Language, thread: MessageThreadStub): EmailContent {
-        val messageUrl = "${baseUrl(language)}/messages/${thread.id}"
         val (typeFi, typeEn) =
             when (thread.type) {
                 MessageType.MESSAGE ->
@@ -204,12 +219,12 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             subject = "Uusi $typeFi eVakassa / New $typeEn in eVaka",
             html =
             """
-                <p>Sinulle on saapunut uusi $typeFi eVakaan. Lue viesti ${if (thread.urgent) "mahdollisimman pian " else ""}täältä: <a href="$messageUrl">$messageUrl</a></p>
+                <p>Sinulle on saapunut uusi $typeFi eVakaan. Lue viesti ${if (thread.urgent) "mahdollisimman pian " else ""}täältä: ${messageLink(Language.fi, thread.id)}</p>
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
 
                 <hr>
 
-                <p>You have received a new $typeEn in eVaka. Read the message ${if (thread.urgent) "as soon as possible " else ""}here: <a href="$messageUrl">$messageUrl</a></p>
+                <p>You have received a new $typeEn in eVaka. Read the message ${if (thread.urgent) "as soon as possible " else ""}here: ${messageLink(Language.en, thread.id)}</p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
         """
                 .trimIndent(),
@@ -217,17 +232,16 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
     }
 
     override fun vasuNotification(language: Language, childId: ChildId): EmailContent {
-        val documentsUrl = "${baseUrl(language)}/children/$childId"
         return EmailContent.fromHtml(
             subject = "Uusi dokumentti eVakassa / New document in eVaka",
             html =
             """
-                <p>Sinulle on saapunut uusi dokumentti eVakaan. Lue dokumentti täältä: <a href="$documentsUrl">$documentsUrl</a></p>
+                <p>Sinulle on saapunut uusi dokumentti eVakaan. Lue dokumentti täältä: ${childLink(Language.fi, childId)}</p>
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
 
                 <hr>
 
-                <p>You have received a new eVaka document. Read the document here: <a href="$documentsUrl">$documentsUrl</a></p>
+                <p>You have received a new eVaka document. Read the document here: ${childLink(Language.en, childId)}</p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
         """
                 .trimIndent(),
@@ -235,18 +249,17 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
     }
 
     override fun pedagogicalDocumentNotification(language: Language, childId: ChildId): EmailContent {
-        val documentsUrl = "${baseUrl(language)}/children/$childId"
         return EmailContent.fromHtml(
             subject =
             "Uusi pedagoginen dokumentti eVakassa / New pedagogical document in eVaka",
             html =
             """
-                <p>Sinulle on saapunut uusi pedagoginen dokumentti eVakaan. Lue dokumentti täältä: <a href="$documentsUrl">$documentsUrl</a></p>
+                <p>Sinulle on saapunut uusi pedagoginen dokumentti eVakaan. Lue dokumentti täältä: ${childLink(Language.fi, childId)}</p>
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
 
                 <hr>
 
-                <p>You have received a new eVaka pedagogical document. Read the document here: <a href="$documentsUrl">$documentsUrl</a></p>
+                <p>You have received a new eVaka pedagogical document. Read the document here: ${childLink(Language.en, childId)}</p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
         """
                 .trimIndent(),
@@ -258,14 +271,13 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
         language: Language,
     ): EmailContent {
         return when (notificationType) {
-            IncomeNotificationType.INITIAL_EMAIL -> outdatedIncomeNotificationInitial(language)
-            IncomeNotificationType.REMINDER_EMAIL -> outdatedIncomeNotificationReminder(language)
+            IncomeNotificationType.INITIAL_EMAIL -> outdatedIncomeNotificationInitial()
+            IncomeNotificationType.REMINDER_EMAIL -> outdatedIncomeNotificationReminder()
             IncomeNotificationType.EXPIRED_EMAIL -> outdatedIncomeNotificationExpired()
         }
     }
 
-    private fun outdatedIncomeNotificationInitial(language: Language): EmailContent {
-        val documentsUrl = "${baseUrl(language)}/income"
+    private fun outdatedIncomeNotificationInitial(): EmailContent {
         return EmailContent.fromHtml(
             subject =
             "Tulotietojen tarkastuskehotus / Request to review income information",
@@ -281,7 +293,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
                 
                 <p>Lisätietoja saatte tarvittaessa: <a href="https://www.tampere.fi/varhaiskasvatusasiakasmaksut">https://www.tampere.fi/varhaiskasvatusasiakasmaksut</a></p>
                 
-                <p>Tulotiedot: <a href="$documentsUrl">$documentsUrl</a></p>
+                <p>Tulotiedot: ${incomeLink(Language.fi)}</p>
                 
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 
@@ -297,7 +309,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
                 
                 <p>Inquiries: <a href="https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary">https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary</a></p>
                 
-                <p>Income information: <a href="$documentsUrl">$documentsUrl</a></p>
+                <p>Income information: ${incomeLink(Language.en)}</p>
                 
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
         """
@@ -305,8 +317,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
         )
     }
 
-    private fun outdatedIncomeNotificationReminder(language: Language): EmailContent {
-        val documentsUrl = "${baseUrl(language)}/income"
+    private fun outdatedIncomeNotificationReminder(): EmailContent {
         return EmailContent.fromHtml(
             subject =
             "Tulotietojen tarkastuskehotus / Request to review income information",
@@ -322,7 +333,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
                 
                 <p>Lisätietoja saatte tarvittaessa: <a href="https://www.tampere.fi/varhaiskasvatusasiakasmaksut">https://www.tampere.fi/varhaiskasvatusasiakasmaksut</a></p>
                 
-                <p>Tulotiedot: <a href="$documentsUrl">$documentsUrl</a></p>
+                <p>Tulotiedot: ${incomeLink(Language.fi)}</p>
                 
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 
@@ -338,7 +349,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
                 
                 <p>Inquiries: <a href="https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary">https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary</a></p>
                 
-                <p>Income information: <a href="$documentsUrl">$documentsUrl</a></p>
+                <p>Income information: ${incomeLink(Language.en)}</p>
                 
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
         """
@@ -398,7 +409,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
                 } +
                 """
                     
-                    <p>Katso lisää kalenterissa / See more in the calendar: ${baseUrl(language)}/calendar</p>
+                    <p>Katso lisää kalenterissa / See more in the calendar: ${calendarLink(language)}/calendar</p>
                     """
                     .trimIndent(),
         )
