@@ -75,7 +75,8 @@ const features: Features = {
       fosterParents: true,
       serviceWorkerMessaging: true,
       personDuplicate: true,
-      intermittentShiftCare: true
+      intermittentShiftCare: true,
+      citizenEmailNotificationSettings: true
     }
   },
   prod: {
@@ -104,7 +105,8 @@ const features: Features = {
       fosterParents: true,
       serviceWorkerMessaging: true,
       personDuplicate: true,
-      intermittentShiftCare: true
+      intermittentShiftCare: true,
+      citizenEmailNotificationSettings: true
     }
   }
 }
