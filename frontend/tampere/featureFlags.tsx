@@ -73,7 +73,8 @@ const features: Features = {
       staffAttendanceTypes: true,
       fosterParents: true,
       serviceWorkerMessaging: true,
-      personDuplicate: true
+      personDuplicate: true,
+      intermittentShiftCare: true
     }
   },
   prod: {
@@ -100,7 +101,8 @@ const features: Features = {
       staffAttendanceTypes: true,
       fosterParents: true,
       serviceWorkerMessaging: true,
-      personDuplicate: true
+      personDuplicate: true,
+      intermittentShiftCare: true
     }
   }
 }
