@@ -70,6 +70,7 @@ const features: Features = {
     experimental: {
       leops: true,
       assistanceNeedDecisions: true,
+      assistanceNeedPreschoolDecisions: true,
       staffAttendanceTypes: true,
       fosterParents: true,
       serviceWorkerMessaging: true,
@@ -98,6 +99,7 @@ const features: Features = {
     experimental: {
       leops: true,
       assistanceNeedDecisions: true,
+      assistanceNeedPreschoolDecisions: true,
       staffAttendanceTypes: true,
       fosterParents: true,
       serviceWorkerMessaging: true,
