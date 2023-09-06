@@ -8,17 +8,17 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 
 import React from 'react'
 
+import {
+  daycareAssistanceLevels,
+  otherAssistanceMeasureTypes,
+  preschoolAssistanceLevels
+} from 'lib-common/generated/api-types/assistance'
 import ExternalLink from 'lib-components/atoms/ExternalLink'
 import { H3, P } from 'lib-components/typography'
 import { EmployeeCustomizations } from 'lib-customizations/types'
 
 import TampereLogo from './city-logo.svg'
 import featureFlags from './featureFlags'
-import {
-  daycareAssistanceLevels,
-  otherAssistanceMeasureTypes,
-  preschoolAssistanceLevels
-} from 'lib-common/generated/api-types/assistance'
 
 const customizations: EmployeeCustomizations = {
   appConfig: {},
@@ -287,59 +287,79 @@ const customizations: EmployeeCustomizations = {
           validFromInfo: () => (
             <div>
               <p>
-                Valitse mistä asiasta päätös tehdään: erityisen tuen alkamisesta/jatkumisesta/päättymisestä.
+                Valitse mistä asiasta päätös tehdään: erityisen tuen
+                alkamisesta/jatkumisesta/päättymisestä.
               </p>
               <p>
-                Jos tuen voimassaolo alkaa ns. heti, kenttään laitetaan huoltajien kuulemisen päivämäärä.
+                Jos tuen voimassaolo alkaa ns. heti, kenttään laitetaan
+                huoltajien kuulemisen päivämäärä.
               </p>
               <p>
-                Jos taas päätös tehdään etukäteen, kenttään laitetaan esim. lukuvuoden alkamispäivä tai muu sovittu,
-                tulevaisuuden päivämäärä.
+                Jos taas päätös tehdään etukäteen, kenttään laitetaan esim.
+                lukuvuoden alkamispäivä tai muu sovittu, tulevaisuuden
+                päivämäärä.
               </p>
             </div>
           ),
           extendedCompulsoryEducationInfoInfo: () => (
             <div>
               <p>
-                Pidennetyn oppivelvollisuuden ja samalla kertaa tehtävän erityisen tuen ensikertaisen päätöksen perusteluina tulee olla psykologinen tai lääketieteellinen lausunto, josta tulisi käydä ilmi asiantuntijan näkemys vammaisuuden asteesta. Mikäli lapselle on jo aiemmin tehty päätös pidennetystä oppivelvollisuudesta, uutta lausuntoa ei tarvita.
+                Pidennetyn oppivelvollisuuden ja samalla kertaa tehtävän
+                erityisen tuen ensikertaisen päätöksen perusteluina tulee olla
+                psykologinen tai lääketieteellinen lausunto, josta tulisi käydä
+                ilmi asiantuntijan näkemys vammaisuuden asteesta. Mikäli
+                lapselle on jo aiemmin tehty päätös pidennetystä
+                oppivelvollisuudesta, uutta lausuntoa ei tarvita.
               </p>
               <p>
-                Jos lapselle on jo POV-suosituksessa suositeltu kahta esiopetusvuotta, kirjoita se tähän.
+                Jos lapselle on jo POV-suosituksessa suositeltu kahta
+                esiopetusvuotta, kirjoita se tähän.
               </p>
               <p>
-                Kirjoita tähän, koskeeko tämä päätös pidennetyn oppivelvollisuuden ensimmäistä vai toista esiopetusvuotta.
+                Kirjoita tähän, koskeeko tämä päätös pidennetyn
+                oppivelvollisuuden ensimmäistä vai toista esiopetusvuotta.
               </p>
             </div>
           ),
-          grantedAssistanceSectionInfo: () => 'Valitse lapsen tarvitsemat palvelut tai apuvälineet. Apuvälineet, joista lapsella on jo päätös muualta, eivät sisälly tähän päätökseen.',
-          primaryGroupInfo: () => 'Kirjoita tähän, millaisessa ryhmässä lapsi saa esiopetusta (esim. integroitu varhaiskasvatusryhmä, esiopetusryhmä, integroitu esiopetusryhmä, esiopetuksen erityisryhmä). Ryhmän nimeä ei kirjoiteta tähän.',
-          decisionBasisInfo: () => 'Perustele, miksi lapsi tarvitsee mainittua tukea ja tukimuotoja.',
-          documentBasisInfo: () => 'Valitse, mitä asiakirjoja on tehty ennen tätä päätöstä.',
+          grantedAssistanceSectionInfo: () =>
+            'Valitse lapsen tarvitsemat palvelut tai apuvälineet. Apuvälineet, joista lapsella on jo päätös muualta, eivät sisälly tähän päätökseen.',
+          primaryGroupInfo: () =>
+            'Kirjoita tähän, millaisessa ryhmässä lapsi saa esiopetusta (esim. integroitu varhaiskasvatusryhmä, esiopetusryhmä, integroitu esiopetusryhmä, esiopetuksen erityisryhmä). Ryhmän nimeä ei kirjoiteta tähän.',
+          decisionBasisInfo: () =>
+            'Perustele, miksi lapsi tarvitsee mainittua tukea ja tukimuotoja.',
+          documentBasisInfo: () =>
+            'Valitse, mitä asiakirjoja on tehty ennen tätä päätöstä.',
           heardGuardiansInfo: () => (
             <div>
               <p>
-                Kirjaa tähän millä keinoin huoltajaa on kuultu (esim. palaveri, etäyhteys, huoltajan kirjallinen vastine).
-                Jos huoltajaa ei ole kuultu, kirjaa tähän selvitys siitä, miten ja milloin hänet on kutsuttu kuultavaksi,
-                ja miten ja milloin lapsen varhaiskasvatussuunnitelma on annettu huoltajalle tiedoksi.
+                Kirjaa tähän millä keinoin huoltajaa on kuultu (esim. palaveri,
+                etäyhteys, huoltajan kirjallinen vastine). Jos huoltajaa ei ole
+                kuultu, kirjaa tähän selvitys siitä, miten ja milloin hänet on
+                kutsuttu kuultavaksi, ja miten ja milloin lapsen
+                varhaiskasvatussuunnitelma on annettu huoltajalle tiedoksi.
               </p>
 
               <p>
-                Kaikilla lapsen huoltajilla tulee olla mahdollisuus tulla kuulluksi.
-                Huoltaja voi tarvittaessa valtuuttaa toisen huoltajan edustamaan itseään valtakirjalla
+                Kaikilla lapsen huoltajilla tulee olla mahdollisuus tulla
+                kuulluksi. Huoltaja voi tarvittaessa valtuuttaa toisen huoltajan
+                edustamaan itseään valtakirjalla
               </p>
             </div>
           ),
-          viewOfGuardiansInfo: () => 'Kirjaa tähän huoltajien näkemys lapselle esitetystä tuesta.',
+          viewOfGuardiansInfo: () =>
+            'Kirjaa tähän huoltajien näkemys lapselle esitetystä tuesta.',
           appealInstructions: (
             <>
               <P>
-                Tähän päätökseen tyytymätön voi tehdä kirjallisen oikaisuvaatimuksen.
+                Tähän päätökseen tyytymätön voi tehdä kirjallisen
+                oikaisuvaatimuksen.
               </P>
               <H3>Oikaisuvaatimusoikeus</H3>
               <P>
-                Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai jonka oikeuteen,
-                velvollisuuteen tai etuun päätös välittömästi vaikuttaa (asianosainen). Alle 15-vuotiaan lapsen
-                päätökseen oikaisua voi hakea lapsen huoltaja tai muu laillinen edustaja.
+                Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
+                jonka oikeuteen, velvollisuuteen tai etuun päätös välittömästi
+                vaikuttaa (asianosainen). Alle 15-vuotiaan lapsen päätökseen
+                oikaisua voi hakea lapsen huoltaja tai muu laillinen edustaja.
               </P>
               <H3>Oikaisuviranomainen</H3>
               <P>
@@ -364,16 +384,19 @@ const customizations: EmployeeCustomizations = {
               </P>
               <H3>Oikaisuvaatimusaika</H3>
               <P>
-                Oikaisuvaatimus on tehtävä 14 päivän kuluessa päätöksen tiedoksisaannista.
+                Oikaisuvaatimus on tehtävä 14 päivän kuluessa päätöksen
+                tiedoksisaannista.
               </P>
               <H3>Tiedoksisaanti</H3>
               <P>
-                Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta näytetä, 7 päivän kuluttua
-                kirjeen lähettämisestä, 3 päivän kuluttua sähköpostin lähettämisestä, saantitodistuksen
-                osoittamana aikana tai erilliseen tiedoksisaantitodistukseen merkittynä aikana.
-                Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan viimeinen päivä on pyhäpäivä,
-                itsenäisyyspäivä, vapunpäivä, joulu- tai juhannusaatto tai arkilauantai, saa tehtävän toimittaa
-                ensimmäisenä arkipäivänä sen jälkeen.
+                Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
+                näytetä, 7 päivän kuluttua kirjeen lähettämisestä, 3 päivän
+                kuluttua sähköpostin lähettämisestä, saantitodistuksen
+                osoittamana aikana tai erilliseen tiedoksisaantitodistukseen
+                merkittynä aikana. Tiedoksisaantipäivää ei lueta määräaikaan.
+                Jos määräajan viimeinen päivä on pyhäpäivä, itsenäisyyspäivä,
+                vapunpäivä, joulu- tai juhannusaatto tai arkilauantai, saa
+                tehtävän toimittaa ensimmäisenä arkipäivänä sen jälkeen.
               </P>
               <H3>Oikaisuvaatimus</H3>
               <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
@@ -406,8 +429,9 @@ const customizations: EmployeeCustomizations = {
                 </li>
               </ul>
               <P>
-                Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten oikeudenkäynnistä hallintoasioissa
-                annetun lain (808/2019) 32 §:ssä säädetään
+                Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten
+                oikeudenkäynnistä hallintoasioissa annetun lain (808/2019) 32
+                §:ssä säädetään
               </P>
               <H3>Oikaisuvaatimuksen toimittaminen</H3>
               <P>
@@ -419,8 +443,10 @@ const customizations: EmployeeCustomizations = {
               </P>
             </>
           ),
-          jurisdictionText: 'Kasvatus- ja opetuslautakunnan päätös 20.6.2023 § 11 (Kasvatus- ja opetuslautakunnan toimivallan siirto viranhaltijoille), jonka 4 §:n mukaan varhaiskasvatuksen palvelupäällikkö päättää esiopetuksessa annettavasta tuesta ja tukipalveluista.',
-          lawReference: 'Laki viranomaisen toiminnan julkisuudesta 24 § 1 mom. 30 kohta'
+          jurisdictionText:
+            'Kasvatus- ja opetuslautakunnan päätös 20.6.2023 § 11 (Kasvatus- ja opetuslautakunnan toimivallan siirto viranhaltijoille), jonka 4 §:n mukaan varhaiskasvatuksen palvelupäällikkö päättää esiopetuksessa annettavasta tuesta ja tukipalveluista.',
+          lawReference:
+            'Laki viranomaisen toiminnan julkisuudesta 24 § 1 mom. 30 kohta'
         },
         assistanceAction: {
           title: 'Tukitoimet ja tukipalvelut',

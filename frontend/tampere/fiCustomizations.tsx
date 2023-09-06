@@ -599,26 +599,28 @@ const fi: DeepPartial<Translations> = {
         ),
         jurisdictionText:
           'Delegointipäätös pohjautuu Sivistys- ja kulttuurilautakunnan toimivallan siirtämiseen viranhaltijoille 14.6.2022 § 116: Varhaiskasvatuksen palvelupäällikkö päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista yksityisessä varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku) ja päiväkodin johtaja päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista kunnallisessa varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku)'
-      },
+      }
     },
     assistancePreschoolDecisions: {
       appealInstructions: (
         <>
           <P>
-            Tähän päätökseen tyytymätön voi tehdä kirjallisen oikaisuvaatimuksen.
+            Tähän päätökseen tyytymätön voi tehdä kirjallisen
+            oikaisuvaatimuksen.
           </P>
 
           <H3>Oikaisuvaatimusoikeus</H3>
           <P>
-            Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai jonka oikeuteen,
-            velvollisuuteen tai etuun päätös välittömästi vaikuttaa (asianosainen). Alle 15-vuotiaan lapsen
-            päätökseen oikaisua voi hakea lapsen huoltaja tai muu laillinen edustaja.
+            Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
+            jonka oikeuteen, velvollisuuteen tai etuun päätös välittömästi
+            vaikuttaa (asianosainen). Alle 15-vuotiaan lapsen päätökseen
+            oikaisua voi hakea lapsen huoltaja tai muu laillinen edustaja.
           </P>
 
           <H3>Oikaisuviranomainen</H3>
           <P>
-            Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle
-            (Vaasan päätoimipaikka).
+            Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle (Vaasan
+            päätoimipaikka).
           </P>
           <P>
             Länsi- ja Sisä-Suomen aluehallintovirasto
@@ -638,16 +640,19 @@ const fi: DeepPartial<Translations> = {
           </P>
           <H3>Oikaisuvaatimusaika</H3>
           <P>
-            Oikaisuvaatimus on tehtävä 14 päivän kuluessa päätöksen tiedoksisaannista.
+            Oikaisuvaatimus on tehtävä 14 päivän kuluessa päätöksen
+            tiedoksisaannista.
           </P>
           <H3>Tiedoksisaanti</H3>
           <P>
-            Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta näytetä, 7 päivän kuluttua 
-            kirjeen lähettämisestä, 3 päivän kuluttua sähköpostin lähettämisestä, saantitodistuksen 
-            osoittamana aikana tai erilliseen tiedoksisaantitodistukseen merkittynä aikana. 
-            Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan viimeinen päivä on pyhäpäivä, 
-            itsenäisyyspäivä, vapunpäivä, joulu- tai juhannusaatto tai arkilauantai, saa tehtävän toimittaa 
-            ensimmäisenä arkipäivänä sen jälkeen.
+            Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
+            näytetä, 7 päivän kuluttua kirjeen lähettämisestä, 3 päivän kuluttua
+            sähköpostin lähettämisestä, saantitodistuksen osoittamana aikana tai
+            erilliseen tiedoksisaantitodistukseen merkittynä aikana.
+            Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan viimeinen
+            päivä on pyhäpäivä, itsenäisyyspäivä, vapunpäivä, joulu- tai
+            juhannusaatto tai arkilauantai, saa tehtävän toimittaa ensimmäisenä
+            arkipäivänä sen jälkeen.
           </P>
 
           <H3>Oikaisuvaatimus</H3>
@@ -668,12 +673,11 @@ const fi: DeepPartial<Translations> = {
           <P noMargin>Oikaisuvaatimukseen on liitettävä</P>
           <ul>
             <li>
-              päätös, johon haetaan oikaisua, alkuperäisenä tai
-              jäljennöksenä
+              päätös, johon haetaan oikaisua, alkuperäisenä tai jäljennöksenä
             </li>
             <li>
-              todistus siitä, minä päivänä päätös on annettu tiedoksi, tai
-              muu selvitys oikaisuvaatimusajan alkamisen ajankohdasta
+              todistus siitä, minä päivänä päätös on annettu tiedoksi, tai muu
+              selvitys oikaisuvaatimusajan alkamisen ajankohdasta
             </li>
             <li>
               asiakirjat, joihin oikaisuvaatimuksen tekijä vetoaa
@@ -683,21 +687,24 @@ const fi: DeepPartial<Translations> = {
           </ul>
 
           <P>
-            Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten oikeudenkäynnistä hallintoasioissa
-            annetun lain (808/2019) 32 §:ssä säädetään
+            Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten
+            oikeudenkäynnistä hallintoasioissa annetun lain (808/2019) 32 §:ssä
+            säädetään
           </P>
           <H3>Oikaisuvaatimuksen toimittaminen</H3>
           <P>
-            Oikaisuvaatimuskirjelmä on toimitettava oikaisuvaatimusajan
-            kuluessa oikaisuvaatimusviranomaiselle. Oikaisuvaatimuskirjelmän
-            tulee olla perillä oikaisuvaatimusajan viimeisenä päivänä ennen
-            viraston aukiolon päättymistä. Oikaisuvaatimuksen lähettäminen
-            postitse tai sähköisesti tapahtuu lähettäjän omalla vastuulla.
+            Oikaisuvaatimuskirjelmä on toimitettava oikaisuvaatimusajan kuluessa
+            oikaisuvaatimusviranomaiselle. Oikaisuvaatimuskirjelmän tulee olla
+            perillä oikaisuvaatimusajan viimeisenä päivänä ennen viraston
+            aukiolon päättymistä. Oikaisuvaatimuksen lähettäminen postitse tai
+            sähköisesti tapahtuu lähettäjän omalla vastuulla.
           </P>
         </>
       ),
-      jurisdictionText: 'Kasvatus- ja opetuslautakunnan päätös 20.6.2023 § 11 (Kasvatus- ja opetuslautakunnan toimivallan siirto viranhaltijoille), jonka 4 §:n mukaan varhaiskasvatuksen palvelupäällikkö päättää esiopetuksessa annettavasta tuesta ja tukipalveluista.',
-      lawReference: 'Laki viranomaisen toiminnan julkisuudesta 24 § 1 mom. 30 kohta'
+      jurisdictionText:
+        'Kasvatus- ja opetuslautakunnan päätös 20.6.2023 § 11 (Kasvatus- ja opetuslautakunnan toimivallan siirto viranhaltijoille), jonka 4 §:n mukaan varhaiskasvatuksen palvelupäällikkö päättää esiopetuksessa annettavasta tuesta ja tukipalveluista.',
+      lawReference:
+        'Laki viranomaisen toiminnan julkisuudesta 24 § 1 mom. 30 kohta'
     }
   },
   placement: {
