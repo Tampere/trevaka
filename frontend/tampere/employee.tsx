@@ -569,7 +569,9 @@ const customizations: EmployeeCustomizations = {
   daycareAssistanceLevels: daycareAssistanceLevels.filter(
     (level) => level !== 'GENERAL_SUPPORT'
   ),
-  otherAssistanceMeasureTypes: [...otherAssistanceMeasureTypes],
+  otherAssistanceMeasureTypes: otherAssistanceMeasureTypes.filter(
+    (level) => level !== 'ANOMALOUS_EDUCATION_START'
+  ),
   placementTypes: [
     'DAYCARE',
     'DAYCARE_PART_TIME',
