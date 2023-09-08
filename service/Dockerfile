@@ -3,6 +3,26 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
+FROM eclipse-temurin:17-jammy AS builder
+WORKDIR /evaka
+COPY --from=core ./service/gradle/ ./service/gradle/
+COPY --from=core ./service/build.gradle.kts ./service/gradle.properties ./service/settings.gradle.kts ./service/
+COPY --from=core ./service/vtjclient/build.gradle.kts ./service/vtjclient/build.gradle.kts
+COPY --from=core ./service/service-lib/*.kts ./service/service-lib/
+COPY --from=core ./service/evaka-bom/*.kts ./service/evaka-bom/
+COPY --from=core ./service/sficlient/*.kts ./service/sficlient/
+WORKDIR /service
+COPY ./gradle/ ./gradle/
+COPY ./gradlew ./build.gradle.kts ./gradle.properties ./settings.gradle.kts ./settings-dependabot-ignore.gradle.kts ./
+RUN ./gradlew --no-daemon resolveDependencies
+COPY --from=core ./service/sficlient/ ../evaka/service/sficlient/
+COPY --from=core ./service/vtjclient/ ../evaka/service/vtjclient/
+RUN ./gradlew --no-daemon :service:sficlient:wsdl2java :service:vtjclient:wsdl2java
+COPY --from=core . ../evaka
+COPY . ./
+RUN ./gradlew --offline --no-daemon assemble \
+    && java -Djarmode=layertools -jar build/libs/trevaka-service.jar extract --destination build/extracted
+
 FROM eclipse-temurin:17-jre-jammy
 
 LABEL maintainer="https://github.com/tampere/trevaka"
@@ -54,10 +74,10 @@ USER evaka
 WORKDIR /home/evaka
 
 COPY --chown=evaka:evaka "entrypoint.sh" "entrypoint.sh"
-COPY --chown=evaka:evaka "target/dependencies/" "./"
-COPY --chown=evaka:evaka "target/spring-boot-loader/" "./"
-COPY --chown=evaka:evaka "target/snapshot-dependencies/" "./"
-COPY --chown=evaka:evaka "target/application/" "./"
+COPY --from=builder --chown=evaka:evaka /service/build/extracted/dependencies/ ./
+COPY --from=builder --chown=evaka:evaka /service/build/extracted/spring-boot-loader/ ./
+COPY --from=builder --chown=evaka:evaka /service/build/extracted/snapshot-dependencies/ ./
+COPY --from=builder --chown=evaka:evaka /service/build/extracted/application/ ./
 
 # Add build and commit environment variables and labels
 # for tracing the image to the commit and build from which the image has been built.

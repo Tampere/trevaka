@@ -21,19 +21,10 @@ aliases:
   - &base_image cimg/base:current-22.04
   - &aws_image cimg/aws:2023.08
   - &reuse_image fsfe/reuse:1.1.2 # NOTE: Update bin/add-license-headers.sh to match
-  - &openjdk_image cimg/openjdk:17.0
-  - &postgres_image cimg/postgres:14.6
-  - &s3mock_image adobe/s3mock:3.1.0
   - &ubuntu_machine_image ubuntu-2204:2023.07.2
 
   - &default_config
     working_directory: *workspace_root
-
-  - &jvm_config
-    <<: *default_config
-    environment:
-      GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-XX:MaxRAMPercentage=80"'
-      JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=80"
 
 executors:
   base_executor:
@@ -48,17 +39,7 @@ executors:
     <<: *default_config
     docker:
       - image: *reuse_image
-  service_build_executor:
-    <<: *jvm_config
-    docker:
-      - image: *openjdk_image
-      - image: *postgres_image
-        environment:
-          POSTGRES_USER: evaka_it
-          POSTGRES_PASSWORD: evaka_it
-          POSTGRES_DB: evaka_it
-      - image: *s3mock_image
-  e2e_executor:
+  machine_executor:
     <<: *default_config
     machine:
       image: *ubuntu_machine_image
@@ -67,61 +48,6 @@ executors:
       BUILDKIT_PROGRESS: plain
 
 commands:
-  # Caching commands
-
-  store_service_gradle_wrapper:
-    steps:
-      - save_cache:
-          name: Store gradle wrapper
-          key: gradle-wrapper-service-v1-{{ checksum "service/gradle/wrapper/gradle-wrapper.properties" }}
-          paths:
-            - ~/.gradle/wrapper
-            - ~/.gradle/notifications
-  restore_service_gradle_wrapper:
-    steps:
-      - restore_cache:
-          name: Restore gradle wrapper
-          keys:
-            - gradle-wrapper-service-v1-{{ checksum "service/gradle/wrapper/gradle-wrapper.properties" }}
-
-  store_service_gradle_dependencies:
-    steps:
-      - save_cache:
-          name: Store gradle dependencies
-          key: gradle-dependencies-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "evaka/service/gradle/libs.versions.toml" }}-{{ checksum "evaka/service/evaka-bom/build.gradle.kts" }}
-          paths:
-            - ~/.gradle/caches/jars-9
-            - ~/.gradle/caches/journal-1
-            - ~/.gradle/caches/modules-2
-            - ~/.gradle/caches/transforms-3
-  restore_service_gradle_dependencies:
-    steps:
-      - restore_cache:
-          name: Restore gradle dependencies
-          keys:
-            - gradle-dependencies-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "evaka/service/gradle/libs.versions.toml" }}-{{ checksum "evaka/service/evaka-bom/build.gradle.kts" }}
-            - gradle-dependencies-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "evaka/service/gradle/libs.versions.toml" }}-
-            - gradle-dependencies-service-v1-{{ checksum "service/build.gradle.kts" }}-
-            - gradle-dependencies-service-v1-
-
-  store_service_gradle_build_cache:
-    steps:
-      - save_cache:
-          name: Store gradle build cache
-          key: gradle-build-cache-service-v1-{{ .Branch }}-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}
-          paths:
-            - ~/.gradle/caches/8.2.1
-            - ~/.gradle/caches/build-cache-1
-  restore_service_gradle_build_cache:
-    steps:
-      - restore_cache:
-          name: Restore gradle build cache
-          keys:
-            - gradle-build-cache-service-v1-{{ .Branch }}-{{ .Environment.CIRCLE_WORKFLOW_WORKSPACE_ID }}
-            - gradle-build-cache-service-v1-{{ .Branch }}-
-            - gradle-build-cache-service-v1-main-
-            - gradle-build-cache-service-v1-
-
   # Misc commands
 
   checkout_with_submodules:
@@ -220,6 +146,9 @@ commands:
       contexts:
         type: string
         default: ""
+      extra_build_args:
+        type: string
+        default: ""
     steps:
       - run:
           name: Build docker image
@@ -237,6 +166,7 @@ commands:
               --build-arg "commit=${CIRCLE_SHA1}" \
               $BUILD_ARGS \
               $CONTEXT_ARGS \
+              << parameters.extra_build_args >> \
               --push \
               .
 
@@ -300,32 +230,52 @@ jobs:
           build_args: EVAKA_CUSTOMIZATIONS=tampere,ICONS=pro
 
   service_build_image:
-    executor: service_build_executor
+    executor: aws_executor
     resource_class: large
     steps:
       - checkout_with_submodules
-      - restore_service_gradle_wrapper
-      - restore_service_gradle_dependencies
-      - restore_service_gradle_build_cache
-      - run:
-          name: gradle build
-          working_directory: *workspace_service
-          command: |
-            ./gradlew --build-cache build
-            java -Djarmode=layertools -jar build/libs/trevaka-service.jar extract --destination target
-      - store_service_gradle_build_cache
-      - store_service_gradle_dependencies
-      - store_service_gradle_wrapper
-      - store_test_results:
-          path: /home/circleci/repo/service/build/test-results/
-      - store_artifacts:
-          path: /home/circleci/repo/service/build/reports/
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - setup_aws
       - build_docker_image:
+          image: trevaka/service-builder
+          dir: *workspace_service
+          extra_build_args: --build-context core=../evaka --target builder
+      - build_docker_image:
           image: trevaka/service
           dir: *workspace_service
+          extra_build_args: --build-context core=../evaka
+
+  service_test:
+    executor: machine_executor
+    resource_class: large
+    steps:
+      - checkout_with_submodules
+      - setup_aws
+      - run:
+          name: Start up compose stack
+          command: docker-compose -f compose/docker-compose-dbs.yml up -d --build
+      - run:
+          name: Run tests
+          command: |
+            mkdir -p /tmp/service/build/{test-results,reports}
+            docker run --rm --network=host \
+              --mount type=bind,source="/tmp/service/build/test-results",destination=/service/build/test-results \
+              --mount type=bind,source="/tmp/service/build/reports",destination=/service/build/reports \
+              ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service-builder:${CIRCLE_SHA1} \
+              ./gradlew --no-daemon check
+      - run:
+          name: Collect docker-compose logs
+          command: docker-compose -f compose/docker-compose-dbs.yml logs --tail=all > /tmp/docker-compose-logs.txt
+          when: always
+      - store_artifacts:
+          path: /tmp/docker-compose-logs.txt
+          destination: docker-compose-logs.txt
+      - store_test_results:
+          path: /tmp/service/build/test-results
+      - store_artifacts:
+          path: /tmp/service/build/reports
+          destination: build/reports
 
   auth_build_image:
     executor: aws_executor
@@ -375,7 +325,7 @@ jobs:
               --data '{"branch":"main","parameters":{"workflow":"deploy_pipeline","version":"'$CIRCLE_SHA1'"}}'
 
   e2e_test:
-    executor: e2e_executor
+    executor: machine_executor
     resource_class: large
     steps:
       - checkout_with_submodules
@@ -461,6 +411,11 @@ workflows:
       - service_build_image:
           context:
             - trevaka-aws
+      - service_test:
+          context:
+            - trevaka-aws
+          requires:
+            - service_build_image
 
       - auth_build_image:
           context:
@@ -481,6 +436,7 @@ workflows:
             - auth_build_image
             - scheduled_tasks_reporting_build_image
             - scheduled_tasks_logs_build_image
+            - service_test
             - e2e_test
           filters:
             branches:
