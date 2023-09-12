@@ -19,7 +19,6 @@ type Features = {
 const features: Features = {
   default: {
     citizenShiftCareAbsence: false,
-    citizenContractDayAbsence: true,
     daycareApplication: {
       dailyTimes: false
     },
@@ -50,7 +49,6 @@ const features: Features = {
   },
   staging: {
     citizenShiftCareAbsence: false,
-    citizenContractDayAbsence: true,
     daycareApplication: {
       dailyTimes: false
     },
@@ -74,12 +72,12 @@ const features: Features = {
       fosterParents: true,
       serviceWorkerMessaging: true,
       personDuplicate: true,
-      intermittentShiftCare: true
+      intermittentShiftCare: true,
+      citizenAttendanceSummary: true
     }
   },
   prod: {
     citizenShiftCareAbsence: false,
-    citizenContractDayAbsence: true,
     daycareApplication: {
       dailyTimes: false
     },
@@ -103,7 +101,8 @@ const features: Features = {
       fosterParents: true,
       serviceWorkerMessaging: true,
       personDuplicate: true,
-      intermittentShiftCare: true
+      intermittentShiftCare: true,
+      citizenAttendanceSummary: true
     }
   }
 }
