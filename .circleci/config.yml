@@ -323,7 +323,6 @@ jobs:
           path: /home/circleci/repo/service/build/reports/
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
-      - aws-cli/install
       - setup_aws
       - build_docker_image:
           image: trevaka/service
