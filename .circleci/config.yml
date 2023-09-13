@@ -134,11 +134,6 @@ commands:
     description: Log in to Docker Hub for authenticated pulls
     steps:
       - run: echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-  login_ecr:
-    steps:
-      - run:
-          name: Log into Amazon ECR
-          command: aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 518207624130.dkr.ecr.eu-west-1.amazonaws.com
 
   setup_authenticated_remote_docker:
     description: Setup remote Docker execution environment with Docker Hub authentication
@@ -151,6 +146,16 @@ commands:
           version: *remote_docker_version
           docker_layer_caching: << parameters.docker_layer_caching >>
       #- login_docker_hub
+
+  setup_aws:
+    steps:
+      - aws-cli/setup:
+          configure_default_region: false
+          configure_profile_region: false
+          role_arn: "arn:aws:iam::${AWS_ACCOUNT_ID}:role/${AWS_ROLE_NAME_CIRCLECI_UPLOAD}"
+      - run:
+          name: Log into Amazon ECR
+          command: aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
 
   frontend_install:
     parameters:
@@ -216,7 +221,6 @@ commands:
         type: string
         default: ""
     steps:
-      - login_ecr
       - run:
           name: Build docker image
           working_directory: << parameters.dir >>
@@ -228,7 +232,7 @@ commands:
               CONTEXT_ARGS="$CONTEXT_ARGS --build-context=$context"
             done
             docker buildx build --progress=plain \
-              -t 518207624130.dkr.ecr.eu-west-1.amazonaws.com/<< parameters.image >>:${CIRCLE_SHA1} \
+              -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/<< parameters.image >>:${CIRCLE_SHA1} \
               --build-arg "build=${CIRCLE_BUILD_NUM}" \
               --build-arg "commit=${CIRCLE_SHA1}" \
               $BUILD_ARGS \
@@ -264,6 +268,7 @@ jobs:
       - checkout_with_submodules
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
+      - setup_aws
       - build_docker_image:
           image: trevaka/api-gateway
           dir: *workspace_apigw
@@ -273,6 +278,7 @@ jobs:
     resource_class: medium+
     steps:
       - checkout_with_submodules
+      - setup_aws
       - run:
           name: Fetch commercial frontend dependencies
           working_directory: *workspace_evaka_frontend
@@ -318,6 +324,7 @@ jobs:
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - aws-cli/install
+      - setup_aws
       - build_docker_image:
           image: trevaka/service
           dir: *workspace_service
@@ -329,6 +336,7 @@ jobs:
       - checkout_with_submodules
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
+      - setup_aws
       - build_docker_image:
           image: trevaka/auth
           dir: *workspace_auth
@@ -341,6 +349,7 @@ jobs:
       - checkout
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
+      - setup_aws
       - build_docker_image:
           image: trevaka/scheduled-task/reporting
           dir: scheduled-tasks/reporting
@@ -352,6 +361,7 @@ jobs:
       - checkout
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
+      - setup_aws
       - build_docker_image:
           image: trevaka/scheduled-task/logs
           dir: scheduled-tasks/logs
@@ -374,15 +384,15 @@ jobs:
     resource_class: large
     steps:
       - checkout_with_submodules
-      - login_ecr
+      - setup_aws
       - run:
           name: Start up compose stack
           working_directory: *workspace_compose
           command: |
             CI=true LOCAL_DIR='../evaka/frontend' \
-            EVAKA_FRONTEND_IMAGE=518207624130.dkr.ecr.eu-west-1.amazonaws.com/trevaka/frontend:${CIRCLE_SHA1} \
-            EVAKA_GW_IMAGE=518207624130.dkr.ecr.eu-west-1.amazonaws.com/trevaka/api-gateway:${CIRCLE_SHA1} \
-            EVAKA_SRV_IMAGE=518207624130.dkr.ecr.eu-west-1.amazonaws.com/trevaka/service:${CIRCLE_SHA1} \
+            EVAKA_FRONTEND_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend:${CIRCLE_SHA1} \
+            EVAKA_GW_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/api-gateway:${CIRCLE_SHA1} \
+            EVAKA_SRV_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service:${CIRCLE_SHA1} \
             docker-compose -f docker-compose.yml -f docker-compose-dbs.yml -f docker-compose.e2e.yml up -d --build
       - frontend_install:
           include_e2e: true
@@ -439,11 +449,11 @@ workflows:
 
       - apigw_build_image:
           context:
-            - trevaka-utility
+            - trevaka-aws
 
       - e2e_test:
           context:
-            - trevaka-utility
+            - trevaka-aws
           requires:
             - frontend_build_image
             - apigw_build_image
@@ -451,22 +461,22 @@ workflows:
 
       - frontend_build_image:
           context:
-            - trevaka-utility
+            - trevaka-aws
 
       - service_build_image:
           context:
-            - trevaka-utility
+            - trevaka-aws
 
       - auth_build_image:
           context:
-            - trevaka-utility
+            - trevaka-aws
 
       - scheduled_tasks_reporting_build_image:
           context:
-            - trevaka-utility
+            - trevaka-aws
       - scheduled_tasks_logs_build_image:
           context:
-            - trevaka-utility
+            - trevaka-aws
 
       - trigger_deploy:
           context:
