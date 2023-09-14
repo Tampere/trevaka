@@ -244,6 +244,22 @@ $unsubscribeEn
         )
     }
 
+    override fun childDocumentNotification(language: Language, childId: ChildId): EmailContent {
+        return EmailContent.fromHtml(
+            subject = "Uusi dokumentti eVakassa / New document in eVaka",
+            html =
+            """
+<p>Sinulle on saapunut uusi dokumentti eVakaan. Lue dokumentti täältä: ${childLink(Language.fi, childId)}</p>
+<p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+$unsubscribeFi
+<hr>
+<p>You have received a new eVaka document. Read the document here: ${childLink(Language.en, childId)}</p>
+<p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+$unsubscribeEn
+""",
+        )
+    }
+
     override fun vasuNotification(language: Language, childId: ChildId): EmailContent {
         return EmailContent.fromHtml(
             subject = "Uusi dokumentti eVakassa / New document in eVaka",
