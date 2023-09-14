@@ -34,6 +34,7 @@ const features: Features = {
     financeDecisionHandlerSelect: true,
     childDiscussion: false,
     feeDecisionPreschoolClubFilter: true,
+    placementGuarantee: true,
     experimental: {
       leops: true,
       assistanceNeedDecisions: true,
@@ -64,6 +65,7 @@ const features: Features = {
     financeDecisionHandlerSelect: true,
     childDiscussion: false,
     feeDecisionPreschoolClubFilter: true,
+    placementGuarantee: false,
     experimental: {
       leops: true,
       assistanceNeedDecisions: true,
@@ -93,6 +95,7 @@ const features: Features = {
     financeDecisionHandlerSelect: true,
     childDiscussion: false,
     feeDecisionPreschoolClubFilter: true,
+    placementGuarantee: false,
     experimental: {
       leops: true,
       assistanceNeedDecisions: true,
