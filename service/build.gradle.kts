@@ -23,7 +23,10 @@ dependencies {
     xjcTool("com.sun.xml.bind:jaxb-xjc:3.0.2")
     xjcTool("com.sun.xml.bind:jaxb-impl:3.0.2")
 
-    implementation(":evaka-service")
+    implementation(platform("evaka:evaka-bom"))
+    testImplementation(platform("evaka:evaka-bom"))
+
+    implementation("evaka:evaka-service")
 
     implementation("ch.qos.logback:logback-access")
     implementation("io.github.microutils:kotlin-logging-jvm")
