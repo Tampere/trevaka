@@ -88,7 +88,7 @@ commands:
     steps:
       - save_cache:
           name: Store gradle dependencies
-          key: gradle-dependencies-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "evaka/service/gradle/libs.versions.toml" }}-{{ checksum "evaka/evaka-bom/build.gradle.kts" }}
+          key: gradle-dependencies-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "evaka/service/gradle/libs.versions.toml" }}-{{ checksum "evaka/service/evaka-bom/build.gradle.kts" }}
           paths:
             - ~/.gradle/caches/jars-9
             - ~/.gradle/caches/journal-1
@@ -99,7 +99,7 @@ commands:
       - restore_cache:
           name: Restore gradle dependencies
           keys:
-            - gradle-dependencies-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "evaka/service/gradle/libs.versions.toml" }}-{{ checksum "evaka/evaka-bom/build.gradle.kts" }}
+            - gradle-dependencies-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "evaka/service/gradle/libs.versions.toml" }}-{{ checksum "evaka/service/evaka-bom/build.gradle.kts" }}
             - gradle-dependencies-service-v1-{{ checksum "service/build.gradle.kts" }}-{{ checksum "evaka/service/gradle/libs.versions.toml" }}-
             - gradle-dependencies-service-v1-{{ checksum "service/build.gradle.kts" }}-
             - gradle-dependencies-service-v1-
