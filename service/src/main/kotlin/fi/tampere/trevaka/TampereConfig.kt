@@ -41,6 +41,7 @@ class TampereConfig {
         enabledChildConsentTypes = emptySet(),
         curriculumDocumentPermissionToShareRequired = false,
         assistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
+        preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
         requestedStartUpperLimit = 14,
         partialAbsenceThresholdsEnabled = false,
         postOffice = "TAMPERE",
