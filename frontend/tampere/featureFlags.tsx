@@ -45,7 +45,8 @@ const features: Features = {
       personDuplicate: true,
       childDocuments: true,
       intermittentShiftCare: true,
-      citizenAttendanceSummary: true
+      citizenAttendanceSummary: true,
+      feeDecisionIgnoredStatus: true
     }
   },
   staging: {
