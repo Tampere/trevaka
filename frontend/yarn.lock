@@ -797,6 +797,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@playwright/test@npm:^1.38.0":
+  version: 1.38.0
+  resolution: "@playwright/test@npm:1.38.0"
+  dependencies:
+    playwright: 1.38.0
+  bin:
+    playwright: cli.js
+  checksum: 0768b6b98f0993d9d8017e4bcca3a5c3fe1bf0270acaa89b141479c4319c16350d60e6d2511cbd655283942059fa409ce23fce30435f0936f5e2577834f356ba
+  languageName: node
+  linkType: hard
+
 "@sinclair/typebox@npm:^0.27.8":
   version: 0.27.8
   resolution: "@sinclair/typebox@npm:0.27.8"
@@ -3520,7 +3531,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright@npm:^1.38.0":
+"playwright@npm:1.38.0":
   version: 1.38.0
   resolution: "playwright@npm:1.38.0"
   dependencies:
@@ -4091,6 +4102,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "trevaka-frontend@workspace:."
   dependencies:
+    "@playwright/test": ^1.38.0
     "@types/jest": ^29.5.5
     axios: ^1.5.0
     e2e-test: "link:../evaka/frontend/src/e2e-test"
@@ -4102,7 +4114,6 @@ __metadata:
     lib-common: "link:../evaka/frontend/src/lib-common"
     lib-components: "link:../evaka/frontend/src/lib-components"
     lib-customizations: "link:../evaka/frontend/src/lib-customizations"
-    playwright: ^1.38.0
     react: ^18.2.0
     styled-components: 5.3.11
     ts-jest: ^29.1.1
