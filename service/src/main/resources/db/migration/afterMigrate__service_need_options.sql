@@ -37,7 +37,8 @@ VALUES
     ('88f3e912-6646-11ed-8202-bb9fe8059b4a', 'Esiopetuksen kerho yli 5h päivässä; 10pv sopimus', 'Esiopetuksen kerho yli 5h päivässä; 10pv sopimus', 'Preschool club – over 5 h per day; 10 day agreement', 'PRESCHOOL_CLUB', FALSE, 0.5, 0, 0, 0, 0, 18, 10, FALSE, TRUE, 'Esiopetuksen kerho yli 5h päivässä; 10pv sopimus', 'Esiopetuksen kerho yli 5h päivässä; 10pv sopimus', 'Esiopetuksen kerho yli 5h päivässä; 10pv sopimus', 'Esiopetuksen kerho yli 5h päivässä; 10pv sopimus', TRUE, TRUE, 3500),
     ('ff6ddcd4-fa8a-11eb-8592-2f2b4e398fcb', 'Kerho', 'Kerho', 'Club', 'CLUB', TRUE, 0.0, 1.0, 1.0, 1.0, 1.0, 0, NULL, TRUE, TRUE, 'Kerho', 'Kerho', 'Kerho', 'Kerho', TRUE, TRUE, null),
     ('d8681652-246b-11ed-b02b-ebe37c3347e8', 'Esiopetus', 'Esiopetus', 'Preschool', 'PRESCHOOL', TRUE, 0.0, 0.5, 0.5, 0.5, 0.5, 0, NULL, TRUE, TRUE, 'Esiopetus', 'Esiopetus', 'Esiopetus', 'Esiopetus', TRUE, TRUE, null),
-    ('1b4413f6-d99d-11eb-89ac-a3a978104bce', 'Koululaisen vuorohoito', 'Koululaisen vuorohoito', 'School shift care', 'SCHOOL_SHIFT_CARE', TRUE, 1.0, 1.0, 1.0, 1.0, 1.0, 40, NULL, TRUE, FALSE, 'Koululaisen vuorohoito', 'Koululaisen vuorohoito', 'Koululaisen vuorohoito', 'Koululaisen vuorohoito', TRUE, TRUE, null)
+    ('1b4413f6-d99d-11eb-89ac-a3a978104bce', 'Koululaisen vuorohoito', 'Koululaisen vuorohoito', 'School shift care', 'SCHOOL_SHIFT_CARE', TRUE, 1.0, 1.0, 1.0, 1.0, 1.0, 40, NULL, TRUE, FALSE, 'Koululaisen vuorohoito', 'Koululaisen vuorohoito', 'Koululaisen vuorohoito', 'Koululaisen vuorohoito', TRUE, TRUE, null),
+    ('e20929c1-719a-42e1-93ca-da74fce495f8', 'Koululaisen vuorohoito', 'Koululaisen vuorohoito', 'School shift care', 'SCHOOL_SHIFT_CARE', FALSE, 1.0, 1.0, 1.0, 1.0, 1.0, 40, NULL, TRUE, FALSE, 'Koululaisen vuorohoito', 'Koululaisen vuorohoito', 'Koululaisen vuorohoito', 'Koululaisen vuorohoito', TRUE, TRUE, null)
 ON CONFLICT (id) DO
 UPDATE SET
     name_fi = EXCLUDED.name_fi,
@@ -136,6 +137,7 @@ VALUES
     ('422f3b60-e7ea-11ec-8813-f3318d9cf8c1', 'bc6a45a0-fa74-11eb-9a2e-fb411a8588da', daterange('2000-01-01', '2022-07-31', '[]'), 82600, 0.40, 33040, 124700, 0.40, 49880),
     ('422f3f52-e7ea-11ec-8813-bbc69dcf3860', 'ff6ddcd4-fa8a-11eb-8592-2f2b4e398fcb', daterange('2000-01-01', '2022-07-31', '[]'), 82600, 0.00, 0, 124700, 0.00, 0),
     ('422f43f8-e7ea-11ec-8813-af10257c13ae', '1b4413f6-d99d-11eb-89ac-a3a978104bce', daterange('2000-01-01', '2022-07-31', '[]'), 82600, 1.00, 82600, 124700, 1.00, 124700),
+    ('6c06939b-c129-460d-8c90-bdf8466c7d18', 'e20929c1-719a-42e1-93ca-da74fce495f8', daterange('2000-01-01', '2022-07-31', '[]'), 82600, 1.00, 82600, 124700, 1.00, 124700),
     -- 2022-08-01 - 2023-07-31
     ('422f47ea-e7ea-11ec-8813-cbbf8463041a', '50358394-b961-11eb-b51f-67ac436e5636', daterange('2022-08-01', '2023-07-31', '[]'), 86200, 1.00, 86200, 130200, 1.00, 130200),
     ('422f4be6-e7ea-11ec-8813-1b45ad37a47d', '86ef70a0-bf85-11eb-91e6-1fb57a101161', daterange('2022-08-01', '2023-07-31', '[]'), 86200, 1.00, 86200, 130200, 1.00, 130200),
@@ -169,6 +171,7 @@ VALUES
     ('a1fb5606-6647-11ed-8202-972da272f877', '88f3e912-6646-11ed-8202-bb9fe8059b4a', daterange('2022-08-01', '2023-07-31', '[]'), 86200, 0.50, 43100, 130200, 0.50, 65100),
     ('422f8a52-e7ea-11ec-8813-87e075796747', 'ff6ddcd4-fa8a-11eb-8592-2f2b4e398fcb', daterange('2022-08-01', '2023-07-31', '[]'), 86200, 0.00, 0, 130200, 0.00, 0),
     ('422f8ee4-e7ea-11ec-8813-e7010d4c8ab9', '1b4413f6-d99d-11eb-89ac-a3a978104bce', daterange('2022-08-01', '2023-07-31', '[]'), 86200, 1.00, 86200, 130200, 1.00, 130200),
+    ('5a6c3bda-5c01-4841-8ed1-a257990fee55', 'e20929c1-719a-42e1-93ca-da74fce495f8', daterange('2022-08-01', '2023-07-31', '[]'), 86200, 1.00, 86200, 130200, 1.00, 130200),
     -- 2023-08-01 -
     ('0690a5e2-f948-477f-9532-c88381c28082', '50358394-b961-11eb-b51f-67ac436e5636', daterange('2023-08-01', NULL, '[]'), 90100, 1.00, 90100, 144100, 1.00, 144100),
     ('18d41b75-018c-49c3-92fe-f787afe3ac69', '86ef70a0-bf85-11eb-91e6-1fb57a101161', daterange('2023-08-01', NULL, '[]'), 90100, 1.00, 90100, 144100, 1.00, 144100),
@@ -201,7 +204,8 @@ VALUES
     ('c1ecd850-ebef-443b-aa48-a4b3459d15e3', '88f3e75a-6646-11ed-8202-b7867ae6358a', daterange('2023-08-01', NULL, '[]'), 90100, 0.30, 27030, 144100, 0.30, 43230),
     ('9f7b84ec-c4e1-4859-8b43-afa7bba1e0bc', '88f3e912-6646-11ed-8202-bb9fe8059b4a', daterange('2023-08-01', NULL, '[]'), 90100, 0.50, 45050, 144100, 0.50, 72050),
     ('93140aa5-2da1-4cdf-931d-530127e9352c', 'ff6ddcd4-fa8a-11eb-8592-2f2b4e398fcb', daterange('2023-08-01', NULL, '[]'), 90100, 0.00, 0, 144100, 0.00, 0),
-    ('637a788d-b2d5-467b-ab3b-9f9549dcf1c9', '1b4413f6-d99d-11eb-89ac-a3a978104bce', daterange('2023-08-01', NULL, '[]'), 90100, 1.00, 90100, 144100, 1.00, 144100)
+    ('637a788d-b2d5-467b-ab3b-9f9549dcf1c9', '1b4413f6-d99d-11eb-89ac-a3a978104bce', daterange('2023-08-01', NULL, '[]'), 90100, 1.00, 90100, 144100, 1.00, 144100),
+    ('7e0c104a-8ab4-4c2a-92bc-e5f64a05a1ff', 'e20929c1-719a-42e1-93ca-da74fce495f8', daterange('2023-08-01', NULL, '[]'), 90100, 1.00, 90100, 144100, 1.00, 144100)
 ON CONFLICT (id) DO
 UPDATE SET
     service_need_option_id = EXCLUDED.service_need_option_id,
