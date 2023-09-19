@@ -9,6 +9,7 @@
     "e2e-ci-playwright": "LANG=fi-FI LANGUAGE=fi_FI BASE_URL=${BASE_URL:-http://evaka-proxy:8080} jest --testTimeout 60000 --runInBand --bail 1 --retries=2 src/e2e/specs"
   },
   "devDependencies": {
+    "@playwright/test": "^1.38.0",
     "@types/jest": "^29.5.5",
     "axios": "^1.5.0",
     "e2e-test": "link:../evaka/frontend/src/e2e-test",
@@ -20,7 +21,6 @@
     "lib-common": "link:../evaka/frontend/src/lib-common",
     "lib-components": "link:../evaka/frontend/src/lib-components",
     "lib-customizations": "link:../evaka/frontend/src/lib-customizations",
-    "playwright": "^1.37.0",
     "react": "^18.2.0",
     "styled-components": "5.3.11",
     "ts-jest": "^29.1.1",

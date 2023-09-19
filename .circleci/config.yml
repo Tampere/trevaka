@@ -171,8 +171,6 @@ commands:
       - run:
           working_directory: *workspace_evaka_frontend
           command: yarn install --immutable
-          environment:
-            PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - save_cache:
           key: yarn-cache-frontend-v1-{{ checksum "evaka/frontend/yarn.lock" }}
           paths:
@@ -196,7 +194,9 @@ commands:
                   - playwright-browser-cache-
             - run:
                 working_directory: *workspace_tre_frontend
-                command: yarn install --immutable
+                command: |
+                  yarn install --immutable
+                  yarn playwright install chromium
             - save_cache:
                 name: Store playwright browser cache
                 key: playwright-browser-cache-v1-{{ checksum "frontend/yarn.lock" }}
