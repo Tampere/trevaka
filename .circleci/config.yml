@@ -271,6 +271,7 @@ jobs:
       - build_docker_image:
           image: trevaka/api-gateway
           dir: *workspace_apigw
+          build_args: BASE_IMAGE=node:18.17-buster-slim
 
   frontend_build_image:
     executor: aws_executor
