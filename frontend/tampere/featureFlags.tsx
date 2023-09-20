@@ -46,7 +46,8 @@ const features: Features = {
       childDocuments: true,
       intermittentShiftCare: true,
       citizenAttendanceSummary: true,
-      feeDecisionIgnoredStatus: true
+      feeDecisionIgnoredStatus: true,
+      hojks: true
     }
   },
   staging: {
