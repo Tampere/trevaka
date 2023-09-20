@@ -110,7 +110,6 @@ class TampereActionRuleMapping : ActionRuleMapping {
             )
         }
         Action.AssistanceAction.READ_PRE_PRESCHOOL_ASSISTANCE_ACTION,
-        Action.AssistanceNeed.READ_PRE_PRESCHOOL_ASSISTANCE_NEED,
         -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
@@ -208,7 +207,6 @@ class TampereActionRuleMapping : ActionRuleMapping {
         Action.Child.READ_PRESCHOOL_ASSISTANCES,
         Action.Child.READ_OTHER_ASSISTANCE_MEASURES,
         Action.Child.READ_ASSISTANCE_ACTION,
-        Action.Child.READ_ASSISTANCE_NEED,
         -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
