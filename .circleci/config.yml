@@ -266,8 +266,7 @@ jobs:
     resource_class: medium
     steps:
       - checkout_with_submodules
-      - setup_authenticated_remote_docker:
-          docker_layer_caching: true
+      - setup_authenticated_remote_docker
       - setup_aws
       - build_docker_image:
           image: trevaka/api-gateway
@@ -275,7 +274,7 @@ jobs:
 
   frontend_build_image:
     executor: aws_executor
-    resource_class: medium+
+    resource_class: large
     steps:
       - checkout_with_submodules
       - setup_aws
@@ -302,7 +301,7 @@ jobs:
 
   service_build_image:
     executor: service_build_executor
-    resource_class: medium+
+    resource_class: large
     steps:
       - checkout_with_submodules
       - restore_service_gradle_wrapper
@@ -333,8 +332,7 @@ jobs:
     resource_class: medium
     steps:
       - checkout_with_submodules
-      - setup_authenticated_remote_docker:
-          docker_layer_caching: true
+      - setup_authenticated_remote_docker
       - setup_aws
       - build_docker_image:
           image: trevaka/auth
@@ -346,8 +344,7 @@ jobs:
     resource_class: medium
     steps:
       - checkout
-      - setup_authenticated_remote_docker:
-          docker_layer_caching: true
+      - setup_authenticated_remote_docker
       - setup_aws
       - build_docker_image:
           image: trevaka/scheduled-task/reporting
@@ -358,8 +355,7 @@ jobs:
     resource_class: medium
     steps:
       - checkout
-      - setup_authenticated_remote_docker:
-          docker_layer_caching: true
+      - setup_authenticated_remote_docker
       - setup_aws
       - build_docker_image:
           image: trevaka/scheduled-task/logs
