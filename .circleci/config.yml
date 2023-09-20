@@ -266,8 +266,7 @@ jobs:
     resource_class: medium
     steps:
       - checkout_with_submodules
-      - setup_authenticated_remote_docker:
-          docker_layer_caching: true
+      - setup_authenticated_remote_docker
       - setup_aws
       - build_docker_image:
           image: trevaka/api-gateway
