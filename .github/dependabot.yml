@@ -49,6 +49,12 @@ updates:
       timezone: "Europe/Helsinki"
     ignore:
       - dependency-name: "org.springframework.boot"
+  - package-ecosystem: "docker"
+    directory: "/scheduled-tasks/logs"
+    schedule:
+      interval: "daily"
+      time: "10:00"
+      timezone: "Europe/Helsinki"
   - package-ecosystem: "gradle"
     directory: "/service"
     schedule:
