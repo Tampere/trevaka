@@ -140,12 +140,6 @@ commands:
         type: string
       dir:
         type: string
-      build_args:
-        type: string
-        default: ""
-      contexts:
-        type: string
-        default: ""
       extra_build_args:
         type: string
         default: ""
@@ -154,18 +148,10 @@ commands:
           name: Build docker image
           working_directory: << parameters.dir >>
           command: |
-            for build_arg in $(eval echo << parameters.build_args >> | tr ',' '\n'); do
-              BUILD_ARGS="$BUILD_ARGS --build-arg=$build_arg"
-            done
-            for context in $(eval echo << parameters.contexts >> | tr ',' '\n'); do
-              CONTEXT_ARGS="$CONTEXT_ARGS --build-context=$context"
-            done
             docker buildx build --progress=plain \
               -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/<< parameters.image >>:${CIRCLE_SHA1} \
               --build-arg "build=${CIRCLE_BUILD_NUM}" \
               --build-arg "commit=${CIRCLE_SHA1}" \
-              $BUILD_ARGS \
-              $CONTEXT_ARGS \
               << parameters.extra_build_args >> \
               --push \
               .
@@ -227,7 +213,7 @@ jobs:
       - build_docker_image:
           image: trevaka/frontend
           dir: *workspace_evaka_frontend
-          build_args: EVAKA_CUSTOMIZATIONS=tampere,ICONS=pro
+          extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=tampere --build-arg ICONS=pro
 
   service_build_image:
     executor: aws_executor
@@ -287,7 +273,7 @@ jobs:
       - build_docker_image:
           image: trevaka/auth
           dir: *workspace_auth
-          contexts: core=../evaka/keycloak
+          extra_build_args: --build-context core=../evaka/keycloak
 
   scheduled_tasks_reporting_build_image:
     executor: aws_executor
