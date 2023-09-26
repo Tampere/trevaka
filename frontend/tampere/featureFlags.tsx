@@ -35,21 +35,17 @@ const features: Features = {
     childDiscussion: false,
     feeDecisionPreschoolClubFilter: true,
     placementGuarantee: true,
-    experimental: {
-      leops: true,
-      assistanceNeedDecisions: true,
-      assistanceNeedPreschoolDecisions: true,
-      staffAttendanceTypes: true,
-      fosterParents: true,
-      serviceWorkerMessaging: true,
-      personDuplicate: true,
-      childDocuments: true,
-      intermittentShiftCare: true,
-      citizenAttendanceSummary: true,
-      feeDecisionIgnoredStatus: true,
-      hojks: true,
-      noAbsenceType: true
-    }
+    assistanceNeedPreschoolDecisions: true,
+    staffAttendanceTypes: true,
+    personDuplicate: true,
+    childDocuments: true,
+    intermittentShiftCare: true,
+    citizenAttendanceSummary: true,
+    feeDecisionIgnoredStatus: true,
+    hojks: true,
+    noAbsenceType: true,
+    voucherUnitPayments: false,
+    assistanceNeedDecisionsLanguageSelect: false
   },
   staging: {
     citizenShiftCareAbsence: false,
@@ -69,18 +65,14 @@ const features: Features = {
     childDiscussion: false,
     feeDecisionPreschoolClubFilter: true,
     placementGuarantee: true,
-    experimental: {
-      leops: true,
-      assistanceNeedDecisions: true,
-      assistanceNeedPreschoolDecisions: true,
-      staffAttendanceTypes: true,
-      fosterParents: true,
-      serviceWorkerMessaging: true,
-      personDuplicate: true,
-      intermittentShiftCare: true,
-      citizenAttendanceSummary: true,
-      noAbsenceType: true
-    }
+    assistanceNeedPreschoolDecisions: true,
+    staffAttendanceTypes: true,
+    personDuplicate: true,
+    intermittentShiftCare: true,
+    citizenAttendanceSummary: true,
+    noAbsenceType: true,
+    voucherUnitPayments: false,
+    assistanceNeedDecisionsLanguageSelect: false
   },
   prod: {
     citizenShiftCareAbsence: false,
@@ -100,18 +92,14 @@ const features: Features = {
     childDiscussion: false,
     feeDecisionPreschoolClubFilter: true,
     placementGuarantee: true,
-    experimental: {
-      leops: true,
-      assistanceNeedDecisions: true,
-      assistanceNeedPreschoolDecisions: true,
-      staffAttendanceTypes: true,
-      fosterParents: true,
-      serviceWorkerMessaging: true,
-      personDuplicate: true,
-      intermittentShiftCare: true,
-      citizenAttendanceSummary: true,
-      noAbsenceType: true
-    }
+    assistanceNeedPreschoolDecisions: true,
+    staffAttendanceTypes: true,
+    personDuplicate: true,
+    intermittentShiftCare: true,
+    citizenAttendanceSummary: true,
+    noAbsenceType: true,
+    voucherUnitPayments: false,
+    assistanceNeedDecisionsLanguageSelect: false
   }
 }
 
