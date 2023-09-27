@@ -118,7 +118,7 @@ class TampereIncomeTypesProvider : IncomeTypesProvider {
 
 class TampereInvoiceProductProvider : InvoiceProductProvider {
 
-    override val products = Product.values().map { ProductWithName(it.key, it.nameFi) }
+    override val products = Product.entries.map { ProductWithName(it.key, it.nameFi) }
     override val dailyRefund = Product.FREE_OF_CHARGE.key
     override val partMonthSickLeave = Product.SICK_LEAVE_50.key
     override val fullMonthSickLeave = Product.SICK_LEAVE_100.key
@@ -180,7 +180,7 @@ class TampereInvoiceProductProvider : InvoiceProductProvider {
     }
 }
 
-fun findProduct(key: ProductKey) = Product.values().find { it.key == key }
+fun findProduct(key: ProductKey) = Product.entries.find { it.key == key }
     ?: error("Product with key $key not found")
 
 enum class Product(val nameFi: String, val code: String) {

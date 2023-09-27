@@ -521,7 +521,7 @@ private fun validVoucherValueDecisionPlacementDetailed(placementType: PlacementT
         type = placementType,
     )
 
-private fun validFeeAlterations(childId: ChildId = ChildId(UUID.randomUUID())) = FeeAlterationType.values().flatMap {
+private fun validFeeAlterations(childId: ChildId = ChildId(UUID.randomUUID())) = FeeAlterationType.entries.flatMap {
     listOf(
         FeeAlteration(
             id = FeeAlterationId(UUID.randomUUID()),
