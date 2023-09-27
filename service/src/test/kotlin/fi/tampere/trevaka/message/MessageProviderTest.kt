@@ -38,7 +38,7 @@ internal class MessageProviderTest : AbstractIntegrationTest() {
             )
             return ArgumentSets.create()
                 .argumentsForNextParameter(allMethods)
-                .argumentsForNextParameter(MessageLanguage.values().toList())
+                .argumentsForNextParameter(MessageLanguage.entries)
         }
     }
 }

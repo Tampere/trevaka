@@ -23,48 +23,22 @@ import fi.tampere.trevaka.TrevakaProperties
 import fi.tampere.trevaka.invoice.config.InvoiceConfiguration
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.catchThrowable
-import org.custommonkey.xmlunit.XMLUnit
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.core.io.ClassPathResource
-import org.springframework.core.io.Resource
 import org.springframework.ws.soap.client.SoapFaultClientException
 import org.springframework.ws.test.client.MockWebServiceServer
-import org.springframework.ws.test.client.RequestMatcher
 import org.springframework.ws.test.client.RequestMatchers.connectionTo
+import org.springframework.ws.test.client.RequestMatchers.payload
 import org.springframework.ws.test.client.ResponseCreators.*
-import org.springframework.xml.transform.ResourceSource
 import java.time.LocalDate
 import java.util.Locale
 import java.util.UUID
-
-@Suppress("DEPRECATION")
-internal fun payload(payload: Resource) = RequestMatcher { _, request ->
-    org.springframework.ws.test.support.matcher.PayloadDiffMatcher(ResourceSource(payload)).match(request)
-}
 
 internal class TrevakaInvoiceClientTest {
 
     private lateinit var client: InvoiceIntegrationClient
     private lateinit var server: MockWebServiceServer
-
-    companion object {
-        private val xmlUnitIgnoreWhitespace = XMLUnit.getIgnoreWhitespace()
-
-        @BeforeAll
-        @JvmStatic
-        fun setupXmlUnit() {
-            XMLUnit.setIgnoreWhitespace(true)
-        }
-
-        @AfterAll
-        @JvmStatic
-        fun cleanupXmlUnit() {
-            XMLUnit.setIgnoreWhitespace(xmlUnitIgnoreWhitespace)
-        }
-    }
 
     @BeforeEach
     fun setup() {

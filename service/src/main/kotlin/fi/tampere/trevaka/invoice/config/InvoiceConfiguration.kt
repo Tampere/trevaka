@@ -4,7 +4,7 @@
 
 package fi.tampere.trevaka.invoice.config
 
-import fi.espoo.evaka.invoicing.domain.FeeAlteration
+import fi.espoo.evaka.invoicing.domain.FeeAlterationType
 import fi.espoo.evaka.invoicing.domain.IncomeType
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.espoo.evaka.invoicing.service.IncomeTypesProvider
@@ -118,7 +118,7 @@ class TampereIncomeTypesProvider : IncomeTypesProvider {
 
 class TampereInvoiceProductProvider : InvoiceProductProvider {
 
-    override val products = Product.values().map { ProductWithName(it.key, it.nameFi) }
+    override val products = Product.entries.map { ProductWithName(it.key, it.nameFi) }
     override val dailyRefund = Product.FREE_OF_CHARGE.key
     override val partMonthSickLeave = Product.SICK_LEAVE_50.key
     override val fullMonthSickLeave = Product.SICK_LEAVE_100.key
@@ -154,23 +154,23 @@ class TampereInvoiceProductProvider : InvoiceProductProvider {
         return product.key
     }
 
-    override fun mapToFeeAlterationProduct(productKey: ProductKey, feeAlterationType: FeeAlteration.Type): ProductKey {
+    override fun mapToFeeAlterationProduct(productKey: ProductKey, feeAlterationType: FeeAlterationType): ProductKey {
         val product = when (findProduct(productKey) to feeAlterationType) {
-            Product.DAYCARE to FeeAlteration.Type.DISCOUNT,
-            Product.DAYCARE to FeeAlteration.Type.RELIEF,
+            Product.DAYCARE to FeeAlterationType.DISCOUNT,
+            Product.DAYCARE to FeeAlterationType.RELIEF,
             ->
                 Product.DAYCARE_DISCOUNT
-            Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.DISCOUNT,
-            Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.RELIEF,
+            Product.PRESCHOOL_WITH_DAYCARE to FeeAlterationType.DISCOUNT,
+            Product.PRESCHOOL_WITH_DAYCARE to FeeAlterationType.RELIEF,
             ->
                 Product.PRESCHOOL_WITH_DAYCARE_DISCOUNT
-            Product.PRESCHOOL_WITH_CLUB to FeeAlteration.Type.DISCOUNT,
-            Product.PRESCHOOL_WITH_CLUB to FeeAlteration.Type.RELIEF,
+            Product.PRESCHOOL_WITH_CLUB to FeeAlterationType.DISCOUNT,
+            Product.PRESCHOOL_WITH_CLUB to FeeAlterationType.RELIEF,
             ->
                 Product.PRESCHOOL_WITH_CLUB_DISCOUNT
-            Product.DAYCARE to FeeAlteration.Type.INCREASE,
-            Product.PRESCHOOL_WITH_DAYCARE to FeeAlteration.Type.INCREASE,
-            Product.PRESCHOOL_WITH_CLUB to FeeAlteration.Type.INCREASE,
+            Product.DAYCARE to FeeAlterationType.INCREASE,
+            Product.PRESCHOOL_WITH_DAYCARE to FeeAlterationType.INCREASE,
+            Product.PRESCHOOL_WITH_CLUB to FeeAlterationType.INCREASE,
             ->
                 Product.CORRECTION
             else ->
@@ -180,7 +180,7 @@ class TampereInvoiceProductProvider : InvoiceProductProvider {
     }
 }
 
-fun findProduct(key: ProductKey) = Product.values().find { it.key == key }
+fun findProduct(key: ProductKey) = Product.entries.find { it.key == key }
     ?: error("Product with key $key not found")
 
 enum class Product(val nameFi: String, val code: String) {
