@@ -7,6 +7,7 @@ package fi.tampere.trevaka.invoice.service
 import fi.espoo.evaka.invoicing.domain.DecisionIncome
 import fi.espoo.evaka.invoicing.domain.EmployeeWithName
 import fi.espoo.evaka.invoicing.domain.FeeAlteration
+import fi.espoo.evaka.invoicing.domain.FeeAlterationType
 import fi.espoo.evaka.invoicing.domain.FeeDecisionChildDetailed
 import fi.espoo.evaka.invoicing.domain.FeeDecisionDetailed
 import fi.espoo.evaka.invoicing.domain.FeeDecisionStatus
@@ -520,7 +521,7 @@ private fun validVoucherValueDecisionPlacementDetailed(placementType: PlacementT
         type = placementType,
     )
 
-private fun validFeeAlterations(childId: ChildId = ChildId(UUID.randomUUID())) = FeeAlteration.Type.values().flatMap {
+private fun validFeeAlterations(childId: ChildId = ChildId(UUID.randomUUID())) = FeeAlterationType.values().flatMap {
     listOf(
         FeeAlteration(
             id = FeeAlterationId(UUID.randomUUID()),
