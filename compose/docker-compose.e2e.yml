@@ -44,6 +44,7 @@ services:
       VOLTTI_ENV: local
       NODE_ENV: local
       GATEWAY_ROLE: enduser
+      HTTP_PORT: 3010
       EVAKA_SERVICE_URL: ${EVAKA_SERVICE_URL}
       COOKIE_SECRET: cookie_secret
       REDIS_HOST: ${EVAKA_REDIS_HOST}
@@ -68,6 +69,7 @@ services:
       VOLTTI_ENV: local
       NODE_ENV: local
       GATEWAY_ROLE: internal
+      HTTP_PORT: 3020
       EVAKA_SERVICE_URL: ${EVAKA_SERVICE_URL}
       COOKIE_SECRET: cookie_secret
       REDIS_HOST: ${EVAKA_REDIS_HOST}
