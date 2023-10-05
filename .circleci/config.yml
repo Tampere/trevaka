@@ -320,7 +320,7 @@ jobs:
             EVAKA_FRONTEND_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend:${CIRCLE_SHA1} \
             EVAKA_GW_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/api-gateway:${CIRCLE_SHA1} \
             EVAKA_SRV_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service:${CIRCLE_SHA1} \
-            docker-compose -f docker-compose.yml -f docker-compose.e2e.yml up -d --build
+            docker-compose up -d --build
       - frontend_install:
           include_e2e: true
       - run:
@@ -351,7 +351,7 @@ jobs:
       - run:
           name: Collect docker-compose logs
           working_directory: *workspace_compose
-          command: docker-compose -f docker-compose.yml -f docker-compose.e2e.yml logs --tail=all > /tmp/docker-compose-logs.txt
+          command: docker-compose logs --tail=all > /tmp/docker-compose-logs.txt
           when: always
       - store_artifacts:
           path: /tmp/docker-compose-logs.txt
