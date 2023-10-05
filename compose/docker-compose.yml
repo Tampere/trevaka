@@ -9,6 +9,12 @@ include: # requires docker-compose 2.20.0 or newer
 
 services:
   evaka-proxy:
+    build:
+      context: ../evaka/frontend
+      additional_contexts: # requires docker-compose 2.17.0 or newer
+        customizations: ../frontend/tampere
+      args:
+        EVAKA_CUSTOMIZATIONS: tampere
     image: ${EVAKA_FRONTEND_IMAGE}
     ports:
       - "9999:8080"
@@ -25,6 +31,7 @@ services:
       - trevaka-srv
 
   api-gw:
+    build: ../evaka/apigw
     image: ${EVAKA_GW_IMAGE}
     ports:
       - "3000"
@@ -51,6 +58,10 @@ services:
       PRETTY_LOGS: "false"
 
   trevaka-srv:
+    build:
+      context: ../service
+      additional_contexts: # requires docker-compose 2.17.0 or newer
+        core: ../evaka
     image: ${EVAKA_SRV_IMAGE}
     ports:
       - "8888:8888"
