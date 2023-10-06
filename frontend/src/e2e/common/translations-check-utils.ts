@@ -29,7 +29,7 @@ const unwantedTexts: UnwantedText[] = [
 ]
 
 const checkTampereTranslation = (key: string, value: string | null, errors: TranslationError[]) => {
-    if (!ignoredKeys.includes(key) && value !== null) {
+    if (!ignoredKeys.includes(key) && value !== null && value !== undefined) {
         unwantedTexts.forEach(unwantedText => {
             if (unwantedText.valueCheck(value.toLowerCase())) {
                 let error = { key, value }
