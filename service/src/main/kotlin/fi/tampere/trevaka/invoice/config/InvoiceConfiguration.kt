@@ -261,5 +261,5 @@ fun Database.Read.hasFreeSummerAbsence(childId: ChildId, year: Int): Boolean {
         .bind("year", year)
         .bind("childId", childId)
         .mapTo<Boolean>()
-        .one()
+        .exactlyOne()
 }
