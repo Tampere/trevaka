@@ -10,8 +10,6 @@ import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.FiniteDateRange
 
-private data class EmployeeIdEmployeeNumber(val id: EmployeeId, val employeeNumber: String)
-
 fun Database.Read.getEmployeeIdsByNumbers(employeeNumbers: List<String>): Map<String, EmployeeId> {
     val sql = """
         SELECT id, employee_number
@@ -20,8 +18,7 @@ fun Database.Read.getEmployeeIdsByNumbers(employeeNumbers: List<String>): Map<St
     """.trimIndent()
     return createQuery(sql)
         .bind("employeeNumbers", employeeNumbers.toTypedArray())
-        .mapTo<EmployeeIdEmployeeNumber>()
-        .associate { it.employeeNumber to it.id }
+        .toMap { columnPair("employee_number", "id") }
 }
 
 fun Database.Transaction.createEmployees(employees: List<NewEmployee>): Map<String, EmployeeId> {
@@ -33,8 +30,7 @@ fun Database.Transaction.createEmployees(employees: List<NewEmployee>): Map<Stri
     val batch = prepareBatch(sql)
     employees.forEach { employee -> batch.bindKotlin("employee", employee).add() }
     return batch.executeAndReturn()
-        .mapTo<EmployeeIdEmployeeNumber>()
-        .associate { it.employeeNumber to it.id }
+        .toMap { columnPair("employee_number", "id") }
 }
 
 fun Database.Read.getEmployeeIdsByNumbersMapById(employeeNumbers: Collection<String>): Map<EmployeeId, String> {
@@ -45,8 +41,7 @@ fun Database.Read.getEmployeeIdsByNumbersMapById(employeeNumbers: Collection<Str
     """.trimIndent()
     return createQuery(sql)
         .bind("employeeNumbers", employeeNumbers.toTypedArray())
-        .mapTo<EmployeeIdEmployeeNumber>()
-        .associate { it.id to it.employeeNumber }
+        .toMap { columnPair("id", "employee_number") }
 }
 
 fun Database.Read.findStaffAttendancePlansBy(
@@ -63,7 +58,7 @@ fun Database.Read.findStaffAttendancePlansBy(
         .bind("employeeIds", employeeIds?.toTypedArray())
         .bind("period", period)
         .mapTo<StaffAttendancePlan>()
-        .list()
+        .toList()
 }
 
 fun Database.Transaction.insertStaffAttendancePlans(plans: List<StaffAttendancePlan>): IntArray {
@@ -126,4 +121,4 @@ AND (:start IS NULL OR :end IS NULL OR daterange((sa.arrived at time zone 'Europ
         .bind("start", period?.start)
         .bind("end", period?.end)
         .mapTo<RawAttendance>()
-        .list()
+        .toList()
