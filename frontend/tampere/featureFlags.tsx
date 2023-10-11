@@ -71,6 +71,7 @@ const features: Features = {
     childDocuments: true,
     intermittentShiftCare: true,
     citizenAttendanceSummary: true,
+    hojks: true,
     noAbsenceType: true,
     voucherUnitPayments: false,
     assistanceNeedDecisionsLanguageSelect: false
@@ -99,6 +100,7 @@ const features: Features = {
     childDocuments: true,
     intermittentShiftCare: true,
     citizenAttendanceSummary: true,
+    hojks: true,
     noAbsenceType: true,
     voucherUnitPayments: false,
     assistanceNeedDecisionsLanguageSelect: false
