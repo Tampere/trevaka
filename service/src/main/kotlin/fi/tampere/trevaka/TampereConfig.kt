@@ -48,6 +48,7 @@ class TampereConfig {
         municipalMessageAccountName = "Tampereen kaupunki",
         serviceWorkerMessageAccountName = "Tampereen kaupungin palveluohjaus",
         applyPlacementUnitFromDecision = true,
+        preferredStartRelativeApplicationDueDate = true,
     )
 
     @Bean
