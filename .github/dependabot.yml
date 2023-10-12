@@ -26,7 +26,7 @@ updates:
       time: "10:00"
       timezone: "Europe/Helsinki"
     ignore:
-      - dependency-name: "playwright" # version must match with core
+      - dependency-name: "@playwright/test" # version must match with core
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
     groups:
