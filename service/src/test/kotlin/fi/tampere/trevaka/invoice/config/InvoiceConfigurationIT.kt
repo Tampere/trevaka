@@ -34,6 +34,7 @@ import fi.espoo.evaka.shared.ParentshipId
 import fi.espoo.evaka.shared.PersonId
 import fi.espoo.evaka.shared.ServiceNeedOptionId
 import fi.espoo.evaka.shared.db.Database
+import fi.espoo.evaka.shared.db.Row
 import fi.espoo.evaka.shared.dev.DevChild
 import fi.espoo.evaka.shared.dev.DevDaycare
 import fi.espoo.evaka.shared.dev.DevParentship
@@ -221,8 +222,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
             ORDER BY invoice.id, row.idx
             """.trimIndent(),
         )
-            .map(toInvoice)
-            .toList()
+            .toList(Row::toInvoice)
             .let(::flatten)
             .shuffled() // randomize order to expose assumptions
     }
