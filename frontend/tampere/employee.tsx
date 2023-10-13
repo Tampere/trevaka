@@ -321,8 +321,21 @@ const customizations: EmployeeCustomizations = {
               </p>
             </div>
           ),
-          grantedAssistanceSectionInfo: () =>
-            'Valitse lapsen tarvitsemat palvelut tai apuvälineet. Apuvälineet, joista lapsella on jo päätös muualta, eivät sisälly tähän päätökseen.',
+          grantedAssistanceSectionInfo: () => (
+            <div>
+              <p>
+                Valitse lapsen tarvitsemat palvelut tai apuvälineet.
+                Apuvälineet, joista lapsella on jo päätös muualta, eivät sisälly
+                tähän päätökseen.
+              </p>
+              <p>
+                Kirjaa alle perustelut-kohtaan, mikäli lapsen ryhmässä ei ole
+                avustajaa, mutta lapsen tuen toteuttaminen on jotenkin muuten
+                otettu henkilöstöresurssissa huomioon, esim. ryhmässä on
+                lisäresurssina lastenhoitaja.
+              </p>
+            </div>
+          ),
           primaryGroupInfo: () =>
             'Kirjoita tähän, millaisessa ryhmässä lapsi saa esiopetusta (esim. integroitu varhaiskasvatusryhmä, esiopetusryhmä, integroitu esiopetusryhmä, esiopetuksen erityisryhmä). Ryhmän nimeä ei kirjoiteta tähän.',
           decisionBasisInfo: () =>
