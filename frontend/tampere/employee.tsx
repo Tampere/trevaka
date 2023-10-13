@@ -64,9 +64,9 @@ const customizations: EmployeeCustomizations = {
           FORCE_MAJEURE: 'Hyvitys'
         },
         absenceTypeInfo: {
-          NO_ABSENCE: 'Lapsi läsnä varhaiskasvatuksessa.',
+          NO_ABSENCE: 'Lapsi läsnä varhaiskasvatuksessa/esiopetustoiminnassa.',
           OTHER_ABSENCE:
-            'Käytetään tapauksissa, kun lapsi on poissa varhaiskasvatuksesta huoltajan ilmoituksesta.',
+            'Käytetään tapauksissa, kun lapsi on poissa varhaiskasvatuksesta/esiopetustoiminnasta huoltajan ilmoituksesta.',
           UNKNOWN_ABSENCE:
             'Käytetään tapauksissa, kun lapsen poissaolosta ei tule huoltajalta mitään ilmoitusta.',
           PLANNED_ABSENCE:
@@ -75,7 +75,7 @@ const customizations: EmployeeCustomizations = {
           TEMPORARY_RELOCATION:
             'Käytetään tapauksissa, kun lapselle on tehty varasijoitus toiseen yksikköön.',
           PARENTLEAVE:
-            'Käytetään tapauksissa, kun lapsi on poissa varhaiskasvatuksesta isyysvapaan ajan.',
+            'Käytetään tapauksissa, kun lapsi on poissa varhaiskasvatuksesta/esiopetustoiminnasta isyysvapaan ajan.',
           FORCE_MAJEURE:
             'Käytetään erityistapauksissa, kun lapsen poissaolosta hyvitetään asiakasmaksua.',
           FREE_ABSENCE:
