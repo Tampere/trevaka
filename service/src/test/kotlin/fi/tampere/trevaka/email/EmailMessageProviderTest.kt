@@ -82,6 +82,7 @@ internal class EmailMessageProviderTest : AbstractIntegrationTest() {
                     type = MessageType.MESSAGE,
                     title = "Ensi viikolla uimaan",
                     urgent = false,
+                    sensitive = false,
                     isCopy = false,
                 ),
             ),
