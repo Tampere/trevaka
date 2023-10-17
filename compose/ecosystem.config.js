@@ -10,7 +10,7 @@ const defaults = {
 
 module.exports = {
   apps: [{
-    name: 'apigw',
+    name: 'trevaka-apigw',
     script: 'yarn && yarn clean && yarn dev',
     cwd: path.resolve(__dirname, '../evaka/apigw'),
     env: {
@@ -24,7 +24,7 @@ module.exports = {
     },
     ...defaults
   }, {
-    name: 'frontend',
+    name: 'trevaka-frontend',
     script: 'yarn && yarn clean && EVAKA_CUSTOMIZATIONS=tampere yarn dev',
     cwd: path.resolve(__dirname, '../evaka/frontend'),
     env: {
@@ -32,7 +32,7 @@ module.exports = {
     },
     ...defaults
   }, {
-    name: 'service',
+    name: 'trevaka-service',
     script: `${__dirname}/../evaka/compose/run-after-db.sh`,
     args: './gradlew --no-daemon bootRun',
     cwd: path.resolve(__dirname, '../service'),
