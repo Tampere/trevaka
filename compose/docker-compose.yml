@@ -8,7 +8,7 @@ include: # requires docker-compose 2.20.0 or newer
   - docker-compose-dbs.yml
 
 services:
-  evaka-proxy:
+  frontend:
     build:
       context: ../evaka/frontend
       additional_contexts: # requires docker-compose 2.17.0 or newer
@@ -20,22 +20,22 @@ services:
       - "9999:8080"
     environment:
       RESOLVER: "127.0.0.11 ipv6=off"
-      ENDUSER_GW_URL: "http://api-gw:3000"
-      INTERNAL_GW_URL: "http://api-gw:3000"
+      ENDUSER_GW_URL: "http://apigw:3000"
+      INTERNAL_GW_URL: "http://apigw:3000"
       RATE_LIMIT_CIDR_WHITELIST: "0.0.0.0/0;::/0"
       HTTP_SCHEME: "http"
     # Enable for debug logging
     # command: [nginx-debug, '-g', 'daemon off;']
     depends_on:
-      - api-gw
-      - trevaka-srv
+      - apigw
+      - service
 
-  api-gw:
+  apigw:
     build: ../evaka/apigw
     image: ${EVAKA_GW_IMAGE}
     ports:
       - "3000"
-    hostname: api-gw
+    hostname: apigw
     depends_on:
       - redis
     volumes:
@@ -57,7 +57,7 @@ services:
       ENABLE_DEV_API: "true"
       PRETTY_LOGS: "false"
 
-  trevaka-srv:
+  service:
     build:
       context: ../service
       additional_contexts: # requires docker-compose 2.17.0 or newer
@@ -65,7 +65,7 @@ services:
     image: ${EVAKA_SRV_IMAGE}
     ports:
       - "8888:8888"
-    hostname: trevaka-srv
+    hostname: service
     depends_on:
       - db
     env_file:

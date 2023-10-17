@@ -32,7 +32,7 @@ services:
       timeout: 5s
       retries: 5
 
-  s3.mock.evaka:
+  s3:
     image: adobe/s3mock:3.1.0
     ports:
       - "9090:9090"
