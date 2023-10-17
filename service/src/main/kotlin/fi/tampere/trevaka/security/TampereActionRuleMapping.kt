@@ -109,7 +109,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
-        Action.AssistanceAction.READ_PRE_PRESCHOOL_ASSISTANCE_ACTION,
+        Action.AssistanceAction.READ,
         -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
