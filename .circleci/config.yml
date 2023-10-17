@@ -204,16 +204,12 @@ jobs:
           working_directory: *workspace_evaka_frontend
           command: |
             ./unpack-pro-icons.sh
-      - run:
-          name: Copy customizations
-          working_directory: *workspace_root
-          command: cp -rp frontend/tampere evaka/frontend/src/lib-customizations
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - build_docker_image:
           image: trevaka/frontend
           dir: *workspace_evaka_frontend
-          extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=tampere --build-arg ICONS=pro
+          extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=tampere --build-arg ICONS=pro --build-context customizations=../../frontend/tampere
 
   service_build_image:
     executor: aws_executor
