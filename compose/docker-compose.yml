@@ -28,7 +28,6 @@ services:
     # command: [nginx-debug, '-g', 'daemon off;']
     depends_on:
       - apigw
-      - service
 
   apigw:
     build: ../evaka/apigw
@@ -38,6 +37,7 @@ services:
     hostname: apigw
     depends_on:
       - redis
+      - service
     volumes:
       - ../evaka/apigw/config/test-cert:/home/evaka/test-cert
     env_file:
@@ -68,6 +68,7 @@ services:
     hostname: service
     depends_on:
       - db
+      - s3
     env_file:
       - .env
     environment:
