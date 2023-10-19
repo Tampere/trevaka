@@ -43,6 +43,7 @@ const features: Features = {
     citizenAttendanceSummary: true,
     feeDecisionIgnoredStatus: true,
     hojks: true,
+    employeeMobileGroupMessages: true,
     noAbsenceType: true,
     voucherUnitPayments: false,
     assistanceNeedDecisionsLanguageSelect: false
