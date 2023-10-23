@@ -2,61 +2,73 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-# Docker compose for trying out the trevaka/service docker image locally
-# Scavenged from evaka integration testing and e2e compose files
-#
 version: '3.5'
 
+include: # requires docker-compose 2.20.0 or newer
+  - docker-compose-dbs.yml
+
 services:
-  db:
+  frontend:
     build:
-      context: ../evaka/compose/db
+      context: ../evaka/frontend
+      additional_contexts: # requires docker-compose 2.17.0 or newer
+        customizations: ../frontend/tampere
       args:
-        BASE_IMAGE_VERSION: 14-alpine3.16
+        EVAKA_CUSTOMIZATIONS: tampere
+    image: ${EVAKA_FRONTEND_IMAGE}
     ports:
-      - "5432:5432"
-    volumes:
-      - db-data:/var/lib/postgresql/data
+      - "9999:8080"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    healthcheck:
-      test: "pg_isready -U postgres"
-      interval: 2s
-      timeout: 5s
-      retries: 5
+      RESOLVER: "127.0.0.11 ipv6=off"
+      ENDUSER_GW_URL: "http://apigw:3000"
+      INTERNAL_GW_URL: "http://apigw:3000"
+      RATE_LIMIT_CIDR_WHITELIST: "0.0.0.0/0;::/0"
+      HTTP_SCHEME: "http"
+    # Enable for debug logging
+    # command: [nginx-debug, '-g', 'daemon off;']
+    depends_on:
+      - apigw
 
-  redis:
-    image: redis:7.0-alpine
+  apigw:
+    build: ../evaka/apigw
+    image: ${EVAKA_GW_IMAGE}
     ports:
-      - "6379:6379"
-    healthcheck:
-      test: '[ "$$(redis-cli -h 127.0.0.1 ping)" == "PONG" ]'
-      interval: 1s
-      timeout: 5s
-      retries: 5
-
-  s3.mock.evaka:
-    image: adobe/s3mock:3.1.0
-    ports:
-      - "9090:9090"
+      - "3000"
+    hostname: apigw
+    depends_on:
+      - redis
+      - service
     volumes:
-      - s3-data:/data
+      - ../evaka/apigw/config/test-cert:/home/evaka/test-cert
+    env_file:
+      - .env
     environment:
-      ROOT: /data
-    healthcheck:
-      test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:9090" ]
-      interval: 1s
-      timeout: 5s
-      retries: 5
+      VOLTTI_ENV: local
+      NODE_ENV: local
+      HTTP_PORT: 3000
+      EVAKA_SERVICE_URL: ${EVAKA_SERVICE_URL}
+      COOKIE_SECRET: cookie_secret
+      REDIS_HOST: ${EVAKA_REDIS_HOST}
+      REDIS_PORT: ${EVAKA_REDIS_PORT}
+      REDIS_DISABLE_SECURITY: "true"
+      JWT_PRIVATE_KEY: /home/evaka/test-cert/jwt_private_key.pem
+      EVAKA_CUSTOMER_SAML_PUBLIC_CERT: /home/evaka/test-cert/keycloak-local.pem
+      EVAKA_CUSTOMER_SAML_PRIVATE_CERT: /home/evaka/test-cert/saml-private.pem
+      ENABLE_DEV_API: "true"
+      PRETTY_LOGS: "false"
 
-  trevaka-srv:
+  service:
+    build:
+      context: ../service
+      additional_contexts: # requires docker-compose 2.17.0 or newer
+        core: ../evaka
     image: ${EVAKA_SRV_IMAGE}
     ports:
       - "8888:8888"
-    hostname: trevaka-srv
+    hostname: service
     depends_on:
       - db
+      - s3
     env_file:
       - .env
     environment:
@@ -90,10 +102,3 @@ services:
       FI_ESPOO_INTEGRATION_KOSKI_SECRET: ""
       FI_ESPOO_INTEGRATION_KOSKI_SOURCE_SYSTEM: ""
     restart: unless-stopped
-
-
-volumes:
-  db-data:
-    driver: local
-  s3-data:
-    driver: local
