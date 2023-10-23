@@ -16,99 +16,47 @@ type Features = {
   [k in Env]: FeatureFlags
 }
 
+const prod: FeatureFlags = {
+  citizenShiftCareAbsence: false,
+  daycareApplication: {
+    dailyTimes: false
+  },
+  preschoolApplication: {
+    connectedDaycarePreferredStartDate: true,
+    serviceNeedOption: true
+  },
+  decisionDraftMultipleUnits: true,
+  urgencyAttachments: false,
+  preschool: true,
+  preparatory: false,
+  assistanceActionOther: false,
+  financeDecisionHandlerSelect: true,
+  childDiscussion: false,
+  feeDecisionPreschoolClubFilter: true,
+  placementGuarantee: true,
+  assistanceNeedPreschoolDecisions: true,
+  staffAttendanceTypes: true,
+  personDuplicate: true,
+  childDocuments: true,
+  intermittentShiftCare: true,
+  citizenAttendanceSummary: true,
+  feeDecisionIgnoredStatus: true,
+  hojks: true,
+  noAbsenceType: true,
+  voucherUnitPayments: false,
+  assistanceNeedDecisionsLanguageSelect: false
+}
+
 const features: Features = {
   default: {
-    citizenShiftCareAbsence: false,
-    daycareApplication: {
-      dailyTimes: false
-    },
-    preschoolApplication: {
-      connectedDaycarePreferredStartDate: true,
-      serviceNeedOption: true
-    },
-    decisionDraftMultipleUnits: true,
-    urgencyAttachments: false,
-    preschool: true,
-    preparatory: false,
-    assistanceActionOther: false,
-    financeDecisionHandlerSelect: true,
-    childDiscussion: false,
-    feeDecisionPreschoolClubFilter: true,
-    placementGuarantee: true,
-    assistanceNeedPreschoolDecisions: true,
-    staffAttendanceTypes: true,
-    personDuplicate: true,
-    childDocuments: true,
-    intermittentShiftCare: true,
-    citizenAttendanceSummary: true,
-    feeDecisionIgnoredStatus: true,
-    hojks: true,
+    ...prod,
     employeeMobileGroupMessages: true,
-    sensitiveMessaging: true,
-    noAbsenceType: true,
-    voucherUnitPayments: false,
-    assistanceNeedDecisionsLanguageSelect: false
+    sensitiveMessaging: true
   },
   staging: {
-    citizenShiftCareAbsence: false,
-    daycareApplication: {
-      dailyTimes: false
-    },
-    preschoolApplication: {
-      connectedDaycarePreferredStartDate: true,
-      serviceNeedOption: true
-    },
-    decisionDraftMultipleUnits: true,
-    urgencyAttachments: false,
-    preschool: true,
-    preparatory: false,
-    assistanceActionOther: false,
-    financeDecisionHandlerSelect: true,
-    childDiscussion: false,
-    feeDecisionPreschoolClubFilter: true,
-    placementGuarantee: true,
-    assistanceNeedPreschoolDecisions: true,
-    staffAttendanceTypes: true,
-    personDuplicate: true,
-    childDocuments: true,
-    intermittentShiftCare: true,
-    citizenAttendanceSummary: true,
-    feeDecisionIgnoredStatus: true,
-    hojks: true,
-    noAbsenceType: true,
-    voucherUnitPayments: false,
-    assistanceNeedDecisionsLanguageSelect: false
+    ...prod
   },
-  prod: {
-    citizenShiftCareAbsence: false,
-    daycareApplication: {
-      dailyTimes: false
-    },
-    preschoolApplication: {
-      connectedDaycarePreferredStartDate: true,
-      serviceNeedOption: true
-    },
-    decisionDraftMultipleUnits: true,
-    urgencyAttachments: false,
-    preschool: true,
-    preparatory: false,
-    assistanceActionOther: false,
-    financeDecisionHandlerSelect: true,
-    childDiscussion: false,
-    feeDecisionPreschoolClubFilter: true,
-    placementGuarantee: true,
-    assistanceNeedPreschoolDecisions: true,
-    staffAttendanceTypes: true,
-    personDuplicate: true,
-    childDocuments: true,
-    intermittentShiftCare: true,
-    citizenAttendanceSummary: true,
-    feeDecisionIgnoredStatus: true,
-    hojks: true,
-    noAbsenceType: true,
-    voucherUnitPayments: false,
-    assistanceNeedDecisionsLanguageSelect: false
-  }
+  prod
 }
 
 const featureFlags = features[env()]
