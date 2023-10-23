@@ -44,6 +44,7 @@ const features: Features = {
     feeDecisionIgnoredStatus: true,
     hojks: true,
     employeeMobileGroupMessages: true,
+    sensitiveMessaging: true,
     noAbsenceType: true,
     voucherUnitPayments: false,
     assistanceNeedDecisionsLanguageSelect: false
