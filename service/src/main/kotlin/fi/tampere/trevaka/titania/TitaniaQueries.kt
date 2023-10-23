@@ -23,8 +23,8 @@ fun Database.Read.getEmployeeIdsByNumbers(employeeNumbers: List<String>): Map<St
 
 fun Database.Transaction.createEmployees(employees: List<NewEmployee>): Map<String, EmployeeId> {
     val sql = """
-        INSERT INTO employee (first_name, last_name, email, external_id, employee_number, roles)
-        VALUES (:employee.firstName, :employee.lastName, :employee.email, :employee.externalId, :employee.employeeNumber, :employee.roles::user_role[])
+        INSERT INTO employee (first_name, last_name, email, external_id, employee_number, roles, active)
+        VALUES (:employee.firstName, :employee.lastName, :employee.email, :employee.externalId, :employee.employeeNumber, :employee.roles::user_role[], :employee.active)
         RETURNING id, employee_number
     """.trimIndent()
     val batch = prepareBatch(sql)

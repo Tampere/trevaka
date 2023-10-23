@@ -15,6 +15,7 @@ internal val testEmployee = NewEmployee(
     employeeNumber = null,
     roles = setOf(),
     temporaryInUnitId = null,
+    active = true,
 )
 
 // titania/titania-update-request-valid-example-data.json

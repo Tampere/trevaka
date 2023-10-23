@@ -67,6 +67,7 @@ class TitaniaService(private val idConverter: TitaniaEmployeeIdConverter) {
                     externalId = null,
                     employeeNumber = person.employeeId,
                     temporaryInUnitId = null,
+                    active = true,
                 )
             }
         val allEmployeeNumberToId = employeeNumberToId + tx.createEmployees(unknownEmployees)
