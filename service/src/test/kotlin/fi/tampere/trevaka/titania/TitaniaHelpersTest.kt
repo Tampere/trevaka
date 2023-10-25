@@ -8,6 +8,7 @@ import fi.espoo.evaka.attendance.RawAttendance
 import fi.espoo.evaka.attendance.StaffAttendanceType
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.GroupId
+import fi.espoo.evaka.shared.StaffAttendanceRealtimeId
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -54,7 +55,7 @@ internal class TitaniaHelpersTest {
 }
 
 private val testAttendance = RawAttendance(
-    id = UUID.randomUUID(),
+    id = StaffAttendanceRealtimeId(UUID.randomUUID()),
     groupId = GroupId(UUID.randomUUID()),
     arrived = HelsinkiDateTime.of(LocalDate.of(2022, 6, 6), LocalTime.of(7, 31)),
     departed = null,
