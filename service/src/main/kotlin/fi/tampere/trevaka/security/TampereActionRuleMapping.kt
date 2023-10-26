@@ -137,7 +137,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.UNIT_SUPERVISOR).inUnit() as ScopedActionRule<in T>,
             ) + sequenceOf(
-                HasUnitRole(UserRole.SPECIAL_EDUCATION_TEACHER).inPlacementUnitOfChildOfAssistanceNeedDecision() as ScopedActionRule<in T>,
+                HasUnitRole(UserRole.SPECIAL_EDUCATION_TEACHER).inPlacementUnitOfChildOfAssistanceNeedDecision(hidePastAssistance = false) as ScopedActionRule<in T>,
             )
         }
         Action.Attachment.READ_APPLICATION_ATTACHMENT,

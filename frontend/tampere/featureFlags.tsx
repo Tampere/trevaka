@@ -50,7 +50,6 @@ const prod: FeatureFlags = {
 const features: Features = {
   default: {
     ...prod,
-    employeeMobileGroupMessages: true,
     sensitiveMessaging: true
   },
   staging: {
