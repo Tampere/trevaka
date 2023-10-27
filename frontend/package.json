@@ -11,7 +11,7 @@
   "devDependencies": {
     "@playwright/test": "^1.39.0",
     "@types/jest": "^29.5.6",
-    "axios": "^1.5.1",
+    "axios": "^1.6.0",
     "e2e-test": "link:../evaka/frontend/src/e2e-test",
     "jest": "^29.7.0",
     "jest-circus": "^29.7.0",
