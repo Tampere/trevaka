@@ -109,13 +109,6 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
-        Action.AssistanceAction.READ,
-        -> {
-            @Suppress("UNCHECKED_CAST")
-            action.defaultRules.asSequence() + sequenceOf(
-                HasGlobalRole(UserRole.SERVICE_WORKER, UserRole.FINANCE_ADMIN) as ScopedActionRule<in T>,
-            )
-        }
         Action.AssistanceNeedDecision.DECIDE,
         Action.AssistanceNeedDecision.MARK_AS_OPENED,
         -> {
@@ -203,15 +196,56 @@ class TampereActionRuleMapping : ActionRuleMapping {
         }
         Action.Child.READ_ASSISTANCE,
         Action.Child.READ_ASSISTANCE_FACTORS,
-        Action.Child.READ_DAYCARE_ASSISTANCES,
-        Action.Child.READ_PRESCHOOL_ASSISTANCES,
-        Action.Child.READ_OTHER_ASSISTANCE_MEASURES,
-        Action.Child.READ_ASSISTANCE_ACTION,
         -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
-                HasUnitRole(UserRole.STAFF).inPlacementUnitOfChild() as ScopedActionRule<in T>,
-            ) + sequenceOf(HasGlobalRole(UserRole.DIRECTOR, UserRole.FINANCE_ADMIN) as ScopedActionRule<in T>)
+                HasGlobalRole(UserRole.DIRECTOR, UserRole.FINANCE_ADMIN) as ScopedActionRule<in T>,
+            )
+        }
+        Action.AssistanceFactor.READ,
+        -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.DIRECTOR, UserRole.FINANCE_ADMIN) as ScopedActionRule<in T>,
+            )
+        }
+        Action.Child.READ_DAYCARE_ASSISTANCES,
+        Action.Child.READ_PRESCHOOL_ASSISTANCES,
+        Action.Child.READ_ASSISTANCE_ACTION,
+        Action.Child.READ_OTHER_ASSISTANCE_MEASURES,
+        -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
+            )
+        }
+        Action.DaycareAssistance.READ,
+        -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
+            )
+        }
+        Action.PreschoolAssistance.READ,
+        -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
+            )
+        }
+        Action.AssistanceAction.READ,
+        -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
+            )
+        }
+        Action.OtherAssistanceMeasure.READ,
+        -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
+            )
         }
         Action.Child.READ_VASU_DOCUMENT -> {
             @Suppress("UNCHECKED_CAST")
