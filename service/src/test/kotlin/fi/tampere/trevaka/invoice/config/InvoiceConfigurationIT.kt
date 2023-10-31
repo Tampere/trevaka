@@ -39,17 +39,11 @@ import fi.espoo.evaka.shared.dev.DevChild
 import fi.espoo.evaka.shared.dev.DevDaycare
 import fi.espoo.evaka.shared.dev.DevParentship
 import fi.espoo.evaka.shared.dev.DevPerson
-import fi.espoo.evaka.shared.dev.insertEvakaUser
-import fi.espoo.evaka.shared.dev.insertTestChild
-import fi.espoo.evaka.shared.dev.insertTestDaycare
-import fi.espoo.evaka.shared.dev.insertTestFeeThresholds
-import fi.espoo.evaka.shared.dev.insertTestParentship
-import fi.espoo.evaka.shared.dev.insertTestPerson
+import fi.espoo.evaka.shared.dev.DevPersonType
+import fi.espoo.evaka.shared.dev.insert
 import fi.espoo.evaka.shared.dev.insertTestPlacement
 import fi.espoo.evaka.shared.domain.DateRange
 import fi.espoo.evaka.shared.security.PilotFeature
-import fi.espoo.evaka.user.EvakaUser
-import fi.espoo.evaka.user.EvakaUserType
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -77,7 +71,7 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
                 VALUES (:questionnaireId, 'FIXED_PERIOD', 'FREE_ABSENCE', false, daterange('2022-04-13', '2022-04-29'), '{"fi": "title"}', '{"fi": "description"}', '{"fi": "link"}', daterange('2021-08-31', '2022-06-30'), array[daterange('2022-06-06', '2022-07-31', '[]'), daterange('2022-06-13', '2022-08-07', '[]'), daterange('2022-06-20', '2022-08-14', '[]'), daterange('2022-06-27', '2022-08-21', '[]'), daterange('2022-07-04', '2022-08-28', '[]')], '{"fi": "period option label"}')
                 """,
             ).bind("questionnaireId", questionnaireId).execute()
-            tx.insertTestFeeThresholds(
+            tx.insert(
                 FeeThresholds(
                     validDuring = DateRange(LocalDate.of(2000, 1, 1), null),
                     minIncomeThreshold2 = 210200,
@@ -106,12 +100,14 @@ internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
                     temporaryFeeSiblingPartDay = 800,
                 ),
             )
-            tx.insertTestDaycare(testDaycare)
-            tx.insertTestPerson(testChild)
-            tx.insertTestChild(DevChild(testChild.id))
-            tx.insertTestPerson(testAdult)
-            tx.insertTestParentship(testParentship)
-            tx.insertEvakaUser(EvakaUser(evakaUserId, "integration-test", EvakaUserType.UNKNOWN))
+            tx.insert(testDaycare)
+            tx.insert(testChild, DevPersonType.CHILD)
+            tx.insert(DevChild(testChild.id))
+            tx.insert(testAdult, DevPersonType.ADULT)
+            tx.insert(testParentship)
+            tx.createUpdate("INSERT INTO evaka_user (id, type, name) VALUES (:id, 'UNKNOWN', 'integration-test')")
+                .bind("id", evakaUserId)
+                .execute()
             tx.findServiceNeedOptionById(ServiceNeedOptionId(UUID.fromString("86ef70a0-bf85-11eb-91e6-1fb57a101161")))!!
         }
         val decisions = listOf(
