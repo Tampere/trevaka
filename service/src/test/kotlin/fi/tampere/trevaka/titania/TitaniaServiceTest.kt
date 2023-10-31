@@ -13,9 +13,7 @@ import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.dev.DevDaycare
 import fi.espoo.evaka.shared.dev.DevDaycareGroup
 import fi.espoo.evaka.shared.dev.DevStaffAttendancePlan
-import fi.espoo.evaka.shared.dev.insertTestDaycare
-import fi.espoo.evaka.shared.dev.insertTestDaycareGroup
-import fi.espoo.evaka.shared.dev.insertTestStaffAttendancePlan
+import fi.espoo.evaka.shared.dev.insert
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.tampere.trevaka.AbstractIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
@@ -386,12 +384,12 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
     @Test
     fun `getStampedWorkingTimeEvents`() {
         runInTransaction { tx ->
-            val unitId = tx.insertTestDaycare(
+            val unitId = tx.insert(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
                 ),
             )
-            val groupId = tx.insertTestDaycareGroup(
+            val groupId = tx.insert(
                 DevDaycareGroup(
                     daycareId = unitId,
                 ),
@@ -541,12 +539,12 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
     @Test
     fun `getStampedWorkingTimeEvents with plan and overtime`() {
         runInTransaction { tx ->
-            val unitId = tx.insertTestDaycare(
+            val unitId = tx.insert(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
                 ),
             )
-            val groupId = tx.insertTestDaycareGroup(
+            val groupId = tx.insert(
                 DevDaycareGroup(
                     daycareId = unitId,
                 ),
@@ -558,7 +556,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                     employeeNumber = "177111",
                 ),
             ).let { (employeeId) ->
-                tx.insertTestStaffAttendancePlan(
+                tx.insert(
                     DevStaffAttendancePlan(
                         employeeId = employeeId,
                         type = StaffAttendanceType.PRESENT,
@@ -648,12 +646,12 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
     @Test
     fun `getStampedWorkingTimeEvents with plan and overtime without departed`() {
         runInTransaction { tx ->
-            val unitId = tx.insertTestDaycare(
+            val unitId = tx.insert(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
                 ),
             )
-            val groupId = tx.insertTestDaycareGroup(
+            val groupId = tx.insert(
                 DevDaycareGroup(
                     daycareId = unitId,
                 ),
@@ -665,7 +663,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                     employeeNumber = "177111",
                 ),
             ).let { (employeeId) ->
-                tx.insertTestStaffAttendancePlan(
+                tx.insert(
                     DevStaffAttendancePlan(
                         employeeId = employeeId,
                         type = StaffAttendanceType.PRESENT,
@@ -755,12 +753,12 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
     @Test
     fun `getStampedWorkingTimeEvents with plan and justified change inside plan`() {
         runInTransaction { tx ->
-            val unitId = tx.insertTestDaycare(
+            val unitId = tx.insert(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
                 ),
             )
-            val groupId = tx.insertTestDaycareGroup(
+            val groupId = tx.insert(
                 DevDaycareGroup(
                     daycareId = unitId,
                 ),
@@ -772,7 +770,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                     employeeNumber = "177111",
                 ),
             ).let { (employeeId) ->
-                tx.insertTestStaffAttendancePlan(
+                tx.insert(
                     DevStaffAttendancePlan(
                         employeeId = employeeId,
                         type = StaffAttendanceType.PRESENT,
@@ -878,12 +876,12 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
     @Test
     fun `getStampedWorkingTimeEvents with plan and justified change outside plan`() {
         runInTransaction { tx ->
-            val unitId = tx.insertTestDaycare(
+            val unitId = tx.insert(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
                 ),
             )
-            val groupId = tx.insertTestDaycareGroup(
+            val groupId = tx.insert(
                 DevDaycareGroup(
                     daycareId = unitId,
                 ),
@@ -895,7 +893,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                     employeeNumber = "177111",
                 ),
             ).let { (employeeId) ->
-                tx.insertTestStaffAttendancePlan(
+                tx.insert(
                     DevStaffAttendancePlan(
                         employeeId = employeeId,
                         type = StaffAttendanceType.PRESENT,
@@ -1001,12 +999,12 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
     @Test
     fun `getStampedWorkingTimeEvents with plan and justified change without departed`() {
         runInTransaction { tx ->
-            val unitId = tx.insertTestDaycare(
+            val unitId = tx.insert(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
                 ),
             )
-            val groupId = tx.insertTestDaycareGroup(
+            val groupId = tx.insert(
                 DevDaycareGroup(
                     daycareId = unitId,
                 ),
@@ -1018,7 +1016,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                     employeeNumber = "177111",
                 ),
             ).let { (employeeId) ->
-                tx.insertTestStaffAttendancePlan(
+                tx.insert(
                     DevStaffAttendancePlan(
                         employeeId = employeeId,
                         type = StaffAttendanceType.PRESENT,
@@ -1092,12 +1090,12 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
     @Test
     fun `getStampedWorkingTimeEvents with overnight plan`() {
         runInTransaction { tx ->
-            val unitId = tx.insertTestDaycare(
+            val unitId = tx.insert(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
                 ),
             )
-            val groupId = tx.insertTestDaycareGroup(
+            val groupId = tx.insert(
                 DevDaycareGroup(
                     daycareId = unitId,
                 ),
@@ -1109,7 +1107,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                     employeeNumber = "177111",
                 ),
             ).let { (employeeId) ->
-                tx.insertTestStaffAttendancePlan(
+                tx.insert(
                     DevStaffAttendancePlan(
                         employeeId = employeeId,
                         type = StaffAttendanceType.PRESENT,
@@ -1183,12 +1181,12 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
     @Test
     fun `getStampedWorkingTimeEvents with overnight plan and justified change inside plan`() {
         runInTransaction { tx ->
-            val unitId = tx.insertTestDaycare(
+            val unitId = tx.insert(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
                 ),
             )
-            val groupId = tx.insertTestDaycareGroup(
+            val groupId = tx.insert(
                 DevDaycareGroup(
                     daycareId = unitId,
                 ),
@@ -1200,7 +1198,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                     employeeNumber = "177111",
                 ),
             ).let { (employeeId) ->
-                tx.insertTestStaffAttendancePlan(
+                tx.insert(
                     DevStaffAttendancePlan(
                         employeeId = employeeId,
                         type = StaffAttendanceType.PRESENT,
@@ -1302,12 +1300,12 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
     @Test
     fun `getStampedWorkingTimeEvents with attendance not within plan`() {
         runInTransaction { tx ->
-            val unitId = tx.insertTestDaycare(
+            val unitId = tx.insert(
                 DevDaycare(
                     areaId = AreaId(UUID.fromString("6529e31e-9777-11eb-ba88-33a923255570")),
                 ),
             )
-            val groupId = tx.insertTestDaycareGroup(
+            val groupId = tx.insert(
                 DevDaycareGroup(
                     daycareId = unitId,
                 ),
@@ -1319,7 +1317,7 @@ internal class TitaniaServiceTest : AbstractIntegrationTest() {
                     employeeNumber = "177111",
                 ),
             ).let { (employeeId) ->
-                tx.insertTestStaffAttendancePlan(
+                tx.insert(
                     DevStaffAttendancePlan(
                         employeeId = employeeId,
                         type = StaffAttendanceType.PRESENT,
