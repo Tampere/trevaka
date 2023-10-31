@@ -37,6 +37,14 @@ updates:
           - "ts-jest"
         exclude-patterns:
           - "jest-junit"
+      lodash:
+        patterns:
+          - "lodash"
+          - "@types/lodash"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
       typescript:
         patterns:
           - "tslib"
