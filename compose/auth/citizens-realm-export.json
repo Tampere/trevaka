@@ -1018,8 +1018,8 @@
     "from": "noreply@trevaka.local",
     "ssl": ""
   },
-  "loginTheme": "evaka",
-  "emailTheme": "evaka",
+  "loginTheme": "evaka-tampere",
+  "emailTheme": "evaka-tampere",
   "eventsEnabled": false,
   "eventsListeners": [
     "jboss-logging"
