@@ -57,7 +57,7 @@ dependencies {
 }
 
 springBoot {
-    mainClass.set("fi.tampere.trevaka.TrevakaMainKt")
+    mainClass.set("trevaka.MainKt")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
@@ -73,7 +73,7 @@ tasks {
         systemProperty("spring.profiles.active", "integration-test,trevaka")
     }
     bootRun {
-        systemProperty("spring.profiles.active", "local,trevaka-local")
+        systemProperty("spring.profiles.active", "local,trevaka,trevaka-local")
     }
 }
 

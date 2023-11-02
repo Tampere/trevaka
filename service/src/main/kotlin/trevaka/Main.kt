@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-package fi.tampere.trevaka
+package trevaka
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration
@@ -10,11 +10,10 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration
 import org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration
-import org.springframework.boot.builder.SpringApplicationBuilder
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan
+import org.springframework.boot.runApplication
 
 @SpringBootApplication(
-    scanBasePackages = ["fi.tampere.trevaka", "fi.espoo.evaka"],
+    scanBasePackages = ["trevaka", "fi.espoo.evaka"],
     exclude = [
         DataSourceAutoConfiguration::class,
         FlywayAutoConfiguration::class,
@@ -23,12 +22,8 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan
         TransactionAutoConfiguration::class,
     ],
 )
-@ConfigurationPropertiesScan(basePackages = ["fi.tampere.trevaka"])
-class TrevakaMain
+class Main
 
 fun main(args: Array<String>) {
-    SpringApplicationBuilder()
-        .sources(TrevakaMain::class.java)
-        .profiles("trevaka")
-        .run(*args)
+    runApplication<Main>(*args)
 }

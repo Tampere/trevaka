@@ -10,11 +10,8 @@ import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.Forbidden
 import jakarta.servlet.http.HttpServletRequest
 import mu.KotlinLogging
-import org.springframework.core.Ordered
-import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -47,11 +44,6 @@ class TitaniaController(private val titaniaService: TitaniaService) {
         if (user.type != AuthenticatedUserType.integration) throw Forbidden()
         return db.connect { dbc -> dbc.read { tx -> titaniaService.getStampedWorkingTimeEvents(tx, request) } }
     }
-}
-
-@Order(Ordered.HIGHEST_PRECEDENCE)
-@ControllerAdvice
-class TitaniaExceptionHandlers() {
 
     @ExceptionHandler(TitaniaException::class)
     fun titaniaExceptionHandler(ex: TitaniaException, req: HttpServletRequest): ResponseEntity<TitaniaErrorResponse> {

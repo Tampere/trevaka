@@ -21,6 +21,7 @@ import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
 import org.springframework.core.io.Resource
 import org.springframework.util.StreamUtils
+import trevaka.Main
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.nio.file.Paths
@@ -31,7 +32,7 @@ val reportsPath: String = "${Paths.get("build").toAbsolutePath()}/reports"
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(
     webEnvironment = WebEnvironment.RANDOM_PORT,
-    classes = [IntegrationTestConfiguration::class],
+    classes = [Main::class, IntegrationTestConfiguration::class],
 )
 @AutoConfigureWireMock(port = 0)
 abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean = true) {
