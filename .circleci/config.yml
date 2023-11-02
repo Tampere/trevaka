@@ -189,6 +189,9 @@ jobs:
   frontend_build_image:
     executor: aws_executor
     resource_class: large
+    parameters:
+      customizations:
+        type: string
     steps:
       - checkout_with_submodules
       - setup_aws
@@ -205,9 +208,17 @@ jobs:
       - setup_authenticated_remote_docker:
           docker_layer_caching: true
       - build_docker_image:
-          image: trevaka/frontend
+          image: trevaka/frontend/<< parameters.customizations >>
           dir: *workspace_evaka_frontend
-          extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=tampere --build-arg ICONS=pro --build-context customizations=../../frontend/tampere
+          extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=<< parameters.customizations >> --build-arg ICONS=pro --build-context customizations=../../frontend/<< parameters.customizations >>
+      - when: # backward compatibility for existing environments
+          condition:
+            equal: [tampere, << parameters.customizations >>]
+          steps:
+            - build_docker_image:
+                image: trevaka/frontend
+                dir: *workspace_evaka_frontend
+                extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=tampere --build-arg ICONS=pro --build-context customizations=../../frontend/tampere
 
   service_build_image:
     executor: aws_executor
@@ -307,6 +318,9 @@ jobs:
   e2e_test:
     executor: machine_executor
     resource_class: large
+    parameters:
+      customizations:
+        type: string
     steps:
       - checkout_with_submodules
       - setup_aws
@@ -315,7 +329,7 @@ jobs:
           working_directory: *workspace_compose
           command: |
             CI=true LOCAL_DIR='../evaka/frontend' \
-            EVAKA_FRONTEND_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend:${CIRCLE_SHA1} \
+            EVAKA_FRONTEND_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend/<< parameters.customizations >>:${CIRCLE_SHA1} \
             EVAKA_GW_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/api-gateway:${CIRCLE_SHA1} \
             EVAKA_SRV_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service:${CIRCLE_SHA1} \
             docker-compose up -d
@@ -344,7 +358,7 @@ jobs:
             echo 'src/*' >> .eslintignore
             echo '!src/lib-customizations' >> .eslintignore
             echo 'src/lib-customizations/*' >> .eslintignore
-            echo '!src/lib-customizations/tampere' >> .eslintignore
+            echo '!src/lib-customizations/<< parameters.customizations >>' >> .eslintignore
             yarn lint
       - run:
           name: Collect docker-compose logs
@@ -380,13 +394,21 @@ workflows:
           context:
             - trevaka-aws
           requires:
-            - frontend_build_image
+            - frontend_build_image-<< matrix.customizations >>
             - apigw_build_image
             - service_build_image
+          matrix:
+            parameters:
+              customizations:
+                - tampere
 
       - frontend_build_image:
           context:
             - trevaka-aws
+          matrix:
+            parameters:
+              customizations:
+                - tampere
 
       - service_build_image:
           context:
