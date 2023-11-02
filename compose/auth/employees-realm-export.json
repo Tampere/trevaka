@@ -1291,7 +1291,6 @@
     "ssl": ""
   },
   "loginTheme": "evaka",
-  "accountTheme": "evaka",
   "emailTheme": "evaka",
   "eventsEnabled": false,
   "eventsListeners": [
