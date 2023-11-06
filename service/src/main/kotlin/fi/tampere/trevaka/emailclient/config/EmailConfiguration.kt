@@ -17,12 +17,10 @@ import fi.espoo.evaka.shared.MessageThreadId
 import fi.espoo.evaka.shared.domain.FiniteDateRange
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Profile
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
 
-@Profile("trevaka")
 @Configuration
 class EmailConfiguration {
 
