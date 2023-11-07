@@ -63,10 +63,10 @@ To check that the repository is compliant (e.g. before submitting a pull
 request), run:
 
 ```sh
-./bin/add-license-headers.sh --lint-only
+./add-license-headers.sh --lint-only
 
 # See also:
-./bin/add-license-headers.sh --help
+./add-license-headers.sh --help
 ```
 
 ### Automatically add licensing headers
@@ -74,7 +74,7 @@ request), run:
 To **attempt** automatically adding licensing headers to all source files, run:
 
 ```sh
-./bin/add-license-headers.sh
+./add-license-headers.sh
 ```
 
 **NOTE:** The script uses the [reuse CLI tool](https://git.fsfe.org/reuse/tool),
@@ -82,7 +82,7 @@ which has limited capability in recognizing file types but will give some
 helpful output in those cases, like:
 
 ```sh
-$ ./bin/add-license-headers.sh
+$ ./add-license-headers.sh
 usage: reuse addheader [-h] [--copyright COPYRIGHT] [--license LICENSE]
                        [--year YEAR]
                        [--style {applescript,aspx,bibtex,c,css,haskell,html,jinja,jsx,lisp,m4,ml,python,tex}]
