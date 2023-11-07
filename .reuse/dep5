@@ -37,7 +37,7 @@ Files: compose/.env
 Copyright: 2021 City of Tampere
 License: LGPL-2.1-or-later
 
-Files: compose/auth/*.json
+Files: auth/realms/*.json
 Copyright: 2021 City of Tampere
 License: LGPL-2.1-or-later
 

@@ -19,7 +19,7 @@ services:
       KC_DB: dev-file
     command: start-dev --import-realm
     volumes:
-      - ./auth:/opt/keycloak/data/import
+      - ../auth/realms/tampere:/opt/keycloak/data/import
     depends_on:
       - smtp
   smtp:
