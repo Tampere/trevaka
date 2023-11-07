@@ -50,7 +50,7 @@ const prod: FeatureFlags = {
 const features: Features = {
   default: {
     ...prod,
-    sensitiveMessaging: true
+    employeeMobileStaffAttendanceEdit: true
   },
   staging: {
     ...prod
