@@ -211,14 +211,6 @@ jobs:
           image: trevaka/frontend/<< parameters.customizations >>
           dir: *workspace_evaka_frontend
           extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=<< parameters.customizations >> --build-arg ICONS=pro --build-context customizations=../../frontend/<< parameters.customizations >>
-      - when: # backward compatibility for existing environments
-          condition:
-            equal: [tampere, << parameters.customizations >>]
-          steps:
-            - build_docker_image:
-                image: trevaka/frontend
-                dir: *workspace_evaka_frontend
-                extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=tampere --build-arg ICONS=pro --build-context customizations=../../frontend/tampere
 
   service_build_image:
     executor: aws_executor
