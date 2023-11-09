@@ -21,8 +21,6 @@ ADD --chmod=0644 \
     https://raw.githubusercontent.com/danielmiessler/SecLists/2023.1/Passwords/xato-net-10-million-passwords-1000000.txt \
     /opt/keycloak/data/password-blacklists/default.txt
 COPY --from=tampere evaka /opt/keycloak/themes/evaka-tampere
-# backward compatibility for existing environments
-COPY --from=tampere evaka /opt/keycloak/themes/evaka
 RUN /opt/keycloak/bin/kc.sh build --db=postgres --http-relative-path=/auth --health-enabled=true
 RUN /opt/keycloak/bin/kc.sh show-config
 CMD ["start","--optimized"]
