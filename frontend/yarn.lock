@@ -4000,9 +4000,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"styled-components@npm:6.1.0":
-  version: 6.1.0
-  resolution: "styled-components@npm:6.1.0"
+"styled-components@npm:6.1.1":
+  version: 6.1.1
+  resolution: "styled-components@npm:6.1.1"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.2.1"
     "@emotion/unitless": "npm:^0.8.0"
@@ -4016,7 +4016,7 @@ __metadata:
   peerDependencies:
     react: ">= 16.8.0"
     react-dom: ">= 16.8.0"
-  checksum: 0f300c6f3cde0d70a9a2697896010f76fdc36a80407e9c0c1c1e57ffd381be1d02e3a48bde51c43342d7abc8a9e1f35b28585bf89427fd78139348209ffb26a9
+  checksum: 7e9538c7d22bd4911d515961167d62cd7b4c42e25eccb9413572ea1a1e9073c363a849807dee7cd4347ad37fafb59bb517fcc399f7f72b2fa6561c5cb6d573a0
   languageName: node
   linkType: hard
 
@@ -4151,7 +4151,7 @@ __metadata:
     lodash: "npm:^4.17.21"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-    styled-components: "npm:6.1.0"
+    styled-components: "npm:6.1.1"
     ts-jest: "npm:^29.1.1"
     ts-node: "npm:^10.9.1"
     tslib: "npm:^2.6.2"
