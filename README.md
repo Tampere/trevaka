@@ -24,10 +24,9 @@ Frontend customizations [must be linked](frontend/README.md) under eVaka-reposit
 See [eVaka README](evaka/compose/README.md#Dependencies)
 
 ### Starting treVaka dev environment
-1. `cd compose`
-2. `docker-compose -f docker-compose-dbs.yml up -d --build`
-3. `pm2 start` (starts all apps)
-4. Open browser: http://localhost:9099/
+1. `docker-compose up -d --build`
+2. `pm2 start` (starts all apps)
+3. Open browser: http://localhost:9099/
 
 ## Running treVaka frontend tests
 

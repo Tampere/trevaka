@@ -15,7 +15,6 @@ aliases:
   - &workspace_proxy /home/circleci/repo/evaka/proxy
   - &workspace_service /home/circleci/repo/service
   - &workspace_auth /home/circleci/repo/auth
-  - &workspace_compose /home/circleci/repo/compose
 
   - &base_image cimg/base:current-22.04
   - &aws_image cimg/aws:2023.08
@@ -237,7 +236,7 @@ jobs:
       - setup_aws
       - run:
           name: Start up compose stack
-          command: docker-compose -f compose/docker-compose-dbs.yml up -d --build
+          command: docker-compose up -d --build
       - run:
           name: Run tests
           command: |
@@ -249,7 +248,7 @@ jobs:
               ./gradlew --no-daemon check
       - run:
           name: Collect docker-compose logs
-          command: docker-compose -f compose/docker-compose-dbs.yml logs --tail=all > /tmp/docker-compose-logs.txt
+          command: docker-compose logs --tail=all > /tmp/docker-compose-logs.txt
           when: always
       - store_artifacts:
           path: /tmp/docker-compose-logs.txt
@@ -318,13 +317,12 @@ jobs:
       - setup_aws
       - run:
           name: Start up compose stack
-          working_directory: *workspace_compose
           command: |
             CI=true LOCAL_DIR='../evaka/frontend' \
             EVAKA_FRONTEND_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend/<< parameters.customizations >>:${CIRCLE_SHA1} \
             EVAKA_GW_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/api-gateway:${CIRCLE_SHA1} \
             EVAKA_SRV_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service:${CIRCLE_SHA1} \
-            docker-compose up -d
+            docker-compose --profile evaka up -d
       - frontend_install:
           include_e2e: true
       - run:
@@ -354,8 +352,7 @@ jobs:
             yarn lint
       - run:
           name: Collect docker-compose logs
-          working_directory: *workspace_compose
-          command: docker-compose logs --tail=all > /tmp/docker-compose-logs.txt
+          command: docker-compose --profile evaka logs --tail=all > /tmp/docker-compose-logs.txt
           when: always
       - store_artifacts:
           path: /tmp/docker-compose-logs.txt

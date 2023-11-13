@@ -12,7 +12,7 @@ module.exports = {
   apps: [{
     name: 'trevaka-apigw',
     script: 'yarn && yarn clean && yarn dev',
-    cwd: path.resolve(__dirname, '../evaka/apigw'),
+    cwd: path.resolve(__dirname, 'evaka/apigw'),
     env: {
       EVAKA_TITANIA_USERNAME: 'titania',
       EVAKA_TITANIA_PASSWORD: 'titania',
@@ -26,16 +26,16 @@ module.exports = {
   }, {
     name: 'trevaka-frontend',
     script: 'yarn && yarn clean && EVAKA_CUSTOMIZATIONS=tampere yarn dev',
-    cwd: path.resolve(__dirname, '../evaka/frontend'),
+    cwd: path.resolve(__dirname, 'evaka/frontend'),
     env: {
       'ICONS': process.env.ICONS
     },
     ...defaults
   }, {
     name: 'trevaka-service',
-    script: `${__dirname}/../evaka/compose/run-after-db.sh`,
+    script: `${__dirname}/evaka/compose/run-after-db.sh`,
     args: './gradlew --no-daemon bootRun',
-    cwd: path.resolve(__dirname, '../service'),
+    cwd: path.resolve(__dirname, 'service'),
     ...defaults
   },
   ],

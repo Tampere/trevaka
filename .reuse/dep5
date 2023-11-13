@@ -33,7 +33,7 @@ Files: frontend/yarn.lock
 Copyright: 2021 City of Tampere
 License: LGPL-2.1-or-later
 
-Files: compose/.env
+Files: .env
 Copyright: 2021 City of Tampere
 License: LGPL-2.1-or-later
 

@@ -2,17 +2,52 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-version: '3.5'
-
-include: # requires docker-compose 2.20.0 or newer
-  - docker-compose-dbs.yml
-
 services:
+  db:
+    build: evaka/compose/db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: "pg_isready -U postgres"
+      interval: 2s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7.0-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: '[ "$$(redis-cli -h 127.0.0.1 ping)" == "PONG" ]'
+      interval: 1s
+      timeout: 5s
+      retries: 5
+
+  s3:
+    image: adobe/s3mock:3.1.0
+    ports:
+      - "9090:9090"
+      - "9876:9090" # for core tests
+    volumes:
+      - s3-data:/data
+    environment:
+      ROOT: /data
+    healthcheck:
+      test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:9090" ]
+      interval: 1s
+      timeout: 5s
+      retries: 5
+
   frontend:
     build:
-      context: ../evaka/frontend
+      context: evaka/frontend
       additional_contexts: # requires docker-compose 2.17.0 or newer
-        customizations: ../frontend/tampere
+        customizations: frontend/tampere
       args:
         EVAKA_CUSTOMIZATIONS: tampere
     image: ${EVAKA_FRONTEND_IMAGE}
@@ -28,9 +63,11 @@ services:
     # command: [nginx-debug, '-g', 'daemon off;']
     depends_on:
       - apigw
+    profiles:
+      - evaka
 
   apigw:
-    build: ../evaka/apigw
+    build: evaka/apigw
     image: ${EVAKA_GW_IMAGE}
     ports:
       - "3000"
@@ -39,7 +76,7 @@ services:
       - redis
       - service
     volumes:
-      - ../evaka/apigw/config/test-cert:/home/evaka/test-cert
+      - ./evaka/apigw/config/test-cert:/home/evaka/test-cert
     env_file:
       - .env
     environment:
@@ -56,12 +93,14 @@ services:
       EVAKA_CUSTOMER_SAML_PRIVATE_CERT: /home/evaka/test-cert/saml-private.pem
       ENABLE_DEV_API: "true"
       PRETTY_LOGS: "false"
+    profiles:
+      - evaka
 
   service:
     build:
-      context: ../service
+      context: service
       additional_contexts: # requires docker-compose 2.17.0 or newer
-        core: ../evaka
+        core: evaka
     image: ${EVAKA_SRV_IMAGE}
     ports:
       - "8888:8888"
@@ -102,3 +141,46 @@ services:
       FI_ESPOO_INTEGRATION_KOSKI_SECRET: ""
       FI_ESPOO_INTEGRATION_KOSKI_SOURCE_SYSTEM: ""
     restart: unless-stopped
+    profiles:
+      - evaka
+
+  auth:
+    build:
+      context: auth
+      additional_contexts: # requires docker-compose 2.17.0 or newer
+        core: evaka/keycloak
+    ports:
+      - "8080:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTP_RELATIVE_PATH: /auth
+      KC_DB: dev-file
+    command: start-dev --import-realm
+    volumes:
+      - ./auth/realms/tampere:/opt/keycloak/data/import
+    depends_on:
+      - smtp
+    profiles:
+      - auth
+
+  smtp:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025" # smtp
+      - "8025:8025" # http
+    profiles:
+      - auth
+
+  identification:
+    build: mock/identification
+    ports:
+      - "8081:8081"
+    profiles:
+      - auth
+
+volumes:
+  db-data:
+    driver: local
+  s3-data:
+    driver: local
