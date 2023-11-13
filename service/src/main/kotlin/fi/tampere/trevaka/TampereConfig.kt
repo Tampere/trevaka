@@ -11,8 +11,8 @@ import fi.espoo.evaka.s3.DocumentService
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
+import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
 import fi.tampere.trevaka.security.TampereActionRuleMapping
-import fi.tampere.trevaka.titania.TitaniaEmployeeIdConverter
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory
 import org.springframework.boot.web.server.WebServerFactoryCustomizer
 import org.springframework.context.annotation.Bean
