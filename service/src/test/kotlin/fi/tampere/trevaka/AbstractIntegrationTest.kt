@@ -24,7 +24,6 @@ import trevaka.Main
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.nio.file.Paths
-import java.util.function.Function
 
 val reportsPath: String = "${Paths.get("build").toAbsolutePath()}/reports"
 
@@ -62,9 +61,6 @@ abstract class AbstractIntegrationTest {
     protected fun afterAll() {
         db.close()
     }
-
-    protected fun <T> runInTransaction(function: Function<Database.Transaction, T>) =
-        db.transaction { tx -> function.apply(tx) }
 }
 
 fun resourceAsString(resource: Resource, charset: Charset = StandardCharsets.UTF_8) =

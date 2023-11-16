@@ -17,7 +17,7 @@ internal class VoucherValueDecisionsTest : AbstractIntegrationTest() {
 
     @Test
     fun `voucher value settings are in sync`() {
-        val options = runInTransaction { tx -> tx.getVoucherValues() }
+        val options = db.transaction { tx -> tx.getVoucherValues() }
 
         assertThat(options).isNotEmpty
         options.forEach {
