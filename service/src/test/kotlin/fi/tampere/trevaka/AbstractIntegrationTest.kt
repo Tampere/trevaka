@@ -6,7 +6,6 @@ package fi.tampere.trevaka
 
 import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.shared.db.Database
-import fi.espoo.evaka.shared.dev.runDevScript
 import fi.tampere.trevaka.database.resetTampereDatabaseForE2ETests
 import io.opentracing.noop.NoopTracerFactory
 import org.jdbi.v3.core.Jdbi
@@ -35,7 +34,7 @@ val reportsPath: String = "${Paths.get("build").toAbsolutePath()}/reports"
     classes = [Main::class, IntegrationTestConfiguration::class],
 )
 @AutoConfigureWireMock(port = 0)
-abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean = true) {
+abstract class AbstractIntegrationTest {
 
     @LocalServerPort
     var httpPort: Int = 0
@@ -51,21 +50,11 @@ abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean = 
     @BeforeAll
     protected fun initializeJdbi() {
         db = Database(jdbi, NoopTracerFactory.create()).connectWithManualLifecycle()
-        db.transaction {
-            it.runDevScript("reset-tampere-database-for-e2e-tests.sql")
-            if (!resetDbBeforeEach) {
-                it.resetTampereDatabaseForE2ETests()
-            }
-        }
     }
 
     @BeforeEach
     fun setup() {
-        if (resetDbBeforeEach) {
-            db.transaction {
-                it.resetTampereDatabaseForE2ETests()
-            }
-        }
+        db.transaction { tx -> tx.resetTampereDatabaseForE2ETests() }
         http.basePath = "http://localhost:$httpPort/"
     }
 
