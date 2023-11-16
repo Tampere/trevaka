@@ -6,6 +6,7 @@ package trevaka
 
 import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.shared.db.Database
+import fi.espoo.evaka.shared.dev.runDevScript
 import fi.tampere.trevaka.database.resetTampereDatabaseForE2ETests
 import io.opentracing.noop.NoopTracerFactory
 import org.jdbi.v3.core.Jdbi
@@ -48,6 +49,7 @@ abstract class AbstractIntegrationTest {
     @BeforeAll
     protected fun initializeJdbi() {
         db = Database(jdbi, NoopTracerFactory.create()).connectWithManualLifecycle()
+        db.transaction { tx -> tx.runDevScript("reset-tampere-database-for-e2e-tests.sql") }
     }
 
     @BeforeEach
