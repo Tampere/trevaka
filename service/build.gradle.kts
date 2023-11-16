@@ -70,7 +70,6 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 tasks {
     test {
         useJUnitPlatform()
-        systemProperty("spring.profiles.active", "integration-test,trevaka")
     }
     bootRun {
         systemProperty("spring.profiles.active", "local,trevaka,trevaka-local")

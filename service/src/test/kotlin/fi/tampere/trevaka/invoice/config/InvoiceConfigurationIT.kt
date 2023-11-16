@@ -44,7 +44,7 @@ import fi.espoo.evaka.shared.dev.insert
 import fi.espoo.evaka.shared.dev.insertTestPlacement
 import fi.espoo.evaka.shared.domain.DateRange
 import fi.espoo.evaka.shared.security.PilotFeature
-import fi.tampere.trevaka.AbstractIntegrationTest
+import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -53,7 +53,7 @@ import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.UUID
 
-internal class InvoiceConfigurationIT : AbstractIntegrationTest() {
+internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
 
     @Autowired
     private lateinit var generator: InvoiceGenerator

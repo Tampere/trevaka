@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-package fi.tampere.trevaka
+package trevaka
 
 import com.auth0.jwt.algorithms.Algorithm
 import fi.espoo.evaka.BucketEnv

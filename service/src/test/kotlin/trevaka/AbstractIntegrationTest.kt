@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-package fi.tampere.trevaka
+package trevaka
 
 import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.shared.db.Database
@@ -20,7 +20,6 @@ import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
 import org.springframework.core.io.Resource
 import org.springframework.util.StreamUtils
-import trevaka.Main
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.nio.file.Paths
