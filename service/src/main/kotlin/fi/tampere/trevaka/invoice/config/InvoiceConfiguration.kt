@@ -5,8 +5,10 @@
 package fi.tampere.trevaka.invoice.config
 
 import fi.espoo.evaka.invoicing.domain.FeeAlterationType
+import fi.espoo.evaka.invoicing.domain.IncomeCoefficient
 import fi.espoo.evaka.invoicing.domain.IncomeType
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
+import fi.espoo.evaka.invoicing.service.IncomeCoefficientMultiplierProvider
 import fi.espoo.evaka.invoicing.service.IncomeTypesProvider
 import fi.espoo.evaka.invoicing.service.InvoiceGenerationLogic
 import fi.espoo.evaka.invoicing.service.InvoiceGenerationLogicChooser
@@ -33,6 +35,7 @@ import org.springframework.ws.soap.SoapVersion
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory
 import org.springframework.ws.transport.http.HttpComponents5MessageSender
 import org.springframework.ws.transport.http.HttpComponents5MessageSender.RemoveSoapHeadersInterceptor
+import java.math.BigDecimal
 import java.time.Month
 
 const val WEB_SERVICE_TEMPLATE_INVOICE = "webServiceTemplateInvoice"
@@ -84,6 +87,9 @@ class InvoiceConfiguration {
     fun incomeTypesProvider(): IncomeTypesProvider = TampereIncomeTypesProvider()
 
     @Bean
+    fun incomeCoefficientMultiplierProvider(): IncomeCoefficientMultiplierProvider = TampereIncomeCoefficientMultiplierProvider()
+
+    @Bean
     fun invoiceProductProvider(): InvoiceProductProvider = TampereInvoiceProductProvider()
 
     @Bean
@@ -112,6 +118,19 @@ class TampereIncomeTypesProvider : IncomeTypesProvider {
             "ADJUSTED_DAILY_ALLOWANCE" to IncomeType("Soviteltu päiväraha", 1, true, false),
         )
     }
+}
+
+class TampereIncomeCoefficientMultiplierProvider : IncomeCoefficientMultiplierProvider {
+    override fun multiplier(coefficient: IncomeCoefficient): BigDecimal =
+        when (coefficient) {
+            IncomeCoefficient.MONTHLY_WITH_HOLIDAY_BONUS -> BigDecimal("1.0417")
+            IncomeCoefficient.MONTHLY_NO_HOLIDAY_BONUS -> BigDecimal("1.0000")
+            IncomeCoefficient.BI_WEEKLY_WITH_HOLIDAY_BONUS -> BigDecimal("2.2323")
+            IncomeCoefficient.BI_WEEKLY_NO_HOLIDAY_BONUS -> BigDecimal("2.1429")
+            IncomeCoefficient.DAILY_ALLOWANCE_21_5 -> BigDecimal("21.5")
+            IncomeCoefficient.DAILY_ALLOWANCE_25 -> BigDecimal("25")
+            IncomeCoefficient.YEARLY -> BigDecimal("0.0833")
+        }
 }
 
 class TampereInvoiceProductProvider : InvoiceProductProvider {
