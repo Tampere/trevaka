@@ -50,6 +50,7 @@ const prod: FeatureFlags = {
 const features: Features = {
   default: {
     ...prod,
+    voucherValueDecisionIgnoredStatus: true,
     employeeMobileStaffAttendanceEdit: true
   },
   staging: {
