@@ -14,7 +14,7 @@ import java.time.Month
 data class TampereProperties(
     val ipaas: IpaasProperties,
     val invoice: InvoiceProperties,
-    val summertimeAbsenceProperties: SummertimeAbsenceProperties = SummertimeAbsenceProperties(),
+    val summertimeAbsence: SummertimeAbsenceProperties = SummertimeAbsenceProperties(),
 )
 
 data class IpaasProperties(

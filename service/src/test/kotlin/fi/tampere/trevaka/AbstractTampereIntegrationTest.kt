@@ -7,5 +7,5 @@ package fi.tampere.trevaka
 import org.springframework.test.context.ActiveProfiles
 import trevaka.AbstractIntegrationTest
 
-@ActiveProfiles(value = ["integration-test", "trevaka"])
+@ActiveProfiles(value = ["integration-test", "tampere_evaka"])
 abstract class AbstractTampereIntegrationTest : AbstractIntegrationTest()

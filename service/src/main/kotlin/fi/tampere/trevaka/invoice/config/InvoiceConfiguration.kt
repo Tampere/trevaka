@@ -93,7 +93,7 @@ class InvoiceConfiguration {
     fun invoiceProductProvider(): InvoiceProductProvider = TampereInvoiceProductProvider()
 
     @Bean
-    fun invoiceGenerationLogicChooser(properties: TampereProperties): InvoiceGenerationLogicChooser = TampereInvoiceGeneratorLogicChooser(properties.summertimeAbsenceProperties)
+    fun invoiceGenerationLogicChooser(properties: TampereProperties): InvoiceGenerationLogicChooser = TampereInvoiceGeneratorLogicChooser(properties.summertimeAbsence)
 }
 
 class TampereIncomeTypesProvider : IncomeTypesProvider {
@@ -223,12 +223,12 @@ enum class Product(val nameFi: String, val code: String) {
 }
 
 class TampereInvoiceGeneratorLogicChooser(
-    private val summertimeAbsenceProperties: SummertimeAbsenceProperties,
+    private val properties: SummertimeAbsenceProperties,
 ) : InvoiceGenerationLogicChooser {
 
     override fun logicForMonth(tx: Database.Read, year: Int, month: Month, childId: ChildId): InvoiceGenerationLogic {
         return when {
-            month == summertimeAbsenceProperties.freeMonth && tx.hasFreeSummerAbsence(childId, year) -> InvoiceGenerationLogic.Free
+            month == properties.freeMonth && tx.hasFreeSummerAbsence(childId, year) -> InvoiceGenerationLogic.Free
             else -> InvoiceGenerationLogic.Default
         }
     }
