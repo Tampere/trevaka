@@ -7,7 +7,7 @@ package fi.tampere.trevaka.person.config
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.extensions.authentication
 import fi.espoo.evaka.dvv.DvvModificationRequestCustomizer
-import fi.tampere.trevaka.TrevakaProperties
+import fi.tampere.trevaka.TampereProperties
 import fi.tampere.trevaka.util.NoConnectionReuseStrategy
 import fi.tampere.trevaka.util.basicAuthInterceptor
 import org.apache.hc.client5.http.classic.HttpClient
@@ -33,7 +33,7 @@ class PersonConfiguration {
     }
 
     @Bean(HTTP_CLIENT_PERSON)
-    fun httpClient(properties: TrevakaProperties) = HttpClientBuilder.create()
+    fun httpClient(properties: TampereProperties) = HttpClientBuilder.create()
         .addRequestInterceptorFirst(RemoveSoapHeadersInterceptor())
         .addRequestInterceptorFirst(basicAuthInterceptor(properties.ipaas.username, properties.ipaas.password))
         .setConnectionReuseStrategy(NoConnectionReuseStrategy.INSTANCE) // fix random "connection reset" errors
@@ -43,10 +43,10 @@ class PersonConfiguration {
      * Custom [FuelManager] for [fi.espoo.evaka.dvv.DvvModificationsServiceClient].
      */
     @Bean
-    fun fuelManager(properties: TrevakaProperties) = FuelManager()
+    fun fuelManager(properties: TampereProperties) = FuelManager()
 
     @Bean
-    fun basicAuthCustomizer(properties: TrevakaProperties) = DvvModificationRequestCustomizer { request ->
+    fun basicAuthCustomizer(properties: TampereProperties) = DvvModificationRequestCustomizer { request ->
         request.authentication().basic(properties.ipaas.username, properties.ipaas.password)
     }
 }

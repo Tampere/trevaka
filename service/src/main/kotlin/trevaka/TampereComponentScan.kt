@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 
-@Profile("trevaka")
+@Profile("tampere_evaka")
 @Configuration
 @ComponentScan("fi.tampere.trevaka")
 @ConfigurationPropertiesScan(basePackages = ["fi.tampere.trevaka"])

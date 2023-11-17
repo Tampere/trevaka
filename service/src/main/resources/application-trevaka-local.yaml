@@ -42,7 +42,7 @@ evaka:
   s3mock:
     url: "http://localhost:9090"
 
-trevaka:
+tampere:
   ipaas:
     username: user
     password: pass

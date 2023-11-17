@@ -19,7 +19,7 @@ import fi.espoo.evaka.shared.PersonId
 import fi.tampere.trevaka.InvoiceProperties
 import fi.tampere.trevaka.IpaasProperties
 import fi.tampere.trevaka.SummertimeAbsenceProperties
-import fi.tampere.trevaka.TrevakaProperties
+import fi.tampere.trevaka.TampereProperties
 import fi.tampere.trevaka.invoice.config.InvoiceConfiguration
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.catchThrowable
@@ -35,14 +35,14 @@ import java.time.LocalDate
 import java.util.Locale
 import java.util.UUID
 
-internal class TrevakaInvoiceClientTest {
+internal class TampereInvoiceClientTest {
 
     private lateinit var client: InvoiceIntegrationClient
     private lateinit var server: MockWebServiceServer
 
     @BeforeEach
     fun setup() {
-        val properties = TrevakaProperties(
+        val properties = TampereProperties(
             IpaasProperties("user", "pass"),
             InvoiceProperties("http://localhost:8080/salesOrder"),
             SummertimeAbsenceProperties(),

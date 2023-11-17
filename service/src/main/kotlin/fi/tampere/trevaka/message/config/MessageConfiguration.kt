@@ -26,11 +26,11 @@ class MessageConfiguration {
     @Bean
     fun messageProvider(): IMessageProvider {
         val messageSource = YamlMessageSource(ClassPathResource("messages.yaml"))
-        return TrevakaMessageProvider(messageSource)
+        return TampereMessageProvider(messageSource)
     }
 }
 
-internal class TrevakaMessageProvider(val messageSource: MessageSource) : IMessageProvider {
+internal class TampereMessageProvider(val messageSource: MessageSource) : IMessageProvider {
 
     override fun getDecisionHeader(lang: MessageLanguage): String =
         messageSource.getMessage("$PREFIX.DECISION_HEADER", null, resolveLocale(lang))

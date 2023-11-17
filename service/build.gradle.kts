@@ -72,7 +72,7 @@ tasks {
         useJUnitPlatform()
     }
     bootRun {
-        systemProperty("spring.profiles.active", "local,trevaka,trevaka-local")
+        systemProperty("spring.profiles.active", "local,tampere_evaka,trevaka-local")
     }
 }
 

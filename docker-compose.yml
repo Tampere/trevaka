@@ -112,7 +112,7 @@ services:
       - .env
     environment:
       VOLTTI_ENV: local
-      SPRING_PROFILES_ACTIVE: local,trevaka-local,trevaka
+      SPRING_PROFILES_ACTIVE: local,trevaka-local,tampere_evaka
       SPRING_PROFILES_INCLUDE: enable_dev_api,enable_mock_integration_endpoint
       JAVA_OPTS: -server -Djava.security.egd=file:/dev/./urandom -Xms1024m -Xss512k -Xmx1024m -XX:TieredStopAtLevel=1
       FLYWAY_USERNAME: ${EVAKA_SERVICE_FLYWAY_USERNAME}

@@ -14,10 +14,10 @@ import org.springframework.context.annotation.Configuration
 class TemplateConfiguration {
 
     @Bean
-    fun templateProvider(): ITemplateProvider = TrevakaTemplateProvider()
+    fun templateProvider(): ITemplateProvider = TampereTemplateProvider()
 }
 
-internal class TrevakaTemplateProvider : ITemplateProvider {
+internal class TampereTemplateProvider : ITemplateProvider {
     override fun getLocalizedFilename(type: DecisionType, lang: DocumentLang): String =
         when (type) {
             DecisionType.CLUB -> "Kerhopäätös"

@@ -50,7 +50,7 @@ private const val maxItemDescriptionLength = 40
 private const val maxItemProfitCenterLength = 10
 private const val maxTextRowLength = 70
 
-class TrevakaInvoiceClient(
+class TampereInvoiceClient(
     private val webServiceTemplate: WebServiceTemplate,
     private val properties: InvoiceProperties,
 ) :
@@ -101,7 +101,7 @@ class TrevakaInvoiceClient(
     private fun toRequest(invoices: List<InvoiceDetailed>): SendSalesOrderRequest {
         return SendSalesOrderRequest().apply {
             salesOrder = SalesOrder().apply {
-                header.addAll(invoices.map(this@TrevakaInvoiceClient::toHeader))
+                header.addAll(invoices.map(this@TampereInvoiceClient::toHeader))
             }
         }
     }
@@ -148,7 +148,7 @@ class TrevakaInvoiceClient(
 
     private fun toItems(rows: List<InvoiceRowDetailed>): Items {
         return Items().apply {
-            item.addAll(rows.map(this@TrevakaInvoiceClient::toItem))
+            item.addAll(rows.map(this@TampereInvoiceClient::toItem))
         }
     }
 
