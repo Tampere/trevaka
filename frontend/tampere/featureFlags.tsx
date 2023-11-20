@@ -51,6 +51,7 @@ const features: Features = {
   default: {
     ...prod,
     voucherValueDecisionIgnoredStatus: true,
+    employeeMobileChildAttendanceReservationEdit: true,
     employeeMobileStaffAttendanceEdit: true
   },
   staging: {
