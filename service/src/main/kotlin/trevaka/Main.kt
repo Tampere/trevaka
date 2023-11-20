@@ -37,3 +37,9 @@ fun main(args: Array<String>) {
 @ComponentScan("fi.tampere.trevaka")
 @ConfigurationPropertiesScan(basePackages = ["fi.tampere.trevaka"])
 class TampereComponentScan
+
+@Profile("vesilahti_evaka")
+@Configuration
+@ComponentScan("fi.vesilahti.evaka")
+@ConfigurationPropertiesScan(basePackages = ["fi.vesilahti.evaka"])
+class VesilahtiComponentScan
