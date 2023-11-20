@@ -6,7 +6,7 @@ package fi.tampere.trevaka.message
 
 import fi.espoo.evaka.shared.message.IMessageProvider
 import fi.espoo.evaka.shared.message.MessageLanguage
-import fi.tampere.trevaka.AbstractIntegrationTest
+import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junitpioneer.jupiter.cartesian.ArgumentSets
 import org.junitpioneer.jupiter.cartesian.CartesianTest
@@ -14,7 +14,7 @@ import org.reflections.ReflectionUtils.*
 import org.springframework.beans.factory.annotation.Autowired
 import java.lang.reflect.Method
 
-internal class MessageProviderTest : AbstractIntegrationTest() {
+internal class MessageProviderTest : AbstractTampereIntegrationTest() {
 
     @Autowired
     private lateinit var messageProvider: IMessageProvider

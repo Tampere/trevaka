@@ -26,7 +26,7 @@ import fi.espoo.evaka.shared.PersonId
 import fi.espoo.evaka.shared.ServiceNeedOptionId
 import fi.espoo.evaka.shared.message.IMessageProvider
 import fi.espoo.evaka.shared.template.ITemplateProvider
-import fi.tampere.trevaka.AbstractIntegrationTest
+import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.junit.jupiter.api.Test
 import org.junitpioneer.jupiter.cartesian.CartesianTest
 import org.springframework.beans.factory.annotation.Autowired
@@ -40,7 +40,7 @@ private val settings = mapOf(
     SettingType.DECISION_MAKER_TITLE to "Asiakaspalvelupäällikkö",
 )
 
-class DecisionServiceTest : AbstractIntegrationTest() {
+class DecisionServiceTest : AbstractTampereIntegrationTest() {
 
     @Autowired
     private lateinit var messageProvider: IMessageProvider

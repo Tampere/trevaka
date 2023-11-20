@@ -8,14 +8,14 @@ import fi.espoo.evaka.reservations.getReservableRange
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.domain.FiniteDateRange
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
-import fi.tampere.trevaka.AbstractIntegrationTest
+import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
 import java.time.LocalTime
 
-class ReservableRangeTest : AbstractIntegrationTest() {
+class ReservableRangeTest : AbstractTampereIntegrationTest() {
 
     @Autowired
     private lateinit var featureConfig: FeatureConfig

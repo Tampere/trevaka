@@ -4,12 +4,12 @@
 
 package fi.tampere.trevaka.database
 
-import fi.tampere.trevaka.AbstractIntegrationTest
+import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.jdbi.v3.core.Jdbi
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
-class DevDataInitializerTest : AbstractIntegrationTest() {
+class DevDataInitializerTest : AbstractTampereIntegrationTest() {
 
     @Autowired
     private lateinit var jdbi: Jdbi

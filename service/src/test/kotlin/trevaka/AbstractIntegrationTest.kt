@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-package fi.tampere.trevaka
+package trevaka
 
 import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.shared.db.Database
@@ -21,11 +21,9 @@ import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
 import org.springframework.core.io.Resource
 import org.springframework.util.StreamUtils
-import trevaka.Main
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.nio.file.Paths
-import java.util.function.Function
 
 val reportsPath: String = "${Paths.get("build").toAbsolutePath()}/reports"
 
@@ -35,7 +33,7 @@ val reportsPath: String = "${Paths.get("build").toAbsolutePath()}/reports"
     classes = [Main::class, IntegrationTestConfiguration::class],
 )
 @AutoConfigureWireMock(port = 0)
-abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean = true) {
+abstract class AbstractIntegrationTest {
 
     @LocalServerPort
     var httpPort: Int = 0
@@ -51,21 +49,12 @@ abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean = 
     @BeforeAll
     protected fun initializeJdbi() {
         db = Database(jdbi, NoopTracerFactory.create()).connectWithManualLifecycle()
-        db.transaction {
-            it.runDevScript("reset-tampere-database-for-e2e-tests.sql")
-            if (!resetDbBeforeEach) {
-                it.resetTampereDatabaseForE2ETests()
-            }
-        }
+        db.transaction { tx -> tx.runDevScript("reset-tampere-database-for-e2e-tests.sql") }
     }
 
     @BeforeEach
     fun setup() {
-        if (resetDbBeforeEach) {
-            db.transaction {
-                it.resetTampereDatabaseForE2ETests()
-            }
-        }
+        db.transaction { tx -> tx.resetTampereDatabaseForE2ETests() }
         http.basePath = "http://localhost:$httpPort/"
     }
 
@@ -73,9 +62,6 @@ abstract class AbstractIntegrationTest(private val resetDbBeforeEach: Boolean = 
     protected fun afterAll() {
         db.close()
     }
-
-    protected fun <T> runInTransaction(function: Function<Database.Transaction, T>) =
-        db.transaction { tx -> function.apply(tx) }
 }
 
 fun resourceAsString(resource: Resource, charset: Charset = StandardCharsets.UTF_8) =

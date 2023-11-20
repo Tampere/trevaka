@@ -41,14 +41,14 @@ import fi.espoo.evaka.shared.ServiceNeedOptionId
 import fi.espoo.evaka.shared.VoucherValueDecisionId
 import fi.espoo.evaka.shared.domain.DateRange
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
-import fi.tampere.trevaka.AbstractIntegrationTest
-import fi.tampere.trevaka.reportsPath
+import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 import org.junitpioneer.jupiter.cartesian.CartesianTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.thymeleaf.context.Context
+import trevaka.reportsPath
 import java.io.FileOutputStream
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -59,7 +59,7 @@ private val settings = mapOf(
     SettingType.DECISION_MAKER_TITLE to "Asiakaspalvelupäällikkö",
 )
 
-internal class PDFServiceTest : AbstractIntegrationTest() {
+internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
     @Autowired
     private lateinit var pdfGenerator: PdfGenerator

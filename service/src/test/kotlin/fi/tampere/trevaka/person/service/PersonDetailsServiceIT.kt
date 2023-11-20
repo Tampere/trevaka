@@ -9,12 +9,12 @@ import com.github.tomakehurst.wiremock.client.WireMock.*
 import fi.espoo.evaka.identity.ExternalIdentifier
 import fi.espoo.evaka.shared.auth.AuthenticatedUser
 import fi.espoo.evaka.vtjclient.service.persondetails.IPersonDetailsService
-import fi.tampere.trevaka.AbstractIntegrationTest
+import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
-internal class PersonDetailsServiceIT : AbstractIntegrationTest() {
+internal class PersonDetailsServiceIT : AbstractTampereIntegrationTest() {
 
     @Autowired
     lateinit var personDetailsService: IPersonDetailsService

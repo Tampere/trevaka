@@ -8,16 +8,16 @@ import fi.espoo.evaka.invoicing.domain.ServiceNeedOptionVoucherValue
 import fi.espoo.evaka.invoicing.domain.VoucherValue
 import fi.espoo.evaka.shared.ServiceNeedOptionVoucherValueId
 import fi.espoo.evaka.shared.db.Database
-import fi.tampere.trevaka.AbstractIntegrationTest
+import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 
-internal class VoucherValueDecisionsTest : AbstractIntegrationTest() {
+internal class VoucherValueDecisionsTest : AbstractTampereIntegrationTest() {
 
     @Test
     fun `voucher value settings are in sync`() {
-        val options = runInTransaction { tx -> tx.getVoucherValues() }
+        val options = db.transaction { tx -> tx.getVoucherValues() }
 
         assertThat(options).isNotEmpty
         options.forEach {

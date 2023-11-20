@@ -14,7 +14,7 @@ import fi.espoo.evaka.messaging.MessageType
 import fi.espoo.evaka.shared.ChildId
 import fi.espoo.evaka.shared.MessageThreadId
 import fi.espoo.evaka.shared.domain.FiniteDateRange
-import fi.tampere.trevaka.AbstractIntegrationTest
+import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
@@ -24,7 +24,7 @@ import java.time.LocalDate
 import java.util.UUID
 import java.util.stream.Stream
 
-internal class EmailMessageProviderTest : AbstractIntegrationTest() {
+internal class EmailMessageProviderTest : AbstractTampereIntegrationTest() {
 
     @Autowired
     private lateinit var emailMessageProvider: IEmailMessageProvider

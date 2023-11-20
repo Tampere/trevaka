@@ -21,15 +21,15 @@ import fi.espoo.evaka.shared.ChildId
 import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.PersonId
-import fi.tampere.trevaka.AbstractIntegrationTest
-import fi.tampere.trevaka.reportsPath
+import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import trevaka.reportsPath
 import java.io.FileOutputStream
 import java.time.LocalDate
 import java.util.UUID
 
-class PreschoolAssistanceNeedDecisionServiceTest : AbstractIntegrationTest() {
+class PreschoolAssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTest() {
 
     @Autowired
     private lateinit var preschoolAssistanceNeedDecisionService: AssistanceNeedPreschoolDecisionService

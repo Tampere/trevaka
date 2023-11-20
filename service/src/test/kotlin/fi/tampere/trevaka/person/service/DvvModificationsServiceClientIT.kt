@@ -7,13 +7,13 @@ package fi.tampere.trevaka.person.service
 import com.github.tomakehurst.wiremock.client.BasicCredentials
 import com.github.tomakehurst.wiremock.client.WireMock.*
 import fi.espoo.evaka.dvv.DvvModificationsServiceClient
-import fi.tampere.trevaka.AbstractIntegrationTest
+import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
 
-internal class DvvModificationsServiceClientIT : AbstractIntegrationTest() {
+internal class DvvModificationsServiceClientIT : AbstractTampereIntegrationTest() {
 
     @Autowired
     lateinit var dvvModificationsServiceClient: DvvModificationsServiceClient
