@@ -5,6 +5,7 @@
 package fi.tampere.trevaka
 
 import org.springframework.boot.context.properties.ConfigurationProperties
+import trevaka.ipaas.IpaasProperties
 import java.time.Month
 
 /**
@@ -15,11 +16,6 @@ data class TampereProperties(
     val ipaas: IpaasProperties,
     val invoice: InvoiceProperties,
     val summertimeAbsence: SummertimeAbsenceProperties = SummertimeAbsenceProperties(),
-)
-
-data class IpaasProperties(
-    val username: String,
-    val password: String,
 )
 
 data class InvoiceProperties(

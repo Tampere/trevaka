@@ -10,7 +10,11 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration
 import org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
+import org.springframework.context.annotation.ComponentScan
+import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 
 @SpringBootApplication(
     scanBasePackages = ["trevaka", "fi.espoo.evaka"],
@@ -27,3 +31,9 @@ class Main
 fun main(args: Array<String>) {
     runApplication<Main>(*args)
 }
+
+@Profile("tampere_evaka")
+@Configuration
+@ComponentScan("fi.tampere.trevaka")
+@ConfigurationPropertiesScan(basePackages = ["fi.tampere.trevaka"])
+class TampereComponentScan
