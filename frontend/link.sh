@@ -8,10 +8,13 @@
 set -euo pipefail
 
 EVAKA=../evaka/frontend
-CUSTOMIZATIONS="${EVAKA}"/src/lib-customizations/tampere
 
-if [ ! -e "${CUSTOMIZATIONS}" ]; then
-  ln -v -s $(readlink -f ./tampere) "${CUSTOMIZATIONS}"
-else
-  echo "${CUSTOMIZATIONS}" already exists: no linking was done
-fi
+for MUNICIPALITY in tampere vesilahti
+do
+  CUSTOMIZATIONS="${EVAKA}"/src/lib-customizations/${MUNICIPALITY}
+  if [ ! -e "${CUSTOMIZATIONS}" ]; then
+    ln -v -s "$(readlink -f ./${MUNICIPALITY})" "${CUSTOMIZATIONS}"
+  else
+    echo "${CUSTOMIZATIONS} already exists: no linking was done"
+  fi
+done
