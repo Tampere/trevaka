@@ -19,8 +19,8 @@ import fi.espoo.evaka.placement.PlacementType
 import fi.espoo.evaka.shared.ChildId
 import fi.espoo.evaka.shared.db.Database
 import fi.tampere.trevaka.SummertimeAbsenceProperties
-import fi.tampere.trevaka.TrevakaProperties
-import fi.tampere.trevaka.invoice.service.TrevakaInvoiceClient
+import fi.tampere.trevaka.TampereProperties
+import fi.tampere.trevaka.invoice.service.TampereInvoiceClient
 import fi.tampere.trevaka.util.NoConnectionReuseStrategy
 import fi.tampere.trevaka.util.basicAuthInterceptor
 import org.apache.hc.client5.http.classic.HttpClient
@@ -50,16 +50,16 @@ internal val SOAP_PACKAGES = arrayOf(
 @Configuration
 class InvoiceConfiguration {
     @Primary
-    @Bean(name = ["trevakaInvoiceIntegrationClient"])
+    @Bean
     fun invoiceIntegrationClient(
         @Qualifier(WEB_SERVICE_TEMPLATE_INVOICE) webServiceTemplate: WebServiceTemplate,
-        properties: TrevakaProperties,
-    ): InvoiceIntegrationClient = TrevakaInvoiceClient(webServiceTemplate, properties.invoice)
+        properties: TampereProperties,
+    ): InvoiceIntegrationClient = TampereInvoiceClient(webServiceTemplate, properties.invoice)
 
     @Bean(WEB_SERVICE_TEMPLATE_INVOICE)
     fun webServiceTemplate(
         @Qualifier(HTTP_CLIENT_INVOICE) httpClient: HttpClient,
-        properties: TrevakaProperties,
+        properties: TampereProperties,
     ): WebServiceTemplate {
         val messageFactory = SaajSoapMessageFactory().apply {
             setSoapVersion(SoapVersion.SOAP_12)
@@ -77,7 +77,7 @@ class InvoiceConfiguration {
     }
 
     @Bean(HTTP_CLIENT_INVOICE)
-    fun httpClient(properties: TrevakaProperties) = HttpClientBuilder.create()
+    fun httpClient(properties: TampereProperties) = HttpClientBuilder.create()
         .addRequestInterceptorFirst(RemoveSoapHeadersInterceptor())
         .addRequestInterceptorFirst(basicAuthInterceptor(properties.ipaas.username, properties.ipaas.password))
         .setConnectionReuseStrategy(NoConnectionReuseStrategy.INSTANCE) // fix random "connection reset" errors
@@ -93,7 +93,7 @@ class InvoiceConfiguration {
     fun invoiceProductProvider(): InvoiceProductProvider = TampereInvoiceProductProvider()
 
     @Bean
-    fun invoiceGenerationLogicChooser(properties: TrevakaProperties): InvoiceGenerationLogicChooser = TampereInvoiceGeneratorLogicChooser(properties.summertimeAbsenceProperties)
+    fun invoiceGenerationLogicChooser(properties: TampereProperties): InvoiceGenerationLogicChooser = TampereInvoiceGeneratorLogicChooser(properties.summertimeAbsence)
 }
 
 class TampereIncomeTypesProvider : IncomeTypesProvider {
@@ -223,12 +223,12 @@ enum class Product(val nameFi: String, val code: String) {
 }
 
 class TampereInvoiceGeneratorLogicChooser(
-    private val summertimeAbsenceProperties: SummertimeAbsenceProperties,
+    private val properties: SummertimeAbsenceProperties,
 ) : InvoiceGenerationLogicChooser {
 
     override fun logicForMonth(tx: Database.Read, year: Int, month: Month, childId: ChildId): InvoiceGenerationLogic {
         return when {
-            month == summertimeAbsenceProperties.freeMonth && tx.hasFreeSummerAbsence(childId, year) -> InvoiceGenerationLogic.Free
+            month == properties.freeMonth && tx.hasFreeSummerAbsence(childId, year) -> InvoiceGenerationLogic.Free
             else -> InvoiceGenerationLogic.Default
         }
     }

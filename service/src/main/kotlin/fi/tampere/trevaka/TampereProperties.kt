@@ -8,13 +8,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import java.time.Month
 
 /**
- * All trevaka-specific configuration properties.
+ * All Tampere-specific configuration properties.
  */
-@ConfigurationProperties(prefix = "trevaka", ignoreUnknownFields = false)
-data class TrevakaProperties(
+@ConfigurationProperties(prefix = "tampere", ignoreUnknownFields = false)
+data class TampereProperties(
     val ipaas: IpaasProperties,
     val invoice: InvoiceProperties,
-    val summertimeAbsenceProperties: SummertimeAbsenceProperties = SummertimeAbsenceProperties(),
+    val summertimeAbsence: SummertimeAbsenceProperties = SummertimeAbsenceProperties(),
 )
 
 data class IpaasProperties(

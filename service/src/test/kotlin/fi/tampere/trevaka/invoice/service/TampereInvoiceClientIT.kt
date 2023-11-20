@@ -13,10 +13,10 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.ws.soap.client.SoapFaultClientException
 
-internal class TrevakaInvoiceClientIT : AbstractTampereIntegrationTest() {
+internal class TampereInvoiceClientIT : AbstractTampereIntegrationTest() {
 
     @Autowired
-    private lateinit var client: TrevakaInvoiceClient
+    private lateinit var client: TampereInvoiceClient
 
     @Test
     fun send() {
