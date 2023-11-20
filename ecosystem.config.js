@@ -25,10 +25,17 @@ module.exports = {
     ...defaults
   }, {
     name: 'trevaka-frontend',
-    script: 'yarn && yarn clean && EVAKA_CUSTOMIZATIONS=tampere yarn dev',
+    script: 'yarn && yarn clean && yarn dev',
     cwd: path.resolve(__dirname, 'evaka/frontend'),
     env: {
+      'EVAKA_CUSTOMIZATIONS': 'tampere',
       'ICONS': process.env.ICONS
+    },
+    env_tampere: {
+      // default
+    },
+    env_vesilahti: {
+      'EVAKA_CUSTOMIZATIONS': 'vesilahti',
     },
     ...defaults
   }, {
@@ -36,6 +43,15 @@ module.exports = {
     script: `${__dirname}/evaka/compose/run-after-db.sh`,
     args: './gradlew --no-daemon bootRun',
     cwd: path.resolve(__dirname, 'service'),
+    env: {
+      SPRING_PROFILES_ACTIVE: 'tampere_evaka',
+    },
+    env_tampere: {
+      // default
+    },
+    env_vesilahti: {
+      SPRING_PROFILES_ACTIVE: 'vesilahti_evaka',
+    },
     ...defaults
   },
   ],
