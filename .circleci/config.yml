@@ -398,6 +398,7 @@ workflows:
             parameters:
               customizations:
                 - tampere
+                - vesilahti
 
       - service_build_image:
           context:
