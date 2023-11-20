@@ -13,20 +13,31 @@ This repository contains the code for customizing, configuring and extending the
 
 treVaka utilizes the [eVaka](https://github.com/espoon-voltti/evaka) as its submodule. When cloning the repository use `--recurse-submodules` or manually initialize and update the submodule after cloning with `git submodule update --init`.
 
-Frontend customizations [must be linked](frontend/README.md) under eVaka-repository:
-
-    cd frontend
-    ./link.sh
-
 ## Getting treVaka dev environment up and running
 
 ### Prerequisites - needed software and tools
 See [eVaka README](evaka/compose/README.md#Dependencies)
 
+Frontend customizations [must be linked](frontend/README.md) under eVaka-repository:
+
+    cd frontend
+    ./link.sh
+
 ### Starting treVaka dev environment
 1. `docker-compose up -d --build`
 2. `pm2 start` (starts all apps)
 3. Open browser: http://localhost:9099/
+
+You can also start other supported configurations with `--env` command line parameter, e.g.:
+
+```sh
+pm2 stop all
+pm2 start --env vesilahti
+pm2 stop all
+pm2 start # starts vesilahti configurations from previously used --env parameter
+pm2 delete all
+pm2 start # starts tampere configurations (default)
+```
 
 ## Running treVaka frontend tests
 
@@ -40,6 +51,19 @@ See [eVaka README](evaka/compose/README.md#Dependencies)
 ### For WSL users:
 
 Install a tool for running X Window System, eg. [GWSL](https://www.microsoft.com/en-us/p/gwsl/9nl6kd1h33v3#activetab=pivot:overviewtab).
+
+## Local test environment
+
+It is also possible start test environment locally with just Docker Compose:
+
+1. `docker compose --profile evaka up --build`
+1. Open browser: http://localhost:9999/
+
+You can also start other supported configurations with `EVAKA_CUSTOMIZATIONS` environment variable, e.g.:
+
+```sh
+EVAKA_CUSTOMIZATIONS=vesilahti docker compose --profile evaka up --build
+``````
 
 ## License
 
