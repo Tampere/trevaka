@@ -41,6 +41,7 @@ const prod: FeatureFlags = {
   intermittentShiftCare: true,
   citizenAttendanceSummary: true,
   feeDecisionIgnoredStatus: true,
+  voucherValueDecisionIgnoredStatus: true,
   hojks: true,
   noAbsenceType: true,
   voucherUnitPayments: false,
@@ -50,7 +51,6 @@ const prod: FeatureFlags = {
 const features: Features = {
   default: {
     ...prod,
-    voucherValueDecisionIgnoredStatus: true,
     employeeMobileChildAttendanceReservationEdit: true,
     employeeMobileStaffAttendanceEdit: true
   },
