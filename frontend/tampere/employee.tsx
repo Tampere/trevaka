@@ -10,7 +10,6 @@ import React from 'react'
 
 import {
   daycareAssistanceLevels,
-  otherAssistanceMeasureTypes,
   preschoolAssistanceLevels
 } from 'lib-common/generated/api-types/assistance'
 import ExternalLink from 'lib-components/atoms/ExternalLink'
@@ -601,9 +600,7 @@ const customizations: EmployeeCustomizations = {
   daycareAssistanceLevels: daycareAssistanceLevels.filter(
     (level) => level !== 'GENERAL_SUPPORT'
   ),
-  otherAssistanceMeasureTypes: otherAssistanceMeasureTypes.filter(
-    (level) => level !== 'ANOMALOUS_EDUCATION_START'
-  ),
+  otherAssistanceMeasureTypes: ['TRANSPORT_BENEFIT', 'ACCULTURATION_SUPPORT'],
   placementTypes: [
     'DAYCARE',
     'DAYCARE_PART_TIME',
