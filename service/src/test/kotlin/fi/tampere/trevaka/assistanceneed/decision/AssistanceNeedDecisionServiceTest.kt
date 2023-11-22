@@ -187,6 +187,7 @@ private val validAssistanceNeedDecision = AssistanceNeedDecision(
 
 private val validPersonDTO = PersonDTO(
     id = PersonId(UUID.randomUUID()),
+    duplicateOf = null,
     identity = ExternalIdentifier.SSN.getInstance("310382-956D"),
     ssnAddingDisabled = false,
     firstName = "Maija",
