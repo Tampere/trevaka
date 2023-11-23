@@ -965,12 +965,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.9.2":
-  version: 20.9.2
-  resolution: "@types/node@npm:20.9.2"
+"@types/node@npm:^20.9.4":
+  version: 20.9.4
+  resolution: "@types/node@npm:20.9.4"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: 8bab2870bfc02efc988c53dfb0149634f8feb824132cc7f20b36f3d55d89ef893e3a43d545524a5cb3a284f4ce68ae4181d75a4a39cee6b79c586d719e6b7461
+  checksum: d567855b48e453b443499c17fc6c939d154732b54319a05b9b31db6e475e6458f053838635b201b1bb493d349d9b1af0aecc58b28fd6062e564e9fbf593199eb
   languageName: node
   linkType: hard
 
@@ -4137,7 +4137,7 @@ __metadata:
     "@playwright/test": "npm:^1.40.0"
     "@types/jest": "npm:^29.5.8"
     "@types/lodash": "npm:^4.14.202"
-    "@types/node": "npm:^20.9.2"
+    "@types/node": "npm:^20.9.4"
     axios: "npm:^1.6.2"
     e2e-test: "link:../evaka/frontend/src/e2e-test"
     jest: "npm:^29.7.0"
