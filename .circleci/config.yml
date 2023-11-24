@@ -349,8 +349,6 @@ jobs:
           command: |
             echo 'src/*' >> .eslintignore
             echo '!src/lib-customizations' >> .eslintignore
-            echo 'src/lib-customizations/*' >> .eslintignore
-            echo '!src/lib-customizations/<< parameters.customizations >>' >> .eslintignore
             yarn lint
       - run:
           name: Collect docker-compose logs
