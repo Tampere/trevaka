@@ -45,14 +45,14 @@ const prod: FeatureFlags = {
   hojks: true,
   noAbsenceType: true,
   voucherUnitPayments: false,
+  employeeMobileChildAttendanceReservationEdit: true,
+  employeeMobileStaffAttendanceEdit: true,
   assistanceNeedDecisionsLanguageSelect: false
 }
 
 const features: Features = {
   default: {
-    ...prod,
-    employeeMobileChildAttendanceReservationEdit: true,
-    employeeMobileStaffAttendanceEdit: true
+    ...prod
   },
   staging: {
     ...prod
