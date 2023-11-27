@@ -35,7 +35,8 @@
   "jest": {
     "testRunner": "jest-circus/runner",
     "projects": [
-      "./src/e2e"
+      "./src/e2e/tampere.jest.config.ts",
+      "./src/e2e/vesilahti.jest.config.ts"
     ],
     "reporters": [
       "default",
