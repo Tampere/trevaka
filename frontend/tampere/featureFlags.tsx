@@ -31,7 +31,6 @@ const prod: FeatureFlags = {
   preparatory: false,
   assistanceActionOther: false,
   financeDecisionHandlerSelect: true,
-  childDiscussion: false,
   feeDecisionPreschoolClubFilter: true,
   placementGuarantee: true,
   assistanceNeedPreschoolDecisions: true,
