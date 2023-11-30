@@ -4,7 +4,6 @@
 
 package fi.tampere.trevaka.emailclient.config
 
-import fi.espoo.evaka.EvakaEnv
 import fi.espoo.evaka.daycare.domain.Language
 import fi.espoo.evaka.emailclient.CalendarEventNotificationData
 import fi.espoo.evaka.emailclient.EmailContent
@@ -13,7 +12,6 @@ import fi.espoo.evaka.invoicing.service.IncomeNotificationType
 import fi.espoo.evaka.messaging.MessageThreadStub
 import fi.espoo.evaka.messaging.MessageType
 import fi.espoo.evaka.shared.ChildId
-import fi.espoo.evaka.shared.MessageThreadId
 import fi.espoo.evaka.shared.domain.FiniteDateRange
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -25,33 +23,15 @@ import java.util.Locale
 class EmailConfiguration {
 
     @Bean
-    fun emailMessageProvider(env: EvakaEnv): IEmailMessageProvider = EmailMessageProvider(env)
+    fun emailMessageProvider(): IEmailMessageProvider = EmailMessageProvider()
 }
 
-internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessageProvider {
-    private fun link(language: Language, path: String): String {
-        val baseUrl =
-            when (language) {
-                Language.sv -> env.frontendBaseUrlSv
-                else -> env.frontendBaseUrlFi
-            }
-        val url = "$baseUrl$path"
-        return """<a href="$url">$url</a>"""
-    }
-    private fun frontPageLink(language: Language) = link(language, "")
-    private fun calendarLink(language: Language) = link(language, "/calendar")
-    private fun messageLink(language: Language, threadId: MessageThreadId) =
-        link(language, "/messages/$threadId")
-    private fun childLink(language: Language, childId: ChildId) =
-        link(language, "/children/$childId")
-    private fun incomeLink(language: Language) = link(language, "/income")
-    private fun unsubscribeLink(language: Language) =
-        link(language, "/personal-details#notifications")
+internal class EmailMessageProvider : IEmailMessageProvider {
 
     private val unsubscribeFi =
-        """<p><small>Jos et halua enää saada tämänkaltaisia viestejä, voit muuttaa asetuksia eVakan Omat tiedot -sivulla: ${unsubscribeLink(Language.fi)}</small></p>"""
+        """<p><small>Jos et halua enää saada tämänkaltaisia viestejä, voit muuttaa asetuksia eVakan Omat tiedot -sivulla</small></p>"""
     private val unsubscribeEn =
-        """<p><small>If you no longer want to receive messages like this, you can change your settings on eVaka's Personal information page: ${unsubscribeLink(Language.en)}</small></p>"""
+        """<p><small>If you no longer want to receive messages like this, you can change your settings on eVaka's Personal information page</small></p>"""
     private val subjectForPendingDecisionEmail: String = "Toimenpiteitäsi odotetaan"
     private val subjectForClubApplicationReceivedEmail: String = "Hakemus vastaanotettu"
     private val subjectForDaycareApplicationReceivedEmail: String = "Hakemus vastaanotettu"
@@ -92,9 +72,9 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
         return """
             <p>Olet saanut päätöksen/ilmoituksen Tampereen varhaiskasvatukselta, joka odottaa toimenpiteitäsi. Myönnetty varhaiskasvatus-/kerhopaikka tulee hyväksyä tai hylätä kahden viikon sisällä päätöksen saapumisesta.</p>
             
-            <p>Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla osoitteeseen ${frontPageLink(Language.fi)} tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.</p>
+            <p>Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla Tampereen varhaiskasvatuksen verkkopalveluun eVakaan tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.</p>
             
-            <p>Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun: <a href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot">https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot</a></p>
+            <p>Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun.</p>
             
             $unsubscribeFi
         """.trimIndent()
@@ -106,11 +86,11 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             
             <p>lapsenne kerhohakemus on vastaanotettu.</p>
             
-            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa ${frontPageLink(Language.fi)} siihen saakka, kunnes se on otettu käsittelyyn asiakaspalvelussa.</p>
+            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa eVakassa siihen saakka, kunnes se on otettu käsittelyyn asiakaspalvelussa.</p>
             
             <p>Kirjallinen ilmoitus myönnetystä kerhopaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, ilmoitus lähetetään hänelle postitse.</p> 
             
-            <p>Myönnetyn kerhopaikan voi hyväksyä / hylätä sähköisesti Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa ${frontPageLink(Language.fi)}. Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kauden päättyessä hakemus poistetaan järjestelmästä.</p>
+            <p>Myönnetyn kerhopaikan voi hyväksyä / hylätä sähköisesti eVakassa. Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kauden päättyessä hakemus poistetaan järjestelmästä.</p>
             
             <p>Lisätietoa hakemuksen käsittelystä ja kerhopaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta:</p>
             
@@ -118,8 +98,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             Tampereen kaupunki<br/>
             Sivistyspalvelut<br/>
             Varhaiskasvatus ja esiopetus<br/>
-            Asiakaspalvelu<br/>
-            <a href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot">https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot</a>
+            Asiakaspalvelu
             </p>
             
             <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
@@ -132,15 +111,15 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             
             <p>lapsenne varhaiskasvatushakemus on vastaanotettu.</p>
             
-            <p>Varhaiskasvatushakemuksella on neljän (4) kuukauden hakuaika. Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa ${frontPageLink(Language.fi)} siihen saakka, kunnes se on otettu käsittelyyn.</p>
+            <p>Varhaiskasvatushakemuksella on neljän (4) kuukauden hakuaika. Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa eVakassa siihen saakka, kunnes se on otettu käsittelyyn.</p>
             
             <p>Saatte tiedon lapsenne varhaiskasvatuspaikasta noin kuukautta ennen palvelutarpeen alkamista tai hakemuksen lakisääteisen järjestelyajan päättymistä. Hakemuksen lakisääteinen järjestelyaika on neljä (4) kuukautta hakemuksen saapumisesta.</p> 
             
-            <p>Mikäli hakemuksenne on kiireellinen, ottakaa yhteyttä viipymättä Varhaiskasvatuksen asiakaspalveluun: <a href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot">https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot</a>. Hakuaika kiireellisissä hakemuksissa on minimissään kaksi (2) viikkoa ja se alkaa siitä päivästä, kun olette olleet yhteydessä asiakaspalveluun.</p>
+            <p>Mikäli hakemuksenne on kiireellinen, ottakaa yhteyttä viipymättä Varhaiskasvatuksen asiakaspalveluun. Hakuaika kiireellisissä hakemuksissa on minimissään kaksi (2) viikkoa ja se alkaa siitä päivästä, kun olette olleet yhteydessä asiakaspalveluun.</p>
             
             <p>Kirjallinen päätös varhaiskasvatuspaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, päätös lähetetään hänelle postitse.</p>
             
-            <p>Myönnetyn varhaiskasvatuspaikan voi hyväksyä / hylätä sähköisesti Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa ${frontPageLink(Language.fi)}. Mikäli haette paikkaa palvelusetelipäiväkodista, olkaa yhteydessä kyseiseen päiväkotiin viimeistään hakemuksen jättämisen jälkeen.</p>
+            <p>Myönnetyn varhaiskasvatuspaikan voi hyväksyä / hylätä sähköisesti eVakassa. Mikäli haette paikkaa palvelusetelipäiväkodista, olkaa yhteydessä kyseiseen päiväkotiin viimeistään hakemuksen jättämisen jälkeen.</p>
             
             <p>Ilta- ja vuorohoitoa haettaessa, hakemuksen liitteeksi tulee toimittaa molempien samassa taloudessa asuvien huoltajien todistukset työnantajalta vuorotyöstä tai oppilaitoksesta iltaisin tapahtuvasta opiskelusta. Hakemusta käsitellään vuorohoidon hakemuksena vasta sen jälkeen, kun edellä mainitut todistukset on toimitettu. Tarvittavat liitteet voi lisätä suoraan sähköiselle hakemukselle tai toimittaa postitse osoitteeseen Tampereen kaupunki, Varhaiskasvatuksen asiakaspalvelu, PL 487, 33101 Tampere.</p> 
             
@@ -152,8 +131,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             Tampereen kaupunki<br/>
             Sivistyspalvelut<br/>
             Varhaiskasvatus ja esiopetus<br/>
-            Asiakaspalvelu<br/>
-            <a href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot">https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot</a>
+            Asiakaspalvelu
             </p>
             
             <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
@@ -166,7 +144,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
 
             <p>lapsenne esiopetukseen ilmoittautuminen on vastaanotettu.</p>
 
-            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa osoitteessa ${frontPageLink(Language.fi)} siihen saakka, kunnes se on otettu käsittelyyn.</p> 
+            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa eVakassa siihen saakka, kunnes se on otettu käsittelyyn.</p> 
 
             <p>Lisätietoa hakemuksen käsittelystä ja esiopetuspaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta:</p>
 
@@ -174,8 +152,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
             Tampereen kaupunki<br/>
             Sivistyspalvelut<br/>
             Varhaiskasvatus ja esiopetus<br/>
-            Asiakaspalvelu<br/>
-            <a href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot">https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-ja-esiopetuksen-yhteystiedot</a>
+            Asiakaspalvelu
             </p>
 
             <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
@@ -185,7 +162,7 @@ internal class EmailMessageProvider(private val env: EvakaEnv) : IEmailMessagePr
     private fun getDecisionEmailHtml(): String = """
         <p>Hyvä(t) huoltaja(t),</p>
         <p>Lapsellenne on tehty päätös.</p>
-        <p>Päätös on nähtävissä eVakassa osoitteessa ${frontPageLink(Language.fi)}.</p>
+        <p>Päätös on nähtävissä eVakassa.</p>
     """.trimIndent()
 
     override fun missingReservationsNotification(language: Language, checkedRange: FiniteDateRange): EmailContent {
@@ -228,13 +205,13 @@ $unsubscribeEn
             subject = "Uusi $typeFi eVakassa / New $typeEn in eVaka",
             html =
             """
-                <p>Sinulle on saapunut uusi $typeFi eVakaan. Lue viesti ${if (thread.urgent) "mahdollisimman pian " else ""}täältä: ${messageLink(Language.fi, thread.id)}</p>
+                <p>Sinulle on saapunut uusi $typeFi eVakaan.</p>
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 $unsubscribeFi
 
                 <hr>
 
-                <p>You have received a new $typeEn in eVaka. Read the message ${if (thread.urgent) "as soon as possible " else ""}here: ${messageLink(Language.en, thread.id)}</p>
+                <p>You have received a new $typeEn in eVaka.</p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 $unsubscribeEn
         """
@@ -247,11 +224,11 @@ $unsubscribeEn
             subject = "Uusi dokumentti eVakassa / New document in eVaka",
             html =
             """
-<p>Sinulle on saapunut uusi dokumentti eVakaan. Lue dokumentti täältä: ${childLink(Language.fi, childId)}</p>
+<p>Sinulle on saapunut uusi dokumentti eVakaan.</p>
 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
 $unsubscribeFi
 <hr>
-<p>You have received a new eVaka document. Read the document here: ${childLink(Language.en, childId)}</p>
+<p>You have received a new eVaka document.</p>
 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
 $unsubscribeEn
 """,
@@ -263,13 +240,13 @@ $unsubscribeEn
             subject = "Uusi dokumentti eVakassa / New document in eVaka",
             html =
             """
-                <p>Sinulle on saapunut uusi dokumentti eVakaan. Lue dokumentti täältä: ${childLink(Language.fi, childId)}</p>
+                <p>Sinulle on saapunut uusi dokumentti eVakaan.</p>
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 $unsubscribeFi
 
                 <hr>
 
-                <p>You have received a new eVaka document. Read the document here: ${childLink(Language.en, childId)}</p>
+                <p>You have received a new eVaka document.</p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 $unsubscribeEn
         """
@@ -283,13 +260,13 @@ $unsubscribeEn
             "Uusi pedagoginen dokumentti eVakassa / New pedagogical document in eVaka",
             html =
             """
-                <p>Sinulle on saapunut uusi pedagoginen dokumentti eVakaan. Lue dokumentti täältä: ${childLink(Language.fi, childId)}</p>
+                <p>Sinulle on saapunut uusi pedagoginen dokumentti eVakaan.</p>
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 $unsubscribeFi
 
                 <hr>
 
-                <p>You have received a new eVaka pedagogical document. Read the document here: ${childLink(Language.en, childId)}</p>
+                <p>You have received a new eVaka pedagogical document.</p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 $unsubscribeEn
         """
@@ -322,9 +299,7 @@ $unsubscribeEn
                 
                 <p>Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Uusi maksupäätös astuu voimaan sen kuukauden alusta, kun tulotiedot on toimitettu asiakasmaksuihin.</p>
                 
-                <p>Lisätietoja saatte tarvittaessa: <a href="https://www.tampere.fi/varhaiskasvatusasiakasmaksut">https://www.tampere.fi/varhaiskasvatusasiakasmaksut</a></p>
-                
-                <p>Tulotiedot: ${incomeLink(Language.fi)}</p>
+                <p>Lisätietoja saatte tarvittaessa Tampereen kaupungin verkkosivuilta.</p>
                 
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 
@@ -340,9 +315,7 @@ $unsubscribeEn
                 
                 <p>If you do not provide your latest income information, your client fee will be determined based on the highest fee category. The new payment decision takes effect at the beginning of the month when the income information has been submitted to customer services.</p>
                 
-                <p>Inquiries: <a href="https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary">https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary</a></p>
-                
-                <p>Income information: ${incomeLink(Language.en)}</p>
+                <p>If necessary, you can get more information from the website of the city of Tampere.</p>
                 
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 
@@ -366,9 +339,7 @@ $unsubscribeEn
                 
                 <p>Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Uusi maksupäätös astuu voimaan sen kuukauden alusta, kun tulotiedot on toimitettu asiakasmaksuihin.</p>
                 
-                <p>Lisätietoja saatte tarvittaessa: <a href="https://www.tampere.fi/varhaiskasvatusasiakasmaksut">https://www.tampere.fi/varhaiskasvatusasiakasmaksut</a></p>
-                
-                <p>Tulotiedot: ${incomeLink(Language.fi)}</p>
+                <p>Lisätietoja saatte tarvittaessa Tampereen kaupungin verkkosivuilta.</p>
                 
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 
@@ -384,9 +355,7 @@ $unsubscribeEn
                 
                 <p>If you do not provide your latest income information, your client fee will be determined based on the highest fee category. The new payment decision takes effect at the beginning of the month when the income information has been submitted to customer services.</p>
                 
-                <p>Inquiries: <a href="https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary">https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary</a></p>
-                
-                <p>Income information: ${incomeLink(Language.en)}</p>
+                <p>If necessary, you can get more information from the website of the city of Tampere.</p>
                 
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 
@@ -406,7 +375,7 @@ $unsubscribeEn
                 
                 <p>Seuraava asiakasmaksunne määräytyy korkeimman maksuluokan mukaan, sillä ette ole toimittaneet uusia tulotietoja määräaikaan mennessä.</p>
                 
-                <p>Lisätietoja saatte tarvittaessa: <a href="https://www.tampere.fi/varhaiskasvatusasiakasmaksut">https://www.tampere.fi/varhaiskasvatusasiakasmaksut</a></p>
+                <p>Lisätietoja saatte tarvittaessa Tampereen kaupungin verkkosivuilta.</p>
                 
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 
@@ -418,7 +387,7 @@ $unsubscribeEn
                 
                 <p>Your next client fee will be determined based on the highest fee category as you did not provide your latest income information by the deadline.</p>
                 
-                <p>Inquiries: <a href="https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary">https://www.tampere.fi/en/early-childhood-education-and-pre-primary-education/client-fees-early-childhood-education-and-care-and-pre-primary</a></p>
+                <p>If necessary, you can get more information from the website of the city of Tampere.</p>
                 
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 
@@ -451,12 +420,10 @@ $unsubscribeEn
             """
 <p>eVakaan on lisätty uusia kalenteritapahtumia:</p>
 $eventsHtml
-<p>Katso lisää kalenterissa: ${calendarLink(Language.fi)}</p>
 $unsubscribeFi
 <hr>
 <p>New calendar events in eVaka:</p>
 $eventsHtml
-<p>See more in the calendar: ${calendarLink(Language.en)}</p>
 $unsubscribeEn
 """,
         )
