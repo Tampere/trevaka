@@ -72,7 +72,7 @@ internal class EmailMessageProvider : IEmailMessageProvider {
         return """
             <p>Olet saanut päätöksen/ilmoituksen Tampereen varhaiskasvatukselta, joka odottaa toimenpiteitäsi. Myönnetty varhaiskasvatus-/kerhopaikka tulee hyväksyä tai hylätä kahden viikon sisällä päätöksen saapumisesta.</p>
             
-            <p>Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla Tampereen varhaiskasvatuksen verkkopalveluun tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.</p>
+            <p>Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla Tampereen varhaiskasvatuksen verkkopalveluun eVakaan tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.</p>
             
             <p>Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun.</p>
             
@@ -86,11 +86,11 @@ internal class EmailMessageProvider : IEmailMessageProvider {
             
             <p>lapsenne kerhohakemus on vastaanotettu.</p>
             
-            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa siihen saakka, kunnes se on otettu käsittelyyn asiakaspalvelussa.</p>
+            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa eVakassa siihen saakka, kunnes se on otettu käsittelyyn asiakaspalvelussa.</p>
             
             <p>Kirjallinen ilmoitus myönnetystä kerhopaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, ilmoitus lähetetään hänelle postitse.</p> 
             
-            <p>Myönnetyn kerhopaikan voi hyväksyä / hylätä sähköisesti Tampereen varhaiskasvatuksen verkkopalvelussa. Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kauden päättyessä hakemus poistetaan järjestelmästä.</p>
+            <p>Myönnetyn kerhopaikan voi hyväksyä / hylätä sähköisesti eVakassa. Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kauden päättyessä hakemus poistetaan järjestelmästä.</p>
             
             <p>Lisätietoa hakemuksen käsittelystä ja kerhopaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta:</p>
             
@@ -111,7 +111,7 @@ internal class EmailMessageProvider : IEmailMessageProvider {
             
             <p>lapsenne varhaiskasvatushakemus on vastaanotettu.</p>
             
-            <p>Varhaiskasvatushakemuksella on neljän (4) kuukauden hakuaika. Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa siihen saakka, kunnes se on otettu käsittelyyn.</p>
+            <p>Varhaiskasvatushakemuksella on neljän (4) kuukauden hakuaika. Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa eVakassa siihen saakka, kunnes se on otettu käsittelyyn.</p>
             
             <p>Saatte tiedon lapsenne varhaiskasvatuspaikasta noin kuukautta ennen palvelutarpeen alkamista tai hakemuksen lakisääteisen järjestelyajan päättymistä. Hakemuksen lakisääteinen järjestelyaika on neljä (4) kuukautta hakemuksen saapumisesta.</p> 
             
@@ -119,7 +119,7 @@ internal class EmailMessageProvider : IEmailMessageProvider {
             
             <p>Kirjallinen päätös varhaiskasvatuspaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, päätös lähetetään hänelle postitse.</p>
             
-            <p>Myönnetyn varhaiskasvatuspaikan voi hyväksyä / hylätä sähköisesti Tampereen varhaiskasvatuksen verkkopalvelussa. Mikäli haette paikkaa palvelusetelipäiväkodista, olkaa yhteydessä kyseiseen päiväkotiin viimeistään hakemuksen jättämisen jälkeen.</p>
+            <p>Myönnetyn varhaiskasvatuspaikan voi hyväksyä / hylätä sähköisesti eVakassa. Mikäli haette paikkaa palvelusetelipäiväkodista, olkaa yhteydessä kyseiseen päiväkotiin viimeistään hakemuksen jättämisen jälkeen.</p>
             
             <p>Ilta- ja vuorohoitoa haettaessa, hakemuksen liitteeksi tulee toimittaa molempien samassa taloudessa asuvien huoltajien todistukset työnantajalta vuorotyöstä tai oppilaitoksesta iltaisin tapahtuvasta opiskelusta. Hakemusta käsitellään vuorohoidon hakemuksena vasta sen jälkeen, kun edellä mainitut todistukset on toimitettu. Tarvittavat liitteet voi lisätä suoraan sähköiselle hakemukselle tai toimittaa postitse osoitteeseen Tampereen kaupunki, Varhaiskasvatuksen asiakaspalvelu, PL 487, 33101 Tampere.</p> 
             
@@ -144,7 +144,7 @@ internal class EmailMessageProvider : IEmailMessageProvider {
 
             <p>lapsenne esiopetukseen ilmoittautuminen on vastaanotettu.</p>
 
-            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa siihen saakka, kunnes se on otettu käsittelyyn.</p> 
+            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Tampereen varhaiskasvatuksen verkkopalvelussa eVakassa siihen saakka, kunnes se on otettu käsittelyyn.</p> 
 
             <p>Lisätietoa hakemuksen käsittelystä ja esiopetuspaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta:</p>
 
@@ -299,6 +299,8 @@ $unsubscribeEn
                 
                 <p>Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Uusi maksupäätös astuu voimaan sen kuukauden alusta, kun tulotiedot on toimitettu asiakasmaksuihin.</p>
                 
+                <p>Lisätietoja saatte tarvittaessa Tampereen kaupungin verkkosivuilta.</p>
+                
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 
                 $unsubscribeFi
@@ -312,6 +314,8 @@ $unsubscribeEn
                 <p>We ask you to submit your income statement through eVaka within 28 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.</p>
                 
                 <p>If you do not provide your latest income information, your client fee will be determined based on the highest fee category. The new payment decision takes effect at the beginning of the month when the income information has been submitted to customer services.</p>
+                
+                <p>If necessary, you can get more information from the website of the city of Tampere.</p>
                 
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 
@@ -335,6 +339,8 @@ $unsubscribeEn
                 
                 <p>Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Uusi maksupäätös astuu voimaan sen kuukauden alusta, kun tulotiedot on toimitettu asiakasmaksuihin.</p>
                 
+                <p>Lisätietoja saatte tarvittaessa Tampereen kaupungin verkkosivuilta.</p>
+                
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 
                 $unsubscribeFi
@@ -348,6 +354,8 @@ $unsubscribeEn
                 <p>We ask you to submit your income statement through eVaka within 14 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.</p>
                 
                 <p>If you do not provide your latest income information, your client fee will be determined based on the highest fee category. The new payment decision takes effect at the beginning of the month when the income information has been submitted to customer services.</p>
+                
+                <p>If necessary, you can get more information from the website of the city of Tampere.</p>
                 
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 
@@ -367,6 +375,8 @@ $unsubscribeEn
                 
                 <p>Seuraava asiakasmaksunne määräytyy korkeimman maksuluokan mukaan, sillä ette ole toimittaneet uusia tulotietoja määräaikaan mennessä.</p>
                 
+                <p>Lisätietoja saatte tarvittaessa Tampereen kaupungin verkkosivuilta.</p>
+                
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 
                 $unsubscribeFi
@@ -376,6 +386,8 @@ $unsubscribeEn
                 <p>Dear client</p>
                 
                 <p>Your next client fee will be determined based on the highest fee category as you did not provide your latest income information by the deadline.</p>
+                
+                <p>If necessary, you can get more information from the website of the city of Tampere.</p>
                 
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 
