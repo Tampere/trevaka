@@ -47,9 +47,9 @@ services:
     build:
       context: evaka/frontend
       additional_contexts: # requires docker-compose 2.17.0 or newer
-        customizations: frontend/tampere
+        customizations: frontend/${EVAKA_CUSTOMIZATIONS}
       args:
-        EVAKA_CUSTOMIZATIONS: tampere
+        EVAKA_CUSTOMIZATIONS: ${EVAKA_CUSTOMIZATIONS}
     image: ${EVAKA_FRONTEND_IMAGE}
     ports:
       - "9999:8080"
@@ -112,7 +112,7 @@ services:
       - .env
     environment:
       VOLTTI_ENV: local
-      SPRING_PROFILES_ACTIVE: local,trevaka-local,tampere_evaka
+      SPRING_PROFILES_ACTIVE: local,trevaka-local,${EVAKA_CUSTOMIZATIONS}_evaka
       SPRING_PROFILES_INCLUDE: enable_dev_api,enable_mock_integration_endpoint
       JAVA_OPTS: -server -Djava.security.egd=file:/dev/./urandom -Xms1024m -Xss512k -Xmx1024m -XX:TieredStopAtLevel=1
       FLYWAY_USERNAME: ${EVAKA_SERVICE_FLYWAY_USERNAME}

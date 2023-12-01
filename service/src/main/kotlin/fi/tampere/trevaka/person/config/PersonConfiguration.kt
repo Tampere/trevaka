@@ -5,19 +5,15 @@
 package fi.tampere.trevaka.person.config
 
 import com.github.kittinunf.fuel.core.FuelManager
-import com.github.kittinunf.fuel.core.extensions.authentication
-import fi.espoo.evaka.dvv.DvvModificationRequestCustomizer
 import fi.tampere.trevaka.TampereProperties
-import fi.tampere.trevaka.util.NoConnectionReuseStrategy
-import fi.tampere.trevaka.util.basicAuthInterceptor
 import org.apache.hc.client5.http.classic.HttpClient
-import org.apache.hc.client5.http.impl.classic.HttpClientBuilder
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.ws.transport.WebServiceMessageSender
 import org.springframework.ws.transport.http.HttpComponents5MessageSender
-import org.springframework.ws.transport.http.HttpComponents5MessageSender.RemoveSoapHeadersInterceptor
+import trevaka.ipaas.dvvModificationRequestCustomizer
+import trevaka.ipaas.newIpaasHttpClient
 
 const val HTTP_CLIENT_PERSON = "httpClientPerson"
 
@@ -33,20 +29,13 @@ class PersonConfiguration {
     }
 
     @Bean(HTTP_CLIENT_PERSON)
-    fun httpClient(properties: TampereProperties) = HttpClientBuilder.create()
-        .addRequestInterceptorFirst(RemoveSoapHeadersInterceptor())
-        .addRequestInterceptorFirst(basicAuthInterceptor(properties.ipaas.username, properties.ipaas.password))
-        .setConnectionReuseStrategy(NoConnectionReuseStrategy.INSTANCE) // fix random "connection reset" errors
-        .build()
+    fun httpClient(properties: TampereProperties) = newIpaasHttpClient(properties.ipaas)
 
     /**
      * Custom [FuelManager] for [fi.espoo.evaka.dvv.DvvModificationsServiceClient].
      */
-    @Bean
-    fun fuelManager(properties: TampereProperties) = FuelManager()
+    fun fuelManager() = FuelManager()
 
     @Bean
-    fun basicAuthCustomizer(properties: TampereProperties) = DvvModificationRequestCustomizer { request ->
-        request.authentication().basic(properties.ipaas.username, properties.ipaas.password)
-    }
+    fun basicAuthCustomizer(properties: TampereProperties) = dvvModificationRequestCustomizer(properties.ipaas)
 }

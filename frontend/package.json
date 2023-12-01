@@ -6,7 +6,7 @@
     "type-check": "tsc -b .",
     "test": "jest src/e2e/specs/**/*translations.spec.ts",
     "e2e-playwright": "jest --testTimeout 60000 --runInBand src/e2e/specs --testPathIgnorePatterns src/e2e/specs/**/*translations.spec.ts",
-    "e2e-ci-playwright": "LANG=fi-FI LANGUAGE=fi_FI BASE_URL=${BASE_URL:-http://evaka-proxy:8080} jest --testTimeout 60000 --runInBand --bail 1 --retries=2 src/e2e/specs"
+    "e2e-ci-playwright": "LANG=fi-FI LANGUAGE=fi_FI BASE_URL=${BASE_URL:-http://localhost:9099} jest --testTimeout 60000 --runInBand --bail 1 --retries=2 src/e2e/specs"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.0",
@@ -35,7 +35,8 @@
   "jest": {
     "testRunner": "jest-circus/runner",
     "projects": [
-      "./src/e2e"
+      "./src/e2e/tampere.jest.config.ts",
+      "./src/e2e/vesilahti.jest.config.ts"
     ],
     "reporters": [
       "default",

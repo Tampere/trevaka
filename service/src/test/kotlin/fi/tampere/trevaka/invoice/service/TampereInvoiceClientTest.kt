@@ -17,7 +17,6 @@ import fi.espoo.evaka.shared.InvoiceId
 import fi.espoo.evaka.shared.InvoiceRowId
 import fi.espoo.evaka.shared.PersonId
 import fi.tampere.trevaka.InvoiceProperties
-import fi.tampere.trevaka.IpaasProperties
 import fi.tampere.trevaka.SummertimeAbsenceProperties
 import fi.tampere.trevaka.TampereProperties
 import fi.tampere.trevaka.invoice.config.InvoiceConfiguration
@@ -31,6 +30,7 @@ import org.springframework.ws.test.client.MockWebServiceServer
 import org.springframework.ws.test.client.RequestMatchers.connectionTo
 import org.springframework.ws.test.client.RequestMatchers.payload
 import org.springframework.ws.test.client.ResponseCreators.*
+import trevaka.ipaas.IpaasProperties
 import java.time.LocalDate
 import java.util.Locale
 import java.util.UUID

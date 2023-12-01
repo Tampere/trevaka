@@ -48,3 +48,7 @@ tampere:
     password: pass
   invoice:
     url: http://localhost:${server.port}/salesOrder
+vesilahti:
+  ipaas:
+    username: user
+    password: pass

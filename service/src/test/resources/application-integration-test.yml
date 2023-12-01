@@ -62,3 +62,7 @@ tampere:
     password: pass
   invoice:
     url: http://localhost:${wiremock.server.port}/mock/ipaas/salesOrder
+vesilahti:
+  ipaas:
+    username: user
+    password: pass

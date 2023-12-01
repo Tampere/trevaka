@@ -10,7 +10,7 @@ set -euo pipefail
 # Configuration
 DEBUG=${DEBUG:-false}
 REUSE_VERSION=1.1.2 # NOTE: Update .circleci/config.yml to match
-START_YEAR=2021
+START_YEAR=2023
 CURRENT_YEAR=$(date +"%Y")
 if [ "${START_YEAR}" == "${CURRENT_YEAR}" ]; then
     REUSE_YEARS="${CURRENT_YEAR}"
@@ -53,7 +53,7 @@ function run_reuse() {
 
 function addheader() {
     local file="$1"
-    run_reuse annotate --license "LGPL-2.1-or-later" --copyright "City of Tampere" --year "$REUSE_YEARS" "$file"
+    run_reuse annotate --license "LGPL-2.1-or-later" --copyright "Tampere region" --year "$REUSE_YEARS" "$file"
 }
 
 # MAIN SCRIPT

@@ -21,10 +21,7 @@ import fi.espoo.evaka.shared.db.Database
 import fi.tampere.trevaka.SummertimeAbsenceProperties
 import fi.tampere.trevaka.TampereProperties
 import fi.tampere.trevaka.invoice.service.TampereInvoiceClient
-import fi.tampere.trevaka.util.NoConnectionReuseStrategy
-import fi.tampere.trevaka.util.basicAuthInterceptor
 import org.apache.hc.client5.http.classic.HttpClient
-import org.apache.hc.client5.http.impl.classic.HttpClientBuilder
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -34,7 +31,7 @@ import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.SoapVersion
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory
 import org.springframework.ws.transport.http.HttpComponents5MessageSender
-import org.springframework.ws.transport.http.HttpComponents5MessageSender.RemoveSoapHeadersInterceptor
+import trevaka.ipaas.newIpaasHttpClient
 import java.math.BigDecimal
 import java.time.Month
 
@@ -77,11 +74,7 @@ class InvoiceConfiguration {
     }
 
     @Bean(HTTP_CLIENT_INVOICE)
-    fun httpClient(properties: TampereProperties) = HttpClientBuilder.create()
-        .addRequestInterceptorFirst(RemoveSoapHeadersInterceptor())
-        .addRequestInterceptorFirst(basicAuthInterceptor(properties.ipaas.username, properties.ipaas.password))
-        .setConnectionReuseStrategy(NoConnectionReuseStrategy.INSTANCE) // fix random "connection reset" errors
-        .build()
+    fun httpClient(properties: TampereProperties) = newIpaasHttpClient(properties.ipaas)
 
     @Bean
     fun incomeTypesProvider(): IncomeTypesProvider = TampereIncomeTypesProvider()
