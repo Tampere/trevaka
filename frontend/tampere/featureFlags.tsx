@@ -39,8 +39,6 @@ const prod: FeatureFlags = {
   childDocuments: true,
   intermittentShiftCare: true,
   citizenAttendanceSummary: true,
-  feeDecisionIgnoredStatus: true,
-  voucherValueDecisionIgnoredStatus: true,
   hojks: true,
   noAbsenceType: true,
   voucherUnitPayments: false,
