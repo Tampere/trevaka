@@ -178,7 +178,7 @@ internal class EmailMessageProvider : IEmailMessageProvider {
 <p>Tampereen varhaiskasvatuksen verkkopalvelusta eVakasta puuttuu lapsen läsnäolovarauksia $start alkavalta viikolta. Käythän merkitsemässä ne mahdollisimman pian Kalenteri-välilehdelle, kiitos!</p>
 $unsubscribeFi
 <hr>
-<p>There are missing attendance reservations in Tampere`s early childhood education system eVaka for the week starting $start. Please mark them as soon as possible at Calendar page, thank you!</p>
+<p>There are missing attendance reservations in Tampere`s early childhood education system eVaka for the week starting $start. Please mark them as soon as possible on the Calendar page, thank you!</p>
 $unsubscribeEn
             """
                 .trimIndent(),
@@ -211,7 +211,7 @@ $unsubscribeEn
 
                 <hr>
 
-                <p>You have received a new $typeEn to Tampere`s early childhood education system eVaka.</p>
+                <p>You have received a new $typeEn in Tampere`s early childhood education system eVaka.</p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 $unsubscribeEn
         """
@@ -228,7 +228,7 @@ $unsubscribeEn
 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
 $unsubscribeFi
 <hr>
-<p>You have received a new document to Tampere`s early childhood education system eVaka.</p>
+<p>You have received a new document in Tampere`s early childhood education system eVaka.</p>
 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
 $unsubscribeEn
 """,
@@ -246,7 +246,7 @@ $unsubscribeEn
 
                 <hr>
 
-                <p>You have received a new document to Tampere`s early childhood education system eVaka. You can find document in Children page.</p>
+                <p>You have received a new document in Tampere`s early childhood education system eVaka. You can find the document on the Children page.</p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 $unsubscribeEn
         """
@@ -266,7 +266,7 @@ $unsubscribeEn
 
                 <hr>
 
-                <p>You have received a new pedagogical document to Tampere`s early childhood education system eVaka. You can find document in Children page.</p>
+                <p>You have received a new pedagogical document in Tampere`s early childhood education system eVaka. You can find the document on the Children page.</p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 $unsubscribeEn
         """
@@ -425,7 +425,7 @@ $unsubscribeFi
 <hr>
 <p>New calendar events in Tampere`s early childhood education system eVaka:</p>
 $eventsHtml
-<p>You can find events in Calendar page.</p>
+<p>You can find events on the Calendar page.</p>
 $unsubscribeEn
 """,
         )
