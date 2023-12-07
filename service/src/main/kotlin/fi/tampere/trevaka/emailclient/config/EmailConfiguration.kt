@@ -161,8 +161,8 @@ internal class EmailMessageProvider : IEmailMessageProvider {
 
     private fun getDecisionEmailHtml(): String = """
         <p>Hyvä(t) huoltaja(t),</p>
-        <p>Lapsellenne on tehty päätös.</p>
-        <p>Päätös on nähtävissä eVakassa.</p>
+        <p>Lapsellenne on tehty päätös liittyen varhaiskasvatukseen/esiopetukseen.</p>
+        <p>Päätös on nähtävissä Tampereen varhaiskasvatuksen verkkopalvelu eVakassa Päätökset-välilehdeltä.</p>
     """.trimIndent()
 
     override fun missingReservationsNotification(language: Language, checkedRange: FiniteDateRange): EmailContent {
@@ -175,10 +175,10 @@ internal class EmailMessageProvider : IEmailMessageProvider {
             "Läsnäolovarauksia puuttuu / There are missing attendance reservations",
             html =
             """
-<p>Läsnäolovarauksia puuttuu $start alkavalta viikolta. Käythän merkitsemässä ne mahdollisimman pian.</p>
+<p>Tampereen varhaiskasvatuksen verkkopalvelusta eVakasta puuttuu lapsen läsnäolovarauksia $start alkavalta viikolta. Käythän merkitsemässä ne mahdollisimman pian Kalenteri-välilehdelle, kiitos!</p>
 $unsubscribeFi
 <hr>
-<p>There are missing attendance reservations for the week starting $start. Please mark them as soon as possible.</p>
+<p>There are missing attendance reservations in Tampere`s early childhood education system eVaka for the week starting $start. Please mark them as soon as possible on the Calendar page, thank you!</p>
 $unsubscribeEn
             """
                 .trimIndent(),
@@ -205,13 +205,13 @@ $unsubscribeEn
             subject = "Uusi $typeFi eVakassa / New $typeEn in eVaka",
             html =
             """
-                <p>Sinulle on saapunut uusi $typeFi eVakaan.</p>
+                <p>Sinulle on saapunut uusi $typeFi Tampereen varhaiskasvatuksen verkkopalveluun eVakaan.</p>
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 $unsubscribeFi
 
                 <hr>
 
-                <p>You have received a new $typeEn in eVaka.</p>
+                <p>You have received a new $typeEn in Tampere`s early childhood education system eVaka.</p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 $unsubscribeEn
         """
@@ -224,11 +224,11 @@ $unsubscribeEn
             subject = "Uusi dokumentti eVakassa / New document in eVaka",
             html =
             """
-<p>Sinulle on saapunut uusi dokumentti eVakaan.</p>
+<p>Sinulle on saapunut uusi dokumentti Tampereen varhaiskasvatuksen verkkopalveluun eVakaan.</p>
 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
 $unsubscribeFi
 <hr>
-<p>You have received a new eVaka document.</p>
+<p>You have received a new document in Tampere`s early childhood education system eVaka.</p>
 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
 $unsubscribeEn
 """,
@@ -240,13 +240,13 @@ $unsubscribeEn
             subject = "Uusi dokumentti eVakassa / New document in eVaka",
             html =
             """
-                <p>Sinulle on saapunut uusi dokumentti eVakaan.</p>
+                <p>Sinulle on saapunut uusi dokumentti Tampereen varhaiskasvatuksen verkkopalveluun eVakaan. Löydät dokumentin Lapset-välilehdeltä.</p>
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 $unsubscribeFi
 
                 <hr>
 
-                <p>You have received a new eVaka document.</p>
+                <p>You have received a new document in Tampere`s early childhood education system eVaka. You can find the document on the Children page.</p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 $unsubscribeEn
         """
@@ -260,13 +260,13 @@ $unsubscribeEn
             "Uusi pedagoginen dokumentti eVakassa / New pedagogical document in eVaka",
             html =
             """
-                <p>Sinulle on saapunut uusi pedagoginen dokumentti eVakaan.</p>
+                <p>Sinulle on saapunut uusi pedagoginen dokumentti Tampereen varhaiskasvatuksen verkkopalveluun eVakaan. Löydät dokumentin Lapset-välilehdeltä.</p>
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 $unsubscribeFi
 
                 <hr>
 
-                <p>You have received a new eVaka pedagogical document.</p>
+                <p>You have received a new pedagogical document in Tampere`s early childhood education system eVaka. You can find the document on the Children page.</p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 $unsubscribeEn
         """
@@ -295,7 +295,7 @@ $unsubscribeEn
                 
                 <p>Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.</p>
                 
-                <p>Pyydämme toimittamaan tuloselvityksen eVakassa 28 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.</p>
+                <p>Pyydämme toimittamaan tuloselvityksen eVakassa 28 päivän kuluessa tästä ilmoituksesta. Tampereen varhaiskasvatuksen verkkopalvelussa eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.</p>
                 
                 <p>Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Uusi maksupäätös astuu voimaan sen kuukauden alusta, kun tulotiedot on toimitettu asiakasmaksuihin.</p>
                 
@@ -311,7 +311,7 @@ $unsubscribeEn
                 
                 <p>The income information used for determining the early childhood education fee or the out-of-pocket cost of a service voucher is reviewed every year.</p>
                 
-                <p>We ask you to submit your income statement through eVaka within 28 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.</p>
+                <p>We ask you to submit your income statement through eVaka within 28 days of this notification. Through Tampere`s early childhood education system eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.</p>
                 
                 <p>If you do not provide your latest income information, your client fee will be determined based on the highest fee category. The new payment decision takes effect at the beginning of the month when the income information has been submitted to customer services.</p>
                 
@@ -335,7 +335,7 @@ $unsubscribeEn
                 
                 <p>Ette ole vielä toimittaneet uusia tulotietoja. Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.</p>
                 
-                <p>Pyydämme toimittamaan tuloselvityksen eVakassa 14 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.</p>
+                <p>Pyydämme toimittamaan tuloselvityksen eVakassa 14 päivän kuluessa tästä ilmoituksesta. Tampereen varhaiskasvatuksen verkkopalvelussa eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.</p>
                 
                 <p>Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Uusi maksupäätös astuu voimaan sen kuukauden alusta, kun tulotiedot on toimitettu asiakasmaksuihin.</p>
                 
@@ -351,7 +351,7 @@ $unsubscribeEn
                 
                 <p>You have not yet submitted your latest income information. The income information used for determining the early childhood education fee or the out-of-pocket cost of a service voucher is reviewed every year.</p>
                 
-                <p>We ask you to submit your income statement through eVaka within 14 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.</p>
+                <p>We ask you to submit your income statement through eVaka within 14 days of this notification. Through Tampere`s early childhood education system eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.</p>
                 
                 <p>If you do not provide your latest income information, your client fee will be determined based on the highest fee category. The new payment decision takes effect at the beginning of the month when the income information has been submitted to customer services.</p>
                 
@@ -418,12 +418,14 @@ $unsubscribeEn
             "Uusia kalenteritapahtumia eVakassa / New calendar events in eVaka",
             html =
             """
-<p>eVakaan on lisätty uusia kalenteritapahtumia:</p>
+<p>Tampereen varhaiskasvatuksen verkkopalveluun eVakaan on lisätty uusia kalenteritapahtumia:</p>
 $eventsHtml
+<p>Löydät tapahtumat Kalenteri-välilehdeltä.</p>
 $unsubscribeFi
 <hr>
-<p>New calendar events in eVaka:</p>
+<p>New calendar events in Tampere`s early childhood education system eVaka:</p>
 $eventsHtml
+<p>You can find events on the Calendar page.</p>
 $unsubscribeEn
 """,
         )
