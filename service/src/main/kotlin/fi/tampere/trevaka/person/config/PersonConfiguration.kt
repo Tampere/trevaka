@@ -34,6 +34,7 @@ class PersonConfiguration {
     /**
      * Custom [FuelManager] for [fi.espoo.evaka.dvv.DvvModificationsServiceClient].
      */
+    @Bean
     fun fuelManager() = FuelManager()
 
     @Bean
