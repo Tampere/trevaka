@@ -13,7 +13,7 @@
     "@types/jest": "^29.5.11",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.10.4",
-    "@types/react": "^18.2.41",
+    "@types/react": "^18.2.43",
     "axios": "^1.6.2",
     "e2e-test": "link:../evaka/frontend/src/e2e-test",
     "jest": "^29.7.0",
