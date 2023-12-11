@@ -68,6 +68,16 @@ vesilahti:
   ipaas:
     username: user
     password: pass
+  intimeInvoices:
+    username: user
+    password: pass
+    address: address
+    path: path
+  intimePayments:
+    username: user
+    password: pass
+    address: address
+    path: path
 hameenkyro:
   ipaas:
     username: user

@@ -4,6 +4,7 @@
 
 package fi.vesilahti.evaka
 
+import fi.espoo.evaka.decision.DecisionSendAddress
 import fi.espoo.evaka.shared.message.IMessageProvider
 import fi.espoo.evaka.shared.message.MessageLanguage
 
@@ -46,7 +47,24 @@ Koska olette ottanut Suomi.fi -palvelun käyttöönne, on päätös myös luetta
 
     override fun getAssistanceNeedPreschoolDecisionContent(lang: MessageLanguage) = getAssistanceNeedDecisionContent(lang)
 
-    override fun getDefaultDecisionAddress(lang: MessageLanguage) = TODO("Not yet implemented")
+    override fun getDefaultDecisionAddress(lang: MessageLanguage): DecisionSendAddress = when (lang) {
+        MessageLanguage.FI -> DecisionSendAddress(
+            street = "PL 75",
+            postalCode = "90015",
+            postOffice = "Oulu",
+            row1 = "Varhaiskasvatuksen palveluohjaus",
+            row2 = "Asiakaspalvelu",
+            row3 = "PL 75, 90015 Oulu",
+        )
+        MessageLanguage.SV -> DecisionSendAddress(
+            street = "PL 75",
+            postalCode = "90015",
+            postOffice = "Oulu",
+            row1 = "Varhaiskasvatuksen palveluohjaus",
+            row2 = "Asiakaspalvelu",
+            row3 = "PL 75, 90015 Oulu",
+        )
+    }
 
     override fun getDefaultFinancialDecisionAddress(lang: MessageLanguage) = getDefaultDecisionAddress(lang)
 }

@@ -23,9 +23,6 @@ import trevaka.tomcat.tomcatAccessLoggingCustomizer
 class VesilahtiConfig {
 
     @Bean
-    fun invoiceIntegrationClient() = VesilahtiInvoiceIntegrationClient()
-
-    @Bean
     fun invoiceGenerationLogicChooser() = DefaultInvoiceGenerationLogic
 
     @Bean
@@ -36,15 +33,6 @@ class VesilahtiConfig {
 
     @Bean
     fun templateProvider() = VesilahtiTemplateProvider()
-
-    @Bean
-    fun incomeTypesProvider() = VesilahtiIncomeTypesProvider()
-
-    @Bean
-    fun incomeCoefficientMultiplierProvider() = VesilahtiIncomeCoefficientMultiplierProvider()
-
-    @Bean
-    fun invoiceProductProvider() = VesilahtiInvoiceProductProvider()
 
     @Bean
     fun titaniaEmployeeIdConverter() = TrimStartTitaniaEmployeeIdConverter()

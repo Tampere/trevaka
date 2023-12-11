@@ -9,47 +9,27 @@ import fi.espoo.evaka.invoicing.service.DocumentLang
 import fi.espoo.evaka.shared.template.ITemplateProvider
 
 class VesilahtiTemplateProvider : ITemplateProvider {
-    override fun getLocalizedFilename(type: DecisionType, lang: DocumentLang): String {
-        TODO("Not yet implemented")
-    }
+    override fun getFeeDecisionPath(): String = "vesilahti/fee-decision/decision"
+    override fun getVoucherValueDecisionPath(): String = "vesilahti/fee-decision/voucher-value-decision"
+    override fun getClubDecisionPath(): String = "vesilahti/club/decision"
+    override fun getDaycareVoucherDecisionPath(): String = "vesilahti/daycare/voucher/decision"
+    override fun getDaycareTransferDecisionPath(): String = "vesilahti/daycare/decision"
+    override fun getDaycareDecisionPath(): String = "vesilahti/daycare/decision"
+    override fun getPreschoolDecisionPath(): String = "vesilahti/preschool/decision"
+    override fun getPreparatoryDecisionPath(): String = "vesilahti/preschool/decision"
+    override fun getAssistanceNeedDecisionPath(): String = "vesilahti/assistance-need/decision"
+    override fun getAssistanceNeedPreschoolDecisionPath(): String = "vesilahti/assistance-need-preschool/decision"
 
-    override fun getFeeDecisionPath(): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun getVoucherValueDecisionPath(): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun getClubDecisionPath(): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun getDaycareVoucherDecisionPath(): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun getDaycareTransferDecisionPath(): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun getDaycareDecisionPath(): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun getPreschoolDecisionPath(): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun getPreparatoryDecisionPath(): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun getAssistanceNeedDecisionPath(): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun getAssistanceNeedPreschoolDecisionPath(): String {
-        TODO("Not yet implemented")
-    }
+    override fun getLocalizedFilename(type: DecisionType, lang: DocumentLang): String =
+        when (type) {
+            DecisionType.CLUB -> "Kerhopäätös"
+            DecisionType.DAYCARE,
+            DecisionType.DAYCARE_PART_TIME,
+            -> "Varhaiskasvatuspäätös"
+            DecisionType.PRESCHOOL -> "Esiopetuspäätös"
+            DecisionType.PRESCHOOL_DAYCARE,
+            DecisionType.PRESCHOOL_CLUB,
+            -> "Esiopetukseen liittyvän toiminnan päätös"
+            DecisionType.PREPARATORY_EDUCATION -> "Valmistavan opetuksen päätös"
+        }
 }
