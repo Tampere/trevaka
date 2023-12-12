@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.spring)
     alias(libs.plugins.spring.boot)
     id("org.unbroken-dome.xjc") version "2.0.0"
-    id("org.jlleitschuh.gradle.ktlint") version "12.0.2"
+    alias(libs.plugins.ktlint.gradle)
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_17
@@ -52,8 +52,6 @@ dependencies {
     testImplementation("org.reflections:reflections:0.10.2")
     testImplementation("com.auth0:java-jwt")
     testImplementation("org.thymeleaf:thymeleaf")
-    testImplementation("com.networknt:json-schema-validator:1.0.87")
-    testImplementation("org.skyscreamer:jsonassert")
 }
 
 springBoot {
