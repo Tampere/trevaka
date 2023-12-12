@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.spring)
     alias(libs.plugins.spring.boot)
     id("org.unbroken-dome.xjc") version "2.0.0"
-    id("org.jlleitschuh.gradle.ktlint") version "12.0.2"
+    id("org.jlleitschuh.gradle.ktlint") version "12.0.3"
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_17
