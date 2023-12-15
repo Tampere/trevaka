@@ -49,7 +49,8 @@ const prod: FeatureFlags = {
 
 const features: Features = {
   default: {
-    ...prod
+    ...prod,
+    employeeMobileConfirmedDaysReservations: true
   },
   staging: {
     ...prod
