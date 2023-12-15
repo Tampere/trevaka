@@ -4,11 +4,13 @@
 
 package fi.tampere.trevaka
 
+import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
+import fi.tampere.trevaka.export.ExportUnitsAclService
 import fi.tampere.trevaka.security.TampereActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -57,4 +59,18 @@ class TampereConfig {
 
     @Bean
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
+
+    @Bean
+    fun tampereScheduledJobEnv(env: Environment): ScheduledJobsEnv<TampereScheduledJob> =
+        ScheduledJobsEnv.fromEnvironment(
+            TampereScheduledJob.entries.associateWith { it.defaultSettings },
+            "tampere.job",
+            env,
+        )
+
+    @Bean
+    fun tampereScheduledJobs(
+        exportUnitsAclService: ExportUnitsAclService,
+        env: ScheduledJobsEnv<TampereScheduledJob>,
+    ): TampereScheduledJobs = TampereScheduledJobs(exportUnitsAclService, env)
 }

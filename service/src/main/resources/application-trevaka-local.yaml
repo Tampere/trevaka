@@ -48,6 +48,8 @@ tampere:
     password: pass
   invoice:
     url: http://localhost:${server.port}/salesOrder
+  bucket:
+    export: trevaka-export-dev
 vesilahti:
   ipaas:
     username: user

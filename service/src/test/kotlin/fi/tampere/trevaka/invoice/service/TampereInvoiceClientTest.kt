@@ -16,6 +16,7 @@ import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.InvoiceId
 import fi.espoo.evaka.shared.InvoiceRowId
 import fi.espoo.evaka.shared.PersonId
+import fi.tampere.trevaka.BucketProperties
 import fi.tampere.trevaka.InvoiceProperties
 import fi.tampere.trevaka.SummertimeAbsenceProperties
 import fi.tampere.trevaka.TampereProperties
@@ -46,6 +47,9 @@ internal class TampereInvoiceClientTest {
             IpaasProperties("user", "pass"),
             InvoiceProperties("http://localhost:8080/salesOrder"),
             SummertimeAbsenceProperties(),
+            BucketProperties(
+                export = "trevaka-export-it",
+            ),
         )
         val configuration = InvoiceConfiguration()
         val webServiceTemplate = configuration.webServiceTemplate(configuration.httpClient(properties), properties)

@@ -11,11 +11,12 @@ import java.time.Month
 /**
  * All Tampere-specific configuration properties.
  */
-@ConfigurationProperties(prefix = "tampere", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "tampere")
 data class TampereProperties(
     val ipaas: IpaasProperties,
     val invoice: InvoiceProperties,
     val summertimeAbsence: SummertimeAbsenceProperties = SummertimeAbsenceProperties(),
+    val bucket: BucketProperties,
 )
 
 data class InvoiceProperties(
@@ -32,3 +33,9 @@ data class InvoiceProperties(
 data class SummertimeAbsenceProperties(
     val freeMonth: Month = Month.JUNE,
 )
+
+data class BucketProperties(
+    val export: String,
+) {
+    fun allBuckets() = listOf(export)
+}
