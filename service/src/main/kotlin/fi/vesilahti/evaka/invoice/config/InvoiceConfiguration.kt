@@ -4,7 +4,6 @@
 
 package fi.vesilahti.evaka.invoice.config
 
-import com.jcraft.jsch.JSch
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.espoo.evaka.invoicing.service.IncomeCoefficientMultiplierProvider
 import fi.espoo.evaka.invoicing.service.IncomeTypesProvider
@@ -14,6 +13,7 @@ import fi.vesilahti.evaka.*
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
+import software.amazon.awssdk.services.s3.S3Client
 
 @Configuration
 class InvoiceConfiguration {
@@ -22,14 +22,11 @@ class InvoiceConfiguration {
     fun invoiceIntegrationClient(
         properties: VesilahtiProperties,
         invoiceGenerator: ProEInvoiceGenerator,
-        sftpConnector: SftpConnector,
+        s3Client: S3Client,
     ): InvoiceIntegrationClient {
-        val sftpSender = SftpSender(properties.intimeInvoices, sftpConnector)
-        return VesilahtiInvoiceIntegrationClient(sftpSender, invoiceGenerator)
+        val s3Sender = S3Sender(s3Client, properties)
+        return VesilahtiInvoiceIntegrationClient(s3Sender, invoiceGenerator)
     }
-
-    @Bean
-    fun jsch(): JSch = JSch()
 
     @Bean
     fun incomeTypesProvider(): IncomeTypesProvider = VesilahtiIncomeTypesProvider()

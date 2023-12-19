@@ -45,7 +45,6 @@ dependencies {
     implementation("com.github.kagkarlsson:db-scheduler")
     implementation("com.fasterxml.jackson.core:jackson-core")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv")
-    implementation("com.jcraft:jsch:0.1.55")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit-pioneer:junit-pioneer:2.2.0") // for CartesianProductTest

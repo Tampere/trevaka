@@ -4,7 +4,6 @@
 
 package fi.vesilahti.evaka
 
-import com.jcraft.jsch.SftpException
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient.SendResult
@@ -13,28 +12,20 @@ import mu.KotlinLogging
 private val logger = KotlinLogging.logger {}
 
 class VesilahtiInvoiceIntegrationClient(
-    private val sftpSender: SftpSender,
+    private val s3Sender: S3Sender,
     private val invoiceGenerator: ProEInvoiceGenerator,
 ) : InvoiceIntegrationClient {
     override fun send(invoices: List<InvoiceDetailed>): SendResult {
         val failedList = mutableListOf<InvoiceDetailed>()
 
         val generatorResult = invoiceGenerator.generateInvoice(invoices)
-        var proEinvoices = generatorResult.invoiceString
-        var successList = generatorResult.sendResult.succeeded
-        var manuallySentList = generatorResult.sendResult.manuallySent
+        val proEinvoices = generatorResult.invoiceString
+        val successList = generatorResult.sendResult.succeeded
+        val manuallySentList = generatorResult.sendResult.manuallySent
 
         if (successList.isNotEmpty()) {
-            try {
-                sftpSender.send(proEinvoices)
-                logger.info { "Successfully sent ${successList.size} invoices and created ${manuallySentList.size} manual invoice" }
-            } catch (e: SftpException) {
-                failedList.addAll(successList)
-                failedList.addAll(manuallySentList)
-                successList = listOf()
-                manuallySentList = listOf()
-                logger.error { "Failed to send ${failedList.size} invoices" }
-            }
+            s3Sender.send(proEinvoices)
+            logger.info { "Successfully sent ${successList.size} invoices and created ${manuallySentList.size} manual invoice" }
         }
 
         return InvoiceIntegrationClient.SendResult(successList, failedList, manuallySentList)
