@@ -42,6 +42,9 @@ dependencies {
     implementation("org.jdbi:jdbi3-kotlin")
     implementation("software.amazon.awssdk:s3")
     implementation("io.opentracing:opentracing-util")
+    implementation("com.github.kagkarlsson:db-scheduler")
+    implementation("com.fasterxml.jackson.core:jackson-core")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit-pioneer:junit-pioneer:2.2.0") // for CartesianProductTest

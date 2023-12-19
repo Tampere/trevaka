@@ -7,6 +7,7 @@ package trevaka
 import com.auth0.jwt.algorithms.Algorithm
 import fi.espoo.evaka.BucketEnv
 import fi.espoo.evaka.EvakaEnv
+import fi.tampere.trevaka.TampereProperties
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
@@ -22,7 +23,11 @@ import java.security.spec.RSAPublicKeySpec
 class IntegrationTestConfiguration {
 
     @Bean
-    fun s3Client(evakaEnv: EvakaEnv, bucketEnv: BucketEnv): S3Client {
+    fun s3Client(
+        evakaEnv: EvakaEnv,
+        bucketEnv: BucketEnv,
+        tampereProperties: TampereProperties?,
+    ): S3Client {
         val client = S3Client.builder()
             .region(evakaEnv.awsRegion)
             .serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build())
@@ -32,12 +37,17 @@ class IntegrationTestConfiguration {
             )
             .build()
 
-        val existingBuckets = client.listBuckets().buckets().map { it.name() }
-        bucketEnv.allBuckets()
-            .filterNot { bucket -> existingBuckets.contains(bucket) }
-            .forEach { bucket -> client.createBucket { it.bucket(bucket) } }
+        createBucketsIfNeeded(client, bucketEnv.allBuckets())
+        tampereProperties?.let { createBucketsIfNeeded(client, it.bucket.allBuckets()) }
 
         return client
+    }
+
+    private fun createBucketsIfNeeded(client: S3Client, allBuckets: List<String>) {
+        val existingBuckets = client.listBuckets().buckets().map { it.name() }
+        allBuckets
+            .filterNot { bucket -> existingBuckets.contains(bucket) }
+            .forEach { bucket -> client.createBucket { it.bucket(bucket) } }
     }
 
     @Bean
