@@ -44,13 +44,13 @@ const prod: FeatureFlags = {
   voucherUnitPayments: false,
   employeeMobileChildAttendanceReservationEdit: true,
   employeeMobileStaffAttendanceEdit: true,
+  employeeMobileConfirmedDaysReservations: true,
   assistanceNeedDecisionsLanguageSelect: false
 }
 
 const features: Features = {
   default: {
-    ...prod,
-    employeeMobileConfirmedDaysReservations: true
+    ...prod
   },
   staging: {
     ...prod
