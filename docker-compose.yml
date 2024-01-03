@@ -29,10 +29,10 @@ services:
       retries: 5
 
   s3:
-    image: adobe/s3mock:3.1.0
+    image: adobe/s3mock:3.3.0
     ports:
       - "9090:9090"
-      - "9876:9090" # for core tests
+      - "9876:9191" # for core tests
     volumes:
       - s3-data:/data
     environment:
