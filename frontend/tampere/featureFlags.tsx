@@ -33,18 +33,12 @@ const prod: FeatureFlags = {
   financeDecisionHandlerSelect: true,
   feeDecisionPreschoolClubFilter: true,
   placementGuarantee: true,
-  assistanceNeedPreschoolDecisions: true,
   staffAttendanceTypes: true,
   personDuplicate: true,
-  childDocuments: true,
   intermittentShiftCare: true,
   citizenAttendanceSummary: true,
-  hojks: true,
   noAbsenceType: true,
   voucherUnitPayments: false,
-  employeeMobileChildAttendanceReservationEdit: true,
-  employeeMobileStaffAttendanceEdit: true,
-  employeeMobileConfirmedDaysReservations: true,
   assistanceNeedDecisionsLanguageSelect: false
 }
 
