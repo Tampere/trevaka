@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-FROM eclipse-temurin:17-jammy AS builder
+FROM eclipse-temurin:21-jammy AS builder
 WORKDIR /evaka
 COPY --from=core ./service/gradle/ ./service/gradle/
 COPY --from=core ./service/build.gradle.kts ./service/gradle.properties ./service/settings.gradle.kts ./service/
@@ -23,7 +23,7 @@ COPY . ./
 RUN ./gradlew --offline --no-daemon assemble \
     && java -Djarmode=layertools -jar build/libs/trevaka-service.jar extract --destination build/extracted
 
-FROM eclipse-temurin:17-jre-jammy
+FROM eclipse-temurin:21-jre-jammy
 
 LABEL maintainer="https://github.com/tampere/trevaka"
 
