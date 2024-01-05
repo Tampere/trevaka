@@ -5,7 +5,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.7.3"
+    id("org.springframework.boot") version "3.2.1"
     id("io.freefair.lombok") version "8.4"
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.spring)
