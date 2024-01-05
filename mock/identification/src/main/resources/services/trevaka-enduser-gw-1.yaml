@@ -7,6 +7,6 @@ name: "trevaka-enduser-gw"
 id: 1
 metadataLocation: "classpath:metadata/trevaka-enduser-gw-metadata.xml"
 attributeReleasePolicy: !<org.apereo.cas.services.ReturnAllAttributeReleasePolicy> { }
-logoutResponseBinding: "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+logoutResponseBinding: "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
 signAssertions: "UNDEFINED"
 encryptAssertions: true
