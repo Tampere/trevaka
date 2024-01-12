@@ -8,12 +8,12 @@ import fi.espoo.evaka.shared.message.IMessageProvider
 import fi.espoo.evaka.shared.message.MessageLanguage
 
 class HameenkyroMessageProvider : IMessageProvider {
-    override fun getDecisionHeader(lang: MessageLanguage) = "Vesilahden varhaiskasvatukseen liittyvät päätökset"
+    override fun getDecisionHeader(lang: MessageLanguage) = "Hämeenkyrön varhaiskasvatukseen liittyvät päätökset"
 
     override fun getDecisionContent(lang: MessageLanguage) = """
-Olette hakeneet lapsellenne varhaiskasvatus- tai kerhopaikkaa Vesilahden varhaiskasvatuksesta. Päätös on luettavissa Suomi.fi-viestit -palvelusta.
+Olette hakeneet lapsellenne varhaiskasvatus- tai kerhopaikkaa Hämeenkyrön varhaiskasvatuksesta. Päätös on luettavissa Suomi.fi-viestit -palvelusta.
 
-Varhaiskasvatus tai kerhopaikka on hakemuksen tehneen huoltajan hyväksyttävissä Vesilahden kunnan varhaiskasvatuksen sähköisessä palvelussa osoitteessa evaka.vesilahti.fi. Paikkaa ei voi hyväksyä Suomi.fi-viestit -palvelussa.
+Varhaiskasvatus tai kerhopaikka on hakemuksen tehneen huoltajan hyväksyttävissä Hämeenkyrön kunnan varhaiskasvatuksen sähköisessä palvelussa osoitteessa evaka.hameenkyro.fi. Paikkaa ei voi hyväksyä Suomi.fi-viestit -palvelussa.
 
 Huomioittehan, että vastaus päätökseen tulee antaa kahden viikon kuluessa.
 """
@@ -21,13 +21,13 @@ Huomioittehan, että vastaus päätökseen tulee antaa kahden viikon kuluessa.
     override fun getFeeDecisionHeader(lang: MessageLanguage) = getDecisionHeader(lang)
 
     override fun getFeeDecisionContent(lang: MessageLanguage) = """
-Olette saaneet päätöksen varhaiskasvatuksen asiakasmaksusta Vesilahden kunnalta. Päätös on luettavissa Suomi.fi-viestit -palvelusta.
+Olette saaneet päätöksen varhaiskasvatuksen asiakasmaksusta Hämeenkyrön kunnalta. Päätös on luettavissa Suomi.fi-viestit -palvelusta.
 
 Varhaiskasvatuksen asiakasmaksu on voimassa toistaiseksi ja perheellä on velvollisuus ilmoittaa, mikäli perheen tulot olennaisesti muuttuvat (+/- 10 %).
 
 Lisätietoja varhaiskasvatuksen asiakasmaksuista
 
-https://www.vesilahti.fi/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/
+https://www.hameenkyro.fi/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/
 """
 
     override fun getVoucherValueDecisionHeader(lang: MessageLanguage) = getDecisionHeader(lang)
