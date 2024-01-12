@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: 2023 Tampere region
+#
+# SPDX-License-Identifier: LGPL-2.1-or-later
+
+evaka:
+  database:
+    flyway:
+      locations: db/migration,db/data/hameenkyro
+  oph:
+    organizer_oid: "1.2.246.562.10.64495287985"
+    organizer_id: "todo"
+    municipality_code: "108"
