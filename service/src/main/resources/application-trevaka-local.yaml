@@ -54,6 +54,8 @@ vesilahti:
   ipaas:
     username: user
     password: pass
+  bucket:
+    export: trevaka-export-dev
 hameenkyro:
   ipaas:
     username: user

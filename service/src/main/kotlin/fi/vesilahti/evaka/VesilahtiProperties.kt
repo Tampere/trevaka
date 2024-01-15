@@ -10,4 +10,11 @@ import trevaka.ipaas.IpaasProperties
 @ConfigurationProperties(prefix = "vesilahti", ignoreUnknownFields = false)
 data class VesilahtiProperties(
     val ipaas: IpaasProperties,
+    val bucket: BucketProperties,
 )
+
+data class BucketProperties(
+    val export: String,
+) {
+    fun allBuckets() = listOf(export)
+}
