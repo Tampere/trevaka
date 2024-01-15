@@ -37,6 +37,9 @@ module.exports = {
     env_vesilahti: {
       'EVAKA_CUSTOMIZATIONS': 'vesilahti',
     },
+    env_hameenkyro: {
+      'EVAKA_CUSTOMIZATIONS': 'hameenkyro',
+    },
     ...defaults
   }, {
     name: 'trevaka-service',
@@ -51,6 +54,9 @@ module.exports = {
     },
     env_vesilahti: {
       SPRING_PROFILES_ACTIVE: 'vesilahti_evaka',
+    },
+    env_hameenkyro: {
+      SPRING_PROFILES_ACTIVE: 'hameenkyro_evaka',
     },
     ...defaults
   },

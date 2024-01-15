@@ -43,3 +43,9 @@ class TampereComponentScan
 @ComponentScan("fi.vesilahti.evaka")
 @ConfigurationPropertiesScan(basePackages = ["fi.vesilahti.evaka"])
 class VesilahtiComponentScan
+
+@Profile("hameenkyro_evaka")
+@Configuration
+@ComponentScan("fi.hameenkyro.evaka")
+@ConfigurationPropertiesScan(basePackages = ["fi.hameenkyro.evaka"])
+class HameenkyroComponentScan

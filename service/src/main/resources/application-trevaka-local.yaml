@@ -54,3 +54,7 @@ vesilahti:
   ipaas:
     username: user
     password: pass
+hameenkyro:
+  ipaas:
+    username: user
+    password: pass
