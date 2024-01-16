@@ -7,7 +7,7 @@ package fi.vesilahti.evaka
 import org.springframework.boot.context.properties.ConfigurationProperties
 import trevaka.ipaas.IpaasProperties
 
-@ConfigurationProperties(prefix = "vesilahti", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "vesilahti")
 data class VesilahtiProperties(
     val ipaas: IpaasProperties,
     val bucket: BucketProperties,
