@@ -1288,6 +1288,7 @@
     "port": "1025",
     "host": "smtp",
     "from": "noreply@trevaka.local",
+    "fromDisplayName": "Tampereen varhaiskasvatus",
     "ssl": ""
   },
   "loginTheme": "evaka-tampere",
