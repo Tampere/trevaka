@@ -28,7 +28,7 @@ updates:
     ignore:
       - dependency-name: "@playwright/test" # version must match with core
       - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
+        update-types: ["version-update:semver-major", "version-update:semver-patch"]
     groups:
       jest:
         patterns:
