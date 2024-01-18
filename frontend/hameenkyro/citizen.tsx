@@ -10,7 +10,7 @@ import { H1, H2, H3, P } from 'lib-components/typography'
 import { Gap } from 'lib-components/white-space'
 import { CitizenCustomizations } from 'lib-customizations/types'
 
-import HameenkyroLogo from './HameenkyroLogo.svg'
+import HameenkyroLogo from './HameenkyroLogo.png'
 import featureFlags from './featureFlags'
 
 const customerContactTextFi = function () {
