@@ -287,10 +287,8 @@ const en: DeepPartial<Translations> = {
               <P>
                 Pre-school education lasts for four hours a day, generally from
                 9 am to 1 pm. In addition, the child can participate in paid
-                supplementary activities in the mornings and in the afternoons.
-                Options for supplementary activities are supplementary early
-                childhood education in day care centres and pre-school clubs in
-                schools.
+                supplementary early childhood education in the mornings and in
+                the afternoons.
               </P>
               <P>
                 Further information about supplementary activities and client

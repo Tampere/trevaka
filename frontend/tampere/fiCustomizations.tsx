@@ -282,9 +282,7 @@ const fi: DeepPartial<Translations> = {
               <P>
                 Esiopetusaika on neljä tuntia päivässä, pääsääntöisesti klo
                 9–13. Esiopetuksen lisäksi lapsi voi osallistua maksulliseen
-                täydentävään toimintaan aamuisin ja iltapäivisin. Täydentävän
-                toiminnan vaihtoehtoina ovat päiväkodeissa annettava täydentävä
-                varhaiskasvatus ja kouluilla annettava esiopetuksen kerho.
+                täydentävään varhaiskasvatukseen aamuisin ja iltapäivisin.
               </P>
               <P>
                 Lisätietoa täydentävästä toiminnasta ja asiakasmaksuista{' '}
