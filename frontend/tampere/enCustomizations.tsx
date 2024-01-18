@@ -229,7 +229,7 @@ const en: DeepPartial<Translations> = {
           },
           info: {
             PRESCHOOL: [
-              'The school year 2023–2024 starts on Wednesday 9.8.2023 and ends on Friday 31.5.2024'
+              'The school year 2024-2025 starts on Wednesday 7.8.2024 and ends on Wednesday 28.5.2025.'
             ]
           },
           label: {
@@ -287,10 +287,8 @@ const en: DeepPartial<Translations> = {
               <P>
                 Pre-school education lasts for four hours a day, generally from
                 9 am to 1 pm. In addition, the child can participate in paid
-                supplementary activities in the mornings and in the afternoons.
-                Options for supplementary activities are supplementary early
-                childhood education in day care centres and pre-school clubs in
-                schools.
+                supplementary early childhood education in the mornings and in
+                the afternoons.
               </P>
               <P>
                 Further information about supplementary activities and client
