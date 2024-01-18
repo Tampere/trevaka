@@ -68,16 +68,8 @@ vesilahti:
   ipaas:
     username: user
     password: pass
-  intimeInvoices:
-    username: user
-    password: pass
-    address: address
-    path: path
-  intimePayments:
-    username: user
-    password: pass
-    address: address
-    path: path
+  bucket:
+    export: trevaka-export-it
 hameenkyro:
   ipaas:
     username: user
