@@ -204,8 +204,7 @@ jobs:
           working_directory: *workspace_evaka_frontend
           command: |
             ./unpack-pro-icons.sh
-      - setup_authenticated_remote_docker:
-          docker_layer_caching: true
+      - setup_authenticated_remote_docker
       - build_docker_image:
           image: trevaka/frontend/<< parameters.customizations >>
           dir: *workspace_evaka_frontend
