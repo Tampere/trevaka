@@ -102,8 +102,6 @@ class VesilahtiInvoiceProductProvider : InvoiceProductProvider {
                 Product.DAYCARE
             PlacementType.PRESCHOOL_DAYCARE ->
                 Product.PRESCHOOL_WITH_DAYCARE
-            PlacementType.PRESCHOOL_CLUB ->
-                Product.PRESCHOOL_WITH_CLUB
             PlacementType.PREPARATORY_DAYCARE ->
                 Product.PRESCHOOL_WITH_DAYCARE
             PlacementType.TEMPORARY_DAYCARE,
@@ -112,6 +110,7 @@ class VesilahtiInvoiceProductProvider : InvoiceProductProvider {
                 Product.TEMPORARY_CARE
             PlacementType.SCHOOL_SHIFT_CARE ->
                 Product.SCHOOL_SHIFT_CARE
+            PlacementType.PRESCHOOL_CLUB,
             PlacementType.PRESCHOOL,
             PlacementType.PREPARATORY,
             PlacementType.CLUB,
@@ -131,13 +130,8 @@ class VesilahtiInvoiceProductProvider : InvoiceProductProvider {
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlterationType.RELIEF,
             ->
                 Product.PRESCHOOL_WITH_DAYCARE_DISCOUNT
-            Product.PRESCHOOL_WITH_CLUB to FeeAlterationType.DISCOUNT,
-            Product.PRESCHOOL_WITH_CLUB to FeeAlterationType.RELIEF,
-            ->
-                Product.PRESCHOOL_WITH_CLUB_DISCOUNT
             Product.DAYCARE to FeeAlterationType.INCREASE,
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlterationType.INCREASE,
-            Product.PRESCHOOL_WITH_CLUB to FeeAlterationType.INCREASE,
             ->
                 Product.CORRECTION
             else ->
@@ -155,8 +149,6 @@ enum class Product(val nameFi: String, val code: String) {
     DAYCARE_DISCOUNT("Alennus - Varhaiskasvatus", "500687"),
     PRESCHOOL_WITH_DAYCARE("Esiopetusta täydentävä varhaiskasvatus", "500220"),
     PRESCHOOL_WITH_DAYCARE_DISCOUNT("Alennus - Esiopetusta täydentävä varhaiskasvatus", "509565"),
-    PRESCHOOL_WITH_CLUB("Esiopetuksen kerho", "503745"),
-    PRESCHOOL_WITH_CLUB_DISCOUNT("Alennus - Esiopetuksen kerhotoiminta", "509787"),
     TEMPORARY_CARE("Tilapäinen varhaiskasvatus", "500576"),
     SCHOOL_SHIFT_CARE("Koululaisen vuorohoito", "500949"),
     SICK_LEAVE_50("Laskuun vaikuttava poissaolo 50%", "500283"),
