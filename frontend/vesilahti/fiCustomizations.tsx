@@ -10,6 +10,9 @@ import { H1, H2, H3, P } from 'lib-components/typography'
 import { Gap } from 'lib-components/white-space'
 import { Translations } from 'lib-customizations/citizen'
 import { DeepPartial } from 'lib-customizations/types'
+import featureFlags from "../vesilahti/featureFlags";
+
+export const preschoolEnabled = featureFlags.preschool
 
 const customerContactText = function () {
   return (
@@ -24,7 +27,7 @@ const fi: DeepPartial<Translations> = {
   applications: {
     creation: {
       daycareInfo:
-        'Varhaiskasvatushakemuksella haetaan paikkaa kunnallisesta päiväkodista tai perhepäivähoidosta, ostopalvelupäiväkodista tai palvelusetelillä tuetusta päiväkodista.',
+        'Varhaiskasvatushakemuksella haetaan paikkaa kunnallisesta päiväkodista tai perhepäivähoidosta tai ostopalvelupäiväkodista tuetusta päiväkodista.',
       clubInfo:
         'Kerhohakemuksella haetaan paikkaa kunnallisista tai palvelusetelillä tuetuista kerhoista.',
       preschoolLabel: 'Esiopetukseen ilmoittautuminen',
@@ -301,26 +304,26 @@ const fi: DeepPartial<Translations> = {
               href="https://dvv.fi/henkiloasiakkaat"
               newTab
             />
-            . Mikäli osoitteenne on muuttumassa, voit lisätä tulevan
-            osoitteen erilliseen kohtaan hakemuksella; lisää tuleva osoite
-            sekä lapselle että huoltajalle. Virallisena osoitetietoa
-            pidetään vasta, kun se on päivittynyt väestötietojärjestelmään.
-            Varhaiskasvatus-, palveluseteli- ja esiopetuspäätös sekä tieto
-            avoimen varhaiskasvatuksen kerhopaikasta toimitetaan
+            . Mikäli osoitteenne on muuttumassa, voit lisätä tulevan osoitteen
+            erilliseen kohtaan hakemuksella; lisää tuleva osoite sekä lapselle
+            että huoltajalle. Virallisena osoitetietoa pidetään vasta, kun se on
+            päivittynyt väestötietojärjestelmään. Varhaiskasvatus
+            {preschoolEnabled ? '-, ja esiopetus' : ''}päätös toimitetaan
             automaattisesti myös eri osoitteessa asuvalle väestötiedoista
             löytyvälle huoltajalle.
           </P>
         ),
-        futureAddressInfo: `Vesilahden varhaiskasvatuksessa ja esiopetuksessa virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.`
+        futureAddressInfo: `Vesilahden varhaiskasvatuksessa${
+          preschoolEnabled ? ' ja esiopetuksessa' : ''
+        } virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.`
       },
       fee: {
         info: {
           DAYCARE: (
             <P>
-              Kunnallisen varhaiskasvatuksen asiakasmaksu ja palvelusetelin
-              omavastuuosuus perustuu varhaiskasvatuksen asiakasmaksuista
-              annettuun lakiin (Laki varhaiskasvatuksen asiakasmaksuista
-              (1503/2016)). Asiakasmaksu määräytyy perheen koon,
+              Kunnallisen varhaiskasvatuksen asiakasmaksu perustuu varhaiskasvatuksen
+              asiakasmaksuista annettuun lakiin (Laki varhaiskasvatuksen
+              asiakasmaksuista (1503/2016)). Asiakasmaksu määräytyy perheen koon,
               palveluntarpeen sekä bruttotulojen mukaan. Uusien asiakkaiden
               tulee täyttää asiakasmaksulomake ja toimittaa tarvittavat
               liitteet Varhaiskasvatuksen asiakasmaksuihin viimeistään
@@ -351,9 +354,9 @@ const fi: DeepPartial<Translations> = {
       additionalDetails: {
         dietInfo: (
           <>
-            Erityisruokavaliosta huoltaja toimittaa varhaiskasvatus tai
-            esiopetuspaikkaan lääkärin tai ravitsemusterapeutin täyttämän ja
-            allekirjoittaman{' '}
+            Erityisruokavaliosta huoltaja toimittaa varhaiskasvatus
+            {preschoolEnabled ? ' tai esiopetuspaikkaan' : 'paikkaan'} lääkärin
+            tai ravitsemusterapeutin täyttämän ja allekirjoittaman{' '}
             <ExternalLink
               href="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/kouluruokailu-ja-ruokalista/"
               text="Selvitys erityisruokavaliosta -lomakkeen"
@@ -366,12 +369,14 @@ const fi: DeepPartial<Translations> = {
     }
   },
   applicationsList: {
-    title: `Hakeminen varhaiskasvatukseen ja esiopetukseen`,
+    title: `Hakeminen varhaiskasvatukseen${
+      preschoolEnabled ? ' ja esiopetukseen' : ''
+    }`,
     summary: (
       <P width="800px">
-        Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen,
-        esiopetukseen ja kerhoon. Huoltajan lasten tiedot haetaan tähän
-        näkymään automaattisesti Väestötietojärjestelmästä.
+        Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen
+        {preschoolEnabled ? ' ja esiopetukseen' : ''}. Huoltajan lasten
+        tiedot haetaan tähän näkymään automaattisesti Väestötietojärjestelmästä.
       </P>
     )
   },
@@ -405,11 +410,17 @@ const fi: DeepPartial<Translations> = {
   loginPage: {
     applying: {
       infoBullets: [
-        `hakea lapsellesi varhaiskasvatus-, esiopetus tai kerhopaikkaa tai tarkastella aiemmin tekemääsi hakemusta`,
-        `tarkastella lapsesi varhaiskasvatukseen ja esiopetukseen liittyviä kuvia ja muita dokumentteja`,
+        `hakea lapsellesi varhaiskasvatus-${
+          preschoolEnabled ? '  tai esiopetus' : ''
+        }paikkaa tai tarkastella aiemmin tekemääsi hakemusta`,
+        `tarkastella lapsesi varhaiskasvatukseen${
+          preschoolEnabled ? ' ja esiopetukseen' : ''
+        } liittyviä kuvia ja muita dokumentteja`,
         'ilmoittaa omat tai lapsesi tulotiedot',
-        `hyväksyä lapsesi varhaiskasvatus-, esiopetus- tai kerhopaikan`,
-        'irtisanoa lapsen varhaiskasvatus- tai kerhopaikan.'
+        `hyväksyä lapsesi varhaiskasvatus-${
+          preschoolEnabled ? '  tai esiopetus' : ''
+        }paikan`,
+        'irtisanoa lapsen varhaiskasvatuspaikan.'
       ]
     },
     login: {
@@ -426,12 +437,20 @@ const fi: DeepPartial<Translations> = {
           . Voit kirjautua myös käyttämällä vahvaa tunnistautumista.
         </P>
       ),
-      paragraph: `Huoltajat, joiden lapsi on jo varhaiskasvatuksessa tai esiopetuksessa: hoida lapsesi päivittäisiä asioita kuten lue viestejä ja ilmoita lapsen läsnäoloajat ja poissaolot.`
+      paragraph: `Huoltajat, joiden lapsi on jo varhaiskasvatuksessa${
+        preschoolEnabled ? ' tai esiopetuksessa' : ''
+      }: hoida lapsesi päivittäisiä asioita kuten lue viestejä ja ilmoita lapsen läsnäoloajat ja poissaolot.`
     },
-    title: `Vesilahden kunnan varhaiskasvatus ja esiopetus`
+    title: `Vesilahden kunnan varhaiskasvatus${
+      preschoolEnabled ? ' ja esiopetus' : ''
+    }`
   },
   map: {
-    mainInfo: `Tässä näkymässä voit hakea kartalta kaikki Vesilahden varhaiskasvatusyksiköt sekä kerhot. Kartalta löytyvät myös seudulliset palveluseteliyksiköt ja -kerhot. Esiopetusta järjestetään pääsääntöisesti kouluilla.`,
+    mainInfo: `Tässä näkymässä voit hakea kartalta kaikki Vesilahden varhaiskasvatusyksiköt.${
+      preschoolEnabled
+        ? '  Esiopetusta järjestetään pääsääntöisesti kouluilla.'
+        : ''
+    }`,
     privateUnitInfo: <></>,
     serviceVoucherLink:
       'https://www.vesilahti.fi/kasvatus-ja-opetus/varhaiskasvatus/kunnallinen-varhaiskasvatus/kunnalliset-paivakodit/',

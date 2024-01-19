@@ -11,6 +11,8 @@ import { Gap } from 'lib-components/white-space'
 import { Translations } from 'lib-customizations/citizen'
 import { DeepPartial } from 'lib-customizations/types'
 
+import { preschoolEnabled } from './fiCustomizations'
+
 const customerContactText = function () {
   return (
     <ExternalLink
@@ -313,18 +315,20 @@ const en: DeepPartial<Translations> = {
               href="https://dvv.fi/en/individuals"
               newTab
             />
-            . If your address is about to change, you can add the future
-            address in a separate box on the application form; add the
-            future address both for the child and the custodian. The address
-            information is only considered official once it has been updated
-            in the population data system. Decisions on early childhood
-            education and care, service vouchers, pre-school education and
-            information on open early childhood education places are also
-            automatically sent to the custodian at a different address found
-            in the population data.
+            . If your address is about to change, you can add the future address
+            in a separate box on the application form; add the future address
+            both for the child and the custodian. The address information is
+            only considered official once it has been updated in the population
+            data system. Decisions on early childhood education and care,
+            service vouchers{preschoolEnabled ? ', pre-school education' : ''}{' '}
+            and information on open early childhood education places are also
+            automatically sent to the custodian at a different address found in
+            the population data.
           </P>
         ),
-        futureAddressInfo: `For early childhood education and pre-school education in Vesilahti, the official address is the address obtained from population data. The address in the population data register changes when the applicant submits a notification of change of address to the post office or the local register office.`
+        futureAddressInfo: `For early childhood education${
+          preschoolEnabled ? ' and pre-school education' : ''
+        } in Vesilahti, the official address is the address obtained from population data. The address in the population data register changes when the applicant submits a notification of change of address to the post office or the local register office.`
       },
       fee: {
         info: {
@@ -366,8 +370,9 @@ const en: DeepPartial<Translations> = {
       additionalDetails: {
         dietInfo: (
           <>
-            In the case of a special diet, the custodian submits to the
-            early childhood education or pre-school education centre a{' '}
+            In the case of a special diet, the custodian submits to the early
+            childhood education
+            {preschoolEnabled ? ' or pre-school education centre' : ''} a{' '}
             <ExternalLink
               href="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/kouluruokailu-ja-ruokalista/"
               text="Notification of Special Diet form"
@@ -381,13 +386,15 @@ const en: DeepPartial<Translations> = {
     }
   },
   applicationsList: {
-    title: `Applying for early childhood education and pre-primary education`,
+    title: `Applying for early childhood education${
+      preschoolEnabled ? ' and pre-primary education' : ''
+    }`,
     summary: (
       <P width="800px">
-        The child&apos;s custodian can apply for early childhood education,
-        pre-primary education and a club for the child. Information about
-        the custodian&apos;s children is automatically retrieved from the
-        Population data register for this view.
+        The child&apos;s custodian can apply for early childhood education
+        {preschoolEnabled ? ', pre-primary education' : ''} and a club for the
+        child. Information about the custodian&apos;s children is automatically
+        retrieved from the Population data register for this view.
       </P>
     )
   },
@@ -421,10 +428,16 @@ const en: DeepPartial<Translations> = {
   loginPage: {
     applying: {
       infoBullets: [
-        `apply for an early childhood, pre-primary or club place for your child or view a previous application`,
-        `view pictures and other documents related to your child’s early childhood and pre-primary`,
+        `apply for an early childhood${
+          preschoolEnabled ? ', pre-primary' : ''
+        } or club place for your child or view a previous application`,
+        `view pictures and other documents related to your child’s early childhood${
+          preschoolEnabled ? ' and pre-primary' : ''
+        }`,
         "report your or your child's income information",
-        `accept your child's early childhood, pre-primary or club place`,
+        `accept your child's early childhood${
+          preschoolEnabled ? ', pre-primary' : ''
+        } or club place`,
         "terminate your child's early childhood or club place."
       ]
     },
@@ -444,12 +457,20 @@ const en: DeepPartial<Translations> = {
           </P>
         </>
       ),
-      paragraph: `Guardians whose child is already in early childhood education or preschool: take care of your child's daily affairs, such as reading messages and reporting the child's attendance and absence times.`
+      paragraph: `Guardians whose child is already in early childhood education${
+        preschoolEnabled ? ' or preschool' : ''
+      }: take care of your child's daily affairs, such as reading messages and reporting the child's attendance and absence times.`
     },
-    title: `Municipality of Vesilahti early childhood and pre-primary education`
+    title: `Municipality of Vesilahti early childhood${
+      preschoolEnabled ? ' and pre-primary' : ''
+    } education`
   },
   map: {
-    mainInfo: `In this view you can locate on the map all of Vesilahti’s early childhood education units and clubs. Regional service voucher units and clubs can also be found on the map. Pre-primary education is mainly organized in schools.`,
+    mainInfo: `In this view you can locate on the map all of Vesilahti’s early childhood education units and clubs. Regional service voucher units and clubs can also be found on the map.${
+      preschoolEnabled
+        ? ' Pre-primary education is mainly organized in schools.'
+        : ''
+    }`,
     privateUnitInfo: <></>,
     serviceVoucherLink:
       'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit',

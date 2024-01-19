@@ -5,6 +5,7 @@
 import { MapConfig } from 'lib-customizations/types'
 
 const mapConfig: MapConfig = {
+  // TODO: Update coordinates for Vesilahti
   center: [61.30949, 23.61605],
   initialZoom: 11,
   addressZoom: 14,
@@ -14,12 +15,11 @@ const mapConfig: MapConfig = {
     maxLongitude: 24.118938446044925,
     minLongitude: 23.54256391525269
   },
-  careTypeFilters: ['DAYCARE', 'PRESCHOOL', 'CLUB'],
+  careTypeFilters: ['DAYCARE'],
   unitProviderTypeFilters: [
     'MUNICIPAL',
     'PURCHASED',
     'PRIVATE',
-    'PRIVATE_SERVICE_VOUCHER'
   ]
 }
 
