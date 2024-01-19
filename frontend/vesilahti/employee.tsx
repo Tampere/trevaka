@@ -600,11 +600,7 @@ const customizations: EmployeeCustomizations = {
   ],
   placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER'],
   preschoolAssistanceLevels: [],
-  unitProviderTypes: [
-    'MUNICIPAL',
-    'PURCHASED',
-    'PRIVATE',
-  ],
+  unitProviderTypes: ['MUNICIPAL', 'PURCHASED', 'PRIVATE'],
   voucherValueDecisionTypes: ['NORMAL', 'RELIEF_ACCEPTED', 'RELIEF_REJECTED']
 }
 

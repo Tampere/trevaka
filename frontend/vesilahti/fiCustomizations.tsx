@@ -10,7 +10,8 @@ import { H1, H2, H3, P } from 'lib-components/typography'
 import { Gap } from 'lib-components/white-space'
 import { Translations } from 'lib-customizations/citizen'
 import { DeepPartial } from 'lib-customizations/types'
-import featureFlags from "../vesilahti/featureFlags";
+
+import featureFlags from '../vesilahti/featureFlags'
 
 export const preschoolEnabled = featureFlags.preschool
 
@@ -37,10 +38,9 @@ const fi: DeepPartial<Translations> = {
         'Täydentävän toiminnan hakeminen lapsille, jotka ilmoitetaan / on ilmoitettu esiopetukseen',
       applicationInfo: (
         <P>
-          Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa siihen
-          asti, kun hakemus otetaan asiakaspalvelussa käsittelyyn. Tämän
-          jälkeen muutokset tai hakemuksen peruminen on mahdollista
-          ottamalla yhteyttä
+          Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa siihen asti,
+          kun hakemus otetaan asiakaspalvelussa käsittelyyn. Tämän jälkeen
+          muutokset tai hakemuksen peruminen on mahdollista ottamalla yhteyttä
           {customerContactText()}.
         </P>
       ),
@@ -57,10 +57,10 @@ const fi: DeepPartial<Translations> = {
       actions: {
         allowOtherGuardianAccess: (
           <span>
-                Ymmärrän, että tieto hakemuksesta menee myös lapsen toiselle
-                huoltajalle. Jos tieto ei saa mennä toiselle huoltajalle, ole
-                yhteydessä {customerContactText()}.
-              </span>
+            Ymmärrän, että tieto hakemuksesta menee myös lapsen toiselle
+            huoltajalle. Jos tieto ei saa mennä toiselle huoltajalle, ole
+            yhteydessä {customerContactText()}.
+          </span>
         )
       },
       verification: {
@@ -91,18 +91,18 @@ const fi: DeepPartial<Translations> = {
             PRESCHOOL: (
               <>
                 <P>
-                  Esiopetuspaikka määräytyy lapsen kotiosoitteen mukaan,
-                  tulevan koulupolun mukaisesti. Ilmoittautuessa lapsi
-                  ilmoitetaan koulupolun mukaiseen esiopetukseen tai
-                  painotettuun esiopetukseen. Mikäli lapsi tarvitsee
-                  säännöllisesti ilta- tai vuorohoitoa, hänet ilmoitetaan
-                  ilta- tai vuorohoidon esiopetukseen.
+                  Esiopetuspaikka määräytyy lapsen kotiosoitteen mukaan, tulevan
+                  koulupolun mukaisesti. Ilmoittautuessa lapsi ilmoitetaan
+                  koulupolun mukaiseen esiopetukseen tai painotettuun
+                  esiopetukseen. Mikäli lapsi tarvitsee säännöllisesti ilta- tai
+                  vuorohoitoa, hänet ilmoitetaan ilta- tai vuorohoidon
+                  esiopetukseen.
                 </P>
                 <P>
                   Tieto tulevasta esiopetuspaikasta ilmoitetaan huoltajille
-                  sähköisesti Suomi.fi-viestit palvelun kautta. Mikäli
-                  huoltaja ei ole ottanut palvelua käyttöönsä, tieto
-                  lähetetään hänelle kirjeitse.
+                  sähköisesti Suomi.fi-viestit palvelun kautta. Mikäli huoltaja
+                  ei ole ottanut palvelua käyttöönsä, tieto lähetetään hänelle
+                  kirjeitse.
                 </P>
                 <P>
                   Lisätietoa{' '}
@@ -125,31 +125,29 @@ const fi: DeepPartial<Translations> = {
             <>
               <P>
                 Varhaiskasvatuspaikkaa voi hakea ympäri vuoden.
-                Varhaiskasvatushakemus tulee jättää viimeistään neljä
-                kuukautta ennen hoidon toivottua alkamisajankohtaa. Mikäli
-                varhaiskasvatuksen tarve johtuu työllistymisestä, opinnoista
-                tai koulutuksesta, eikä hoidon tarpeen ajankohtaa ole
-                pystynyt ennakoimaan, on varhaiskasvatuspaikkaa haettava
-                mahdollisimman pian - kuitenkin viimeistään kaksi viikkoa
-                ennen kuin lapsi tarvitsee hoitopaikan.
+                Varhaiskasvatushakemus tulee jättää viimeistään neljä kuukautta
+                ennen hoidon toivottua alkamisajankohtaa. Mikäli
+                varhaiskasvatuksen tarve johtuu työllistymisestä, opinnoista tai
+                koulutuksesta, eikä hoidon tarpeen ajankohtaa ole pystynyt
+                ennakoimaan, on varhaiskasvatuspaikkaa haettava mahdollisimman
+                pian - kuitenkin viimeistään kaksi viikkoa ennen kuin lapsi
+                tarvitsee hoitopaikan.
               </P>
               <P>
                 Kirjallinen päätös varhaiskasvatuspaikasta lähetetään
                 Suomi.fi-viestit -palveluun. Mikäli haluatte päätöksen
-                sähköisenä tiedoksiantona, teidän tulee ottaa
-                Suomi.fi-viestit -palvelu käyttöön. Palvelusta ja sen
-                käyttöönotosta saatte lisätietoa{' '}
+                sähköisenä tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit
+                -palvelu käyttöön. Palvelusta ja sen käyttöönotosta saatte
+                lisätietoa{' '}
                 <ExternalLink
                   text="https://www.suomi.fi/viestit"
                   href="https://www.suomi.fi/viestit"
                   newTab
                 />
-                . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön,
-                päätös lähetetään teille postitse.
+                . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, päätös
+                lähetetään teille postitse.
               </P>
-              <P fitted={true}>
-                * Tähdellä merkityt tiedot ovat pakollisia
-              </P>
+              <P fitted={true}>* Tähdellä merkityt tiedot ovat pakollisia</P>
             </>
           ),
           PRESCHOOL: (
@@ -157,8 +155,8 @@ const fi: DeepPartial<Translations> = {
               <P>
                 Perusopetuslain (26 a §) mukaan lasten on oppivelvollisuuden
                 alkamista edeltävänä vuonna osallistuttava vuoden kestävään
-                esiopetukseen tai muuhun esiopetuksen tavoitteet
-                saavuttavaan toimintaan. Esiopetus on maksutonta.
+                esiopetukseen tai muuhun esiopetuksen tavoitteet saavuttavaan
+                toimintaan. Esiopetus on maksutonta.
               </P>
               <P>
                 Päätökset tulevat{' '}
@@ -172,9 +170,7 @@ const fi: DeepPartial<Translations> = {
                 -palveluun tai postitse, mikäli et ole ottanut Suomi.fi
                 -palvelua käyttöön.
               </P>
-              <P fitted={true}>
-                * Tähdellä merkityt tiedot ovat pakollisia
-              </P>
+              <P fitted={true}>* Tähdellä merkityt tiedot ovat pakollisia</P>
             </>
           ),
           CLUB: (
@@ -191,14 +187,13 @@ const fi: DeepPartial<Translations> = {
                   href="https://www.suomi.fi/viestit"
                   newTab
                 />
-                . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön,
-                ilmoitus kerhopaikasta lähetetään teille postitse. Paikka
-                myönnetään yhdeksi toimintakaudeksi kerrallaan.
+                . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, ilmoitus
+                kerhopaikasta lähetetään teille postitse. Paikka myönnetään
+                yhdeksi toimintakaudeksi kerrallaan.
               </P>
               <P>
-                Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle.
-                Kyseisen kauden päättyessä hakemus poistetaan
-                järjestelmästä.
+                Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kyseisen
+                kauden päättyessä hakemus poistetaan järjestelmästä.
               </P>
             </>
           )
@@ -209,10 +204,10 @@ const fi: DeepPartial<Translations> = {
           instructions: {
             DAYCARE: (
               <>
-                Toivottua aloituspäivää on mahdollista muuttaa myöhemmäksi
-                niin kauan, kun hakemusta ei ole otettu käsittelyyn. Tämän
-                jälkeen toivotun aloituspäivän muutokset tehdään ottamalla
-                yhteyttä {customerContactText()}.
+                Toivottua aloituspäivää on mahdollista muuttaa myöhemmäksi niin
+                kauan, kun hakemusta ei ole otettu käsittelyyn. Tämän jälkeen
+                toivotun aloituspäivän muutokset tehdään ottamalla yhteyttä{' '}
+                {customerContactText()}.
               </>
             ),
             PRESCHOOL: null
@@ -237,10 +232,10 @@ const fi: DeepPartial<Translations> = {
             text: (
               <P fitted={true}>
                 Mikäli varhaiskasvatuspaikan tarve johtuu äkillisestä
-                työllistymisestä tai opiskelupaikan saamisesta, tulee
-                paikkaa hakea viimeistään kaksi viikkoa ennen kuin hoidon
-                tarve alkaa. Lisäksi huoltajan tulee ottaa yhteyttä
-                viipymättä {customerContactText()}.
+                työllistymisestä tai opiskelupaikan saamisesta, tulee paikkaa
+                hakea viimeistään kaksi viikkoa ennen kuin hoidon tarve alkaa.
+                Lisäksi huoltajan tulee ottaa yhteyttä viipymättä{' '}
+                {customerContactText()}.
               </P>
             )
           }
@@ -276,10 +271,9 @@ const fi: DeepPartial<Translations> = {
               <P>
                 Esiopetusaika on neljä tuntia päivässä, pääsääntöisesti klo
                 9–13. Esiopetuksen lisäksi lapsi voi osallistua maksulliseen
-                täydentävään toimintaan aamuisin ja iltapäivisin.
-                Täydentävän toiminnan vaihtoehtoina ovat päiväkodeissa
-                annettava täydentävä varhaiskasvatus ja kouluilla annettava
-                esiopetuksen kerho.
+                täydentävään toimintaan aamuisin ja iltapäivisin. Täydentävän
+                toiminnan vaihtoehtoina ovat päiväkodeissa annettava täydentävä
+                varhaiskasvatus ja kouluilla annettava esiopetuksen kerho.
               </P>
               <P>
                 Lisätietoa täydentävästä toiminnasta ja asiakasmaksuista{' '}
@@ -297,8 +291,8 @@ const fi: DeepPartial<Translations> = {
         info: (
           <P data-qa="contact-info-text">
             Henkilötiedot on haettu väestötiedoista, eikä niitä voi muuttaa
-            tällä hakemuksella. Jos henkilötiedoissa on virheitä,
-            päivitäthän tiedot{' '}
+            tällä hakemuksella. Jos henkilötiedoissa on virheitä, päivitäthän
+            tiedot{' '}
             <ExternalLink
               text="Digi- ja Väestötietoviraston sivuilla"
               href="https://dvv.fi/henkiloasiakkaat"
@@ -321,13 +315,13 @@ const fi: DeepPartial<Translations> = {
         info: {
           DAYCARE: (
             <P>
-              Kunnallisen varhaiskasvatuksen asiakasmaksu perustuu varhaiskasvatuksen
-              asiakasmaksuista annettuun lakiin (Laki varhaiskasvatuksen
-              asiakasmaksuista (1503/2016)). Asiakasmaksu määräytyy perheen koon,
-              palveluntarpeen sekä bruttotulojen mukaan. Uusien asiakkaiden
-              tulee täyttää asiakasmaksulomake ja toimittaa tarvittavat
-              liitteet Varhaiskasvatuksen asiakasmaksuihin viimeistään
-              kuukauden kuluessa hoidon alkamisesta.
+              Kunnallisen varhaiskasvatuksen asiakasmaksu perustuu
+              varhaiskasvatuksen asiakasmaksuista annettuun lakiin (Laki
+              varhaiskasvatuksen asiakasmaksuista (1503/2016)). Asiakasmaksu
+              määräytyy perheen koon, palveluntarpeen sekä bruttotulojen mukaan.
+              Uusien asiakkaiden tulee täyttää asiakasmaksulomake ja toimittaa
+              tarvittavat liitteet Varhaiskasvatuksen asiakasmaksuihin
+              viimeistään kuukauden kuluessa hoidon alkamisesta.
             </P>
           ),
           PRESCHOOL: (
@@ -335,8 +329,8 @@ const fi: DeepPartial<Translations> = {
               Esiopetus on maksutonta, mutta sitä täydentävä toiminta on
               maksullista. Jos lapsi osallistuu esiopetusta täydentävään
               toimintaan, perhe toimittaa tuloselvityksen bruttotuloistaan
-              tuloselvityslomakkeella viimeistään kahden viikon kuluessa
-              siitä, kun lapsi on aloittanut esiopetuksen.
+              tuloselvityslomakkeella viimeistään kahden viikon kuluessa siitä,
+              kun lapsi on aloittanut esiopetuksen.
             </P>
           )
         },
@@ -375,8 +369,8 @@ const fi: DeepPartial<Translations> = {
     summary: (
       <P width="800px">
         Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen
-        {preschoolEnabled ? ' ja esiopetukseen' : ''}. Huoltajan lasten
-        tiedot haetaan tähän näkymään automaattisesti Väestötietojärjestelmästä.
+        {preschoolEnabled ? ' ja esiopetukseen' : ''}. Huoltajan lasten tiedot
+        haetaan tähän näkymään automaattisesti Väestötietojärjestelmästä.
       </P>
     )
   },
@@ -488,9 +482,9 @@ const fi: DeepPartial<Translations> = {
           <>
             <H3>Oikaisuvaatimusoikeus</H3>
             <P>
-              Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu
-              tai jonka oikeuteen, velvollisuuteen tai etuun päätös
-              välittömästi vaikuttaa (asianosainen).
+              Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
+              jonka oikeuteen, velvollisuuteen tai etuun päätös välittömästi
+              vaikuttaa (asianosainen).
             </P>
             <H3>Oikaisuvaatimusaika</H3>
             <P>
@@ -499,17 +493,16 @@ const fi: DeepPartial<Translations> = {
             </P>
             <H3>Tiedoksisaanti</H3>
             <P>
-              Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei
-              muuta näytetä, seitsemän päivän kuluttua kirjeen
-              lähettämisestä tai saantitodistukseen tai
-              tiedoksiantotodistukseen merkittynä päivänä. Käytettäessä
-              tavallista sähköistä tiedoksiantoa asianosaisen katsotaan
-              saaneen päätöksestä tiedon, jollei muuta näytetä kolmantena
-              päivänä viestin lähettämisestä. Tiedoksisaantipäivää ei lueta
-              määräaikaan. Jos määräajan viimeinen päivä on pyhäpäivä,
-              itsenäisyyspäivä, vapunpäivä, joulu- tai juhannusaatto tai
-              arkilauantai, saa tehtävän toimittaa ensimmäisenä arkipäivänä
-              sen jälkeen.
+              Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
+              näytetä, seitsemän päivän kuluttua kirjeen lähettämisestä tai
+              saantitodistukseen tai tiedoksiantotodistukseen merkittynä
+              päivänä. Käytettäessä tavallista sähköistä tiedoksiantoa
+              asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
+              näytetä kolmantena päivänä viestin lähettämisestä.
+              Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan viimeinen
+              päivä on pyhäpäivä, itsenäisyyspäivä, vapunpäivä, joulu- tai
+              juhannusaatto tai arkilauantai, saa tehtävän toimittaa
+              ensimmäisenä arkipäivänä sen jälkeen.
             </P>
             <H3>Oikaisuviranomainen</H3>
             <P>
@@ -534,8 +527,8 @@ const fi: DeepPartial<Translations> = {
             </P>
             <H3>Oikaisuvaatimuksen muoto ja sisältö</H3>
             <P>
-              Oikaisuvaatimus on tehtävä kirjallisesti. Myös sähköinen
-              asiakirja täyttää vaatimuksen kirjallisesta muodosta.
+              Oikaisuvaatimus on tehtävä kirjallisesti. Myös sähköinen asiakirja
+              täyttää vaatimuksen kirjallisesta muodosta.
             </P>
             <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
             <ul>
@@ -546,8 +539,8 @@ const fi: DeepPartial<Translations> = {
               </li>
               <li>päätös, johon haetaan oikaisua</li>
               <li>
-                miltä osin päätökseen haetaan oikaisua ja mitä oikaisua
-                siihen vaaditaan tehtäväksi
+                miltä osin päätökseen haetaan oikaisua ja mitä oikaisua siihen
+                vaaditaan tehtäväksi
               </li>
               <li>vaatimuksen perusteet</li>
             </ul>
@@ -557,21 +550,19 @@ const fi: DeepPartial<Translations> = {
               sähköpostiosoite.
             </P>
             <P>
-              Jos oikaisuvaatimuksen tekijän puhevaltaa käyttää hänen
-              laillinen edustajansa tai asiamiehensä tai jos
-              oikaisuvaatimuksen laatijana on joku muu henkilö,
-              oikaisuvaatimuksessa on ilmoitettava myös tämän nimi ja
-              kotikunta.
+              Jos oikaisuvaatimuksen tekijän puhevaltaa käyttää hänen laillinen
+              edustajansa tai asiamiehensä tai jos oikaisuvaatimuksen laatijana
+              on joku muu henkilö, oikaisuvaatimuksessa on ilmoitettava myös
+              tämän nimi ja kotikunta.
             </P>
             <P noMargin>Oikaisuvaatimukseen on liitettävä</P>
             <ul>
               <li>
-                päätös, johon haetaan oikaisua, alkuperäisenä tai
-                jäljennöksenä
+                päätös, johon haetaan oikaisua, alkuperäisenä tai jäljennöksenä
               </li>
               <li>
-                todistus siitä, minä päivänä päätös on annettu tiedoksi, tai
-                muu selvitys oikaisuvaatimusajan alkamisen ajankohdasta
+                todistus siitä, minä päivänä päätös on annettu tiedoksi, tai muu
+                selvitys oikaisuvaatimusajan alkamisen ajankohdasta
               </li>
               <li>
                 asiakirjat, joihin oikaisuvaatimuksen tekijä vetoaa
@@ -582,11 +573,10 @@ const fi: DeepPartial<Translations> = {
             <H3>Oikaisuvaatimuksen toimittaminen</H3>
             <P>
               Oikaisuvaatimuskirjelmä on toimitettava oikaisuvaatimusajan
-              kuluessa oikaisuvaatimusviranomaiselle.
-              Oikaisuvaatimuskirjelmän tulee olla perillä
-              oikaisuvaatimusajan viimeisenä päivänä ennen viraston aukiolon
-              päättymistä. Oikaisuvaatimuksen lähettäminen postitse tai
-              sähköisesti tapahtuu lähettäjän omalla vastuulla.
+              kuluessa oikaisuvaatimusviranomaiselle. Oikaisuvaatimuskirjelmän
+              tulee olla perillä oikaisuvaatimusajan viimeisenä päivänä ennen
+              viraston aukiolon päättymistä. Oikaisuvaatimuksen lähettäminen
+              postitse tai sähköisesti tapahtuu lähettäjän omalla vastuulla.
             </P>
           </>
         ),
@@ -612,8 +602,8 @@ const fi: DeepPartial<Translations> = {
 
           <H3>Oikaisuviranomainen</H3>
           <P>
-            Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle
-            (Vaasan päätoimipaikka).
+            Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle (Vaasan
+            päätoimipaikka).
           </P>
           <P>
             Länsi- ja Sisä-Suomen aluehallintovirasto
@@ -639,13 +629,13 @@ const fi: DeepPartial<Translations> = {
           <H3>Tiedoksisaanti</H3>
           <P>
             Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
-            näytetä, 7 päivän kuluttua kirjeen lähettämisestä, 3 päivän
-            kuluttua sähköpostin lähettämisestä, saantitodistuksen
-            osoittamana aikana tai erilliseen tiedoksisaantitodistukseen
-            merkittynä aikana. Tiedoksisaantipäivää ei lueta määräaikaan.
-            Jos määräajan viimeinen päivä on pyhäpäivä, itsenäisyyspäivä,
-            vapunpäivä, joulu- tai juhannusaatto tai arkilauantai, saa
-            tehtävän toimittaa ensimmäisenä arkipäivänä sen jälkeen.
+            näytetä, 7 päivän kuluttua kirjeen lähettämisestä, 3 päivän kuluttua
+            sähköpostin lähettämisestä, saantitodistuksen osoittamana aikana tai
+            erilliseen tiedoksisaantitodistukseen merkittynä aikana.
+            Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan viimeinen
+            päivä on pyhäpäivä, itsenäisyyspäivä, vapunpäivä, joulu- tai
+            juhannusaatto tai arkilauantai, saa tehtävän toimittaa ensimmäisenä
+            arkipäivänä sen jälkeen.
           </P>
 
           <H3>Oikaisuvaatimus</H3>
@@ -666,12 +656,11 @@ const fi: DeepPartial<Translations> = {
           <P noMargin>Oikaisuvaatimukseen on liitettävä</P>
           <ul>
             <li>
-              päätös, johon haetaan oikaisua, alkuperäisenä tai
-              jäljennöksenä
+              päätös, johon haetaan oikaisua, alkuperäisenä tai jäljennöksenä
             </li>
             <li>
-              todistus siitä, minä päivänä päätös on annettu tiedoksi, tai
-              muu selvitys oikaisuvaatimusajan alkamisen ajankohdasta
+              todistus siitä, minä päivänä päätös on annettu tiedoksi, tai muu
+              selvitys oikaisuvaatimusajan alkamisen ajankohdasta
             </li>
             <li>
               asiakirjat, joihin oikaisuvaatimuksen tekijä vetoaa
@@ -682,16 +671,16 @@ const fi: DeepPartial<Translations> = {
 
           <P>
             Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten
-            oikeudenkäynnistä hallintoasioissa annetun lain (808/2019) 32
-            §:ssä säädetään
+            oikeudenkäynnistä hallintoasioissa annetun lain (808/2019) 32 §:ssä
+            säädetään
           </P>
           <H3>Oikaisuvaatimuksen toimittaminen</H3>
           <P>
-            Oikaisuvaatimuskirjelmä on toimitettava oikaisuvaatimusajan
-            kuluessa oikaisuvaatimusviranomaiselle. Oikaisuvaatimuskirjelmän
-            tulee olla perillä oikaisuvaatimusajan viimeisenä päivänä ennen
-            viraston aukiolon päättymistä. Oikaisuvaatimuksen lähettäminen
-            postitse tai sähköisesti tapahtuu lähettäjän omalla vastuulla.
+            Oikaisuvaatimuskirjelmä on toimitettava oikaisuvaatimusajan kuluessa
+            oikaisuvaatimusviranomaiselle. Oikaisuvaatimuskirjelmän tulee olla
+            perillä oikaisuvaatimusajan viimeisenä päivänä ennen viraston
+            aukiolon päättymistä. Oikaisuvaatimuksen lähettäminen postitse tai
+            sähköisesti tapahtuu lähettäjän omalla vastuulla.
           </P>
         </>
       ),
@@ -714,20 +703,20 @@ const fi: DeepPartial<Translations> = {
         <p data-qa="income-description-p1">
           Tällä sivulla voit lähettää selvitykset varhaiskasvatusmaksuun
           vaikuttavista tuloistasi. Voit myös tarkastella palauttamiasi
-          tuloselvityksiä ja muokata tai poistaa niitä kunnes viranomainen
-          on käsitellyt tiedot. Lomakkeen käsittelyn jälkeen voit päivittää
+          tuloselvityksiä ja muokata tai poistaa niitä kunnes viranomainen on
+          käsitellyt tiedot. Lomakkeen käsittelyn jälkeen voit päivittää
           tulotietojasi toimittamalla uuden lomakkeen.
         </p>
         <p data-qa="income-description-p2">
           <strong>
-            Molempien samassa taloudessa asuvien aikuisten tulee toimittaa
-            omat erilliset tuloselvitykset.
+            Molempien samassa taloudessa asuvien aikuisten tulee toimittaa omat
+            erilliset tuloselvitykset.
           </strong>
         </p>
         <p data-qa="income-description-p3">
           Kunnallisen varhaiskasvatuksen asiakasmaksut määräytyvät
-          prosenttiosuutena perheen bruttotuloista. Maksut vaihtelevat
-          perheen koon ja tulojen sekä varhaiskasvatusajan mukaan.
+          prosenttiosuutena perheen bruttotuloista. Maksut vaihtelevat perheen
+          koon ja tulojen sekä varhaiskasvatusajan mukaan.
         </p>
         <p data-qa="income-description-p4">
           <a href="https://www.vesilahti.fi/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/">
@@ -749,10 +738,9 @@ const fi: DeepPartial<Translations> = {
           alkamispäivästä lähtien.
         </P>
         <P>
-          Asiakkaan on viipymättä ilmoitettava tulojen ja perhekoon
-          muutoksista varhaiskasvutuksen asiakasmaksuihin. Viranomainen on
-          tarvittaessa oikeutettu perimään varhaiskasvatusmaksuja myös
-          takautuvasti.
+          Asiakkaan on viipymättä ilmoitettava tulojen ja perhekoon muutoksista
+          varhaiskasvutuksen asiakasmaksuihin. Viranomainen on tarvittaessa
+          oikeutettu perimään varhaiskasvatusmaksuja myös takautuvasti.
         </P>
         <P>
           <strong>Huomioitavaa:</strong>
@@ -760,14 +748,14 @@ const fi: DeepPartial<Translations> = {
         <Gap size="xs" />
         <UnorderedList data-qa="income-formDescription-ul">
           <li>
-            Jos tulosi ylittävät perhekoon mukaisen korkeimman maksun
-            tulorajan, hyväksy korkein varhaiskasvatusmaksu. Tällöin sinun
-            ei tarvitse selvittää tulojasi lainkaan.
+            Jos tulosi ylittävät perhekoon mukaisen korkeimman maksun tulorajan,
+            hyväksy korkein varhaiskasvatusmaksu. Tällöin sinun ei tarvitse
+            selvittää tulojasi lainkaan.
           </li>
           <li>
-            Jos perheeseesi kuuluu toinen aikuinen, myös hänen on
-            toimitettava tuloselvitys tunnistautumalla eVakaan omilla
-            henkilötiedoillaan ja täyttämällä tämä lomake.
+            Jos perheeseesi kuuluu toinen aikuinen, myös hänen on toimitettava
+            tuloselvitys tunnistautumalla eVakaan omilla henkilötiedoillaan ja
+            täyttämällä tämä lomake.
           </li>
           <li>
             Katso voimassaolevat tulorajat{' '}
@@ -801,22 +789,22 @@ const fi: DeepPartial<Translations> = {
     <>
       <H1>Saavutettavuusseloste</H1>
       <P>
-        Tämä saavutettavuusseloste koskee Vesilahden kunnan
-        varhaiskasvatuksen eVaka-verkkopalvelua osoitteessa{' '}
-        <a href="https://evaka.vesilahti.fi">evaka.vesilahti.fi</a>.
-        Vesilahden kunta pyrkii takaamaan verkkopalvelun saavutettavuuden,
-        parantamaan käyttäjäkokemusta jatkuvasti ja soveltamaan
-        asianmukaisia saavutettavuusstandardeja.
+        Tämä saavutettavuusseloste koskee Vesilahden kunnan varhaiskasvatuksen
+        eVaka-verkkopalvelua osoitteessa{' '}
+        <a href="https://evaka.vesilahti.fi">evaka.vesilahti.fi</a>. Vesilahden
+        kunta pyrkii takaamaan verkkopalvelun saavutettavuuden, parantamaan
+        käyttäjäkokemusta jatkuvasti ja soveltamaan asianmukaisia
+        saavutettavuusstandardeja.
       </P>
       <P>
-        Palvelun saavutettavuuden on arvioinut palvelun kehitystiimi, ja
-        seloste on laadittu 12.4.2022.
+        Palvelun saavutettavuuden on arvioinut palvelun kehitystiimi, ja seloste
+        on laadittu 12.4.2022.
       </P>
       <H2>Palvelun vaatimustenmukaisuus</H2>
       <P>
         Verkkopalvelu täyttää lain asettamat kriittiset
-        saavutettavuusvaatimukset WCAG v2.1 -tason AA mukaisesti. Palvelu ei
-        ole vielä kaikilta osin vaatimusten mukainen.
+        saavutettavuusvaatimukset WCAG v2.1 -tason AA mukaisesti. Palvelu ei ole
+        vielä kaikilta osin vaatimusten mukainen.
       </P>
       <H2>Toimet saavutettavuuden tukemiseksi</H2>
       <P>
@@ -825,17 +813,16 @@ const fi: DeepPartial<Translations> = {
       </P>
       <ul>
         <li>
-          Saavutettavuus huomioidaan alusta lähtien suunnitteluvaiheessa,
-          mm. valitsemalla palvelun värit ja kirjaisinten koot
-          saavutettavasti.
+          Saavutettavuus huomioidaan alusta lähtien suunnitteluvaiheessa, mm.
+          valitsemalla palvelun värit ja kirjaisinten koot saavutettavasti.
         </li>
         <li>
           Palvelun elementit on määritelty semantiikaltaan johdonmukaisesti.
         </li>
         <li>Palvelua testataan jatkuvasti ruudunlukijalla.</li>
         <li>
-          Erilaiset käyttäjät testaavat palvelua ja antavat
-          saavutettavuudesta palautetta.
+          Erilaiset käyttäjät testaavat palvelua ja antavat saavutettavuudesta
+          palautetta.
         </li>
         <li>
           Sivuston saavutettavuudesta huolehditaan jatkuvalla valvonnalla
@@ -849,21 +836,19 @@ const fi: DeepPartial<Translations> = {
       <H2>Tunnetut saavutettavuusongelmat</H2>
       <P>
         Käyttäjät saattavat edelleen kohdata sivustolla joitakin ongelmia.
-        Seuraavassa on kuvaus tunnetuista saavutettavuusongelmista. Jos
-        huomaat sivustolla ongelman, joka ei ole luettelossa, otathan meihin
-        yhteyttä.
+        Seuraavassa on kuvaus tunnetuista saavutettavuusongelmista. Jos huomaat
+        sivustolla ongelman, joka ei ole luettelossa, otathan meihin yhteyttä.
       </P>
       <ul>
         <li>
-          Viestit-sivulla liikkuminen näppäimistöllä tai ruudunlukijalla
-          vaatii vielä korjauksia siirtymien ja kohdistettavien elementtien
-          osalta.
+          Viestit-sivulla liikkuminen näppäimistöllä tai ruudunlukijalla vaatii
+          vielä korjauksia siirtymien ja kohdistettavien elementtien osalta.
         </li>
         <li>
           Palvelun yksikkökartassa ei pysty liikkumaan
           näppäimistöllä/ruudunlukijalla, mutta yksikköjä voi selata samassa
-          näkymässä olevalta listalta. Palvelussa käytetty kartta on
-          kolmannen osapuolen tuottama.
+          näkymässä olevalta listalta. Palvelussa käytetty kartta on kolmannen
+          osapuolen tuottama.
         </li>
       </ul>
       <H2>Kolmannet osapuolet</H2>
@@ -895,9 +880,9 @@ const fi: DeepPartial<Translations> = {
       <H2>Valvontaviranomainen</H2>
       <P>
         Jos huomaat sivustolla saavutettavuusongelmia, anna ensin palautetta
-        meille sivuston ylläpitäjille. Vastauksessa voi mennä 14 päivää. Jos
-        et ole tyytyväinen saamaasi vastaukseen, tai et saa vastausta
-        lainkaan kahden viikon aikana, voit antaa palautteen Etelä-Suomen
+        meille sivuston ylläpitäjille. Vastauksessa voi mennä 14 päivää. Jos et
+        ole tyytyväinen saamaasi vastaukseen, tai et saa vastausta lainkaan
+        kahden viikon aikana, voit antaa palautteen Etelä-Suomen
         aluehallintovirastoon. Etelä-Suomen aluehallintoviraston sivulla
         kerrotaan tarkasti, miten valituksen voi tehdä, ja miten asia
         käsitellään.

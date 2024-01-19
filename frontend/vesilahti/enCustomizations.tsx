@@ -37,9 +37,9 @@ const en: DeepPartial<Translations> = {
       applicationInfo: (
         <P>
           The custodian can make amendments to the application on the web up
-          until the moment that the application is accepted for processing
-          by the customer service. After this, amendments or cancellation of
-          the application are possible by getting in contact with the
+          until the moment that the application is accepted for processing by
+          the customer service. After this, amendments or cancellation of the
+          application are possible by getting in contact with the
           {customerContactText()}
         </P>
       ),
@@ -56,10 +56,10 @@ const en: DeepPartial<Translations> = {
       actions: {
         allowOtherGuardianAccess: (
           <span>
-                I understand that the application will also be visible to the
-                other guardian. If the other guardian should not be able to see
-                this application, please contact {customerContactText()}
-              </span>
+            I understand that the application will also be visible to the other
+            guardian. If the other guardian should not be able to see this
+            application, please contact {customerContactText()}
+          </span>
         )
       },
       verification: {
@@ -91,20 +91,18 @@ const en: DeepPartial<Translations> = {
             PRESCHOOL: (
               <>
                 <P>
-                  The pre-school place is determined by the child&apos;s
-                  home address, in accordance with the future school path.
-                  At the time of enrolment, the child is enrolled in a
-                  pre-school or weighted pre-school according to the school
-                  path. If the child needs regular evening or shift care, he
-                  or she is enrolled in evening or shift care in early
-                  childhood education.
+                  The pre-school place is determined by the child&apos;s home
+                  address, in accordance with the future school path. At the
+                  time of enrolment, the child is enrolled in a pre-school or
+                  weighted pre-school according to the school path. If the child
+                  needs regular evening or shift care, he or she is enrolled in
+                  evening or shift care in early childhood education.
                 </P>
                 <P>
-                  Information about the future pre-school place is
-                  communicated to the custodians electronically via the
-                  Suomi.fi message service. If the custodian has not
-                  registered for the service, the information will be sent
-                  to them by letter.
+                  Information about the future pre-school place is communicated
+                  to the custodians electronically via the Suomi.fi message
+                  service. If the custodian has not registered for the service,
+                  the information will be sent to them by letter.
                 </P>
                 <P>
                   Further information{' '}
@@ -128,21 +126,19 @@ const en: DeepPartial<Translations> = {
               <P>
                 An early child education place may be applied for all year
                 round. The application for early childhood education must be
-                submitted no later than four months prior to the desired
-                start date. If the need for early childhood education is due
-                to employment, studies or training, and it has not been
-                possible to anticipate the need for care, an early childhood
-                education place must be sought as soon as possible –
-                however, no later than two weeks before the child needs the
-                place.
+                submitted no later than four months prior to the desired start
+                date. If the need for early childhood education is due to
+                employment, studies or training, and it has not been possible to
+                anticipate the need for care, an early childhood education place
+                must be sought as soon as possible – however, no later than two
+                weeks before the child needs the place.
               </P>
               <P>
-                A written decision on the early childhood education place
-                will be sent to the Suomi.fi Messages service. If you wish
-                to be notified of the decision electronically, you will need
-                to activate the Suomi.fi Messages service. Further
-                information on the service and its activation is available
-                at{' '}
+                A written decision on the early childhood education place will
+                be sent to the Suomi.fi Messages service. If you wish to be
+                notified of the decision electronically, you will need to
+                activate the Suomi.fi Messages service. Further information on
+                the service and its activation is available at{' '}
                 <ExternalLink
                   text="https://www.suomi.fi/messages"
                   href="https://www.suomi.fi/messages"
@@ -161,9 +157,9 @@ const en: DeepPartial<Translations> = {
               <P>
                 In accordance with the Basic Education Act (Section 26 a §),
                 children must participate in pre-primary education or other
-                activities that achieve the goals of pre-primary education
-                in the year preceding the commencement of compulsory
-                education. Pre-primary education is free of charge.
+                activities that achieve the goals of pre-primary education in
+                the year preceding the commencement of compulsory education.
+                Pre-primary education is free of charge.
               </P>
               <P>
                 The decisions will be sent to the{' '}
@@ -174,8 +170,8 @@ const en: DeepPartial<Translations> = {
                 >
                   Suomi.fi Messages
                 </a>{' '}
-                service or by post, if the applicant does not use the
-                Suomi.fi Messages service.
+                service or by post, if the applicant does not use the Suomi.fi
+                Messages service.
               </P>
               <P fitted={true}>
                 * The information denoted with an asterisk is mandatory.
@@ -185,27 +181,25 @@ const en: DeepPartial<Translations> = {
           CLUB: (
             <>
               <P>
-                A place at a club can be applied for all year round. A
-                municipal place in a club or one supported with a service
-                voucher can be applied for with a club application. A
-                written confirmation of a place in a club will be sent to
-                the Suomi.fi Messages service. If you wish to have the
-                notice in electronic form, you must activate the Suomi.fi
-                Messages service. Further information on the service and its
-                activation is available at{' '}
+                A place at a club can be applied for all year round. A municipal
+                place in a club or one supported with a service voucher can be
+                applied for with a club application. A written confirmation of a
+                place in a club will be sent to the Suomi.fi Messages service.
+                If you wish to have the notice in electronic form, you must
+                activate the Suomi.fi Messages service. Further information on
+                the service and its activation is available at{' '}
                 <ExternalLink
                   text="https://www.suomi.fi/messages"
                   href="https://www.suomi.fi/messages"
                   newTab
                 />
                 . If you do not activate the suomi.fi/messages service, the
-                notice of the place at the club will be sent to you by post.
-                A place is granted for one administrative period at a time.
+                notice of the place at the club will be sent to you by post. A
+                place is granted for one administrative period at a time.
               </P>
               <P>
-                The club application is for one such period. Once the period
-                in question ends, the application is removed from the
-                system.
+                The club application is for one such period. Once the period in
+                question ends, the application is removed from the system.
               </P>
             </>
           )
@@ -216,10 +210,10 @@ const en: DeepPartial<Translations> = {
           instructions: {
             DAYCARE: (
               <>
-                It is possible to postpone the preferred starting day as
-                long as the application has not been processed by the
-                customer service. After this, any desired amendments can be
-                made by contacting the {customerContactText()}
+                It is possible to postpone the preferred starting day as long as
+                the application has not been processed by the customer service.
+                After this, any desired amendments can be made by contacting the{' '}
+                {customerContactText()}
               </>
             ),
             PRESCHOOL: null
@@ -243,12 +237,11 @@ const en: DeepPartial<Translations> = {
           attachmentsMessage: {
             text: (
               <P fitted={true}>
-                If the need for an early child education place is due to
-                sudden employment or obtaining a study place, the early
-                childhood education place must be sought no later than two
-                weeks before the need for care starts. Furthermore, the
-                custodian must make contact, without delay, with the{' '}
-                {customerContactText()}
+                If the need for an early child education place is due to sudden
+                employment or obtaining a study place, the early childhood
+                education place must be sought no later than two weeks before
+                the need for care starts. Furthermore, the custodian must make
+                contact, without delay, with the {customerContactText()}
               </P>
             )
           }
@@ -283,16 +276,16 @@ const en: DeepPartial<Translations> = {
           connectedDaycareInfo: (
             <>
               <P>
-                Pre-school education lasts for four hours a day, generally
-                from 9 am to 1 pm. In addition, the child can participate in
-                paid supplementary activities in the mornings and in the
-                afternoons. Options for supplementary activities are
-                supplementary early childhood education in day care centres
-                and pre-school clubs in schools.
+                Pre-school education lasts for four hours a day, generally from
+                9 am to 1 pm. In addition, the child can participate in paid
+                supplementary activities in the mornings and in the afternoons.
+                Options for supplementary activities are supplementary early
+                childhood education in day care centres and pre-school clubs in
+                schools.
               </P>
               <P>
-                Further information about supplementary activities and
-                client fees{' '}
+                Further information about supplementary activities and client
+                fees{' '}
                 <ExternalLink
                   href="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/iltapaivatoiminta/"
                   text="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/iltapaivatoiminta/"
@@ -306,10 +299,10 @@ const en: DeepPartial<Translations> = {
       contactInfo: {
         info: (
           <P data-qa="contact-info-text">
-            The personal data have been retrieved from the population data
-            and cannot be changed with this application. If there are any
-            errors in the personal data, please update the information on
-            the website of the{' '}
+            The personal data have been retrieved from the population data and
+            cannot be changed with this application. If there are any errors in
+            the personal data, please update the information on the website of
+            the{' '}
             <ExternalLink
               text="Digital and Population Data Services Agency"
               href="https://dvv.fi/en/individuals"
@@ -334,31 +327,30 @@ const en: DeepPartial<Translations> = {
         info: {
           DAYCARE: (
             <P>
-              The client fees for municipal early childhood education and
-              the own deductible part of the service voucher are based on
-              the Act on Client Fees in Early Childhood Education and Care
-              (1503/2016). The client fee is determined by the size of the
-              family, the need for service as well the gross income. New
-              clients must fill in the client fee form and submit the
-              required appendices to the Client fees of Early childhood
-              education within a month from when the care started at the
-              latest.
+              The client fees for municipal early childhood education and the
+              own deductible part of the service voucher are based on the Act on
+              Client Fees in Early Childhood Education and Care (1503/2016). The
+              client fee is determined by the size of the family, the need for
+              service as well the gross income. New clients must fill in the
+              client fee form and submit the required appendices to the Client
+              fees of Early childhood education within a month from when the
+              care started at the latest.
             </P>
           ),
           PRESCHOOL: (
             <P>
-              TODO: Esiopetus on maksutonta, mutta sitä täydentävä toiminta
-              on maksullista. Jos lapsi osallistuu esiopetusta täydentävään
+              TODO: Esiopetus on maksutonta, mutta sitä täydentävä toiminta on
+              maksullista. Jos lapsi osallistuu esiopetusta täydentävään
               toimintaan, perhe toimittaa tuloselvityksen bruttotuloistaan
-              tuloselvityslomakkeella viimeistään kahden viikon kuluessa
-              siitä, kun lapsi on aloittanut esiopetuksen.
+              tuloselvityslomakkeella viimeistään kahden viikon kuluessa siitä,
+              kun lapsi on aloittanut esiopetuksen.
             </P>
           )
         },
         links: (
           <P>
-            You will find further information on client fees for early
-            childhood education on{' '}
+            You will find further information on client fees for early childhood
+            education on{' '}
             <ExternalLink
               href="https://www.vesilahti.fi/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
               text="the website of the municipality of Vesilahti"
@@ -378,8 +370,8 @@ const en: DeepPartial<Translations> = {
               text="Notification of Special Diet form"
               newTab
             />
-            , completed and signed by a doctor or nutritionist, which is
-            valid for a limited period of time.
+            , completed and signed by a doctor or nutritionist, which is valid
+            for a limited period of time.
           </>
         )
       }
@@ -517,12 +509,11 @@ const en: DeepPartial<Translations> = {
     description: (
       <>
         <p data-qa="income-description-p1">
-          On this page, you can submit statements on your earnings that
-          affect the early childhood education fee. You can also view, edit,
-          or delete income statements that you have submitted until the
-          authority has processed the information. After the form has been
-          processed, you can update your income information by submitting a
-          new form.
+          On this page, you can submit statements on your earnings that affect
+          the early childhood education fee. You can also view, edit, or delete
+          income statements that you have submitted until the authority has
+          processed the information. After the form has been processed, you can
+          update your income information by submitting a new form.
         </p>
         <p>
           <strong>
@@ -531,10 +522,9 @@ const en: DeepPartial<Translations> = {
           </strong>
         </p>
         <p data-qa="income-description-p2">
-          The client fees for municipal early childhood education are
-          determined as a percentage of the family’s gross income. The fees
-          vary according to family size, income and time in early childhood
-          education.
+          The client fees for municipal early childhood education are determined
+          as a percentage of the family’s gross income. The fees vary according
+          to family size, income and time in early childhood education.
         </p>
         <p>
           <a href="https://www.vesilahti.fi/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/">
@@ -546,18 +536,17 @@ const en: DeepPartial<Translations> = {
     formDescription: (
       <>
         <P data-qa="income-formDescription-p1">
-          The income statement and its attachments must be submitted within
-          a month from the beginning of early childhood education. In case
-          of incomplete income information, the fee may be set at the
-          highest fee.
+          The income statement and its attachments must be submitted within a
+          month from the beginning of early childhood education. In case of
+          incomplete income information, the fee may be set at the highest fee.
         </P>
         <P>
           The client fee is charged from the first day of early education in
           accordance with the decision.
         </P>
         <P>
-          The client must immediately inform the client fees for Early
-          childhood education of changes in income and family size.{' '}
+          The client must immediately inform the client fees for Early childhood
+          education of changes in income and family size.{' '}
         </P>
         <P>
           <strong>To be noted:</strong>
@@ -571,9 +560,9 @@ const en: DeepPartial<Translations> = {
             statement.
           </li>
           <li>
-            If there&apos;s another adult in your family, they must also
-            submit an income statement by personally logging into eVaka and
-            filling out this form.
+            If there&apos;s another adult in your family, they must also submit
+            an income statement by personally logging into eVaka and filling out
+            this form.
           </li>
           <li>
             See current income thresholds{' '}
@@ -595,35 +584,34 @@ const en: DeepPartial<Translations> = {
     <>
       <H1>Accessibility statement</H1>
       <P>
-        This accessibility statement applies to the Municipality of
-        Vesilahti’s early childhood education online service eVaka at{' '}
+        This accessibility statement applies to the Municipality of Vesilahti’s
+        early childhood education online service eVaka at{' '}
         <a href="https://evaka.vesilahti.fi">evaka.vesilahti.fi</a>. The
-        Municipality of Vesilahti endeavours to ensure the accessibility of
-        the online service, continuously improve the user experience and
-        apply appropriate accessibility standards.
+        Municipality of Vesilahti endeavours to ensure the accessibility of the
+        online service, continuously improve the user experience and apply
+        appropriate accessibility standards.
       </P>
       <P>
-        The accessibility of the service was assessed by the development
-        team of the service, and this statement was drawn up on 12 April
-        2022.
+        The accessibility of the service was assessed by the development team of
+        the service, and this statement was drawn up on 12 April 2022.
       </P>
       <H2>Compliance of the service</H2>
       <P>
-        The online service complies with the statutory critical
-        accessibility requirements in accordance with Level AA of the
-        Accessibility Guidelines for the WCAG v2.1. The service is not yet
-        fully compliant with the requirements.
+        The online service complies with the statutory critical accessibility
+        requirements in accordance with Level AA of the Accessibility Guidelines
+        for the WCAG v2.1. The service is not yet fully compliant with the
+        requirements.
       </P>
       <H2>Measures to support accessibility</H2>
       <P>
-        The accessibility of the online service is ensured, among other
-        things, by the following measures:
+        The accessibility of the online service is ensured, among other things,
+        by the following measures:
       </P>
       <ul>
         <li>
-          Accessibility has been taken into account from the beginning of
-          the design phase, for example, when choosing the colours and font
-          sizes of the service.
+          Accessibility has been taken into account from the beginning of the
+          design phase, for example, when choosing the colours and font sizes of
+          the service.
         </li>
         <li>
           The service elements have been defined in consistently in terms of
@@ -631,8 +619,7 @@ const en: DeepPartial<Translations> = {
         </li>
         <li>The service is continuously tested with a screen reader.</li>
         <li>
-          Various users test the service and give feedback on its
-          accessibility.
+          Various users test the service and give feedback on its accessibility.
         </li>
         <li>
           When website technology or content changes, its accessibility is
@@ -640,26 +627,24 @@ const en: DeepPartial<Translations> = {
         </li>
       </ul>
       <P>
-        This statement will be updated in conjunction with website changes
-        and accessibility evaluations.
+        This statement will be updated in conjunction with website changes and
+        accessibility evaluations.
       </P>
       <H2>Known accessibility issues</H2>
       <P>
         Users may still encounter some issues on the website. The following
-        contains a description of known accessibility issues. If you notice
-        an issue on the site that is not listed, please contact us.
+        contains a description of known accessibility issues. If you notice an
+        issue on the site that is not listed, please contact us.
       </P>
       <ul>
         <li>
-          Navigating on the Messages page using the keyboard or screen
-          reader still requires revision for part of moving and targeted
-          elements.
+          Navigating on the Messages page using the keyboard or screen reader
+          still requires revision for part of moving and targeted elements.
         </li>
         <li>
-          The service’s unit map cannot be navigated using the
-          keyboard/screen reader, but the units can be browsed on the list
-          available in the same view. The map used in the service is
-          produced by a third party.
+          The service’s unit map cannot be navigated using the keyboard/screen
+          reader, but the units can be browsed on the list available in the same
+          view. The map used in the service is produced by a third party.
         </li>
       </ul>
       <H2>Third parties</H2>
@@ -681,8 +666,8 @@ const en: DeepPartial<Translations> = {
       </P>
       <H2>Give feedback</H2>
       <P>
-        If you notice an accessibility gap in our online service, please let
-        us know! You can give us feedback using the{' '}
+        If you notice an accessibility gap in our online service, please let us
+        know! You can give us feedback using the{' '}
         <ExternalLink
           href="https://www.vesilahti.fi/kunta-ja-hallinto/osallistu-ja-vaikuta/palaute/"
           text="Give accessibility feedback with this web form"
@@ -690,14 +675,13 @@ const en: DeepPartial<Translations> = {
       </P>
       <H2>Supervisory authority</H2>
       <P>
-        If you notice any accessibility issues on the website, please send
-        us, the site administrator, feedback first. It may take us up to 14
-        days to reply. If you are not satisfied with the reply or you do not
-        receive a reply within two weeks, you can give feedback to the
-        Regional State Administrative Agency for Southern Finland. The
-        website of the Regional State Administrative Agency for Southern
-        Finland explains in detail how a complaint can be submitted, and how
-        the matter will be processed.
+        If you notice any accessibility issues on the website, please send us,
+        the site administrator, feedback first. It may take us up to 14 days to
+        reply. If you are not satisfied with the reply or you do not receive a
+        reply within two weeks, you can give feedback to the Regional State
+        Administrative Agency for Southern Finland. The website of the Regional
+        State Administrative Agency for Southern Finland explains in detail how
+        a complaint can be submitted, and how the matter will be processed.
       </P>
 
       <P>

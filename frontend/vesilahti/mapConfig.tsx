@@ -16,11 +16,7 @@ const mapConfig: MapConfig = {
     minLongitude: 23.54256391525269
   },
   careTypeFilters: ['DAYCARE'],
-  unitProviderTypeFilters: [
-    'MUNICIPAL',
-    'PURCHASED',
-    'PRIVATE',
-  ]
+  unitProviderTypeFilters: ['MUNICIPAL', 'PURCHASED', 'PRIVATE']
 }
 
 export default mapConfig
