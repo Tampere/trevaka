@@ -5,6 +5,7 @@
 <!-- 03.03.2022 v13 / MKa	Lisätty CustomerMaterial ja Batch Inworks liittymän aputaulun käsittelyä varten -->
 <!-- 6.4.2022   v14 / kjo	Lisätty SDTaxCode -->
 <!-- 14.4.2022  V15 / kjo	SSN lisätty minoccurs=0 -->
+<!-- 09.01.2024 v16 /KMa    Lisätty P1SSNType tyyppiin uudet merkit -->
 
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tampere.fi/messages/sapsd/salesorder/v11.2" xmlns="http://www.tampere.fi/messages/sapsd/salesorder/v11.2">
 	<xsd:annotation>
@@ -21,43 +22,43 @@
 		</xsd:annotation>
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="Header" maxOccurs="unbounded" />
+				<xsd:element ref="Header" maxOccurs="unbounded"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="Header">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="Customer" />
-				<xsd:element ref="Payer" minOccurs="0" />
-				<xsd:element ref="Biller" minOccurs="0" />
-				<xsd:element ref="JointDebtor" minOccurs="0" />
-				<xsd:element ref="AlternativePayer" minOccurs="0" />
-				<xsd:element ref="ReferenceCustomerNumber" minOccurs="0" />
-				<xsd:element ref="PaymentMethod" minOccurs="0" />
-				<xsd:element ref="PaymentTerm" minOccurs="0" />
-				<xsd:element ref="BillingDate" minOccurs="0" />
-				<xsd:element ref="ServiceRenderDate" minOccurs="0" />
-				<xsd:element ref="BillNumber" minOccurs="0" />
-				<xsd:element ref="ReferenceNumber" minOccurs="0" />
-				<xsd:element ref="YourReference" minOccurs="0" />
-				<xsd:element ref="SalesOrganisation" />
-				<xsd:element ref="DistributionChannel" />
-				<xsd:element ref="Division" />
-				<xsd:element ref="SalesOffice" minOccurs="0" />
-				<xsd:element ref="SalesOrderType" minOccurs="0" />
-				<xsd:element ref="CustomerGroup" minOccurs="0" />
-				<xsd:element ref="Description" minOccurs="0" />
-				<xsd:element ref="DebitedInvoice" minOccurs="0" />
-				<xsd:element ref="InterfaceID" />
-				<xsd:element ref="DueDate" minOccurs="0" />
-				<xsd:element ref="AccountingReference" minOccurs="0" />
-				<xsd:element ref="SiteKey" minOccurs="0" />
-				<xsd:element ref="AgreementNumber" minOccurs="0" />
-				<xsd:element ref="HanselID" minOccurs="0" />
-				<xsd:element ref="Text" minOccurs="0" maxOccurs="unbounded" />
-				<xsd:element ref="Attachments" minOccurs="0" maxOccurs="unbounded" />
-				<xsd:element ref="Items" />
+				<xsd:element ref="Customer"/>
+				<xsd:element ref="Payer" minOccurs="0"/>
+				<xsd:element ref="Biller" minOccurs="0"/>
+				<xsd:element ref="JointDebtor" minOccurs="0"/>
+				<xsd:element ref="AlternativePayer" minOccurs="0"/>
+				<xsd:element ref="ReferenceCustomerNumber" minOccurs="0"/>
+				<xsd:element ref="PaymentMethod" minOccurs="0"/>
+				<xsd:element ref="PaymentTerm" minOccurs="0"/>
+				<xsd:element ref="BillingDate" minOccurs="0"/>
+				<xsd:element ref="ServiceRenderDate" minOccurs="0"/>
+				<xsd:element ref="BillNumber" minOccurs="0"/>
+				<xsd:element ref="ReferenceNumber" minOccurs="0"/>
+				<xsd:element ref="YourReference" minOccurs="0"/>
+				<xsd:element ref="SalesOrganisation"/>
+				<xsd:element ref="DistributionChannel"/>
+				<xsd:element ref="Division"/>
+				<xsd:element ref="SalesOffice" minOccurs="0"/>
+				<xsd:element ref="SalesOrderType" minOccurs="0"/>
+				<xsd:element ref="CustomerGroup" minOccurs="0"/>
+				<xsd:element ref="Description" minOccurs="0"/>
+				<xsd:element ref="DebitedInvoice" minOccurs="0"/>
+				<xsd:element ref="InterfaceID"/>
+				<xsd:element ref="DueDate" minOccurs="0"/>
+				<xsd:element ref="AccountingReference" minOccurs="0"/>
+				<xsd:element ref="SiteKey" minOccurs="0"/>
+				<xsd:element ref="AgreementNumber" minOccurs="0"/>
+				<xsd:element ref="HanselID" minOccurs="0"/>
+				<xsd:element ref="Text" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="Attachments" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="Items"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
@@ -65,7 +66,7 @@
 	<xsd:element name="Attachments">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="NameOfFile" maxOccurs="unbounded" />
+				<xsd:element ref="NameOfFile" maxOccurs="unbounded"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
@@ -73,51 +74,51 @@
 	<xsd:element name="Items">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="Item" maxOccurs="unbounded" />
+				<xsd:element ref="Item" maxOccurs="unbounded"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="Item">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="TaxCode" minOccurs="0" />
-				<xsd:element ref="Currency" minOccurs="0" />
-				<xsd:element ref="Description" />
-				<xsd:element ref="DebetKredit" minOccurs="0" />
-				<xsd:element ref="Account" minOccurs="0" />
-				<xsd:element ref="ProfitCenter" minOccurs="0" />
-				<xsd:element ref="InternalOrder" minOccurs="0" />
-				<xsd:element ref="FunctionalArea" minOccurs="0" />
-				<xsd:element ref="Material" minOccurs="0" />
+				<xsd:element ref="TaxCode" minOccurs="0"/>
+				<xsd:element ref="Currency" minOccurs="0"/>
+				<xsd:element ref="Description"/>
+				<xsd:element ref="DebetKredit" minOccurs="0"/>
+				<xsd:element ref="Account" minOccurs="0"/>
+				<xsd:element ref="ProfitCenter" minOccurs="0"/>
+				<xsd:element ref="InternalOrder" minOccurs="0"/>
+				<xsd:element ref="FunctionalArea" minOccurs="0"/>
+				<xsd:element ref="Material" minOccurs="0"/>
 				<xsd:element ref="CustomerMaterial" minOccurs="0"/>
 				<xsd:element ref="Batch" minOccurs="0"/>
 				<xsd:element ref="SDTaxCode" minOccurs="0"/>
 				<xsd:element ref="RowAmount" minOccurs="0"/>
-				<xsd:element ref="PriceCondition" minOccurs="0" />
-				<xsd:element ref="UnitPrice" minOccurs="0" />
-				<xsd:element ref="UnitOfMeasure" minOccurs="0" />
-				<xsd:element ref="Quantity" minOccurs="0" />
-				<xsd:element ref="Letter" minOccurs="0" />
-				<xsd:element ref="StatisticalReportingReference" minOccurs="0" />
-				<xsd:element ref="EnvironmentalObject" minOccurs="0" />
-				<xsd:element ref="Operation" minOccurs="0" />
-				<xsd:element ref="BillRowNumber" minOccurs="0" />
-				<xsd:element ref="WBS_element" minOccurs="0" />
-				<xsd:element ref="Plant" minOccurs="0" />
-				<xsd:element ref="ItemReference" minOccurs="0" />
-				<xsd:element ref="OrderNumber" minOccurs="0" />
-				<xsd:element ref="Text" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element ref="PriceCondition" minOccurs="0"/>
+				<xsd:element ref="UnitPrice" minOccurs="0"/>
+				<xsd:element ref="UnitOfMeasure" minOccurs="0"/>
+				<xsd:element ref="Quantity" minOccurs="0"/>
+				<xsd:element ref="Letter" minOccurs="0"/>
+				<xsd:element ref="StatisticalReportingReference" minOccurs="0"/>
+				<xsd:element ref="EnvironmentalObject" minOccurs="0"/>
+				<xsd:element ref="Operation" minOccurs="0"/>
+				<xsd:element ref="BillRowNumber" minOccurs="0"/>
+				<xsd:element ref="WBS_element" minOccurs="0"/>
+				<xsd:element ref="Plant" minOccurs="0"/>
+				<xsd:element ref="ItemReference" minOccurs="0"/>
+				<xsd:element ref="OrderNumber" minOccurs="0"/>
+				<xsd:element ref="Text" minOccurs="0" maxOccurs="unbounded"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="Text">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="TextRow" maxOccurs="unbounded" />
+				<xsd:element ref="TextRow" maxOccurs="unbounded"/>
 			</xsd:sequence>
-			<xsd:attribute name="text-id" />
-			<xsd:attribute name="format" />
-			<xsd:attribute name="lang" />
+			<xsd:attribute name="text-id"/>
+			<xsd:attribute name="format"/>
+			<xsd:attribute name="lang"/>
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="DebitedInvoice">
@@ -128,13 +129,13 @@
 				</xsd:documentation>
 			</xsd:annotation>
 			<xsd:sequence>
-				<xsd:element ref="InvoiceNumber" minOccurs="0" />
+				<xsd:element ref="InvoiceNumber" minOccurs="0"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
-	<xsd:element name="TextRow" type="P1String0-70Type" />
-	<xsd:element name="SalesOrderType" type="P1String0-4Type" />
-	<xsd:element name="Customer" type="P1PartnerType" />
+	<xsd:element name="TextRow" type="P1String0-70Type"/>
+	<xsd:element name="SalesOrderType" type="P1String0-4Type"/>
+	<xsd:element name="Customer" type="P1PartnerType"/>
 	<xsd:element name="Payer" type="P1PartnerType">
 		<xsd:annotation>
 			<xsd:documentation xml:lang="en">
@@ -165,57 +166,57 @@
 	</xsd:element>
 	<xsd:complexType name="P1PartnerType">
 		<xsd:sequence>
-			<xsd:element ref="SapID" minOccurs="0" />
+			<xsd:element ref="SapID" minOccurs="0"/>
 			<xsd:choice>
-				<xsd:element ref="Person" minOccurs="0" />
-				<xsd:element ref="Company" minOccurs="0" />
+				<xsd:element ref="Person" minOccurs="0"/>
+				<xsd:element ref="Company" minOccurs="0"/>
 			</xsd:choice>
-			<xsd:element ref="Address" minOccurs="0" />
+			<xsd:element ref="Address" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="Address">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="Street" minOccurs="0" />
-				<xsd:element ref="Town" minOccurs="0" />
-				<xsd:element ref="PostCode" minOccurs="0" />
-				<xsd:element ref="POBox" minOccurs="0" />
-				<xsd:element ref="POBoxPostCode" minOccurs="0" />
-				<xsd:element ref="CountryISO" minOccurs="0" />
-				<xsd:element ref="LanguageISO" minOccurs="0" />
+				<xsd:element ref="Street" minOccurs="0"/>
+				<xsd:element ref="Town" minOccurs="0"/>
+				<xsd:element ref="PostCode" minOccurs="0"/>
+				<xsd:element ref="POBox" minOccurs="0"/>
+				<xsd:element ref="POBoxPostCode" minOccurs="0"/>
+				<xsd:element ref="CountryISO" minOccurs="0"/>
+				<xsd:element ref="LanguageISO" minOccurs="0"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="Person">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="SSN" minOccurs="0" />
-				<xsd:element ref="PersonName" />
+				<xsd:element ref="SSN" minOccurs="0"/>
+				<xsd:element ref="PersonName"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="Company">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="BusinessID" />
-				<xsd:element ref="CompanyName" />
-				<xsd:element ref="CompanyName2" minOccurs="0" />
+				<xsd:element ref="BusinessID"/>
+				<xsd:element ref="CompanyName"/>
+				<xsd:element ref="CompanyName2" minOccurs="0"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="PersonName">
 		<xsd:annotation>
-			<xsd:documentation />
+			<xsd:documentation/>
 		</xsd:annotation>
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="FirstNames" minOccurs="0" />
-				<xsd:element ref="SurName" />
+				<xsd:element ref="FirstNames" minOccurs="0"/>
+				<xsd:element ref="SurName"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
-	<xsd:element name="FirstNames" type="P1String0-35Type" />
-	<xsd:element name="SurName" type="P1String0-35Type" />
+	<xsd:element name="FirstNames" type="P1String0-35Type"/>
+	<xsd:element name="SurName" type="P1String0-35Type"/>
 	<xsd:element name="CompanyName" type="P1String0-35Type">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -230,14 +231,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SSN" type="P1SSNType" />
-	<xsd:element name="BusinessID" type="P1BusinessIDType" />
-	<xsd:element name="SapID" type="P1String0-10Type" />
-	<xsd:element name="Street" type="P1String0-30Type" />
-	<xsd:element name="Town" type="P1String0-25Type" />
-	<xsd:element name="PostCode" type="P1PostCodeType" />
-	<xsd:element name="POBox" type="P1String0-10Type" />
-	<xsd:element name="POBoxPostCode" type="P1PostCodeType" />
+	<xsd:element name="SSN" type="P1SSNType"/>
+	<xsd:element name="BusinessID" type="P1BusinessIDType"/>
+	<xsd:element name="SapID" type="P1String0-10Type"/>
+	<xsd:element name="Street" type="P1String0-30Type"/>
+	<xsd:element name="Town" type="P1String0-25Type"/>
+	<xsd:element name="PostCode" type="P1PostCodeType"/>
+	<xsd:element name="POBox" type="P1String0-10Type"/>
+	<xsd:element name="POBoxPostCode" type="P1PostCodeType"/>
 	<xsd:element name="CountryISO" type="P1String0-2Type">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -261,97 +262,97 @@
 	</xsd:element>
 	<xsd:simpleType name="P1String0-70Type">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="70" />
+			<xsd:maxLength value="70"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1String0-40Type">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="40" />
+			<xsd:maxLength value="40"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1String0-30Type">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="30" />
+			<xsd:maxLength value="30"/>
 		</xsd:restriction>
 	</xsd:simpleType>
-	<xsd:simpleType name="P1String0-22Type">
+		<xsd:simpleType name="P1String0-22Type">
 		<xsd:restriction base="xsd:string">
 			<xsd:maxLength value="22"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1String0-35Type">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="35" />
+			<xsd:maxLength value="35"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1String0-25Type">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="25" />
+			<xsd:maxLength value="25"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1String0-20Type">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="20" />
+			<xsd:maxLength value="20"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1String0-18Type">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="18" />
+			<xsd:maxLength value="18"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1String0-10Type">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="10" />
+			<xsd:maxLength value="10"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1String0-12Type">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="12" />
+			<xsd:maxLength value="12"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1String0-7Type">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="7" />
+			<xsd:maxLength value="7"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1String0-6Type">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="6" />
+			<xsd:maxLength value="6"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1String0-4Type">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="4" />
+			<xsd:maxLength value="4"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1String0-3Type">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="3" />
+			<xsd:maxLength value="3"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1String0-2Type">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="2" />
+			<xsd:maxLength value="2"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1String0-24Type">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="24" />
+			<xsd:maxLength value="24"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1PostCodeType">
 		<xsd:restriction base="xsd:string">
-			<xsd:maxLength value="6" />
+			<xsd:maxLength value="6"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1DecimalType">
 		<xsd:restriction base="xsd:string">
-			<xsd:pattern value="\d{1,9}(\.\d{1,2})" />
+			<xsd:pattern value="\d{1,9}(\.\d{1,2})"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="P1SSNType">
 		<xsd:restriction base="xsd:string">
-			<xsd:pattern value="\d{6}[A+-]\d{3}[a-zA-Z0-9]" />
+			<xsd:pattern value="\d{6}[A+-BCDEFYXWVU]\d{3}[a-zA-Z0-9]"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:element name="ReferenceCustomerNumber" type="P1String0-30Type">
@@ -363,7 +364,7 @@
 	</xsd:element>
 	<xsd:simpleType name="P1BusinessIDType">
 		<xsd:restriction base="xsd:string">
-			<xsd:pattern value="\d{7}[\-]\d{1}" />
+			<xsd:pattern value="\d{7}[\-]\d{1}"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:element name="PaymentMethod" default="N">
@@ -374,8 +375,8 @@
 				</xsd:documentation>
 			</xsd:annotation>
 			<xsd:restriction base="xsd:string">
-				<xsd:enumeration value="N" />
-				<xsd:enumeration value="S" />
+				<xsd:enumeration value="N"/>
+				<xsd:enumeration value="S"/>
 			</xsd:restriction>
 		</xsd:simpleType>
 	</xsd:element>
@@ -386,8 +387,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ServiceRenderDate" type="xsd:date" />
-	<xsd:element name="InvoiceNumber" type="P1String0-10Type" />
+	<xsd:element name="ServiceRenderDate" type="xsd:date"/>
+	<xsd:element name="InvoiceNumber" type="P1String0-10Type"/>
 	<xsd:element name="BillNumber" type="P1String0-20Type">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -402,10 +403,10 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="YourReference" type="P1String0-12Type" />
-	<xsd:element name="SalesOrganisation" type="P1String0-4Type" />
-	<xsd:element name="DistributionChannel" type="P1String0-2Type" />
-	<xsd:element name="Division" type="P1String0-2Type" />
+	<xsd:element name="YourReference" type="P1String0-12Type"/>
+	<xsd:element name="SalesOrganisation" type="P1String0-4Type"/>
+	<xsd:element name="DistributionChannel" type="P1String0-2Type"/>
+	<xsd:element name="Division" type="P1String0-2Type"/>
 	<xsd:element name="Description" type="P1String0-40Type">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -437,12 +438,12 @@
 	<xsd:element name="DebetKredit" default="+">
 		<xsd:simpleType>
 			<xsd:restriction base="xsd:string">
-				<xsd:enumeration value="+" />
-				<xsd:enumeration value="-" />
+				<xsd:enumeration value="+"/>
+				<xsd:enumeration value="-"/>
 			</xsd:restriction>
 		</xsd:simpleType>
 	</xsd:element>
-	<xsd:element name="RowAmount" >
+	<xsd:element name="RowAmount">
 		<xsd:annotation>
 			<xsd:documentation>
 				Value of amount for the row in format #########.##
@@ -455,18 +456,13 @@
 				ZMYH = net (default), ZPR1 = gross
 			</xsd:documentation>
 		</xsd:annotation>
-		<!-- <xsd:simpleType>
-			<xsd:restriction base="xsd:string">
-				<xsd:enumeration value="ZPR0" />
-				<xsd:enumeration value="ZPR1" />
-			</xsd:restriction>
-		</xsd:simpleType> -->
+		
 	</xsd:element>
-	<xsd:element name="Account" type="P1String0-10Type" />
-	<xsd:element name="InternalOrder" type="P1String0-12Type" />
-	<xsd:element name="ProfitCenter" type="P1String0-10Type" />
-	<xsd:element name="FunctionalArea" type="P1String0-4Type" />
-	<xsd:element name="Material" type="P1String0-18Type" />
+	<xsd:element name="Account" type="P1String0-10Type"/>
+	<xsd:element name="InternalOrder" type="P1String0-12Type"/>
+	<xsd:element name="ProfitCenter" type="P1String0-10Type"/>
+	<xsd:element name="FunctionalArea" type="P1String0-4Type"/>
+	<xsd:element name="Material" type="P1String0-18Type"/>
 	<xsd:element name="CustomerMaterial" type="P1String0-22Type"/>
 	<xsd:element name="SalesOffice" type="P1String0-4Type">
 		<xsd:annotation>
@@ -482,24 +478,24 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Quantity" type="P1DecimalType" />
+	<xsd:element name="Quantity" type="P1DecimalType"/>
 	<xsd:element name="Batch" type="P1DecimalType"/>
 	<xsd:element name="SDTaxCode" type="P1String0-2Type"/>
-	<xsd:element name="UnitPrice" />
-	<xsd:element name="UnitOfMeasure" type="P1String0-3Type" />
-	<xsd:element name="Letter" type="P1String0-7Type" />
-	<xsd:element name="StatisticalReportingReference" type="P1String0-4Type" />
-	<xsd:element name="EnvironmentalObject" type="P1String0-4Type" />
-	<xsd:element name="Operation" type="P1String0-4Type" />
-	<xsd:element name="InterfaceID" type="P1String0-4Type" />
-	<xsd:element name="BillRowNumber" type="P1String0-6Type" />
-	<xsd:element name="WBS_element" type="P1String0-24Type" />
-	<xsd:element name="Plant" type="P1String0-4Type" />
-	<xsd:element name="ItemReference" type="P1String0-12Type" />
-	<xsd:element name="OrderNumber" type="P1String0-20Type" />
-	<xsd:element name="DueDate" type="xsd:date" />
-	<xsd:element name="AccountingReference" type="P1String0-35Type" />
-	<xsd:element name="SiteKey" type="P1String0-35Type" />
-	<xsd:element name="AgreementNumber" type="P1String0-35Type" />
-	<xsd:element name="HanselID" type="P1String0-35Type" />
+	<xsd:element name="UnitPrice"/>
+	<xsd:element name="UnitOfMeasure" type="P1String0-3Type"/>
+	<xsd:element name="Letter" type="P1String0-7Type"/>
+	<xsd:element name="StatisticalReportingReference" type="P1String0-4Type"/>
+	<xsd:element name="EnvironmentalObject" type="P1String0-4Type"/>
+	<xsd:element name="Operation" type="P1String0-4Type"/>
+	<xsd:element name="InterfaceID" type="P1String0-4Type"/>
+	<xsd:element name="BillRowNumber" type="P1String0-6Type"/>
+	<xsd:element name="WBS_element" type="P1String0-24Type"/>
+	<xsd:element name="Plant" type="P1String0-4Type"/>
+	<xsd:element name="ItemReference" type="P1String0-12Type"/>
+	<xsd:element name="OrderNumber" type="P1String0-20Type"/>
+	<xsd:element name="DueDate" type="xsd:date"/>
+	<xsd:element name="AccountingReference" type="P1String0-35Type"/>
+	<xsd:element name="SiteKey" type="P1String0-35Type"/>
+	<xsd:element name="AgreementNumber" type="P1String0-35Type"/>
+	<xsd:element name="HanselID" type="P1String0-35Type"/>
 </xsd:schema>
