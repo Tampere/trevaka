@@ -138,8 +138,8 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
         db.transaction { tx ->
             tx.createUpdate(
                 """
-                INSERT INTO absence(child_id, date, absence_type, modified_by, category, questionnaire_id)
-                VALUES (:childId, generate_series('2022-06-06', '2022-07-31', interval '1 day')::date, 'FREE_ABSENCE', :evakaUserId, 'BILLABLE', :questionnaireId)
+                INSERT INTO absence(child_id, date, absence_type, modified_at, modified_by, category, questionnaire_id)
+                VALUES (:childId, generate_series('2022-06-06', '2022-07-31', interval '1 day')::date, 'FREE_ABSENCE', now(), :evakaUserId, 'BILLABLE', :questionnaireId)
                 """,
             ).bind("childId", testChild.id).bind("evakaUserId", evakaUserId).bind("questionnaireId", questionnaireId)
                 .execute()
@@ -156,8 +156,8 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
         db.transaction { tx ->
             tx.createUpdate(
                 """
-                INSERT INTO absence(child_id, date, absence_type, modified_by, category, questionnaire_id)
-                VALUES (:childId, generate_series('2022-06-13', '2022-07-31', interval '1 day')::date, 'FREE_ABSENCE', :evakaUserId, 'BILLABLE', :questionnaireId)
+                INSERT INTO absence(child_id, date, absence_type, modified_at, modified_by, category, questionnaire_id)
+                VALUES (:childId, generate_series('2022-06-13', '2022-07-31', interval '1 day')::date, 'FREE_ABSENCE', now(), :evakaUserId, 'BILLABLE', :questionnaireId)
                 """,
             ).bind("childId", testChild.id).bind("evakaUserId", evakaUserId).bind("questionnaireId", questionnaireId)
                 .execute()
