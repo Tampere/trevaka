@@ -4,6 +4,7 @@
 
 package fi.vesilahti.evaka
 
+import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
@@ -13,6 +14,9 @@ import fi.tampere.trevaka.security.TampereActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
+import org.springframework.ws.transport.http.HttpComponents5MessageSender
+import trevaka.ipaas.dvvModificationRequestCustomizer
+import trevaka.ipaas.newIpaasHttpClient
 import trevaka.titania.TrimStartTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
 
@@ -57,4 +61,13 @@ class VesilahtiConfig {
 
     @Bean
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
+
+    @Bean
+    fun webServiceMessageSender(properties: VesilahtiProperties) = HttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
+
+    @Bean
+    fun fuelManager() = FuelManager()
+
+    @Bean
+    fun basicAuthCustomizer(properties: VesilahtiProperties) = dvvModificationRequestCustomizer(properties.ipaas)
 }
