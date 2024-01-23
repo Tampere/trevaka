@@ -2,8 +2,9 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-package fi.vesilahti.evaka
+package fi.vesilahti.evaka.invoice.service
 
+import fi.vesilahti.evaka.VesilahtiProperties
 import org.springframework.stereotype.Service
 import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.services.s3.S3Client

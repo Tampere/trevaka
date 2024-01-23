@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-package fi.vesilahti.evaka
+package fi.vesilahti.evaka.invoice.service
 
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
@@ -28,15 +28,15 @@ class VesilahtiInvoiceIntegrationClient(
             logger.info { "Successfully sent ${successList.size} invoices and created ${manuallySentList.size} manual invoice" }
         }
 
-        return InvoiceIntegrationClient.SendResult(successList, failedList, manuallySentList)
+        return SendResult(successList, failedList, manuallySentList)
     }
 }
 
-interface StringInvoiceGenerator {
+fun interface StringInvoiceGenerator {
     data class InvoiceGeneratorResult(
-        val sendResult: InvoiceIntegrationClient.SendResult = InvoiceIntegrationClient.SendResult(),
+        val sendResult: SendResult = SendResult(),
         val invoiceString: String = "",
     )
 
-    fun generateInvoice(invoices: List<InvoiceDetailed>): StringInvoiceGenerator.InvoiceGeneratorResult
+    fun generateInvoice(invoices: List<InvoiceDetailed>): InvoiceGeneratorResult
 }

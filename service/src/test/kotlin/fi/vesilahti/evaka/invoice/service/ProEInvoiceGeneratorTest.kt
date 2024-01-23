@@ -5,7 +5,6 @@
 package fi.vesilahti.evaka.invoice.service
 
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
-import fi.vesilahti.evaka.*
 import fi.vesilahti.evaka.util.FieldType
 import fi.vesilahti.evaka.util.FinanceDateProvider
 import org.junit.jupiter.api.Assertions.assertEquals

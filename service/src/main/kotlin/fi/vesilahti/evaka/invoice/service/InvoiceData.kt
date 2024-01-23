@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-package fi.vesilahti.evaka
+package fi.vesilahti.evaka.invoice.service
 
 import fi.vesilahti.evaka.util.DataMapper
 import fi.vesilahti.evaka.util.FieldType

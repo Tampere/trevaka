@@ -4,11 +4,7 @@
 
 import React from 'react'
 
-import {
-  daycareAssistanceLevels,
-  otherAssistanceMeasureTypes,
-  preschoolAssistanceLevels
-} from 'lib-common/generated/api-types/assistance'
+import { daycareAssistanceLevels } from 'lib-common/generated/api-types/assistance'
 import ExternalLink from 'lib-components/atoms/ExternalLink'
 import { H3, P } from 'lib-components/typography'
 import { EmployeeCustomizations } from 'lib-customizations/types'
@@ -81,7 +77,7 @@ const customizations: EmployeeCustomizations = {
         },
         modal: {
           absenceTypes: {
-            PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo',
+            PLANNED_ABSENCE: 'Suunniteltu poissaolo',
             FORCE_MAJEURE: 'Hyvityspäivä',
             FREE_ABSENCE: 'Kesäajan maksuton poissaolo'
           }
@@ -595,27 +591,16 @@ const customizations: EmployeeCustomizations = {
   daycareAssistanceLevels: daycareAssistanceLevels.filter(
     (level) => level !== 'GENERAL_SUPPORT'
   ),
-  otherAssistanceMeasureTypes: otherAssistanceMeasureTypes.filter(
-    (level) => level !== 'ANOMALOUS_EDUCATION_START'
-  ),
+  otherAssistanceMeasureTypes: ['TRANSPORT_BENEFIT', 'ACCULTURATION_SUPPORT'],
   placementTypes: [
     'DAYCARE',
     'DAYCARE_PART_TIME',
     'TEMPORARY_DAYCARE',
-    'PRESCHOOL',
-    'PRESCHOOL_DAYCARE',
-    'PRESCHOOL_CLUB',
-    'CLUB',
     'SCHOOL_SHIFT_CARE'
   ],
   placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER'],
-  preschoolAssistanceLevels: [...preschoolAssistanceLevels],
-  unitProviderTypes: [
-    'MUNICIPAL',
-    'PURCHASED',
-    'PRIVATE',
-    'PRIVATE_SERVICE_VOUCHER'
-  ],
+  preschoolAssistanceLevels: [],
+  unitProviderTypes: ['MUNICIPAL', 'PURCHASED', 'PRIVATE'],
   voucherValueDecisionTypes: ['NORMAL', 'RELIEF_ACCEPTED', 'RELIEF_REJECTED']
 }
 

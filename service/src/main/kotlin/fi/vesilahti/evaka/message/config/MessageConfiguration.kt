@@ -1,8 +1,8 @@
-// SPDX-FileCopyrightText: 2021 City of Tampere
+// SPDX-FileCopyrightText: 2023 Tampere region
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-package fi.tampere.trevaka.message.config
+package fi.vesilahti.evaka.message.config
 
 import fi.espoo.evaka.decision.DecisionSendAddress
 import fi.espoo.evaka.shared.message.IMessageProvider
@@ -18,19 +18,19 @@ import java.text.MessageFormat
 import java.util.Locale
 import java.util.Properties
 
-internal const val PREFIX: String = "fi.tampere.trevaka.MessageProvider"
+internal const val PREFIX: String = "fi.vesilahti.evaka.MessageProvider"
 
 @Configuration
 class MessageConfiguration {
 
     @Bean
     fun messageProvider(): IMessageProvider {
-        val messageSource = YamlMessageSource(ClassPathResource("messages-tampere.yaml"))
-        return TampereMessageProvider(messageSource)
+        val messageSource = YamlMessageSource(ClassPathResource("messages-vesilahti.yaml"))
+        return VesilahtiMessageProvider(messageSource)
     }
 }
 
-internal class TampereMessageProvider(val messageSource: MessageSource) : IMessageProvider {
+internal class VesilahtiMessageProvider(private val messageSource: MessageSource) : IMessageProvider {
 
     override fun getDecisionHeader(lang: MessageLanguage): String =
         messageSource.getMessage("$PREFIX.DECISION_HEADER", null, resolveLocale(lang))
@@ -63,21 +63,13 @@ internal class TampereMessageProvider(val messageSource: MessageSource) : IMessa
         getAssistanceNeedDecisionContent(lang)
 
     override fun getDefaultDecisionAddress(lang: MessageLanguage): DecisionSendAddress = when (lang) {
-        MessageLanguage.FI -> DecisionSendAddress(
-            street = "PL 487",
-            postalCode = "33101",
-            postOffice = "Tampere",
-            row1 = "Varhaiskasvatus ja esiopetus",
-            row2 = "Asiakaspalvelu",
-            row3 = "PL 487, 33101 Tampere",
-        )
-        MessageLanguage.SV -> DecisionSendAddress(
-            street = "PL 487",
-            postalCode = "33101",
-            postOffice = "Tampere",
-            row1 = "Varhaiskasvatus ja esiopetus",
-            row2 = "Asiakaspalvelu",
-            row3 = "PL 487, 33101 Tampere",
+        MessageLanguage.FI, MessageLanguage.SV -> DecisionSendAddress(
+            street = "",
+            postalCode = "",
+            postOffice = "",
+            row1 = "",
+            row2 = "",
+            row3 = "",
         )
     }
 

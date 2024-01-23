@@ -15,7 +15,7 @@ const featureFlags: FeatureFlags = {
   },
   decisionDraftMultipleUnits: true,
   urgencyAttachments: false,
-  preschool: true,
+  preschool: false,
   preparatory: false,
   assistanceActionOther: false,
   financeDecisionHandlerSelect: true,

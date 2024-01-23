@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-package fi.vesilahti.evaka
+package fi.vesilahti.evaka.invoice.service
 
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import org.springframework.stereotype.Component

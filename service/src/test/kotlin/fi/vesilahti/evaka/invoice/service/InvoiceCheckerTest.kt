@@ -4,7 +4,6 @@
 
 package fi.vesilahti.evaka.invoice.service
 
-import fi.vesilahti.evaka.InvoiceChecker
 import org.junit.jupiter.api.Test
 
 internal class InvoiceCheckerTest {

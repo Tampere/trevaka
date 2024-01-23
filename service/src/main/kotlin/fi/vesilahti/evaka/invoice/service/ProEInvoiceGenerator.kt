@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-package fi.vesilahti.evaka
+package fi.vesilahti.evaka.invoice.service
 
 import fi.espoo.evaka.daycare.CareType
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
@@ -25,9 +25,9 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
     }
 
     fun gatherInvoiceData(invoiceDetailed: InvoiceDetailed): InvoiceData {
-        var invoiceData = InvoiceData()
+        val invoiceData = InvoiceData()
 
-        var invoiceDateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
+        val invoiceDateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
 
         invoiceData.setAlphanumericValue(InvoiceFieldName.NOT_USED, "")
 
@@ -208,23 +208,23 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         fields.forEach {
             when (it.fieldType) {
                 FieldType.ALPHANUMERIC -> {
-                    var value = invoiceData.getAlphanumericValue(it.field) ?: ""
-                    result = result + value.take(it.length).padEnd(it.length)
+                    val value = invoiceData.getAlphanumericValue(it.field) ?: ""
+                    result += value.take(it.length).padEnd(it.length)
                 }
                 FieldType.NUMERIC -> {
-                    var value = invoiceData.getNumericValue(it.field) ?: 0
-                    var stringValue = value.toString().padStart(it.length, '0')
+                    val value = invoiceData.getNumericValue(it.field) ?: 0
+                    val stringValue = value.toString().padStart(it.length, '0')
                     // all Evaka values seem to be Int so we can just pad
                     // the decimal part with the correct number of zeroes
-                    result = result + stringValue.padEnd(it.length + it.decimals, '0')
+                    result += stringValue.padEnd(it.length + it.decimals, '0')
                 }
                 FieldType.MONETARY -> {
-                    var value = invoiceData.getNumericValue(it.field) ?: 0
+                    val value = invoiceData.getNumericValue(it.field) ?: 0
                     // if the value is non-zero it has been multiplied by 100 to already contain two decimals
                     val decimals = if (value == 0) it.decimals else it.decimals - 2
                     val length = if (value == 0) it.length else it.length + 2
-                    var stringValue = value.toString().padStart(length, '0')
-                    result = result + stringValue.padEnd(length + decimals, '0')
+                    val stringValue = value.toString().padStart(length, '0')
+                    result += stringValue.padEnd(length + decimals, '0')
                 }
             }
         }
@@ -241,7 +241,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             result += generateRow(codebtorRowFields, invoiceData)
         }
 
-        var rowsPerChild = invoiceData.getChildRowMap()
+        val rowsPerChild = invoiceData.getChildRowMap()
         rowsPerChild.forEach {
             result += generateRow(childHeaderRowFields, it.value[0])
             it.value.forEach {
@@ -255,15 +255,15 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
 
     override fun generateInvoice(invoices: List<InvoiceDetailed>): StringInvoiceGenerator.InvoiceGeneratorResult {
         var invoiceString = ""
-        var successList = mutableListOf<InvoiceDetailed>()
-        var failedList = mutableListOf<InvoiceDetailed>()
-        var manuallySentList = mutableListOf<InvoiceDetailed>()
+        val successList = mutableListOf<InvoiceDetailed>()
+        val failedList = mutableListOf<InvoiceDetailed>()
+        val manuallySentList = mutableListOf<InvoiceDetailed>()
 
         val (manuallySent, succeeded) = invoices.partition { invoice -> invoiceChecker.shouldSendManually(invoice) }
         manuallySentList.addAll(manuallySent)
 
         succeeded.forEach {
-            var invoiceData = gatherInvoiceData(it)
+            val invoiceData = gatherInvoiceData(it)
             invoiceString += formatInvoice(invoiceData)
             successList.add(it)
         }
