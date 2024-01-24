@@ -13,3 +13,10 @@ evaka:
     organizer_oid: "1.2.246.562.10.79499343246"
     organizer_id: "176" # from test environment
     municipality_code: "837"
+  integration:
+    sfi:
+      contact_organization:
+        name: "eVaka Tampere"
+        street_address: "PL 487"
+        postal_code: "33101"
+        post_office: "Tampere"

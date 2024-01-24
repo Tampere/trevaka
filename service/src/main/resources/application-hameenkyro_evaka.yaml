@@ -10,3 +10,10 @@ evaka:
     organizer_oid: "1.2.246.562.10.64495287985"
     organizer_id: "todo"
     municipality_code: "108"
+  integration:
+    sfi:
+      contact_organization:
+        name: "eVaka Hämeenkyrö"
+        street_address: "TODO"
+        postal_code: "TODO"
+        post_office: "Hämeenkyrö"
