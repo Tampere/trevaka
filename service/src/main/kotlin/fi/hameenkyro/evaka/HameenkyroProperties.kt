@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2023 Tampere region
+// SPDX-FileCopyrightText: 2023-2024 Tampere region
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
@@ -10,4 +10,11 @@ import trevaka.ipaas.IpaasProperties
 @ConfigurationProperties(prefix = "hameenkyro")
 data class HameenkyroProperties(
     val ipaas: IpaasProperties,
+    val bucket: BucketProperties,
 )
+
+data class BucketProperties(
+    val export: String,
+) {
+    fun allBuckets() = listOf(export)
+}

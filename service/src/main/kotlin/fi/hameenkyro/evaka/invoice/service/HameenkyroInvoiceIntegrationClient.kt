@@ -1,8 +1,8 @@
-// SPDX-FileCopyrightText: 2023-2024 Tampere region
+// SPDX-FileCopyrightText: 2024 Tampere region
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-package fi.vesilahti.evaka.invoice.service
+package fi.hameenkyro.evaka.invoice.service
 
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
@@ -11,7 +11,7 @@ import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
 
-class VesilahtiInvoiceIntegrationClient(
+class HameenkyroInvoiceIntegrationClient(
     private val s3Sender: S3Sender,
     private val invoiceGenerator: ProEInvoiceGenerator,
 ) : InvoiceIntegrationClient {
