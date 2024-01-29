@@ -4,7 +4,6 @@
 
 package trevaka
 
-import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.dev.runDevScript
 import fi.tampere.trevaka.database.resetTampereDatabaseForE2ETests
@@ -16,33 +15,20 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
-import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
-import org.springframework.core.io.Resource
-import org.springframework.util.StreamUtils
-import java.nio.charset.Charset
-import java.nio.charset.StandardCharsets
 import java.nio.file.Paths
 
 val reportsPath: String = "${Paths.get("build").toAbsolutePath()}/reports"
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(
-    webEnvironment = WebEnvironment.RANDOM_PORT,
     classes = [Main::class, IntegrationTestConfiguration::class],
 )
 @AutoConfigureWireMock(port = 0)
 abstract class AbstractIntegrationTest {
 
-    @LocalServerPort
-    var httpPort: Int = 0
-
     @Autowired
     private lateinit var jdbi: Jdbi
-
-    @Autowired
-    protected lateinit var http: FuelManager
 
     protected lateinit var db: Database.Connection
 
@@ -55,7 +41,6 @@ abstract class AbstractIntegrationTest {
     @BeforeEach
     fun setup() {
         db.transaction { tx -> tx.resetTampereDatabaseForE2ETests() }
-        http.basePath = "http://localhost:$httpPort/"
     }
 
     @AfterAll
@@ -63,6 +48,3 @@ abstract class AbstractIntegrationTest {
         db.close()
     }
 }
-
-fun resourceAsString(resource: Resource, charset: Charset = StandardCharsets.UTF_8) =
-    resource.inputStream.use { StreamUtils.copyToString(it, charset) }
