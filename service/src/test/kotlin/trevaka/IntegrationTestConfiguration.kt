@@ -15,9 +15,8 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.S3Configuration
 import software.amazon.awssdk.services.s3.presigner.S3Presigner
-import java.security.KeyFactory
+import java.security.KeyPairGenerator
 import java.security.interfaces.RSAPublicKey
-import java.security.spec.RSAPublicKeySpec
 
 @TestConfiguration
 class IntegrationTestConfiguration {
@@ -63,9 +62,10 @@ class IntegrationTestConfiguration {
 
     @Bean
     fun jwtAlgorithm(): Algorithm {
-        val kf = KeyFactory.getInstance("RSA")
-        val spec = RSAPublicKeySpec(jwtPrivateKey.modulus, jwtPrivateKey.publicExponent)
-        val jwtPublicKey = kf.generatePublic(spec) as RSAPublicKey
+        val generator = KeyPairGenerator.getInstance("RSA")
+        generator.initialize(2048)
+        val keyPair = generator.generateKeyPair()
+        val jwtPublicKey = keyPair.public as RSAPublicKey
         return Algorithm.RSA256(jwtPublicKey, null)
     }
 }
