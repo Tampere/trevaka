@@ -4,7 +4,9 @@
 
 evaka:
   database:
+    url: jdbc:postgresql://localhost:5432/evaka_vesilahti_local
     flyway:
+      url: jdbc:postgresql://localhost:5432/evaka_vesilahti_local
       locations: db/migration,db/data/vesilahti
   oph:
     organizer_oid: "1.2.246.562.10.81321154148"
