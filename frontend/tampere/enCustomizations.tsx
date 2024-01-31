@@ -506,8 +506,12 @@ const en: DeepPartial<Translations> = {
   placement: {
     type: {
       PRESCHOOL_DAYCARE: 'Supplementary early childhood education',
+      PRESCHOOL_DAYCARE_ONLY: 'Supplementary early childhood education',
       PRESCHOOL_CLUB: 'Pre-school clubs in school from 7 am to 5 pm',
-      PRESCHOOL_WITH_DAYCARE: 'Supplementary early childhood education'
+      PREPARATORY_DAYCARE: 'Preparatory education',
+      PREPARATORY_DAYCARE_ONLY: 'Preparatory education',
+      PRESCHOOL_WITH_DAYCARE: 'Supplementary early childhood education',
+      PREPARATORY_WITH_DAYCARE: 'Preparatory education'
     }
   },
   income: {

@@ -30,7 +30,9 @@ const customizations: EmployeeMobileCustomizations = {
           PREPARATORY_DAYCARE: 'Täydentävä varhaiskasvatus'
         },
         placement: {
-          PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus'
+          PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus',
+          PRESCHOOL_DAYCARE_ONLY: 'Pelkkä täydentävä',
+          PREPARATORY_DAYCARE_ONLY: 'Pelkkä täydentävä'
         }
       }
     }
