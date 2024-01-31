@@ -529,7 +529,7 @@ const customizations: EmployeeCustomizations = {
           SCHOOL_SHIFT_CARE: 'Koululaisten vuorohoito',
           PRESCHOOL_WITH_DAYCARE: preschoolDaycareOnlyEnabled
             ? 'Esiopetus ja esiopetusta täydentävä varhaiskasvatus'
-            : 'Esiopetusta täydentävä varhaiskasvatus',
+            : 'Esiopetus ja täydentävä varhaiskasvatus',
           PREPARATORY_WITH_DAYCARE:
             'Valmistava opetus ja täydentävä varhaiskasvatus',
           PREPARATORY_DAYCARE:
