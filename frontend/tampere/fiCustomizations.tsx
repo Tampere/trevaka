@@ -708,8 +708,12 @@ const fi: DeepPartial<Translations> = {
   placement: {
     type: {
       PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus',
+      PRESCHOOL_DAYCARE_ONLY: 'Täydentävä varhaiskasvatus',
       PRESCHOOL_CLUB: 'Esiopetuksen kerho koululla klo 7-17',
-      PRESCHOOL_WITH_DAYCARE: 'Täydentävä varhaiskasvatus'
+      PREPARATORY_DAYCARE: 'Valmistava opetus',
+      PREPARATORY_DAYCARE_ONLY: 'Valmistava opetus',
+      PRESCHOOL_WITH_DAYCARE: 'Täydentävä varhaiskasvatus',
+      PREPARATORY_WITH_DAYCARE: 'Valmistava opetus'
     }
   },
   income: {
