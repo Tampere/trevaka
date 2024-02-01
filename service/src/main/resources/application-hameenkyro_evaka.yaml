@@ -6,7 +6,6 @@ evaka:
   database:
     url: jdbc:postgresql://localhost:5432/evaka_hameenkyro_local
     flyway:
-      url: jdbc:postgresql://localhost:5432/evaka_hameenkyro_local
       locations: db/migration,db/data/hameenkyro
   oph:
     organizer_oid: "1.2.246.562.10.64495287985"

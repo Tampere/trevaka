@@ -9,7 +9,6 @@ evaka:
   database:
     url: jdbc:postgresql://localhost:5432/evaka_tampere_local
     flyway:
-      url: jdbc:postgresql://localhost:5432/evaka_tampere_local
       locations: db/migration,db/data/tampere
   oph:
     organizer_oid: "1.2.246.562.10.79499343246"
@@ -22,6 +21,3 @@ evaka:
         street_address: "PL 487"
         postal_code: "33101"
         post_office: "Tampere"
-  service:
-    database:
-      name: evaka_tampere_local
