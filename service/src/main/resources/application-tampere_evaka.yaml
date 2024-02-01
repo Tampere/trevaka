@@ -7,6 +7,7 @@ spring:
     name: "trevaka-service"
 evaka:
   database:
+    url: jdbc:postgresql://localhost:5432/evaka_tampere_local
     flyway:
       locations: db/migration,db/data/tampere
   oph:
