@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2023 Tampere region
+// SPDX-FileCopyrightText: 2023-2024 Tampere region
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
@@ -6,10 +6,11 @@ package fi.hameenkyro.evaka
 
 import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
-import fi.espoo.evaka.invoicing.service.DefaultInvoiceGenerationLogic
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
-import fi.espoo.evaka.shared.security.actionrule.DefaultActionRuleMapping
+import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
+import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
+import fi.tampere.trevaka.security.TampereActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
@@ -23,46 +24,46 @@ import trevaka.tomcat.tomcatAccessLoggingCustomizer
 class HameenkyroConfig {
 
     @Bean
-    fun invoiceIntegrationClient() = HameenkyroInvoiceIntegrationClient()
+    fun featureConfig() = FeatureConfig(
+        valueDecisionCapacityFactorEnabled = true,
+        daycareApplicationServiceNeedOptionsEnabled = true,
+        citizenReservationThresholdHours = 7 * 24 - 9, // Mon 09:00
+        dailyFeeDivisorOperationalDaysOverride = 20,
+        freeSickLeaveOnContractDays = true,
+        freeAbsenceGivesADailyRefund = false,
+        alwaysUseDaycareFinanceDecisionHandler = true,
+        invoiceNumberSeriesStart = 1,
+        paymentNumberSeriesStart = null,
+        unplannedAbsencesAreContractSurplusDays = true,
+        maxContractDaySurplusThreshold = null,
+        useContractDaysAsDailyFeeDivisor = true,
+        curriculumDocumentPermissionToShareRequired = false,
+        assistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
+        preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
+        requestedStartUpperLimit = 14,
+        partialAbsenceThresholdsEnabled = true,
+        postOffice = "HÄMEENKYRÖ",
+        municipalMessageAccountName = "Hämeenkyrön kunta",
+        serviceWorkerMessageAccountName = "Hämeenkyrön kunnan palveluohjaus",
+        applyPlacementUnitFromDecision = true,
+        preferredStartRelativeApplicationDueDate = true,
+    )
 
     @Bean
-    fun invoiceGenerationLogicChooser() = DefaultInvoiceGenerationLogic
+    fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()
 
     @Bean
-    fun messageProvider() = HameenkyroMessageProvider()
+    fun actionRuleMapping(): ActionRuleMapping = TampereActionRuleMapping()
 
     @Bean
-    fun emailMessageProvider() = HameenkyroEmailMessageProvider()
-
-    @Bean
-    fun templateProvider() = HameenkyroTemplateProvider()
-
-    @Bean
-    fun incomeTypesProvider() = HameenkyroIncomeTypesProvider()
-
-    @Bean
-    fun incomeCoefficientMultiplierProvider() = HameenkyroIncomeCoefficientMultiplierProvider()
-
-    @Bean
-    fun invoiceProductProvider() = HameenkyroInvoiceProductProvider()
-
-    @Bean
-    fun titaniaEmployeeIdConverter() = TrimStartTitaniaEmployeeIdConverter()
-
-    @Bean
-    fun featureConfig() = featureConfig
+    fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter = TrimStartTitaniaEmployeeIdConverter()
 
     @Bean
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun actionRuleMapping() = DefaultActionRuleMapping()
-
-    @Bean
-    fun paymentIntegrationClient() = PaymentIntegrationClient.FailingClient()
-
-    @Bean
-    fun webServiceMessageSender(properties: HameenkyroProperties) = HttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
+    fun webServiceMessageSender(properties: HameenkyroProperties) =
+        HttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
 
     @Bean
     fun fuelManager() = FuelManager()
@@ -70,28 +71,3 @@ class HameenkyroConfig {
     @Bean
     fun basicAuthCustomizer(properties: HameenkyroProperties) = dvvModificationRequestCustomizer(properties.ipaas)
 }
-
-private val featureConfig = FeatureConfig(
-    valueDecisionCapacityFactorEnabled = true,
-    daycareApplicationServiceNeedOptionsEnabled = true,
-    citizenReservationThresholdHours = 6 * 24,
-    dailyFeeDivisorOperationalDaysOverride = 20,
-    freeSickLeaveOnContractDays = true,
-    freeAbsenceGivesADailyRefund = false,
-    alwaysUseDaycareFinanceDecisionHandler = true,
-    invoiceNumberSeriesStart = 1,
-    paymentNumberSeriesStart = null,
-    unplannedAbsencesAreContractSurplusDays = true,
-    maxContractDaySurplusThreshold = null,
-    useContractDaysAsDailyFeeDivisor = true,
-    curriculumDocumentPermissionToShareRequired = false,
-    assistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
-    preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
-    requestedStartUpperLimit = 14,
-    partialAbsenceThresholdsEnabled = true,
-    postOffice = "HÄMEENKYRÖ",
-    municipalMessageAccountName = "Hämeenkyrön kunta",
-    serviceWorkerMessageAccountName = "Hämeenkyrön kunnan palveluohjaus",
-    applyPlacementUnitFromDecision = true,
-    preferredStartRelativeApplicationDueDate = true,
-)

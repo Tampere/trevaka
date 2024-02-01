@@ -60,3 +60,5 @@ hameenkyro:
   ipaas:
     username: user
     password: pass
+  bucket:
+    export: trevaka-export-dev
