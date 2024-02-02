@@ -41,7 +41,6 @@ class VesilahtiConfig {
         assistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
         preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
         requestedStartUpperLimit = 14,
-        partialAbsenceThresholdsEnabled = true,
         postOffice = "VESILAHTI",
         municipalMessageAccountName = "Vesilahden kunta",
         serviceWorkerMessageAccountName = "Vesilahden kunta",
