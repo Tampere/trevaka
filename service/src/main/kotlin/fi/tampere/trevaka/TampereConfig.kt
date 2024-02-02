@@ -39,7 +39,6 @@ class TampereConfig {
         assistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
         preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
         requestedStartUpperLimit = 14,
-        partialAbsenceThresholdsEnabled = true,
         postOffice = "TAMPERE",
         municipalMessageAccountName = "Tampereen kaupunki",
         serviceWorkerMessageAccountName = "Tampereen kaupungin palveluohjaus",

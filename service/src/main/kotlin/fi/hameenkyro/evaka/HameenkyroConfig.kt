@@ -41,7 +41,6 @@ class HameenkyroConfig {
         assistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
         preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
         requestedStartUpperLimit = 14,
-        partialAbsenceThresholdsEnabled = true,
         postOffice = "HÄMEENKYRÖ",
         municipalMessageAccountName = "Hämeenkyrön kunta",
         serviceWorkerMessageAccountName = "Hämeenkyrön kunnan palveluohjaus",
