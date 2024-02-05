@@ -35,7 +35,9 @@ const customizations: EmployeeCustomizations = {
             'Täydentävän toivottu aloituspäivä'
         },
         types: {
-          PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus'
+          PRESCHOOL_DAYCARE: preschoolDaycareOnlyEnabled
+            ? 'Esiopetus ja esiopetusta täydentävä varhaiskasvatus'
+            : 'Täydentävä varhaiskasvatus'
         },
         decisions: {
           types: {
@@ -478,7 +480,9 @@ const customizations: EmployeeCustomizations = {
         },
         application: {
           types: {
-            PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus'
+            PRESCHOOL_DAYCARE: preschoolDaycareOnlyEnabled
+              ? 'Esiopetus ja esiopetusta täydentävä varhaiskasvatus'
+              : 'Täydentävä varhaiskasvatus'
           }
         }
       },
