@@ -10,7 +10,7 @@ import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
-import fi.tampere.trevaka.security.TampereActionRuleMapping
+import fi.vesilahti.evaka.security.VesilahtiActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
@@ -52,7 +52,7 @@ class VesilahtiConfig {
     fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()
 
     @Bean
-    fun actionRuleMapping(): ActionRuleMapping = TampereActionRuleMapping()
+    fun actionRuleMapping(): ActionRuleMapping = VesilahtiActionRuleMapping()
 
     @Bean
     fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter = TrimStartTitaniaEmployeeIdConverter()
