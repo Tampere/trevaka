@@ -41,7 +41,7 @@ class ExportUnitsAclService(private val s3Client: S3Client, private val properti
         val csv = mapper.writer(schema).writeValueAsString(unitsAcl)
 
         val bucket = properties.bucket.export
-        val key = "acl/tampere_evaka_acl_${timestamp.toInstant().toEpochMilli()}.csv"
+        val key = "reporting/acl/tampere_evaka_acl_${timestamp.toInstant().toEpochMilli()}.csv"
         val request = PutObjectRequest.builder()
             .bucket(bucket)
             .key(key)
