@@ -147,6 +147,7 @@ commands:
           command: |
             docker buildx build --progress=plain \
               -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/<< parameters.image >>:${CIRCLE_SHA1} \
+              --build-arg "CACHE_BUST=$(date '+%Y-%V')" \
               --build-arg "build=${CIRCLE_BUILD_NUM}" \
               --build-arg "commit=${CIRCLE_SHA1}" \
               << parameters.extra_build_args >> \

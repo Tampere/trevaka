@@ -27,8 +27,7 @@ FROM eclipse-temurin:21-jre-jammy
 
 LABEL maintainer="https://github.com/tampere/trevaka"
 
-# Increment this if we ever explicitly want to e.g. run apt-get upgrade
-ARG CACHE_BUST=2022-11-08
+ARG CACHE_BUST
 
 # Use bash instead of dash
 SHELL ["/bin/bash", "-c"]
