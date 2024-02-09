@@ -24,8 +24,6 @@ import fi.espoo.evaka.shared.PersonId
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import trevaka.reportsPath
-import java.io.FileOutputStream
 import java.time.LocalDate
 import java.util.UUID
 
@@ -47,9 +45,8 @@ class PreschoolAssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTes
                 validTo = LocalDate.of(2022, 12, 31),
             )
 
-        val filepath =
-            "$reportsPath/PreschoolAssistanceNeedDecisionServiceTest-preschool-assistance-need-decision.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PreschoolAssistanceNeedDecisionServiceTest-preschool-assistance-need-decision.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -72,9 +69,8 @@ class PreschoolAssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTes
                 validTo = LocalDate.of(2022, 12, 31),
             )
 
-        val filepath =
-            "$reportsPath/PreschoolAssistanceNeedDecisionServiceTest-preschool-assistance-need-decision-without-guardian.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PreschoolAssistanceNeedDecisionServiceTest-preschool-assistance-need-decision-without-guardian.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -106,9 +102,8 @@ class PreschoolAssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTes
                 validTo = LocalDate.of(2022, 12, 31),
             )
 
-        val filepath =
-            "$reportsPath/PreschoolAssistanceNeedDecisionServiceTest-preschool-assistance-need-decision-with-prepared-by.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PreschoolAssistanceNeedDecisionServiceTest-preschool-assistance-need-decision-with-prepared-by.pdf"
+        writeReportsFile(filename, bytes)
     }
 }
 
