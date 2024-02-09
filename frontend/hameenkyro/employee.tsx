@@ -601,10 +601,10 @@ const customizations: EmployeeCustomizations = {
   ),
   placementTypes: [
     'DAYCARE',
-    'DAYCARE_PART_TIME',
     'TEMPORARY_DAYCARE',
     'PRESCHOOL',
     'PRESCHOOL_DAYCARE',
+    'PRESCHOOL_DAYCARE_ONLY',
     'PRESCHOOL_CLUB',
     'CLUB',
     'SCHOOL_SHIFT_CARE'

@@ -602,8 +602,8 @@ const customizations: EmployeeCustomizations = {
   otherAssistanceMeasureTypes: ['TRANSPORT_BENEFIT', 'ACCULTURATION_SUPPORT'],
   placementTypes: [
     'DAYCARE',
-    'DAYCARE_PART_TIME',
     'TEMPORARY_DAYCARE',
+    'PRESCHOOL_DAYCARE_ONLY',
     'SCHOOL_SHIFT_CARE'
   ],
   placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER'],
