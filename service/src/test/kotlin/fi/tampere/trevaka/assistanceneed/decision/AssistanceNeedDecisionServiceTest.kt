@@ -122,7 +122,7 @@ class AssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTest() {
     }
 }
 
-private val validAssistanceNeedDecision = AssistanceNeedDecision(
+val validAssistanceNeedDecision = AssistanceNeedDecision(
     id = AssistanceNeedDecisionId(UUID.randomUUID()),
     decisionNumber = 125632424,
     child = AssistanceNeedDecisionChild(
@@ -180,7 +180,7 @@ private val validAssistanceNeedDecision = AssistanceNeedDecision(
     hasDocument = false,
 )
 
-private val validPersonDTO = PersonDTO(
+val validPersonDTO = PersonDTO(
     id = PersonId(UUID.randomUUID()),
     duplicateOf = null,
     identity = ExternalIdentifier.SSN.getInstance("310382-956D"),

@@ -378,7 +378,7 @@ private fun validDecisionIncome(income: Int = 314100) = DecisionIncome(
     worksAtECHA = false,
 )
 
-private fun validFeeDecision(children: List<FeeDecisionChildDetailed> = listOf(validFeeDecisionChild())) =
+fun validFeeDecision(children: List<FeeDecisionChildDetailed> = listOf(validFeeDecisionChild())) =
     FeeDecisionDetailed(
         id = FeeDecisionId(UUID.randomUUID()),
         children = children,
@@ -414,7 +414,7 @@ private fun validFeeDecision(children: List<FeeDecisionChildDetailed> = listOf(v
         financeDecisionHandlerLastName = null,
     )
 
-private fun validFeeDecisionChild(
+fun validFeeDecisionChild(
     child: PersonDetailed = validChild(),
     feeAlterations: List<FeeAlteration> = emptyList(),
 ) = FeeDecisionChildDetailed(
@@ -447,7 +447,7 @@ private fun validChild() = PersonDetailed(
     "", null, "", null, restrictedDetailsEnabled = false,
 )
 
-private fun validVoucherValueDecision(
+fun validVoucherValueDecision(
     child: PersonDetailed = validChild(),
     placement: VoucherValueDecisionPlacementDetailed = validVoucherValueDecisionPlacementDetailed(
         PlacementType.DAYCARE,

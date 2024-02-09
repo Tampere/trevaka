@@ -27,8 +27,8 @@ class HameenkyroTemplateProvider : ITemplateProvider {
             DecisionType.PRESCHOOL -> "Esiopetuspäätös"
             DecisionType.PRESCHOOL_DAYCARE,
             DecisionType.PRESCHOOL_CLUB,
-            -> "Esiopetukseen liittyvän toiminnan päätös"
-            DecisionType.PREPARATORY_EDUCATION -> "Valmistavan opetuksen päätös"
+            -> "Esiopetusta_täydentävän_toiminnan_päätös"
+            DecisionType.PREPARATORY_EDUCATION -> "Valmistavan_opetuksen_päätös"
         }
     override fun getFeeDecisionPath(): String = "hameenkyro/fee-decision/decision"
     override fun getVoucherValueDecisionPath(): String = "hameenkyro/fee-decision/voucher-value-decision"
@@ -36,8 +36,8 @@ class HameenkyroTemplateProvider : ITemplateProvider {
     override fun getDaycareVoucherDecisionPath(): String = "hameenkyro/daycare/voucher/decision"
     override fun getDaycareTransferDecisionPath(): String = "hameenkyro/daycare/decision"
     override fun getDaycareDecisionPath(): String = "hameenkyro/daycare/decision"
-    override fun getPreschoolDecisionPath(): String = "hameenkyro/preschool/decision"
-    override fun getPreparatoryDecisionPath(): String = "hameenkyro/preschool/decision"
-    override fun getAssistanceNeedDecisionPath(): String = "hameenkyro/assistance-need/decision"
-    override fun getAssistanceNeedPreschoolDecisionPath(): String = "hameenkyro/assistance-need-preschool/decision"
+    override fun getPreschoolDecisionPath(): String = "hameenkyro/daycare/decision"
+    override fun getPreparatoryDecisionPath(): String = throw Error("Not supported")
+    override fun getAssistanceNeedDecisionPath(): String = "hameenkyro/assistance/decision"
+    override fun getAssistanceNeedPreschoolDecisionPath(): String = "hameenkyro/assistance-preschool/decision"
 }

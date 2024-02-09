@@ -27,17 +27,17 @@ class VesilahtiTemplateProvider : ITemplateProvider {
             DecisionType.PRESCHOOL -> "Esiopetuspäätös"
             DecisionType.PRESCHOOL_DAYCARE,
             DecisionType.PRESCHOOL_CLUB,
-            -> "Esiopetukseen liittyvän toiminnan päätös"
-            DecisionType.PREPARATORY_EDUCATION -> "Valmistavan opetuksen päätös"
+            -> "Esiopetusta_täydentävän_toiminnan_päätös"
+            DecisionType.PREPARATORY_EDUCATION -> "Valmistavan_opetuksen_päätös"
         }
     override fun getFeeDecisionPath(): String = "vesilahti/fee-decision/decision"
-    override fun getVoucherValueDecisionPath(): String = "vesilahti/fee-decision/voucher-value-decision"
+    override fun getVoucherValueDecisionPath(): String = throw UnsupportedOperationException()
     override fun getClubDecisionPath(): String = "vesilahti/club/decision"
-    override fun getDaycareVoucherDecisionPath(): String = "vesilahti/daycare/voucher/decision"
+    override fun getDaycareVoucherDecisionPath(): String = throw UnsupportedOperationException()
     override fun getDaycareTransferDecisionPath(): String = "vesilahti/daycare/decision"
     override fun getDaycareDecisionPath(): String = "vesilahti/daycare/decision"
-    override fun getPreschoolDecisionPath(): String = "vesilahti/preschool/decision"
-    override fun getPreparatoryDecisionPath(): String = "vesilahti/preschool/decision"
-    override fun getAssistanceNeedDecisionPath(): String = "vesilahti/assistance-need/decision"
-    override fun getAssistanceNeedPreschoolDecisionPath(): String = "vesilahti/assistance-need-preschool/decision"
+    override fun getPreschoolDecisionPath(): String = throw UnsupportedOperationException()
+    override fun getPreparatoryDecisionPath(): String = throw UnsupportedOperationException()
+    override fun getAssistanceNeedDecisionPath(): String = "vesilahti/assistance/decision"
+    override fun getAssistanceNeedPreschoolDecisionPath(): String = "vesilahti/assistance-preschool/decision"
 }

@@ -187,7 +187,7 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
     }
 }
 
-private fun validDecision(type: DecisionType, decisionUnit: DecisionUnit) = Decision(
+fun validDecision(type: DecisionType, decisionUnit: DecisionUnit) = Decision(
     DecisionId(UUID.randomUUID()),
     createdBy = "Päivi Päiväkodinjohtaja",
     type,
@@ -207,7 +207,7 @@ private fun validDecision(type: DecisionType, decisionUnit: DecisionUnit) = Deci
     resolvedByName = null,
 )
 
-private fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(
+fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(
     DaycareId(UUID.randomUUID()),
     name = "Vuoreksen kerho",
     daycareDecisionName = "Vuoreksen kerho",
@@ -222,7 +222,7 @@ private fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(
     providerType,
 )
 
-private fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
+fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
     PersonId(UUID.randomUUID()),
     null,
     ExternalIdentifier.SSN.getInstance("070682-924A"),
@@ -242,7 +242,7 @@ private fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO
     restrictedDetailsEnabled = restrictedDetailsEnabled,
 )
 
-private fun validChild(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
+fun validChild(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
     PersonId(UUID.randomUUID()),
     null,
     ExternalIdentifier.SSN.getInstance("010115A9532"),
