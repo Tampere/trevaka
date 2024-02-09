@@ -27,7 +27,8 @@ const featureFlags: FeatureFlags = {
   citizenAttendanceSummary: true,
   noAbsenceType: true,
   voucherUnitPayments: false,
-  assistanceNeedDecisionsLanguageSelect: false
+  assistanceNeedDecisionsLanguageSelect: false,
+  timeUsageInfo: true
 }
 
 export default featureFlags
