@@ -5,15 +5,14 @@
 import { MapConfig } from 'lib-customizations/types'
 
 const mapConfig: MapConfig = {
-  // TODO: Update coordinates for Vesilahti
-  center: [61.30949, 23.61605],
+  center: [61.30991, 23.61598],
   initialZoom: 11,
   addressZoom: 14,
   searchAreaRect: {
-    maxLatitude: 61.83715535012332,
-    minLatitude: 61.42731906621412,
-    maxLongitude: 24.118938446044925,
-    minLongitude: 23.54256391525269
+    maxLatitude: 61.39591,
+    minLatitude: 61.19894,
+    maxLongitude: 23.73969,
+    minLongitude: 23.21942
   },
   careTypeFilters: ['DAYCARE'],
   unitProviderTypeFilters: ['MUNICIPAL', 'PURCHASED', 'PRIVATE']
