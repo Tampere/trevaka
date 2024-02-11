@@ -526,9 +526,8 @@ const customizations: EmployeeCustomizations = {
       },
       decisionDraft: {
         types: {
-          PRESCHOOL_DAYCARE:
-            'Esiopetus ja esiopetusta täydentävä varhaiskasvatus',
-          PREPARATORY_DAYCARE: 'Valmistava opetus ja täydentävä varhaiskasvatus'
+          PRESCHOOL_DAYCARE: 'Esiopetusta täydentävä varhaiskasvatus',
+          PREPARATORY_DAYCARE: 'Valmistavaa opetusta täydentävä varhaiskasvatus'
         }
       },
       unitEditor: {
