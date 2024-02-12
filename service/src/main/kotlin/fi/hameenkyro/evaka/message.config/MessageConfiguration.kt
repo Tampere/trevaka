@@ -64,10 +64,10 @@ internal class HameenkyroMessageProvider(private val messageSource: MessageSourc
 
     override fun getDefaultDecisionAddress(lang: MessageLanguage): DecisionSendAddress = when (lang) {
         MessageLanguage.FI, MessageLanguage.SV -> DecisionSendAddress(
-            street = "",
-            postalCode = "",
-            postOffice = "",
-            row1 = "",
+            street = "Härkikuja 7",
+            postalCode = "39100",
+            postOffice = "Hämeenkyrö",
+            row1 = "Varhaiskasvatus ja esiopetus",
             row2 = "",
             row3 = "",
         )

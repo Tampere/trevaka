@@ -64,10 +64,10 @@ internal class VesilahtiMessageProvider(private val messageSource: MessageSource
 
     override fun getDefaultDecisionAddress(lang: MessageLanguage): DecisionSendAddress = when (lang) {
         MessageLanguage.FI, MessageLanguage.SV -> DecisionSendAddress(
-            street = "",
-            postalCode = "",
-            postOffice = "",
-            row1 = "",
+            street = "Rautialantie 60",
+            postalCode = "37470",
+            postOffice = "Vesilahti",
+            row1 = "Varhaiskasvatus",
             row2 = "",
             row3 = "",
         )

@@ -15,6 +15,6 @@ evaka:
     sfi:
       contact_organization:
         name: "eVaka Hämeenkyrö"
-        street_address: "TODO"
-        postal_code: "TODO"
+        street_address: "Härkikuja 7"
+        postal_code: "39100"
         post_office: "Hämeenkyrö"

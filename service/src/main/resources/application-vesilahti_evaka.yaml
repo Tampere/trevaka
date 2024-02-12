@@ -15,6 +15,6 @@ evaka:
     sfi:
       contact_organization:
         name: "eVaka Vesilahti"
-        street_address: "TODO"
-        postal_code: "TODO"
+        street_address: "Rautialantie 60"
+        postal_code: "37470"
         post_office: "Vesilahti"
