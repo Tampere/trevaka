@@ -526,9 +526,8 @@ const customizations: EmployeeCustomizations = {
       },
       decisionDraft: {
         types: {
-          PRESCHOOL_DAYCARE:
-            'Esiopetus ja esiopetusta täydentävä varhaiskasvatus',
-          PREPARATORY_DAYCARE: 'Valmistava opetus ja täydentävä varhaiskasvatus'
+          PRESCHOOL_DAYCARE: 'Esiopetusta täydentävä varhaiskasvatus',
+          PREPARATORY_DAYCARE: 'Valmistavaa opetusta täydentävä varhaiskasvatus'
         }
       },
       unitEditor: {
@@ -602,8 +601,8 @@ const customizations: EmployeeCustomizations = {
   otherAssistanceMeasureTypes: ['TRANSPORT_BENEFIT', 'ACCULTURATION_SUPPORT'],
   placementTypes: [
     'DAYCARE',
-    'DAYCARE_PART_TIME',
     'TEMPORARY_DAYCARE',
+    'PRESCHOOL_DAYCARE_ONLY',
     'SCHOOL_SHIFT_CARE'
   ],
   placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER'],

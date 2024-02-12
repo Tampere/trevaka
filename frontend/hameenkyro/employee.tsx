@@ -513,13 +513,20 @@ const customizations: EmployeeCustomizations = {
           DAYCARE: 'Kokopäiväinen varhaiskasvatus',
           DAYCARE_PART_TIME: 'Osapäiväinen varhaiskasvatus',
           TEMPORARY_DAYCARE: 'Tilapäinen kokopäiväinen varhaiskasvatus',
-          PRESCHOOL_DAYCARE: 'Esiopetusta täydentävä varhaiskasvatus',
+          PRESCHOOL_DAYCARE:
+            'Esiopetus ja esiopetusta täydentävä varhaiskasvatus',
+          PRESCHOOL_DAYCARE_ONLY: 'Esiopetusta täydentävä varhaiskasvatus',
+          PRESCHOOL_CLUB: 'Esiopetus ja esiopetuksen kerhotoiminta',
           CLUB: 'Kerho',
           SCHOOL_SHIFT_CARE: 'Koululaisten vuorohoito',
-          PRESCHOOL_WITH_DAYCARE: 'Esiopetus ja täydentävä varhaiskasvatus',
+          PRESCHOOL_WITH_DAYCARE:
+            'Esiopetus ja esiopetusta täydentävä varhaiskasvatus',
           PREPARATORY_WITH_DAYCARE:
             'Valmistava opetus ja täydentävä varhaiskasvatus',
-          PREPARATORY_DAYCARE: 'Valmistava opetus ja täydentävä varhaiskasvatus'
+          PREPARATORY_DAYCARE:
+            'Valmistava opetus ja täydentävä varhaiskasvatus',
+          PREPARATORY_DAYCARE_ONLY:
+            'Valmistavaa opetusta täydentävä varhaiskasvatus'
         }
       },
       decisionDraft: {
@@ -601,12 +608,10 @@ const customizations: EmployeeCustomizations = {
   ),
   placementTypes: [
     'DAYCARE',
-    'DAYCARE_PART_TIME',
     'TEMPORARY_DAYCARE',
     'PRESCHOOL',
     'PRESCHOOL_DAYCARE',
-    'PRESCHOOL_CLUB',
-    'CLUB',
+    'PRESCHOOL_DAYCARE_ONLY',
     'SCHOOL_SHIFT_CARE'
   ],
   placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER'],
