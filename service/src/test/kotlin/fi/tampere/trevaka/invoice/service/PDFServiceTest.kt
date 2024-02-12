@@ -48,8 +48,6 @@ import org.junit.jupiter.params.provider.EnumSource
 import org.junitpioneer.jupiter.cartesian.CartesianTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.thymeleaf.context.Context
-import trevaka.reportsPath
-import java.io.FileOutputStream
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.UUID
@@ -76,8 +74,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
-        val filepath = "$reportsPath/PDFServiceTest-fee-decision-placement-type-$placementType.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-fee-decision-placement-type-$placementType.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @CartesianTest
@@ -97,8 +95,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
-        val filepath = "$reportsPath/PDFServiceTest-fee-decision-placement-type-$placementType-decision-type-$decisionType.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-fee-decision-placement-type-$placementType-decision-type-$decisionType.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @ParameterizedTest
@@ -127,8 +125,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
-        val filepath = "$reportsPath/PDFServiceTest-fee-decision-placement-type-DAYCARE-and-PRESCHOOL_CLUB-decision-type-$decisionType.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-fee-decision-placement-type-DAYCARE-and-PRESCHOOL_CLUB-decision-type-$decisionType.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @ParameterizedTest
@@ -139,8 +137,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateVoucherValueDecisionPdf(data)
 
-        val filepath = "$reportsPath/PDFServiceTest-voucher-value-decision-type-$decisionType.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-voucher-value-decision-type-$decisionType.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -149,8 +147,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
-        val filepath = "$reportsPath/PDFServiceTest-fee-decision-head-of-family-income.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-fee-decision-head-of-family-income.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -167,8 +165,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
-        val filepath = "$reportsPath/PDFServiceTest-fee-decision-partner.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-fee-decision-partner.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -187,8 +185,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
-        val filepath = "$reportsPath/PDFServiceTest-fee-decision-partner-income.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-fee-decision-partner-income.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -199,8 +197,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
-        val filepath = "$reportsPath/PDFServiceTest-fee-decision-child-income.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-fee-decision-child-income.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -246,8 +244,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
-        val filepath = "$reportsPath/PDFServiceTest-fee-decision-incomes.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-fee-decision-incomes.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -263,8 +261,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
-        val filepath = "$reportsPath/PDFServiceTest-fee-decision-empty-address.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-fee-decision-empty-address.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -274,8 +272,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
 
-        val filepath = "$reportsPath/PDFServiceTest-fee-decision-fee-alterations.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-fee-decision-fee-alterations.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @ParameterizedTest
@@ -287,8 +285,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateVoucherValueDecisionPdf(data)
 
-        val filepath = "$reportsPath/PDFServiceTest-voucher-value-decision-placement-type-$placementType.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-voucher-value-decision-placement-type-$placementType.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -298,8 +296,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateVoucherValueDecisionPdf(data)
 
-        val filepath = "$reportsPath/PDFServiceTest-voucher-value-decision-head-of-family-income.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-voucher-value-decision-head-of-family-income.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -309,8 +307,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateVoucherValueDecisionPdf(data)
 
-        val filepath = "$reportsPath/PDFServiceTest-voucher-value-decision-child-income.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-voucher-value-decision-child-income.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -328,8 +326,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateVoucherValueDecisionPdf(data)
 
-        val filepath = "$reportsPath/PDFServiceTest-voucher-value-decision-partner.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-voucher-value-decision-partner.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -346,8 +344,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateVoucherValueDecisionPdf(data)
 
-        val filepath = "$reportsPath/PDFServiceTest-voucher-value-decision-empty-address.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-voucher-value-decision-empty-address.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -357,8 +355,8 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
 
         val bytes = pdfGenerator.generateVoucherValueDecisionPdf(data)
 
-        val filepath = "$reportsPath/PDFServiceTest-voucher-value-decision-fee-alterations.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PDFServiceTest-voucher-value-decision-fee-alterations.pdf"
+        writeReportsFile(filename, bytes)
     }
 }
 
@@ -380,7 +378,7 @@ private fun validDecisionIncome(income: Int = 314100) = DecisionIncome(
     worksAtECHA = false,
 )
 
-private fun validFeeDecision(children: List<FeeDecisionChildDetailed> = listOf(validFeeDecisionChild())) =
+fun validFeeDecision(children: List<FeeDecisionChildDetailed> = listOf(validFeeDecisionChild())) =
     FeeDecisionDetailed(
         id = FeeDecisionId(UUID.randomUUID()),
         children = children,
@@ -416,7 +414,7 @@ private fun validFeeDecision(children: List<FeeDecisionChildDetailed> = listOf(v
         financeDecisionHandlerLastName = null,
     )
 
-private fun validFeeDecisionChild(
+fun validFeeDecisionChild(
     child: PersonDetailed = validChild(),
     feeAlterations: List<FeeAlteration> = emptyList(),
 ) = FeeDecisionChildDetailed(
@@ -449,7 +447,7 @@ private fun validChild() = PersonDetailed(
     "", null, "", null, restrictedDetailsEnabled = false,
 )
 
-private fun validVoucherValueDecision(
+fun validVoucherValueDecision(
     child: PersonDetailed = validChild(),
     placement: VoucherValueDecisionPlacementDetailed = validVoucherValueDecisionPlacementDetailed(
         PlacementType.DAYCARE,

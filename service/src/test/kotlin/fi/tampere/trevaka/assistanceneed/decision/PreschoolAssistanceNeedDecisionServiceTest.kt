@@ -13,8 +13,6 @@ import fi.espoo.evaka.assistanceneed.preschooldecision.AssistanceNeedPreschoolDe
 import fi.espoo.evaka.assistanceneed.preschooldecision.AssistanceNeedPreschoolDecisionService
 import fi.espoo.evaka.assistanceneed.preschooldecision.AssistanceNeedPreschoolDecisionType
 import fi.espoo.evaka.decision.DecisionSendAddress
-import fi.espoo.evaka.identity.ExternalIdentifier
-import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.shared.AssistanceNeedPreschoolDecisionGuardianId
 import fi.espoo.evaka.shared.AssistanceNeedPreschoolDecisionId
 import fi.espoo.evaka.shared.ChildId
@@ -24,8 +22,6 @@ import fi.espoo.evaka.shared.PersonId
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import trevaka.reportsPath
-import java.io.FileOutputStream
 import java.time.LocalDate
 import java.util.UUID
 
@@ -47,9 +43,8 @@ class PreschoolAssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTes
                 validTo = LocalDate.of(2022, 12, 31),
             )
 
-        val filepath =
-            "$reportsPath/PreschoolAssistanceNeedDecisionServiceTest-preschool-assistance-need-decision.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PreschoolAssistanceNeedDecisionServiceTest-preschool-assistance-need-decision.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -72,9 +67,8 @@ class PreschoolAssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTes
                 validTo = LocalDate.of(2022, 12, 31),
             )
 
-        val filepath =
-            "$reportsPath/PreschoolAssistanceNeedDecisionServiceTest-preschool-assistance-need-decision-without-guardian.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PreschoolAssistanceNeedDecisionServiceTest-preschool-assistance-need-decision-without-guardian.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -106,9 +100,8 @@ class PreschoolAssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTes
                 validTo = LocalDate.of(2022, 12, 31),
             )
 
-        val filepath =
-            "$reportsPath/PreschoolAssistanceNeedDecisionServiceTest-preschool-assistance-need-decision-with-prepared-by.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "PreschoolAssistanceNeedDecisionServiceTest-preschool-assistance-need-decision-with-prepared-by.pdf"
+        writeReportsFile(filename, bytes)
     }
 }
 
@@ -162,7 +155,7 @@ private val validAssistanceNeedPreschoolDecisionForm =
         basisDocumentSocialReportDate = LocalDate.of(2022, 8, 2),
     )
 
-private val validAssistanceNeedPreschoolDecision =
+val validAssistanceNeedPreschoolDecision =
     AssistanceNeedPreschoolDecision(
         id = AssistanceNeedPreschoolDecisionId(UUID.randomUUID()),
         decisionNumber = 125632424,
@@ -186,25 +179,4 @@ private val validAssistanceNeedPreschoolDecision =
         unitPostalCode = "22222",
         unitPostOffice = "Parkkila",
         unitStreetAddress = "Kelokuja 122 G",
-    )
-
-private val validPersonDTO =
-    PersonDTO(
-        id = PersonId(UUID.randomUUID()),
-        duplicateOf = null,
-        identity = ExternalIdentifier.SSN.getInstance("310382-956D"),
-        ssnAddingDisabled = false,
-        firstName = "Maija",
-        lastName = "Meikäläinen",
-        preferredName = "Maija",
-        email = null,
-        phone = "",
-        backupPhone = "",
-        language = null,
-        dateOfBirth = LocalDate.of(1982, 3, 31),
-        dateOfDeath = null,
-        streetAddress = "Meikäläisenkuja 6 B 7",
-        postalCode = "33730",
-        postOffice = "TAMPERE",
-        residenceCode = "",
     )

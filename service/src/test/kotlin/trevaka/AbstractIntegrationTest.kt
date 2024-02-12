@@ -16,9 +16,10 @@ import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
+import java.io.FileOutputStream
 import java.nio.file.Paths
 
-val reportsPath: String = "${Paths.get("build").toAbsolutePath()}/reports"
+private val reportsPath: String = "${Paths.get("build").toAbsolutePath()}/reports"
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(
@@ -46,5 +47,10 @@ abstract class AbstractIntegrationTest {
     @AfterAll
     protected fun afterAll() {
         db.close()
+    }
+
+    protected fun writeReportsFile(filename: String, bytes: ByteArray) {
+        val filepath = "$reportsPath/$filename"
+        FileOutputStream(filepath).use { it.write(bytes) }
     }
 }

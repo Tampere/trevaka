@@ -30,8 +30,6 @@ import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.junit.jupiter.api.Test
 import org.junitpioneer.jupiter.cartesian.CartesianTest
 import org.springframework.beans.factory.annotation.Autowired
-import java.io.FileOutputStream
-import java.nio.file.Paths
 import java.time.LocalDate
 import java.util.UUID
 
@@ -94,10 +92,8 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
-        val filename =
-            "DecisionServiceTest-$decisionType-$providerType${if (isTransferApplication) "-transfer" else ""}.pdf"
-        val filepath = "${Paths.get("build").toAbsolutePath()}/reports/$filename"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "DecisionServiceTest-$decisionType-$providerType${if (isTransferApplication) "-transfer" else ""}.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -122,9 +118,8 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
-        val filepath =
-            "${Paths.get("build").toAbsolutePath()}/reports/DecisionServiceTest-DAYCARE-without-service-need-option.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "DecisionServiceTest-DAYCARE-without-service-need-option.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -155,8 +150,8 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
-        val filepath = "${Paths.get("build").toAbsolutePath()}/reports/DecisionServiceTest-DAYCARE-without-settings.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "DecisionServiceTest-DAYCARE-without-settings.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -187,13 +182,12 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
-        val filepath =
-            "${Paths.get("build").toAbsolutePath()}/reports/DecisionServiceTest-DAYCARE-restricted-details-enabled.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "DecisionServiceTest-DAYCARE-restricted-details-enabled.pdf"
+        writeReportsFile(filename, bytes)
     }
 }
 
-private fun validDecision(type: DecisionType, decisionUnit: DecisionUnit) = Decision(
+fun validDecision(type: DecisionType, decisionUnit: DecisionUnit) = Decision(
     DecisionId(UUID.randomUUID()),
     createdBy = "Päivi Päiväkodinjohtaja",
     type,
@@ -213,7 +207,7 @@ private fun validDecision(type: DecisionType, decisionUnit: DecisionUnit) = Deci
     resolvedByName = null,
 )
 
-private fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(
+fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(
     DaycareId(UUID.randomUUID()),
     name = "Vuoreksen kerho",
     daycareDecisionName = "Vuoreksen kerho",
@@ -228,7 +222,7 @@ private fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(
     providerType,
 )
 
-private fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
+fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
     PersonId(UUID.randomUUID()),
     null,
     ExternalIdentifier.SSN.getInstance("070682-924A"),
@@ -248,7 +242,7 @@ private fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO
     restrictedDetailsEnabled = restrictedDetailsEnabled,
 )
 
-private fun validChild(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
+fun validChild(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
     PersonId(UUID.randomUUID()),
     null,
     ExternalIdentifier.SSN.getInstance("010115A9532"),

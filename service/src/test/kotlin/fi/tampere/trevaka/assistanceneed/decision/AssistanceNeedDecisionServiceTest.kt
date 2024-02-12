@@ -28,8 +28,6 @@ import fi.espoo.evaka.shared.domain.DateRange
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import trevaka.reportsPath
-import java.io.FileOutputStream
 import java.time.LocalDate
 import java.util.UUID
 
@@ -50,8 +48,8 @@ class AssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTest() {
             guardian = headOfFamily,
         )
 
-        val filepath = "$reportsPath/AssistanceNeedDecisionServiceTest-assistance-need-decision.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "AssistanceNeedDecisionServiceTest-assistance-need-decision.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -65,9 +63,8 @@ class AssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTest() {
             guardian = null,
         )
 
-        val filepath =
-            "$reportsPath/AssistanceNeedDecisionServiceTest-assistance-need-decision-without-guardian.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "AssistanceNeedDecisionServiceTest-assistance-need-decision-without-guardian.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -95,9 +92,8 @@ class AssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTest() {
             guardian = headOfFamily,
         )
 
-        val filepath =
-            "$reportsPath/AssistanceNeedDecisionServiceTest-assistance-need-decision-with-prepared-by.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "AssistanceNeedDecisionServiceTest-assistance-need-decision-with-prepared-by.pdf"
+        writeReportsFile(filename, bytes)
     }
 
     @Test
@@ -121,13 +117,12 @@ class AssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTest() {
             guardian = headOfFamily,
         )
 
-        val filepath =
-            "$reportsPath/AssistanceNeedDecisionServiceTest-assistance-need-decision-with-empty-prepared-by.pdf"
-        FileOutputStream(filepath).use { it.write(bytes) }
+        val filename = "AssistanceNeedDecisionServiceTest-assistance-need-decision-with-empty-prepared-by.pdf"
+        writeReportsFile(filename, bytes)
     }
 }
 
-private val validAssistanceNeedDecision = AssistanceNeedDecision(
+val validAssistanceNeedDecision = AssistanceNeedDecision(
     id = AssistanceNeedDecisionId(UUID.randomUUID()),
     decisionNumber = 125632424,
     child = AssistanceNeedDecisionChild(
@@ -185,7 +180,7 @@ private val validAssistanceNeedDecision = AssistanceNeedDecision(
     hasDocument = false,
 )
 
-private val validPersonDTO = PersonDTO(
+val validPersonDTO = PersonDTO(
     id = PersonId(UUID.randomUUID()),
     duplicateOf = null,
     identity = ExternalIdentifier.SSN.getInstance("310382-956D"),
