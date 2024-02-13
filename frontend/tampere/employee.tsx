@@ -17,10 +17,7 @@ import { H3, P } from 'lib-components/typography'
 import { EmployeeCustomizations } from 'lib-customizations/types'
 
 import TampereLogo from './city-logo.svg'
-import { env } from './env'
 import featureFlags from './featureFlags'
-
-const preschoolDaycareOnlyEnabled = env() === 'default'
 
 const customizations: EmployeeCustomizations = {
   appConfig: {},
@@ -35,9 +32,7 @@ const customizations: EmployeeCustomizations = {
             'Täydentävän toivottu aloituspäivä'
         },
         types: {
-          PRESCHOOL_DAYCARE: preschoolDaycareOnlyEnabled
-            ? 'Esiopetus ja esiopetusta täydentävä varhaiskasvatus'
-            : 'Täydentävä varhaiskasvatus'
+          PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus'
         },
         decisions: {
           types: {
@@ -480,9 +475,7 @@ const customizations: EmployeeCustomizations = {
         },
         application: {
           types: {
-            PRESCHOOL_DAYCARE: preschoolDaycareOnlyEnabled
-              ? 'Esiopetus ja esiopetusta täydentävä varhaiskasvatus'
-              : 'Täydentävä varhaiskasvatus'
+            PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus'
           }
         }
       },
@@ -524,16 +517,14 @@ const customizations: EmployeeCustomizations = {
           DAYCARE: 'Kokopäiväinen varhaiskasvatus',
           DAYCARE_PART_TIME: 'Osapäiväinen varhaiskasvatus',
           TEMPORARY_DAYCARE: 'Tilapäinen kokopäiväinen varhaiskasvatus',
-          PRESCHOOL_DAYCARE: preschoolDaycareOnlyEnabled
-            ? 'Esiopetus ja esiopetusta täydentävä varhaiskasvatus'
-            : 'Esiopetusta täydentävä varhaiskasvatus',
+          PRESCHOOL_DAYCARE:
+            'Esiopetus ja esiopetusta täydentävä varhaiskasvatus',
           PRESCHOOL_DAYCARE_ONLY: 'Esiopetusta täydentävä varhaiskasvatus',
           PRESCHOOL_CLUB: 'Esiopetus ja esiopetuksen kerhotoiminta',
           CLUB: 'Kerho',
           SCHOOL_SHIFT_CARE: 'Koululaisten vuorohoito',
-          PRESCHOOL_WITH_DAYCARE: preschoolDaycareOnlyEnabled
-            ? 'Esiopetus ja esiopetusta täydentävä varhaiskasvatus'
-            : 'Esiopetus ja täydentävä varhaiskasvatus',
+          PRESCHOOL_WITH_DAYCARE:
+            'Esiopetus ja esiopetusta täydentävä varhaiskasvatus',
           PREPARATORY_WITH_DAYCARE:
             'Valmistava opetus ja täydentävä varhaiskasvatus',
           PREPARATORY_DAYCARE:
@@ -544,9 +535,7 @@ const customizations: EmployeeCustomizations = {
       },
       decisionDraft: {
         types: {
-          PRESCHOOL_DAYCARE: preschoolDaycareOnlyEnabled
-            ? 'Esiopetus ja esiopetusta täydentävä varhaiskasvatus'
-            : 'Esiopetusta täydentävä varhaiskasvatus',
+          PRESCHOOL_DAYCARE: 'Esiopetusta täydentävä varhaiskasvatus',
           PREPARATORY_DAYCARE: 'Valmistava opetus ja täydentävä varhaiskasvatus'
         }
       },
@@ -629,9 +618,7 @@ const customizations: EmployeeCustomizations = {
     'TEMPORARY_DAYCARE',
     'PRESCHOOL',
     'PRESCHOOL_DAYCARE',
-    ...(preschoolDaycareOnlyEnabled
-      ? (['PRESCHOOL_DAYCARE_ONLY'] as const)
-      : []),
+    'PRESCHOOL_DAYCARE_ONLY',
     'PRESCHOOL_CLUB',
     'CLUB',
     'SCHOOL_SHIFT_CARE'
