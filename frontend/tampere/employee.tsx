@@ -592,6 +592,10 @@ const customizations: EmployeeCustomizations = {
         adRoles: {
           DIRECTOR: 'Vaka-päälliköt'
         }
+      },
+      terms: {
+        extendedTermStartInfo:
+          'Aika, jolloin varhaiskasvatusmaksu määräytyy täydentävän varhaiskasvatuksen mukaan.'
       }
     },
     sv: {}
