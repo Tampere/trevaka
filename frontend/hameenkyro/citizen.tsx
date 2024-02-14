@@ -1607,7 +1607,6 @@ const customizations: CitizenCustomizations = {
     src: HameenkyroLogo,
     alt: 'Hämeenkyrö logo'
   },
-  routeLinkRootUrl: 'https://reittiopas.tampere.fi/reitti/',
   mapConfig: {
     center: [61.30949, 23.61605],
     initialZoom: 11,
