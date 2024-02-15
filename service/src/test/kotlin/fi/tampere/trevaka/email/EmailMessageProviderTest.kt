@@ -96,16 +96,20 @@ internal class EmailMessageProviderTest : AbstractTampereIntegrationTest() {
             emailMessageProvider.pedagogicalDocumentNotification(Language.fi, ChildId(UUID.randomUUID())),
         ),
         Arguments.of(
-            "outdatedIncomeNotificationInitial",
-            emailMessageProvider.outdatedIncomeNotification(IncomeNotificationType.INITIAL_EMAIL, Language.fi),
+            "incomeNotification",
+            emailMessageProvider.incomeNotification(IncomeNotificationType.INITIAL_EMAIL, Language.fi),
         ),
         Arguments.of(
-            "outdatedIncomeNotificationReminder",
-            emailMessageProvider.outdatedIncomeNotification(IncomeNotificationType.REMINDER_EMAIL, Language.fi),
+            "incomeNotification",
+            emailMessageProvider.incomeNotification(IncomeNotificationType.REMINDER_EMAIL, Language.fi),
         ),
         Arguments.of(
-            "outdatedIncomeNotificationExpired",
-            emailMessageProvider.outdatedIncomeNotification(IncomeNotificationType.EXPIRED_EMAIL, Language.fi),
+            "incomeNotification",
+            emailMessageProvider.incomeNotification(IncomeNotificationType.EXPIRED_EMAIL, Language.fi),
+        ),
+        Arguments.of(
+            "incomeNotification",
+            emailMessageProvider.incomeNotification(IncomeNotificationType.NEW_CUSTOMER, Language.fi),
         ),
         Arguments.of(
             "calendarEventNotification",
