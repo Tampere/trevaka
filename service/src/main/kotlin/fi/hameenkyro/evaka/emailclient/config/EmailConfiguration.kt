@@ -264,10 +264,11 @@ class HameenkyroEmailMessageProvider : IEmailMessageProvider {
         """.trimIndent(),
     )
 
-    override fun outdatedIncomeNotification(notificationType: IncomeNotificationType, language: Language) = when (notificationType) {
+    override fun incomeNotification(notificationType: IncomeNotificationType, language: Language) = when (notificationType) {
         IncomeNotificationType.INITIAL_EMAIL -> outdatedIncomeNotificationInitial()
         IncomeNotificationType.REMINDER_EMAIL -> outdatedIncomeNotificationReminder()
         IncomeNotificationType.EXPIRED_EMAIL -> outdatedIncomeNotificationExpired()
+        IncomeNotificationType.NEW_CUSTOMER -> newCustomerIncomeNotification()
     }
 
     private fun outdatedIncomeNotificationInitial() = EmailContent.fromHtml(
@@ -366,6 +367,28 @@ class HameenkyroEmailMessageProvider : IEmailMessageProvider {
             $unsubscribeEn
         """.trimIndent(),
     )
+
+    private fun newCustomerIncomeNotification(): EmailContent {
+        return EmailContent.fromHtml(
+            subject =
+            "Tulotietojen tarkastuskehotus / Request to review income information",
+            html =
+            """
+<p>Hyvä asiakkaamme</p>
+<p>Lapsenne on aloittamassa varhaiskasvatuksessa tämän kuukauden aikana. Pyydämme teitä toimittamaan tulotiedot eVaka-järjestelmän kautta tämän kuukauden loppuun mennessä.</p>
+<p>Lisätietoja saatte tarvittaessa Hämeenkyrön kunnan verkkosivuilta.</p>
+<p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+$unsubscribeFi
+<hr>
+<p>Dear client</p>
+<p>Your child is starting early childhood education during this month. We ask you to submit your income information via eVaka system by the end of this month.</p>
+<p>If necessary, you can get more information from the website of the municipality of Hämeenkyrö.</p>
+<p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+$unsubscribeEn
+            """
+                .trimIndent(),
+        )
+    }
 
     override fun calendarEventNotification(
         language: Language,
