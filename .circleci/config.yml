@@ -12,7 +12,6 @@ aliases:
   - &workspace_apigw /home/circleci/repo/evaka/apigw
   - &workspace_evaka_frontend /home/circleci/repo/evaka/frontend
   - &workspace_tre_frontend /home/circleci/repo/frontend
-  - &workspace_proxy /home/circleci/repo/evaka/proxy
   - &workspace_service /home/circleci/repo/service
   - &workspace_auth /home/circleci/repo/auth
 
