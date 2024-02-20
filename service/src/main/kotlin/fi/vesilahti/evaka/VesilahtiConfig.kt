@@ -46,6 +46,7 @@ class VesilahtiConfig {
         serviceWorkerMessageAccountName = "Vesilahden kunta",
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
+        fiveYearsOldDaycareEnabled = false,
     )
 
     @Bean

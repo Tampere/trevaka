@@ -34,8 +34,6 @@ evaka:
     sender_name:
       fi: evaka_local_fi
       sv: evaka_local_sv
-  five_years_old_daycare:
-    enabled: false
   integration:
     koski:
       enabled: false
