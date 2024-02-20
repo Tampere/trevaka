@@ -316,13 +316,16 @@ jobs:
       - checkout_with_submodules
       - setup_aws
       - run:
+          name: Build compose stack
+          command: docker-compose build
+      - run:
           name: Start up compose stack
           command: |
             CI=true LOCAL_DIR='../evaka/frontend' \
             EVAKA_FRONTEND_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend/<< parameters.customizations >>:${CIRCLE_SHA1} \
             EVAKA_GW_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/api-gateway:${CIRCLE_SHA1} \
             EVAKA_SRV_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service:${CIRCLE_SHA1} \
-            docker-compose --profile evaka up -d
+            docker-compose --profile evaka up --no-build -d
           environment:
             EVAKA_CUSTOMIZATIONS: << parameters.customizations >>
       - frontend_install:
