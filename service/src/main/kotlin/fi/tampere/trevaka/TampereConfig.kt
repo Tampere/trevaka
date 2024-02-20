@@ -44,6 +44,7 @@ class TampereConfig {
         serviceWorkerMessageAccountName = "Tampereen kaupungin palveluohjaus",
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
+        fiveYearsOldDaycareEnabled = false,
     )
 
     @Bean

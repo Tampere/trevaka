@@ -46,6 +46,7 @@ class HameenkyroConfig {
         serviceWorkerMessageAccountName = "Hämeenkyrön kunnan palveluohjaus",
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
+        fiveYearsOldDaycareEnabled = false,
     )
 
     @Bean
