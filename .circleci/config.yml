@@ -19,7 +19,7 @@ aliases:
   - &base_image cimg/base:current-22.04
   - &aws_image cimg/aws:2023.12
   - &reuse_image fsfe/reuse:1.1.2 # NOTE: Update add-license-headers.sh to match
-  - &ubuntu_machine_image ubuntu-2204:2023.10.1
+  - &ubuntu_machine_image ubuntu-2204:2024.01.1
 
   - &default_config
     working_directory: *workspace_root
