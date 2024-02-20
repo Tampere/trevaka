@@ -18,3 +18,5 @@ evaka:
         street_address: "Rautialantie 60"
         postal_code: "37470"
         post_office: "Vesilahti"
+  planned_absence:
+    enabled_for_hour_based_service_needs: true

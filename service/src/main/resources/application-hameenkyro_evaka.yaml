@@ -18,3 +18,5 @@ evaka:
         street_address: "Härkikuja 7"
         postal_code: "39100"
         post_office: "Hämeenkyrö"
+  planned_absence:
+    enabled_for_hour_based_service_needs: true
