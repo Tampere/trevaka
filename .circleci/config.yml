@@ -12,14 +12,13 @@ aliases:
   - &workspace_apigw /home/circleci/repo/evaka/apigw
   - &workspace_evaka_frontend /home/circleci/repo/evaka/frontend
   - &workspace_tre_frontend /home/circleci/repo/frontend
-  - &workspace_proxy /home/circleci/repo/evaka/proxy
   - &workspace_service /home/circleci/repo/service
   - &workspace_auth /home/circleci/repo/auth
 
   - &base_image cimg/base:current-22.04
   - &aws_image cimg/aws:2023.12
   - &reuse_image fsfe/reuse:1.1.2 # NOTE: Update add-license-headers.sh to match
-  - &ubuntu_machine_image ubuntu-2204:2023.10.1
+  - &ubuntu_machine_image ubuntu-2204:2024.01.1
 
   - &default_config
     working_directory: *workspace_root
@@ -316,13 +315,16 @@ jobs:
       - checkout_with_submodules
       - setup_aws
       - run:
+          name: Build compose stack
+          command: docker-compose build
+      - run:
           name: Start up compose stack
           command: |
             CI=true LOCAL_DIR='../evaka/frontend' \
             EVAKA_FRONTEND_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend/<< parameters.customizations >>:${CIRCLE_SHA1} \
             EVAKA_GW_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/api-gateway:${CIRCLE_SHA1} \
             EVAKA_SRV_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service:${CIRCLE_SHA1} \
-            docker-compose --profile evaka up -d
+            docker-compose --profile evaka up --no-build -d
           environment:
             EVAKA_CUSTOMIZATIONS: << parameters.customizations >>
       - frontend_install:
