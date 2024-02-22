@@ -12,8 +12,9 @@ EXECUTE (
       AND table_name not in (
         'flyway_schema_history',
         'assistance_action_option',
-        'assistance_basis_option',
         'care_area',
+        'holiday',
+        'service_need_option_fee',
         'service_need_option_voucher_value',
         'service_need_option'
     )
