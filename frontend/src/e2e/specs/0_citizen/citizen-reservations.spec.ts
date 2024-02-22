@@ -5,7 +5,7 @@
 import LocalDate from 'lib-common/local-date'
 import config from 'e2e-test/config'
 import { resetDatabaseForE2ETests } from '../../common/tampere-dev-api'
-import { insertDaycarePlacementFixtures } from 'e2e-test/dev-api'
+import { createDaycarePlacements } from 'e2e-test/generated/api-clients'
 import {
     createDaycarePlacementFixture,
     daycareFixture,
@@ -66,16 +66,17 @@ beforeEach(async () => {
     children = [
         enduserChildFixturePorriHatterRestricted
     ]
-    await insertDaycarePlacementFixtures(
-        children.map((child) =>
-            createDaycarePlacementFixture(
-                uuidv4(),
-                child.id,
-                daycareFixture.id,
-                LocalDate.todayInHelsinkiTz(),
-                LocalDate.todayInHelsinkiTz().addYears(1)
-            )
+    await createDaycarePlacements({
+        body: children.map((child) =>
+          createDaycarePlacementFixture(
+            uuidv4(),
+            child.id,
+            daycareFixture.id,
+            LocalDate.todayInHelsinkiTz(),
+            LocalDate.todayInHelsinkiTz().addYears(1)
+          )
         )
+      }
     )
 
     page = await Page.open()
