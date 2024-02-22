@@ -7,7 +7,6 @@ spring:
     name: "trevaka-service"
 evaka:
   database:
-    url: jdbc:postgresql://localhost:5432/evaka_tampere_local
     flyway:
       locations: db/migration,db/data/tampere
   oph:
@@ -21,3 +20,5 @@ evaka:
         street_address: "PL 487"
         postal_code: "33101"
         post_office: "Tampere"
+trevaka:
+  municipality: tampere

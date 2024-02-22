@@ -4,7 +4,6 @@
 
 evaka:
   database:
-    url: jdbc:postgresql://localhost:5432/evaka_hameenkyro_local
     flyway:
       locations: db/migration,db/data/hameenkyro
   oph:
@@ -20,3 +19,5 @@ evaka:
         post_office: "Hämeenkyrö"
   planned_absence:
     enabled_for_hour_based_service_needs: true
+trevaka:
+  municipality: hameenkyro
