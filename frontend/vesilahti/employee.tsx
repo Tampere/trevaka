@@ -46,7 +46,7 @@ const customizations: EmployeeCustomizations = {
           BILLABLE: 'Varhaiskasvatus / esiopetuksen kerho'
         },
         absenceTypes: {
-          PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo',
+          PLANNED_ABSENCE: 'Suunniteltu poissaolo',
           FORCE_MAJEURE: 'Hyvityspäivä',
           FREE_ABSENCE: 'Kesäajan maksuton poissaolo'
         },

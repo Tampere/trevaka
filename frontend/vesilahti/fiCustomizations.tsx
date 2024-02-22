@@ -780,14 +780,14 @@ const fi: DeepPartial<Translations> = {
   calendar: {
     absenceModal: {
       absenceTypes: {
-        PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo'
+        PLANNED_ABSENCE: 'Suunniteltu poissaolo'
       },
       selectChildrenInfo: 'Ilmoita tässä vain koko päivän poissaolot.'
     },
     absences: {
-      PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo'
+      PLANNED_ABSENCE: 'Suunniteltu poissaolo'
     },
-    absentPlanned: 'Sopimuksen mukainen poissaolo'
+    absentPlanned: 'Suunniteltu poissaolo'
   },
   accessibilityStatement: (
     <>
