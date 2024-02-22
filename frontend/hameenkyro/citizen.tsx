@@ -1608,14 +1608,14 @@ const customizations: CitizenCustomizations = {
     alt: 'Hämeenkyrö logo'
   },
   mapConfig: {
-    center: [61.30949, 23.61605],
-    initialZoom: 11,
+    center: [61.63827, 23.19625],
+    initialZoom: 14,
     addressZoom: 14,
     searchAreaRect: {
-      maxLatitude: 61.83715535012332,
-      minLatitude: 61.42731906621412,
-      maxLongitude: 24.118938446044925,
-      minLongitude: 23.54256391525269
+      maxLatitude: 61.65501,
+      minLatitude: 61.63087,
+      maxLongitude: 23.21197,
+      minLongitude: 23.17912
     },
     careTypeFilters: ['DAYCARE', 'PRESCHOOL', 'CLUB'],
     unitProviderTypeFilters: [
