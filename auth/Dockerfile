@@ -27,7 +27,7 @@ COPY themes/hameenkyro/HameenkyroLogo.svg evaka/login/resources/img/EspooLogoBlu
 RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties
 RUN npm run build && rm -r evaka/account
 
-FROM quay.io/keycloak/keycloak:23.0.6
+FROM quay.io/keycloak/keycloak:23.0.7
 ADD --chmod=0644 \
     --checksum=sha256:424a3e03a17df0a2bc2b3ca749d81b04e79d59cb7aeec8876a5a3f308d0caf51 \
     https://raw.githubusercontent.com/danielmiessler/SecLists/2023.1/Passwords/xato-net-10-million-passwords-1000000.txt \
