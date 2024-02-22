@@ -16,7 +16,6 @@ EXECUTE (
         'care_area',
         'service_need_option_voucher_value',
         'service_need_option',
-        'club_term',
         'preschool_term'
     )
 );
