@@ -15,8 +15,7 @@ EXECUTE (
         'assistance_basis_option',
         'care_area',
         'service_need_option_voucher_value',
-        'service_need_option',
-        'preschool_term'
+        'service_need_option'
     )
 );
 EXECUTE (
