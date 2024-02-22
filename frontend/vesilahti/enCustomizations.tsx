@@ -582,6 +582,19 @@ const en: DeepPartial<Translations> = {
       </>
     )
   },
+  calendar: {
+    absenceModal: {
+      absenceTypes: {
+        PLANNED_ABSENCE: 'Planned absence'
+      },
+      selectChildrenInfo:
+        'Only report full day absences. Part-day absences can be reported when making a reservation.'
+    },
+    absences: {
+      PLANNED_ABSENCE: 'Planned absence'
+    },
+    absentPlanned: 'Planned absence'
+  },
   accessibilityStatement: (
     <>
       <H1>Accessibility statement</H1>
