@@ -17,7 +17,7 @@ const customizations: EmployeeMobileCustomizations = {
       },
       absences: {
         absenceTypes: {
-          PLANNED_ABSENCE: 'Sopimuksen mukainen poissaolo',
+          PLANNED_ABSENCE: 'Suunniteltu poissaolo',
           FORCE_MAJEURE: 'Hyvityspäivä',
           FREE_ABSENCE: 'Kesäajan maksuton poissaolo'
         },
