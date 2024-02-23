@@ -593,7 +593,7 @@ const customizations: EmployeeCustomizations = {
     src: HameenkyroLogo,
     alt: 'Hämeenkyrö logo'
   },
-  featureFlags,
+  featureFlags: { ...featureFlags, preparatory: true },
   absenceTypes: [
     'OTHER_ABSENCE',
     'SICKLEAVE',
