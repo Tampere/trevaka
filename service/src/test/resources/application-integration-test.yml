@@ -12,6 +12,8 @@ evaka:
     decisions: trevaka-daycaredecisions-it
     fee_decisions: trevaka-paymentdecisions-it
     voucher_value_decisions: trevaka-vouchervaluedecisions-it
+  async_job_runner:
+    disable_runner: true
   database:
     url: jdbc:postgresql://localhost:5432/evaka_${trevaka.municipality}_it
     username: evaka_it
