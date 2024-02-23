@@ -23,6 +23,7 @@ abstract class AbstractHameenkyroIntegrationTest : AbstractIntegrationTest() {
         DecisionType.DAYCARE,
         DecisionType.PRESCHOOL,
         DecisionType.PRESCHOOL_DAYCARE,
+        DecisionType.PREPARATORY_EDUCATION,
     )
 
     protected fun supportedProviderTypes(): Stream<ProviderType> = Stream.of(
