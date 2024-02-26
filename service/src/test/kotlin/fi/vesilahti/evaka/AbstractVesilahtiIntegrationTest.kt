@@ -21,6 +21,7 @@ abstract class AbstractVesilahtiIntegrationTest : AbstractIntegrationTest() {
     protected fun supportedDecisionTypes(): Stream<DecisionType> = Stream.of(
         DecisionType.DAYCARE,
         DecisionType.PRESCHOOL_DAYCARE,
+        DecisionType.PREPARATORY_EDUCATION,
     )
 
     protected fun supportedProviderTypes(): Stream<ProviderType> = Stream.of(
