@@ -394,6 +394,13 @@ SPDX-License-Identifier: LGPL-2.1-or-later
                   ${#temporals.format(decision.endDate, 'd.M.yyyy')}"></span>
 </span>
 
+<span th:fragment="date-range (startDate, endDate)">
+  <span
+      th:text="${#temporals.format(startDate, 'd.M.yyyy')}
+              + ' - ' +
+              (${#temporals.format(endDate, 'd.M.yyyy')} ?: '')"
+  ></span>
+</span>
 
 <span th:fragment="decision-date">
     <div class="detail" th:if="${type == 'notice'}"
