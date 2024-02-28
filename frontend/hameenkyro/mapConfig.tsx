@@ -14,7 +14,7 @@ const mapConfig: MapConfig = {
     maxLongitude: 23.21197,
     minLongitude: 23.17912
   },
-  careTypeFilters: ['DAYCARE', 'PRESCHOOL', 'CLUB'],
+  careTypeFilters: ['DAYCARE', 'PRESCHOOL'],
   unitProviderTypeFilters: [
     'MUNICIPAL',
     'PURCHASED',
