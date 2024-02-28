@@ -29,7 +29,8 @@ const featureFlags: FeatureFlags = {
   voucherUnitPayments: false,
   assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
-  timeUsageInfo: true
+  timeUsageInfo: true,
+  hideClubApplication: true
 }
 
 export default featureFlags
