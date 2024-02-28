@@ -10,7 +10,7 @@ fi.vesilahti.evaka:
       fi: |
         Olette hakeneet lapsellenne varhaiskasvatus- tai kerhopaikkaa Vesilahden varhaiskasvatuksesta. Päätös on luettavissa Suomi.fi-viestit -palvelusta.
 
-        Varhaiskasvatus tai kerhopaikka on hakemuksen tehneen huoltajan hyväksyttävissä Vesilahden kunnan varhaiskasvatuksen sähköisessä palvelussa osoitteessa varhaiskasvatus.vesilahti.fi. Paikkaa ei voi hyväksyä Suomi.fi-viestit -palvelussa.
+        Varhaiskasvatus tai kerhopaikka on hakemuksen tehneen huoltajan hyväksyttävissä Vesilahden kunnan varhaiskasvatuksen sähköisessä palvelussa osoitteessa evaka.vesilahti.fi. Paikkaa ei voi hyväksyä Suomi.fi-viestit -palvelussa.
 
         Huomioittehan, että vastaus päätökseen tulee antaa kahden viikon kuluessa.
     FEE_DECISION_HEADER:
