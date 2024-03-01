@@ -386,7 +386,7 @@ const fi: DeepPartial<Translations> = {
     cityLabel: '© Vesilahden kunta',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://www.vesilahti.fi/kunta-ja-hallinto/asiointi/tietosuoja-ja-selosteet/"
+        href="https://www.vesilahti.fi/wp-content/uploads/Tietosuojaseloste-eVaka.pdf"
         text="Tietosuojaselosteet"
         newTab={true}
         data-qa="footer-policy-link"
