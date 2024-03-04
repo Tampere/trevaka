@@ -108,22 +108,11 @@ commands:
                   - yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
                   - yarn-cache-e2e-v3-
                   - yarn-cache-e2e-
-            - restore_cache:
-                name: Restore playwright browser cache
-                keys:
-                  - playwright-browser-cache-v1-{{ checksum "frontend/yarn.lock" }}
-                  - playwright-browser-cache-v1-
-                  - playwright-browser-cache-
             - run:
                 working_directory: *workspace_tre_frontend
                 command: |
                   yarn install --immutable
                   yarn playwright install chromium
-            - save_cache:
-                name: Store playwright browser cache
-                key: playwright-browser-cache-v1-{{ checksum "frontend/yarn.lock" }}
-                paths:
-                  - /home/circleci/.cache/ms-playwright
             - save_cache:
                 name: Store e2e yarn cache
                 key: yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
