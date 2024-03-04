@@ -867,10 +867,14 @@ const fi: DeepPartial<Translations> = {
       </ul>
       <H2>Vaihtoehtoiset asiointitavat</H2>
       <P>
-        <ExternalLink
-          href="https://www.vesilahti.fi/kasvatus-ja-opetus/varhaiskasvatus/"
-          text="Varhaiskasvatuksen ja esiopetuksen asiakaspalvelu"
-        />
+        <strong>Varhaiskasvatuksen asiakaspalvelu</strong>
+        <br />
+        sähköposti{' '}
+        <a href="mailto:varhaiskasvatus@vesilahti.fi">
+          varhaiskasvatus@vesilahti.fi
+        </a>
+        <br />
+        puhelin 040 1335201
       </P>
       <H2>Anna palautetta</H2>
       <P>

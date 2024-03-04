@@ -674,10 +674,14 @@ const en: DeepPartial<Translations> = {
       </ul>
       <H2>Alternative ways of accessing the service</H2>
       <P>
-        <ExternalLink
-          href="https://www.vesilahti.fi/kasvatus-ja-opetus/varhaiskasvatus/"
-          text="Early childhood and pre-primary education customer service"
-        />
+        <strong>Early childhood education customer service</strong>
+        <br />
+        email{' '}
+        <a href="mailto:varhaiskasvatus@vesilahti.fi">
+          varhaiskasvatus@vesilahti.fi
+        </a>
+        <br />
+        phone 040 1335201
       </P>
       <H2>Give feedback</H2>
       <P>
