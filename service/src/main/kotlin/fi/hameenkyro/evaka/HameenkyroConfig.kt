@@ -17,7 +17,7 @@ import org.springframework.core.env.Environment
 import org.springframework.ws.transport.http.HttpComponents5MessageSender
 import trevaka.ipaas.dvvModificationRequestCustomizer
 import trevaka.ipaas.newIpaasHttpClient
-import trevaka.titania.TrimStartTitaniaEmployeeIdConverter
+import trevaka.titania.PrefixTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
 
 @Configuration
@@ -56,7 +56,7 @@ class HameenkyroConfig {
     fun actionRuleMapping(): ActionRuleMapping = HameenkyroActionRuleMapping()
 
     @Bean
-    fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter = TrimStartTitaniaEmployeeIdConverter()
+    fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter = PrefixTitaniaEmployeeIdConverter("ham")
 
     @Bean
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
