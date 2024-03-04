@@ -8,6 +8,9 @@ cas:
       users:
     json:
       location: classpath:users.json
+    saml-idp:
+      core:
+        entity-id: http://localhost:${server.port}${server.servlet.context-path}/idp1
   server:
     name: http://localhost:${server.port}
     prefix: http://localhost:${server.port}${server.servlet.context-path}

@@ -1325,6 +1325,7 @@
         "signatureAlgorithm": "RSA_SHA256",
         "encryptionAlgorithm": "RSA-OAEP",
         "xmlSigKeyInfoKeyNameTransformer": "KEY_ID",
+        "idpEntityId": "http://localhost:8081/identification/idp1",
         "useJwksUrl": "true",
         "allowCreate": "true",
         "wantAssertionsSigned": "true",
