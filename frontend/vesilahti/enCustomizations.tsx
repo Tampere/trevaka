@@ -220,7 +220,7 @@ const en: DeepPartial<Translations> = {
           },
           info: {
             PRESCHOOL: [
-              'The school year 2023–2024 starts on Wednesday 9.8.2023 and ends on Friday 31.5.2024'
+              'The school year 2024-2025 starts on Wednesday 7.8.2024 and ends on Wednesday 28.5.2025.'
             ]
           },
           label: {
