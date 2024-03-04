@@ -16,7 +16,7 @@ import { preschoolEnabled } from './fiCustomizations'
 const customerContactText = function () {
   return (
     <ExternalLink
-      href="https://www.hameenkyro.fi/kasvatus-ja-opetus/varhaiskasvatus/"
+      href="https://hameenkyro.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
       text="customer service of the Early childhood education"
     />
   )
@@ -107,8 +107,8 @@ const en: DeepPartial<Translations> = {
                 <P>
                   Further information{' '}
                   <ExternalLink
-                    href="https://www.hameenkyro.fi/kasvatus-ja-opetus/esi-ja-perusopetus/"
-                    text="https://www.hameenkyro.fi/kasvatus-ja-opetus/esi-ja-perusopetus/"
+                    href="https://hameenkyro.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
+                    text="https://hameenkyro.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
                     newTab
                   />
                 </P>
@@ -116,7 +116,7 @@ const en: DeepPartial<Translations> = {
             )
           },
           serviceVoucherLink:
-            'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit'
+            'https://hameenkyro.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/yksityiset-paivakodit/'
         }
       },
       heading: {
@@ -287,8 +287,8 @@ const en: DeepPartial<Translations> = {
                 Further information about supplementary activities and client
                 fees{' '}
                 <ExternalLink
-                  href="https://www.hameenkyro.fi/kasvatus-ja-opetus/esi-ja-perusopetus/iltapaivatoiminta/"
-                  text="https://www.hameenkyro.fi/kasvatus-ja-opetus/esi-ja-perusopetus/iltapaivatoiminta/"
+                  href="https://hameenkyro.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
+                  text="https://hameenkyro.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
                   newTab
                 />
               </P>
@@ -350,7 +350,7 @@ const en: DeepPartial<Translations> = {
             You will find further information on client fees for early childhood
             education on{' '}
             <ExternalLink
-              href="https://www.hameenkyro.fi/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
+              href="https://hameenkyro.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
               text="the website of the municipality of Hämeenkyrö"
               newTab
             />
@@ -364,7 +364,7 @@ const en: DeepPartial<Translations> = {
             childhood education
             {preschoolEnabled ? ' or pre-school education centre' : ''} a{' '}
             <ExternalLink
-              href="https://www.hameenkyro.fi/kasvatus-ja-opetus/esi-ja-perusopetus/kouluruokailu-ja-ruokalista/"
+              href="https://hameenkyro.fi/palvelut/asuminen-ja-elinymparisto/siivous-ja-ruokapalvelu/erityisruokavaliot/"
               text="Notification of Special Diet form"
               newTab
             />
@@ -400,7 +400,7 @@ const en: DeepPartial<Translations> = {
     cityLabel: '© Municipality of Hämeenkyrö',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://www.hameenkyro.fi/kunta-ja-hallinto/asiointi/tietosuoja-ja-selosteet/"
+        href="https://hameenkyro.fi/wp-content/uploads/2024/02/Tietosuojaseloste-eVaka-Hameenkyro.pdf"
         text="Privacy Notices"
         newTab={true}
         data-qa="footer-policy-link"
@@ -408,7 +408,7 @@ const en: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://www.hameenkyro.fi/kunta-ja-hallinto/osallistu-ja-vaikuta/palaute/"
+        href="https://hameenkyro.fi/anna-palautetta/"
         text="Give feedback"
         newTab={true}
         data-qa="footer-feedback-link"
@@ -437,7 +437,7 @@ const en: DeepPartial<Translations> = {
           <P>
             If you are not able to log in here, see the instructions{' '}
             <a
-              href="https://www.hameenkyro.fi/kasvatus-ja-opetus/varhaiskasvatus/"
+              href="https://hameenkyro.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/varhaiskasvatuksen-jarjestaminen/"
               target="_blank"
               rel="noreferrer"
             >
@@ -463,7 +463,7 @@ const en: DeepPartial<Translations> = {
     }`,
     privateUnitInfo: <></>,
     serviceVoucherLink:
-      'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit',
+      'https://hameenkyro.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/yksityiset-paivakodit/',
     searchPlaceholder: 'E.g. Amurin päiväkoti'
   },
   decisions: {
@@ -525,7 +525,7 @@ const en: DeepPartial<Translations> = {
           to family size, income and time in early childhood education.
         </p>
         <p>
-          <a href="https://www.hameenkyro.fi/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/">
+          <a href="https://hameenkyro.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/">
             Further information on client fees.
           </a>
         </p>
@@ -567,7 +567,7 @@ const en: DeepPartial<Translations> = {
             <a
               target="_blank"
               rel="noreferrer"
-              href="https://www.hameenkyro.fi/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
+              href="https://hameenkyro.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
             >
               hare
             </a>
@@ -671,7 +671,7 @@ const en: DeepPartial<Translations> = {
       <H2>Alternative ways of accessing the service</H2>
       <P>
         <ExternalLink
-          href="https://www.hameenkyro.fi/kasvatus-ja-opetus/varhaiskasvatus/"
+          href="https://hameenkyro.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
           text="Early childhood and pre-primary education customer service"
         />
       </P>
@@ -680,7 +680,7 @@ const en: DeepPartial<Translations> = {
         If you notice an accessibility gap in our online service, please let us
         know! You can give us feedback using the{' '}
         <ExternalLink
-          href="https://www.hameenkyro.fi/kunta-ja-hallinto/osallistu-ja-vaikuta/palaute/"
+          href="https://hameenkyro.fi/anna-palautetta/"
           text="Give accessibility feedback with this web form"
         />
       </P>
