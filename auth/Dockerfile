@@ -35,6 +35,6 @@ ADD --chmod=0644 \
 COPY --from=tampere evaka /opt/keycloak/themes/evaka-tampere
 COPY --from=vesilahti evaka /opt/keycloak/themes/evaka-vesilahti
 COPY --from=hameenkyro evaka /opt/keycloak/themes/evaka-hameenkyro
-RUN /opt/keycloak/bin/kc.sh build --db=postgres --http-relative-path=/auth --health-enabled=true
+RUN /opt/keycloak/bin/kc.sh build --cache=ispn --cache-stack=kubernetes --db=postgres --http-relative-path=/auth --health-enabled=true
 RUN /opt/keycloak/bin/kc.sh show-config
 CMD ["start","--optimized"]
