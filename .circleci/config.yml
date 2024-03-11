@@ -391,6 +391,7 @@ workflows:
                 - tampere
                 - vesilahti
                 - hameenkyro
+                - ylojarvi
 
       - service_build_image:
           context:
