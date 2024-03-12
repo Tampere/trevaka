@@ -23,7 +23,7 @@ private val reportsPath: String = "${Paths.get("build").toAbsolutePath()}/report
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(
-    classes = [Main::class, IntegrationTestConfiguration::class],
+    classes = [TrevakaMain::class, IntegrationTestConfiguration::class],
 )
 @AutoConfigureWireMock(port = 0)
 abstract class AbstractIntegrationTest {

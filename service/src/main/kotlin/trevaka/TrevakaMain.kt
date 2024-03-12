@@ -26,10 +26,10 @@ import org.springframework.context.annotation.Profile
         TransactionAutoConfiguration::class,
     ],
 )
-class Main
+class TrevakaMain
 
 fun main(args: Array<String>) {
-    runApplication<Main>(*args)
+    runApplication<TrevakaMain>(*args)
 }
 
 @Profile("tampere_evaka")

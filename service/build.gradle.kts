@@ -58,7 +58,7 @@ dependencies {
 }
 
 springBoot {
-    mainClass.set("trevaka.MainKt")
+    mainClass.set("trevaka.TrevakaMainKt")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
