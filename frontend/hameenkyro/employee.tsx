@@ -276,7 +276,7 @@ const customizations: EmployeeCustomizations = {
             </>
           ),
           jurisdictionText:
-            'Delegointipäätös pohjautuu Sivistys- ja kulttuurilautakunnan toimivallan siirtämiseen viranhaltijoille 14.6.2022 § 116: Varhaiskasvatuksen palvelupäällikkö päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista yksityisessä varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku) ja päiväkodin johtaja päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista kunnallisessa varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku)'
+            'Hämeenkyrön kunnan hallintosäännön 108 §:n mukaan varhaiskasvatuksen johtaja päättää varhaiskasvatuksessa annettavasta tehostetusta ja erityisestä tuesta ja tukipalveluista.'
         },
         assistanceNeedPreschoolDecision: {
           validFromInfo: () => (
