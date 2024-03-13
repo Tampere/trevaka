@@ -78,3 +78,9 @@ hameenkyro:
     password: pass
   bucket:
     export: trevaka-export-it
+ylojarvi:
+  ipaas:
+    username: user
+    password: pass
+  bucket:
+    export: trevaka-export-it

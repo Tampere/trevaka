@@ -49,3 +49,9 @@ class VesilahtiComponentScan
 @ComponentScan("fi.hameenkyro.evaka")
 @ConfigurationPropertiesScan(basePackages = ["fi.hameenkyro.evaka"])
 class HameenkyroComponentScan
+
+@Profile("ylojarvi_evaka")
+@Configuration
+@ComponentScan("fi.ylojarvi.evaka")
+@ConfigurationPropertiesScan(basePackages = ["fi.ylojarvi.evaka"])
+class YlojarviComponentScan

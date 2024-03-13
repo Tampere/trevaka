@@ -40,6 +40,9 @@ module.exports = {
     env_hameenkyro: {
       'EVAKA_CUSTOMIZATIONS': 'hameenkyro',
     },
+    env_ylojarvi: {
+      'EVAKA_CUSTOMIZATIONS': 'ylojarvi',
+    },
     ...defaults
   }, {
     name: 'trevaka-service',
@@ -57,6 +60,9 @@ module.exports = {
     },
     env_hameenkyro: {
       SPRING_PROFILES_ACTIVE: 'hameenkyro_evaka',
+    },
+    env_ylojarvi: {
+      SPRING_PROFILES_ACTIVE: 'ylojarvi_evaka',
     },
     ...defaults
   },
