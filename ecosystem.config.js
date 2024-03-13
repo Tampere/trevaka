@@ -43,6 +43,9 @@ module.exports = {
     env_ylojarvi: {
       'EVAKA_CUSTOMIZATIONS': 'ylojarvi',
     },
+    env_pirkkala: {
+      'EVAKA_CUSTOMIZATIONS': 'pirkkala',
+    },
     ...defaults
   }, {
     name: 'trevaka-service',
@@ -63,6 +66,9 @@ module.exports = {
     },
     env_ylojarvi: {
       SPRING_PROFILES_ACTIVE: 'ylojarvi_evaka',
+    },
+    env_pirkkala: {
+      SPRING_PROFILES_ACTIVE: 'pirkkala_evaka',
     },
     ...defaults
   },
