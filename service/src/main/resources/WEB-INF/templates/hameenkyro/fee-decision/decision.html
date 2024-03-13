@@ -18,18 +18,11 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 <header th:replace="~{ hameenkyro/shared/common :: feeDecisionHeader}"></header>
 <footer th:replace="~{ hameenkyro/shared/common :: footer}"></footer>
 
-<div class="page first-page">
-    <div class="address">
-        <div th:text="${headFullName}"></div>
-        <div th:if="${partnerIsCodebtor}" th:text="${partnerFullName}"></div>
-        <div th:text="${sendAddress.row1}"></div>
-        <div th:text="${sendAddress.row2}"></div>
-        <div th:if="${not #strings.isEmpty(sendAddress.row3)}" th:text="${sendAddress.row3}"></div>
-    </div>
-
+<div class="page">
     <h1 th:if="${isReliefDecision}" th:text="${#messages.msg('text.relief.title.' + derivedPlacementType)}"></h1>
     <h1 th:unless="${isReliefDecision}" th:text="${#messages.msg('text.title.' + derivedPlacementType)}"></h1>
 
+    <div th:text="${partnerIsCodebtor} ? ${#messages.msg('text.names', headFullName, partnerFullName)} : ${#messages.msg('text.name', headFullName)}"></div>
 
     <p th:unless="${decisionType == 'NORMAL'}">
         <th:block th:text="#{text.relief.handled}">Maksuvapautushakemuksenne on käsitelty.</th:block>

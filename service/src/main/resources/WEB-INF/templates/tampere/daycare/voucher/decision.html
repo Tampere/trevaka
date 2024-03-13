@@ -17,10 +17,9 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 <header th:replace="~{ tampere/shared/common :: header}"></header>
 <footer th:replace="~{ tampere/shared/common :: footer}"></footer>
 
-<div class="page first-page">
-    <address th:replace="~{ tampere/shared/common :: address}"></address>
-
+<div class="page">
     <h1 th:text="#{decision.title}"></h1>
+    <div th:if="${guardian} != null" th:text="|${guardian.firstName} ${guardian.lastName},|"></div>
     <div th:replace="~{ tampere/shared/common :: child-and-unit-details}"></div>
 
     <div th:utext="#{decision.instructions}"></div>
