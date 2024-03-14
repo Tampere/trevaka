@@ -391,7 +391,6 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             <strong th:utext="${#messages.msgOrNull('decision.approver.help.' + decision.type)} ?: #{decision.approver.help}">Lisätietoja myönnetystä varhaiskasvatuspaikasta:</strong>
         </p>
         <th:block th:if="${decision.type.name() != 'PRESCHOOL'}">
-            <div th:utext="#{decision.approver.title}">Varhaiskasvatuksen palveluohjaaja</div>
             <div>
                 <a th:href="'mailto:' + #{decision.approver.email.email}"
                    th:text="#{decision.approver.email.email}"></a>
