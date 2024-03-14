@@ -42,10 +42,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
 import java.util.UUID
 
-private val settings = mapOf(
-    SettingType.DECISION_MAKER_NAME to "Paula Palvelupäällikkö",
-    SettingType.DECISION_MAKER_TITLE to "Asiakaspalvelupäällikkö",
-)
+private val settings = emptyMap<SettingType, String>()
 
 class VesilahtiPdfGeneratorTest : AbstractVesilahtiIntegrationTest() {
 

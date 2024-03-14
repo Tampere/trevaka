@@ -383,17 +383,14 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             <div th:text="#{decision.approver.additionalInfo}">(allekirjoitettu koneellisesti)</div>
         </th:block>
         <th:block th:unless="${type == 'notice'}">
-            <div th:if="${not #strings.isEmpty(decisionMakerName)}" th:text="${decisionMakerName}"></div>
-            <div th:if="${not #strings.isEmpty(decisionMakerTitle)}" th:text="${decisionMakerTitle}">Asiakaspalvelupäällikkö</div>
-            <div th:if="${not #strings.isEmpty(decisionMakerName) or not #strings.isEmpty(decisionMakerTitle)}"
-                 th:text="#{decision.approver.additionalInfo}">(allekirjoitettu koneellisesti)</div>
+            <div th:text="${decision.createdBy}"></div>
+            <div th:text="#{decision.approver.additionalInfo}">(allekirjoitettu koneellisesti)</div>
         </th:block>
         <br/>
         <p>
             <strong th:utext="${#messages.msgOrNull('decision.approver.help.' + decision.type)} ?: #{decision.approver.help}">Lisätietoja myönnetystä varhaiskasvatuspaikasta:</strong>
         </p>
         <th:block th:if="${decision.type.name() != 'PRESCHOOL'}">
-            <div th:utext="#{decision.approver.title}">Varhaiskasvatuksen palveluohjaaja</div>
             <div>
                 <a th:href="'mailto:' + #{decision.approver.email.email}"
                    th:text="#{decision.approver.email.email}"></a>
