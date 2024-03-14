@@ -68,10 +68,7 @@ class VesilahtiActionRuleMapping : ActionRuleMapping {
             )
         }
         Action.Global.SEND_PATU_REPORT, Action.Global.SUBMIT_PATU_REPORT -> emptySequence()
-        Action.Global.SETTINGS_PAGE,
-        Action.Global.UPDATE_SETTINGS,
-        ->
-            action.defaultRules.asSequence() + sequenceOf(HasGlobalRole(UserRole.SERVICE_WORKER))
+        Action.Global.SETTINGS_PAGE, Action.Global.UPDATE_SETTINGS -> emptySequence()
         else -> action.defaultRules.asSequence()
     }
 
