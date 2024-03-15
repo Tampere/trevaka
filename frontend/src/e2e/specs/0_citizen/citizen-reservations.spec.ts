@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-import LocalDate from 'lib-common/local-date'
+import HelsinkiDateTime from 'lib-common/helsinki-date-time'
 import config from 'e2e-test/config'
 import { resetDatabaseForE2ETests } from '../../common/tampere-dev-api'
 import { createDaycarePlacements } from 'e2e-test/generated/api-clients'
@@ -19,6 +19,9 @@ import CitizenHeader from 'e2e-test/pages/citizen/citizen-header'
 import { Page } from 'e2e-test/utils/page'
 import { waitUntilEqual } from "e2e-test/utils";
 import { enduserLogin } from 'e2e-test/utils/user'
+
+const mockedTime = HelsinkiDateTime.of(2024, 3, 14, 7, 26)
+const mockedDate = mockedTime.toLocalDate()
 
 let page: Page
 let header: CitizenHeader
@@ -72,14 +75,14 @@ beforeEach(async () => {
             uuidv4(),
             child.id,
             daycareFixture.id,
-            LocalDate.todayInHelsinkiTz(),
-            LocalDate.todayInHelsinkiTz().addYears(1)
+            mockedDate,
+            mockedDate.addYears(1)
           )
         )
       }
     )
 
-    page = await Page.open()
+    page = await Page.open({ mockedTime })
     await page.goto(config.enduserUrl)
     await enduserLogin(page)
     header = new CitizenHeader(page)
@@ -89,7 +92,7 @@ beforeEach(async () => {
 
 describe('Citizen attendance reservations', () => {
     test('Open absence modal and check Tampere options', async () => {
-        const reservationDay = LocalDate.todayInHelsinkiTz().addBusinessDays(10)
+        const reservationDay = mockedDate.addBusinessDays(10)
 
         const dayView = await calendarPage.openDayView(reservationDay)
         await dayView.createAbsence()
