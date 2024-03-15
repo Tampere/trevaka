@@ -393,6 +393,7 @@ workflows:
                 - hameenkyro
                 - ylojarvi
                 - pirkkala
+                - nokia
 
       - service_build_image:
           context:
