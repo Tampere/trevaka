@@ -392,6 +392,7 @@ workflows:
                 - vesilahti
                 - hameenkyro
                 - ylojarvi
+                - pirkkala
 
       - service_build_image:
           context:
