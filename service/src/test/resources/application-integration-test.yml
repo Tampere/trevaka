@@ -90,3 +90,9 @@ pirkkala:
     password: pass
   bucket:
     export: trevaka-export-it
+nokia:
+  ipaas:
+    username: user
+    password: pass
+  bucket:
+    export: trevaka-export-it

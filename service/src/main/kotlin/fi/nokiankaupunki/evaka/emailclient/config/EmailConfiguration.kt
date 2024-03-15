@@ -1,0 +1,428 @@
+// SPDX-FileCopyrightText: 2024 Tampere region
+//
+// SPDX-License-Identifier: LGPL-2.1-or-later
+
+package fi.nokiankaupunki.evaka.emailclient.config
+
+import fi.espoo.evaka.daycare.domain.Language
+import fi.espoo.evaka.emailclient.CalendarEventNotificationData
+import fi.espoo.evaka.emailclient.EmailContent
+import fi.espoo.evaka.emailclient.IEmailMessageProvider
+import fi.espoo.evaka.invoicing.service.IncomeNotificationType
+import fi.espoo.evaka.messaging.MessageThreadStub
+import fi.espoo.evaka.messaging.MessageType
+import fi.espoo.evaka.shared.ChildId
+import fi.espoo.evaka.shared.domain.FiniteDateRange
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.Locale
+
+@Configuration
+class EmailConfiguration {
+
+    @Bean
+    fun emailMessageProvider(): IEmailMessageProvider = NokiaEmailMessageProvider()
+}
+
+class NokiaEmailMessageProvider : IEmailMessageProvider {
+
+    private val unsubscribeFi =
+        """<p><small>Jos et halua enää saada tämänkaltaisia viestejä, voit muuttaa asetuksia eVakan Omat tiedot -sivulla</small></p>"""
+    private val unsubscribeEn =
+        """<p><small>If you no longer want to receive messages like this, you can change your settings on eVaka's Personal information page</small></p>"""
+    private val subjectForPendingDecisionEmail: String = "Toimenpiteitäsi odotetaan"
+    private val subjectForApplicationReceivedEmail: String = "Hakemus vastaanotettu"
+    private val subjectForDecisionEmail: String = "Päätös eVakassa"
+    private val subjectForNewDocument: String = "Uusi dokumentti eVakassa / New document in eVaka"
+    private val subjectForRequestToReviewIncomeInfo: String = "Tulotietojen tarkastuskehotus / Request to review income information"
+
+    override fun pendingDecisionNotification(language: Language) = EmailContent.fromHtml(
+        subject = subjectForPendingDecisionEmail,
+        html = getPendingDecisionEmailHtml(),
+    )
+
+    override fun clubApplicationReceived(language: Language) = EmailContent.fromHtml(
+        subject = subjectForApplicationReceivedEmail,
+        html = getClubApplicationReceivedEmailHtml(),
+    )
+
+    override fun daycareApplicationReceived(language: Language) = EmailContent.fromHtml(
+        subject = subjectForApplicationReceivedEmail,
+        html = getDaycareApplicationReceivedEmailHtml(),
+    )
+
+    override fun preschoolApplicationReceived(language: Language, withinApplicationPeriod: Boolean) = EmailContent.fromHtml(
+        subject = subjectForApplicationReceivedEmail,
+        html = getPreschoolApplicationReceivedEmailHtml(),
+    )
+
+    override fun assistanceNeedDecisionNotification(language: Language) = EmailContent.fromHtml(
+        subject = subjectForDecisionEmail,
+        html = getDecisionEmailHtml(),
+    )
+
+    override fun assistanceNeedPreschoolDecisionNotification(language: Language) = EmailContent.fromHtml(
+        subject = subjectForDecisionEmail,
+        html = getDecisionEmailHtml(),
+    )
+
+    private fun getPendingDecisionEmailHtml(): String {
+        return """
+            <p>Olet saanut päätöksen/ilmoituksen Nokian varhaiskasvatukselta, joka odottaa toimenpiteitäsi. Myönnetty varhaiskasvatus-/kerhopaikka tulee hyväksyä tai hylätä kahden viikon sisällä päätöksen saapumisesta.</p>
+            
+            <p>Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla Nokian varhaiskasvatuksen verkkopalveluun eVakaan tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.</p>
+            
+            <p>Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun.</p>
+            
+            $unsubscribeFi
+        """.trimIndent()
+    }
+
+    private fun getClubApplicationReceivedEmailHtml(): String {
+        return """
+            <p>Hyvä huoltaja,</p>
+            
+            <p>lapsenne kerhohakemus on vastaanotettu.</p>
+            
+            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Nokian varhaiskasvatuksen verkkopalvelussa eVakassa siihen saakka, kunnes se on otettu käsittelyyn asiakaspalvelussa.</p>
+            
+            <p>Kirjallinen ilmoitus myönnetystä kerhopaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, ilmoitus lähetetään hänelle postitse.</p>
+            
+            <p>Myönnetyn kerhopaikan voi hyväksyä / hylätä sähköisesti eVakassa. Kerhohakemus kohdistuu yhdelle kerhon toimintakaudelle. Kauden päättyessä hakemus poistetaan järjestelmästä.</p>
+            
+            <p>Lisätietoa hakemuksen käsittelystä ja kerhopaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta.</p>
+            
+            <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
+        """.trimIndent()
+    }
+
+    private fun getDaycareApplicationReceivedEmailHtml(): String {
+        return """
+            <p>Hyvä huoltaja,</p>
+            
+            <p>lapsenne varhaiskasvatushakemus on vastaanotettu.</p>
+            
+            <p>Varhaiskasvatushakemuksella on neljän (4) kuukauden hakuaika. Hakemuksen tehnyt huoltaja voi muokata hakemusta Nokian varhaiskasvatuksen verkkopalvelussa eVakassa siihen saakka, kunnes se on otettu käsittelyyn.</p>
+            
+            <p>Saatte tiedon lapsenne varhaiskasvatuspaikasta noin kuukautta ennen palvelutarpeen alkamista tai hakemuksen lakisääteisen järjestelyajan päättymistä. Hakemuksen lakisääteinen järjestelyaika on neljä (4) kuukautta hakemuksen saapumisesta.</p>
+            
+            <p>Mikäli hakemuksenne on kiireellinen, ottakaa yhteyttä viipymättä Varhaiskasvatuksen asiakaspalveluun. Hakuaika kiireellisissä hakemuksissa on minimissään kaksi (2) viikkoa ja se alkaa siitä päivästä, kun olette olleet yhteydessä asiakaspalveluun.</p>
+            
+            <p>Kirjallinen päätös varhaiskasvatuspaikasta lähetetään huoltajalle Suomi.fi-viestit -palveluun. Mikäli huoltaja ei ole ottanut Suomi.fi-viestit -palvelua käyttöön, päätös lähetetään hänelle postitse.</p>
+            
+            <p>Myönnetyn varhaiskasvatuspaikan voi hyväksyä / hylätä sähköisesti eVakassa. Mikäli haette paikkaa palvelusetelipäiväkodista, olkaa yhteydessä kyseiseen päiväkotiin viimeistään hakemuksen jättämisen jälkeen.</p>
+            
+            <p>Ilta- ja vuorohoitoa haettaessa, hakemuksen liitteeksi tulee toimittaa molempien samassa taloudessa asuvien huoltajien todistukset työnantajalta vuorotyöstä tai oppilaitoksesta iltaisin tapahtuvasta opiskelusta. Hakemusta käsitellään vuorohoidon hakemuksena vasta sen jälkeen, kun edellä mainitut todistukset on toimitettu. Tarvittavat liitteet voi lisätä suoraan sähköiselle hakemukselle tai toimittaa postitse osoitteeseen Tampereen kaupunki, Varhaiskasvatuksen asiakaspalvelu, PL 487, 33101 Tampere.</p>
+            
+            <p>Hakiessanne lapsellenne siirtoa toiseen varhaiskasvatusyksikköön, hakemuksella ei ole hakuaikaa. Siirrot pystytään toteuttamaan pääsääntöisesti elokuusta alkaen. Mikäli lapsen nykyinen hoitopaikka irtisanotaan, myös siirtohakemus poistuu.</p>
+            
+            <p>Lisätietoa hakemuksen käsittelystä ja varhaiskasvatuspaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta.</p>
+            
+            <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
+        """.trimIndent()
+    }
+
+    private fun getPreschoolApplicationReceivedEmailHtml(): String {
+        return """
+            <p>Hyvä huoltaja,</p>
+            
+            <p>lapsenne esiopetukseen ilmoittautuminen on vastaanotettu.</p>
+            
+            <p>Hakemuksen tehnyt huoltaja voi muokata hakemusta Nokian varhaiskasvatuksen verkkopalvelussa eVakassa siihen saakka, kunnes se on otettu käsittelyyn.</p>
+            
+            <p>Lisätietoa hakemuksen käsittelystä ja esiopetuspaikan myöntämisestä saa varhaiskasvatuksen ja esiopetuksen asiakaspalvelusta.</p>
+            
+            <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
+        """.trimIndent()
+    }
+
+    private fun getDecisionEmailHtml(): String {
+        return """
+            <p>Hyvä(t) huoltaja(t),</p>
+    
+            <p>Lapsellenne on tehty päätös liittyen varhaiskasvatukseen/esiopetukseen.</p>
+    
+            <p>Päätös on nähtävissä Nokian varhaiskasvatuksen verkkopalvelu eVakassa Päätökset-välilehdeltä.</p>
+    
+            $unsubscribeFi
+        """.trimIndent()
+    }
+
+    override fun missingReservationsNotification(language: Language, checkedRange: FiniteDateRange): EmailContent {
+        val start =
+            checkedRange.start.format(
+                DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale.of("fi", "FI")),
+            )
+        return EmailContent.fromHtml(
+            subject = "Läsnäolovarauksia puuttuu / There are missing attendance reservations",
+            html = """
+                <p>Läsnäolovarauksia puuttuu $start alkavalta viikolta. Käythän merkitsemässä ne mahdollisimman pian.</p>
+                
+                $unsubscribeFi
+                
+                <hr>
+                
+                <p>There are missing attendance reservations for the week starting $start. Please mark them as soon as possible.</p>
+                
+                $unsubscribeEn
+            """.trimIndent(),
+        )
+    }
+
+    override fun messageNotification(language: Language, thread: MessageThreadStub): EmailContent {
+        val (typeFi, typeEn) =
+            when (thread.type) {
+                MessageType.MESSAGE ->
+                    if (thread.urgent) {
+                        Pair("kiireellinen viesti", "urgent message")
+                    } else {
+                        Pair("viesti", "message")
+                    }
+                MessageType.BULLETIN ->
+                    if (thread.urgent) {
+                        Pair("kiireellinen tiedote", "urgent bulletin")
+                    } else {
+                        Pair("tiedote", "bulletin")
+                    }
+            }
+        return EmailContent.fromHtml(
+            subject = "Uusi $typeFi eVakassa / New $typeEn in eVaka",
+            html = """
+                <p>Sinulle on saapunut uusi $typeFi eVakaan.</p>
+                
+                <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+                
+                $unsubscribeFi
+                
+                <hr>
+                
+                <p>You have received a new $typeEn in eVaka.</p>
+                
+                <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+                
+                $unsubscribeEn
+            """.trimIndent(),
+        )
+    }
+
+    override fun childDocumentNotification(language: Language, childId: ChildId): EmailContent = EmailContent.fromHtml(
+        subject = subjectForNewDocument,
+        html = """
+            <p>Sinulle on saapunut uusi dokumentti eVakaan.</p>
+            
+            <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+            
+            $unsubscribeFi
+            
+            <hr>
+            
+            <p>You have received a new eVaka document.</p>
+            
+            <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+            
+            $unsubscribeEn
+        """.trimIndent(),
+    )
+
+    override fun vasuNotification(language: Language, childId: ChildId): EmailContent = EmailContent.fromHtml(
+        subject = subjectForNewDocument,
+        html = """
+            <p>Sinulle on saapunut uusi dokumentti eVakaan.</p>
+            
+            <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+            
+            $unsubscribeFi
+            
+            <hr>
+            
+            <p>You have received a new eVaka document.</p>
+            
+            <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+            
+            $unsubscribeEn
+        """.trimIndent(),
+    )
+
+    override fun pedagogicalDocumentNotification(language: Language, childId: ChildId): EmailContent = EmailContent.fromHtml(
+        subject = "Uusi pedagoginen dokumentti eVakassa / New pedagogical document in eVaka",
+        html = """
+            <p>Sinulle on saapunut uusi pedagoginen dokumentti eVakaan.</p>
+            
+            <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+            
+            $unsubscribeFi
+            
+            <hr>
+            
+            <p>You have received a new eVaka pedagogical document.</p>
+            
+            <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+            
+            $unsubscribeEn
+        """.trimIndent(),
+    )
+
+    override fun incomeNotification(notificationType: IncomeNotificationType, language: Language) = when (notificationType) {
+        IncomeNotificationType.INITIAL_EMAIL -> outdatedIncomeNotificationInitial()
+        IncomeNotificationType.REMINDER_EMAIL -> outdatedIncomeNotificationReminder()
+        IncomeNotificationType.EXPIRED_EMAIL -> outdatedIncomeNotificationExpired()
+        IncomeNotificationType.NEW_CUSTOMER -> newCustomerIncomeNotification()
+    }
+
+    private fun outdatedIncomeNotificationInitial() = EmailContent.fromHtml(
+        subject = subjectForRequestToReviewIncomeInfo,
+        html = """
+            <p>Hyvä asiakkaamme</p>
+            
+            <p>Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.</p>
+            
+            <p>Pyydämme toimittamaan tuloselvityksen eVakassa 28 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.</p>
+            
+            <p>Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Uusi maksupäätös astuu voimaan sen kuukauden alusta, kun tulotiedot on toimitettu asiakasmaksuihin.</p>
+            
+            <p>Lisätietoja saatte tarvittaessa Nokian kaupungin verkkosivuilta.</p>
+            
+            <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+            
+            $unsubscribeFi
+            
+            <hr>
+            
+            <p>Dear client</p>
+            
+            <p>The income information used for determining the early childhood education fee or the out-of-pocket cost of a service voucher is reviewed every year.</p>
+            
+            <p>We ask you to submit your income statement through eVaka within 28 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.</p>
+            
+            <p>If you do not provide your latest income information, your client fee will be determined based on the highest fee category. The new payment decision takes effect at the beginning of the month when the income information has been submitted to customer services.</p>
+            
+            <p>If necessary, you can get more information from the website of the city of Nokia.</p>
+            
+            <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+            
+            $unsubscribeEn
+        """.trimIndent(),
+    )
+
+    private fun outdatedIncomeNotificationReminder() = EmailContent.fromHtml(
+        subject = subjectForRequestToReviewIncomeInfo,
+        html = """
+            <p>Hyvä asiakkaamme</p>
+            
+            <p>Ette ole vielä toimittaneet uusia tulotietoja. Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.</p>
+            
+            <p>Pyydämme toimittamaan tuloselvityksen eVakassa 14 päivän kuluessa tästä ilmoituksesta. eVakassa voitte myös antaa suostumuksen korkeimpaan maksuluokkaan tai tulorekisterin käyttöön.</p>
+            
+            <p>Mikäli ette toimita uusia tulotietoja, asiakasmaksu määräytyy korkeimman maksuluokan mukaan. Uusi maksupäätös astuu voimaan sen kuukauden alusta, kun tulotiedot on toimitettu asiakasmaksuihin.</p>
+            
+            <p>Lisätietoja saatte tarvittaessa Nokian kaupungin verkkosivuilta.</p>
+            
+            <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+            
+            $unsubscribeFi
+            
+            <hr>
+            
+            <p>Dear client</p>
+            
+            <p>You have not yet submitted your latest income information. The income information used for determining the early childhood education fee or the out-of-pocket cost of a service voucher is reviewed every year.</p>
+            
+            <p>We ask you to submit your income statement through eVaka within 14 days of this notification. Through eVaka, you can also give your consent to the highest fee or the use of the Incomes Register.</p>
+            
+            <p>If you do not provide your latest income information, your client fee will be determined based on the highest fee category. The new payment decision takes effect at the beginning of the month when the income information has been submitted to customer services.</p>
+            
+            <p>If necessary, you can get more information from the website of the city of Nokia.</p>
+            
+            <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+            
+            $unsubscribeEn
+        """.trimIndent(),
+    )
+
+    private fun outdatedIncomeNotificationExpired() = EmailContent.fromHtml(
+        subject = subjectForRequestToReviewIncomeInfo,
+        html = """
+            <p>Hyvä asiakkaamme</p>
+            
+            <p>Seuraava asiakasmaksunne määräytyy korkeimman maksuluokan mukaan, sillä ette ole toimittaneet uusia tulotietoja määräaikaan mennessä.</p>
+            
+            <p>Lisätietoja saatte tarvittaessa Nokian kaupungin verkkosivuilta.</p>
+            
+            <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+            
+            $unsubscribeFi
+            
+            <hr>
+            
+            <p>Dear client</p>
+            
+            <p>Your next client fee will be determined based on the highest fee category as you did not provide your latest income information by the deadline.</p>
+            
+            <p>If necessary, you can get more information from the website of the city of Nokia.</p>
+            
+            <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+            
+            $unsubscribeEn
+        """.trimIndent(),
+    )
+
+    private fun newCustomerIncomeNotification(): EmailContent {
+        return EmailContent.fromHtml(
+            subject =
+            "Tulotietojen tarkastuskehotus / Request to review income information",
+            html =
+            """
+<p>Hyvä asiakkaamme</p>
+<p>Lapsenne on aloittamassa varhaiskasvatuksessa tämän kuukauden aikana. Pyydämme teitä toimittamaan tulotiedot eVaka-järjestelmän kautta tämän kuukauden loppuun mennessä.</p>
+<p>Lisätietoja saatte tarvittaessa Nokian kaupungin verkkosivuilta.</p>
+<p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
+$unsubscribeFi
+<hr>
+<p>Dear client</p>
+<p>Your child is starting early childhood education during this month. We ask you to submit your income information via eVaka system by the end of this month.</p>
+<p>If necessary, you can get more information from the website of the city of Nokia.</p>
+<p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
+$unsubscribeEn
+            """
+                .trimIndent(),
+        )
+    }
+
+    override fun calendarEventNotification(
+        language: Language,
+        events: List<CalendarEventNotificationData>,
+    ): EmailContent {
+        val format =
+            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale.of("fi", "FI"))
+        val eventsHtml =
+            "<ul>" +
+                events.joinToString("\n") { event ->
+                    var period = event.period.start.format(format)
+                    if (event.period.end != event.period.start) {
+                        period += "-${event.period.end.format(format)}"
+                    }
+                    "<li>$period: ${event.title}</li>"
+                } +
+                "</ul>"
+        return EmailContent.fromHtml(
+            subject = "Uusia kalenteritapahtumia eVakassa / New calendar events in eVaka",
+            html = """
+                <p>eVakaan on lisätty uusia kalenteritapahtumia:</p>
+                
+                $eventsHtml
+                
+                $unsubscribeFi
+                
+                <hr>
+                
+                <p>New calendar events in eVaka:</p>
+                
+                $eventsHtml
+                
+                $unsubscribeEn
+            """.trimIndent(),
+        )
+    }
+}
