@@ -86,3 +86,9 @@ kangasala:
     password: pass
   bucket:
     export: trevaka-export-dev
+lempaala:
+  ipaas:
+    username: user
+    password: pass
+  bucket:
+    export: trevaka-export-dev
