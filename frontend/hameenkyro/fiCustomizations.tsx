@@ -214,7 +214,7 @@ const fi: DeepPartial<Translations> = {
           },
           info: {
             PRESCHOOL: [
-              'Lukuvuosi 2024-2025 alkaa keskiviikkona 7.8.2024 ja päättyy keskiviikkona 28.5.2025.'
+              'Lukuvuosi 2024-2025 alkaa torstaina 8.8.2024 ja päättyy perjantaina 30.5.2025.'
             ]
           },
           label: {
