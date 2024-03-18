@@ -68,3 +68,15 @@ ylojarvi:
     password: pass
   bucket:
     export: trevaka-export-dev
+pirkkala:
+  ipaas:
+    username: user
+    password: pass
+  bucket:
+    export: trevaka-export-dev
+nokia:
+  ipaas:
+    username: user
+    password: pass
+  bucket:
+    export: trevaka-export-dev

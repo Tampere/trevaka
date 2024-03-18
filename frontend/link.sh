@@ -9,7 +9,7 @@ set -euo pipefail
 
 EVAKA=../evaka/frontend
 
-for MUNICIPALITY in tampere vesilahti hameenkyro ylojarvi
+for MUNICIPALITY in tampere vesilahti hameenkyro ylojarvi pirkkala nokia
 do
   CUSTOMIZATIONS="${EVAKA}"/src/lib-customizations/${MUNICIPALITY}
   if [ ! -e "${CUSTOMIZATIONS}" ]; then

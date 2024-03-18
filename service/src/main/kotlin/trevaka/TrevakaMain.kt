@@ -55,3 +55,15 @@ class HameenkyroComponentScan
 @ComponentScan("fi.ylojarvi.evaka")
 @ConfigurationPropertiesScan(basePackages = ["fi.ylojarvi.evaka"])
 class YlojarviComponentScan
+
+@Profile("pirkkala_evaka")
+@Configuration
+@ComponentScan("fi.pirkkala.evaka")
+@ConfigurationPropertiesScan(basePackages = ["fi.pirkkala.evaka"])
+class PirkkalaComponentScan
+
+@Profile("nokia_evaka")
+@Configuration
+@ComponentScan("fi.nokiankaupunki.evaka")
+@ConfigurationPropertiesScan(basePackages = ["fi.nokiankaupunki.evaka"])
+class NokiaComponentScan
