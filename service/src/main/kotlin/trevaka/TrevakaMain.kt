@@ -67,3 +67,9 @@ class PirkkalaComponentScan
 @ComponentScan("fi.nokiankaupunki.evaka")
 @ConfigurationPropertiesScan(basePackages = ["fi.nokiankaupunki.evaka"])
 class NokiaComponentScan
+
+@Profile("kangasala_evaka")
+@Configuration
+@ComponentScan("fi.kangasala.evaka")
+@ConfigurationPropertiesScan(basePackages = ["fi.kangasala.evaka"])
+class KangasalaComponentScan
