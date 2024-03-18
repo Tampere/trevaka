@@ -49,6 +49,9 @@ module.exports = {
     env_nokia: {
       'EVAKA_CUSTOMIZATIONS': 'nokia',
     },
+    env_kangasala: {
+      'EVAKA_CUSTOMIZATIONS': 'kangasala',
+    },
     ...defaults
   }, {
     name: 'trevaka-service',
@@ -75,6 +78,9 @@ module.exports = {
     },
     env_nokia: {
       SPRING_PROFILES_ACTIVE: 'nokia_evaka',
+    },
+    env_kangasala: {
+      SPRING_PROFILES_ACTIVE: 'kangasala_evaka',
     },
     ...defaults
   },
