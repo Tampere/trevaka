@@ -17,10 +17,9 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 <header th:replace="~{ hameenkyro/shared/common :: header}"></header>
 <footer th:replace="~{ hameenkyro/shared/common :: footer}"></footer>
 
-<div class="page first-page">
-    <address th:replace="~{ hameenkyro/shared/common :: address}"></address>
-
+<div class="page">
     <h1 th:text="${#messages.msgOrNull('decision.title.' + decision.type)} ?: #{decision.title}"></h1>
+    <div th:if="${guardian} != null" th:text="|${guardian.firstName} ${guardian.lastName},|"></div>
     <div th:replace="~{ hameenkyro/shared/common :: child-and-unit-details}"></div>
 
     <div th:utext="${#messages.msgOrNull('decision.instructions.' + decision.type)} ?: #{decision.instructions}"></div>

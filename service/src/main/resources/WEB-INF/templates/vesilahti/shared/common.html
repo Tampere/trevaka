@@ -91,10 +91,6 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             page-break-inside: avoid;
         }
 
-        .page.first-page h1 {
-            margin-top: 30mm;
-        }
-
         .headerLeft {
             position: running(headerLeft);
             display: inline-block;
@@ -401,17 +397,6 @@ SPDX-License-Identifier: LGPL-2.1-or-later
     <p>
     <div th:text="#{decision.inform.guardians}"></div>
     </p>
-</div>
-
-<div th:fragment="address">
-    <div class="address">
-        <div th:if="${guardian} != null" th:text="|${guardian.firstName} ${guardian.lastName}|"></div>
-        <th:block th:if="${sendAddress} != null">
-            <div th:text="${sendAddress.row1}"></div>
-            <div th:text="${sendAddress.row2}"></div>
-            <div th:if="${not #strings.isEmpty(sendAddress.row3)}" th:text="${sendAddress.row3}"></div>
-        </th:block>
-    </div>
 </div>
 
 <span th:fragment="placement-dates">
