@@ -96,3 +96,15 @@ nokia:
     password: pass
   bucket:
     export: trevaka-export-it
+kangasala:
+  ipaas:
+    username: user
+    password: pass
+  bucket:
+    export: trevaka-export-it
+lempaala:
+  ipaas:
+    username: user
+    password: pass
+  bucket:
+    export: trevaka-export-it

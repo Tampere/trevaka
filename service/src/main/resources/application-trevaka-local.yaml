@@ -80,3 +80,15 @@ nokia:
     password: pass
   bucket:
     export: trevaka-export-dev
+kangasala:
+  ipaas:
+    username: user
+    password: pass
+  bucket:
+    export: trevaka-export-dev
+lempaala:
+  ipaas:
+    username: user
+    password: pass
+  bucket:
+    export: trevaka-export-dev

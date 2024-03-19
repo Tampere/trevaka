@@ -394,6 +394,8 @@ workflows:
                 - ylojarvi
                 - pirkkala
                 - nokia
+                - kangasala
+                - lempaala
 
       - service_build_image:
           context:
