@@ -607,6 +607,7 @@ const customizations: EmployeeCustomizations = {
     'DAYCARE',
     'TEMPORARY_DAYCARE',
     'PRESCHOOL_DAYCARE_ONLY',
+    'PREPARATORY_DAYCARE_ONLY',
     'SCHOOL_SHIFT_CARE'
   ],
   placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER'],
