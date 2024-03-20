@@ -588,7 +588,7 @@ const customizations: EmployeeCustomizations = {
     src: VesilahtiLogo,
     alt: 'Vesilahti logo'
   },
-  featureFlags: { ...featureFlags, preparatory: true },
+  featureFlags,
   absenceTypes: [
     'OTHER_ABSENCE',
     'SICKLEAVE',
