@@ -16,7 +16,7 @@ import java.util.*
 class S3Sender(private val s3Client: S3Client, private val properties: HameenkyroProperties) {
     fun send(content: String) {
         val bucket = properties.bucket.export
-        val fileName = SimpleDateFormat("'invoices/hameenkyro-'yyyyMMdd-hhmmss'.txt'").format(Date())
+        val fileName = SimpleDateFormat("'invoices/hameenkyro-'yyyyMMdd-HHmmss'.txt'").format(Date())
 
         val request = PutObjectRequest.builder()
             .bucket(bucket)
