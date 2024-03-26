@@ -110,6 +110,7 @@ private val validAssistanceNeedPreschoolDecisionForm =
         language = AssistanceNeedDecisionLanguage.FI,
         type = AssistanceNeedPreschoolDecisionType.NEW,
         validFrom = LocalDate.of(2022, 8, 2),
+        validTo = null,
         extendedCompulsoryEducation = true,
         extendedCompulsoryEducationInfo = "Pidennetyn oppivelvollisuuden infosisältö",
         grantedAssistanceService = true,
