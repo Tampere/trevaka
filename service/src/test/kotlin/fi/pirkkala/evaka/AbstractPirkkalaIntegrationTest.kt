@@ -9,11 +9,7 @@ import fi.espoo.evaka.decision.DecisionType
 import fi.espoo.evaka.invoicing.domain.FeeDecisionType
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionType
 import fi.espoo.evaka.placement.PlacementType
-import org.springframework.context.ApplicationListener
-import org.springframework.context.event.ContextRefreshedEvent
-import org.springframework.stereotype.Component
 import org.springframework.test.context.ActiveProfiles
-import software.amazon.awssdk.services.s3.S3Client
 import trevaka.AbstractIntegrationTest
 import java.util.stream.Stream
 
@@ -52,15 +48,4 @@ abstract class AbstractPirkkalaIntegrationTest : AbstractIntegrationTest() {
         VoucherValueDecisionType.RELIEF_REJECTED,
         VoucherValueDecisionType.RELIEF_ACCEPTED,
     )
-}
-
-@Component
-class PirkkalaIntegrationTestInit(private val client: S3Client, private val properties: PirkkalaProperties) :
-    ApplicationListener<ContextRefreshedEvent> {
-    override fun onApplicationEvent(event: ContextRefreshedEvent) {
-        val existingBuckets = client.listBuckets().buckets().map { it.name() }
-        properties.bucket.allBuckets()
-            .filterNot { bucket -> existingBuckets.contains(bucket) }
-            .forEach { bucket -> client.createBucket { it.bucket(bucket) } }
-    }
 }
