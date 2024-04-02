@@ -24,7 +24,6 @@ import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.DecisionId
 import fi.espoo.evaka.shared.PersonId
 import fi.espoo.evaka.shared.ServiceNeedOptionId
-import fi.espoo.evaka.shared.message.IMessageProvider
 import fi.espoo.evaka.shared.template.ITemplateProvider
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.junit.jupiter.api.Test
@@ -39,9 +38,6 @@ private val settings = mapOf(
 )
 
 class DecisionServiceTest : AbstractTampereIntegrationTest() {
-
-    @Autowired
-    private lateinit var messageProvider: IMessageProvider
 
     @Autowired
     private lateinit var templateProvider: ITemplateProvider
@@ -64,7 +60,6 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
         @CartesianTest.Values(booleans = [false, true]) isTransferApplication: Boolean,
     ) {
         val bytes = createDecisionPdf(
-            messageProvider,
             templateProvider,
             pdfGenerator,
             settings,
@@ -99,7 +94,6 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
     @Test
     fun createDecisionPdfWithoutServiceNeed() {
         val bytes = createDecisionPdf(
-            messageProvider,
             templateProvider,
             pdfGenerator,
             settings,
@@ -125,7 +119,6 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
     @Test
     fun createDecisionPdfWithoutSettings() {
         val bytes = createDecisionPdf(
-            messageProvider,
             templateProvider,
             pdfGenerator,
             mapOf(),
@@ -157,7 +150,6 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
     @Test
     fun createRestrictedDetailsEnabledPdf() {
         val bytes = createDecisionPdf(
-            messageProvider,
             templateProvider,
             pdfGenerator,
             settings,
