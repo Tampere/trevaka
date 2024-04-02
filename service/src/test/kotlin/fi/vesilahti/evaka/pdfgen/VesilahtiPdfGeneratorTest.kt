@@ -10,7 +10,6 @@ import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionService
 import fi.espoo.evaka.assistanceneed.preschooldecision.AssistanceNeedPreschoolDecisionService
 import fi.espoo.evaka.daycare.domain.ProviderType
 import fi.espoo.evaka.daycare.service.DaycareManager
-import fi.espoo.evaka.decision.DecisionSendAddress
 import fi.espoo.evaka.decision.DecisionType
 import fi.espoo.evaka.decision.createDecisionPdf
 import fi.espoo.evaka.invoicing.domain.FeeDecisionType
@@ -20,12 +19,9 @@ import fi.espoo.evaka.pdfgen.PdfGenerator
 import fi.espoo.evaka.placement.PlacementType
 import fi.espoo.evaka.setting.SettingType
 import fi.espoo.evaka.shared.ServiceNeedOptionId
-import fi.espoo.evaka.shared.message.IMessageProvider
 import fi.espoo.evaka.shared.template.ITemplateProvider
-import fi.tampere.trevaka.assistanceneed.decision.toPersonDetailed
 import fi.tampere.trevaka.assistanceneed.decision.validAssistanceNeedDecision
 import fi.tampere.trevaka.assistanceneed.decision.validAssistanceNeedPreschoolDecision
-import fi.tampere.trevaka.assistanceneed.decision.validPersonDTO
 import fi.tampere.trevaka.decision.service.validChild
 import fi.tampere.trevaka.decision.service.validDecision
 import fi.tampere.trevaka.decision.service.validDecisionUnit
@@ -45,9 +41,6 @@ import java.util.UUID
 private val settings = emptyMap<SettingType, String>()
 
 class VesilahtiPdfGeneratorTest : AbstractVesilahtiIntegrationTest() {
-
-    @Autowired
-    private lateinit var messageProvider: IMessageProvider
 
     @Autowired
     private lateinit var templateProvider: ITemplateProvider
@@ -70,7 +63,6 @@ class VesilahtiPdfGeneratorTest : AbstractVesilahtiIntegrationTest() {
     @CartesianTest.MethodFactory("createDecisionPdfValues")
     fun createDecisionPdf(decisionType: DecisionType, providerType: ProviderType, isTransferApplication: Boolean) {
         val bytes = createDecisionPdf(
-            messageProvider,
             templateProvider,
             pdfGenerator,
             settings,
@@ -127,13 +119,10 @@ class VesilahtiPdfGeneratorTest : AbstractVesilahtiIntegrationTest() {
     @Test
     fun daycareAssistanceDecisionGeneratePdf() {
         val decision = validAssistanceNeedDecision
-        val headOfFamily = validPersonDTO
 
         val bytes = daycareAssistanceDecisionService.generatePdf(
             sentDate = LocalDate.of(2022, 9, 12),
             decision = decision,
-            sendAddress = DecisionSendAddress.fromPerson(headOfFamily.toPersonDetailed()),
-            guardian = headOfFamily,
         )
 
         val filename = "vesilahti-daycare-assistance-decision.pdf"
@@ -143,14 +132,11 @@ class VesilahtiPdfGeneratorTest : AbstractVesilahtiIntegrationTest() {
     @Test
     fun preschoolAssistanceDecisionGeneratePdf() {
         val decision = validAssistanceNeedPreschoolDecision
-        val headOfFamily = validPersonDTO
 
         val bytes = preschoolAssistanceDecisionService.generatePdf(
             sentDate = LocalDate.of(2022, 9, 12),
             decision = decision,
             validTo = null,
-            sendAddress = DecisionSendAddress.fromPerson(headOfFamily.toPersonDetailed()),
-            guardian = headOfFamily,
         )
 
         val filename = "vesilahti-preschool-assistance-decision.pdf"

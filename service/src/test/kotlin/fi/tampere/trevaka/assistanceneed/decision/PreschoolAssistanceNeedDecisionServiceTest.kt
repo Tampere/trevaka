@@ -12,7 +12,6 @@ import fi.espoo.evaka.assistanceneed.preschooldecision.AssistanceNeedPreschoolDe
 import fi.espoo.evaka.assistanceneed.preschooldecision.AssistanceNeedPreschoolDecisionGuardian
 import fi.espoo.evaka.assistanceneed.preschooldecision.AssistanceNeedPreschoolDecisionService
 import fi.espoo.evaka.assistanceneed.preschooldecision.AssistanceNeedPreschoolDecisionType
-import fi.espoo.evaka.decision.DecisionSendAddress
 import fi.espoo.evaka.shared.AssistanceNeedPreschoolDecisionGuardianId
 import fi.espoo.evaka.shared.AssistanceNeedPreschoolDecisionId
 import fi.espoo.evaka.shared.ChildId
@@ -32,14 +31,10 @@ class PreschoolAssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTes
 
     @Test
     fun generatePdf() {
-        val headOfFamily = validPersonDTO
-
         val bytes =
             preschoolAssistanceNeedDecisionService.generatePdf(
                 sentDate = LocalDate.of(2022, 9, 12),
                 decision = validAssistanceNeedPreschoolDecision,
-                sendAddress = DecisionSendAddress.fromPerson(headOfFamily.toPersonDetailed()),
-                guardian = headOfFamily,
                 validTo = LocalDate.of(2022, 12, 31),
             )
 
@@ -62,8 +57,6 @@ class PreschoolAssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTes
             preschoolAssistanceNeedDecisionService.generatePdf(
                 sentDate = LocalDate.of(2022, 9, 12),
                 decision = decision,
-                sendAddress = null,
-                guardian = null,
                 validTo = LocalDate.of(2022, 12, 31),
             )
 
@@ -89,14 +82,11 @@ class PreschoolAssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTes
                 preparer2Name = "Veikko Valmistelija",
                 form = form,
             )
-        val headOfFamily = validPersonDTO
 
         val bytes =
             preschoolAssistanceNeedDecisionService.generatePdf(
                 sentDate = LocalDate.of(2022, 9, 12),
                 decision = decision,
-                sendAddress = DecisionSendAddress.fromPerson(headOfFamily.toPersonDetailed()),
-                guardian = headOfFamily,
                 validTo = LocalDate.of(2022, 12, 31),
             )
 

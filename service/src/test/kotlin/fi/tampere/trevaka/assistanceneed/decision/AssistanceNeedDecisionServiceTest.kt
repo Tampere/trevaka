@@ -15,7 +15,6 @@ import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionStatus
 import fi.espoo.evaka.assistanceneed.decision.ServiceOptions
 import fi.espoo.evaka.assistanceneed.decision.StructuralMotivationOptions
 import fi.espoo.evaka.assistanceneed.decision.UnitInfo
-import fi.espoo.evaka.decision.DecisionSendAddress
 import fi.espoo.evaka.identity.ExternalIdentifier
 import fi.espoo.evaka.invoicing.domain.PersonDetailed
 import fi.espoo.evaka.pis.service.PersonDTO
@@ -39,13 +38,10 @@ class AssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTest() {
     @Test
     fun generatePdf() {
         val decision = validAssistanceNeedDecision
-        val headOfFamily = validPersonDTO
 
         val bytes = assistanceNeedDecisionService.generatePdf(
             sentDate = LocalDate.of(2022, 9, 12),
             decision = decision,
-            sendAddress = DecisionSendAddress.fromPerson(headOfFamily.toPersonDetailed()),
-            guardian = headOfFamily,
         )
 
         val filename = "AssistanceNeedDecisionServiceTest-assistance-need-decision.pdf"
@@ -59,8 +55,6 @@ class AssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTest() {
         val bytes = assistanceNeedDecisionService.generatePdf(
             sentDate = LocalDate.of(2022, 9, 12),
             decision = decision,
-            sendAddress = null,
-            guardian = null,
         )
 
         val filename = "AssistanceNeedDecisionServiceTest-assistance-need-decision-without-guardian.pdf"
@@ -83,13 +77,10 @@ class AssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTest() {
                 phoneNumber = "0507654321",
             ),
         )
-        val headOfFamily = validPersonDTO
 
         val bytes = assistanceNeedDecisionService.generatePdf(
             sentDate = LocalDate.of(2022, 9, 12),
             decision = decision,
-            sendAddress = DecisionSendAddress.fromPerson(headOfFamily.toPersonDetailed()),
-            guardian = headOfFamily,
         )
 
         val filename = "AssistanceNeedDecisionServiceTest-assistance-need-decision-with-prepared-by.pdf"
@@ -108,13 +99,10 @@ class AssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTest() {
             preparedBy1 = preparedBy,
             preparedBy2 = preparedBy,
         )
-        val headOfFamily = validPersonDTO
 
         val bytes = assistanceNeedDecisionService.generatePdf(
             sentDate = LocalDate.of(2022, 9, 12),
             decision = decision,
-            sendAddress = DecisionSendAddress.fromPerson(headOfFamily.toPersonDetailed()),
-            guardian = headOfFamily,
         )
 
         val filename = "AssistanceNeedDecisionServiceTest-assistance-need-decision-with-empty-prepared-by.pdf"
