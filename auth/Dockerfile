@@ -7,7 +7,7 @@ FROM node:20.12.0 AS theme
 COPY --from=core theme/package*.json ./
 RUN npm ci
 COPY --from=core theme .
-RUN sed -i -e '/<#--/d' -e '/-->/d' evaka/login/login-update-profile.ftl
+RUN rm evaka/login/idp-review-user-profile.ftl
 
 FROM theme AS tampere
 COPY themes/tampere/theme-fi.sed ./
