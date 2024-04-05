@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-FROM node:20.12.0 AS theme
+FROM node:20.12.1 AS theme
 COPY --from=core theme/package*.json ./
 RUN npm ci
 COPY --from=core theme .
