@@ -612,10 +612,8 @@ const customizations: EmployeeCustomizations = {
   placementTypes: [
     'DAYCARE',
     'TEMPORARY_DAYCARE',
-    'PRESCHOOL',
-    'PRESCHOOL_DAYCARE',
     'PRESCHOOL_DAYCARE_ONLY',
-    'SCHOOL_SHIFT_CARE'
+    'CLUB'
   ],
   placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER'],
   preschoolAssistanceLevels: [...preschoolAssistanceLevels],
