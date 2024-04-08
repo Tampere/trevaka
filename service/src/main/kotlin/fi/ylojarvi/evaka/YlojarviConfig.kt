@@ -6,12 +6,11 @@ package fi.ylojarvi.evaka
 
 import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
-import fi.espoo.evaka.invoicing.service.DefaultInvoiceGenerationLogic
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
-import fi.espoo.evaka.shared.security.actionrule.DefaultActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
+import fi.ylojarvi.evaka.security.YlojarviActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
@@ -51,25 +50,10 @@ class YlojarviConfig {
     )
 
     @Bean
-    fun invoiceIntegrationClient() = YlojarviInvoiceIntegrationClient()
-
-    @Bean
-    fun invoiceGenerationLogicChooser() = DefaultInvoiceGenerationLogic
-
-    @Bean
-    fun incomeTypesProvider() = YlojarviIncomeTypesProvider()
-
-    @Bean
-    fun incomeCoefficientMultiplierProvider() = YlojarviIncomeCoefficientMultiplierProvider()
-
-    @Bean
-    fun invoiceProductProvider() = YlojarviInvoiceProductProvider()
-
-    @Bean
     fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()
 
     @Bean
-    fun actionRuleMapping(): ActionRuleMapping = DefaultActionRuleMapping()
+    fun actionRuleMapping(): ActionRuleMapping = YlojarviActionRuleMapping()
 
     @Bean
     fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter = PrefixTitaniaEmployeeIdConverter("ylo")
@@ -78,8 +62,7 @@ class YlojarviConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun webServiceMessageSender(properties: YlojarviProperties) =
-        HttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
+    fun webServiceMessageSender(properties: YlojarviProperties) = HttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
 
     @Bean
     fun fuelManager() = FuelManager()
