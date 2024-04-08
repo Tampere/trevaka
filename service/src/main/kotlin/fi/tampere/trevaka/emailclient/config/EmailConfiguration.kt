@@ -185,6 +185,21 @@ $unsubscribeEn
         )
     }
 
+    override fun missingHolidayReservationsNotification(language: Language): EmailContent {
+        return EmailContent.fromHtml(
+            subject =
+            "Loma-ajan ilmoitus sulkeutuu / Holiday notification period closing",
+            html =
+            """
+<p>Loma-ajan kysely sulkeutuu kahden päivän päästä. Jos lapseltanne/lapsiltanne puuttuu loma-ajan ilmoitus yhdeltä tai useammalta lomapäivältä, teettehän ilmoituksen eVakan kalenterissa mahdollisimman pian.</p>
+$unsubscribeFi
+<hr>
+<p>Two days left to submit a holiday notification. If you have not submitted a notification for each day, please submit them through the eVaka calendar as soon as possible.</p>
+$unsubscribeEn
+""",
+        )
+    }
+
     override fun messageNotification(language: Language, thread: MessageThreadStub): EmailContent {
         val (typeFi, typeEn) =
             when (thread.type) {
