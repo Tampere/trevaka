@@ -10,8 +10,8 @@ import fi.espoo.evaka.invoicing.service.DefaultInvoiceGenerationLogic
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
-import fi.espoo.evaka.shared.security.actionrule.DefaultActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
+import fi.kangasala.evaka.security.KangasalaActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
@@ -69,7 +69,7 @@ class KangasalaConfig {
     fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()
 
     @Bean
-    fun actionRuleMapping(): ActionRuleMapping = DefaultActionRuleMapping()
+    fun actionRuleMapping(): ActionRuleMapping = KangasalaActionRuleMapping()
 
     @Bean
     fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter = PrefixTitaniaEmployeeIdConverter("kan")

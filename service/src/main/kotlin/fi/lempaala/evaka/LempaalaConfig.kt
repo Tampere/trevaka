@@ -10,8 +10,8 @@ import fi.espoo.evaka.invoicing.service.DefaultInvoiceGenerationLogic
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
-import fi.espoo.evaka.shared.security.actionrule.DefaultActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
+import fi.lempaala.evaka.security.LempaalaActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
@@ -69,7 +69,7 @@ class LempaalaConfig {
     fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()
 
     @Bean
-    fun actionRuleMapping(): ActionRuleMapping = DefaultActionRuleMapping()
+    fun actionRuleMapping(): ActionRuleMapping = LempaalaActionRuleMapping()
 
     @Bean
     fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter = PrefixTitaniaEmployeeIdConverter("lem")
