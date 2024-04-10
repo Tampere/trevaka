@@ -158,7 +158,7 @@ class TampereInvoiceProductProvider : InvoiceProductProvider {
                 Product.TEMPORARY_CARE
             PlacementType.TEMPORARY_DAYCARE_PART_DAY,
             ->
-                Product.TEMPORARY_CARE_PART_DAY
+                Product.SUMMER_CLUB
             PlacementType.SCHOOL_SHIFT_CARE ->
                 Product.SCHOOL_SHIFT_CARE
             PlacementType.PRESCHOOL,
@@ -207,7 +207,7 @@ enum class Product(val nameFi: String, val code: String) {
     PRESCHOOL_WITH_CLUB("Esiopetuksen kerho", "503745"),
     PRESCHOOL_WITH_CLUB_DISCOUNT("Alennus - Esiopetuksen kerhotoiminta", "509787"),
     TEMPORARY_CARE("Tilapäinen varhaiskasvatus", "500576"),
-    TEMPORARY_CARE_PART_DAY("Kesäkerho", "500061"),
+    SUMMER_CLUB("Kesäkerho", "500061"),
     SCHOOL_SHIFT_CARE("Koululaisen vuorohoito", "500949"),
     SICK_LEAVE_50("Laskuun vaikuttava poissaolo 50%", "500283"),
     SICK_LEAVE_100("Laskuun vaikuttava poissaolo 100%", "500248"),
