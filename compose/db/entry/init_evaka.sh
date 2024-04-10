@@ -6,6 +6,8 @@
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DATABASE" <<EOSQL
     CREATE ROLE evaka_it WITH SUPERUSER LOGIN PASSWORD 'evaka_it';
+    CREATE DATABASE "evaka_local";
+    CREATE DATABASE "evaka_it" OWNER evaka_it;
     CREATE DATABASE "evaka_tampere_local";
     CREATE DATABASE "evaka_tampere_it" OWNER evaka_it;
     CREATE DATABASE "evaka_vesilahti_local";
@@ -25,6 +27,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DATABASE
 
     -- Migration role to manage the migrations.
     CREATE ROLE "evaka_migration_role_local";
+    GRANT ALL PRIVILEGES ON DATABASE "evaka_local" TO "evaka_migration_role_local" WITH GRANT OPTION;
+    GRANT ALL PRIVILEGES ON DATABASE "evaka_it" TO "evaka_migration_role_local" WITH GRANT OPTION;
     GRANT ALL PRIVILEGES ON DATABASE "evaka_tampere_local" TO "evaka_migration_role_local" WITH GRANT OPTION;
     GRANT ALL PRIVILEGES ON DATABASE "evaka_tampere_it" TO "evaka_migration_role_local" WITH GRANT OPTION;
     GRANT ALL PRIVILEGES ON DATABASE "evaka_vesilahti_local" TO "evaka_migration_role_local" WITH GRANT OPTION;
@@ -52,6 +56,25 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DATABASE
     -- App login user
     CREATE ROLE "evaka_application_local" WITH LOGIN PASSWORD 'app'
       IN ROLE "evaka_application_role_local";
+EOSQL
+
+# Espoo
+
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname evaka_local <<EOSQL
+    GRANT ALL ON SCHEMA "public" TO "evaka_migration_role_local";
+
+    -- DevDataInitializer creates a few helper functions
+    GRANT CREATE ON SCHEMA "public" TO "evaka_application_local";
+EOSQL
+
+PGPASSWORD=flyway psql -v ON_ERROR_STOP=1 --username evaka_migration_local --dbname evaka_local <<EOSQL
+    -- The reset_database function, used in e2e tests, truncates tables and resets sequences
+    ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT TRUNCATE ON TABLES TO "evaka_application_local";
+    ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT UPDATE ON SEQUENCES TO "evaka_application_local";
+EOSQL
+
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname evaka_it <<EOSQL
+    GRANT ALL ON SCHEMA "public" TO "evaka_migration_role_local";
 EOSQL
 
 # Tampere
