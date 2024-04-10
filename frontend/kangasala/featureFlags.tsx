@@ -30,7 +30,8 @@ const featureFlags: FeatureFlags = {
   assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
   timeUsageInfo: true,
-  hideClubApplication: false
+  hideClubApplication: false,
+  jamixIntegration: true
 }
 
 export default featureFlags
