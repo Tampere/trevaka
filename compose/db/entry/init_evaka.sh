@@ -65,6 +65,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname evaka_local <<EOSQL
 
     -- DevDataInitializer creates a few helper functions
     GRANT CREATE ON SCHEMA "public" TO "evaka_application_local";
+
+    CREATE SCHEMA migration;
 EOSQL
 
 PGPASSWORD=flyway psql -v ON_ERROR_STOP=1 --username evaka_migration_local --dbname evaka_local <<EOSQL
@@ -84,6 +86,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname evaka_tampere_local
 
     -- DevDataInitializer creates a few helper functions
     GRANT CREATE ON SCHEMA "public" TO "evaka_application_local";
+
+    CREATE SCHEMA migration;
 EOSQL
 
 PGPASSWORD=flyway psql -v ON_ERROR_STOP=1 --username evaka_migration_local --dbname evaka_tampere_local <<EOSQL
@@ -103,6 +107,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname evaka_vesilahti_loc
 
     -- DevDataInitializer creates a few helper functions
     GRANT CREATE ON SCHEMA "public" TO "evaka_application_local";
+
+    CREATE SCHEMA migration;
 EOSQL
 
 PGPASSWORD=flyway psql -v ON_ERROR_STOP=1 --username evaka_migration_local --dbname evaka_vesilahti_local <<EOSQL
@@ -122,6 +128,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname evaka_hameenkyro_lo
 
     -- DevDataInitializer creates a few helper functions
     GRANT CREATE ON SCHEMA "public" TO "evaka_application_local";
+
+    CREATE SCHEMA migration;
 EOSQL
 
 PGPASSWORD=flyway psql -v ON_ERROR_STOP=1 --username evaka_migration_local --dbname evaka_hameenkyro_local <<EOSQL
@@ -141,6 +149,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname evaka_ylojarvi_loca
 
     -- DevDataInitializer creates a few helper functions
     GRANT CREATE ON SCHEMA "public" TO "evaka_application_local";
+
+    CREATE SCHEMA migration;
 EOSQL
 
 PGPASSWORD=flyway psql -v ON_ERROR_STOP=1 --username evaka_migration_local --dbname evaka_ylojarvi_local <<EOSQL
@@ -160,6 +170,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname evaka_pirkkala_loca
 
     -- DevDataInitializer creates a few helper functions
     GRANT CREATE ON SCHEMA "public" TO "evaka_application_local";
+
+    CREATE SCHEMA migration;
 EOSQL
 
 PGPASSWORD=flyway psql -v ON_ERROR_STOP=1 --username evaka_migration_local --dbname evaka_pirkkala_local <<EOSQL
@@ -179,6 +191,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname evaka_nokia_local <
 
     -- DevDataInitializer creates a few helper functions
     GRANT CREATE ON SCHEMA "public" TO "evaka_application_local";
+
+    CREATE SCHEMA migration;
 EOSQL
 
 PGPASSWORD=flyway psql -v ON_ERROR_STOP=1 --username evaka_migration_local --dbname evaka_nokia_local <<EOSQL
@@ -198,6 +212,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname evaka_kangasala_loc
 
     -- DevDataInitializer creates a few helper functions
     GRANT CREATE ON SCHEMA "public" TO "evaka_application_local";
+
+    CREATE SCHEMA migration;
 EOSQL
 
 PGPASSWORD=flyway psql -v ON_ERROR_STOP=1 --username evaka_migration_local --dbname evaka_kangasala_local <<EOSQL
@@ -217,6 +233,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname evaka_lempaala_loca
 
     -- DevDataInitializer creates a few helper functions
     GRANT CREATE ON SCHEMA "public" TO "evaka_application_local";
+
+    CREATE SCHEMA migration;
 EOSQL
 
 PGPASSWORD=flyway psql -v ON_ERROR_STOP=1 --username evaka_migration_local --dbname evaka_lempaala_local <<EOSQL
