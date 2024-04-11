@@ -16,8 +16,8 @@ import java.util.stream.Stream
 @ActiveProfiles(value = ["integration-test", "nokia_evaka"])
 abstract class AbstractNokiaIntegrationTest : AbstractIntegrationTest() {
     protected fun supportedDecisionTypes(): Stream<DecisionType> = Stream.of(
-        DecisionType.CLUB,
         DecisionType.DAYCARE,
+        DecisionType.PREPARATORY_EDUCATION,
         DecisionType.PRESCHOOL,
         DecisionType.PRESCHOOL_DAYCARE,
     )
@@ -25,7 +25,6 @@ abstract class AbstractNokiaIntegrationTest : AbstractIntegrationTest() {
     protected fun supportedProviderTypes(): Stream<ProviderType> = Stream.of(
         ProviderType.MUNICIPAL,
         ProviderType.PURCHASED,
-        ProviderType.PRIVATE,
         ProviderType.PRIVATE_SERVICE_VOUCHER,
     )
 
@@ -34,18 +33,19 @@ abstract class AbstractNokiaIntegrationTest : AbstractIntegrationTest() {
         PlacementType.PRESCHOOL,
         PlacementType.PREPARATORY_DAYCARE,
         PlacementType.TEMPORARY_DAYCARE,
-        PlacementType.SCHOOL_SHIFT_CARE,
     )
 
     protected fun supportedFeeDecisionTypes(): Stream<FeeDecisionType> = Stream.of(
         FeeDecisionType.NORMAL,
         FeeDecisionType.RELIEF_REJECTED,
         FeeDecisionType.RELIEF_ACCEPTED,
+        FeeDecisionType.RELIEF_PARTLY_ACCEPTED,
     )
 
     protected fun supportedVoucherValueDecisionTypes(): Stream<VoucherValueDecisionType> = Stream.of(
         VoucherValueDecisionType.NORMAL,
         VoucherValueDecisionType.RELIEF_REJECTED,
         VoucherValueDecisionType.RELIEF_ACCEPTED,
+        VoucherValueDecisionType.RELIEF_PARTLY_ACCEPTED,
     )
 }
