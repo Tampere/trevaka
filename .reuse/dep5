@@ -29,6 +29,10 @@ Files: frontend/tsconfig.json
 Copyright: 2021 City of Tampere
 License: LGPL-2.1-or-later
 
+Files: *.yarnrc.yml
+Copyright: 2021-2023 City of Tampere
+License: LGPL-2.1-or-later
+
 Files: frontend/yarn.lock
 Copyright: 2021 City of Tampere
 License: LGPL-2.1-or-later
