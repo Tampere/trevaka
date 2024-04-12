@@ -20,6 +20,8 @@ repositories {
 }
 
 dependencies {
+    api("com.google.guava:guava:33.1.0-jre")
+
     xjcTool("com.sun.xml.bind:jaxb-xjc:3.0.2")
     xjcTool("com.sun.xml.bind:jaxb-impl:3.0.2")
 
@@ -31,6 +33,7 @@ dependencies {
     implementation("ch.qos.logback:logback-access")
     implementation("io.github.microutils:kotlin-logging-jvm")
     implementation("net.logstash.logback:logstash-logback-encoder")
+    implementation("org.unbescape:unbescape:1.1.6.RELEASE")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-web-services")
@@ -41,11 +44,14 @@ dependencies {
     implementation("org.jdbi:jdbi3-core")
     implementation("org.jdbi:jdbi3-kotlin")
     implementation("software.amazon.awssdk:s3")
+    implementation("software.amazon.awssdk.crt:aws-crt:0.29.14")
     implementation("io.opentracing:opentracing-util")
     implementation("com.github.kagkarlsson:db-scheduler")
     implementation("com.fasterxml.jackson.core:jackson-core")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv")
 
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.23")
+    
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit-pioneer:junit-pioneer:2.2.0") // for CartesianProductTest
     testImplementation("org.mockito.kotlin:mockito-kotlin")

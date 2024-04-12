@@ -62,7 +62,7 @@ module.exports = {
     args: './gradlew --no-daemon bootRun',
     cwd: path.resolve(__dirname, 'service'),
     env: {
-      SPRING_PROFILES_ACTIVE: 'tampere_evaka',
+      SPRING_PROFILES_ACTIVE: 'local,tampere_evaka',
     },
     env_tampere: {
       // default

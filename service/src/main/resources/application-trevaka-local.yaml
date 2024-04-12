@@ -25,7 +25,10 @@ logging:
       springframework:
         boot:
           autoconfigure: INFO
-
+    software:
+      amazon:
+        awssdk:
+          request: DEBUG
 evaka:
   aws:
     region: eu-west-1
