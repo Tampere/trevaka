@@ -609,7 +609,7 @@ const customizations: EmployeeCustomizations = {
   otherAssistanceMeasureTypes: otherAssistanceMeasureTypes.filter(
     (level) => level !== 'ANOMALOUS_EDUCATION_START'
   ),
-  placementTypes: ['DAYCARE', 'TEMPORARY_DAYCARE', 'PRESCHOOL_DAYCARE_ONLY'],
+  placementTypes: ['DAYCARE', 'TEMPORARY_DAYCARE'],
   placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER'],
   preschoolAssistanceLevels: [...preschoolAssistanceLevels],
   unitProviderTypes: [
