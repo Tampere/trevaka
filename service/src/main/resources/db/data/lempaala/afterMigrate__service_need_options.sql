@@ -5,22 +5,6 @@
 DELETE
 FROM service_need_option_voucher_value
 WHERE id = '662570db-c149-45b9-a52f-2748b8995e19';
-DELETE
-FROM service_need_option
-WHERE id IN (
-             'acfb9f35-efff-40d9-8838-4a021cfc7446',
-             'a6dcce89-632c-4bb3-a3ba-1b3c6b570348',
-             'b0f13ba8-ff8a-4bb8-88b7-b260aefe8e0e',
-             'd5a5824b-ae3f-4cd3-9cd6-affee036bd1d',
-             '8d155bac-8be4-4988-9835-b99789ba51e4',
-             'e067df64-7ff0-42c1-a409-537db7c202dd',
-             '347a19fc-26a3-44c2-85a5-37ac8a56ae57',
-             '5a574d58-7d6f-4eb3-b91f-23ea7094e0de',
-             'f04ff070-35d7-4e2f-82ba-f130ef150c6d',
-             'c8e7bb24-584b-4624-865b-0cab145edfab',
-             'cf8b946d-45e6-4049-9439-ad0814f22592',
-             '131d5fbe-a72d-4f6e-82c0-5df88c657690'
-    );
 
 INSERT INTO service_need_option
     (id, name_fi, name_sv, name_en, valid_placement_type, default_option, fee_coefficient, occupancy_coefficient, occupancy_coefficient_under_3y, realized_occupancy_coefficient, realized_occupancy_coefficient_under_3y, daycare_hours_per_week, contract_days_per_month, daycare_hours_per_month, part_day, part_week, fee_description_fi, fee_description_sv, voucher_value_description_fi, voucher_value_description_sv, active, show_for_citizen, display_order)
@@ -107,3 +91,20 @@ WHERE
     service_need_option_voucher_value.base_value_under_3y <> EXCLUDED.base_value_under_3y OR
     service_need_option_voucher_value.coefficient_under_3y <> EXCLUDED.coefficient_under_3y OR
     service_need_option_voucher_value.value_under_3y <> EXCLUDED.value_under_3y;
+
+DELETE
+FROM service_need_option
+WHERE id IN (
+             'acfb9f35-efff-40d9-8838-4a021cfc7446',
+             'a6dcce89-632c-4bb3-a3ba-1b3c6b570348',
+             'b0f13ba8-ff8a-4bb8-88b7-b260aefe8e0e',
+             'd5a5824b-ae3f-4cd3-9cd6-affee036bd1d',
+             '8d155bac-8be4-4988-9835-b99789ba51e4',
+             'e067df64-7ff0-42c1-a409-537db7c202dd',
+             '347a19fc-26a3-44c2-85a5-37ac8a56ae57',
+             '5a574d58-7d6f-4eb3-b91f-23ea7094e0de',
+             'f04ff070-35d7-4e2f-82ba-f130ef150c6d',
+             'c8e7bb24-584b-4624-865b-0cab145edfab',
+             'cf8b946d-45e6-4049-9439-ad0814f22592',
+             '131d5fbe-a72d-4f6e-82c0-5df88c657690'
+    );
