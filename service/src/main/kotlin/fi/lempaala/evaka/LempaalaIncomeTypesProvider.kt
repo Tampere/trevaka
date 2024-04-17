@@ -8,7 +8,7 @@ import fi.espoo.evaka.invoicing.domain.IncomeType
 import fi.espoo.evaka.invoicing.service.IncomeTypesProvider
 
 class LempaalaIncomeTypesProvider : IncomeTypesProvider {
-    override fun get(): Map<String, IncomeType> {
-        TODO("Not yet implemented")
-    }
+    override fun get(): Map<String, IncomeType> = linkedMapOf(
+        "MAIN_INCOME" to IncomeType("Palkkatulo", 1, false, false),
+    )
 }
