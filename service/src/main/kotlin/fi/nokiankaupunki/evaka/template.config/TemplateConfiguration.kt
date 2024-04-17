@@ -37,7 +37,7 @@ class NokiaTemplateProvider : ITemplateProvider {
     override fun getDaycareTransferDecisionPath(): String = "nokia/daycare/decision"
     override fun getDaycareDecisionPath(): String = "nokia/daycare/decision"
     override fun getPreschoolDecisionPath(): String = "nokia/daycare/decision"
-    override fun getPreparatoryDecisionPath(): String = throw Error("Not supported")
+    override fun getPreparatoryDecisionPath(): String = "nokia/preparatory/decision"
     override fun getAssistanceNeedDecisionPath(): String = "nokia/assistance/decision"
     override fun getAssistanceNeedPreschoolDecisionPath(): String = "nokia/assistance-preschool/decision"
 }
