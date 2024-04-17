@@ -14,6 +14,7 @@ import fi.tampere.trevaka.bi.S3MockBiExportS3Client
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Profile
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider
 import software.amazon.awssdk.services.s3.S3AsyncClient
@@ -47,6 +48,7 @@ class IntegrationTestConfiguration {
     }
 
     @Bean
+    @Profile("tampere_evaka")
     fun testS3AsyncClient(evakaEnv: EvakaEnv, bucketEnv: BucketEnv): S3AsyncClient {
         return S3AsyncClient.crtBuilder()
             .region(evakaEnv.awsRegion)
@@ -71,6 +73,7 @@ class IntegrationTestConfiguration {
             .build()
 
     @Bean
+    @Profile("tampere_evaka")
     fun tampereTestBiClient(
         @Qualifier("testS3AsyncClient") asyncClient: S3AsyncClient,
         properties: TampereProperties,
