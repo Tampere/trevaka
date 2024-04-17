@@ -18,34 +18,32 @@ abstract class AbstractPirkkalaIntegrationTest : AbstractIntegrationTest() {
     protected fun supportedDecisionTypes(): Stream<DecisionType> = Stream.of(
         DecisionType.CLUB,
         DecisionType.DAYCARE,
-        DecisionType.PRESCHOOL,
         DecisionType.PRESCHOOL_DAYCARE,
     )
 
     protected fun supportedProviderTypes(): Stream<ProviderType> = Stream.of(
         ProviderType.MUNICIPAL,
         ProviderType.PURCHASED,
-        ProviderType.PRIVATE,
         ProviderType.PRIVATE_SERVICE_VOUCHER,
     )
 
     protected fun supportedPlacementTypes(): Stream<PlacementType> = Stream.of(
         PlacementType.DAYCARE,
-        PlacementType.PRESCHOOL,
-        PlacementType.PREPARATORY_DAYCARE,
+        PlacementType.PRESCHOOL_DAYCARE_ONLY,
         PlacementType.TEMPORARY_DAYCARE,
-        PlacementType.SCHOOL_SHIFT_CARE,
     )
 
     protected fun supportedFeeDecisionTypes(): Stream<FeeDecisionType> = Stream.of(
         FeeDecisionType.NORMAL,
         FeeDecisionType.RELIEF_REJECTED,
         FeeDecisionType.RELIEF_ACCEPTED,
+        FeeDecisionType.RELIEF_PARTLY_ACCEPTED,
     )
 
     protected fun supportedVoucherValueDecisionTypes(): Stream<VoucherValueDecisionType> = Stream.of(
         VoucherValueDecisionType.NORMAL,
         VoucherValueDecisionType.RELIEF_REJECTED,
         VoucherValueDecisionType.RELIEF_ACCEPTED,
+        VoucherValueDecisionType.RELIEF_PARTLY_ACCEPTED,
     )
 }
