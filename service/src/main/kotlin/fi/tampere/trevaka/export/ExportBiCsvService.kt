@@ -9,7 +9,6 @@ import fi.espoo.evaka.espoo.bi.EspooBiJob
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.tampere.trevaka.bi.BiExportClient
-import fi.tampere.trevaka.bi.BiExportJob
 import fi.tampere.trevaka.bi.BiTable
 import org.springframework.stereotype.Service
 import java.time.Duration
@@ -20,7 +19,7 @@ class ExportBiCsvService(private val biExportClient: BiExportClient) {
     fun exportBiCsv(
         db: Database.Connection,
         timestamp: HelsinkiDateTime,
-        biTable: BiTable
+        biTable: BiTable,
     ): Pair<String, String> {
         val tableName = biTable.fileName
         val query = biTable.query

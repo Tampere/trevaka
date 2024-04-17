@@ -21,14 +21,14 @@ sealed interface TampereAsyncJob : AsyncJobPayload {
             AsyncJobRunner.Pool(
                 AsyncJobPool.Id(TampereAsyncJob::class, "tampere"),
                 AsyncJobPool.Config(concurrency = 1),
-                setOf(SendBiTable::class)
+                setOf(SendBiTable::class),
             )
     }
 }
 
 class TampereAsyncJobRegistration(
     runner: AsyncJobRunner<TampereAsyncJob>,
-    biExportJob: BiExportJob
+    biExportJob: BiExportJob,
 ) {
     init {
         biExportJob.let { runner.registerHandler(it::sendBiTable) }

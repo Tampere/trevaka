@@ -53,6 +53,9 @@ tampere:
     url: http://localhost:${server.port}/salesOrder
   bucket:
     export: trevaka-export-dev
+  integration:
+    bi:
+      enabled: false
 vesilahti:
   ipaas:
     username: user

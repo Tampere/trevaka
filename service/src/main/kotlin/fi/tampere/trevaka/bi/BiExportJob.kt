@@ -9,9 +9,6 @@ import fi.espoo.evaka.espoo.bi.EspooBiJob
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.EvakaClock
 import fi.tampere.trevaka.TampereAsyncJob
-import java.io.InputStream
-import java.nio.ByteBuffer
-import java.nio.charset.Charset
 import java.time.Duration
 
 class BiExportJob(private val client: BiExportClient) {
@@ -22,7 +19,7 @@ class BiExportJob(private val client: BiExportClient) {
         db: Database.Connection,
         clock: EvakaClock,
         tableName: String,
-        query: BiQueries.CsvQuery
+        query: BiQueries.CsvQuery,
     ) {
         val date = clock.now().toLocalDate()
         val fileName = "${tableName}_$date.csv"

@@ -4,6 +4,8 @@
 
 package fi.tampere.trevaka.bi
 
+import com.google.common.io.ByteStreams
+import fi.espoo.evaka.application.utils.exhaust
 import fi.espoo.evaka.espoo.bi.EspooBiJob
 import mu.KotlinLogging
 
@@ -12,9 +14,10 @@ class MockBiExportClient : BiExportClient {
 
     override fun sendBiCsvFile(
         fileName: String,
-        stream: EspooBiJob.CsvInputStream
+        stream: EspooBiJob.CsvInputStream,
     ): Pair<String, String> {
-        logger.info { "Mock BI client ignored $fileName" }
+        logger.info { "Mock BI client ignored export request for $fileName" }
+        ByteStreams.exhaust(stream)
         return "" to ""
     }
 }

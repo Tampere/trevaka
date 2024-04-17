@@ -16,6 +16,7 @@ import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
 import fi.tampere.trevaka.bi.BiExportClient
 import fi.tampere.trevaka.bi.BiExportJob
+import fi.tampere.trevaka.bi.MockBiExportClient
 import fi.tampere.trevaka.bi.S3MockBiExportS3Client
 import fi.tampere.trevaka.bi.StreamingBiExportS3Client
 import fi.tampere.trevaka.export.ExportUnitsAclService
@@ -68,7 +69,7 @@ class TampereConfig {
     fun productionS3AsyncClient(
         evakaEnv: EvakaEnv,
         bucketEnv: BucketEnv,
-        credentialsProvider: AwsCredentialsProvider
+        credentialsProvider: AwsCredentialsProvider,
     ): S3AsyncClient {
         return S3AsyncClient.crtBuilder()
             .region(evakaEnv.awsRegion)
@@ -81,7 +82,7 @@ class TampereConfig {
     fun localS3AsyncClient(
         evakaEnv: EvakaEnv,
         bucketEnv: BucketEnv,
-        credentialsProvider: AwsCredentialsProvider
+        credentialsProvider: AwsCredentialsProvider,
     ): S3AsyncClient {
         return S3AsyncClient.crtBuilder()
             .region(evakaEnv.awsRegion)
@@ -94,22 +95,32 @@ class TampereConfig {
     fun s3MockBiClient(
         asyncClient: S3AsyncClient,
         properties: TampereProperties,
-        env: TampereEnv
-    ): BiExportClient = S3MockBiExportS3Client(asyncClient, properties)
+        env: TampereEnv,
+    ): BiExportClient =
+        if (env.biIntegrationEnabled) {
+            S3MockBiExportS3Client(asyncClient, properties)
+        } else {
+            MockBiExportClient()
+        }
 
     @Bean
     @Profile("production")
     fun streamingBiClient(
         asyncClient: S3AsyncClient,
         properties: TampereProperties,
-        env: TampereEnv
-    ): BiExportClient = StreamingBiExportS3Client(asyncClient, properties)
+        env: TampereEnv,
+    ): BiExportClient =
+        if (env.biIntegrationEnabled) {
+            StreamingBiExportS3Client(asyncClient, properties)
+        } else {
+            MockBiExportClient()
+        }
 
     @Bean
     fun tampereAsyncJobRunner(
         jdbi: Jdbi,
         tracer: Tracer,
-        env: Environment
+        env: Environment,
     ): AsyncJobRunner<TampereAsyncJob> =
         AsyncJobRunner(TampereAsyncJob::class, listOf(TampereAsyncJob.pool), jdbi, tracer)
 
@@ -140,7 +151,7 @@ class TampereConfig {
     fun tampereScheduledJobs(
         exportUnitsAclService: ExportUnitsAclService,
         tampereRunner: AsyncJobRunner<TampereAsyncJob>,
-        env: ScheduledJobsEnv<TampereScheduledJob>
+        env: ScheduledJobsEnv<TampereScheduledJob>,
     ): TampereScheduledJobs = TampereScheduledJobs(exportUnitsAclService, tampereRunner, env)
 }
 

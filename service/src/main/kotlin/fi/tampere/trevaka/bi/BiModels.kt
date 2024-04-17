@@ -65,7 +65,7 @@ data class BiApplication(
     val type: ApplicationType,
     val allow_other_guardian_access: Boolean,
     val document: String?,
-    val form_modified: HelsinkiDateTime?
+    val form_modified: HelsinkiDateTime?,
 )
 
 data class BiArea(
@@ -75,7 +75,7 @@ data class BiArea(
     val name: String,
     val area_code: Int?,
     val sub_cost_center: String?,
-    val short_name: String
+    val short_name: String,
 )
 
 data class BiPerson(
@@ -114,7 +114,7 @@ data class BiPerson(
     val preferred_name: String,
     val duplicate_of: UUID?,
     val enabled_email_types: List<String>?,
-    val keycloak_email: String?
+    val keycloak_email: String?,
 )
 
 data class BiAbsence(
@@ -125,7 +125,7 @@ data class BiAbsence(
     val modified_at: HelsinkiDateTime,
     val modified_by: UUID,
     val category: AbsenceCategory,
-    val questionnaire_id: UUID?
+    val questionnaire_id: UUID?,
 )
 
 data class BiApplicationForm(
@@ -135,7 +135,7 @@ data class BiApplicationForm(
     val revision: Long,
     val document: String,
     val updated: HelsinkiDateTime,
-    val latest: Boolean
+    val latest: Boolean,
 )
 
 data class BiAssistanceAction(
@@ -147,7 +147,7 @@ data class BiAssistanceAction(
     val start_date: LocalDate,
     val end_date: LocalDate,
     val other_action: String,
-    val measures: List<String> // FIXME: no db enum type in kotlin, just string list?
+    val measures: String, // no db enum type in kotlin, string representation of db enum array
 )
 
 data class BiAssistanceActionOption(
@@ -157,13 +157,13 @@ data class BiAssistanceActionOption(
     val value: String,
     val name_fi: String,
     val display_order: Int,
-    val description_fi: String?
+    val description_fi: String?,
 )
 
 data class BiAssistanceActionOptionRef(
     val action_id: UUID,
     val option_id: UUID,
-    val created: HelsinkiDateTime
+    val created: HelsinkiDateTime,
 )
 
 data class BiAssistanceBasisOption(
@@ -173,13 +173,13 @@ data class BiAssistanceBasisOption(
     val value: String,
     val name_fi: String,
     val display_order: Int,
-    val description_fi: String?
+    val description_fi: String?,
 )
 
 data class BiAssistanceBasisOptionRef(
     val need_id: UUID,
     val option_id: UUID,
-    val created: HelsinkiDateTime
+    val created: HelsinkiDateTime,
 )
 
 data class BiAssistanceFactor(
@@ -189,8 +189,8 @@ data class BiAssistanceFactor(
     val child_id: UUID,
     val modified: HelsinkiDateTime,
     val modified_by: UUID,
-    val valid_during: DateRange,
-    val capacity_factor: BigDecimal
+    val valid_during: String, // DateRange
+    val capacity_factor: BigDecimal,
 )
 
 data class BiAssistanceNeed(
@@ -201,7 +201,7 @@ data class BiAssistanceNeed(
     val child_id: UUID,
     val start_date: LocalDate,
     val end_date: LocalDate,
-    val capacity_factor: BigDecimal
+    val capacity_factor: BigDecimal,
 )
 
 data class BiAssistanceNeedDecision(
@@ -247,9 +247,9 @@ data class BiAssistanceNeedDecision(
     val document_key: String?,
     val unread_guardian_ids: List<UUID>?,
     val assistance_levels: List<String>?,
-    val validity_period: DateRange?,
+    val validity_period: String?, // DateRange
     val status: AssistanceNeedDecisionStatus,
-    val annulment_reason: String
+    val annulment_reason: String,
 )
 
 data class BiAssistanceNeedDecisionGuardian(
@@ -258,7 +258,7 @@ data class BiAssistanceNeedDecisionGuardian(
     val assistance_need_decision_id: UUID,
     val person_id: UUID,
     val is_heard: Boolean,
-    val details: String?
+    val details: String?,
 )
 
 data class BiAssistanceNeedVoucherCoefficient(
@@ -266,8 +266,8 @@ data class BiAssistanceNeedVoucherCoefficient(
     val created: HelsinkiDateTime,
     val updated: HelsinkiDateTime,
     val child_id: UUID,
-    val validity_period: DateRange,
-    val coefficient: BigDecimal
+    val validity_period: String, // DateRange
+    val coefficient: BigDecimal,
 )
 
 data class BiBackupCare(
@@ -278,7 +278,7 @@ data class BiBackupCare(
     val unit_id: UUID,
     val group_id: UUID?,
     val start_date: LocalDate,
-    val end_date: LocalDate
+    val end_date: LocalDate,
 )
 
 data class BiChild(
@@ -288,7 +288,7 @@ data class BiChild(
     val additionalinfo: String,
     val medication: String,
     val language_at_home: String,
-    val language_at_home_details: String
+    val language_at_home_details: String,
 )
 
 data class BiChildAttendance(
@@ -299,7 +299,7 @@ data class BiChildAttendance(
     val unit_id: UUID,
     val date: LocalDate,
     val start_time: LocalTime,
-    val end_time: LocalTime
+    val end_time: LocalTime,
 )
 
 data class BiCurriculumDocument(
@@ -307,7 +307,7 @@ data class BiCurriculumDocument(
     val child_id: UUID,
     val basics: String,
     val template_id: UUID,
-    val modified_at: HelsinkiDateTime
+    val modified_at: HelsinkiDateTime,
 )
 
 data class BiCurriculumDocumentEvent(
@@ -323,11 +323,11 @@ data class BiCurriculumTemplate(
     val id: UUID,
     val created: HelsinkiDateTime,
     val updated: HelsinkiDateTime,
-    val valid: DateRange,
+    val valid: String, // DateRange
     val type: CurriculumType,
     val language: VasuLanguage,
     val name: String,
-    val content: String
+    val content: String,
 )
 
 data class BiDailyServiceTimeNotification(
@@ -335,7 +335,7 @@ data class BiDailyServiceTimeNotification(
     val guardian_id: UUID,
     val daily_service_time_id: UUID,
     val date_from: LocalDate,
-    val has_deleted_reservations: Boolean
+    val has_deleted_reservations: Boolean,
 )
 
 data class BiDaycare(
@@ -365,7 +365,7 @@ data class BiDaycare(
     val postal_code: String,
     val post_office: String,
     val mailing_po_box: String?,
-    val location: String, // FIXME: what type??
+    val location: String, // postgres Point
     val mailing_street_address: String?,
     val mailing_postal_code: String?,
     val mailing_post_office: String?,
@@ -387,13 +387,12 @@ data class BiDaycare(
     val iban: String,
     val provider_id: String,
     val operation_times: List<TimeRange>,
-    val operation_days: List<Int>,
     val unit_manager_name: String,
     val unit_manager_phone: String,
     val unit_manager_email: String,
     val dw_cost_center: String?,
     val daily_preschool_time: TimeRange?,
-    val daily_preparatory_time: TimeRange?
+    val daily_preparatory_time: TimeRange?,
 )
 
 data class BiDaycareAssistance(
@@ -403,8 +402,8 @@ data class BiDaycareAssistance(
     val child_id: UUID,
     val modified: HelsinkiDateTime,
     val modified_by: UUID,
-    val valid_during: DateRange,
-    val level: DaycareAssistanceLevel
+    val valid_during: String, // DateRange
+    val level: DaycareAssistanceLevel,
 )
 
 data class BiDaycareCaretaker(
@@ -414,7 +413,7 @@ data class BiDaycareCaretaker(
     val group_id: UUID,
     val amount: BigDecimal,
     val start_date: LocalDate,
-    val end_date: LocalDate
+    val end_date: LocalDate,
 )
 
 data class BiDaycareGroup(
@@ -422,7 +421,7 @@ data class BiDaycareGroup(
     val daycare_id: UUID,
     val name: String,
     val start_date: LocalDate,
-    val end_date: LocalDate?
+    val end_date: LocalDate?,
 )
 
 data class BiDaycareGroupPlacement(
@@ -432,7 +431,7 @@ data class BiDaycareGroupPlacement(
     val daycare_placement_id: UUID,
     val daycare_group_id: UUID,
     val start_date: LocalDate,
-    val end_date: LocalDate
+    val end_date: LocalDate,
 )
 
 data class BiDecision(
@@ -455,7 +454,7 @@ data class BiDecision(
     val pending_decision_emails_sent_count: Int?,
     val pending_decision_email_sent: HelsinkiDateTime?,
     val document_key: String?,
-    val other_guardian_document_key: String?
+    val other_guardian_document_key: String?,
 )
 
 data class BiEmployee(
@@ -471,7 +470,7 @@ data class BiEmployee(
     val employee_number: String?,
     val preferred_first_name: String?,
     val temporary_in_unit_id: UUID?,
-    val active: Boolean
+    val active: Boolean,
 )
 
 data class BiEvakaUser(
@@ -480,7 +479,7 @@ data class BiEvakaUser(
     val citizen_id: UUID?,
     val employee_id: UUID?,
     val mobile_device_id: UUID?,
-    val name: String
+    val name: String,
 )
 
 data class BiFeeAlteration(
@@ -493,7 +492,7 @@ data class BiFeeAlteration(
     val valid_to: LocalDate?,
     val notes: String,
     val updated_at: HelsinkiDateTime,
-    val updated_by: UUID
+    val updated_by: UUID,
 )
 
 data class BiFeeDecision(
@@ -501,7 +500,7 @@ data class BiFeeDecision(
     val created: HelsinkiDateTime,
     val updated: HelsinkiDateTime,
     val status: FeeDecisionStatus,
-    val valid_during: DateRange,
+    val valid_during: String, // DateRange
     val decision_type: FeeDecisionType,
     val head_of_family_id: UUID,
     val head_of_family_income: String?, // JSON
@@ -517,7 +516,7 @@ data class BiFeeDecision(
     val sent_at: HelsinkiDateTime?,
     val cancelled_at: HelsinkiDateTime?,
     val total_fee: Int,
-    val difference: List<FeeDecisionDifference>
+    val difference: List<FeeDecisionDifference>,
 )
 
 data class BiFeeDecisionChild(
@@ -545,7 +544,7 @@ data class BiFeeDecisionChild(
 
 data class BiFeeThresholds(
     val id: UUID,
-    val valid_during: DateRange,
+    val valid_during: String, // DateRange
     val min_income_threshold_2: Int,
     val min_income_threshold_3: Int,
     val min_income_threshold_4: Int,
@@ -571,7 +570,7 @@ data class BiFeeThresholds(
     val temporary_fee: Int,
     val temporary_fee_part_day: Int,
     val temporary_fee_sibling: Int,
-    val temporary_fee_sibling_part_day: Int
+    val temporary_fee_sibling_part_day: Int,
 )
 
 data class BiFridgeChild(
@@ -582,7 +581,7 @@ data class BiFridgeChild(
     val end_date: LocalDate,
     val created: HelsinkiDateTime,
     val updated: HelsinkiDateTime,
-    val conflict: Boolean
+    val conflict: Boolean,
 )
 
 data class BiFridgePartner(
@@ -600,7 +599,7 @@ data class BiFridgePartner(
     val modify_source: ModifySource?,
     val modified_at: HelsinkiDateTime?,
     val modified_by: UUID?,
-    val created_from_application: UUID?
+    val created_from_application: UUID?,
 )
 
 data class BiGuardian(val guardian_id: UUID, val child_id: UUID, val created: HelsinkiDateTime?)
@@ -609,15 +608,15 @@ data class BiGuardianBlocklist(
     val guardian_id: UUID,
     val child_id: UUID,
     val created: HelsinkiDateTime,
-    val updated: HelsinkiDateTime
+    val updated: HelsinkiDateTime,
 )
 
 data class BiHolidayPeriod(
     val id: UUID,
     val created: HelsinkiDateTime,
     val updated: HelsinkiDateTime,
-    val period: DateRange,
-    val reservation_deadline: LocalDate
+    val period: String, // DateRange
+    val reservation_deadline: LocalDate,
 )
 
 data class BiHolidayQuestionnaireAnswer(
@@ -627,7 +626,7 @@ data class BiHolidayQuestionnaireAnswer(
     val modified_by: UUID?,
     val questionnaire_id: UUID?,
     val child_id: UUID?,
-    val fixed_period: DateRange
+    val fixed_period: String, // DateRange
 )
 
 data class BiIncome(
@@ -642,7 +641,7 @@ data class BiIncome(
     val is_entrepreneur: Boolean,
     val works_at_echa: Boolean,
     val application_id: UUID,
-    val updated_by: UUID
+    val updated_by: UUID,
 )
 
 data class BiOtherAssistanceMeasure(
@@ -652,8 +651,8 @@ data class BiOtherAssistanceMeasure(
     val child_id: UUID,
     val modified: HelsinkiDateTime,
     val modified_by: UUID,
-    val valid_during: DateRange,
-    val type: OtherAssistanceMeasureType
+    val valid_during: String, // DateRange
+    val type: OtherAssistanceMeasureType,
 )
 
 data class BiPlacement(
@@ -667,7 +666,7 @@ data class BiPlacement(
     val end_date: LocalDate,
     val termination_requested_date: LocalDate?,
     val terminated_by: UUID?,
-    val place_guarantee: Boolean
+    val place_guarantee: Boolean,
 )
 
 data class BiPreschoolAssistance(
@@ -677,8 +676,8 @@ data class BiPreschoolAssistance(
     val child_id: UUID,
     val modified: HelsinkiDateTime,
     val modified_by: HelsinkiDateTime,
-    val valid_during: DateRange,
-    val level: PreschoolAssistanceLevel
+    val valid_during: String, // DateRange
+    val level: PreschoolAssistanceLevel,
 )
 
 data class BiServiceNeed(
@@ -691,7 +690,7 @@ data class BiServiceNeed(
     val end_date: LocalDate,
     val confirmed_by: UUID?,
     val confirmed_at: HelsinkiDateTime?,
-    val shift_care: ShiftCareType
+    val shift_care: ShiftCareType,
 )
 
 data class BiServiceNeedOption(
@@ -719,7 +718,7 @@ data class BiServiceNeedOption(
     val show_for_citizen: Boolean,
     val realized_occupancy_coefficient: BigDecimal,
     val realized_occupancy_coefficient_under_3y: BigDecimal,
-    val daycare_hours_per_month: Int?
+    val daycare_hours_per_month: Int?,
 )
 
 data class BiServiceNeedOptionVoucherValue(
@@ -727,13 +726,13 @@ data class BiServiceNeedOptionVoucherValue(
     val created: HelsinkiDateTime,
     val updated: HelsinkiDateTime,
     val service_need_option_id: UUID,
-    val validity: DateRange,
+    val validity: String, // DateRange
     val base_value: Int,
     val coefficient: BigDecimal,
     val value: Int,
     val base_value_under_3y: Int,
     val coefficient_under_3y: BigDecimal,
-    val value_under_3y: Int
+    val value_under_3y: Int,
 )
 
 data class BiStaffAttendance(
@@ -743,7 +742,7 @@ data class BiStaffAttendance(
     val count: BigDecimal,
     val created: HelsinkiDateTime?,
     val count_other: BigDecimal,
-    val updated: HelsinkiDateTime
+    val updated: HelsinkiDateTime,
 )
 
 data class BiStaffAttendanceExternal(
@@ -755,7 +754,7 @@ data class BiStaffAttendanceExternal(
     val arrived: HelsinkiDateTime,
     val departed: HelsinkiDateTime?,
     val occupancy_coefficient: BigDecimal,
-    val departed_automatically: Boolean
+    val departed_automatically: Boolean,
 )
 
 data class BiStaffAttendancePlan(
@@ -766,7 +765,7 @@ data class BiStaffAttendancePlan(
     val type: StaffAttendanceType,
     val start_time: HelsinkiDateTime,
     val end_time: HelsinkiDateTime,
-    val description: String?
+    val description: String?,
 )
 
 data class BiStaffOccupancyCoefficient(
@@ -775,7 +774,7 @@ data class BiStaffOccupancyCoefficient(
     val updated: HelsinkiDateTime?,
     val employee_id: UUID,
     val daycare_id: UUID,
-    val coefficient: BigDecimal
+    val coefficient: BigDecimal,
 )
 
 data class BiVoucherValueDecision(
@@ -821,5 +820,5 @@ data class BiVoucherValueDecision(
     val validity_updated_at: HelsinkiDateTime?,
     val child_income: String?, // JSON
     val difference: List<VoucherValueDecisionDifference>,
-    val service_need_missing: Boolean
+    val service_need_missing: Boolean,
 )

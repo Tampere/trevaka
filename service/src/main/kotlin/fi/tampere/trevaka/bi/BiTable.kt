@@ -12,7 +12,7 @@ enum class BiTable(val fileName: String, val query: BiQueries.CsvQuery) {
     AssistanceActionOption("assistance_action_option", BiQueries.getAssistanceActionOptions),
     AssistanceActionOptionRef(
         "assistance_action_option_ref",
-        BiQueries.getAssistanceActionOptionRefs
+        BiQueries.getAssistanceActionOptionRefs,
     ),
     AssistanceBasisOption("assistance_basis_option", BiQueries.getAssistanceBasisOptions),
     AssistanceBasisOptionRef("assistance_basis_option_ref", BiQueries.getAssistanceBasisOptionRefs),
@@ -21,22 +21,22 @@ enum class BiTable(val fileName: String, val query: BiQueries.CsvQuery) {
     AssistanceNeedDecision("assistance_need_decision", BiQueries.getAssistanceNeedDecisions),
     AssistanceNeedDecisionGuardian(
         "assistance_need_decision_guardian",
-        BiQueries.getAssistanceNeedDecisionGuardians
+        BiQueries.getAssistanceNeedDecisionGuardians,
     ),
     AssistanceNeedVoucherCoefficient(
         "assistance_need_voucher_coefficient",
-        BiQueries.getAssistanceNeedVoucherCoefficients
+        BiQueries.getAssistanceNeedVoucherCoefficients,
     ),
     BackupCare("backup_care", BiQueries.getBackupCares),
     CareArea("care_area", BiQueries.getAreas),
     Child("child", BiQueries.getChildren),
     ChildAttendance("child_attendance_delta", BiQueries.getChildAttendanceDelta),
     CurriculumDocument("curriculum_document", BiQueries.getCurriculumDocuments),
-    CurriculumDocumentEvent("curriculum_document", BiQueries.getCurriculumDocumentEvents),
+    CurriculumDocumentEvent("curriculum_document_event", BiQueries.getCurriculumDocumentEvents),
     CurriculumTemplate("curriculum_template", BiQueries.getCurriculumTemplates),
     DailyServiceTimeNotification(
         "daily_service_time_notification",
-        BiQueries.getDailyServiceTimeNotifications
+        BiQueries.getDailyServiceTimeNotifications,
     ),
     Daycare("daycare", BiQueries.getDaycares),
     DaycareAssistance("daycare_assistance", BiQueries.getDaycareAssistances),
@@ -57,7 +57,7 @@ enum class BiTable(val fileName: String, val query: BiQueries.CsvQuery) {
     HolidayPeriod("holiday_period", BiQueries.getHolidayPeriods),
     HolidayPeriodQuestionnaireAnswer(
         "holiday_period_questionnaire_answer",
-        BiQueries.getHolidayQuestionnaireAnswers
+        BiQueries.getHolidayQuestionnaireAnswers,
     ),
     Income("income", BiQueries.getIncomes),
     OtherAssistanceMeasure("other_assistance_measure", BiQueries.getOtherAssistanceMeasures),
@@ -68,14 +68,14 @@ enum class BiTable(val fileName: String, val query: BiQueries.CsvQuery) {
     ServiceNeedOption("service_need_option", BiQueries.getServiceNeedOptions),
     ServiceNeedOptionVoucherValue(
         "service_need_option_voucher_value",
-        BiQueries.getServiceNeedOptionVoucherValues
+        BiQueries.getServiceNeedOptionVoucherValues,
     ),
     StaffAttendance("staff_attendance", BiQueries.getStaffAttendance),
     StaffAttendanceExternal("staff_attendance_external", BiQueries.getStaffAttendanceExternals),
     StaffAttendancePlan("staff_attendance_plan", BiQueries.getStaffAttendancePlans),
     StaffOccupancyCoefficient(
         "staff_occupancy_coefficient",
-        BiQueries.getStaffOccupancyCoefficients
+        BiQueries.getStaffOccupancyCoefficients,
     ),
-    VoucherValueDecision("voucher_value_decision", BiQueries.getVoucherValueDecisions)
+    VoucherValueDecision("voucher_value_decision", BiQueries.getVoucherValueDecisions),
 }

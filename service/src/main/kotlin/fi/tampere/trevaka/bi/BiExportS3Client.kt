@@ -13,17 +13,17 @@ import java.io.ByteArrayInputStream
 
 class StreamingBiExportS3Client(
     private val asyncClient: S3AsyncClient,
-    private val properties: TampereProperties
+    private val properties: TampereProperties,
 ) : BiExportClient {
     private val logger = KotlinLogging.logger {}
 
     override fun sendBiCsvFile(
         fileName: String,
-        stream: EspooBiJob.CsvInputStream
+        stream: EspooBiJob.CsvInputStream,
     ): Pair<String, String> {
         logger.info("Sending BI CSV file $fileName")
         val bucket = properties.bucket.export
-        val key = "bi/${fileName}"
+        val key = "bi/$fileName"
 
         val body = AsyncRequestBody.forBlockingInputStream(null)
 
@@ -45,17 +45,17 @@ class StreamingBiExportS3Client(
 
 class S3MockBiExportS3Client(
     private val asyncClient: S3AsyncClient,
-    private val properties: TampereProperties
+    private val properties: TampereProperties,
 ) : BiExportClient {
     private val logger = KotlinLogging.logger {}
 
     override fun sendBiCsvFile(
         fileName: String,
-        stream: EspooBiJob.CsvInputStream
+        stream: EspooBiJob.CsvInputStream,
     ): Pair<String, String> {
         logger.info("Sending BI CSV file $fileName")
         val bucket = properties.bucket.export
-        val key = "bi/${fileName}"
+        val key = "bi/$fileName"
 
         // S3 Mock does not seem to support streaming with CRT-client multiparts ->
         // test client needs to avoid sending multipart messages

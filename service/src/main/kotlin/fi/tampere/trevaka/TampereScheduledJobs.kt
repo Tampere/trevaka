@@ -15,8 +15,8 @@ import fi.espoo.evaka.shared.job.ScheduledJobDefinition
 import fi.espoo.evaka.shared.job.ScheduledJobSettings
 import fi.tampere.trevaka.bi.BiTable
 import fi.tampere.trevaka.export.ExportUnitsAclService
-import java.time.LocalTime
 import mu.KotlinLogging
+import java.time.LocalTime
 
 enum class TampereScheduledJob(
     val fn: (TampereScheduledJobs, Database.Connection, EvakaClock) -> Unit,
@@ -24,12 +24,12 @@ enum class TampereScheduledJob(
 ) {
     ExportUnitsAcl(
         TampereScheduledJobs::exportUnitsAcl,
-        ScheduledJobSettings(enabled = true, schedule = JobSchedule.daily(LocalTime.of(16, 57))),
+        ScheduledJobSettings(enabled = false, schedule = JobSchedule.daily(LocalTime.of(0, 0))),
     ),
     PlanBiExportJobs(
         { jobs, db, clock -> jobs.planBiJobs(db, clock, BiTable.entries) },
-        ScheduledJobSettings(enabled = true, schedule = JobSchedule.daily(LocalTime.of(16, 58)))
-    )
+        ScheduledJobSettings(enabled = true, schedule = JobSchedule.daily(LocalTime.of(1, 0))),
+    ),
 }
 
 class TampereScheduledJobs(
@@ -57,7 +57,7 @@ class TampereScheduledJobs(
                 tx,
                 tables.asSequence().map(TampereAsyncJob::SendBiTable),
                 runAt = clock.now(),
-                retryCount = 1
+                retryCount = 1,
             )
         }
     }
