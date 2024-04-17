@@ -226,6 +226,9 @@ const fi: DeepPartial<Translations> = {
           info: {
             PRESCHOOL: [
               'Lukuvuosi 2024-2025 alkaa keskiviikkona 7.8.2024 ja päättyy keskiviikkona 28.5.2025.'
+            ],
+            CLUB: [
+              'Kerhon toimintakausi on syyskuusta toukokuun loppuun ja kullekin toimintakaudelle haetaan erikseen. Eri kerhot kokoontuvat eri viikonpäivinä.'
             ]
           },
           label: {
