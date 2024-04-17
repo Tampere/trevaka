@@ -230,6 +230,9 @@ const en: DeepPartial<Translations> = {
           info: {
             PRESCHOOL: [
               'The school year 2024-2025 starts on Wednesday 7.8.2024 and ends on Wednesday 28.5.2025.'
+            ],
+            CLUB: [
+              "The club's operating season is from September to the end of May, and applications are made separately for each operating season. Different clubs meet on different days of the week."
             ]
           },
           label: {
