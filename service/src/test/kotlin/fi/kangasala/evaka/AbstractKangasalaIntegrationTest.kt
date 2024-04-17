@@ -20,32 +20,37 @@ abstract class AbstractKangasalaIntegrationTest : AbstractIntegrationTest() {
         DecisionType.DAYCARE,
         DecisionType.PRESCHOOL,
         DecisionType.PRESCHOOL_DAYCARE,
+        DecisionType.PREPARATORY_EDUCATION,
     )
 
     protected fun supportedProviderTypes(): Stream<ProviderType> = Stream.of(
         ProviderType.MUNICIPAL,
         ProviderType.PURCHASED,
-        ProviderType.PRIVATE,
         ProviderType.PRIVATE_SERVICE_VOUCHER,
     )
 
     protected fun supportedPlacementTypes(): Stream<PlacementType> = Stream.of(
+        PlacementType.CLUB,
         PlacementType.DAYCARE,
         PlacementType.PRESCHOOL,
+        PlacementType.PRESCHOOL_DAYCARE,
         PlacementType.PREPARATORY_DAYCARE,
         PlacementType.TEMPORARY_DAYCARE,
         PlacementType.SCHOOL_SHIFT_CARE,
+        PlacementType.PREPARATORY,
     )
 
     protected fun supportedFeeDecisionTypes(): Stream<FeeDecisionType> = Stream.of(
         FeeDecisionType.NORMAL,
         FeeDecisionType.RELIEF_REJECTED,
         FeeDecisionType.RELIEF_ACCEPTED,
+        FeeDecisionType.RELIEF_PARTLY_ACCEPTED,
     )
 
     protected fun supportedVoucherValueDecisionTypes(): Stream<VoucherValueDecisionType> = Stream.of(
         VoucherValueDecisionType.NORMAL,
         VoucherValueDecisionType.RELIEF_REJECTED,
         VoucherValueDecisionType.RELIEF_ACCEPTED,
+        VoucherValueDecisionType.RELIEF_PARTLY_ACCEPTED,
     )
 }
