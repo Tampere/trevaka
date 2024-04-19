@@ -61,6 +61,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DynamicTest
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import org.springframework.beans.factory.annotation.Autowired
 import software.amazon.awssdk.services.s3.S3AsyncClient
@@ -76,7 +77,9 @@ import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.Month
+import java.time.format.DateTimeFormatter
 import java.util.UUID
+import java.util.zip.ZipInputStream
 
 class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
     private val clock =
@@ -104,7 +107,7 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
 
         createBucketsIfNeeded(s3Client, properties.bucket.allBuckets())
 
-        val exportClient = S3MockBiExportS3Client(s3AsyncClient, properties)
+        val exportClient = FileBiExportS3Client(s3AsyncClient, properties)
         exportJob = BiExportJob(exportClient)
     }
 
@@ -126,13 +129,15 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
 
     private fun sendAndAssertBiTableCsv(table: BiTable) {
         val bucket = properties.bucket.export
-        val key = "bi/${table.fileName}_${clock.now().toLocalDate()}.csv"
+        val fileName =
+            "${table.fileName}_${clock.now().toLocalDate().format(DateTimeFormatter.ISO_DATE)}.zip"
+        val key = "bi/$fileName"
 
         exportJob.sendBiTable(db, clock, table.fileName, table.query)
 
-        val (data, contentType) = getCsv(bucket, key)
+        val (data, name) = getZip(bucket, key)
 
-        assertEquals("text/csv", contentType)
+        assertEquals("${table.fileName}.csv", name)
         assertTrue(data.isNotEmpty())
     }
 
@@ -140,6 +145,17 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
         val request = GetObjectRequest.builder().bucket(bucket).key(key).build()
         return s3Client.getObject(request).use {
             it.readAllBytes().toString(Charsets.UTF_8) to it.response().contentType()
+        }
+    }
+
+    private fun getZip(bucket: String, key: String): Pair<String, String> {
+        val request = GetObjectRequest.builder().bucket(bucket).key(key).build()
+        return s3Client.getObject(request).use {
+            ZipInputStream(it).use { zip ->
+                val entry = zip.nextEntry
+                val content = zip.readAllBytes().toString(CSV_CHARSET)
+                content to (entry?.name ?: "")
+            }
         }
     }
 
@@ -163,16 +179,16 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
         db.transaction { tx ->
             val areaId =
                 tx.createQuery(
-                    QuerySql.of { sql("select id from care_area order by short_name limit 1") },
-                )
+                        QuerySql.of { sql("select id from care_area order by short_name limit 1") },
+                    )
                     .exactlyOne<AreaId>()
 
             val snoId =
                 tx.createQuery(
-                    QuerySql.of {
-                        sql("select id from service_need_option order by name_fi limit 1")
-                    },
-                )
+                        QuerySql.of {
+                            sql("select id from service_need_option order by name_fi limit 1")
+                        },
+                    )
                     .exactlyOne<ServiceNeedOptionId>()
 
             val daycareId =
@@ -231,9 +247,9 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
                     connectedDaycare = false,
                     urgent = true,
                     careDetails =
-                    CareDetails(
-                        assistanceNeeded = true,
-                    ),
+                        CareDetails(
+                            assistanceNeeded = true,
+                        ),
                     extendedCare = true,
                     child = Child(dateOfBirth = null),
                     guardian = Adult(),
@@ -248,35 +264,35 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
                         FeeDecision(
                             id = id,
                             children =
-                            listOf(
-                                FeeDecisionChild(
-                                    child =
-                                    ChildWithDateOfBirth(
-                                        id = childId,
-                                        dateOfBirth = LocalDate.of(2020, 1, 1),
+                                listOf(
+                                    FeeDecisionChild(
+                                        child =
+                                            ChildWithDateOfBirth(
+                                                id = childId,
+                                                dateOfBirth = LocalDate.of(2020, 1, 1),
+                                            ),
+                                        placement =
+                                            FeeDecisionPlacement(
+                                                unitId = daycareId,
+                                                type = PlacementType.DAYCARE,
+                                            ),
+                                        serviceNeed =
+                                            FeeDecisionServiceNeed(
+                                                optionId = snoId,
+                                                feeCoefficient = BigDecimal.ONE,
+                                                contractDaysPerMonth = null,
+                                                descriptionFi = "",
+                                                descriptionSv = "",
+                                                missing = false,
+                                            ),
+                                        baseFee = 10_000,
+                                        siblingDiscount = 0,
+                                        fee = 10_000,
+                                        finalFee = 10_000,
+                                        feeAlterations = emptyList(),
+                                        childIncome = null,
                                     ),
-                                    placement =
-                                    FeeDecisionPlacement(
-                                        unitId = daycareId,
-                                        type = PlacementType.DAYCARE,
-                                    ),
-                                    serviceNeed =
-                                    FeeDecisionServiceNeed(
-                                        optionId = snoId,
-                                        feeCoefficient = BigDecimal.ONE,
-                                        contractDaysPerMonth = null,
-                                        descriptionFi = "",
-                                        descriptionSv = "",
-                                        missing = false,
-                                    ),
-                                    baseFee = 10_000,
-                                    siblingDiscount = 0,
-                                    fee = 10_000,
-                                    finalFee = 10_000,
-                                    feeAlterations = emptyList(),
-                                    childIncome = null,
                                 ),
-                            ),
                             headOfFamilyId = guardianId,
                             validDuring = DateRange.ofMonth(2019, Month.JANUARY),
                             status = FeeDecisionStatus.SENT,
@@ -311,25 +327,25 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
                             familySize = 1,
                             feeThresholds = testFeeThresholds.getFeeDecisionThresholds(1),
                             child =
-                            ChildWithDateOfBirth(
-                                id = childId,
-                                dateOfBirth = LocalDate.of(2020, 1, 1),
-                            ),
+                                ChildWithDateOfBirth(
+                                    id = childId,
+                                    dateOfBirth = LocalDate.of(2020, 1, 1),
+                                ),
                             placement =
-                            VoucherValueDecisionPlacement(
-                                unitId = daycareId,
-                                type = PlacementType.DAYCARE,
-                            ),
+                                VoucherValueDecisionPlacement(
+                                    unitId = daycareId,
+                                    type = PlacementType.DAYCARE,
+                                ),
                             serviceNeed =
-                            VoucherValueDecisionServiceNeed(
-                                feeCoefficient = BigDecimal.ONE,
-                                voucherValueCoefficient = BigDecimal.ONE,
-                                feeDescriptionFi = "",
-                                feeDescriptionSv = "",
-                                voucherValueDescriptionFi = "",
-                                voucherValueDescriptionSv = "",
-                                missing = false,
-                            ),
+                                VoucherValueDecisionServiceNeed(
+                                    feeCoefficient = BigDecimal.ONE,
+                                    voucherValueCoefficient = BigDecimal.ONE,
+                                    feeDescriptionFi = "",
+                                    feeDescriptionSv = "",
+                                    voucherValueDescriptionFi = "",
+                                    voucherValueDescriptionSv = "",
+                                    missing = false,
+                                ),
                             baseCoPayment = 1,
                             siblingDiscount = 0,
                             coPayment = 1,
@@ -344,13 +360,15 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
                 )
             }
 
-            tx.insertVasuTemplate(
-                "Template",
-                valid = FiniteDateRange.ofMonth(2022, Month.JANUARY),
-                type = CurriculumType.DAYCARE,
-                language = VasuLanguage.FI,
-                content = getDefaultVasuContent(VasuLanguage.FI),
-            )
+            Month.entries.forEach {
+                tx.insertVasuTemplate(
+                    "Template",
+                    valid = FiniteDateRange.ofMonth(2022, it),
+                    type = CurriculumType.DAYCARE,
+                    language = VasuLanguage.FI,
+                    content = getDefaultVasuContent(VasuLanguage.FI),
+                )
+            }
         }
     }
 }

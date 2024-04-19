@@ -5,76 +5,73 @@
 package fi.tampere.trevaka.bi
 
 import fi.espoo.evaka.espoo.bi.EspooBiJob
+import fi.espoo.evaka.shared.domain.EvakaClock
 import fi.tampere.trevaka.TampereProperties
 import mu.KotlinLogging
 import software.amazon.awssdk.core.async.AsyncRequestBody
 import software.amazon.awssdk.services.s3.S3AsyncClient
-import java.io.ByteArrayInputStream
+import java.io.BufferedOutputStream
+import java.nio.file.Files
+import java.time.format.DateTimeFormatter
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
+import kotlin.io.path.deleteIfExists
 
-class StreamingBiExportS3Client(
+class FileBiExportS3Client(
     private val asyncClient: S3AsyncClient,
     private val properties: TampereProperties,
 ) : BiExportClient {
     private val logger = KotlinLogging.logger {}
 
     override fun sendBiCsvFile(
-        fileName: String,
+        tableName: String,
+        clock: EvakaClock,
         stream: EspooBiJob.CsvInputStream,
     ): Pair<String, String> {
-        logger.info("Sending BI CSV file $fileName")
+        val date = clock.now().toLocalDate()
+        val fileName = "$tableName.csv"
+        logger.info("Sending BI content for '$tableName'")
         val bucket = properties.bucket.export
-        val key = "bi/$fileName"
+        val key = "bi/${tableName}_${date.format(DateTimeFormatter.ISO_DATE)}.zip"
 
-        val body = AsyncRequestBody.forBlockingInputStream(null)
-
-        val futureResponse =
-            asyncClient.putObject({ r -> r.bucket(bucket).key(key).contentType("text/csv") }, body)
-
-        val contentLength = body.writeInputStream(stream)
-        val response = futureResponse.join().sdkHttpResponse()
-        if (response.isSuccessful) {
-            logger.info("BI CSV file $fileName successfully sent ($contentLength bytes)")
-        } else {
-            logger.warn {
-                "BI CSV file $fileName sending failed ($contentLength bytes): ${response.statusCode()} ${response.statusText()}"
+        val tempFile = Files.createTempFile("bi", fileName)
+        try {
+            Files.newOutputStream(tempFile).use { fos ->
+                BufferedOutputStream(fos).use { bos ->
+                    ZipOutputStream(bos).use { zip ->
+                        zip.putNextEntry(ZipEntry(fileName))
+                        stream.transferTo(zip)
+                        zip.closeEntry()
+                    }
+                }
             }
-        }
-        return bucket to key
-    }
-}
 
-class S3MockBiExportS3Client(
-    private val asyncClient: S3AsyncClient,
-    private val properties: TampereProperties,
-) : BiExportClient {
-    private val logger = KotlinLogging.logger {}
+            val body = AsyncRequestBody.forBlockingInputStream(tempFile.toFile().length())
 
-    override fun sendBiCsvFile(
-        fileName: String,
-        stream: EspooBiJob.CsvInputStream,
-    ): Pair<String, String> {
-        logger.info("Sending BI CSV file $fileName")
-        val bucket = properties.bucket.export
-        val key = "bi/$fileName"
+            val futureResponse =
+                asyncClient.putObject(
+                    { r -> r.bucket(bucket).key(key).contentType("application/zip") },
+                    body
+                )
 
-        // S3 Mock does not seem to support streaming with CRT-client multiparts ->
-        // test client needs to avoid sending multipart messages
-        val content = stream.readAllBytes()
-        val body = AsyncRequestBody.forBlockingInputStream(content.size.toLong())
+            val contentLength = body.writeInputStream(Files.newInputStream(tempFile))
+            val response = futureResponse.join().sdkHttpResponse()
 
-        val futureResponse =
-            asyncClient.putObject({ r -> r.bucket(bucket).key(key).contentType("text/csv") }, body)
-
-        val contentLength = body.writeInputStream(ByteArrayInputStream(content))
-
-        val response = futureResponse.join().sdkHttpResponse()
-        if (response.isSuccessful) {
-            logger.info("BI CSV file $fileName successfully sent ($contentLength bytes)")
-        } else {
-            logger.warn {
-                "BI CSV file $fileName sending failed ($contentLength bytes): ${response.statusCode()} ${response.statusText()}"
+            if (response.isSuccessful) {
+                logger.info("BI file $key successfully sent ($contentLength bytes)")
+            } else {
+                logger.warn {
+                    "BI file $key sending failed ($contentLength bytes): ${response.statusCode()} ${response.statusText()}"
+                }
             }
+        } finally {
+            val wasDeleted = tempFile.deleteIfExists()
+            if (!wasDeleted)
+                logger.warn {
+                    "BI temporary file clean up for ${tempFile.fileName} did not find anything to delete"
+                }
         }
+
         return bucket to key
     }
 }

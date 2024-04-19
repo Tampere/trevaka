@@ -5,7 +5,8 @@
 package fi.tampere.trevaka.bi
 
 import fi.espoo.evaka.espoo.bi.EspooBiJob
+import fi.espoo.evaka.shared.domain.EvakaClock
 
 interface BiExportClient {
-    fun sendBiCsvFile(fileName: String, stream: EspooBiJob.CsvInputStream): Pair<String, String>
+    fun sendBiCsvFile(tableName: String, clock: EvakaClock, stream: EspooBiJob.CsvInputStream): Pair<String, String>
 }

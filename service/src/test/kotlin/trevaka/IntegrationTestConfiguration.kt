@@ -7,11 +7,6 @@ package trevaka
 import com.auth0.jwt.algorithms.Algorithm
 import fi.espoo.evaka.BucketEnv
 import fi.espoo.evaka.EvakaEnv
-import fi.tampere.trevaka.TampereEnv
-import fi.tampere.trevaka.TampereProperties
-import fi.tampere.trevaka.bi.BiExportClient
-import fi.tampere.trevaka.bi.S3MockBiExportS3Client
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Profile
@@ -71,14 +66,6 @@ class IntegrationTestConfiguration {
                 StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar")),
             )
             .build()
-
-    @Bean
-    @Profile("tampere_evaka")
-    fun tampereTestBiClient(
-        @Qualifier("testS3AsyncClient") asyncClient: S3AsyncClient,
-        properties: TampereProperties,
-        env: TampereEnv,
-    ): BiExportClient = S3MockBiExportS3Client(asyncClient, properties)
 
     @Bean
     fun jwtAlgorithm(): Algorithm {

@@ -5,7 +5,7 @@
 package fi.tampere.trevaka.bi
 
 enum class BiTable(val fileName: String, val query: BiQueries.CsvQuery) {
-    Absence("absence_delta", BiQueries.getAbsencesDelta),
+    Absence("absence_DELTA", BiQueries.getAbsencesDelta),
     Application("application", BiQueries.getApplications),
     ApplicationForm("application_form", BiQueries.getApplicationForms),
     AssistanceAction("assistance_action", BiQueries.getAssistanceActions),
@@ -30,7 +30,7 @@ enum class BiTable(val fileName: String, val query: BiQueries.CsvQuery) {
     BackupCare("backup_care", BiQueries.getBackupCares),
     CareArea("care_area", BiQueries.getAreas),
     Child("child", BiQueries.getChildren),
-    ChildAttendance("child_attendance_delta", BiQueries.getChildAttendanceDelta),
+    ChildAttendance("child_attendance_DELTA", BiQueries.getChildAttendanceDelta),
     CurriculumDocument("curriculum_document", BiQueries.getCurriculumDocuments),
     CurriculumDocumentEvent("curriculum_document_event", BiQueries.getCurriculumDocumentEvents),
     CurriculumTemplate("curriculum_template", BiQueries.getCurriculumTemplates),

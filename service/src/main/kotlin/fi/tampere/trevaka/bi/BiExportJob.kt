@@ -21,13 +21,11 @@ class BiExportJob(private val client: BiExportClient) {
         tableName: String,
         query: BiQueries.CsvQuery,
     ) {
-        val date = clock.now().toLocalDate()
-        val fileName = "${tableName}_$date.csv"
         db.read { tx ->
             tx.setStatementTimeout(Duration.ofMinutes(10))
             query(tx) { records ->
                 val stream = EspooBiJob.CsvInputStream(CSV_CHARSET, records)
-                client.sendBiCsvFile(fileName, stream)
+                client.sendBiCsvFile(tableName, clock, stream)
             }
         }
     }

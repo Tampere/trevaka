@@ -28,7 +28,7 @@ enum class TampereScheduledJob(
     ),
     PlanBiExportJobs(
         { jobs, db, clock -> jobs.planBiJobs(db, clock, BiTable.entries) },
-        ScheduledJobSettings(enabled = true, schedule = JobSchedule.daily(LocalTime.of(1, 0))),
+        ScheduledJobSettings(enabled = false, schedule = JobSchedule.daily(LocalTime.of(1, 0))),
     ),
 }
 

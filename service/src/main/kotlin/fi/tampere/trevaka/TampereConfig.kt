@@ -8,7 +8,6 @@ import fi.espoo.evaka.BucketEnv
 import fi.espoo.evaka.EvakaEnv
 import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
-import fi.espoo.evaka.lookup
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.async.AsyncJobRunner
 import fi.espoo.evaka.shared.auth.UserRole
@@ -16,9 +15,7 @@ import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
 import fi.tampere.trevaka.bi.BiExportClient
 import fi.tampere.trevaka.bi.BiExportJob
-import fi.tampere.trevaka.bi.MockBiExportClient
-import fi.tampere.trevaka.bi.S3MockBiExportS3Client
-import fi.tampere.trevaka.bi.StreamingBiExportS3Client
+import fi.tampere.trevaka.bi.FileBiExportS3Client
 import fi.tampere.trevaka.export.ExportUnitsAclService
 import fi.tampere.trevaka.security.TampereActionRuleMapping
 import io.opentracing.Tracer
@@ -62,8 +59,6 @@ class TampereConfig {
         fiveYearsOldDaycareEnabled = false,
     )
 
-    @Bean fun tampereEnv(env: Environment) = TampereEnv.fromEnvironment(env)
-
     @Bean
     @Profile("production")
     fun productionS3AsyncClient(
@@ -91,30 +86,8 @@ class TampereConfig {
     }
 
     @Bean
-    @Profile("local")
-    fun s3MockBiClient(
-        asyncClient: S3AsyncClient,
-        properties: TampereProperties,
-        env: TampereEnv,
-    ): BiExportClient =
-        if (env.biIntegrationEnabled) {
-            S3MockBiExportS3Client(asyncClient, properties)
-        } else {
-            MockBiExportClient()
-        }
-
-    @Bean
-    @Profile("production")
-    fun streamingBiClient(
-        asyncClient: S3AsyncClient,
-        properties: TampereProperties,
-        env: TampereEnv,
-    ): BiExportClient =
-        if (env.biIntegrationEnabled) {
-            StreamingBiExportS3Client(asyncClient, properties)
-        } else {
-            MockBiExportClient()
-        }
+    fun fileS3Client(asyncClient: S3AsyncClient, properties: TampereProperties): BiExportClient =
+        FileBiExportS3Client(asyncClient, properties)
 
     @Bean
     fun tampereAsyncJobRunner(
@@ -153,11 +126,4 @@ class TampereConfig {
         tampereRunner: AsyncJobRunner<TampereAsyncJob>,
         env: ScheduledJobsEnv<TampereScheduledJob>,
     ): TampereScheduledJobs = TampereScheduledJobs(exportUnitsAclService, tampereRunner, env)
-}
-
-data class TampereEnv(val biIntegrationEnabled: Boolean) {
-    companion object {
-        fun fromEnvironment(env: Environment): TampereEnv =
-            TampereEnv(biIntegrationEnabled = env.lookup("tampere.integration.bi.enabled") ?: false)
-    }
 }
