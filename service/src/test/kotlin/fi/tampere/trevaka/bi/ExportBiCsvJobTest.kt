@@ -61,7 +61,6 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DynamicTest
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import org.springframework.beans.factory.annotation.Autowired
 import software.amazon.awssdk.services.s3.S3AsyncClient
@@ -179,16 +178,16 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
         db.transaction { tx ->
             val areaId =
                 tx.createQuery(
-                        QuerySql.of { sql("select id from care_area order by short_name limit 1") },
-                    )
+                    QuerySql.of { sql("select id from care_area order by short_name limit 1") },
+                )
                     .exactlyOne<AreaId>()
 
             val snoId =
                 tx.createQuery(
-                        QuerySql.of {
-                            sql("select id from service_need_option order by name_fi limit 1")
-                        },
-                    )
+                    QuerySql.of {
+                        sql("select id from service_need_option order by name_fi limit 1")
+                    },
+                )
                     .exactlyOne<ServiceNeedOptionId>()
 
             val daycareId =
@@ -247,9 +246,9 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
                     connectedDaycare = false,
                     urgent = true,
                     careDetails =
-                        CareDetails(
-                            assistanceNeeded = true,
-                        ),
+                    CareDetails(
+                        assistanceNeeded = true,
+                    ),
                     extendedCare = true,
                     child = Child(dateOfBirth = null),
                     guardian = Adult(),
@@ -264,35 +263,35 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
                         FeeDecision(
                             id = id,
                             children =
-                                listOf(
-                                    FeeDecisionChild(
-                                        child =
-                                            ChildWithDateOfBirth(
-                                                id = childId,
-                                                dateOfBirth = LocalDate.of(2020, 1, 1),
-                                            ),
-                                        placement =
-                                            FeeDecisionPlacement(
-                                                unitId = daycareId,
-                                                type = PlacementType.DAYCARE,
-                                            ),
-                                        serviceNeed =
-                                            FeeDecisionServiceNeed(
-                                                optionId = snoId,
-                                                feeCoefficient = BigDecimal.ONE,
-                                                contractDaysPerMonth = null,
-                                                descriptionFi = "",
-                                                descriptionSv = "",
-                                                missing = false,
-                                            ),
-                                        baseFee = 10_000,
-                                        siblingDiscount = 0,
-                                        fee = 10_000,
-                                        finalFee = 10_000,
-                                        feeAlterations = emptyList(),
-                                        childIncome = null,
+                            listOf(
+                                FeeDecisionChild(
+                                    child =
+                                    ChildWithDateOfBirth(
+                                        id = childId,
+                                        dateOfBirth = LocalDate.of(2020, 1, 1),
                                     ),
+                                    placement =
+                                    FeeDecisionPlacement(
+                                        unitId = daycareId,
+                                        type = PlacementType.DAYCARE,
+                                    ),
+                                    serviceNeed =
+                                    FeeDecisionServiceNeed(
+                                        optionId = snoId,
+                                        feeCoefficient = BigDecimal.ONE,
+                                        contractDaysPerMonth = null,
+                                        descriptionFi = "",
+                                        descriptionSv = "",
+                                        missing = false,
+                                    ),
+                                    baseFee = 10_000,
+                                    siblingDiscount = 0,
+                                    fee = 10_000,
+                                    finalFee = 10_000,
+                                    feeAlterations = emptyList(),
+                                    childIncome = null,
                                 ),
+                            ),
                             headOfFamilyId = guardianId,
                             validDuring = DateRange.ofMonth(2019, Month.JANUARY),
                             status = FeeDecisionStatus.SENT,
@@ -327,25 +326,25 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
                             familySize = 1,
                             feeThresholds = testFeeThresholds.getFeeDecisionThresholds(1),
                             child =
-                                ChildWithDateOfBirth(
-                                    id = childId,
-                                    dateOfBirth = LocalDate.of(2020, 1, 1),
-                                ),
+                            ChildWithDateOfBirth(
+                                id = childId,
+                                dateOfBirth = LocalDate.of(2020, 1, 1),
+                            ),
                             placement =
-                                VoucherValueDecisionPlacement(
-                                    unitId = daycareId,
-                                    type = PlacementType.DAYCARE,
-                                ),
+                            VoucherValueDecisionPlacement(
+                                unitId = daycareId,
+                                type = PlacementType.DAYCARE,
+                            ),
                             serviceNeed =
-                                VoucherValueDecisionServiceNeed(
-                                    feeCoefficient = BigDecimal.ONE,
-                                    voucherValueCoefficient = BigDecimal.ONE,
-                                    feeDescriptionFi = "",
-                                    feeDescriptionSv = "",
-                                    voucherValueDescriptionFi = "",
-                                    voucherValueDescriptionSv = "",
-                                    missing = false,
-                                ),
+                            VoucherValueDecisionServiceNeed(
+                                feeCoefficient = BigDecimal.ONE,
+                                voucherValueCoefficient = BigDecimal.ONE,
+                                feeDescriptionFi = "",
+                                feeDescriptionSv = "",
+                                voucherValueDescriptionFi = "",
+                                voucherValueDescriptionSv = "",
+                                missing = false,
+                            ),
                             baseCoPayment = 1,
                             siblingDiscount = 0,
                             coPayment = 1,

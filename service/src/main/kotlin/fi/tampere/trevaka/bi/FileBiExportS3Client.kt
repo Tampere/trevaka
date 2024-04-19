@@ -51,7 +51,7 @@ class FileBiExportS3Client(
             val futureResponse =
                 asyncClient.putObject(
                     { r -> r.bucket(bucket).key(key).contentType("application/zip") },
-                    body
+                    body,
                 )
 
             val contentLength = body.writeInputStream(Files.newInputStream(tempFile))
@@ -66,10 +66,11 @@ class FileBiExportS3Client(
             }
         } finally {
             val wasDeleted = tempFile.deleteIfExists()
-            if (!wasDeleted)
+            if (!wasDeleted) {
                 logger.warn {
                     "BI temporary file clean up for ${tempFile.fileName} did not find anything to delete"
                 }
+            }
         }
 
         return bucket to key
