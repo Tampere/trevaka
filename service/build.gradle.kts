@@ -20,8 +20,6 @@ repositories {
 }
 
 dependencies {
-    api("com.google.guava:guava:33.1.0-jre")
-
     xjcTool("com.sun.xml.bind:jaxb-xjc:3.0.2")
     xjcTool("com.sun.xml.bind:jaxb-impl:3.0.2")
 
