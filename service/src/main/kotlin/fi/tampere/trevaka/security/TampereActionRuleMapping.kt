@@ -12,6 +12,7 @@ import fi.espoo.evaka.shared.security.PilotFeature
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.shared.security.actionrule.HasGlobalRole
 import fi.espoo.evaka.shared.security.actionrule.HasUnitRole
+import fi.espoo.evaka.shared.security.actionrule.IsEmployee
 import fi.espoo.evaka.shared.security.actionrule.ScopedActionRule
 import fi.espoo.evaka.shared.security.actionrule.UnscopedActionRule
 
@@ -63,16 +64,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasUnitRole(UserRole.STAFF).inAnyUnit(),
             )
         }
-        Action.Global.PIN_CODE_PAGE -> sequenceOf(
-            // removed director from default rules
-            HasGlobalRole(UserRole.ADMIN, UserRole.REPORT_VIEWER, UserRole.SERVICE_WORKER),
-            HasUnitRole(
-                UserRole.UNIT_SUPERVISOR,
-                UserRole.STAFF,
-                UserRole.SPECIAL_EDUCATION_TEACHER,
-                UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY,
-            ).inAnyUnit(),
-        )
+        Action.Global.PIN_CODE_PAGE -> sequenceOf(IsEmployee.any())
         Action.Global.CREATE_PERSONAL_MOBILE_DEVICE_PAIRING,
         Action.Global.PERSONAL_MOBILE_DEVICE_PAGE,
         -> {
