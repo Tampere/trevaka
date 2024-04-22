@@ -140,13 +140,6 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
         assertTrue(data.isNotEmpty())
     }
 
-    private fun getCsv(bucket: String, key: String): Pair<String, String> {
-        val request = GetObjectRequest.builder().bucket(bucket).key(key).build()
-        return s3Client.getObject(request).use {
-            it.readAllBytes().toString(Charsets.UTF_8) to it.response().contentType()
-        }
-    }
-
     private fun getZip(bucket: String, key: String): Pair<String, String> {
         val request = GetObjectRequest.builder().bucket(bucket).key(key).build()
         return s3Client.getObject(request).use {

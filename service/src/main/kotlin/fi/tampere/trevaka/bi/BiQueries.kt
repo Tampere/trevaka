@@ -13,7 +13,7 @@ object BiQueries {
         csvQuery<BiArea> {
             sql(
                 """
-            SELECT id, name, created, updated, area_code, sub_cost_center, short_name
+            SELECT id, name, created::text, updated::text, area_code, sub_cost_center, short_name
             FROM care_area
             """,
             )
@@ -23,7 +23,7 @@ object BiQueries {
         csvQuery<BiPerson> {
             sql(
                 """
-            SELECT id, social_security_number, first_name, last_name, email, aad_object_id, language, date_of_birth, created, updated, street_address, postal_code, post_office, nationalities, restricted_details_enabled, restricted_details_end_date, phone, updated_from_vtj, invoicing_street_address, invoicing_postal_code, invoicing_post_office, invoice_recipient_name, date_of_death, residence_code, force_manual_fee_decisions, backup_phone, last_login, oph_person_oid, vtj_guardians_queried, vtj_dependants_queried, ssn_adding_disabled, preferred_name, duplicate_of, enabled_email_types
+            SELECT id, social_security_number, first_name, last_name, email, aad_object_id, language, date_of_birth, created::text, updated::text, street_address, postal_code, post_office, nationalities, restricted_details_enabled, restricted_details_end_date, phone, updated_from_vtj::text, invoicing_street_address, invoicing_postal_code, invoicing_post_office, invoice_recipient_name, date_of_death, residence_code, force_manual_fee_decisions, backup_phone, last_login::text, oph_person_oid, vtj_guardians_queried::text, vtj_dependants_queried::text, ssn_adding_disabled, preferred_name, duplicate_of, enabled_email_types
             FROM person
             """,
             )
@@ -33,7 +33,7 @@ object BiQueries {
         csvQuery<BiApplication> {
             sql(
                 """
-            select id, created, updated, sentdate, duedate, guardian_id, child_id, checkedbyadmin, hidefromguardian, transferapplication, other_guardian_id, additionaldaycareapplication, status, origin, duedate_set_manually_at, service_worker_note, type, allow_other_guardian_access, document::text
+            select id, created::text, updated::text, sentdate, duedate, guardian_id, child_id, checkedbyadmin, hidefromguardian, transferapplication, additionaldaycareapplication, status, origin, duedate_set_manually_at::text, service_worker_note, type, allow_other_guardian_access, document::text
             FROM application
         """,
             )
@@ -43,7 +43,7 @@ object BiQueries {
         csvQuery<BiApplicationForm> {
             sql(
                 """
-            select id, application_id, created, revision, document::text, updated, latest
+            select id, application_id, created::text, revision, document::text, updated::text, latest
             FROM application_form
         """,
             )
@@ -53,7 +53,7 @@ object BiQueries {
         csvQuery<BiAssistanceAction> {
             sql(
                 """
-            select id, created, updated, updated_by, child_id, start_date, end_date, other_action, measures::text
+            select id, created::text, updated::text, updated_by, child_id, start_date, end_date, other_action, measures::text
             FROM assistance_action
         """,
             )
@@ -63,7 +63,7 @@ object BiQueries {
         csvQuery<BiAssistanceActionOption> {
             sql(
                 """
-            select id, created, updated, value, name_fi, display_order, description_fi
+            select id, created::text, updated::text, value, name_fi, display_order, description_fi
             FROM assistance_action_option
         """,
             )
@@ -73,7 +73,7 @@ object BiQueries {
         csvQuery<BiAssistanceActionOptionRef> {
             sql(
                 """
-            select action_id, option_id, created
+            select action_id, option_id, created::text
             FROM assistance_action_option_ref
         """,
             )
@@ -83,7 +83,7 @@ object BiQueries {
         csvQuery<BiAssistanceBasisOption> {
             sql(
                 """
-            select id, created, updated, value, name_fi, description_fi, display_order
+            select id, created::text, updated::text, value, name_fi, description_fi, display_order
             FROM assistance_basis_option
         """,
             )
@@ -93,7 +93,7 @@ object BiQueries {
         csvQuery<BiAssistanceBasisOptionRef> {
             sql(
                 """
-            select need_id, option_id, created
+            select need_id, option_id, created::text
             FROM assistance_basis_option_ref
         """,
             )
@@ -103,7 +103,7 @@ object BiQueries {
         csvQuery<BiAssistanceFactor> {
             sql(
                 """
-            select id, created, updated, child_id, modified, modified_by, valid_during::text, capacity_factor
+            select id, created::text, updated::text, child_id, modified::text, modified_by, valid_during::text, capacity_factor
             FROM assistance_factor
         """,
             )
@@ -113,7 +113,7 @@ object BiQueries {
         csvQuery<BiAssistanceNeed> {
             sql(
                 """
-            select id, created, updated, updated_by, child_id, start_date, end_date, capacity_factor
+            select id, created::text, updated::text, updated_by, child_id, start_date, end_date, capacity_factor
             FROM assistance_need
         """,
             )
@@ -123,7 +123,7 @@ object BiQueries {
         csvQuery<BiAssistanceNeedDecision> {
             sql(
                 """
-            select id, created, updated, decision_number, child_id, language, decision_made, sent_for_decision, selected_unit, decision_maker_employee_id, decision_maker_title, preparer_1_employee_id, preparer_1_title, preparer_2_employee_id, preparer_2_title, pedagogical_motivation, structural_motivation_opt_smaller_group, structural_motivation_opt_special_group, structural_motivation_opt_small_group, structural_motivation_opt_group_assistant, structural_motivation_opt_child_assistant, structural_motivation_opt_additional_staff, structural_motivation_description, care_motivation, service_opt_consultation_special_ed, service_opt_part_time_special_ed, service_opt_full_time_special_ed, service_opt_interpretation_and_assistance_services, service_opt_special_aides, services_motivation, expert_responsibilities, guardians_heard_on, view_of_guardians, other_representative_heard, other_representative_details, motivation_for_decision, preparer_1_phone_number, preparer_2_phone_number, decision_maker_has_opened, document_key, unread_guardian_ids, assistance_levels, validity_period::text, status, annulment_reason
+            select id, created::text, updated::text, decision_number, child_id, language, decision_made, sent_for_decision, selected_unit, decision_maker_employee_id, decision_maker_title, preparer_1_employee_id, preparer_1_title, preparer_2_employee_id, preparer_2_title, pedagogical_motivation, structural_motivation_opt_smaller_group, structural_motivation_opt_special_group, structural_motivation_opt_small_group, structural_motivation_opt_group_assistant, structural_motivation_opt_child_assistant, structural_motivation_opt_additional_staff, structural_motivation_description, care_motivation, service_opt_consultation_special_ed, service_opt_part_time_special_ed, service_opt_full_time_special_ed, service_opt_interpretation_and_assistance_services, service_opt_special_aides, services_motivation, expert_responsibilities, guardians_heard_on, view_of_guardians, other_representative_heard, other_representative_details, motivation_for_decision, preparer_1_phone_number, preparer_2_phone_number, decision_maker_has_opened, document_key, unread_guardian_ids, assistance_levels, validity_period::text, status, annulment_reason
             FROM assistance_need_decision
         """,
             )
@@ -133,7 +133,7 @@ object BiQueries {
         csvQuery<BiAssistanceNeedDecisionGuardian> {
             sql(
                 """
-            select id, created, assistance_need_decision_id, person_id, is_heard, details
+            select id, created::text, assistance_need_decision_id, person_id, is_heard, details
             FROM assistance_need_decision_guardian
         """,
             )
@@ -143,7 +143,7 @@ object BiQueries {
         csvQuery<BiAssistanceNeedVoucherCoefficient> {
             sql(
                 """
-            select id, created, updated, child_id, validity_period::text, coefficient
+            select id, created::text, updated::text, child_id, validity_period::text, coefficient
             FROM assistance_need_voucher_coefficient
         """,
             )
@@ -152,7 +152,7 @@ object BiQueries {
         csvQuery<BiBackupCare> {
             sql(
                 """
-            select id, created, updated, child_id, unit_id, group_id, start_date, end_date
+            select id, created::text, updated::text, child_id, unit_id, group_id, start_date, end_date
             FROM backup_care
         """,
             )
@@ -172,7 +172,7 @@ object BiQueries {
         csvQuery<BiCurriculumDocument> {
             sql(
                 """
-            select id, created, updated, child_id, basics::text, template_id, modified_at
+            select id, created::text, updated::text, child_id, basics::text, template_id, modified_at::text
             FROM curriculum_document
         """,
             )
@@ -182,7 +182,7 @@ object BiQueries {
         csvQuery<BiCurriculumDocumentEvent> {
             sql(
                 """
-            select id, created, updated, curriculum_document_id, event_type, created_by
+            select id, created::text, updated::text, curriculum_document_id, event_type, created_by
             FROM curriculum_document_event
         """,
             )
@@ -192,7 +192,7 @@ object BiQueries {
         csvQuery<BiCurriculumTemplate> {
             sql(
                 """
-            select id, created, updated, valid::text, type, language, name, content::text
+            select id, created::text, updated::text, valid::text, type, language, name, content::text
             FROM curriculum_template
         """,
             )
@@ -212,7 +212,7 @@ object BiQueries {
         csvQuery<BiDaycare> {
             sql(
                 """
-            select id, name, type, care_area_id, phone, url, created, updated, backup_location, language_emphasis_id, opening_date, closing_date, email, schedule, additional_info, cost_center, upload_to_varda, capacity, decision_daycare_name, decision_preschool_name, decision_handler, decision_handler_address, street_address, postal_code, post_office, mailing_po_box, location::text, mailing_street_address, mailing_postal_code, mailing_post_office, invoiced_by_municipality, provider_type, language, upload_to_koski, oph_unit_oid, oph_organizer_oid, ghost_unit, daycare_apply_period, preschool_apply_period, club_apply_period, finance_decision_handler, round_the_clock, enabled_pilot_features, upload_children_to_varda, business_id, iban, provider_id, operation_times, unit_manager_name, unit_manager_phone, unit_manager_email, dw_cost_center
+            select id, name, type, care_area_id, phone, url, created::text, updated::text, backup_location, language_emphasis_id, opening_date, closing_date, email, schedule, additional_info, cost_center, upload_to_varda, capacity, decision_daycare_name, decision_preschool_name, decision_handler, decision_handler_address, street_address, postal_code, post_office, mailing_po_box, location::text, mailing_street_address, mailing_postal_code, mailing_post_office, invoiced_by_municipality, provider_type, language, upload_to_koski, oph_unit_oid, oph_organizer_oid, ghost_unit, daycare_apply_period, preschool_apply_period, club_apply_period, finance_decision_handler, round_the_clock, enabled_pilot_features, upload_children_to_varda, business_id, iban, provider_id, operation_times, unit_manager_name, unit_manager_phone, unit_manager_email, dw_cost_center
             FROM daycare
         """,
             )
@@ -222,7 +222,7 @@ object BiQueries {
         csvQuery<BiDaycareAssistance> {
             sql(
                 """
-            select id, created, updated, child_id, modified, modified_by, valid_during::text, level
+            select id, created::text, updated::text, child_id, modified::text, modified_by, valid_during::text, level
             FROM daycare_assistance
         """,
             )
@@ -232,7 +232,7 @@ object BiQueries {
         csvQuery<BiDaycareCaretaker> {
             sql(
                 """
-            select id, created, updated, group_id, amount, start_date, end_date
+            select id, created::text, updated::text, group_id, amount, start_date, end_date
             FROM daycare_caretaker
         """,
             )
@@ -252,7 +252,7 @@ object BiQueries {
         csvQuery<BiDaycareGroupPlacement> {
             sql(
                 """
-            select id, created, updated, daycare_placement_id, daycare_group_id, start_date, end_date
+            select id, created::text, updated::text, daycare_placement_id, daycare_group_id, start_date, end_date
             FROM daycare_group_placement
         """,
             )
@@ -262,7 +262,7 @@ object BiQueries {
         csvQuery<BiDecision> {
             sql(
                 """
-            select id, number, created, updated, created_by, sent_date, unit_id, application_id, type, start_date, end_date, status, requested_start_date, resolved, resolved_by, planned, pending_decision_emails_sent_count, pending_decision_email_sent, document_key, other_guardian_document_key
+            select id, number, created::text, updated::text, created_by, sent_date, unit_id, application_id, type, start_date, end_date, status, requested_start_date, resolved::text, resolved_by, planned, pending_decision_emails_sent_count, pending_decision_email_sent::text, document_key, other_guardian_document_key
             FROM decision
         """,
             )
@@ -272,7 +272,7 @@ object BiQueries {
         csvQuery<BiEmployee> {
             sql(
                 """
-            select id, active, first_name, last_name, email, created, updated, roles, external_id, last_login, employee_number, preferred_first_name, temporary_in_unit_id
+            select id, active, first_name, last_name, email, created::text, updated::text, roles, external_id, last_login::text, employee_number, preferred_first_name, temporary_in_unit_id
             FROM employee
         """,
             )
@@ -292,7 +292,7 @@ object BiQueries {
         csvQuery<BiFeeAlteration> {
             sql(
                 """
-            select id, person_id, type, amount, is_absolute, valid_from, valid_to, notes, updated_at, updated_by
+            select id, person_id, type, amount, is_absolute, valid_from, valid_to, notes, updated_at::text, updated_by
             FROM fee_alteration
         """,
             )
@@ -301,7 +301,7 @@ object BiQueries {
         csvQuery<BiFeeDecision> {
             sql(
                 """
-            select id, created, updated, status, valid_during::text, decision_type, head_of_family_id, head_of_family_income::text, partner_id, partner_income::text, family_size, fee_thresholds::text, decision_number, document_key, approved_at, approved_by_id, decision_handler_id, sent_at, cancelled_at, total_fee, difference
+            select id, created::text, updated::text, status, valid_during::text, decision_type, head_of_family_id, head_of_family_income::text, partner_id, partner_income::text, family_size, fee_thresholds::text, decision_number, document_key, approved_at::text, approved_by_id, decision_handler_id, sent_at::text, cancelled_at::text, total_fee, difference
             FROM fee_decision
         """,
             )
@@ -311,7 +311,7 @@ object BiQueries {
         csvQuery<BiFeeDecisionChild> {
             sql(
                 """
-            select id, created, updated, fee_decision_id, child_id, child_date_of_birth, sibling_discount, placement_unit_id, placement_type, service_need_fee_coefficient, service_need_description_fi, service_need_description_sv, base_fee, fee, fee_alterations, final_fee, service_need_missing, service_need_contract_days_per_month, child_income, service_need_option_id
+            select id, created::text, updated::text, fee_decision_id, child_id, child_date_of_birth, sibling_discount, placement_unit_id, placement_type, service_need_fee_coefficient, service_need_description_fi, service_need_description_sv, base_fee, fee, fee_alterations, final_fee, service_need_missing, service_need_contract_days_per_month, child_income, service_need_option_id
             FROM fee_decision_child
         """,
             )
@@ -321,7 +321,7 @@ object BiQueries {
         csvQuery<BiFeeThresholds> {
             sql(
                 """
-            select id, valid_during::text, min_income_threshold_2, min_income_threshold_3, min_income_threshold_4, min_income_threshold_5, min_income_threshold_6, income_multiplier_2, income_multiplier_3, income_multiplier_4, income_multiplier_5, income_multiplier_6, max_income_threshold_2, max_income_threshold_3, max_income_threshold_4, max_income_threshold_5, max_income_threshold_6, income_threshold_increase_6_plus, sibling_discount_2, sibling_discount_2_plus, max_fee, min_fee, created, updated, temporary_fee, temporary_fee_part_day, temporary_fee_sibling, temporary_fee_sibling_part_day
+            select id, valid_during::text, min_income_threshold_2, min_income_threshold_3, min_income_threshold_4, min_income_threshold_5, min_income_threshold_6, income_multiplier_2, income_multiplier_3, income_multiplier_4, income_multiplier_5, income_multiplier_6, max_income_threshold_2, max_income_threshold_3, max_income_threshold_4, max_income_threshold_5, max_income_threshold_6, income_threshold_increase_6_plus, sibling_discount_2, sibling_discount_2_plus, max_fee, min_fee, created::text, updated::text, temporary_fee, temporary_fee_part_day, temporary_fee_sibling, temporary_fee_sibling_part_day
             FROM fee_thresholds
         """,
             )
@@ -331,7 +331,7 @@ object BiQueries {
         csvQuery<BiFridgeChild> {
             sql(
                 """
-            select id, child_id, head_of_child, start_date, end_date, created, updated, conflict
+            select id, child_id, head_of_child, start_date, end_date, created::text, updated::text, conflict
             FROM fridge_child
         """,
             )
@@ -341,7 +341,7 @@ object BiQueries {
         csvQuery<BiFridgePartner> {
             sql(
                 """
-            select partnership_id, indx, person_id, start_date, end_date, created_at, updated, conflict, other_indx, create_source, created_by, modify_source, modified_at, modified_by, created_from_application
+            select partnership_id, indx, person_id, start_date, end_date, created_at::text, updated::text, conflict, other_indx, create_source, created_by, modify_source, modified_at::text, modified_by, created_from_application
             FROM fridge_partner
         """,
             )
@@ -351,7 +351,7 @@ object BiQueries {
         csvQuery<BiGuardian> {
             sql(
                 """
-            select guardian_id, child_id, created
+            select guardian_id, child_id, created::text
             FROM guardian
         """,
             )
@@ -361,7 +361,7 @@ object BiQueries {
         csvQuery<BiGuardianBlocklist> {
             sql(
                 """
-            select guardian_id, child_id, created, updated
+            select guardian_id, child_id, created::text, updated::text
             FROM guardian_blocklist
         """,
             )
@@ -371,7 +371,7 @@ object BiQueries {
         csvQuery<BiHolidayPeriod> {
             sql(
                 """
-            select id, created, updated, period::text, reservation_deadline
+            select id, created::text, updated::text, period::text, reservation_deadline
             FROM holiday_period
         """,
             )
@@ -381,7 +381,7 @@ object BiQueries {
         csvQuery<BiHolidayQuestionnaireAnswer> {
             sql(
                 """
-            select id, created, updated, modified_by, questionnaire_id, child_id, fixed_period::text
+            select id, created::text, updated::text, modified_by, questionnaire_id, child_id, fixed_period::text
             FROM holiday_questionnaire_answer
         """,
             )
@@ -391,7 +391,7 @@ object BiQueries {
         csvQuery<BiIncome> {
             sql(
                 """
-            select id, person_id, data::text, valid_from, valid_to, notes, updated_at, effect, is_entrepreneur, works_at_echa, application_id, updated_by
+            select id, person_id, data::text, valid_from, valid_to, notes, updated_at::text, effect, is_entrepreneur, works_at_echa, application_id, updated_by
             FROM income
         """,
             )
@@ -401,7 +401,7 @@ object BiQueries {
         csvQuery<BiOtherAssistanceMeasure> {
             sql(
                 """
-            select id, created, updated, child_id, modified, modified_by, valid_during::text, type
+            select id, created::text, updated::text, child_id, modified::text, modified_by, valid_during::text, type
             FROM other_assistance_measure
         """,
             )
@@ -411,7 +411,7 @@ object BiQueries {
         csvQuery<BiPlacement> {
             sql(
                 """
-            select id, created, updated, type, child_id, unit_id, start_date, end_date, termination_requested_date, terminated_by, place_guarantee
+            select id, created::text, updated::text, type, child_id, unit_id, start_date, end_date, termination_requested_date, terminated_by, place_guarantee
             FROM placement
         """,
             )
@@ -421,7 +421,7 @@ object BiQueries {
         csvQuery<BiPreschoolAssistance> {
             sql(
                 """
-            select id, created, updated, child_id, modified, modified_by, valid_during::text, level
+            select id, created::text, updated::text, child_id, modified::text, modified_by, valid_during::text, level
             FROM preschool_assistance
         """,
             )
@@ -431,7 +431,7 @@ object BiQueries {
         csvQuery<BiServiceNeed> {
             sql(
                 """
-            select id, created, updated, option_id, placement_id, start_date, end_date, confirmed_by, confirmed_at, shift_care
+            select id, created::text, updated::text, option_id, placement_id, start_date, end_date, confirmed_by, confirmed_at::text, shift_care
             FROM service_need
         """,
             )
@@ -441,7 +441,7 @@ object BiQueries {
         csvQuery<BiServiceNeedOption> {
             sql(
                 """
-            select id, created, updated, name_fi, valid_placement_type, fee_coefficient, occupancy_coefficient, part_day, part_week, daycare_hours_per_week, default_option, fee_description_fi, fee_description_sv, voucher_value_description_fi, voucher_value_description_sv, display_order, name_sv, name_en, active, contract_days_per_month, occupancy_coefficient_under_3y, show_for_citizen, realized_occupancy_coefficient, realized_occupancy_coefficient_under_3y
+            select id, created::text, updated::text, name_fi, valid_placement_type, fee_coefficient, occupancy_coefficient, part_day, part_week, daycare_hours_per_week, default_option, fee_description_fi, fee_description_sv, voucher_value_description_fi, voucher_value_description_sv, display_order, name_sv, name_en, active, contract_days_per_month, occupancy_coefficient_under_3y, show_for_citizen, realized_occupancy_coefficient, realized_occupancy_coefficient_under_3y
             FROM service_need_option
         """,
             )
@@ -451,7 +451,7 @@ object BiQueries {
         csvQuery<BiServiceNeedOptionVoucherValue> {
             sql(
                 """
-            select id, created, updated, service_need_option_id, validity::text, base_value, coefficient, value, base_value_under_3y, coefficient_under_3y, value_under_3y
+            select id, created::text, updated::text, service_need_option_id, validity::text, base_value, coefficient, value, base_value_under_3y, coefficient_under_3y, value_under_3y
             FROM service_need_option_voucher_value
         """,
             )
@@ -461,7 +461,7 @@ object BiQueries {
         csvQuery<BiStaffAttendance> {
             sql(
                 """
-            select id, group_id, date, count, created, count_other, updated
+            select id, group_id, date, count, created::text, count_other, updated::text
             FROM staff_attendance
         """,
             )
@@ -471,7 +471,7 @@ object BiQueries {
         csvQuery<BiStaffAttendanceExternal> {
             sql(
                 """
-            select id, created, updated, name, group_id, arrived, departed, occupancy_coefficient, departed_automatically
+            select id, created::text, updated::text, name, group_id, arrived::text, departed::text, occupancy_coefficient, departed_automatically
             FROM staff_attendance_external
         """,
             )
@@ -481,7 +481,7 @@ object BiQueries {
         csvQuery<BiStaffAttendancePlan> {
             sql(
                 """
-            select id, created, updated, employee_id, type, start_time, end_time, description
+            select id, created::text, updated::text, employee_id, type, start_time::text, end_time::text, description
             FROM staff_attendance_plan
         """,
             )
@@ -491,7 +491,7 @@ object BiQueries {
         csvQuery<BiStaffOccupancyCoefficient> {
             sql(
                 """
-            select id, created, updated, employee_id, daycare_id, coefficient
+            select id, created::text, updated::text, employee_id, daycare_id, coefficient
             FROM staff_occupancy_coefficient
         """,
             )
@@ -501,7 +501,7 @@ object BiQueries {
         csvQuery<BiVoucherValueDecision> {
             sql(
                 """
-            select id, status, valid_from, valid_to, decision_number, head_of_family_id, partner_id, head_of_family_income::text, partner_income::text, family_size, fee_thresholds::text, document_key, created, approved_by, approved_at, sent_at, cancelled_at, decision_handler, child_id, child_date_of_birth, base_co_payment, sibling_discount, placement_unit_id, placement_type, co_payment, fee_alterations::text, base_value, voucher_value, final_co_payment, service_need_fee_coefficient, service_need_voucher_value_coefficient, service_need_fee_description_fi, service_need_fee_description_sv, service_need_voucher_value_description_fi, service_need_voucher_value_description_sv, updated, assistance_need_coefficient, decision_type, annulled_at, validity_updated_at, child_income::text, difference, service_need_missing
+            select id, status, valid_from, valid_to, decision_number, head_of_family_id, partner_id, head_of_family_income::text, partner_income::text, family_size, fee_thresholds::text, document_key, created::text, approved_by, approved_at::text, sent_at::text, cancelled_at::text, decision_handler, child_id, child_date_of_birth, base_co_payment, sibling_discount, placement_unit_id, placement_type, co_payment, fee_alterations::text, base_value, voucher_value, final_co_payment, service_need_fee_coefficient, service_need_voucher_value_coefficient, service_need_fee_description_fi, service_need_fee_description_sv, service_need_voucher_value_description_fi, service_need_voucher_value_description_sv, updated::text, assistance_need_coefficient, decision_type, annulled_at::text, validity_updated_at::text, child_income::text, difference, service_need_missing
             FROM voucher_value_decision
         """,
             )
@@ -512,7 +512,7 @@ object BiQueries {
         csvQuery<BiChildAttendance> {
             sql(
                 """
-            select id, child_id, created, updated, unit_id, date, start_time, end_time
+            select id, child_id, created::text, updated::text, unit_id, date, start_time, end_time
             FROM child_attendance
             WHERE updated >= (current_date AT TIME ZONE 'Europe/Helsinki' - interval '60 days')::date
         """,
@@ -523,7 +523,7 @@ object BiQueries {
         csvQuery<BiAbsence> {
             sql(
                 """
-            SELECT id, child_id, date, absence_type, modified_at, modified_by, category, questionnaire_id 
+            SELECT id, child_id, date, absence_type, modified_at::text, modified_by, category, questionnaire_id 
             FROM absence
             WHERE modified_at >= (current_date AT TIME ZONE 'Europe/Helsinki' - interval '60 days')::date
             """,

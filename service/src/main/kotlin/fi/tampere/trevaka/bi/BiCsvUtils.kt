@@ -5,7 +5,6 @@
 package fi.tampere.trevaka.bi
 
 import fi.espoo.evaka.shared.domain.DateRange
-import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.espoo.evaka.shared.domain.TimeRange
 import org.unbescape.csv.CsvEscape
 import java.time.LocalDate
@@ -27,8 +26,6 @@ fun convertToCsv(value: Any?): String =
         is Boolean -> if (value) "true" else "false"
         is UUID -> value.toString()
         is LocalDate -> value.format(DateTimeFormatter.ISO_LOCAL_DATE)
-        is HelsinkiDateTime ->
-            value.toZonedDateTime().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
         is List<*> -> "{${value.joinToString(",") { if (it == null) "NULL" else convertToCsv(it) }}}"
         is Enum<*> -> value.name
         is TimeRange -> "\"(${convertToCsv(value.start.inner)},${convertToCsv(value.end.inner)})\""
