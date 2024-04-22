@@ -7,7 +7,8 @@ import { FeatureFlags } from 'lib-customizations/types'
 const featureFlags: FeatureFlags = {
   citizenShiftCareAbsence: false,
   daycareApplication: {
-    dailyTimes: false
+    dailyTimes: false,
+    serviceNeedOption: true
   },
   preschoolApplication: {
     connectedDaycarePreferredStartDate: true,

@@ -19,7 +19,8 @@ type Features = {
 const prod: FeatureFlags = {
   citizenShiftCareAbsence: false,
   daycareApplication: {
-    dailyTimes: false
+    dailyTimes: false,
+    serviceNeedOption: true
   },
   preschoolApplication: {
     connectedDaycarePreferredStartDate: true,
