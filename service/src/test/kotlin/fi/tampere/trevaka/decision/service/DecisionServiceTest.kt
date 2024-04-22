@@ -64,7 +64,6 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
             pdfGenerator,
             settings,
             validDecision(decisionType, validDecisionUnit(providerType)),
-            guardian = validGuardian(),
             child = validChild(),
             isTransferApplication = isTransferApplication,
             serviceNeed = when (decisionType) {
@@ -98,7 +97,6 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
             pdfGenerator,
             settings,
             validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.MUNICIPAL)),
-            guardian = validGuardian(),
             child = validChild(),
             isTransferApplication = false,
             ServiceNeed(
@@ -123,7 +121,6 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
             pdfGenerator,
             mapOf(),
             validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.MUNICIPAL)),
-            guardian = validGuardian(),
             child = validChild(),
             isTransferApplication = false,
             serviceNeed = ServiceNeed(
@@ -154,7 +151,6 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
             pdfGenerator,
             settings,
             validDecision(DecisionType.DAYCARE, validDecisionUnit(ProviderType.MUNICIPAL)),
-            guardian = validGuardian(true),
             child = validChild(true),
             isTransferApplication = false,
             serviceNeed = ServiceNeed(
@@ -190,13 +186,13 @@ fun validDecision(type: DecisionType, decisionUnit: DecisionUnit) = Decision(
     childId = ChildId(UUID.randomUUID()),
     childName = "Matti",
     documentKey = null,
-    otherGuardianDocumentKey = null,
     decisionNumber = 1,
     sentDate = LocalDate.now(),
     DecisionStatus.ACCEPTED,
     requestedStartDate = null,
     resolved = null,
     resolvedByName = null,
+    documentContainsContactInfo = false,
 )
 
 fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(
@@ -212,26 +208,6 @@ fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(
     decisionHandler = "Vuoreksen kerho",
     decisionHandlerAddress = "Rautiolanrinne 2, 33870 Tampere",
     providerType,
-)
-
-fun validGuardian(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
-    PersonId(UUID.randomUUID()),
-    null,
-    ExternalIdentifier.SSN.getInstance("070682-924A"),
-    ssnAddingDisabled = false,
-    firstName = "Maija",
-    lastName = "Meikäläinen",
-    preferredName = "Maija",
-    email = null,
-    phone = "",
-    backupPhone = "",
-    language = null,
-    dateOfBirth = LocalDate.of(1982, 6, 7),
-    streetAddress = "Kokinpellonraitti 3",
-    postalCode = "33870",
-    postOffice = "Tampere",
-    residenceCode = "",
-    restrictedDetailsEnabled = restrictedDetailsEnabled,
 )
 
 fun validChild(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
