@@ -33,7 +33,6 @@ class TampereActionRuleMapping : ActionRuleMapping {
         Action.Global.READ_DECISION_UNITS,
         Action.Global.READ_ENDED_PLACEMENTS_REPORT,
         Action.Global.READ_INVOICE_REPORT,
-        Action.Global.READ_MISSING_HEAD_OF_FAMILY_REPORT,
         Action.Global.READ_STARTING_PLACEMENTS_REPORT,
         Action.Global.READ_INCOME_TYPES,
         Action.Global.READ_INVOICE_CODES,
@@ -41,6 +40,12 @@ class TampereActionRuleMapping : ActionRuleMapping {
         -> {
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR),
+            )
+        }
+        Action.Global.READ_MISSING_HEAD_OF_FAMILY_REPORT,
+        -> {
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.DIRECTOR, UserRole.FINANCE_ADMIN, UserRole.SERVICE_WORKER),
             )
         }
         Action.Global.READ_PLACEMENT_SKETCHING_REPORT -> {
