@@ -27,7 +27,6 @@ import fi.tampere.trevaka.assistanceneed.decision.validAssistanceNeedPreschoolDe
 import fi.tampere.trevaka.decision.service.validChild
 import fi.tampere.trevaka.decision.service.validDecision
 import fi.tampere.trevaka.decision.service.validDecisionUnit
-import fi.tampere.trevaka.decision.service.validGuardian
 import fi.tampere.trevaka.invoice.service.validFeeDecision
 import fi.tampere.trevaka.invoice.service.validFeeDecisionChild
 import fi.tampere.trevaka.invoice.service.validVoucherValueDecision
@@ -68,7 +67,6 @@ class NokiaPdfGeneratorTest : AbstractNokiaIntegrationTest() {
             pdfGenerator,
             settings,
             validDecision(decisionType, validDecisionUnit(providerType)),
-            guardian = validGuardian(),
             child = validChild(),
             isTransferApplication = isTransferApplication,
             serviceNeed = when (decisionType) {
