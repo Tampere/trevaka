@@ -17,7 +17,6 @@ SPDX-License-Identifier: LGPL-2.1-or-later
     <footer th:replace="~{pirkkala/shared/common :: footer}"></footer>
     <div class="page">
       <h1 th:text="#{decision.title}"></h1>
-      <div th:if="${guardian} != null" th:text="|${guardian.firstName} ${guardian.lastName},|"></div>
       <div class="child-details">
         <p>
           <strong th:text="#{decision.details.child.prefix}"

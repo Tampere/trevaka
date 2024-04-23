@@ -2,8 +2,9 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
+import HelsinkiDateTime from 'lib-common/helsinki-date-time'
 import config from 'e2e-test/config'
-import { Page, Radio, Checkbox } from 'e2e-test/utils/page'
+import { Page, Radio, Checkbox, DatePicker } from 'e2e-test/utils/page'
 import { waitUntilEqual } from 'e2e-test/utils'
 import CitizenHeader from 'e2e-test/pages/citizen/citizen-header'
 import CitizenApplicationsPage from 'e2e-test/pages/citizen/citizen-applications'
@@ -12,7 +13,9 @@ import {
   resetDatabaseForE2ETests
 } from '../../common/tampere-dev-api'
 import { enduserChildFixturePorriHatterRestricted, Fixture } from "e2e-test/dev-api/fixtures";
-  
+
+const mockedTime = HelsinkiDateTime.of(2024, 4, 23, 7, 40)
+const mockedDate = mockedTime.toLocalDate()
 
 let page: Page
 let header: CitizenHeader
@@ -23,7 +26,7 @@ beforeEach(async () => {
   await Fixture.person()
       .with(enduserChildFixturePorriHatterRestricted)
       .save()
-  page = await Page.open()
+  page = await Page.open({ mockedTime })
   await page.goto(config.enduserUrl)
   await enduserLogin(page)
   header = new CitizenHeader(page)
@@ -106,6 +109,8 @@ describe('Citizen applications page', () => {
       () => page.find('[data-qa="urgent-input"] + div + p').text,
       `Mikäli varhaiskasvatuspaikan tarve johtuu äkillisestä työllistymisestä tai opiskelupaikan saamisesta, tulee paikkaa hakea viimeistään kaksi viikkoa ennen kuin hoidon tarve alkaa. Lisäksi huoltajan tulee ottaa yhteyttä viipymättä ${customerContactText}`
     )
+    const preferredStartDate = new DatePicker(page.findByDataQa('preferredStartDate-input'))
+    await preferredStartDate.fill(mockedDate.format())
     await editorPage.setCheckbox('urgent', true)
     // Missing Fileupload for urgent application attachments
     await page.find('[data-qa="urgent-file-upload"]').waitUntilHidden()
@@ -118,7 +123,7 @@ describe('Citizen applications page', () => {
     let partTimeOptions = await page.findAll('[data-qa^="part-time-option-"]')
     expect(await fullTimeOptions.count()).toBe(3)
     expect(await partTimeOptions.count()).toBe(0)
-    await new Radio(fullTimeOptions.first()).waitUntilChecked()
+    await new Radio(fullTimeOptions.first()).waitUntilChecked(false)
     await waitUntilEqual(
       () => fullTimeOptions.first().find('label').text,
       'Kokopäiväinen'

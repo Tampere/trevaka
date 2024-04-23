@@ -26,7 +26,6 @@ class YlojarviConfig {
     @Bean
     fun featureConfig() = FeatureConfig(
         valueDecisionCapacityFactorEnabled = true,
-        daycareApplicationServiceNeedOptionsEnabled = true,
         citizenReservationThresholdHours = 7 * 24 - 9, // Mon 09:00
         dailyFeeDivisorOperationalDaysOverride = 20,
         freeSickLeaveOnContractDays = true,
