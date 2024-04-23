@@ -55,7 +55,6 @@ data class BiApplication(
     val checkedbyadmin: Boolean,
     val hidefromguardian: Boolean,
     val transferapplication: Boolean,
-    val other_guardian_id: UUID?,
     val additionaldaycareapplication: Boolean,
     val status: ApplicationStatus,
     val origin: ApplicationOrigin,
@@ -64,6 +63,7 @@ data class BiApplication(
     val type: ApplicationType,
     val allow_other_guardian_access: Boolean,
     val document: String?,
+    val form_modified: String?
 )
 
 data class BiArea(
@@ -154,7 +154,7 @@ data class BiAssistanceActionOption(
     val updated: String,
     val value: String,
     val name_fi: String,
-    val display_order: Int,
+    val display_order: Int?,
     val description_fi: String?,
 )
 
@@ -170,7 +170,7 @@ data class BiAssistanceBasisOption(
     val updated: String,
     val value: String,
     val name_fi: String,
-    val display_order: Int,
+    val display_order: Int?,
     val description_fi: String?,
 )
 
@@ -210,7 +210,7 @@ data class BiAssistanceNeedDecision(
     val child_id: UUID,
     val language: String,
     val decision_made: LocalDate?,
-    val sent_for_decision: LocalDate,
+    val sent_for_decision: LocalDate?,
     val selected_unit: UUID?,
     val decision_maker_employee_id: UUID?,
     val decision_maker_title: String?,
@@ -248,6 +248,7 @@ data class BiAssistanceNeedDecision(
     val validity_period: String?, // DateRange
     val status: AssistanceNeedDecisionStatus,
     val annulment_reason: String,
+    val document_contains_contact_info: Boolean
 )
 
 data class BiAssistanceNeedDecisionGuardian(
@@ -297,7 +298,7 @@ data class BiChildAttendance(
     val unit_id: UUID,
     val date: LocalDate,
     val start_time: LocalTime,
-    val end_time: LocalTime,
+    val end_time: LocalTime?,
 )
 
 data class BiCurriculumDocument(
@@ -393,6 +394,11 @@ data class BiDaycare(
     val dw_cost_center: String?,
     val daily_preschool_time: TimeRange?,
     val daily_preparatory_time: TimeRange?,
+    val mealtime_breakfast: TimeRange?,
+    val mealtime_lunch: TimeRange?,
+    val mealtime_snack: TimeRange?,
+    val mealtime_supper: TimeRange?,
+    val mealtime_evening_snack: TimeRange?,
 )
 
 data class BiDaycareAssistance(
@@ -422,6 +428,7 @@ data class BiDaycareGroup(
     val name: String,
     val start_date: LocalDate,
     val end_date: LocalDate?,
+    val jamix_customer_id: Int?,
 )
 
 data class BiDaycareGroupPlacement(
@@ -455,6 +462,7 @@ data class BiDecision(
     val pending_decision_email_sent: String?,
     val document_key: String?,
     val other_guardian_document_key: String?,
+    val document_contains_contact_info: Boolean,
 )
 
 data class BiEmployee(
@@ -517,6 +525,7 @@ data class BiFeeDecision(
     val cancelled_at: String?,
     val total_fee: Int,
     val difference: List<FeeDecisionDifference>,
+    val document_contains_contact_info: Boolean,
 )
 
 data class BiFeeDecisionChild(
@@ -579,8 +588,8 @@ data class BiFridgeChild(
     val head_of_child: UUID,
     val start_date: LocalDate,
     val end_date: LocalDate,
-    val created: String,
-    val updated: String,
+    val created: String?,
+    val updated: String?,
     val conflict: Boolean,
 )
 
@@ -712,14 +721,14 @@ data class BiServiceNeedOption(
     val display_order: Int?,
     val name_sv: String,
     val name_en: String,
-    val valid_from: LocalDate,
-    val valid_to: LocalDate?,
     val contract_days_per_month: Int?,
     val occupancy_coefficient_under_3y: BigDecimal,
     val show_for_citizen: Boolean,
     val realized_occupancy_coefficient: BigDecimal,
     val realized_occupancy_coefficient_under_3y: BigDecimal,
     val daycare_hours_per_month: Int?,
+    val valid_from: LocalDate,
+    val valid_to: LocalDate?,
 )
 
 data class BiServiceNeedOptionVoucherValue(
@@ -810,8 +819,8 @@ data class BiVoucherValueDecision(
     val final_co_payment: Int,
     val service_need_fee_coefficient: BigDecimal?,
     val service_need_voucher_value_coefficient: BigDecimal?,
-    val service_need_fee_description_fi: String,
-    val service_need_fee_description_sv: String,
+    val service_need_fee_description_fi: String?,
+    val service_need_fee_description_sv: String?,
     val service_need_voucher_value_description_fi: String?,
     val service_need_voucher_value_description_sv: String?,
     val updated: String,
@@ -822,4 +831,5 @@ data class BiVoucherValueDecision(
     val child_income: String?, // JSON
     val difference: List<VoucherValueDecisionDifference>,
     val service_need_missing: Boolean,
+    val document_contains_contact_info: Boolean
 )

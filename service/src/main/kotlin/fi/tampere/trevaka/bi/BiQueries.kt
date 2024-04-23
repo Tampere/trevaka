@@ -33,7 +33,7 @@ object BiQueries {
         csvQuery<BiApplication> {
             sql(
                 """
-            select id, created::text, updated::text, sentdate, duedate, guardian_id, child_id, checkedbyadmin, hidefromguardian, transferapplication, additionaldaycareapplication, status, origin, duedate_set_manually_at::text, service_worker_note, type, allow_other_guardian_access, document::text
+            select id, created::text, updated::text, sentdate, duedate, guardian_id, child_id, checkedbyadmin, hidefromguardian, transferapplication, additionaldaycareapplication, status, origin, duedate_set_manually_at::text, service_worker_note, type, allow_other_guardian_access, document::text, form_modified::text
             FROM application
         """,
             )
@@ -123,7 +123,7 @@ object BiQueries {
         csvQuery<BiAssistanceNeedDecision> {
             sql(
                 """
-            select id, created::text, updated::text, decision_number, child_id, language, decision_made, sent_for_decision, selected_unit, decision_maker_employee_id, decision_maker_title, preparer_1_employee_id, preparer_1_title, preparer_2_employee_id, preparer_2_title, pedagogical_motivation, structural_motivation_opt_smaller_group, structural_motivation_opt_special_group, structural_motivation_opt_small_group, structural_motivation_opt_group_assistant, structural_motivation_opt_child_assistant, structural_motivation_opt_additional_staff, structural_motivation_description, care_motivation, service_opt_consultation_special_ed, service_opt_part_time_special_ed, service_opt_full_time_special_ed, service_opt_interpretation_and_assistance_services, service_opt_special_aides, services_motivation, expert_responsibilities, guardians_heard_on, view_of_guardians, other_representative_heard, other_representative_details, motivation_for_decision, preparer_1_phone_number, preparer_2_phone_number, decision_maker_has_opened, document_key, unread_guardian_ids, assistance_levels, validity_period::text, status, annulment_reason
+            select id, created::text, updated::text, decision_number, child_id, language, decision_made, sent_for_decision, selected_unit, decision_maker_employee_id, decision_maker_title, preparer_1_employee_id, preparer_1_title, preparer_2_employee_id, preparer_2_title, pedagogical_motivation, structural_motivation_opt_smaller_group, structural_motivation_opt_special_group, structural_motivation_opt_small_group, structural_motivation_opt_group_assistant, structural_motivation_opt_child_assistant, structural_motivation_opt_additional_staff, structural_motivation_description, care_motivation, service_opt_consultation_special_ed, service_opt_part_time_special_ed, service_opt_full_time_special_ed, service_opt_interpretation_and_assistance_services, service_opt_special_aides, services_motivation, expert_responsibilities, guardians_heard_on, view_of_guardians, other_representative_heard, other_representative_details, motivation_for_decision, preparer_1_phone_number, preparer_2_phone_number, decision_maker_has_opened, document_key, unread_guardian_ids, assistance_levels, validity_period::text, status, annulment_reason, document_contains_contact_info
             FROM assistance_need_decision
         """,
             )
@@ -212,7 +212,7 @@ object BiQueries {
         csvQuery<BiDaycare> {
             sql(
                 """
-            select id, name, type, care_area_id, phone, url, created::text, updated::text, backup_location, language_emphasis_id, opening_date, closing_date, email, schedule, additional_info, cost_center, upload_to_varda, capacity, decision_daycare_name, decision_preschool_name, decision_handler, decision_handler_address, street_address, postal_code, post_office, mailing_po_box, location::text, mailing_street_address, mailing_postal_code, mailing_post_office, invoiced_by_municipality, provider_type, language, upload_to_koski, oph_unit_oid, oph_organizer_oid, ghost_unit, daycare_apply_period, preschool_apply_period, club_apply_period, finance_decision_handler, round_the_clock, enabled_pilot_features, upload_children_to_varda, business_id, iban, provider_id, operation_times, unit_manager_name, unit_manager_phone, unit_manager_email, dw_cost_center
+            select id, name, type, care_area_id, phone, url, created::text, updated::text, backup_location, language_emphasis_id, opening_date, closing_date, email, schedule, additional_info, cost_center, upload_to_varda, capacity, decision_daycare_name, decision_preschool_name, decision_handler, decision_handler_address, street_address, postal_code, post_office, mailing_po_box, location::text, mailing_street_address, mailing_postal_code, mailing_post_office, invoiced_by_municipality, provider_type, language, upload_to_koski, oph_unit_oid, oph_organizer_oid, ghost_unit, daycare_apply_period, preschool_apply_period, club_apply_period, finance_decision_handler, round_the_clock, enabled_pilot_features, upload_children_to_varda, business_id, iban, provider_id, operation_times, unit_manager_name, unit_manager_phone, unit_manager_email, dw_cost_center, mealtime_breakfast, mealtime_evening_snack, mealtime_lunch, mealtime_snack, mealtime_supper
             FROM daycare
         """,
             )
@@ -242,7 +242,7 @@ object BiQueries {
         csvQuery<BiDaycareGroup> {
             sql(
                 """
-            select id, daycare_id, name, start_date, end_date
+            select id, daycare_id, name, start_date, end_date, jamix_customer_id
             FROM daycare_group
         """,
             )
@@ -262,7 +262,7 @@ object BiQueries {
         csvQuery<BiDecision> {
             sql(
                 """
-            select id, number, created::text, updated::text, created_by, sent_date, unit_id, application_id, type, start_date, end_date, status, requested_start_date, resolved::text, resolved_by, planned, pending_decision_emails_sent_count, pending_decision_email_sent::text, document_key, other_guardian_document_key
+            select id, number, created::text, updated::text, created_by, sent_date, unit_id, application_id, type, start_date, end_date, status, requested_start_date, resolved::text, resolved_by, planned, pending_decision_emails_sent_count, pending_decision_email_sent::text, document_key, other_guardian_document_key, document_contains_contact_info
             FROM decision
         """,
             )
@@ -301,7 +301,7 @@ object BiQueries {
         csvQuery<BiFeeDecision> {
             sql(
                 """
-            select id, created::text, updated::text, status, valid_during::text, decision_type, head_of_family_id, head_of_family_income::text, partner_id, partner_income::text, family_size, fee_thresholds::text, decision_number, document_key, approved_at::text, approved_by_id, decision_handler_id, sent_at::text, cancelled_at::text, total_fee, difference
+            select id, created::text, updated::text, status, valid_during::text, decision_type, head_of_family_id, head_of_family_income::text, partner_id, partner_income::text, family_size, fee_thresholds::text, decision_number, document_key, approved_at::text, approved_by_id, decision_handler_id, sent_at::text, cancelled_at::text, total_fee, difference, document_contains_contact_info
             FROM fee_decision
         """,
             )
@@ -501,7 +501,7 @@ object BiQueries {
         csvQuery<BiVoucherValueDecision> {
             sql(
                 """
-            select id, status, valid_from, valid_to, decision_number, head_of_family_id, partner_id, head_of_family_income::text, partner_income::text, family_size, fee_thresholds::text, document_key, created::text, approved_by, approved_at::text, sent_at::text, cancelled_at::text, decision_handler, child_id, child_date_of_birth, base_co_payment, sibling_discount, placement_unit_id, placement_type, co_payment, fee_alterations::text, base_value, voucher_value, final_co_payment, service_need_fee_coefficient, service_need_voucher_value_coefficient, service_need_fee_description_fi, service_need_fee_description_sv, service_need_voucher_value_description_fi, service_need_voucher_value_description_sv, updated::text, assistance_need_coefficient, decision_type, annulled_at::text, validity_updated_at::text, child_income::text, difference, service_need_missing
+            select id, status, valid_from, valid_to, decision_number, head_of_family_id, partner_id, head_of_family_income::text, partner_income::text, family_size, fee_thresholds::text, document_key, created::text, approved_by, approved_at::text, sent_at::text, cancelled_at::text, decision_handler, child_id, child_date_of_birth, base_co_payment, sibling_discount, placement_unit_id, placement_type, co_payment, fee_alterations::text, base_value, voucher_value, final_co_payment, service_need_fee_coefficient, service_need_voucher_value_coefficient, service_need_fee_description_fi, service_need_fee_description_sv, service_need_voucher_value_description_fi, service_need_voucher_value_description_sv, updated::text, assistance_need_coefficient, decision_type, annulled_at::text, validity_updated_at::text, child_income::text, difference, service_need_missing, document_contains_contact_info
             FROM voucher_value_decision
         """,
             )
