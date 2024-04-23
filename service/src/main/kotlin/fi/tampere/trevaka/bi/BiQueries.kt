@@ -441,7 +441,7 @@ object BiQueries {
         csvQuery<BiServiceNeedOption> {
             sql(
                 """
-            select id, created::text, updated::text, name_fi, valid_placement_type, fee_coefficient, occupancy_coefficient, part_day, part_week, daycare_hours_per_week, default_option, fee_description_fi, fee_description_sv, voucher_value_description_fi, voucher_value_description_sv, display_order, name_sv, name_en, active, contract_days_per_month, occupancy_coefficient_under_3y, show_for_citizen, realized_occupancy_coefficient, realized_occupancy_coefficient_under_3y
+            select id, created::text, updated::text, name_fi, valid_placement_type, fee_coefficient, occupancy_coefficient, part_day, part_week, daycare_hours_per_week, default_option, fee_description_fi, fee_description_sv, voucher_value_description_fi, voucher_value_description_sv, display_order, name_sv, name_en, contract_days_per_month, occupancy_coefficient_under_3y, show_for_citizen, realized_occupancy_coefficient, realized_occupancy_coefficient_under_3y, daycare_hours_per_month, valid_from, valid_to
             FROM service_need_option
         """,
             )
