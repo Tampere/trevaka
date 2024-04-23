@@ -105,7 +105,7 @@ data class BiPerson(
     val backup_phone: String,
     val last_login: String?,
     val freetext_vec: String? = "", // BI should have no need for this
-    val oph_person_oid: String,
+    val oph_person_oid: String?,
     val vtj_guardians_queried: String?,
     val vtj_dependants_queried: String?,
     val ssn_adding_disabled: Boolean,
@@ -209,7 +209,7 @@ data class BiAssistanceNeedDecision(
     val decision_number: Long,
     val child_id: UUID,
     val language: String,
-    val decision_made: LocalDate,
+    val decision_made: LocalDate?,
     val sent_for_decision: LocalDate,
     val selected_unit: UUID?,
     val decision_maker_employee_id: UUID?,
@@ -365,7 +365,7 @@ data class BiDaycare(
     val postal_code: String,
     val post_office: String,
     val mailing_po_box: String?,
-    val location: String, // postgres Point
+    val location: String?, // postgres Point
     val mailing_street_address: String?,
     val mailing_postal_code: String?,
     val mailing_post_office: String?,
@@ -413,7 +413,7 @@ data class BiDaycareCaretaker(
     val group_id: UUID,
     val amount: BigDecimal,
     val start_date: LocalDate,
-    val end_date: LocalDate,
+    val end_date: LocalDate?,
 )
 
 data class BiDaycareGroup(
@@ -626,7 +626,7 @@ data class BiHolidayQuestionnaireAnswer(
     val modified_by: UUID?,
     val questionnaire_id: UUID?,
     val child_id: UUID?,
-    val fixed_period: String, // DateRange
+    val fixed_period: String?, // DateRange
 )
 
 data class BiIncome(
@@ -640,7 +640,7 @@ data class BiIncome(
     val effect: IncomeEffect,
     val is_entrepreneur: Boolean,
     val works_at_echa: Boolean,
-    val application_id: UUID,
+    val application_id: UUID?,
     val updated_by: UUID,
 )
 
