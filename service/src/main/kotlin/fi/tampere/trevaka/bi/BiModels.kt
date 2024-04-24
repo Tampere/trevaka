@@ -63,7 +63,7 @@ data class BiApplication(
     val type: ApplicationType,
     val allow_other_guardian_access: Boolean,
     val document: String?,
-    val form_modified: String?
+    val form_modified: String?,
 )
 
 data class BiArea(
@@ -248,7 +248,7 @@ data class BiAssistanceNeedDecision(
     val validity_period: String?, // DateRange
     val status: AssistanceNeedDecisionStatus,
     val annulment_reason: String,
-    val document_contains_contact_info: Boolean
+    val document_contains_contact_info: Boolean,
 )
 
 data class BiAssistanceNeedDecisionGuardian(
@@ -831,5 +831,5 @@ data class BiVoucherValueDecision(
     val child_income: String?, // JSON
     val difference: List<VoucherValueDecisionDifference>,
     val service_need_missing: Boolean,
-    val document_contains_contact_info: Boolean
+    val document_contains_contact_info: Boolean,
 )
