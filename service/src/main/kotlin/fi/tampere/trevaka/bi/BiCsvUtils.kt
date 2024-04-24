@@ -23,7 +23,7 @@ fun convertToCsv(value: Any?): String =
         null -> ""
         is Number -> value.toString()
         is String -> value
-        is Boolean -> if (value) "true" else "false"
+        is Boolean -> if (value) "t" else "f"
         is UUID -> value.toString()
         is LocalDate -> value.format(DateTimeFormatter.ISO_LOCAL_DATE)
         is List<*> -> "{${value.joinToString(",") { if (it == null) "NULL" else convertToCsv(it) }}}"
