@@ -10,8 +10,7 @@ import fi.espoo.evaka.invoicing.service.ProductWithName
 import fi.espoo.evaka.placement.PlacementType
 
 class LempaalaInvoiceProductProvider : InvoiceProductProvider {
-    override val products: List<ProductWithName>
-        get() = TODO("Not yet implemented")
+    override val products: List<ProductWithName> = emptyList()
     override val dailyRefund: ProductKey
         get() = TODO("Not yet implemented")
     override val partMonthSickLeave: ProductKey
