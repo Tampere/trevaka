@@ -16,6 +16,7 @@ import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.InvoiceId
 import fi.espoo.evaka.shared.InvoiceRowId
 import fi.espoo.evaka.shared.PersonId
+import fi.tampere.trevaka.BiExportProperties
 import fi.tampere.trevaka.BucketProperties
 import fi.tampere.trevaka.InvoiceProperties
 import fi.tampere.trevaka.SummertimeAbsenceProperties
@@ -49,6 +50,9 @@ internal class TampereInvoiceClientTest {
             SummertimeAbsenceProperties(),
             BucketProperties(
                 export = "trevaka-export-it",
+            ),
+            BiExportProperties(
+                prefix = "bi",
             ),
         )
         val configuration = InvoiceConfiguration()

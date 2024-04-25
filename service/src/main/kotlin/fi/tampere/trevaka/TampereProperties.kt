@@ -17,6 +17,7 @@ data class TampereProperties(
     val invoice: InvoiceProperties,
     val summertimeAbsence: SummertimeAbsenceProperties = SummertimeAbsenceProperties(),
     val bucket: BucketProperties,
+    val biExport: BiExportProperties,
 )
 
 data class InvoiceProperties(
@@ -39,3 +40,7 @@ data class BucketProperties(
 ) {
     fun allBuckets() = listOf(export)
 }
+
+data class BiExportProperties(
+    val prefix: String,
+)

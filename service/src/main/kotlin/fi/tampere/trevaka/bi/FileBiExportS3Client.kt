@@ -29,17 +29,19 @@ class FileBiExportS3Client(
         stream: EspooBiJob.CsvInputStream,
     ): Pair<String, String> {
         val date = clock.now().toLocalDate()
-        val fileName = "$tableName.csv"
+        val entryName = "$tableName.csv"
         logger.info("Sending BI content for '$tableName'")
         val bucket = properties.bucket.export
-        val key = "bi/${tableName}_${date.format(DateTimeFormatter.ISO_DATE)}.zip"
+        val prefix = properties.biExport.prefix
+        val fileName = "${tableName}_${date.format(DateTimeFormatter.ISO_DATE)}.zip"
+        val key = "$prefix/$fileName"
 
         val tempFile = Files.createTempFile("bi", fileName)
         try {
             Files.newOutputStream(tempFile).use { fos ->
                 BufferedOutputStream(fos).use { bos ->
                     ZipOutputStream(bos).use { zip ->
-                        zip.putNextEntry(ZipEntry(fileName))
+                        zip.putNextEntry(ZipEntry(entryName))
                         stream.transferTo(zip)
                         zip.closeEntry()
                     }
@@ -58,17 +60,17 @@ class FileBiExportS3Client(
             val response = futureResponse.join().sdkHttpResponse()
 
             if (response.isSuccessful) {
-                logger.info("BI file $key successfully sent ($contentLength bytes)")
+                logger.info("BI file '$key' successfully sent ($contentLength bytes)")
             } else {
                 logger.warn {
-                    "BI file $key sending failed ($contentLength bytes): ${response.statusCode()} ${response.statusText()}"
+                    "BI file '$key' sending failed ($contentLength bytes): ${response.statusCode()} ${response.statusText()}"
                 }
             }
         } finally {
             val wasDeleted = tempFile.deleteIfExists()
             if (!wasDeleted) {
                 logger.warn {
-                    "BI temporary file clean up for ${tempFile.fileName} did not find anything to delete"
+                    "BI temporary file clean up for '${tempFile.fileName}' did not find anything to delete"
                 }
             }
         }

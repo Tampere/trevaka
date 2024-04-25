@@ -51,6 +51,7 @@ import fi.espoo.evaka.vasu.VasuLanguage
 import fi.espoo.evaka.vasu.getDefaultVasuContent
 import fi.espoo.evaka.vasu.insertVasuTemplate
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
+import fi.tampere.trevaka.BiExportProperties
 import fi.tampere.trevaka.BucketProperties
 import fi.tampere.trevaka.InvoiceProperties
 import fi.tampere.trevaka.SummertimeAbsenceProperties
@@ -102,6 +103,9 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
                 BucketProperties(
                     export = "trevaka-bi-export-it",
                 ),
+                BiExportProperties(
+                    prefix = "bi",
+                ),
             )
 
         createBucketsIfNeeded(s3Client, properties.bucket.allBuckets())
@@ -128,9 +132,10 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
 
     private fun sendAndAssertBiTableCsv(table: BiTable) {
         val bucket = properties.bucket.export
+        val prefix = properties.biExport.prefix
         val fileName =
             "${table.fileName}_${clock.now().toLocalDate().format(DateTimeFormatter.ISO_DATE)}.zip"
-        val key = "bi/$fileName"
+        val key = "$prefix/$fileName"
 
         exportJob.sendBiTable(db, clock, table.fileName, table.query)
 
