@@ -27,6 +27,12 @@ COPY themes/hameenkyro/HameenkyroLogo.svg evaka/login/resources/img/EspooLogoBlu
 RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties
 RUN npm run build && rm -r evaka/account
 
+FROM theme AS pirkkala
+COPY themes/pirkkala/theme-fi.sed ./
+COPY themes/pirkkala/PirkkalaLogo.svg evaka/login/resources/img/EspooLogoBlue.svg
+RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties
+RUN npm run build && rm -r evaka/account
+
 FROM theme AS ylojarvi
 COPY themes/ylojarvi/theme-fi.sed ./
 COPY themes/ylojarvi/YlojarviLogo.svg evaka/login/resources/img/EspooLogoBlue.svg
@@ -41,6 +47,7 @@ ADD --chmod=0644 \
 COPY --from=tampere evaka /opt/keycloak/themes/evaka-tampere
 COPY --from=vesilahti evaka /opt/keycloak/themes/evaka-vesilahti
 COPY --from=hameenkyro evaka /opt/keycloak/themes/evaka-hameenkyro
+COPY --from=pirkkala evaka /opt/keycloak/themes/evaka-pirkkala
 COPY --from=ylojarvi evaka /opt/keycloak/themes/evaka-ylojarvi
 RUN /opt/keycloak/bin/kc.sh build --cache=ispn --cache-stack=kubernetes --db=postgres --http-relative-path=/auth --health-enabled=true
 RUN /opt/keycloak/bin/kc.sh show-config
