@@ -33,6 +33,12 @@ COPY themes/kangasala/KangasalaLogo.svg evaka/login/resources/img/EspooLogoBlue.
 RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties
 RUN npm run build && rm -r evaka/account
 
+FROM theme AS lempaala
+COPY themes/lempaala/theme-fi.sed ./
+COPY themes/lempaala/LempaalaLogo.svg evaka/login/resources/img/EspooLogoBlue.svg
+RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties
+RUN npm run build && rm -r evaka/account
+
 FROM theme AS nokia
 COPY themes/nokia/theme-fi.sed ./
 COPY themes/nokia/NokiaLogo.svg evaka/login/resources/img/EspooLogoBlue.svg
@@ -60,6 +66,7 @@ COPY --from=tampere evaka /opt/keycloak/themes/evaka-tampere
 COPY --from=vesilahti evaka /opt/keycloak/themes/evaka-vesilahti
 COPY --from=hameenkyro evaka /opt/keycloak/themes/evaka-hameenkyro
 COPY --from=kangasala evaka /opt/keycloak/themes/evaka-kangasala
+COPY --from=lempaala evaka /opt/keycloak/themes/evaka-lempaala
 COPY --from=nokia evaka /opt/keycloak/themes/evaka-nokia
 COPY --from=pirkkala evaka /opt/keycloak/themes/evaka-pirkkala
 COPY --from=ylojarvi evaka /opt/keycloak/themes/evaka-ylojarvi
