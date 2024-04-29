@@ -7,11 +7,11 @@ import config from 'e2e-test/config'
 import { resetDatabaseForE2ETests } from '../../common/tampere-dev-api'
 import { createDaycarePlacements } from 'e2e-test/generated/api-clients'
 import {
-    createDaycarePlacementFixture,
-    daycareFixture,
-    enduserChildFixturePorriHatterRestricted,
-    Fixture,
-    uuidv4
+  createDaycarePlacementFixture,
+  daycareFixture,
+  enduserChildFixturePorriHatterRestricted, enduserGuardianFixture,
+  Fixture,
+  uuidv4
 } from 'e2e-test/dev-api/fixtures'
 import { PersonDetail } from 'e2e-test/dev-api/types'
 import CitizenCalendarPage from 'e2e-test/pages/citizen/citizen-calendar'
@@ -32,7 +32,7 @@ beforeEach(async () => {
     await resetDatabaseForE2ETests()
     await Fixture.person()
         .with(enduserChildFixturePorriHatterRestricted)
-        .save()
+        .saveAndUpdateMockVtj()
     await Fixture.child(enduserChildFixturePorriHatterRestricted.id)
         .save()
     await Fixture.daycare()
@@ -81,6 +81,10 @@ beforeEach(async () => {
         )
       }
     )
+    await Fixture.person()
+      .with(enduserGuardianFixture)
+      .withDependants(...children)
+      .saveAndUpdateMockVtj()
 
     page = await Page.open({ mockedTime })
     await page.goto(config.enduserUrl)

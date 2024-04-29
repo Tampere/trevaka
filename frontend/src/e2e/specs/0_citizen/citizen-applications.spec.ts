@@ -12,7 +12,7 @@ import { enduserLogin } from 'e2e-test/utils/user'
 import {
   resetDatabaseForE2ETests
 } from '../../common/tampere-dev-api'
-import { enduserChildFixturePorriHatterRestricted, Fixture } from "e2e-test/dev-api/fixtures";
+import { enduserChildFixturePorriHatterRestricted, enduserGuardianFixture, Fixture } from 'e2e-test/dev-api/fixtures'
 
 const mockedTime = HelsinkiDateTime.of(2024, 4, 23, 7, 40)
 const mockedDate = mockedTime.toLocalDate()
@@ -23,9 +23,13 @@ let applicationsPage: CitizenApplicationsPage
 
 beforeEach(async () => {
   await resetDatabaseForE2ETests()
+  const child = await Fixture.person()
+    .with(enduserChildFixturePorriHatterRestricted)
+    .saveAndUpdateMockVtj()
   await Fixture.person()
-      .with(enduserChildFixturePorriHatterRestricted)
-      .save()
+    .with(enduserGuardianFixture)
+    .withDependants(child)
+    .saveAndUpdateMockVtj()
   page = await Page.open({ mockedTime })
   await page.goto(config.enduserUrl)
   await enduserLogin(page)
