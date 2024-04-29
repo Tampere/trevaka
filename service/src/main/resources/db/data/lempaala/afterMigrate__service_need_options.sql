@@ -14,6 +14,10 @@ VALUES
     ('f24a1b37-0be9-4004-8a00-eefda8ed925a', 'Varhaiskasvatus 86–120 tuntia / kuukausi', 'Varhaiskasvatus 86–120 tuntia / kuukausi', 'Daycare - 86-120 h per month', 'DAYCARE', FALSE, 0.8, 1.0, 1.75, 1.0, 1.75, 40, NULL, 120, TRUE, TRUE, 'Varhaiskasvatus 86–120 tuntia / kuukausi', 'Varhaiskasvatus 86–120 tuntia / kuukausi', 'Varhaiskasvatus 86–120 tuntia / kuukausi', 'Varhaiskasvatus 86–120 tuntia / kuukausi', '2023-08-01', TRUE, 1),
     ('a92cf108-0939-45f5-8976-ab31e456b84d', 'Varhaiskasvatus 121-150 tuntia / kuukausi', 'Varhaiskasvatus 121-150 tuntia / kuukausi', 'Daycare - 121-150 h per month', 'DAYCARE', FALSE, 0.9, 1.0, 1.75, 1.0, 1.75, 40, NULL, 150, TRUE, TRUE, 'Varhaiskasvatus 121-150 tuntia / kuukausi', 'Varhaiskasvatus 121-150 tuntia / kuukausi', 'Varhaiskasvatus 121-150 tuntia / kuukausi', 'Varhaiskasvatus 121-150 tuntia / kuukausi', '2023-08-01', TRUE, 2),
     ('22adbfd9-50d8-4192-9a35-1c5ce872e1a7', 'Varhaiskasvatus yli 151 tuntia / kuukausi', 'Varhaiskasvatus yli 151 tuntia / kuukausi', 'Daycare - over 151 h per month', 'DAYCARE', FALSE, 1.0, 1.0, 1.75, 1.0, 1.75, 40, NULL, 210, FALSE, FALSE, 'Varhaiskasvatus yli 151 tuntia / kuukausi', 'Varhaiskasvatus yli 151 tuntia / kuukausi', 'Varhaiskasvatus yli 151 tuntia / kuukausi', 'Varhaiskasvatus yli 151 tuntia / kuukausi', '2023-08-01', TRUE, 3),
+    ('6e0ae089-8e18-4fac-a10b-8c5ac2f875b2', 'Palveluseteli 85 tuntia / kuukausi', 'Palveluseteli 85 tuntia / kuukausi', 'Voucher value - 85 h per month', 'DAYCARE', FALSE, 0.5, 1.0, 1.75, 1.0, 1.75, 40, NULL, 85, TRUE, TRUE, 'Varhaiskasvatus 85 tuntia / kuukausi', 'Varhaiskasvatus 85 tuntia / kuukausi', 'Varhaiskasvatus 85 tuntia / kuukausi', 'Varhaiskasvatus 85 tuntia / kuukausi', '2023-08-01', TRUE, 4),
+    ('15ec591b-9dc7-42da-8cae-1a01ac36c62f', 'Palveluseteli 86–120 tuntia / kuukausi', 'Palveluseteli 86–120 tuntia / kuukausi', 'Voucher value - 86-120 h per month', 'DAYCARE', FALSE, 0.7, 1.0, 1.75, 1.0, 1.75, 40, NULL, 120, TRUE, TRUE, 'Varhaiskasvatus 86–120 tuntia / kuukausi', 'Varhaiskasvatus 86–120 tuntia / kuukausi', 'Varhaiskasvatus 86–120 tuntia / kuukausi', 'Varhaiskasvatus 86–120 tuntia / kuukausi', '2023-08-01', TRUE, 5),
+    ('27f8b3df-ebf8-4e39-aed0-902c1ad13763', 'Palveluseteli 121-150 tuntia / kuukausi', 'Palveluseteli 121-150 tuntia / kuukausi', 'Voucher value - 121-150 h per month', 'DAYCARE', FALSE, 0.85, 1.0, 1.75, 1.0, 1.75, 40, NULL, 150, TRUE, TRUE, 'Varhaiskasvatus 121-150 tuntia / kuukausi', 'Varhaiskasvatus 121-150 tuntia / kuukausi', 'Varhaiskasvatus 121-150 tuntia / kuukausi', 'Varhaiskasvatus 121-150 tuntia / kuukausi', '2023-08-01', TRUE, 6),
+    ('ac8f67e0-745d-49bc-a0ed-9295e45a0774', 'Palveluseteli yli 151 tuntia / kuukausi', 'Palveluseteli yli 151 tuntia / kuukausi', 'Voucher value - over 151 h per month', 'DAYCARE', FALSE, 1.0, 1.0, 1.75, 1.0, 1.75, 40, NULL, 210, FALSE, FALSE, 'Varhaiskasvatus yli 151 tuntia / kuukausi', 'Varhaiskasvatus yli 151 tuntia / kuukausi', 'Varhaiskasvatus yli 151 tuntia / kuukausi', 'Varhaiskasvatus yli 151 tuntia / kuukausi', '2023-08-01', TRUE, 7),
     ('e945728f-2671-4158-8941-1d39a3a36dce', 'Tilapäinen varhaiskasvatus', 'Tilapäinen varhaiskasvatus', 'Temporary daycare', 'TEMPORARY_DAYCARE', TRUE, 1.0, 1.0, 1.75, 1.0, 1.75, 40, NULL, NULL, FALSE, FALSE, 'Tilapäinen varhaiskasvatus', 'Tilapäinen varhaiskasvatus', 'Tilapäinen varhaiskasvatus', 'Tilapäinen varhaiskasvatus', '2023-08-01', TRUE, NULL)
 ON CONFLICT (id) DO
 UPDATE SET
@@ -71,7 +75,11 @@ VALUES
     ('abb09e4d-317b-426a-ae0f-c906e2c0dafb', '489dcf01-e11a-4ab8-8c36-1e672581eb6d', daterange('2023-08-01', NULL, '[]'), 90100, 0.50, 45050, 140600, 0.50, 70300),
     ('87c4588b-e786-433e-9a51-27213d193e7b', 'f24a1b37-0be9-4004-8a00-eefda8ed925a', daterange('2023-08-01', NULL, '[]'), 90100, 0.80, 72080, 140600, 0.80, 112480),
     ('85772d47-a7ef-4dd8-ad69-10b1353227aa', 'a92cf108-0939-45f5-8976-ab31e456b84d', daterange('2023-08-01', NULL, '[]'), 90100, 1.00, 90100, 140600, 1.00, 140600),
-    ('2343782f-25f3-49ca-b0fb-e6f2b50ecc0c', '22adbfd9-50d8-4192-9a35-1c5ce872e1a7', daterange('2023-08-01', NULL, '[]'), 90100, 1.00, 90100, 140600, 1.00, 140600)
+    ('2343782f-25f3-49ca-b0fb-e6f2b50ecc0c', '22adbfd9-50d8-4192-9a35-1c5ce872e1a7', daterange('2023-08-01', NULL, '[]'), 90100, 1.00, 90100, 140600, 1.00, 140600),
+    ('1766d216-8fae-4e9f-a0f3-67aebf42ecbd', '6e0ae089-8e18-4fac-a10b-8c5ac2f875b2', daterange('2023-08-01', NULL, '[]'), 90100, 0.50, 45050, 140600, 0.50, 70300),
+    ('5a0e2949-b2dd-4062-b129-895910f92751', '15ec591b-9dc7-42da-8cae-1a01ac36c62f', daterange('2023-08-01', NULL, '[]'), 90100, 0.80, 72080, 140600, 0.80, 112480),
+    ('523ebcbe-edc9-42a5-8220-c2dae2eecf78', '27f8b3df-ebf8-4e39-aed0-902c1ad13763', daterange('2023-08-01', NULL, '[]'), 90100, 1.00, 90100, 140600, 1.00, 140600),
+    ('284f8290-ac7d-4474-b97f-9243283e4c2c', 'ac8f67e0-745d-49bc-a0ed-9295e45a0774', daterange('2023-08-01', NULL, '[]'), 90100, 1.00, 90100, 140600, 1.00, 140600)
 ON CONFLICT (id) DO
     UPDATE SET
                service_need_option_id = EXCLUDED.service_need_option_id,
@@ -108,3 +116,16 @@ WHERE id IN (
              'cf8b946d-45e6-4049-9439-ad0814f22592',
              '131d5fbe-a72d-4f6e-82c0-5df88c657690'
     );
+
+UPDATE service_need
+SET option_id = new_id::uuid
+FROM placement,
+     daycare unit,
+     (VALUES ('489dcf01-e11a-4ab8-8c36-1e672581eb6d', '6e0ae089-8e18-4fac-a10b-8c5ac2f875b2'),
+             ('f24a1b37-0be9-4004-8a00-eefda8ed925a', '15ec591b-9dc7-42da-8cae-1a01ac36c62f'),
+             ('a92cf108-0939-45f5-8976-ab31e456b84d', '27f8b3df-ebf8-4e39-aed0-902c1ad13763'),
+             ('22adbfd9-50d8-4192-9a35-1c5ce872e1a7', 'ac8f67e0-745d-49bc-a0ed-9295e45a0774')) AS map(old_id, new_id)
+WHERE service_need.placement_id = placement.id
+  AND placement.unit_id = unit.id
+  AND unit.provider_type = 'PRIVATE_SERVICE_VOUCHER'
+  AND service_need.option_id = map.old_id::uuid;
