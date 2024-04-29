@@ -2,13 +2,6 @@
 --
 -- SPDX-License-Identifier: LGPL-2.1-or-later
 
-DELETE
-FROM service_need_option_voucher_value
-WHERE id IN (
-             '4eae9dc5-660b-4661-82b9-9200ca045820',
-             'df00080f-e403-441c-a1c7-28adaed60ae5'
-    );
-
 INSERT INTO service_need_option
 (id, name_fi, name_sv, name_en, valid_placement_type, default_option, fee_coefficient, occupancy_coefficient, occupancy_coefficient_under_3y, realized_occupancy_coefficient, realized_occupancy_coefficient_under_3y, daycare_hours_per_week, contract_days_per_month, daycare_hours_per_month, part_day, part_week, fee_description_fi, fee_description_sv, voucher_value_description_fi, voucher_value_description_sv, valid_from, show_for_citizen, display_order)
 VALUES
@@ -143,26 +136,3 @@ WHERE
     service_need_option_voucher_value.base_value_under_3y <> EXCLUDED.base_value_under_3y OR
     service_need_option_voucher_value.coefficient_under_3y <> EXCLUDED.coefficient_under_3y OR
     service_need_option_voucher_value.value_under_3y <> EXCLUDED.value_under_3y;
-
-DELETE
-FROM service_need_option
-WHERE id IN (
-             '36c8c2ed-7543-47de-bc42-14d163a6277d',
-             '9eb82822-82ef-46fb-a123-29cf0af757b7',
-             'f5d32585-2c78-4434-95d6-30b446db7d4d',
-             '1b1e6e91-8d54-405c-88f8-2a95d88f8962',
-             '4d6d632d-d8cf-4b5a-8437-decade30d0c0'
-    );
-
-UPDATE service_need
-SET option_id = new_id::uuid
-FROM placement,
-     daycare unit,
-     (VALUES ('50358394-b961-11eb-b51f-67ac436e5637', 'fb2d3e60-4e87-4594-bd53-7ac86d2c1fbb'),
-             ('86ef70a0-bf85-11eb-91e6-1fb57a101165', '2c590d91-ef6f-4e1d-a447-9862e93b7c42'),
-             ('503590f0-b961-11eb-b520-53740af3f7ef', 'a1065297-f91b-45e9-8871-d8d773fefb0e'),
-             ('503591ae-b961-11eb-b521-1fca99358eed', '8f9dd268-39a9-4406-ad41-4a3461aa89a8')) AS map(old_id, new_id)
-WHERE service_need.placement_id = placement.id
-  AND placement.unit_id = unit.id
-  AND unit.provider_type = 'PRIVATE_SERVICE_VOUCHER'
-  AND service_need.option_id = map.old_id::uuid;
