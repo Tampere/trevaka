@@ -6,6 +6,7 @@ package trevaka
 
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.dev.runDevScript
+import fi.espoo.evaka.vtjclient.service.persondetails.MockPersonDetailsService
 import fi.tampere.trevaka.database.resetTampereDatabaseForE2ETests
 import io.opentracing.noop.NoopTracerFactory
 import org.jdbi.v3.core.Jdbi
@@ -42,6 +43,7 @@ abstract class AbstractIntegrationTest {
     @BeforeEach
     fun setup() {
         db.transaction { tx -> tx.resetTampereDatabaseForE2ETests() }
+        MockPersonDetailsService.reset()
     }
 
     @AfterAll

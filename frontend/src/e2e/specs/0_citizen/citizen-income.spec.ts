@@ -11,7 +11,7 @@ import { enduserLogin } from 'e2e-test/utils/user'
 import {
   resetDatabaseForE2ETests
 } from '../../common/tampere-dev-api'
-  
+import { enduserGuardianFixture, Fixture } from 'e2e-test/dev-api/fixtures'
 
 let page: Page
 let header: CitizenHeader
@@ -19,6 +19,9 @@ let incomePage: CitizenIncomePage
 
 beforeEach(async () => {
   await resetDatabaseForE2ETests()
+  await Fixture.person()
+    .with(enduserGuardianFixture)
+    .saveAndUpdateMockVtj()
   page = await Page.open()
   await page.goto(config.enduserUrl)
   await enduserLogin(page)

@@ -10,6 +10,7 @@ import fi.espoo.evaka.shared.async.AsyncJobRunner
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.EvakaClock
 import fi.espoo.evaka.shared.domain.RealEvakaClock
+import fi.espoo.evaka.vtjclient.service.persondetails.MockPersonDetailsService
 import fi.tampere.trevaka.database.resetTampereDatabaseForE2ETests
 import org.springframework.context.annotation.Profile
 import org.springframework.http.ResponseEntity
@@ -38,6 +39,7 @@ class TampereDevApi(
         asyncJobRunner.waitUntilNoRunningJobs(timeout = Duration.ofSeconds(20))
 
         db.connect { c -> c.transaction { tx -> tx.resetTampereDatabaseForE2ETests() } }
+        MockPersonDetailsService.reset()
         return ResponseEntity.noContent().build()
     }
 }
