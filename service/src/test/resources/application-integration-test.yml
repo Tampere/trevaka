@@ -66,6 +66,8 @@ tampere:
     url: http://localhost:${wiremock.server.port}/mock/ipaas/salesOrder
   bucket:
     export: trevaka-export-it
+  bi-export:
+    prefix: bi
 vesilahti:
   ipaas:
     username: user
@@ -108,3 +110,12 @@ lempaala:
     password: pass
   bucket:
     export: trevaka-export-it
+
+debug: true
+
+logging:
+  level:
+    software:
+      amazon:
+        awssdk:
+          request: DEBUG

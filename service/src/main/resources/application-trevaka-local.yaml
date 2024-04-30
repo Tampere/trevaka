@@ -25,7 +25,10 @@ logging:
       springframework:
         boot:
           autoconfigure: INFO
-
+    software:
+      amazon:
+        awssdk:
+          request: DEBUG
 evaka:
   aws:
     region: eu-west-1
@@ -50,6 +53,9 @@ tampere:
     url: http://localhost:${server.port}/salesOrder
   bucket:
     export: trevaka-export-dev
+  bi-export:
+    prefix: bi
+
 vesilahti:
   ipaas:
     username: user

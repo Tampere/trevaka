@@ -9,8 +9,10 @@ import fi.espoo.evaka.BucketEnv
 import fi.espoo.evaka.EvakaEnv
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Profile
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider
+import software.amazon.awssdk.services.s3.S3AsyncClient
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.S3Configuration
 import software.amazon.awssdk.services.s3.presigner.S3Presigner
@@ -23,18 +25,35 @@ class IntegrationTestConfiguration {
 
     @Bean
     fun s3Client(evakaEnv: EvakaEnv, bucketEnv: BucketEnv): S3Client {
-        val client = S3Client.builder()
-            .region(evakaEnv.awsRegion)
-            .serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build())
-            .endpointOverride(bucketEnv.s3MockUrl)
-            .credentialsProvider(
-                StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar")),
-            )
-            .build()
+        val client =
+            S3Client.builder()
+                .region(evakaEnv.awsRegion)
+                .serviceConfiguration(
+                    S3Configuration.builder().pathStyleAccessEnabled(true).build(),
+                )
+                .endpointOverride(bucketEnv.s3MockUrl)
+                .credentialsProvider(
+                    StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar")),
+                )
+                .build()
 
         createBucketsIfNeeded(client, bucketEnv.allBuckets())
 
         return client
+    }
+
+    @Bean
+    @Profile("tampere_evaka")
+    fun testS3AsyncClient(evakaEnv: EvakaEnv, bucketEnv: BucketEnv): S3AsyncClient {
+        return S3AsyncClient.crtBuilder()
+            .region(evakaEnv.awsRegion)
+            .forcePathStyle(true)
+            .endpointOverride(bucketEnv.s3MockUrl)
+            .checksumValidationEnabled(false)
+            .credentialsProvider(
+                StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar")),
+            )
+            .build()
     }
 
     @Bean

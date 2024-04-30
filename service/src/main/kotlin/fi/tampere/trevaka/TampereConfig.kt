@@ -4,21 +4,34 @@
 
 package fi.tampere.trevaka
 
+import fi.espoo.evaka.BucketEnv
+import fi.espoo.evaka.EvakaEnv
 import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.shared.FeatureConfig
+import fi.espoo.evaka.shared.async.AsyncJobRunner
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
+import fi.tampere.trevaka.bi.BiExportClient
+import fi.tampere.trevaka.bi.BiExportJob
+import fi.tampere.trevaka.bi.FileBiExportS3Client
 import fi.tampere.trevaka.export.ExportUnitsAclService
 import fi.tampere.trevaka.security.TampereActionRuleMapping
+import io.opentracing.Tracer
+import org.jdbi.v3.core.Jdbi
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Import
+import org.springframework.context.annotation.Profile
 import org.springframework.core.env.Environment
+import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider
+import software.amazon.awssdk.services.s3.S3AsyncClient
 import trevaka.titania.TrimStartTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
 
 @Configuration
+@Import(TampereAsyncJobRegistration::class)
 class TampereConfig {
 
     @Bean
@@ -47,16 +60,57 @@ class TampereConfig {
     )
 
     @Bean
-    fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()
+    @Profile("production")
+    fun productionS3AsyncClient(
+        evakaEnv: EvakaEnv,
+        bucketEnv: BucketEnv,
+        credentialsProvider: AwsCredentialsProvider,
+    ): S3AsyncClient {
+        return S3AsyncClient.crtBuilder()
+            .region(evakaEnv.awsRegion)
+            .credentialsProvider(credentialsProvider)
+            .build()
+    }
 
     @Bean
-    fun actionRuleMapping(): ActionRuleMapping = TampereActionRuleMapping()
+    @Profile("local")
+    fun localS3AsyncClient(
+        evakaEnv: EvakaEnv,
+        bucketEnv: BucketEnv,
+        credentialsProvider: AwsCredentialsProvider,
+    ): S3AsyncClient {
+        return S3AsyncClient.crtBuilder()
+            .region(evakaEnv.awsRegion)
+            .credentialsProvider(credentialsProvider)
+            .build()
+    }
 
     @Bean
-    fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter = TrimStartTitaniaEmployeeIdConverter()
+    fun fileS3Client(asyncClient: S3AsyncClient, properties: TampereProperties): BiExportClient =
+        FileBiExportS3Client(asyncClient, properties)
 
     @Bean
-    fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
+    fun tampereAsyncJobRunner(
+        jdbi: Jdbi,
+        tracer: Tracer,
+        env: Environment,
+    ): AsyncJobRunner<TampereAsyncJob> =
+        AsyncJobRunner(TampereAsyncJob::class, listOf(TampereAsyncJob.pool), jdbi, tracer)
+
+    @Bean
+    fun tampereBiJob(biExportClient: BiExportClient): BiExportJob = BiExportJob(biExportClient)
+
+    @Bean
+    fun paymentIntegrationClient(): PaymentIntegrationClient =
+        PaymentIntegrationClient.FailingClient()
+
+    @Bean fun actionRuleMapping(): ActionRuleMapping = TampereActionRuleMapping()
+
+    @Bean
+    fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter =
+        TrimStartTitaniaEmployeeIdConverter()
+
+    @Bean fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
     fun tampereScheduledJobEnv(env: Environment): ScheduledJobsEnv<TampereScheduledJob> =
@@ -69,6 +123,7 @@ class TampereConfig {
     @Bean
     fun tampereScheduledJobs(
         exportUnitsAclService: ExportUnitsAclService,
+        tampereRunner: AsyncJobRunner<TampereAsyncJob>,
         env: ScheduledJobsEnv<TampereScheduledJob>,
-    ): TampereScheduledJobs = TampereScheduledJobs(exportUnitsAclService, env)
+    ): TampereScheduledJobs = TampereScheduledJobs(exportUnitsAclService, tampereRunner, env)
 }
