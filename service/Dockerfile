@@ -14,7 +14,7 @@ COPY --from=core ./service/sficlient/*.kts ./service/sficlient/
 WORKDIR /service
 COPY ./gradle/ ./gradle/
 COPY ./gradlew ./build.gradle.kts ./gradle.properties ./settings.gradle.kts ./settings-dependabot-ignore.gradle.kts ./
-RUN ./gradlew --no-daemon resolveDependencies
+RUN ./gradlew --no-daemon resolveDependencies service:copyDownloadOnlyDeps
 COPY --from=core ./service/sficlient/ ../evaka/service/sficlient/
 COPY --from=core ./service/vtjclient/ ../evaka/service/vtjclient/
 RUN ./gradlew --no-daemon :service:sficlient:wsdl2java :service:vtjclient:wsdl2java
@@ -62,10 +62,7 @@ ADD --chown=evaka:evaka --chmod=0700 \
     https://github.com/espoon-voltti/s3-downloader/releases/download/v1.4.1/s3downloader-linux-amd64 \
     /usr/local/bin/s3download
 
-ADD --chmod=0644 \
-    --checksum=sha256:776b76cfe05611cdc3d38c4b35fc92f563fcfd6e3df0e28c524da1d279d44223 \
-    https://github.com/DataDog/dd-trace-java/releases/download/v1.31.0/dd-java-agent.jar \
-    /opt/dd-java-agent.jar
+COPY --from=builder /evaka/service/build/download-only/dd-java-agent.jar /opt/dd-java-agent.jar
 
 ADD ./dd-jmxfetch/ /etc/jmxfetch/
 
