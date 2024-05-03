@@ -7,10 +7,12 @@ package fi.lempaala.evaka
 import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.invoicing.service.DefaultInvoiceGenerationLogic
+import fi.espoo.evaka.mealintegration.MealTypeMapper
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
+import fi.lempaala.evaka.mealintegration.LempaalaMealTypeMapper
 import fi.lempaala.evaka.security.LempaalaActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -85,4 +87,7 @@ class LempaalaConfig {
 
     @Bean
     fun basicAuthCustomizer(properties: LempaalaProperties) = dvvModificationRequestCustomizer(properties.ipaas)
+
+    @Bean
+    fun mealTypeMapper(): MealTypeMapper = LempaalaMealTypeMapper
 }

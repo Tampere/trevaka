@@ -6,10 +6,12 @@ package fi.pirkkala.evaka
 
 import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
+import fi.espoo.evaka.mealintegration.MealTypeMapper
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
+import fi.pirkkala.evaka.mealintegration.PirkkalaMealTypeMapper
 import fi.pirkkala.evaka.security.PirkkalaActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -68,4 +70,7 @@ class PirkkalaConfig {
 
     @Bean
     fun basicAuthCustomizer(properties: PirkkalaProperties) = dvvModificationRequestCustomizer(properties.ipaas)
+
+    @Bean
+    fun mealTypeMapper(): MealTypeMapper = PirkkalaMealTypeMapper
 }

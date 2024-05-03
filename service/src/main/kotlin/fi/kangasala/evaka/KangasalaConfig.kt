@@ -7,6 +7,8 @@ package fi.kangasala.evaka
 import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.invoicing.service.DefaultInvoiceGenerationLogic
+import fi.espoo.evaka.mealintegration.DefaultMealTypeMapper
+import fi.espoo.evaka.mealintegration.MealTypeMapper
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
@@ -85,4 +87,7 @@ class KangasalaConfig {
 
     @Bean
     fun basicAuthCustomizer(properties: KangasalaProperties) = dvvModificationRequestCustomizer(properties.ipaas)
+
+    @Bean
+    fun mealTypeMapper(): MealTypeMapper = DefaultMealTypeMapper
 }
