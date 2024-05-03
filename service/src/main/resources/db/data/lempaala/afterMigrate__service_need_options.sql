@@ -2,10 +2,6 @@
 --
 -- SPDX-License-Identifier: LGPL-2.1-or-later
 
-DELETE
-FROM service_need_option_voucher_value
-WHERE id = '662570db-c149-45b9-a52f-2748b8995e19';
-
 INSERT INTO service_need_option
     (id, name_fi, name_sv, name_en, valid_placement_type, default_option, fee_coefficient, occupancy_coefficient, occupancy_coefficient_under_3y, realized_occupancy_coefficient, realized_occupancy_coefficient_under_3y, daycare_hours_per_week, contract_days_per_month, daycare_hours_per_month, part_day, part_week, fee_description_fi, fee_description_sv, voucher_value_description_fi, voucher_value_description_sv, valid_from, show_for_citizen, display_order)
 VALUES
@@ -99,33 +95,3 @@ WHERE
     service_need_option_voucher_value.base_value_under_3y <> EXCLUDED.base_value_under_3y OR
     service_need_option_voucher_value.coefficient_under_3y <> EXCLUDED.coefficient_under_3y OR
     service_need_option_voucher_value.value_under_3y <> EXCLUDED.value_under_3y;
-
-DELETE
-FROM service_need_option
-WHERE id IN (
-             'acfb9f35-efff-40d9-8838-4a021cfc7446',
-             'a6dcce89-632c-4bb3-a3ba-1b3c6b570348',
-             'b0f13ba8-ff8a-4bb8-88b7-b260aefe8e0e',
-             'd5a5824b-ae3f-4cd3-9cd6-affee036bd1d',
-             '8d155bac-8be4-4988-9835-b99789ba51e4',
-             'e067df64-7ff0-42c1-a409-537db7c202dd',
-             '347a19fc-26a3-44c2-85a5-37ac8a56ae57',
-             '5a574d58-7d6f-4eb3-b91f-23ea7094e0de',
-             'f04ff070-35d7-4e2f-82ba-f130ef150c6d',
-             'c8e7bb24-584b-4624-865b-0cab145edfab',
-             'cf8b946d-45e6-4049-9439-ad0814f22592',
-             '131d5fbe-a72d-4f6e-82c0-5df88c657690'
-    );
-
-UPDATE service_need
-SET option_id = new_id::uuid
-FROM placement,
-     daycare unit,
-     (VALUES ('489dcf01-e11a-4ab8-8c36-1e672581eb6d', '6e0ae089-8e18-4fac-a10b-8c5ac2f875b2'),
-             ('f24a1b37-0be9-4004-8a00-eefda8ed925a', '15ec591b-9dc7-42da-8cae-1a01ac36c62f'),
-             ('a92cf108-0939-45f5-8976-ab31e456b84d', '27f8b3df-ebf8-4e39-aed0-902c1ad13763'),
-             ('22adbfd9-50d8-4192-9a35-1c5ce872e1a7', 'ac8f67e0-745d-49bc-a0ed-9295e45a0774')) AS map(old_id, new_id)
-WHERE service_need.placement_id = placement.id
-  AND placement.unit_id = unit.id
-  AND unit.provider_type = 'PRIVATE_SERVICE_VOUCHER'
-  AND service_need.option_id = map.old_id::uuid;

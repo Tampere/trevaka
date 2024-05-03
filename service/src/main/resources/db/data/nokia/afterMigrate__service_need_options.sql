@@ -2,13 +2,6 @@
 --
 -- SPDX-License-Identifier: LGPL-2.1-or-later
 
-DELETE
-FROM service_need_option_voucher_value
-WHERE id IN (
-             '4eae9dc5-660b-4661-82b9-9200ca045820',
-             'df00080f-e403-441c-a1c7-28adaed60ae5'
-    );
-
 INSERT INTO service_need_option
 (id, name_fi, name_sv, name_en, valid_placement_type, default_option, fee_coefficient, occupancy_coefficient, occupancy_coefficient_under_3y, realized_occupancy_coefficient, realized_occupancy_coefficient_under_3y, daycare_hours_per_week, contract_days_per_month, daycare_hours_per_month, part_day, part_week, fee_description_fi, fee_description_sv, voucher_value_description_fi, voucher_value_description_sv, valid_from, show_for_citizen, display_order)
 VALUES
@@ -130,10 +123,3 @@ WHERE
     service_need_option_voucher_value.base_value_under_3y <> EXCLUDED.base_value_under_3y OR
     service_need_option_voucher_value.coefficient_under_3y <> EXCLUDED.coefficient_under_3y OR
     service_need_option_voucher_value.value_under_3y <> EXCLUDED.value_under_3y;
-
-DELETE
-FROM service_need_option
-WHERE id IN (
-             '1b1e6e91-8d54-405c-88f8-2a95d88f8962',
-             '4d6d632d-d8cf-4b5a-8437-decade30d0c0'
-    );
