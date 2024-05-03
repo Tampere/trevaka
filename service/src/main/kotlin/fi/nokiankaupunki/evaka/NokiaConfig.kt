@@ -6,10 +6,12 @@ package fi.nokiankaupunki.evaka
 
 import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
+import fi.espoo.evaka.mealintegration.MealTypeMapper
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
+import fi.nokiankaupunki.evaka.mealintegration.NokiaMealTypeMapper
 import fi.nokiankaupunki.evaka.security.NokiaActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -68,4 +70,7 @@ class NokiaConfig {
 
     @Bean
     fun basicAuthCustomizer(properties: NokiaProperties) = dvvModificationRequestCustomizer(properties.ipaas)
+
+    @Bean
+    fun mealTypeMapper(): MealTypeMapper = NokiaMealTypeMapper
 }
