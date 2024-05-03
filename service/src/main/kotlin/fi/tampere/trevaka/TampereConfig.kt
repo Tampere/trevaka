@@ -8,6 +8,8 @@ import fi.espoo.evaka.BucketEnv
 import fi.espoo.evaka.EvakaEnv
 import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
+import fi.espoo.evaka.mealintegration.DefaultMealTypeMapper
+import fi.espoo.evaka.mealintegration.MealTypeMapper
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.async.AsyncJobRunner
 import fi.espoo.evaka.shared.auth.UserRole
@@ -111,6 +113,9 @@ class TampereConfig {
         TrimStartTitaniaEmployeeIdConverter()
 
     @Bean fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
+
+    @Bean
+    fun mealTypeMapper(): MealTypeMapper = DefaultMealTypeMapper
 
     @Bean
     fun tampereScheduledJobEnv(env: Environment): ScheduledJobsEnv<TampereScheduledJob> =

@@ -6,6 +6,8 @@ package fi.hameenkyro.evaka
 
 import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
+import fi.espoo.evaka.mealintegration.DefaultMealTypeMapper
+import fi.espoo.evaka.mealintegration.MealTypeMapper
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
@@ -69,4 +71,7 @@ class HameenkyroConfig {
 
     @Bean
     fun basicAuthCustomizer(properties: HameenkyroProperties) = dvvModificationRequestCustomizer(properties.ipaas)
+
+    @Bean
+    fun mealTypeMapper(): MealTypeMapper = DefaultMealTypeMapper
 }
