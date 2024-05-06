@@ -103,6 +103,7 @@ INSERT INTO service_need_option_voucher_value
 (id, service_need_option_id, validity, base_value, coefficient, value, base_value_under_3y, coefficient_under_3y, value_under_3y)
 VALUES
     -- 2023-08-01 -
+    ('03ae36de-7058-45a1-ba72-514afca39dcd', 'f9e7d841-49bf-43e5-8c65-028dad590a76', daterange('2023-08-01', NULL, '[]'), 90100, 0.50, 45050, 140600, 0.50, 70300),
     ('b279657c-3f63-4aa1-92e8-d99f47ba1581', '36c8c2ed-7543-47de-bc42-14d163a6277d', daterange('2023-08-01', NULL, '[]'), 90100, 0.50, 45050, 140600, 0.50, 70300),
     ('92658f48-0320-4d19-8d56-6fe50c8bf285', '9eb82822-82ef-46fb-a123-29cf0af757b7', daterange('2023-08-01', NULL, '[]'), 90100, 0.80, 72080, 140600, 0.80, 112480),
     ('3c3c1e2b-cac4-418e-941d-2db046d4ced9', 'f5d32585-2c78-4434-95d6-30b446db7d4d', daterange('2023-08-01', NULL, '[]'), 90100, 1.00, 90100, 140600, 1.00, 140600),
