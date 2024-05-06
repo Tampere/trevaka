@@ -7,9 +7,9 @@ evaka:
     flyway:
       locations: db/migration,db/data/nokia
   oph:
-    organizer_oid: "1.2.246.562.10.49675287985"
+    organizer_oid: "1.2.246.562.10.95000650127"
     organizer_id: "todo"
-    municipality_code: "123"
+    municipality_code: "536"
   integration:
     sfi:
       contact_organization:
