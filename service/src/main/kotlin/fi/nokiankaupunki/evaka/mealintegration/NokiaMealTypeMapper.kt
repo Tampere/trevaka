@@ -11,21 +11,21 @@ object NokiaMealTypeMapper : MealTypeMapper {
     override fun toMealId(mealType: MealType, specialDiet: Boolean): Int =
         if (specialDiet) {
             when (mealType) {
-                MealType.BREAKFAST -> 13
-                MealType.LUNCH -> 18
-                MealType.LUNCH_PRESCHOOL -> 18
-                MealType.SNACK -> 6
-                MealType.SUPPER -> 23
-                MealType.EVENING_SNACK -> 9
+                MealType.BREAKFAST -> 288
+                MealType.LUNCH -> 289
+                MealType.LUNCH_PRESCHOOL -> 289
+                MealType.SNACK -> 290
+                MealType.SUPPER -> 291
+                MealType.EVENING_SNACK -> 307
             }
         } else {
             when (mealType) {
-                MealType.BREAKFAST -> 2
-                MealType.LUNCH -> 4
-                MealType.LUNCH_PRESCHOOL -> 4
-                MealType.SNACK -> 5
-                MealType.SUPPER -> 7
-                MealType.EVENING_SNACK -> 8
+                MealType.BREAKFAST -> 261
+                MealType.LUNCH -> 273
+                MealType.LUNCH_PRESCHOOL -> 273
+                MealType.SNACK -> 274
+                MealType.SUPPER -> 275
+                MealType.EVENING_SNACK -> 306
             }
         }
 }
