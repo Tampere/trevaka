@@ -428,7 +428,7 @@ data class BiDaycareGroup(
     val name: String,
     val start_date: LocalDate,
     val end_date: LocalDate?,
-    val jamix_customer_id: Int?,
+    val jamix_customer_number: Int?,
 )
 
 data class BiDaycareGroupPlacement(
