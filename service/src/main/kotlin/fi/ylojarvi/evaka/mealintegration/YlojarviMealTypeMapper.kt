@@ -11,21 +11,21 @@ object YlojarviMealTypeMapper : MealTypeMapper {
     override fun toMealId(mealType: MealType, specialDiet: Boolean): Int =
         if (specialDiet) {
             when (mealType) {
-                MealType.BREAKFAST -> 2
-                MealType.LUNCH -> 4
-                MealType.LUNCH_PRESCHOOL -> 6
-                MealType.SNACK -> 8
-                MealType.SUPPER -> 10
-                MealType.EVENING_SNACK -> 12
+                MealType.BREAKFAST -> 852
+                MealType.LUNCH -> 854
+                MealType.LUNCH_PRESCHOOL -> 856
+                MealType.SNACK -> 858
+                MealType.SUPPER -> 860
+                MealType.EVENING_SNACK -> 862
             }
         } else {
             when (mealType) {
-                MealType.BREAKFAST -> 1
-                MealType.LUNCH -> 3
-                MealType.LUNCH_PRESCHOOL -> 5
-                MealType.SNACK -> 7
-                MealType.SUPPER -> 9
-                MealType.EVENING_SNACK -> 11
+                MealType.BREAKFAST -> 851
+                MealType.LUNCH -> 853
+                MealType.LUNCH_PRESCHOOL -> 855
+                MealType.SNACK -> 857
+                MealType.SUPPER -> 859
+                MealType.EVENING_SNACK -> 861
             }
         }
 }

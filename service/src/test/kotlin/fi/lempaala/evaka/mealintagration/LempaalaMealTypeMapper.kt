@@ -14,16 +14,16 @@ class LempaalaMealTypeMapper {
     fun testLempaalaMealTypeMapper() {
         val mapper = LempaalaMealTypeMapper
         // Normal diet tests
-        assertEquals(6, mapper.toMealId(MealType.BREAKFAST, false))
-        assertEquals(24, mapper.toMealId(MealType.LUNCH, false))
-        assertEquals(41, mapper.toMealId(MealType.SNACK, false))
-        assertEquals(67, mapper.toMealId(MealType.SUPPER, false))
-        assertEquals(74, mapper.toMealId(MealType.EVENING_SNACK, false))
+        assertEquals(578, mapper.toMealId(MealType.BREAKFAST, false))
+        assertEquals(7, mapper.toMealId(MealType.LUNCH, false))
+        assertEquals(20, mapper.toMealId(MealType.SNACK, false))
+        assertEquals(24, mapper.toMealId(MealType.SUPPER, false))
+        assertEquals(27, mapper.toMealId(MealType.EVENING_SNACK, false))
         // Special diet tests
-        assertEquals(6, mapper.toMealId(MealType.BREAKFAST, true))
-        assertEquals(25, mapper.toMealId(MealType.LUNCH, true))
-        assertEquals(41, mapper.toMealId(MealType.SNACK, true))
-        assertEquals(69, mapper.toMealId(MealType.SUPPER, true))
-        assertEquals(74, mapper.toMealId(MealType.EVENING_SNACK, true))
+        assertEquals(578, mapper.toMealId(MealType.BREAKFAST, true))
+        assertEquals(8, mapper.toMealId(MealType.LUNCH, true))
+        assertEquals(20, mapper.toMealId(MealType.SNACK, true))
+        assertEquals(25, mapper.toMealId(MealType.SUPPER, true))
+        assertEquals(27, mapper.toMealId(MealType.EVENING_SNACK, true))
     }
 }

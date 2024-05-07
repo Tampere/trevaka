@@ -11,21 +11,21 @@ object PirkkalaMealTypeMapper : MealTypeMapper {
     override fun toMealId(mealType: MealType, specialDiet: Boolean): Int =
         if (specialDiet) {
             when (mealType) {
-                MealType.BREAKFAST -> 28
-                MealType.LUNCH -> 33
-                MealType.LUNCH_PRESCHOOL -> 33
-                MealType.SNACK -> 40
-                MealType.SUPPER -> 45
-                MealType.EVENING_SNACK -> 50
+                MealType.BREAKFAST -> 504
+                MealType.LUNCH -> 486
+                MealType.LUNCH_PRESCHOOL -> 486
+                MealType.SNACK -> 502
+                MealType.SUPPER -> 509
+                MealType.EVENING_SNACK -> 513
             }
         } else {
             when (mealType) {
-                MealType.BREAKFAST -> 26
-                MealType.LUNCH -> 32
-                MealType.LUNCH_PRESCHOOL -> 32
-                MealType.SNACK -> 39
-                MealType.SUPPER -> 44
-                MealType.EVENING_SNACK -> 49
+                MealType.BREAKFAST -> 503
+                MealType.LUNCH -> 485
+                MealType.LUNCH_PRESCHOOL -> 485
+                MealType.SNACK -> 501
+                MealType.SUPPER -> 508
+                MealType.EVENING_SNACK -> 512
             }
         }
 }
