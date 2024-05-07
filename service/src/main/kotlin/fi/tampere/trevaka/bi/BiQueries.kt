@@ -242,7 +242,7 @@ object BiQueries {
         csvQuery<BiDaycareGroup> {
             sql(
                 """
-            select id, daycare_id, name, start_date, end_date, jamix_customer_id
+            select id, daycare_id, name, start_date, end_date, jamix_customer_number AS jamix_customer_id
             FROM daycare_group
         """,
             )
