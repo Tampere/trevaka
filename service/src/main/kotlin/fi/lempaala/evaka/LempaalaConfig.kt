@@ -6,7 +6,6 @@ package fi.lempaala.evaka
 
 import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
-import fi.espoo.evaka.invoicing.service.DefaultInvoiceGenerationLogic
 import fi.espoo.evaka.mealintegration.MealTypeMapper
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
@@ -50,21 +49,6 @@ class LempaalaConfig {
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
     )
-
-    @Bean
-    fun invoiceIntegrationClient() = LempaalaInvoiceIntegrationClient()
-
-    @Bean
-    fun invoiceGenerationLogicChooser() = DefaultInvoiceGenerationLogic
-
-    @Bean
-    fun incomeTypesProvider() = LempaalaIncomeTypesProvider()
-
-    @Bean
-    fun incomeCoefficientMultiplierProvider() = LempaalaIncomeCoefficientMultiplierProvider()
-
-    @Bean
-    fun invoiceProductProvider() = LempaalaInvoiceProductProvider()
 
     @Bean
     fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()
