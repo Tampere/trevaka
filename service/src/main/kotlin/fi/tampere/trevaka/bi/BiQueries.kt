@@ -331,7 +331,7 @@ object BiQueries {
         csvQuery<BiFridgeChild> {
             sql(
                 """
-            select id, child_id, head_of_child, start_date, end_date, created::text, updated::text, conflict
+            select id, child_id, head_of_child, start_date, end_date, created_at::text, updated::text, conflict
             FROM fridge_child
         """,
             )

@@ -588,7 +588,7 @@ data class BiFridgeChild(
     val head_of_child: UUID,
     val start_date: LocalDate,
     val end_date: LocalDate,
-    val created: String?,
+    val created_at: String?,
     val updated: String?,
     val conflict: Boolean,
 )
