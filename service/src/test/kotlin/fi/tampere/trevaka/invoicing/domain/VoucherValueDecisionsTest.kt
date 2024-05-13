@@ -12,6 +12,7 @@ import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 internal class VoucherValueDecisionsTest : AbstractTampereIntegrationTest() {
 
@@ -27,7 +28,7 @@ internal class VoucherValueDecisionsTest : AbstractTampereIntegrationTest() {
     }
 
     private fun assertVoucherValue(id: ServiceNeedOptionVoucherValueId, voucherValue: VoucherValue) {
-        val value = (BigDecimal(voucherValue.baseValue) * voucherValue.coefficient).toInt()
+        val value = (BigDecimal(voucherValue.baseValue) * voucherValue.coefficient).setScale(0, RoundingMode.HALF_UP).toInt()
         assertThat(value)
             .withFailMessage("Voucher $id computed value is ${voucherValue.baseValue} * ${voucherValue.coefficient} = $value but expected ${voucherValue.value}")
             .isEqualTo(voucherValue.value)
