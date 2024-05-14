@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
 import HelsinkiDateTime from 'lib-common/helsinki-date-time'
+import TimeRange from 'lib-common/time-range'
+import LocalTime from 'lib-common/local-time'
 import config from 'e2e-test/config'
 import { resetDatabaseForE2ETests } from '../../common/tampere-dev-api'
 import { createDaycarePlacements } from 'e2e-test/generated/api-clients'
@@ -42,15 +44,19 @@ beforeEach(async () => {
             name: 'Alkuräjähdyksen päiväkoti',
             type: ['CENTRE', 'PRESCHOOL', 'PREPARATORY_EDUCATION'],
             costCenter: '31500',
-            streetAddress: 'Kamreerintie 1',
-            postalCode: '02210',
-            postOffice: 'Espoo',
-            decisionDaycareName: 'Päiväkoti päätöksellä',
-            decisionPreschoolName: 'Päiväkoti päätöksellä',
-            decisionHandler: 'Käsittelijä',
-            decisionHandlerAddress: 'Käsittelijän osoite',
+            visitingAddress: {
+              streetAddress: 'Kamreerintie 1',
+              postalCode: '02210',
+              postOffice: 'Espoo'
+            },
+            decisionCustomization: {
+              daycareName: 'Päiväkoti päätöksellä',
+              preschoolName: 'Päiväkoti päätöksellä',
+              handler: 'Käsittelijä',
+              handlerAddress: 'Käsittelijän osoite',
+            },
             providerType: 'MUNICIPAL',
-            operationDays: [1, 2, 3, 4, 5, 6, 7],
+            operationTimes: new Array(7).fill(new TimeRange(LocalTime.of(0, 0), LocalTime.of(23, 59))),
             roundTheClock: true,
             location: {
                 lat: 60.20377343765089,
