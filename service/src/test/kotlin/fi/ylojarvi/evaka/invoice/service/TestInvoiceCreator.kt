@@ -138,6 +138,7 @@ fun validInvoice(): InvoiceDetailed {
         HelsinkiDateTime.Companion.of(
             LocalDateTime.of(2022, 5, 5, 1, 1),
         ),
+        emptyList(),
     )
 }
 
