@@ -22,7 +22,7 @@ class S3Sender(private val s3Client: S3Client, private val properties: Vesilahti
         val request = PutObjectRequest.builder()
             .bucket(bucket)
             .key(fileName)
-            .contentType("text/csv")
+            .contentType("text/plain")
             .build()
         val body = RequestBody.fromString(content, StandardCharsets.ISO_8859_1)
         s3Client.putObject(request, body)
