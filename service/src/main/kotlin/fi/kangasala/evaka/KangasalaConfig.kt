@@ -12,6 +12,7 @@ import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
+import fi.kangasala.evaka.mealintegration.KangasalaMealTypeMapper
 import fi.kangasala.evaka.security.KangasalaActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -72,5 +73,5 @@ class KangasalaConfig {
     fun basicAuthCustomizer(properties: KangasalaProperties) = dvvModificationRequestCustomizer(properties.ipaas)
 
     @Bean
-    fun mealTypeMapper(): MealTypeMapper = DefaultMealTypeMapper
+    fun mealTypeMapper(): MealTypeMapper = KangasalaMealTypeMapper
 }
