@@ -18,7 +18,7 @@ object KangasalaMealTypeMapper : MealTypeMapper {
                 MealType.SUPPER -> 173
                 MealType.EVENING_SNACK -> 187
             }
-        } else
+        } else {
             when (mealType) {
                 MealType.BREAKFAST -> 162
                 MealType.LUNCH -> 175
@@ -27,4 +27,5 @@ object KangasalaMealTypeMapper : MealTypeMapper {
                 MealType.SUPPER -> 354
                 MealType.EVENING_SNACK -> 188
             }
+        }
 }

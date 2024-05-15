@@ -4,8 +4,8 @@
 
 package fi.kangasala.evaka.mealintagration
 
-import fi.kangasala.evaka.mealintegration.KangasalaMealTypeMapper
 import fi.espoo.evaka.mealintegration.MealType
+import fi.kangasala.evaka.mealintegration.KangasalaMealTypeMapper
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
