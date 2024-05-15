@@ -382,6 +382,18 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             <div th:text="${decision.createdBy}"></div>
             <div th:text="#{decision.approver.additionalInfo}">(allekirjoitettu koneellisesti)</div>
         </th:block>
+        <br/>
+        <p>
+            <strong th:utext="${#messages.msgOrNull('decision.approver.help.' + decision.type)} ?: #{decision.approver.help}">Lisätietoja myönnetystä varhaiskasvatuspaikasta:</strong>
+        </p>
+        <th:block th:if="${decision.type.name() != 'PRESCHOOL'}">
+            <div>
+                <span th:text="#{decision.approver.email.help}"></span>
+                <a th:href="'mailto:' + #{decision.approver.email.email}"
+                   th:text="#{decision.approver.email.email}"></a>
+            </div>
+            <div th:utext="#{decision.approver.phoneNumber}"></div>
+        </th:block>
     </div>
 
     <p th:if="${hasPartner}" th:text="#{decision.inform.guardians}">Tiedoksi: Huoltajat</p>
