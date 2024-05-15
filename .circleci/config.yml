@@ -52,22 +52,6 @@ commands:
       - run: git submodule sync
       - run: git submodule update --init
 
-  login_docker_hub:
-    description: Log in to Docker Hub for authenticated pulls
-    steps:
-      - run: echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-
-  setup_authenticated_remote_docker:
-    description: Setup remote Docker execution environment with Docker Hub authentication
-    parameters:
-      docker_layer_caching:
-        type: boolean
-        default: false
-    steps:
-      - setup_remote_docker:
-          docker_layer_caching: << parameters.docker_layer_caching >>
-      #- login_docker_hub
-
   setup_aws:
     steps:
       - aws-cli/setup:
@@ -127,19 +111,24 @@ commands:
       extra_build_args:
         type: string
         default: ""
+      cache:
+        type: string
     steps:
       - run:
           name: Build docker image
-          working_directory: << parameters.dir >>
           command: |
+            docker buildx create --driver=docker-container --name trevaka --node << parameters.cache >> --use
             docker buildx build --progress=plain \
-              -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/<< parameters.image >>:${CIRCLE_SHA1} \
+              --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-${CIRCLE_SHA1} \
+              $(readarray -t PARENT_COMMITS < <(git rev-parse ${CIRCLE_SHA1}^@); echo "${PARENT_COMMITS[@]/#/--cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-}") \
+              -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/<< parameters.image >>:${CIRCLE_SHA1} \
               --build-arg "CACHE_BUST=$(date '+%Y-%V')" \
               --build-arg "build=${CIRCLE_BUILD_NUM}" \
               --build-arg "commit=${CIRCLE_SHA1}" \
               << parameters.extra_build_args >> \
               --push \
-              .
+              --provenance=false \
+              << parameters.dir >>
 
 jobs:
   # MISC JOBS
@@ -167,11 +156,12 @@ jobs:
     resource_class: medium
     steps:
       - checkout_with_submodules
-      - setup_authenticated_remote_docker
+      - setup_remote_docker
       - setup_aws
       - build_docker_image:
-          image: trevaka/api-gateway
+          image: api-gateway
           dir: *workspace_apigw
+          cache: api-gateway
 
   frontend_build_image:
     executor: aws_executor
@@ -192,28 +182,30 @@ jobs:
           working_directory: *workspace_evaka_frontend
           command: |
             ./unpack-pro-icons.sh
-      - setup_authenticated_remote_docker
+      - setup_remote_docker
       - build_docker_image:
-          image: trevaka/frontend/<< parameters.customizations >>
+          image: frontend/<< parameters.customizations >>
           dir: *workspace_evaka_frontend
-          extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=<< parameters.customizations >> --build-arg ICONS=pro --build-context customizations=../../frontend/<< parameters.customizations >>
+          extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=<< parameters.customizations >> --build-arg ICONS=pro --build-context customizations=frontend/<< parameters.customizations >>
+          cache: frontend-<< parameters.customizations >>
 
   service_build_image:
     executor: aws_executor
     resource_class: large
     steps:
       - checkout_with_submodules
-      - setup_authenticated_remote_docker:
-          docker_layer_caching: true
+      - setup_remote_docker
       - setup_aws
       - build_docker_image:
-          image: trevaka/service-builder
+          image: service-builder
           dir: *workspace_service
-          extra_build_args: --build-context core=../evaka --target builder
+          extra_build_args: --build-context core=evaka --target builder
+          cache: service
       - build_docker_image:
-          image: trevaka/service
+          image: service
           dir: *workspace_service
-          extra_build_args: --build-context core=../evaka
+          extra_build_args: --build-context core=evaka
+          cache: service
 
   service_test:
     executor: machine_executor
@@ -251,34 +243,37 @@ jobs:
     resource_class: medium
     steps:
       - checkout_with_submodules
-      - setup_authenticated_remote_docker
+      - setup_remote_docker
       - setup_aws
       - build_docker_image:
-          image: trevaka/auth
+          image: auth
           dir: *workspace_auth
-          extra_build_args: --build-context core=../evaka/keycloak
+          extra_build_args: --build-context core=evaka/keycloak
+          cache: auth
 
   scheduled_tasks_reporting_build_image:
     executor: aws_executor
     resource_class: medium
     steps:
       - checkout
-      - setup_authenticated_remote_docker
+      - setup_remote_docker
       - setup_aws
       - build_docker_image:
-          image: trevaka/scheduled-task/reporting
+          image: scheduled-task/reporting
           dir: scheduled-tasks/reporting
+          cache: scheduled-task-reporting
 
   scheduled_tasks_logs_build_image:
     executor: aws_executor
     resource_class: medium
     steps:
       - checkout
-      - setup_authenticated_remote_docker
+      - setup_remote_docker
       - setup_aws
       - build_docker_image:
-          image: trevaka/scheduled-task/logs
+          image: scheduled-task/logs
           dir: scheduled-tasks/logs
+          cache: scheduled-task-logs
 
   trigger_deploy:
     executor: base_executor
