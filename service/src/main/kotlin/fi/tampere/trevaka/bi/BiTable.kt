@@ -48,7 +48,7 @@ enum class BiTable(val fileName: String, val query: BiQueries.CsvQuery) {
     EvakaUser("evaka_user", BiQueries.getEvakaUsers),
     FeeAlteration("fee_alteration", BiQueries.getFeeAlterations),
     FeeDecision("fee_decision", BiQueries.getFeeDecisions),
-    FeeDecisionChild("fee_decisions_child", BiQueries.getFeeDecisionChildren),
+    FeeDecisionChild("fee_decision_child", BiQueries.getFeeDecisionChildren),
     FeeThresholds("fee_thresholds", BiQueries.getFeeThresholds),
     FridgeChild("fridge_child", BiQueries.getFridgeChildren),
     FridgePartner("fridge_partner", BiQueries.getFridgePartners),
