@@ -470,7 +470,7 @@ $unsubscribeEn
         )
     }
 
-    fun financeDecisionNotification(
+    override fun financeDecisionNotification(
         language: Language,
         decisionType: FinanceDecisionType,
     ): EmailContent {
@@ -489,10 +489,10 @@ $unsubscribeEn
             "Uusi $decisionTypeFi eVakassa / New $decisionTypeEn in eVaka",
             html =
             """
-<p>Sinulle on saapunut uusi $decisionTypeFi eVakaan.</p>
+<p>Sinulle on saapunut uusi $decisionTypeFi Tampereen varhaiskasvatuksen verkkopalveluun eVakaan.</p>
 $unsubscribeFi
 <hr>
-<p>You have received a new $decisionTypeEn in eVaka.</p>
+<p>You have received a new $decisionTypeEn in Tampere`s early childhood education system eVaka.</p>
 $unsubscribeEn
             """
                 .trimIndent(),

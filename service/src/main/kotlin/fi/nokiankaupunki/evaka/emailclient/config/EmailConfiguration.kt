@@ -8,6 +8,7 @@ import fi.espoo.evaka.daycare.domain.Language
 import fi.espoo.evaka.emailclient.CalendarEventNotificationData
 import fi.espoo.evaka.emailclient.EmailContent
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
+import fi.espoo.evaka.invoicing.domain.FinanceDecisionType
 import fi.espoo.evaka.invoicing.service.IncomeNotificationType
 import fi.espoo.evaka.messaging.MessageThreadStub
 import fi.espoo.evaka.messaging.MessageType
@@ -438,6 +439,35 @@ $unsubscribeEn
                 
                 $unsubscribeEn
             """.trimIndent(),
+        )
+    }
+
+    override fun financeDecisionNotification(
+        language: Language,
+        decisionType: FinanceDecisionType,
+    ): EmailContent {
+        val (decisionTypeFi, decisionTypeEn) =
+            when (decisionType) {
+                FinanceDecisionType.VOUCHER_VALUE_DECISION ->
+                    Pair(
+                        "arvopäätös",
+                        "voucher value decision",
+                    )
+                FinanceDecisionType.FEE_DECISION ->
+                    Pair("maksupäätös", "fee decision")
+            }
+        return EmailContent.fromHtml(
+            subject =
+            "Uusi $decisionTypeFi eVakassa / New $decisionTypeEn in eVaka",
+            html =
+            """
+<p>Sinulle on saapunut uusi $decisionTypeFi Nokian varhaiskasvatuksen verkkopalveluun eVakaan.</p>
+$unsubscribeFi
+<hr>
+<p>You have received a new $decisionTypeEn in Nokia`s early childhood education system eVaka.</p>
+$unsubscribeEn
+            """
+                .trimIndent(),
         )
     }
 }

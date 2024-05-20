@@ -8,6 +8,7 @@ import fi.espoo.evaka.daycare.domain.Language
 import fi.espoo.evaka.emailclient.CalendarEventNotificationData
 import fi.espoo.evaka.emailclient.EmailContent
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
+import fi.espoo.evaka.invoicing.domain.FinanceDecisionType
 import fi.espoo.evaka.invoicing.service.IncomeNotificationType
 import fi.espoo.evaka.messaging.MessageThreadStub
 import fi.espoo.evaka.messaging.MessageType
@@ -121,6 +122,18 @@ internal class EmailMessageProviderTest : AbstractTampereIntegrationTest() {
                 ),
             ),
         ),
+        Arguments.of(
+            "financeDecisionNotification FEE_DECISION",
+            emailMessageProvider.financeDecisionNotification(
+                Language.fi, FinanceDecisionType.FEE_DECISION
+            )
+        ),
+        Arguments.of(
+            "financeDecisionNotification VOUCHER_VALUE_DECISION",
+            emailMessageProvider.financeDecisionNotification(
+                Language.fi, FinanceDecisionType.VOUCHER_VALUE_DECISION
+            )
+        )
     )
         .stream()
 
