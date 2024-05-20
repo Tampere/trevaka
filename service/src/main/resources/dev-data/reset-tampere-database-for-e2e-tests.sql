@@ -15,7 +15,6 @@ EXECUTE (
         'care_area',
         'holiday',
         'service_need_option_fee',
-        'service_need_option_voucher_value',
         'service_need_option'
     )
 );

@@ -128,3 +128,62 @@ VALUES
     0.5, 0.8,
     2000, 2000, 2000, 2000
 );
+
+INSERT INTO service_need_option_voucher_value
+(id, service_need_option_id, validity, base_value, coefficient, value, base_value_under_3y, coefficient_under_3y, value_under_3y)
+VALUES
+    -- 2023-08-01 - 2024-07-31
+    ('95dc4c83-210a-4c7e-844d-bc2b27d0da03', 'f9e7d841-49bf-43e5-8c65-028dad590a76', daterange('2023-08-01', '2024-07-31', '[]'), 90100, 0.60, 54060, 140600, 0.60, 84360),
+    ('b279657c-3f63-4aa1-92e8-d99f47ba1581', '50358394-b961-11eb-b51f-67ac436e5637', daterange('2023-08-01', '2024-07-31', '[]'), 90100, 0.60, 54060, 140600, 0.60, 84360),
+    ('92658f48-0320-4d19-8d56-6fe50c8bf285', '86ef70a0-bf85-11eb-91e6-1fb57a101165', daterange('2023-08-01', '2024-07-31', '[]'), 90100, 0.80, 72080, 140600, 0.80, 112480),
+    ('3e5ddab8-5425-4321-a71d-012b8a667e94', '503590f0-b961-11eb-b520-53740af3f7ef', daterange('2023-08-01', '2024-07-31', '[]'), 90100, 1.00, 90100, 140600, 1.00, 140600),
+    ('3c3c1e2b-cac4-418e-941d-2db046d4ced9', '503591ae-b961-11eb-b521-1fca99358eed', daterange('2023-08-01', '2024-07-31', '[]'), 90100, 1.00, 90100, 140600, 1.00, 140600),
+    ('fd26c62b-403c-423f-bd76-9f3336d4760d', 'fb2d3e60-4e87-4594-bd53-7ac86d2c1fbb', daterange('2023-08-01', NULL, '[]'), 90100, 0.60, 54060, 140600, 0.60, 84360),
+    ('698eec6c-c571-4ca8-a2fe-03092abb264d', '2c590d91-ef6f-4e1d-a447-9862e93b7c42', daterange('2023-08-01', NULL, '[]'), 90100, 0.80, 72080, 140600, 0.80, 112480),
+    ('955bb99b-a06c-4ef2-b4a6-d7cdbd8c8a83', 'a1065297-f91b-45e9-8871-d8d773fefb0e', daterange('2023-08-01', NULL, '[]'), 90100, 1.00, 90100, 140600, 1.00, 140600),
+    ('867a68ba-8e57-42ae-add4-ef8c763e4aa1', '8f9dd268-39a9-4406-ad41-4a3461aa89a8', daterange('2023-08-01', NULL, '[]'), 90100, 1.00, 90100, 140600, 1.00, 140600),
+    ('0ec6c2c9-ae7c-46a1-b111-f0be593abcd0', '94e44ef1-106b-401d-81b6-8e5c31cd0437', daterange('2023-08-01', '2024-07-31', '[]'), 0, 0, 0, 0, 0, 0),
+    ('3d32b3f0-9033-437f-928d-3167def161aa', '93a50270-3f75-4672-b17d-db721bcb8ed2', daterange('2023-08-01', NULL, '[]'), 90100, 0.50, 45050, 140600, 0.50, 70300),
+    ('9535fdcb-d161-4066-a9d9-7895b92f6eed', '13920018-e4ce-4fd0-928c-673965a3ab19', daterange('2023-08-01', NULL, '[]'), 90100, 0.50, 45050, 140600, 0.50, 70300),
+    ('5c7fd16e-df93-4cd0-aee2-1edea0a93e85', '3020d508-68cf-4976-b78c-751be5edef66', daterange('2023-08-01', NULL, '[]'), 90100, 0.50, 45050, 140600, 0.50, 70300),
+    ('920c3c3d-e4e1-4226-8207-78135eabacbb', 'fe0972a5-6ce9-41cc-a635-82fb22e7891b', daterange('2023-08-01', NULL, '[]'), 90100, 0.50, 45050, 140600, 0.50, 70300),
+    ('c2fef0d0-df47-407a-8b41-65c0ddb0cef6', 'b3102992-df96-45d5-a1c3-578791c2193c', daterange('2023-08-01', NULL, '[]'), 90100, 0.50, 45050, 140600, 0.50, 70300),
+    ('354ac98c-6c02-4dc1-b050-ac5d3543ec4e', '000a9d54-dd88-4f71-8489-b7d29e49ae92', daterange('2023-08-01', NULL, '[]'), 90100, 0.50, 45050, 140600, 0.50, 70300),
+    -- 2024-08-01 -
+    ('215fe636-6bad-4190-9b44-d3458184888a', 'f9e7d841-49bf-43e5-8c65-028dad590a76', daterange('2024-08-01', NULL, '[]'), 94900, 0.60, 56940, 148000, 0.60, 88800),
+    ('1260ef09-484f-4a5e-b224-1dd937f2d55c', '50358394-b961-11eb-b51f-67ac436e5637', daterange('2024-08-01', NULL, '[]'), 94900, 0.60, 56940, 148000, 0.60, 88800),
+    ('a86c58f5-a006-43bd-9fe9-7ba4a69cdf13', '86ef70a0-bf85-11eb-91e6-1fb57a101165', daterange('2024-08-01', NULL, '[]'), 94900, 0.80, 75920, 148000, 0.80, 118400),
+    ('d6321afc-ed05-4fce-a294-b70758935a0e', '503590f0-b961-11eb-b520-53740af3f7ef', daterange('2024-08-01', NULL, '[]'), 94900, 1.00, 94900, 148000, 1.00, 148000),
+    ('b7da77e6-1989-493a-9c2a-9a80c2490998', '503591ae-b961-11eb-b521-1fca99358eed', daterange('2024-08-01', NULL, '[]'), 94900, 1.00, 94900, 148000, 1.00, 148000),
+    ('806413a5-174b-47d8-a0ff-96204b578001', '94e44ef1-106b-401d-81b6-8e5c31cd0437', daterange('2024-08-01', NULL, '[]'), 0, 0, 0, 0, 0, 0),
+    ('cc848fc9-5c33-49d9-a7ed-fbf9ee7d6665', '21a0589d-d4db-4978-9a37-8e6993a7dafd', daterange('2024-08-01', NULL, '[]'), 94900, 0.50, 47450, 148000, 0.50, 74000),
+    ('b2c07773-86e9-4426-a93c-4d5b9eeffdca', '1c5d7ea4-669f-4b4e-8593-353be4c9cea0', daterange('2024-08-01', NULL, '[]'), 94900, 0.50, 47450, 148000, 0.50, 74000),
+    ('52d03a5e-27bc-491b-baff-f9958a23f7e9', '9e6a4660-2f83-40e3-bf27-d9590e93dbf2', daterange('2024-08-01', NULL, '[]'), 94900, 0.50, 47450, 148000, 0.50, 74000),
+    ('abfd92fa-2d38-494d-bc83-91ad033ba130', '3b94630b-e01e-4b61-b040-8910baf96e97', daterange('2024-08-01', NULL, '[]'), 94900, 0.50, 47450, 148000, 0.50, 74000),
+    ('2c869b2f-e411-4342-be38-3d26b9ee7545', '593d8cbf-fcf8-41a7-a5fa-8fe96a7b93d8', daterange('2024-08-01', NULL, '[]'), 94900, 0.50, 47450, 148000, 0.50, 74000),
+    ('5a8738ef-0e22-44ed-baf4-e46f7608933e', 'c169bce7-6533-4409-8acd-445061f1ff34', daterange('2024-08-01', NULL, '[]'), 94900, 0.50, 47450, 148000, 0.50, 74000),
+    ('3a72e951-5b0d-44c9-aeef-3094a0b02bbc', '9cdef927-f31a-45cb-af49-3ea5b1c1cb8a', daterange('2024-08-01', NULL, '[]'), 94900, 0.50, 47450, 148000, 0.50, 74000),
+    ('9595e3f6-fc24-457b-9241-7af3562fcbd8', '0a58d934-6fd1-11ed-a75e-c353faef5858', daterange('2024-08-01', NULL, '[]'), 94900, 0.50, 47450, 148000, 0.50, 74000),
+    ('6f2d3698-9fd9-4870-9cff-f18dc3b1274c', '0a58db0a-6fd1-11ed-a75e-bbde95c1aded', daterange('2024-08-01', NULL, '[]'), 94900, 0.50, 47450, 148000, 0.50, 74000),
+    ('3fdc5c6e-2a6e-4362-8e53-a9dac3f45522', '0a58dbe6-6fd1-11ed-a75e-5335f2b9a91c', daterange('2024-08-01', NULL, '[]'), 94900, 0.50, 47450, 148000, 0.50, 74000),
+    ('ec6fb528-7d02-486b-99c5-ff1c1cefa1b3', '0a58da38-6fd1-11ed-a75e-9b2790b0b4f5', daterange('2024-08-01', NULL, '[]'), 94900, 0.50, 47450, 148000, 0.50, 74000),
+    ('1567eb29-0e65-4569-a608-6b8167b42c46', '0a58dcae-6fd1-11ed-a75e-b3e10433b949', daterange('2024-08-01', NULL, '[]'), 94900, 0.50, 47450, 148000, 0.50, 74000)
+ON CONFLICT (id) DO
+    UPDATE SET
+               service_need_option_id = EXCLUDED.service_need_option_id,
+               validity = EXCLUDED.validity,
+               base_value = EXCLUDED.base_value,
+               coefficient = EXCLUDED.coefficient,
+               value = EXCLUDED.value,
+               base_value_under_3y = EXCLUDED.base_value_under_3y,
+               coefficient_under_3y = EXCLUDED.coefficient_under_3y,
+               value_under_3y = EXCLUDED.value_under_3y
+WHERE
+    service_need_option_voucher_value.service_need_option_id <> EXCLUDED.service_need_option_id OR
+    service_need_option_voucher_value.validity <> EXCLUDED.validity OR
+    service_need_option_voucher_value.base_value <> EXCLUDED.base_value OR
+    service_need_option_voucher_value.coefficient <> EXCLUDED.coefficient OR
+    service_need_option_voucher_value.value <> EXCLUDED.value OR
+    service_need_option_voucher_value.base_value_under_3y <> EXCLUDED.base_value_under_3y OR
+    service_need_option_voucher_value.coefficient_under_3y <> EXCLUDED.coefficient_under_3y OR
+    service_need_option_voucher_value.value_under_3y <> EXCLUDED.value_under_3y;
