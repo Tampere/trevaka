@@ -581,7 +581,7 @@ const fi: DeepPartial<Translations> = {
           </>
         ),
         jurisdictionText:
-          'Delegointipäätös pohjautuu Sivistys- ja kulttuurilautakunnan toimivallan siirtämiseen viranhaltijoille 14.6.2022 § 116: Varhaiskasvatuksen palvelupäällikkö päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista yksityisessä varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku) ja päiväkodin johtaja päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista kunnallisessa varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku)'
+          'Tämän päätöksen peruste tulee Lempäälän kunnan hallintosäännöstä: 3 luku Henkilöstöorganisaatio ja toimivalta, 3 § Palvelualueet, 3.1 Palvelualuejohtaja 3 momentti Palvelualuejohtajat voivat siirtää edellä mainittua toimivaltaansa ja 6 §:ssä kirjattua erityistoimivaltaansa alaisilleen viranhaltijoille, sivistysjohtajan subdelegointipäätös 6.3.2023 § 37 Toimivallan siirto varhaiskasvatuksen tehtäväalueen viranhaltijoille 1.1.2023 lukien.'
       }
     },
     assistancePreschoolDecisions: {
