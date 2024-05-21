@@ -118,7 +118,7 @@ val headerRowFields = listOf(
     InvoiceField(InvoiceFieldName.ACCOUNTING_DATE, FieldType.ALPHANUMERIC, 302, 8),
     InvoiceField(InvoiceFieldName.INCLUDED_LATE_PAYMENT_INTEREST, FieldType.NUMERIC, 310, 6, 2),
     InvoiceField(InvoiceFieldName.CREDIT_NOTE_INVOICE_NUMBER, FieldType.ALPHANUMERIC, 318, 10),
-    InvoiceField(InvoiceFieldName.INVOICE_NUMBER, FieldType.ALPHANUMERIC, 328, 10),
+    InvoiceField(InvoiceFieldName.INVOICE_NUMBER, FieldType.NUMERIC_LONG, 328, 10),
     InvoiceField(InvoiceFieldName.REFERENCE_NUMBER, FieldType.ALPHANUMERIC, 338, 20),
     InvoiceField(InvoiceFieldName.PAYMENT_TYPE, FieldType.ALPHANUMERIC, 358, 1),
     InvoiceField(InvoiceFieldName.PARTNER_CODE, FieldType.ALPHANUMERIC, 359, 10),

@@ -79,10 +79,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         )
         invoiceData.setNumericValue(InvoiceFieldName.INCLUDED_LATE_PAYMENT_INTEREST, 0)
         invoiceData.setAlphanumericValue(InvoiceFieldName.CREDIT_NOTE_INVOICE_NUMBER, "")
-        invoiceData.setAlphanumericValue(
-            InvoiceFieldName.INVOICE_NUMBER,
-            if (invoiceDetailed.number != null) invoiceDetailed.number.toString() else "",
-        )
+        invoiceData.setNumericLongValue(InvoiceFieldName.INVOICE_NUMBER, invoiceDetailed.number ?: 0)
         invoiceData.setAlphanumericValue(InvoiceFieldName.REFERENCE_NUMBER, "")
         // N = normal
         invoiceData.setAlphanumericValue(InvoiceFieldName.PAYMENT_TYPE, "N")
@@ -206,6 +203,10 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
                     // all Evaka values seem to be Int so we can just pad
                     // the decimal part with the correct number of zeroes
                     result += stringValue.padEnd(it.length + it.decimals, '0')
+                }
+                FieldType.NUMERIC_LONG -> {
+                    val value = invoiceData.getNumericLongValue(it.field) ?: 0
+                    result += value.toString().padStart(it.length, ' ')
                 }
                 FieldType.MONETARY -> {
                     val value = invoiceData.getNumericValue(it.field) ?: 0
