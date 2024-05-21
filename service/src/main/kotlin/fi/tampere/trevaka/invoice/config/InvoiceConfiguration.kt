@@ -199,7 +199,7 @@ class TampereInvoiceProductProvider : InvoiceProductProvider {
 fun findProduct(key: ProductKey) = Product.entries.find { it.key == key }
     ?: error("Product with key $key not found")
 
-enum class Product(val nameFi: String, val code: String) {
+enum class Product(val nameFi: String, val code: String, val internalOrder: String? = null) {
     DAYCARE("Varhaiskasvatus", "500218"),
     DAYCARE_DISCOUNT("Alennus - Varhaiskasvatus", "500687"),
     PRESCHOOL_WITH_DAYCARE("Esiopetusta täydentävä varhaiskasvatus", "500220"),
@@ -207,7 +207,7 @@ enum class Product(val nameFi: String, val code: String) {
     PRESCHOOL_WITH_CLUB("Esiopetuksen kerho", "503745"),
     PRESCHOOL_WITH_CLUB_DISCOUNT("Alennus - Esiopetuksen kerhotoiminta", "509787"),
     TEMPORARY_CARE("Tilapäinen varhaiskasvatus", "500576"),
-    SUMMER_CLUB("Kesäkerho", "500061"),
+    SUMMER_CLUB("Kesäkerho", "500061", "23461"),
     SCHOOL_SHIFT_CARE("Koululaisen vuorohoito", "500949"),
     SICK_LEAVE_50("Laskuun vaikuttava poissaolo 50%", "500283"),
     SICK_LEAVE_100("Laskuun vaikuttava poissaolo 100%", "500248"),
