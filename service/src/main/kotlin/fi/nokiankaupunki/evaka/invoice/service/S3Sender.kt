@@ -17,7 +17,15 @@ import java.util.*
 class S3Sender(private val s3Client: S3Client, private val properties: NokiaProperties) {
     fun send(content: String) {
         val bucket = properties.bucket.export
-        val fileName = SimpleDateFormat("'invoices/Nokia_eVaka_'ddMMyyyy_HHmmss'.dat'").format(Date())
+        val municipalityCode = properties.invoice.municipalityCode
+        val invoiceType = properties.invoice.invoiceType
+        val timestamp = SimpleDateFormat("yyyyMMddHHmm").format(Date())
+        val fileName = "invoices/"
+            .plus(municipalityCode)
+            .plus("_")
+            .plus(invoiceType)
+            .plus(timestamp)
+            .plus(".dat")
 
         val request = PutObjectRequest.builder()
             .bucket(bucket)

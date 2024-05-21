@@ -86,18 +86,27 @@ ylojarvi:
     password: pass
   bucket:
     export: trevaka-export-it
+  invoice:
+    municipalityCode: 980
+    invoiceType: 53
 pirkkala:
   ipaas:
     username: user
     password: pass
   bucket:
     export: trevaka-export-it
+  invoice:
+    municipalityCode: 604
+    invoiceType: 53
 nokia:
   ipaas:
     username: user
     password: pass
   bucket:
     export: trevaka-export-it
+  invoice:
+    municipalityCode: 536
+    invoiceType: 53
 kangasala:
   ipaas:
     username: user
