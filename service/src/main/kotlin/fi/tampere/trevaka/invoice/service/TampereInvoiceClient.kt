@@ -153,10 +153,12 @@ class TampereInvoiceClient(
     }
 
     private fun toItem(it: InvoiceRowDetailed): Item {
+        val product = findProduct(it.product)
         return Item().apply {
             description = it.description.take(maxItemDescriptionLength)
             profitCenter = it.costCenter.take(maxItemProfitCenterLength)
-            material = findProduct(it.product).code
+            internalOrder = product.internalOrder
+            material = product.code
             unitPrice = priceInEuros(it.unitPrice)
             quantity = it.amount.toFloat().toString()
             plant = properties.plant
