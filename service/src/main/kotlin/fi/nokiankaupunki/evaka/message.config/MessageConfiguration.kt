@@ -64,7 +64,7 @@ internal class NokiaMessageProvider(private val messageSource: MessageSource) : 
 
     override fun getDefaultDecisionAddress(lang: MessageLanguage): DecisionSendAddress = when (lang) {
         MessageLanguage.FI, MessageLanguage.SV -> DecisionSendAddress(
-            street = "Harjukatu 21",
+            street = "Harjukatu 23",
             postalCode = "37100",
             postOffice = "Nokia",
             row1 = "Sivistyspalvelut",

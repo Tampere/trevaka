@@ -14,7 +14,7 @@ evaka:
     sfi:
       contact_organization:
         name: "eVaka Nokia"
-        street_address: "Harjukatu 21"
+        street_address: "Harjukatu 23"
         postal_code: "37100"
         post_office: "Nokia"
   planned_absence:
