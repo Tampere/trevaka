@@ -10,7 +10,13 @@ import trevaka.ipaas.IpaasProperties
 @ConfigurationProperties(prefix = "nokia")
 data class NokiaProperties(
     val ipaas: IpaasProperties,
+    val invoice: InvoiceProperties,
     val bucket: BucketProperties,
+)
+
+data class InvoiceProperties(
+    val municipalityCode: String,
+    val invoiceType: String,
 )
 
 data class BucketProperties(
