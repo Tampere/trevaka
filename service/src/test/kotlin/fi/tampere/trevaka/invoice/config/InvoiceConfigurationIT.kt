@@ -43,6 +43,7 @@ import fi.espoo.evaka.shared.dev.DevPersonType
 import fi.espoo.evaka.shared.dev.insert
 import fi.espoo.evaka.shared.dev.insertTestPlacement
 import fi.espoo.evaka.shared.domain.DateRange
+import fi.espoo.evaka.shared.domain.FiniteDateRange
 import fi.espoo.evaka.shared.security.PilotFeature
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.junit.jupiter.api.Assertions
@@ -145,7 +146,7 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
                 .execute()
         }
 
-        val june = DateRange(LocalDate.of(2022, 6, 1), LocalDate.of(2022, 6, 30))
+        val june = FiniteDateRange(LocalDate.of(2022, 6, 1), LocalDate.of(2022, 6, 30))
         db.transaction { generator.createAndStoreAllDraftInvoices(it, june) }
         val result = db.read { getAllInvoices(it) }
         Assertions.assertEquals(0, result.size)
@@ -163,7 +164,7 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
                 .execute()
         }
 
-        val june = DateRange(LocalDate.of(2022, 6, 1), LocalDate.of(2022, 6, 30))
+        val june = FiniteDateRange(LocalDate.of(2022, 6, 1), LocalDate.of(2022, 6, 30))
         db.transaction { generator.createAndStoreAllDraftInvoices(it, june) }
         val result = db.read { getAllInvoices(it) }
         Assertions.assertEquals(1, result.size)
