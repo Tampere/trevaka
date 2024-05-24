@@ -57,7 +57,6 @@ beforeEach(async () => {
             },
             providerType: 'MUNICIPAL',
             operationTimes: new Array(7).fill(new TimeRange(LocalTime.of(0, 0), LocalTime.of(23, 59))),
-            roundTheClock: true,
             location: {
                 lat: 60.20377343765089,
                 lon: 24.655715743526994
