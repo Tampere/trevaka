@@ -3,11 +3,8 @@
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
 FROM eclipse-temurin:21-jammy AS builder
-COPY gradle gradle
-COPY gradlew build.gradle.kts settings.gradle.kts ./
-RUN ./gradlew resolveDependencies
 COPY . .
-RUN ./gradlew --offline build
+RUN ./gradlew build
 
 FROM eclipse-temurin:21-jre-jammy
 RUN mkdir -p /etc/cas/saml
