@@ -24,6 +24,7 @@ class S3Sender(private val s3Client: S3Client, private val properties: PirkkalaP
             .plus(municipalityCode)
             .plus("_")
             .plus(invoiceType)
+            .plus("_")
             .plus(timestamp)
             .plus(".dat")
 
