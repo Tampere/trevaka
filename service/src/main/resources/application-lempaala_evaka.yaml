@@ -8,7 +8,7 @@ evaka:
       locations: db/migration,db/data/lempaala
   oph:
     organizer_oid: "1.2.246.562.10.74484103937"
-    organizer_id: "todo"
+    organizer_id: "98"
     municipality_code: "418"
   integration:
     sfi:
