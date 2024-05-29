@@ -251,18 +251,6 @@ jobs:
           extra_build_args: --build-context core=evaka/keycloak
           cache: auth
 
-  scheduled_tasks_reporting_build_image:
-    executor: aws_executor
-    resource_class: medium
-    steps:
-      - checkout
-      - setup_remote_docker
-      - setup_aws
-      - build_docker_image:
-          image: scheduled-task/reporting
-          dir: scheduled-tasks/reporting
-          cache: scheduled-task-reporting
-
   scheduled_tasks_logs_build_image:
     executor: aws_executor
     resource_class: medium
@@ -404,9 +392,6 @@ workflows:
           context:
             - trevaka-aws
 
-      - scheduled_tasks_reporting_build_image:
-          context:
-            - trevaka-aws
       - scheduled_tasks_logs_build_image:
           context:
             - trevaka-aws
@@ -417,7 +402,6 @@ workflows:
           requires:
             - check_licenses
             - auth_build_image
-            - scheduled_tasks_reporting_build_image
             - scheduled_tasks_logs_build_image
             - service_test
             - e2e_test
