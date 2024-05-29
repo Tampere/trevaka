@@ -4,7 +4,10 @@
 
 package fi.nokiankaupunki.evaka.invoice.service
 
+import fi.espoo.evaka.daycare.CareType
+import fi.espoo.evaka.daycare.domain.ProviderType
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
+import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.nokiankaupunki.evaka.invoice.config.Product
 import fi.nokiankaupunki.evaka.util.FieldType
@@ -181,7 +184,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             // format description says "value of this field has not been used", example file has "0" here
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.BRUTTO_NETTO, "0")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.DEBIT_ACCOUNTING, "")
-            invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, "3257   1000${it.costCenter}")
+            invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, getCreditAccounting(it))
 
             childRows.add(invoiceRowData)
         }
@@ -189,6 +192,30 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         invoiceData.setChildRowMap(rowsPerChild)
 
         return invoiceData
+    }
+
+    private fun getCreditAccounting(it: InvoiceRowDetailed): String {
+        val tili = "3257"
+        val alv = "300"
+        val kumppani = "1000"
+
+        val toiminto = when (it.unitProviderType) {
+            ProviderType.MUNICIPAL -> "5073"
+            ProviderType.PURCHASED -> "5024"
+            else -> throw Error("ProviderType ${it.unitProviderType} not supported")
+        }
+
+        val kohde = when {
+            // Perhepäivähoito: 1231
+            it.daycareType.contains(CareType.FAMILY) -> "1231"
+            // Ryhmäperhepäivähoito: 1231
+            it.daycareType.contains(CareType.GROUP_FAMILY) -> "1231"
+            // Kunnan oma päiväkoti: 1190
+            it.daycareType.contains(CareType.CENTRE) -> "1190"
+            else -> throw Error("DaycareType ${it.daycareType} not supported")
+        }
+
+        return "$tili$alv$kumppani${it.costCenter}$toiminto      $kohde"
     }
 
     fun generateRow(fields: List<InvoiceField>, invoiceData: InvoiceData): String {
