@@ -83,7 +83,7 @@ fun validInvoice(): InvoiceDetailed {
         DaycareId(UUID.randomUUID()),
         "",
         ProviderType.MUNICIPAL,
-        setOf(CareType.CENTRE),
+        setOf(CareType.CLUB),
         "2627",
         null,
         null,
