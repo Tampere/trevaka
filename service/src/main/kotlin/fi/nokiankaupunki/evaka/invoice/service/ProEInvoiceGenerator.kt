@@ -86,7 +86,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         invoiceData.setAlphanumericValue(InvoiceFieldName.REFERENCE_NUMBER, "")
         // N = normal
         invoiceData.setAlphanumericValue(InvoiceFieldName.PAYMENT_TYPE, "N")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.PARTNER_CODE, "N")
+        invoiceData.setAlphanumericValue(InvoiceFieldName.PARTNER_CODE, "1000")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CURRENCY, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.INVOICE_TYPE, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.INVOICING_UNIT, "000")
