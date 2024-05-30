@@ -125,13 +125,13 @@ internal class EmailMessageProviderTest : AbstractTampereIntegrationTest() {
         Arguments.of(
             "financeDecisionNotification FEE_DECISION",
             emailMessageProvider.financeDecisionNotification(
-                Language.fi, FinanceDecisionType.FEE_DECISION
+                FinanceDecisionType.FEE_DECISION
             )
         ),
         Arguments.of(
             "financeDecisionNotification VOUCHER_VALUE_DECISION",
             emailMessageProvider.financeDecisionNotification(
-                Language.fi, FinanceDecisionType.VOUCHER_VALUE_DECISION
+                FinanceDecisionType.VOUCHER_VALUE_DECISION
             )
         )
     )
