@@ -303,14 +303,13 @@ jobs:
       - run:
           name: Waiting for compose stack to be up...
           working_directory: *workspace_evaka_frontend
-          command: ./wait-for-url.sh "http://localhost:9999/api/internal/dev-api"
+          command: ./wait-for-url.sh "http://localhost:9099/api/internal/dev-api"
       - run:
           name: Run E2E tests
           working_directory: *workspace_tre_frontend
           command: yarn e2e-ci-playwright
           environment:
             HEADLESS: true
-            BASE_URL: http://localhost:9999
             JEST_JUNIT_OUTPUT_DIR: test-results
       - run:
           name: Link customizations

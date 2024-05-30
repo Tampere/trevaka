@@ -57,7 +57,7 @@ Install a tool for running X Window System, eg. [GWSL](https://www.microsoft.com
 It is also possible start test environment locally with just Docker Compose:
 
 1. `docker compose --profile evaka up --build`
-1. Open browser: http://localhost:9999/
+1. Open browser: http://localhost:9099/
 
 You can also start other supported configurations with `EVAKA_CUSTOMIZATIONS` environment variable, e.g.:
 
