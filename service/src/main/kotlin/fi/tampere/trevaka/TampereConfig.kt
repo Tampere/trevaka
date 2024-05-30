@@ -59,6 +59,7 @@ class TampereConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
+        temporaryDaycarePartDayAbsenceGivesADailyRefund = false,
     )
 
     @Bean
