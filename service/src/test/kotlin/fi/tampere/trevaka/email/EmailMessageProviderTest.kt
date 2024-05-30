@@ -8,6 +8,7 @@ import fi.espoo.evaka.daycare.domain.Language
 import fi.espoo.evaka.emailclient.CalendarEventNotificationData
 import fi.espoo.evaka.emailclient.EmailContent
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
+import fi.espoo.evaka.invoicing.domain.FinanceDecisionType
 import fi.espoo.evaka.invoicing.service.IncomeNotificationType
 import fi.espoo.evaka.messaging.MessageThreadStub
 import fi.espoo.evaka.messaging.MessageType
@@ -119,6 +120,18 @@ internal class EmailMessageProviderTest : AbstractTampereIntegrationTest() {
                     CalendarEventNotificationData("Tapahtuma 1", FiniteDateRange(LocalDate.of(2023, 8, 21), LocalDate.of(2023, 8, 21))),
                     CalendarEventNotificationData("Tapahtuma 2", FiniteDateRange(LocalDate.of(2023, 8, 22), LocalDate.of(2023, 8, 23))),
                 ),
+            ),
+        ),
+        Arguments.of(
+            "financeDecisionNotification FEE_DECISION",
+            emailMessageProvider.financeDecisionNotification(
+                FinanceDecisionType.FEE_DECISION,
+            ),
+        ),
+        Arguments.of(
+            "financeDecisionNotification VOUCHER_VALUE_DECISION",
+            emailMessageProvider.financeDecisionNotification(
+                FinanceDecisionType.VOUCHER_VALUE_DECISION,
             ),
         ),
     )
