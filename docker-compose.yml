@@ -52,13 +52,14 @@ services:
         EVAKA_CUSTOMIZATIONS: ${EVAKA_CUSTOMIZATIONS}
     image: ${EVAKA_FRONTEND_IMAGE}
     ports:
-      - "9999:8080"
+      - "9099:8080"
     environment:
       RESOLVER: "127.0.0.11 ipv6=off"
       ENDUSER_GW_URL: "http://apigw:3000"
       INTERNAL_GW_URL: "http://apigw:3000"
       RATE_LIMIT_CIDR_WHITELIST: "0.0.0.0/0;::/0"
       HTTP_SCHEME: "http"
+      KEYCLOAK_URL: "http://auth:8080"
     # Enable for debug logging
     # command: [nginx-debug, '-g', 'daemon off;']
     depends_on:
@@ -89,8 +90,15 @@ services:
       REDIS_PORT: ${EVAKA_REDIS_PORT}
       REDIS_DISABLE_SECURITY: "true"
       JWT_PRIVATE_KEY: /home/evaka/test-cert/jwt_private_key.pem
+      EVAKA_CUSTOMER_SAML_ENTRYPOINT: http://localhost:8080/auth/realms/citizens/protocol/saml
+      EVAKA_CUSTOMER_SAML_ISSUER: trevaka
       EVAKA_CUSTOMER_SAML_PUBLIC_CERT: /home/evaka/test-cert/keycloak-local.pem
       EVAKA_CUSTOMER_SAML_PRIVATE_CERT: /home/evaka/test-cert/saml-private.pem
+      EVAKA_SAML_ENTRYPOINT: http://localhost:8080/auth/realms/employees/protocol/saml
+      EVAKA_SAML_ISSUER: trevaka
+      EVAKA_SAML_PUBLIC_CERT: /home/evaka/test-cert/keycloak-local.pem
+      EVAKA_SAML_PRIVATE_CERT: /home/evaka/test-cert/saml-private.pem
+      AD_SAML_EXTERNAL_ID_PREFIX: tampere-ad
       ENABLE_DEV_API: "true"
       PRETTY_LOGS: "false"
     profiles:
