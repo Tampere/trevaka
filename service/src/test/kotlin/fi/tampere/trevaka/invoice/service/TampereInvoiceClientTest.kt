@@ -5,6 +5,7 @@
 package fi.tampere.trevaka.invoice.service
 
 import fi.espoo.evaka.daycare.CareType
+import fi.espoo.evaka.daycare.domain.ProviderType
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceStatus
@@ -214,7 +215,7 @@ fun validInvoiceRow(unitPrice: Int, productKey: ProductKey = ProductKey("DAYCARE
     1, unitPrice,
     LocalDate.of(2021, 1, 1),
     LocalDate.of(2021, 1, 31),
-    productKey, DaycareId(UUID.randomUUID()), "unit1", setOf(CareType.CENTRE), costCenter, null, null, description,
+    productKey, DaycareId(UUID.randomUUID()), "unit1", ProviderType.MUNICIPAL, setOf(CareType.CENTRE), costCenter, null, null, description,
     correctionId = null,
     note = null,
 )
