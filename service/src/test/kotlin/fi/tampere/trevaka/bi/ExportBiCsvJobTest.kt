@@ -40,7 +40,6 @@ import fi.espoo.evaka.shared.dev.DevPersonType
 import fi.espoo.evaka.shared.dev.DevPlacement
 import fi.espoo.evaka.shared.dev.insert
 import fi.espoo.evaka.shared.dev.insertTestApplication
-import fi.espoo.evaka.shared.dev.insertTestApplicationForm
 import fi.espoo.evaka.shared.domain.DateRange
 import fi.espoo.evaka.shared.domain.FiniteDateRange
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
@@ -235,25 +234,21 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
                     type = ApplicationType.DAYCARE,
                     childId = childId,
                     guardianId = guardianId,
-                )
-
-            tx.insertTestApplicationForm(
-                applicationId,
-                DaycareFormV0(
-                    type = ApplicationType.DAYCARE,
-                    connectedDaycare = false,
-                    urgent = true,
-                    careDetails =
-                    CareDetails(
-                        assistanceNeeded = true,
+                    document = DaycareFormV0(
+                        type = ApplicationType.DAYCARE,
+                        connectedDaycare = false,
+                        urgent = true,
+                        careDetails =
+                        CareDetails(
+                            assistanceNeeded = true,
+                        ),
+                        extendedCare = true,
+                        child = Child(dateOfBirth = null),
+                        guardian = Adult(),
+                        apply = Apply(preferredUnits = listOf(daycareId)),
+                        preferredStartDate = LocalDate.of(2019, 1, 1),
                     ),
-                    extendedCare = true,
-                    child = Child(dateOfBirth = null),
-                    guardian = Adult(),
-                    apply = Apply(preferredUnits = listOf(daycareId)),
-                    preferredStartDate = LocalDate.of(2019, 1, 1),
-                ),
-            )
+                )
 
             FeeDecisionId(UUID.randomUUID()).also { id ->
                 tx.upsertFeeDecisions(

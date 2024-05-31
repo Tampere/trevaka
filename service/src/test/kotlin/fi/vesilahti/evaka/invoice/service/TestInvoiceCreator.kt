@@ -5,6 +5,7 @@
 package fi.vesilahti.evaka.invoice.service
 
 import fi.espoo.evaka.daycare.CareType
+import fi.espoo.evaka.daycare.domain.ProviderType
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceStatus
@@ -47,6 +48,7 @@ fun validInvoice(): InvoiceDetailed {
         ProductKey("DAYCARE"),
         DaycareId(UUID.randomUUID()),
         "",
+        ProviderType.MUNICIPAL,
         setOf(CareType.CENTRE),
         "2627",
         null,
@@ -80,6 +82,7 @@ fun validInvoice(): InvoiceDetailed {
         ProductKey("PRESCHOOL_WITH_DAYCARE"),
         DaycareId(UUID.randomUUID()),
         "",
+        ProviderType.MUNICIPAL,
         setOf(CareType.CENTRE),
         "2627",
         null,
@@ -113,6 +116,7 @@ fun validInvoice(): InvoiceDetailed {
         ProductKey("DAYCARE"),
         DaycareId(UUID.randomUUID()),
         "",
+        ProviderType.MUNICIPAL,
         setOf(CareType.FAMILY),
         "2627",
         null,
