@@ -82,7 +82,7 @@ fun validInvoice(): InvoiceDetailed {
         ProductKey("PRESCHOOL_WITH_DAYCARE"),
         DaycareId(UUID.randomUUID()),
         "",
-        ProviderType.MUNICIPAL,
+        ProviderType.PURCHASED,
         setOf(CareType.CENTRE),
         "2627",
         null,

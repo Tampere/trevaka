@@ -4,7 +4,9 @@
 
 package fi.ylojarvi.evaka.invoice.service
 
+import fi.espoo.evaka.daycare.CareType
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
+import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.ylojarvi.evaka.invoice.config.Product
 import fi.ylojarvi.evaka.util.FieldType
@@ -86,7 +88,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         invoiceData.setAlphanumericValue(InvoiceFieldName.REFERENCE_NUMBER, "")
         // N = normal
         invoiceData.setAlphanumericValue(InvoiceFieldName.PAYMENT_TYPE, "N")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.PARTNER_CODE, "N")
+        invoiceData.setAlphanumericValue(InvoiceFieldName.PARTNER_CODE, "1000")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CURRENCY, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.INVOICE_TYPE, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.INVOICING_UNIT, "000")
@@ -181,7 +183,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             // format description says "value of this field has not been used", example file has "0" here
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.BRUTTO_NETTO, "0")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.DEBIT_ACCOUNTING, "")
-            invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, "3257   1000${it.costCenter}")
+            invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, getCreditAccounting(it))
 
             childRows.add(invoiceRowData)
         }
@@ -189,6 +191,24 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         invoiceData.setChildRowMap(rowsPerChild)
 
         return invoiceData
+    }
+
+    private fun getCreditAccounting(it: InvoiceRowDetailed): String {
+        val tili = "3257"
+        val alv = "300"
+        val kumppani = "1000"
+        val toiminto =
+            when {
+                // Perhepäivähoito: 0483
+                it.daycareType.contains(CareType.FAMILY) -> "0483"
+                // Päiväkotitoiminta: 0485
+                it.daycareType.contains(CareType.CENTRE) -> "0485"
+                // Muu varhaiskasvatus: 0484 (Vihriälän kerhotoiminta)
+                it.daycareType.contains(CareType.CLUB) -> "0484"
+                else -> throw Error("DaycareType ${it.daycareType} not supported")
+            }
+
+        return "$tili$alv$kumppani${it.costCenter}$toiminto"
     }
 
     fun generateRow(fields: List<InvoiceField>, invoiceData: InvoiceData): String {
