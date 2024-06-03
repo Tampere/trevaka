@@ -55,6 +55,9 @@ module.exports = {
     env_lempaala: {
       'EVAKA_CUSTOMIZATIONS': 'lempaala',
     },
+    env_orivesi: {
+      'EVAKA_CUSTOMIZATIONS': 'orivesi',
+    },
     ...defaults
   }, {
     name: 'trevaka-service',
@@ -87,6 +90,9 @@ module.exports = {
     },
     env_lempaala: {
       SPRING_PROFILES_ACTIVE: 'lempaala_evaka',
+    },
+    env_orivesi: {
+      SPRING_PROFILES_ACTIVE: 'orivesi_evaka',
     },
     ...defaults
   },
