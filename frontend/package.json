@@ -12,7 +12,7 @@
     "@playwright/test": "^1.44.0",
     "@types/jest": "^29.5.11",
     "@types/lodash": "^4.17.0",
-    "@types/node": "^20.12.2",
+    "@types/node": "^20.14.0",
     "@types/react": "^18.3.1",
     "axios": "^1.7.2",
     "e2e-test": "link:../evaka/frontend/src/e2e-test",
