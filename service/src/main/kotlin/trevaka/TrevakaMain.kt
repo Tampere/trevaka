@@ -79,3 +79,9 @@ class KangasalaComponentScan
 @ComponentScan("fi.lempaala.evaka")
 @ConfigurationPropertiesScan(basePackages = ["fi.lempaala.evaka"])
 class LempaalaComponentScan
+
+@Profile("orivesi_evaka")
+@Configuration
+@ComponentScan("fi.orivesi.evaka")
+@ConfigurationPropertiesScan(basePackages = ["fi.orivesi.evaka"])
+class OrivesiComponentScan
