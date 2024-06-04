@@ -200,11 +200,11 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         val toiminto =
             when {
                 // Perhepäivähoito: 0483
-                it.daycareType.contains(CareType.FAMILY) -> "0483"
+                it.daycareType.contains(CareType.FAMILY) -> " 483"
                 // Päiväkotitoiminta: 0485
-                it.daycareType.contains(CareType.CENTRE) -> "0485"
+                it.daycareType.contains(CareType.CENTRE) -> " 485"
                 // Muu varhaiskasvatus: 0484 (Vihriälän kerhotoiminta)
-                it.daycareType.contains(CareType.CLUB) -> "0484"
+                it.daycareType.contains(CareType.CLUB) -> " 484"
                 else -> throw Error("DaycareType ${it.daycareType} not supported")
             }
 
