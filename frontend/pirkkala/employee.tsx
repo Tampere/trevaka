@@ -612,6 +612,8 @@ const customizations: EmployeeCustomizations = {
   placementTypes: [
     'DAYCARE',
     'TEMPORARY_DAYCARE',
+    'PRESCHOOL',
+    'PRESCHOOL_DAYCARE',
     'PRESCHOOL_DAYCARE_ONLY',
     'CLUB'
   ],
