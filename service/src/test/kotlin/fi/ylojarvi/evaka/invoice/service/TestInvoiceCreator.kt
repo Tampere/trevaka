@@ -147,7 +147,7 @@ fun validInvoice(): InvoiceDetailed {
         -25000,
         LocalDate.of(2021, 1, 1),
         LocalDate.of(2021, 1, 31),
-        ProductKey("DAYCARE"),
+        ProductKey("FREE_OF_CHARGE"),
         DaycareId(UUID.randomUUID()),
         "",
         ProviderType.MUNICIPAL,

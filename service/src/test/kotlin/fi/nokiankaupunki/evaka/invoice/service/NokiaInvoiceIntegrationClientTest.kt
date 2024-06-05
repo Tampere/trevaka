@@ -52,6 +52,8 @@ class NokiaInvoiceIntegrationClientTest {
 310382-956D1Varhaiskasvatus                          000002430000kpl 00000001000000                                                            0                                                            3257300100026275073      1190                                          
 310382-956D301.01.2021 - 31.01.2021                                                                                                                                                            
 310382-956D1Varhaiskasvatus                          000002500000kpl 00000001000000                                                            0                                                            3257300100026275073      1231                                          
+310382-956D301.01.2021 - 31.01.2021                                                                                                                                                            
+310382-956D1Hyvityspäivä                             000002500000kpl-00000001000000                                                            0                                                            3257300100026275073      1231                                          
 """,
             s3SenderArgumentCaptor.firstValue,
         )

@@ -52,6 +52,8 @@ class PirkkalaInvoiceIntegrationClientTest {
 310382-956D1Varhaiskasvatus                          000002430000kpl 00000001000000                                                            0                                                            325730010002627                                                        
 310382-956D301.01.2021 - 31.01.2021                                                                                                                                                            
 310382-956D1Varhaiskasvatus                          000002500000kpl 00000001000000                                                            0                                                            325730010002627                                                        
+310382-956D301.01.2021 - 31.01.2021                                                                                                                                                            
+310382-956D1Hyvityspäivä                             000002500000kpl-00000001000000                                                            0                                                            325730010002627                                                        
 """,
             s3SenderArgumentCaptor.firstValue,
         )
