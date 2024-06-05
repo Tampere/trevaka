@@ -8,7 +8,7 @@ evaka:
       locations: db/migration,db/data/ylojarvi
   oph:
     organizer_oid: "1.2.246.562.10.722837895010"
-    organizer_id: "todo"
+    organizer_id: "242"
     municipality_code: "980"
   integration:
     sfi:

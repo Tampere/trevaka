@@ -8,7 +8,7 @@ evaka:
       locations: db/migration,db/data/kangasala
   oph:
     organizer_oid: "1.2.246.562.10.77047788581"
-    organizer_id: "todo"
+    organizer_id: "231"
     municipality_code: "211"
   integration:
     sfi:
