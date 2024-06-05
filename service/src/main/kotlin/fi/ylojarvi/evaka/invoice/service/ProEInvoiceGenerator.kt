@@ -172,11 +172,11 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.DETAIL_ROW_CODE, "1")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.PRODUCT_NAME, Product.valueOf(it.product.value).nameFi)
             // sign of unitPrice is moved to a separate field - empty value is interpreted as a plus sign
-            invoiceRowData.setAlphanumericValue(InvoiceFieldName.PRICE_SIGN, if (it.unitPrice < 0) "-" else "")
+            invoiceRowData.setAlphanumericValue(InvoiceFieldName.PRICE_SIGN, "")
             invoiceRowData.setNumericValue(InvoiceFieldName.UNIT_PRICE, abs(it.unitPrice))
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.UNIT, "kpl")
             // empty value is interpreted as a plus sign
-            invoiceRowData.setAlphanumericValue(InvoiceFieldName.AMOUNT_SIGN, "")
+            invoiceRowData.setAlphanumericValue(InvoiceFieldName.AMOUNT_SIGN, if (it.unitPrice < 0) "-" else "")
             invoiceRowData.setNumericValue(InvoiceFieldName.AMOUNT, it.amount)
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.VAT_CODE, "00")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.VAT_ACCOUNT, "")
