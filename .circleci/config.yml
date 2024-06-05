@@ -377,6 +377,7 @@ workflows:
                 - nokia
                 - kangasala
                 - lempaala
+                - orivesi
 
       - service_build_image:
           context:
