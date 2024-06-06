@@ -98,3 +98,9 @@ lempaala:
     password: pass
   bucket:
     export: trevaka-export-dev
+orivesi:
+  ipaas:
+    username: user
+    password: pass
+  bucket:
+    export: trevaka-export-dev

@@ -110,6 +110,12 @@ lempaala:
     password: pass
   bucket:
     export: trevaka-export-it
+orivesi:
+  ipaas:
+    username: user
+    password: pass
+  bucket:
+    export: trevaka-export-it
 
 debug: true
 
