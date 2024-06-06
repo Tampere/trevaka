@@ -178,7 +178,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             // format description says "value of this field has not been used", example file has "0" here
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.BRUTTO_NETTO, "0")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.DEBIT_ACCOUNTING, "")
-            invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, "323011${it.costCenter}")
+            invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, getCreditAccounting())
 
             childRows.add(invoiceRowData)
         }
@@ -186,6 +186,12 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         invoiceData.setChildRowMap(rowsPerChild)
 
         return invoiceData
+    }
+
+    private fun getCreditAccounting(): String {
+        val tili = "323011"
+        val costCenter = "1913021"
+        return "$tili$costCenter"
     }
 
     fun generateRow(fields: List<InvoiceField>, invoiceData: InvoiceData): String {
