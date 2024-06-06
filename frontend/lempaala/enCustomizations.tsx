@@ -604,7 +604,7 @@ const en: DeepPartial<Translations> = {
       </P>
       <P>
         The accessibility of the service was assessed by the development team of
-        the service, and this statement was drawn up on 12 April 2022.
+        the service, and this statement was drawn up on 12 April 2024.
       </P>
       <H2>Compliance of the service</H2>
       <P>
@@ -670,17 +670,21 @@ const en: DeepPartial<Translations> = {
       </ul>
       <H2>Alternative ways of accessing the service</H2>
       <P>
-        <ExternalLink
-          href="https://lempaala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
-          text="Early childhood and pre-primary education customer service"
-        />
+        <strong>Early childhood education customer service</strong>
+      </P>
+      <P>
+        Email: palveluohjaus@lempaala.fi
+        <br />
+        Phone: 044 481 1095
+        <br />
+        Phone time: Mon 9.00–11.30 and Thu 9.00-11:30 or 14.15-15.15
       </P>
       <H2>Give feedback</H2>
       <P>
         If you notice an accessibility gap in our online service, please let us
         know! You can give us feedback using the{' '}
         <ExternalLink
-          href="https://lempaala.fi/anna-palautetta/"
+          href="https://lempaala.trimblefeedback.com/eFeedback/fi/AccessibilityStatement"
           text="Give accessibility feedback with this web form"
         />
       </P>

@@ -798,7 +798,7 @@ const fi: DeepPartial<Translations> = {
       </P>
       <P>
         Palvelun saavutettavuuden on arvioinut palvelun kehitystiimi, ja seloste
-        on laadittu 12.4.2022.
+        on laadittu 12.4.2024.
       </P>
       <H2>Palvelun vaatimustenmukaisuus</H2>
       <P>
@@ -863,17 +863,21 @@ const fi: DeepPartial<Translations> = {
       </ul>
       <H2>Vaihtoehtoiset asiointitavat</H2>
       <P>
-        <ExternalLink
-          href="https://lempaala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
-          text="Varhaiskasvatuksen ja esiopetuksen asiakaspalvelu"
-        />
+        <strong>Varhaiskasvatuksen palveluohjaus</strong>
+      </P>
+      <P>
+        Sähköposti: palveluohjaus@lempaala.fi
+        <br />
+        Puhelin: 044 481 1095
+        <br />
+        Soittoaika: ma klo 9.00–11.30 ja to klo 9.00-11:30 ja klo 14.15-15.15
       </P>
       <H2>Anna palautetta</H2>
       <P>
         Jos huomaat saavutettavuuspuutteen verkkopalvelussamme, kerro siitä
         meille.{' '}
         <ExternalLink
-          href="https://lempaala.fi/anna-palautetta/"
+          href="https://lempaala.trimblefeedback.com/eFeedback/fi/AccessibilityStatement"
           text="Anna saavutettavuuspalautetta tällä verkkolomakkeella"
         />
       </P>

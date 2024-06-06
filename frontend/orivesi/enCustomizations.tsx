@@ -604,7 +604,7 @@ const en: DeepPartial<Translations> = {
       </P>
       <P>
         The accessibility of the service was assessed by the development team of
-        the service, and this statement was drawn up on 12 April 2022.
+        the service, and this statement was drawn up on 12 April 2024.
       </P>
       <H2>Compliance of the service</H2>
       <P>
@@ -671,7 +671,7 @@ const en: DeepPartial<Translations> = {
       <H2>Alternative ways of accessing the service</H2>
       <P>
         <ExternalLink
-          href="https://orivesi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
+          href="https://orivesi.fi/asukkaalle/kasvatus-ja-opetuspalvelut/varhaiskasvatus/"
           text="Early childhood and pre-primary education customer service"
         />
       </P>
@@ -680,7 +680,7 @@ const en: DeepPartial<Translations> = {
         If you notice an accessibility gap in our online service, please let us
         know! You can give us feedback using the{' '}
         <ExternalLink
-          href="https://orivesi.fi/anna-palautetta/"
+          href="https://orivesi.fi/kaupunkimme/osallistu-ja-vaikuta/anna-palautetta-ja-vastaa-kyselyihin/"
           text="Give accessibility feedback with this web form"
         />
       </P>

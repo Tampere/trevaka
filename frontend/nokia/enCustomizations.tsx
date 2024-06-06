@@ -604,7 +604,7 @@ const en: DeepPartial<Translations> = {
       </P>
       <P>
         The accessibility of the service was assessed by the development team of
-        the service, and this statement was drawn up on 12 April 2022.
+        the service, and this statement was drawn up on 12 April 2024.
       </P>
       <H2>Compliance of the service</H2>
       <P>
@@ -670,17 +670,23 @@ const en: DeepPartial<Translations> = {
       </ul>
       <H2>Alternative ways of accessing the service</H2>
       <P>
-        <ExternalLink
-          href="https://nokiankaupunki.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
-          text="Early childhood and pre-primary education customer service"
-        />
+        <strong>
+          Early childhood and pre-primary education customer service
+        </strong>
+      </P>
+      <P>
+        Email: varhaiskasvatus.palveluohjaus@nokiankaupunki.fi
+        <br />
+        Phone: 040 483 7145
+        <br />
+        Phone time: Mon, Wed and Thu between 9.00–12.00
       </P>
       <H2>Give feedback</H2>
       <P>
         If you notice an accessibility gap in our online service, please let us
         know! You can give us feedback using the{' '}
         <ExternalLink
-          href="https://nokiankaupunki.fi/anna-palautetta/"
+          href="https://www-nokiankaupunki-fi.suomiviestit.fi/suomi.fi/lomake/5f69acac475a6c5531b74150"
           text="Give accessibility feedback with this web form"
         />
       </P>

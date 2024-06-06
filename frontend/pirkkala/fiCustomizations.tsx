@@ -798,7 +798,7 @@ const fi: DeepPartial<Translations> = {
       </P>
       <P>
         Palvelun saavutettavuuden on arvioinut palvelun kehitystiimi, ja seloste
-        on laadittu 12.4.2022.
+        on laadittu 28.3.2024.
       </P>
       <H2>Palvelun vaatimustenmukaisuus</H2>
       <P>
@@ -863,17 +863,19 @@ const fi: DeepPartial<Translations> = {
       </ul>
       <H2>Vaihtoehtoiset asiointitavat</H2>
       <P>
-        <ExternalLink
-          href="https://pirkkala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
-          text="Varhaiskasvatuksen ja esiopetuksen asiakaspalvelu"
-        />
+        <strong>Varhaiskasvatuksen palveluohjaus</strong>
+      </P>
+      <P>
+        Sähköposti: varhaiskasvatus@pirkkala.fi
+        <br />
+        Puhelin: 050 597 2469
       </P>
       <H2>Anna palautetta</H2>
       <P>
         Jos huomaat saavutettavuuspuutteen verkkopalvelussamme, kerro siitä
         meille.{' '}
         <ExternalLink
-          href="https://pirkkala.fi/anna-palautetta/"
+          href="https://pirkkala.fi/saavutettavuus/"
           text="Anna saavutettavuuspalautetta tällä verkkolomakkeella"
         />
       </P>

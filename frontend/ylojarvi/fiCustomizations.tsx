@@ -798,7 +798,7 @@ const fi: DeepPartial<Translations> = {
       </P>
       <P>
         Palvelun saavutettavuuden on arvioinut palvelun kehitystiimi, ja seloste
-        on laadittu 12.4.2022.
+        on laadittu 8.4.2024.
       </P>
       <H2>Palvelun vaatimustenmukaisuus</H2>
       <P>
@@ -863,17 +863,19 @@ const fi: DeepPartial<Translations> = {
       </ul>
       <H2>Vaihtoehtoiset asiointitavat</H2>
       <P>
-        <ExternalLink
-          href="https://ylojarvi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
-          text="Varhaiskasvatuksen ja esiopetuksen asiakaspalvelu"
-        />
+        <strong>Varhaiskasvatuksen ja esiopetuksen asiakaspalvelu</strong>
+      </P>
+      <P>
+        Sähköposti: varhaiskasvatuksenpalveluohjaus@ylojarvi.fi
+        <br />
+        Puhelin: 040 133 1469, soittoaika ma–to klo 9.00–11.00
       </P>
       <H2>Anna palautetta</H2>
       <P>
         Jos huomaat saavutettavuuspuutteen verkkopalvelussamme, kerro siitä
         meille.{' '}
         <ExternalLink
-          href="https://ylojarvi.fi/anna-palautetta/"
+          href="https://www.ylojarvi.fi/palaute/"
           text="Anna saavutettavuuspalautetta tällä verkkolomakkeella"
         />
       </P>
