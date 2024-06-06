@@ -29,3 +29,4 @@ out/
 *.njsproj
 *.sln
 
+.kotlin
