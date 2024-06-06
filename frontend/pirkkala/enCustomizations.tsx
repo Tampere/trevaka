@@ -400,7 +400,7 @@ const en: DeepPartial<Translations> = {
     cityLabel: '© Municipality of Pirkkala',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://pirkkala.fi/wp-content/uploads/2024/02/Tietosuojaseloste-eVaka-Pirkkala.pdf"
+        href="https://www.pirkkala.fi/tietosuojaselosteet/"
         text="Privacy Notices"
         newTab={true}
         data-qa="footer-policy-link"
@@ -408,7 +408,7 @@ const en: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://pirkkala.fi/anna-palautetta/"
+        href="https://www.pirkkala.fi/palaute/"
         text="Give feedback"
         newTab={true}
         data-qa="footer-feedback-link"
@@ -604,7 +604,7 @@ const en: DeepPartial<Translations> = {
       </P>
       <P>
         The accessibility of the service was assessed by the development team of
-        the service, and this statement was drawn up on 12 April 2022.
+        the service, and this statement was drawn up on 28 March 2024.
       </P>
       <H2>Compliance of the service</H2>
       <P>
@@ -670,17 +670,21 @@ const en: DeepPartial<Translations> = {
       </ul>
       <H2>Alternative ways of accessing the service</H2>
       <P>
-        <ExternalLink
-          href="https://pirkkala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
-          text="Early childhood and pre-primary education customer service"
-        />
+        <strong>
+          Early childhood and pre-primary education customer service
+        </strong>
+      </P>
+      <P>
+        Email: varhaiskasvatus@pirkkala.fi
+        <br />
+        Phone: 050 597 2469
       </P>
       <H2>Give feedback</H2>
       <P>
         If you notice an accessibility gap in our online service, please let us
         know! You can give us feedback using the{' '}
         <ExternalLink
-          href="https://pirkkala.fi/anna-palautetta/"
+          href="https://pirkkala.fi/saavutettavuus/"
           text="Give accessibility feedback with this web form"
         />
       </P>

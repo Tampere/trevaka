@@ -384,7 +384,7 @@ const fi: DeepPartial<Translations> = {
     cityLabel: '© Nokian kaupunki',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://nokiankaupunki.fi/wp-content/uploads/2024/02/Tietosuojaseloste-eVaka-Nokia.pdf"
+        href="https://www.nokiankaupunki.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatuspalvelut/varhaiskasvatukseen-hakeminen-ja-irtisanominen/evaka/#5e6b46cb"
         text="Tietosuojaselosteet"
         newTab={true}
         data-qa="footer-policy-link"
@@ -392,7 +392,7 @@ const fi: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://nokiankaupunki.fi/anna-palautetta/"
+        href="https://www.nokiankaupunki.fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/#5e6b46cb"
         text="Lähetä palautetta"
         newTab={true}
         data-qa="footer-feedback-link"
@@ -798,7 +798,7 @@ const fi: DeepPartial<Translations> = {
       </P>
       <P>
         Palvelun saavutettavuuden on arvioinut palvelun kehitystiimi, ja seloste
-        on laadittu 12.4.2022.
+        on laadittu 12.4.2024.
       </P>
       <H2>Palvelun vaatimustenmukaisuus</H2>
       <P>
@@ -863,17 +863,21 @@ const fi: DeepPartial<Translations> = {
       </ul>
       <H2>Vaihtoehtoiset asiointitavat</H2>
       <P>
-        <ExternalLink
-          href="https://nokiankaupunki.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
-          text="Varhaiskasvatuksen ja esiopetuksen asiakaspalvelu"
-        />
+        <strong>Varhaiskasvatuksen ja esiopetuksen asiakaspalvelu</strong>
+      </P>
+      <P>
+        Sähköposti: varhaiskasvatus.palveluohjaus@nokiankaupunki.fi
+        <br />
+        Puhelin: 040 483 7145
+        <br />
+        Soittoaika: ma, ke ja to klo 9.00–12.00
       </P>
       <H2>Anna palautetta</H2>
       <P>
         Jos huomaat saavutettavuuspuutteen verkkopalvelussamme, kerro siitä
         meille.{' '}
         <ExternalLink
-          href="https://nokiankaupunki.fi/anna-palautetta/"
+          href="https://www-nokiankaupunki-fi.suomiviestit.fi/suomi.fi/lomake/5f69acac475a6c5531b74150"
           text="Anna saavutettavuuspalautetta tällä verkkolomakkeella"
         />
       </P>

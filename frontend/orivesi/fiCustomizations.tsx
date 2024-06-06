@@ -384,7 +384,7 @@ const fi: DeepPartial<Translations> = {
     cityLabel: '© Oriveden kaupunki',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://orivesi.fi/wp-content/uploads/2024/02/Tietosuojaseloste-eVaka-Orivesi.pdf"
+        href="https://orivesi.fi/kaupunkimme/kaupunki/tietosuoja/"
         text="Tietosuojaselosteet"
         newTab={true}
         data-qa="footer-policy-link"
@@ -392,7 +392,7 @@ const fi: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://orivesi.fi/anna-palautetta/"
+        href="https://orivesi.fi/kaupunkimme/osallistu-ja-vaikuta/anna-palautetta-ja-vastaa-kyselyihin/"
         text="Lähetä palautetta"
         newTab={true}
         data-qa="footer-feedback-link"
@@ -798,7 +798,7 @@ const fi: DeepPartial<Translations> = {
       </P>
       <P>
         Palvelun saavutettavuuden on arvioinut palvelun kehitystiimi, ja seloste
-        on laadittu 12.4.2022.
+        on laadittu 12.4.2024.
       </P>
       <H2>Palvelun vaatimustenmukaisuus</H2>
       <P>
@@ -864,7 +864,7 @@ const fi: DeepPartial<Translations> = {
       <H2>Vaihtoehtoiset asiointitavat</H2>
       <P>
         <ExternalLink
-          href="https://orivesi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
+          href="https://orivesi.fi/asukkaalle/kasvatus-ja-opetuspalvelut/varhaiskasvatus/"
           text="Varhaiskasvatuksen ja esiopetuksen asiakaspalvelu"
         />
       </P>
@@ -873,7 +873,7 @@ const fi: DeepPartial<Translations> = {
         Jos huomaat saavutettavuuspuutteen verkkopalvelussamme, kerro siitä
         meille.{' '}
         <ExternalLink
-          href="https://orivesi.fi/anna-palautetta/"
+          href="https://orivesi.fi/kaupunkimme/osallistu-ja-vaikuta/anna-palautetta-ja-vastaa-kyselyihin/"
           text="Anna saavutettavuuspalautetta tällä verkkolomakkeella"
         />
       </P>

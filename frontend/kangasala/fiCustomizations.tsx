@@ -384,7 +384,7 @@ const fi: DeepPartial<Translations> = {
     cityLabel: '© Kangasalan kaupunki',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://kangasala.fi/wp-content/uploads/2024/02/Tietosuojaseloste-eVaka-Kangasala.pdf"
+        href="https://www.kangasala.fi/wp-content/uploads/2024/04/kla-evaka-tietosuojaseloste-202404.pdf"
         text="Tietosuojaselosteet"
         newTab={true}
         data-qa="footer-policy-link"
@@ -392,7 +392,7 @@ const fi: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://kangasala.fi/anna-palautetta/"
+        href="https://www.kangasala.fi/kaupunki-ja-paatoksenteko/osallistu-ja-vaikuta/anna-palautetta-ja-vastaa-kyselyihin/"
         text="Lähetä palautetta"
         newTab={true}
         data-qa="footer-feedback-link"
@@ -798,7 +798,7 @@ const fi: DeepPartial<Translations> = {
       </P>
       <P>
         Palvelun saavutettavuuden on arvioinut palvelun kehitystiimi, ja seloste
-        on laadittu 12.4.2022.
+        on laadittu 12.4.2024.
       </P>
       <H2>Palvelun vaatimustenmukaisuus</H2>
       <P>
@@ -863,17 +863,15 @@ const fi: DeepPartial<Translations> = {
       </ul>
       <H2>Vaihtoehtoiset asiointitavat</H2>
       <P>
-        <ExternalLink
-          href="https://kangasala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
-          text="Varhaiskasvatuksen ja esiopetuksen asiakaspalvelu"
-        />
+        <strong>Varhaiskasvatuksen ja esiopetuksen asiakaspalvelu</strong>
       </P>
+      <P>Sähköposti: varhaiskasvatus.palveluohjaus@kangasala.fi</P>
       <H2>Anna palautetta</H2>
       <P>
         Jos huomaat saavutettavuuspuutteen verkkopalvelussamme, kerro siitä
         meille.{' '}
         <ExternalLink
-          href="https://kangasala.fi/anna-palautetta/"
+          href="https://www.kangasala.fi/kaupunki-ja-paatoksenteko/osallistu-ja-vaikuta/anna-palautetta-ja-vastaa-kyselyihin/"
           text="Anna saavutettavuuspalautetta tällä verkkolomakkeella"
         />
       </P>

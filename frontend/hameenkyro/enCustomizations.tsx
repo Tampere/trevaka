@@ -604,7 +604,7 @@ const en: DeepPartial<Translations> = {
       </P>
       <P>
         The accessibility of the service was assessed by the development team of
-        the service, and this statement was drawn up on 12 April 2022.
+        the service, and this statement was drawn up on 16 February 2024.
       </P>
       <H2>Compliance of the service</H2>
       <P>

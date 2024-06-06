@@ -863,10 +863,15 @@ const fi: DeepPartial<Translations> = {
       </ul>
       <H2>Vaihtoehtoiset asiointitavat</H2>
       <P>
-        <ExternalLink
-          href="https://hameenkyro.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
-          text="Varhaiskasvatuksen ja esiopetuksen asiakaspalvelu"
-        />
+        <strong>Varhaiskasvatuksen ja esiopetuksen asiakaspalvelu</strong>
+      </P>
+      <P>
+        Kirkonkylän päiväkoti ja perhepäivähoito, päiväkodin johtaja 050 551
+        8987
+        <br />
+        Sasin ja Heinijärven päiväkodit, päiväkodin johtaja 050 598 4947
+        <br />
+        Varhaiskasvatuksen toimistosihteeri 050 400 7651
       </P>
       <H2>Anna palautetta</H2>
       <P>

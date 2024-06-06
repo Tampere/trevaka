@@ -400,7 +400,7 @@ const en: DeepPartial<Translations> = {
     cityLabel: '© City of Ylöjärvi',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://ylojarvi.fi/wp-content/uploads/2024/02/Tietosuojaseloste-eVaka-Ylojarvi.pdf"
+        href="https://www.ylojarvi.fi/sivistysosaston-tietosuojaselosteet/"
         text="Privacy Notices"
         newTab={true}
         data-qa="footer-policy-link"
@@ -408,7 +408,7 @@ const en: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://ylojarvi.fi/anna-palautetta/"
+        href="https://www.ylojarvi.fi/palaute/"
         text="Give feedback"
         newTab={true}
         data-qa="footer-feedback-link"
@@ -604,7 +604,7 @@ const en: DeepPartial<Translations> = {
       </P>
       <P>
         The accessibility of the service was assessed by the development team of
-        the service, and this statement was drawn up on 12 April 2022.
+        the service, and this statement was drawn up on 8 April 2024.
       </P>
       <H2>Compliance of the service</H2>
       <P>
@@ -670,17 +670,21 @@ const en: DeepPartial<Translations> = {
       </ul>
       <H2>Alternative ways of accessing the service</H2>
       <P>
-        <ExternalLink
-          href="https://ylojarvi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
-          text="Early childhood and pre-primary education customer service"
-        />
+        <strong>
+          Early childhood and pre-primary education customer service
+        </strong>
+      </P>
+      <P>
+        Email: varhaiskasvatuksenpalveluohjaus@ylojarvi.fi
+        <br />
+        Phone: 040 133 1469, phone time Mon–Thu between 9.00–11.00
       </P>
       <H2>Give feedback</H2>
       <P>
         If you notice an accessibility gap in our online service, please let us
         know! You can give us feedback using the{' '}
         <ExternalLink
-          href="https://ylojarvi.fi/anna-palautetta/"
+          href="https://www.ylojarvi.fi/palaute/"
           text="Give accessibility feedback with this web form"
         />
       </P>
