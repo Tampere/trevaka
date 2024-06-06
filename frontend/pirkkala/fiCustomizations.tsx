@@ -384,7 +384,7 @@ const fi: DeepPartial<Translations> = {
     cityLabel: '© Pirkkalan kunta',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://pirkkala.fi/wp-content/uploads/2024/02/Tietosuojaseloste-eVaka-Pirkkala.pdf"
+        href="https://www.pirkkala.fi/tietosuojaselosteet/"
         text="Tietosuojaselosteet"
         newTab={true}
         data-qa="footer-policy-link"
@@ -392,7 +392,7 @@ const fi: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://pirkkala.fi/anna-palautetta/"
+        href="https://www.pirkkala.fi/palaute/"
         text="Lähetä palautetta"
         newTab={true}
         data-qa="footer-feedback-link"

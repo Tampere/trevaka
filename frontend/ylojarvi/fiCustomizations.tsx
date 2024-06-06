@@ -384,7 +384,7 @@ const fi: DeepPartial<Translations> = {
     cityLabel: '© Ylöjärven kaupunki',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://ylojarvi.fi/wp-content/uploads/2024/02/Tietosuojaseloste-eVaka-Ylojarvi.pdf"
+        href="https://www.ylojarvi.fi/sivistysosaston-tietosuojaselosteet/"
         text="Tietosuojaselosteet"
         newTab={true}
         data-qa="footer-policy-link"
@@ -392,7 +392,7 @@ const fi: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://ylojarvi.fi/anna-palautetta/"
+        href="https://www.ylojarvi.fi/palaute/"
         text="Lähetä palautetta"
         newTab={true}
         data-qa="footer-feedback-link"

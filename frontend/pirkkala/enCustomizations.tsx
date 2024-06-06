@@ -400,7 +400,7 @@ const en: DeepPartial<Translations> = {
     cityLabel: '© Municipality of Pirkkala',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://pirkkala.fi/wp-content/uploads/2024/02/Tietosuojaseloste-eVaka-Pirkkala.pdf"
+        href="https://www.pirkkala.fi/tietosuojaselosteet/"
         text="Privacy Notices"
         newTab={true}
         data-qa="footer-policy-link"
@@ -408,7 +408,7 @@ const en: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://pirkkala.fi/anna-palautetta/"
+        href="https://www.pirkkala.fi/palaute/"
         text="Give feedback"
         newTab={true}
         data-qa="footer-feedback-link"

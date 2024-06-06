@@ -400,7 +400,7 @@ const en: DeepPartial<Translations> = {
     cityLabel: '© municipality of Lempäälä',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://lempaala.fi/wp-content/uploads/2024/02/Tietosuojaseloste-eVaka-Lempäälä.pdf"
+        href="https://www.lempaala.fi/lempaala-tietoa/lempaala-talo/asiointi-ja-neuvonta/tietosuoja/tietosuojaselosteet/"
         text="Privacy Notices"
         newTab={true}
         data-qa="footer-policy-link"
@@ -408,7 +408,7 @@ const en: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://lempaala.fi/anna-palautetta/"
+        href="https://lempaala.trimblefeedback.com/eFeedback/"
         text="Give feedback"
         newTab={true}
         data-qa="footer-feedback-link"

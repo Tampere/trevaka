@@ -384,7 +384,7 @@ const fi: DeepPartial<Translations> = {
     cityLabel: '© Kangasalan kaupunki',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://kangasala.fi/wp-content/uploads/2024/02/Tietosuojaseloste-eVaka-Kangasala.pdf"
+        href="https://www.kangasala.fi/wp-content/uploads/2024/04/kla-evaka-tietosuojaseloste-202404.pdf"
         text="Tietosuojaselosteet"
         newTab={true}
         data-qa="footer-policy-link"
@@ -392,7 +392,7 @@ const fi: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://kangasala.fi/anna-palautetta/"
+        href="https://www.kangasala.fi/kaupunki-ja-paatoksenteko/osallistu-ja-vaikuta/anna-palautetta-ja-vastaa-kyselyihin/"
         text="Lähetä palautetta"
         newTab={true}
         data-qa="footer-feedback-link"

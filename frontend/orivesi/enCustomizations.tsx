@@ -400,7 +400,7 @@ const en: DeepPartial<Translations> = {
     cityLabel: '© City of Orivesi',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://orivesi.fi/wp-content/uploads/2024/02/Tietosuojaseloste-eVaka-Orivesi.pdf"
+        href="https://orivesi.fi/kaupunkimme/kaupunki/tietosuoja/"
         text="Privacy Notices"
         newTab={true}
         data-qa="footer-policy-link"
@@ -408,7 +408,7 @@ const en: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://orivesi.fi/anna-palautetta/"
+        href="https://orivesi.fi/kaupunkimme/osallistu-ja-vaikuta/anna-palautetta-ja-vastaa-kyselyihin/"
         text="Give feedback"
         newTab={true}
         data-qa="footer-feedback-link"

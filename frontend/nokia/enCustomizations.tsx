@@ -400,7 +400,7 @@ const en: DeepPartial<Translations> = {
     cityLabel: '© City of Nokia',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://nokiankaupunki.fi/wp-content/uploads/2024/02/Tietosuojaseloste-eVaka-Nokia.pdf"
+        href="https://www.nokiankaupunki.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatuspalvelut/varhaiskasvatukseen-hakeminen-ja-irtisanominen/evaka/#5e6b46cb"
         text="Privacy Notices"
         newTab={true}
         data-qa="footer-policy-link"
@@ -408,7 +408,7 @@ const en: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://nokiankaupunki.fi/anna-palautetta/"
+        href="https://www.nokiankaupunki.fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/#5e6b46cb"
         text="Give feedback"
         newTab={true}
         data-qa="footer-feedback-link"
