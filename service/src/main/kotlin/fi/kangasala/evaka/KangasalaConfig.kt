@@ -33,7 +33,7 @@ class KangasalaConfig {
         freeSickLeaveOnContractDays = true,
         freeAbsenceGivesADailyRefund = false,
         alwaysUseDaycareFinanceDecisionHandler = true,
-        invoiceNumberSeriesStart = 1,
+        invoiceNumberSeriesStart = 2200000001,
         paymentNumberSeriesStart = null,
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,
