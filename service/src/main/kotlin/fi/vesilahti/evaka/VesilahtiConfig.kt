@@ -4,7 +4,6 @@
 
 package fi.vesilahti.evaka
 
-import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.mealintegration.DefaultMealTypeMapper
 import fi.espoo.evaka.mealintegration.MealTypeMapper
@@ -65,9 +64,6 @@ class VesilahtiConfig {
 
     @Bean
     fun webServiceMessageSender(properties: VesilahtiProperties) = HttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
-
-    @Bean
-    fun fuelManager() = FuelManager()
 
     @Bean
     fun basicAuthCustomizer(properties: VesilahtiProperties) = dvvModificationRequestCustomizer(properties.ipaas)

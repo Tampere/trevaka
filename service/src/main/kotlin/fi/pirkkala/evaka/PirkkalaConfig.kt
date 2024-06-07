@@ -4,7 +4,6 @@
 
 package fi.pirkkala.evaka
 
-import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.mealintegration.MealTypeMapper
 import fi.espoo.evaka.shared.FeatureConfig
@@ -65,9 +64,6 @@ class PirkkalaConfig {
 
     @Bean
     fun webServiceMessageSender(properties: PirkkalaProperties) = HttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
-
-    @Bean
-    fun fuelManager() = FuelManager()
 
     @Bean
     fun basicAuthCustomizer(properties: PirkkalaProperties) = dvvModificationRequestCustomizer(properties.ipaas)

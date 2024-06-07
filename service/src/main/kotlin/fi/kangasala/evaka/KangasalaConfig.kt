@@ -4,7 +4,6 @@
 
 package fi.kangasala.evaka
 
-import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.mealintegration.MealTypeMapper
 import fi.espoo.evaka.shared.FeatureConfig
@@ -65,9 +64,6 @@ class KangasalaConfig {
 
     @Bean
     fun webServiceMessageSender(properties: KangasalaProperties) = HttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
-
-    @Bean
-    fun fuelManager() = FuelManager()
 
     @Bean
     fun basicAuthCustomizer(properties: KangasalaProperties) = dvvModificationRequestCustomizer(properties.ipaas)
