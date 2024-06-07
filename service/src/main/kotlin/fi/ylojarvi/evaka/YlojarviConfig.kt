@@ -48,6 +48,7 @@ class YlojarviConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
+        archiveMetadataOrganization = "Ylöjärven kaupungin varhaiskasvatus",
     )
 
     @Bean

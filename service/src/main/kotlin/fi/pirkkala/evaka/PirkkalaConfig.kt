@@ -48,6 +48,7 @@ class PirkkalaConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
+        archiveMetadataOrganization = "Pirkkalan kunnan varhaiskasvatus",
     )
 
     @Bean

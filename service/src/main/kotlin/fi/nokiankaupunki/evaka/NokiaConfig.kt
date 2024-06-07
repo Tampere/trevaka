@@ -48,6 +48,7 @@ class NokiaConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
+        archiveMetadataOrganization = "Nokian kaupungin varhaiskasvatus",
     )
 
     @Bean

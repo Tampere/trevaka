@@ -48,6 +48,7 @@ class KangasalaConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
+        archiveMetadataOrganization = "Kangasalan kaupungin varhaiskasvatus",
     )
 
     @Bean
