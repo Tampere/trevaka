@@ -4,7 +4,6 @@
 
 package fi.orivesi.evaka
 
-import com.github.kittinunf.fuel.core.FuelManager
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.invoicing.service.DefaultInvoiceGenerationLogic
 import fi.espoo.evaka.mealintegration.DefaultMealTypeMapper
@@ -81,9 +80,6 @@ class OrivesiConfig {
 
     @Bean
     fun webServiceMessageSender(properties: OrivesiProperties) = HttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
-
-    @Bean
-    fun fuelManager() = FuelManager()
 
     @Bean
     fun basicAuthCustomizer(properties: OrivesiProperties) = dvvModificationRequestCustomizer(properties.ipaas)

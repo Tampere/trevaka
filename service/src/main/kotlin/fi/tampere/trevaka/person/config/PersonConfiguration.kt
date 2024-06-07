@@ -4,7 +4,6 @@
 
 package fi.tampere.trevaka.person.config
 
-import com.github.kittinunf.fuel.core.FuelManager
 import fi.tampere.trevaka.TampereProperties
 import org.apache.hc.client5.http.classic.HttpClient
 import org.springframework.beans.factory.annotation.Qualifier
@@ -30,12 +29,6 @@ class PersonConfiguration {
 
     @Bean(HTTP_CLIENT_PERSON)
     fun httpClient(properties: TampereProperties) = newIpaasHttpClient(properties.ipaas)
-
-    /**
-     * Custom [FuelManager] for [fi.espoo.evaka.dvv.DvvModificationsServiceClient].
-     */
-    @Bean
-    fun fuelManager() = FuelManager()
 
     @Bean
     fun basicAuthCustomizer(properties: TampereProperties) = dvvModificationRequestCustomizer(properties.ipaas)
