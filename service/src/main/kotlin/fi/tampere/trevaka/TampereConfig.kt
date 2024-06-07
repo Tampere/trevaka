@@ -60,6 +60,7 @@ class TampereConfig {
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
         temporaryDaycarePartDayAbsenceGivesADailyRefund = false,
+        archiveMetadataOrganization = "Tampereen kaupungin varhaiskasvatus",
     )
 
     @Bean

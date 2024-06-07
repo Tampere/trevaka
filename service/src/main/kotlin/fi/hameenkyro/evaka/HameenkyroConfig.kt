@@ -48,6 +48,7 @@ class HameenkyroConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
+        archiveMetadataOrganization = "Hämeenkyrön kunnan varhaiskasvatus",
     )
 
     @Bean

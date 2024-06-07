@@ -48,6 +48,7 @@ class LempaalaConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
+        archiveMetadataOrganization = "Lempäälän kunnan varhaiskasvatus",
     )
 
     @Bean

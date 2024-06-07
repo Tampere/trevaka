@@ -48,6 +48,7 @@ class VesilahtiConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
+        archiveMetadataOrganization = "Vesilahden kunnan varhaiskasvatus",
     )
 
     @Bean

@@ -49,6 +49,7 @@ class OrivesiConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
+        archiveMetadataOrganization = "Oriveden kaupungin varhaiskasvatus",
     )
 
     @Bean
