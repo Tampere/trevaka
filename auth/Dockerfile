@@ -72,6 +72,7 @@ COPY --from=pirkkala evaka /opt/keycloak/themes/evaka-pirkkala
 COPY --from=ylojarvi evaka /opt/keycloak/themes/evaka-ylojarvi
 RUN /opt/keycloak/bin/kc.sh build \
     --db=postgres \
+    --features=persistent-user-sessions \
     --http-relative-path=/auth \
     --health-enabled=true
 CMD ["start","--optimized"]
