@@ -71,5 +71,4 @@ COPY --from=nokia evaka /opt/keycloak/themes/evaka-nokia
 COPY --from=pirkkala evaka /opt/keycloak/themes/evaka-pirkkala
 COPY --from=ylojarvi evaka /opt/keycloak/themes/evaka-ylojarvi
 RUN /opt/keycloak/bin/kc.sh build --db=postgres --http-relative-path=/auth --health-enabled=true
-RUN /opt/keycloak/bin/kc.sh show-config
 CMD ["start","--optimized"]
