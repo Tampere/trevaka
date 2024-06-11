@@ -4,7 +4,9 @@
 
 package fi.kangasala.evaka.invoice.service
 
+import fi.espoo.evaka.daycare.CareType
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
+import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.kangasala.evaka.invoice.config.Product
 import fi.kangasala.evaka.invoice.config.findProduct
@@ -179,7 +181,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             // format description says "value of this field has not been used", example file has "0" here
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.BRUTTO_NETTO, "0")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.DEBIT_ACCOUNTING, "")
-            invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, getCreditAccounting(it.costCenter, findProduct(it.product)))
+            invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, getCreditAccounting(it))
 
             childRows.add(invoiceRowData)
         }
@@ -189,9 +191,15 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         return invoiceData
     }
 
-    private fun getCreditAccounting(costCenter: String, product: Product): String {
+    private fun getCreditAccounting(it: InvoiceRowDetailed): String {
         val tili = "323011"
-        return "$tili$costCenter${product.toiminto}"
+        val toiminto = with(it.daycareType) {
+            when {
+                contains(CareType.FAMILY) || contains(CareType.GROUP_FAMILY) -> ""
+                else -> findProduct(it.product).toiminto
+            }
+        }
+        return "$tili${it.costCenter}$toiminto"
     }
 
     fun generateRow(fields: List<InvoiceField>, invoiceData: InvoiceData): String {
