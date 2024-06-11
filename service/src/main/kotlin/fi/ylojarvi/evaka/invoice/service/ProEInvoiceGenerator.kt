@@ -185,6 +185,8 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.DEBIT_ACCOUNTING, "")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, getCreditAccounting(it))
 
+            invoiceRowData.setAlphanumericValue(InvoiceFieldName.DESCRIPTION, it.description)
+
             childRows.add(invoiceRowData)
         }
 
@@ -256,6 +258,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             it.value.forEach {
                 result += generateRow(rowHeaderRowFields, it)
                 result += generateRow(detailRowFields, it)
+                result += generateRow(descriptionRowFields, it)
             }
         }
 
