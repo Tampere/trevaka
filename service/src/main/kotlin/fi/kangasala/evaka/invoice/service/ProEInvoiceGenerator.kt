@@ -7,6 +7,7 @@ package fi.kangasala.evaka.invoice.service
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.kangasala.evaka.invoice.config.Product
+import fi.kangasala.evaka.invoice.config.findProduct
 import fi.kangasala.evaka.util.FieldType
 import fi.kangasala.evaka.util.FinanceDateProvider
 import org.springframework.stereotype.Component
@@ -178,7 +179,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             // format description says "value of this field has not been used", example file has "0" here
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.BRUTTO_NETTO, "0")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.DEBIT_ACCOUNTING, "")
-            invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, getCreditAccounting(it.costCenter))
+            invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, getCreditAccounting(it.costCenter, findProduct(it.product)))
 
             childRows.add(invoiceRowData)
         }
@@ -188,10 +189,9 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         return invoiceData
     }
 
-    private fun getCreditAccounting(costCenter: String): String {
+    private fun getCreditAccounting(costCenter: String, product: Product): String {
         val tili = "323011"
-        val toiminto = "1913021"
-        return "$tili$costCenter$toiminto"
+        return "$tili$costCenter${product.toiminto}"
     }
 
     fun generateRow(fields: List<InvoiceField>, invoiceData: InvoiceData): String {
