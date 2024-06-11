@@ -12,7 +12,6 @@ import fi.espoo.evaka.shared.async.AsyncJobRunner
 import fi.espoo.evaka.shared.auth.AuthenticatedUser
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.EvakaClock
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 sealed interface TrevakaAsyncJob : AsyncJobPayload {
@@ -40,9 +39,7 @@ class TrevakaAsyncJobRegistration(
 }
 
 @Component
-class UpdateGuardianOrChildFromVtjJob {
-    @Autowired
-    private lateinit var fridgeFamilyService: FridgeFamilyService
+class UpdateGuardianOrChildFromVtjJob(private val fridgeFamilyService: FridgeFamilyService) {
     fun updateGuardianOrChildFromVtj(
         db: Database.Connection,
         clock: EvakaClock,
