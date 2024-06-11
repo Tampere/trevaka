@@ -198,4 +198,10 @@ var detailRowFields = listOf(
     InvoiceField(InvoiceFieldName.ROW_SUM, FieldType.ALPHANUMERIC, 265, 11),
 )
 
+var descriptionRowFields = listOf(
+    InvoiceField(InvoiceFieldName.INVOICE_IDENTIFIER, FieldType.ALPHANUMERIC, 1, 11),
+    InvoiceField(InvoiceFieldName.TEXT_ROW_CODE, FieldType.ALPHANUMERIC, 12, 1),
+    InvoiceField(InvoiceFieldName.DESCRIPTION, FieldType.ALPHANUMERIC, 13, 60),
+)
+
 typealias InvoiceData = DataMapper<InvoiceFieldName>
