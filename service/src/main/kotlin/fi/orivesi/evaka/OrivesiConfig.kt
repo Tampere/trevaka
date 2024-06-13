@@ -5,7 +5,6 @@
 package fi.orivesi.evaka
 
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
-import fi.espoo.evaka.invoicing.service.DefaultInvoiceGenerationLogic
 import fi.espoo.evaka.mealintegration.DefaultMealTypeMapper
 import fi.espoo.evaka.mealintegration.MealTypeMapper
 import fi.espoo.evaka.shared.FeatureConfig
@@ -50,21 +49,6 @@ class OrivesiConfig {
         fiveYearsOldDaycareEnabled = false,
         archiveMetadataOrganization = "Oriveden kaupungin varhaiskasvatus",
     )
-
-    @Bean
-    fun invoiceIntegrationClient() = OrivesiInvoiceIntegrationClient()
-
-    @Bean
-    fun invoiceGenerationLogicChooser() = DefaultInvoiceGenerationLogic
-
-    @Bean
-    fun incomeTypesProvider() = OrivesiIncomeTypesProvider()
-
-    @Bean
-    fun incomeCoefficientMultiplierProvider() = OrivesiIncomeCoefficientMultiplierProvider()
-
-    @Bean
-    fun invoiceProductProvider() = OrivesiInvoiceProductProvider()
 
     @Bean
     fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()
