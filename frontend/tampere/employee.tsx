@@ -280,7 +280,7 @@ const customizations: EmployeeCustomizations = {
             </>
           ),
           jurisdictionText:
-            'Delegointipäätös pohjautuu Sivistys- ja kulttuurilautakunnan toimivallan siirtämiseen viranhaltijoille 14.6.2022 § 116: Varhaiskasvatuksen palvelupäällikkö päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista yksityisessä varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku) ja päiväkodin johtaja päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista kunnallisessa varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku)'
+            'Delegointipäätös pohjautuu Kasvatus- ja opetuslautakunnan toimivallan siirtämiseen viranhaltijoille 17.4.2024 § 44: Varhaiskasvatuksen asiakaspalvelupäällikkö päättää varhaiskasvatuksessa annettavasta tuesta ja tukipalveluista yksityisessä varhaiskasvatuksessa (varhaiskasvatuslaki 15 e §), varhaiskasvatuksen aluejohtaja päättää esiopetuksessa annettavasta tuesta ja tukipalveluista (perusopetuslaki 16 §, 16 a § ja 17 §) ja varhaiskasvatusyksikön johtaja päättää varhaiskasvatuksessa annettavasta tuesta ja tukipalveluista kunnallisessa varhaiskasvatuksessa (varhaiskasvatuslaki 15 e §)'
         },
         assistanceNeedPreschoolDecision: {
           validFromInfo: () => (
