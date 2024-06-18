@@ -42,7 +42,7 @@ dependencies {
     implementation("org.jdbi:jdbi3-core")
     implementation("org.jdbi:jdbi3-kotlin")
     implementation("software.amazon.awssdk:s3")
-    implementation("software.amazon.awssdk.crt:aws-crt:0.29.19")
+    implementation("software.amazon.awssdk.crt:aws-crt:0.29.24")
     implementation("io.opentracing:opentracing-util")
     implementation("com.github.kagkarlsson:db-scheduler")
     implementation("com.fasterxml.jackson.core:jackson-core")
