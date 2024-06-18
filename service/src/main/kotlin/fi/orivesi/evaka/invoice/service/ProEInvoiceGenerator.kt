@@ -88,7 +88,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         invoiceData.setAlphanumericValue(InvoiceFieldName.REFERENCE_NUMBER, "")
         // N = normal
         invoiceData.setAlphanumericValue(InvoiceFieldName.PAYMENT_TYPE, "N")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.PARTNER_CODE, "1000")
+        invoiceData.setAlphanumericValue(InvoiceFieldName.PARTNER_CODE, "N")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CURRENCY, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.INVOICE_TYPE, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.INVOICING_UNIT, "000")
@@ -196,8 +196,6 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
 
     private fun getCreditAccounting(it: InvoiceRowDetailed): String {
         val tili = "3257"
-        val alv = "00"
-        val kumppani = "1000"
         val kustannuspaikka = it.costCenter.padStart(6, '0')
 
         val toiminto = with(it.daycareType) {
@@ -207,7 +205,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             }
         }
 
-        return "$tili$alv$kumppani$kustannuspaikka$toiminto"
+        return "$tili$kustannuspaikka$toiminto"
     }
 
     fun generateRow(fields: List<InvoiceField>, invoiceData: InvoiceData): String {
