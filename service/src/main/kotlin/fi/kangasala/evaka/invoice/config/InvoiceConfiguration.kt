@@ -150,8 +150,8 @@ fun findProduct(key: ProductKey) = Product.entries.find { it.key == key }
 enum class Product(val nameFi: String, val toiminto: String) {
     DAYCARE("Varhaiskasvatus", "1913021"),
     DAYCARE_DISCOUNT("Alennus - Varhaiskasvatus", "1913021"),
-    PRESCHOOL_WITH_DAYCARE("Esiopetusta täydentävä varhaiskasvatus", "1918404"),
-    PRESCHOOL_WITH_DAYCARE_DISCOUNT("Alennus - Esiopetusta täydentävä varhaiskasvatus", "1918404"),
+    PRESCHOOL_WITH_DAYCARE("Esiopetusta täydentävä varhaiskasvatus", "1913021"),
+    PRESCHOOL_WITH_DAYCARE_DISCOUNT("Alennus - Esiopetusta täydentävä varhaiskasvatus", "1913021"),
     TEMPORARY_CARE("Tilapäinen varhaiskasvatus", "1913021"),
     SCHOOL_SHIFT_CARE("Koululaisen vuorohoito", "1913021"),
     SICK_LEAVE_50("Laskuun vaikuttava poissaolo 50%", "1913021"),
