@@ -9,7 +9,6 @@ import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.kangasala.evaka.invoice.config.Product
-import fi.kangasala.evaka.invoice.config.findProduct
 import fi.kangasala.evaka.util.FieldType
 import fi.kangasala.evaka.util.FinanceDateProvider
 import org.springframework.stereotype.Component
@@ -196,7 +195,8 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         val toiminto = with(it.daycareType) {
             when {
                 contains(CareType.FAMILY) || contains(CareType.GROUP_FAMILY) -> ""
-                else -> findProduct(it.product).toiminto
+                it.costCenter.startsWith("1914014") -> "1918404"
+                else -> "1913021"
             }
         }
         return "$tili${it.costCenter}$toiminto"
