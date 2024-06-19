@@ -17,7 +17,11 @@ VALUES
     ('e945728f-2671-4158-8941-1d39a3a36dce', 'Tilapäinen varhaiskasvatus', 'Tilapäinen varhaiskasvatus', 'Temporary daycare', 'TEMPORARY_DAYCARE', TRUE, 1.0, 1.0, 1.75, 1.0, 1.75, 40, NULL, NULL, FALSE, FALSE, 'Tilapäinen varhaiskasvatus', 'Tilapäinen varhaiskasvatus', 'Tilapäinen varhaiskasvatus', 'Tilapäinen varhaiskasvatus', '2023-08-01', NULL, TRUE, NULL),
     ('492da309-843d-4202-b0ac-8cdf722412a4', 'Esiopetus', 'Esiopetus', 'Preschool', 'PRESCHOOL', TRUE, 0.0, 0.5, 0.5, 0.5, 0.5, 0, NULL, NULL, TRUE, TRUE, 'Esiopetus', 'Esiopetus', 'Esiopetus', 'Esiopetus', '2023-08-01', NULL, TRUE, NULL),
     ('4c98dcb7-a5a6-4a17-8a63-6e72870bf476', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Preschool daycare', 'PRESCHOOL_DAYCARE', TRUE, 0.6, 1.0, 1.0, 1.0, 1.0, 40, NULL, 210, FALSE, FALSE, 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', '2023-08-01', NULL, FALSE, NULL),
+    ('db035f8b-e9e7-4d58-a770-be0d426eb59e', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Preschool daycare', 'PRESCHOOL_DAYCARE', FALSE, 0.6, 1.0, 1.0, 1.0, 1.0, 40, NULL, 210, FALSE, FALSE, 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', '2023-08-01', '2024-07-31', FALSE, 1),
+    ('e3d8e93b-f497-403b-a2b8-40172f323be1', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Preschool daycare', 'PRESCHOOL_DAYCARE', FALSE, 0.5, 1.0, 1.0, 1.0, 1.0, 40, NULL, 210, FALSE, FALSE, 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', '2024-08-01', NULL, FALSE, 2),
     ('e067df64-7ff0-42c1-a409-537db7c202dd', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Preschool daycare', 'PRESCHOOL_DAYCARE_ONLY', TRUE, 0.6, 1.0, 1.0, 1.0, 1.0, 40, NULL, 210, FALSE, FALSE, 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', '2023-08-01', NULL, FALSE, NULL),
+    ('2108670b-4401-4881-88f7-4d5635de3c0a', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Preschool daycare', 'PRESCHOOL_DAYCARE_ONLY', FALSE, 0.6, 1.0, 1.0, 1.0, 1.0, 40, NULL, 210, FALSE, FALSE, 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', '2023-08-01', '2024-07-31', FALSE, 1),
+    ('87bf95c2-d168-473e-8c36-8c2c18a49e99', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Preschool daycare', 'PRESCHOOL_DAYCARE_ONLY', FALSE, 0.5, 1.0, 1.0, 1.0, 1.0, 40, NULL, 210, FALSE, FALSE, 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', 'Esiopetusta täydentävä varhaiskasvatus', '2024-08-01', NULL, FALSE, 2),
     ('ff6ddcd4-fa8a-11eb-8592-2f2b4e398fcb', 'Kerho', 'Kerho', 'Club', 'CLUB', TRUE, 0.0, 1.0, 1.0, 1.0, 1.0, 0, NULL, NULL, TRUE, TRUE, 'Kerho', 'Kerho', 'Kerho', 'Kerho', '2023-08-01', NULL, TRUE, NULL)
 ON CONFLICT (id) DO
 UPDATE SET
@@ -68,3 +72,20 @@ WHERE
     service_need_option.valid_to IS DISTINCT FROM EXCLUDED.valid_to OR
     service_need_option.show_for_citizen <> EXCLUDED.show_for_citizen OR
     service_need_option.display_order <> EXCLUDED.display_order;
+
+-- automatically add missing service needs
+-- TODO: remove after production deployment
+INSERT INTO service_need (option_id, placement_id, start_date, end_date, part_week)
+SELECT service_need_option.id,
+       placement.id,
+       GREATEST(placement.start_date, service_need_option.valid_from),
+       LEAST(placement.end_date, service_need_option.valid_to),
+       service_need_option.part_week
+FROM placement
+         JOIN service_need_option ON service_need_option.valid_placement_type = placement.type AND
+                                     NOT service_need_option.default_option
+WHERE NOT EXISTS (SELECT FROM service_need WHERE service_need.placement_id = placement.id)
+  AND placement.created < service_need_option.created
+  AND type IN ('PRESCHOOL_DAYCARE', 'PRESCHOOL_DAYCARE_ONLY')
+  AND GREATEST(placement.start_date, service_need_option.valid_from) <=
+      LEAST(placement.end_date, service_need_option.valid_to);
