@@ -84,7 +84,7 @@ fun validInvoice(): InvoiceDetailed {
         "",
         ProviderType.MUNICIPAL,
         setOf(CareType.CENTRE),
-        "2627",
+        "1914014003",
         null,
         null,
         "kuvaus2",
