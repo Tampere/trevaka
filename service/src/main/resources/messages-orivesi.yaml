@@ -23,7 +23,7 @@ fi.orivesi.evaka:
         
         Lisätietoja varhaiskasvatuksen asiakasmaksuista
         
-        https://www.orivesi.fi/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/
+        https://orivesi.fi/asukkaalle/kasvatus-ja-opetuspalvelut/varhaiskasvatus/varhaiskasvatuspaikan-hakeminen/
     VOUCHER_VALUE_DECISION_HEADER:
       fi: Oriveden varhaiskasvatukseen liittyvät päätökset
     VOUCHER_VALUE_DECISION_CONTENT:
@@ -34,7 +34,7 @@ fi.orivesi.evaka:
 
         Lisätietoja:
 
-        https://www.orivesi.fi/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/
+        https://orivesi.fi/asukkaalle/kasvatus-ja-opetuspalvelut/varhaiskasvatus/varhaiskasvatuspaikan-hakeminen/
     ASSISTANCE_NEED_DECISION_HEADER:
       fi: Oriveden varhaiskasvatukseen liittyvät päätökset
     ASSISTANCE_NEED_DECISION_CONTENT:
