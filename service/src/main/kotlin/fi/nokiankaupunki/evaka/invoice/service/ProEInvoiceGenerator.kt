@@ -8,6 +8,7 @@ import fi.espoo.evaka.daycare.CareType
 import fi.espoo.evaka.daycare.domain.ProviderType
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
+import fi.espoo.evaka.invoicing.domain.PersonDetailed
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.nokiankaupunki.evaka.invoice.config.Product
 import fi.nokiankaupunki.evaka.util.FieldType
@@ -16,6 +17,10 @@ import org.springframework.stereotype.Component
 import java.lang.Math.abs
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+
+private val restrictedStreetAddress = "Turvakielto"
+private val restrictedPostCode = "00000"
+private val restrictedPostOffice = "TUNTEMATON"
 
 @Component
 class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val financeDateProvider: FinanceDateProvider) :
@@ -283,10 +288,14 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         val (manuallySent, succeeded) = invoices.partition { invoice -> invoiceChecker.shouldSendManually(invoice) }
         manuallySentList.addAll(manuallySent)
 
-        succeeded.forEach {
-            val invoiceData = gatherInvoiceData(it)
+        succeeded.forEach { invoice ->
+            val invoiceWithCorrectedData = invoice.copy(
+                headOfFamily = handlePerson(invoice.headOfFamily),
+                codebtor = invoice.codebtor?.let { handlePerson(it) },
+            )
+            val invoiceData = gatherInvoiceData(invoiceWithCorrectedData)
             invoiceString += formatInvoice(invoiceData)
-            successList.add(it)
+            successList.add(invoiceWithCorrectedData)
         }
 
         return StringInvoiceGenerator.InvoiceGeneratorResult(
@@ -298,4 +307,46 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             invoiceString,
         )
     }
+}
+
+internal fun handlePerson(person: PersonDetailed): PersonDetailed {
+    val (lastName, firstName) =
+        if (person.invoiceRecipientName.isNotBlank()) {
+            person.invoiceRecipientName.trim() to ""
+        } else {
+            person.lastName.trim() to person.firstName.trim()
+        }
+    val (streetAddress, postalCode, postOffice) = when (person.restrictedDetailsEnabled) {
+        true -> Triple(
+            restrictedStreetAddress,
+            restrictedPostCode,
+            restrictedPostOffice,
+        )
+        false -> if (hasInvoicingAddress(person)) {
+            Triple(
+                person.invoicingStreetAddress.trim(),
+                person.invoicingPostalCode.trim(),
+                person.invoicingPostOffice.trim(),
+            )
+        } else {
+            Triple(
+                person.streetAddress.trim(),
+                person.postalCode.trim(),
+                person.postOffice.trim(),
+            )
+        }
+    }
+    return person.copy(
+        lastName = lastName,
+        firstName = firstName,
+        streetAddress = streetAddress,
+        postalCode = postalCode,
+        postOffice = postOffice,
+    )
+}
+
+internal fun hasInvoicingAddress(person: PersonDetailed): Boolean {
+    return person.invoicingStreetAddress.isNotBlank() &&
+        person.invoicingPostalCode.isNotBlank() &&
+        person.invoicingPostOffice.isNotBlank()
 }

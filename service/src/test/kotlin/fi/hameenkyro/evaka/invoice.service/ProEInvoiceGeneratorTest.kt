@@ -13,6 +13,10 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
+private val restrictedStreetAddress = "Turvakielto"
+private val restrictedPostCode = "00000"
+private val restrictedPostOffice = "TUNTEMATON"
+
 internal class ProEInvoiceGeneratorTest {
     private val financeDateProvider = mock<FinanceDateProvider>()
     private val proEInvoiceGenerator = ProEInvoiceGenerator(InvoiceChecker(), financeDateProvider)
@@ -41,9 +45,33 @@ internal class ProEInvoiceGeneratorTest {
         val invoiceList = listOf(restrictedInvoice, invoiceWithoutSsn)
 
         val generationResult = proEInvoiceGenerator.generateInvoice(invoiceList)
-        assertEquals(generationResult.sendResult.succeeded, listOf<InvoiceDetailed>())
-        assertEquals(generationResult.sendResult.manuallySent, invoiceList)
+        assertEquals(generationResult.sendResult.succeeded.size, 1)
+        assertEquals(generationResult.sendResult.manuallySent, listOf(invoiceWithoutSsn))
         assertEquals(generationResult.sendResult.failed, listOf<InvoiceDetailed>())
+    }
+
+    @Test
+    fun `should return invoices with hidden address if head of family has restricted details`() {
+        val restrictedHeadOfFamily = validInvoice().copy(headOfFamily = personWithRestrictedDetails())
+        val invoiceList = listOf(restrictedHeadOfFamily)
+
+        val generationResult = proEInvoiceGenerator.generateInvoice(invoiceList)
+        val result = generationResult.sendResult.succeeded[0]
+        assertEquals(result.headOfFamily.streetAddress, restrictedStreetAddress)
+        assertEquals(result.headOfFamily.postalCode, restrictedPostCode)
+        assertEquals(result.headOfFamily.postOffice, restrictedPostOffice)
+    }
+
+    @Test
+    fun `should return invoices with hidden address if codebtor has restricted details`() {
+        val restrictedCodebtor = validInvoice().copy(codebtor = personWithRestrictedDetails())
+        val invoiceList = listOf(restrictedCodebtor)
+
+        val generationResult = proEInvoiceGenerator.generateInvoice(invoiceList)
+        val result = generationResult.sendResult.succeeded[0]
+        assertEquals(result.codebtor?.streetAddress, restrictedStreetAddress)
+        assertEquals(result.codebtor?.postalCode, restrictedPostCode)
+        assertEquals(result.codebtor?.postOffice, restrictedPostOffice)
     }
 
     @Test
