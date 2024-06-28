@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
-private val restrictedStreetAddress = "Turvakielto"
-private val restrictedPostCode = "00000"
-private val restrictedPostOffice = "TUNTEMATON"
+private val restrictedStreetAddress = "Sivistyskeskus, Varhaiskasvatus- ja esiopetuspalvelut, PL 50"
+private val restrictedPostCode = "36201"
+private val restrictedPostOffice = "Kangasala"
 
 internal class ProEInvoiceGeneratorTest {
     val financeDateProvider = mock<FinanceDateProvider>()

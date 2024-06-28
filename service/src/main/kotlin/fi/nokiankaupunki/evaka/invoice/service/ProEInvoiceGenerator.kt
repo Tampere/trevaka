@@ -18,9 +18,9 @@ import java.lang.Math.abs
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-private val restrictedStreetAddress = "Turvakielto"
-private val restrictedPostCode = "00000"
-private val restrictedPostOffice = "TUNTEMATON"
+private val restrictedStreetAddress = "Sivistyspalvelut, Varhaiskasvatuksen asiakaslaskustus, Harjukatu 23"
+private val restrictedPostCode = "37100"
+private val restrictedPostOffice = "Nokia"
 
 @Component
 class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val financeDateProvider: FinanceDateProvider) :
