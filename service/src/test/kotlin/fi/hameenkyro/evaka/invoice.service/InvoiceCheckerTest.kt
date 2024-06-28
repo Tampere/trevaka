@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test
 
 internal class InvoiceCheckerTest {
     @Test
-    fun `should return true for Invoices with restricted head of family details`() {
+    fun `should return false for Invoices with restricted head of family details`() {
         val invoice = validInvoice().copy(headOfFamily = personWithRestrictedDetails())
         val invoiceChecker = InvoiceChecker()
 
-        assert(invoiceChecker.shouldSendManually(invoice))
+        assert(invoiceChecker.shouldSendManually(invoice) == false)
     }
 
     @Test

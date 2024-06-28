@@ -68,7 +68,7 @@ internal class KangasalaMessageProvider(private val messageSource: MessageSource
             postalCode = "36201",
             postOffice = "Kangasala",
             row1 = "Sivistyskeskus",
-            row2 = "Varhaiskasvatus - ja esiopetuspalvelut",
+            row2 = "Varhaiskasvatus- ja esiopetuspalvelut",
             row3 = "",
         )
     }
