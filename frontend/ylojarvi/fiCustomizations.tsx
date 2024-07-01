@@ -581,7 +581,7 @@ const fi: DeepPartial<Translations> = {
           </>
         ),
         jurisdictionText:
-          'Hallintosääntö 113 §, varhaiskasvatuksen aluejohtaja kohta 9. Vastaava toimivalta on määrä lisätä päiväkodin johtajille ennen E-vakan käyttöönottoa viimeistään 1.8.2024. (Edellyttää valtuuston päätöstä).'
+          'Hallintosääntö 113 §, varhaiskasvatuksen aluejohtaja kohta 9.'
       }
     },
     assistancePreschoolDecisions: {
@@ -685,7 +685,7 @@ const fi: DeepPartial<Translations> = {
         </>
       ),
       jurisdictionText:
-        'Hallintosääntö 113 §, varhaiskasvatuksen aluejohtaja kohta 9. Vastaava toimivalta on määrä lisätä päiväkodin johtajille ennen E-vakan käyttöönottoa viimeistään 1.8.2024. (Edellyttää valtuuston päätöstä).',
+        'Hallintosääntö 113 §, varhaiskasvatuksen aluejohtaja kohta 9.',
       lawReference:
         'Laki viranomaisen toiminnan julkisuudesta 24 § 1 mom. 30 kohta'
     }
