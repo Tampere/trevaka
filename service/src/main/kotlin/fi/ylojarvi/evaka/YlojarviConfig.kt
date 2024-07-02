@@ -48,6 +48,7 @@ class YlojarviConfig {
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
         archiveMetadataOrganization = "Ylöjärven kaupungin varhaiskasvatus",
+        archiveMetadataConfigs = emptyMap(),
     )
 
     @Bean

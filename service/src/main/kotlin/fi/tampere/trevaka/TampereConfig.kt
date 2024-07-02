@@ -61,6 +61,7 @@ class TampereConfig {
         fiveYearsOldDaycareEnabled = false,
         temporaryDaycarePartDayAbsenceGivesADailyRefund = false,
         archiveMetadataOrganization = "Tampereen kaupunki, varhaiskasvatus ja esiopetus",
+        archiveMetadataConfigs = emptyMap(),
     )
 
     @Bean
