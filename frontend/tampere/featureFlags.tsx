@@ -41,14 +41,16 @@ const prod: FeatureFlags = {
   noAbsenceType: true,
   voucherUnitPayments: false,
   assistanceNeedDecisionsLanguageSelect: false,
-  extendedPreschoolTerm: false
+  extendedPreschoolTerm: false,
+  automaticFixedScheduleAbsences: false
 }
 
 const features: Features = {
   default: {
     ...prod,
     voucherUnitPayments: true,
-    discussionReservations: true
+    discussionReservations: true,
+    automaticFixedScheduleAbsences: true
   },
   staging: {
     ...prod
