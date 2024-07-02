@@ -48,6 +48,7 @@ class LempaalaConfig {
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
         archiveMetadataOrganization = "Lempäälän kunnan varhaiskasvatus",
+        archiveMetadataConfigs = emptyMap(),
     )
 
     @Bean

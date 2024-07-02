@@ -48,6 +48,7 @@ class VesilahtiConfig {
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
         archiveMetadataOrganization = "Vesilahden kunnan varhaiskasvatus",
+        archiveMetadataConfigs = emptyMap(),
     )
 
     @Bean

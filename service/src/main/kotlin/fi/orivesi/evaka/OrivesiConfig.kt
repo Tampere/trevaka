@@ -48,6 +48,7 @@ class OrivesiConfig {
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
         archiveMetadataOrganization = "Oriveden kaupungin varhaiskasvatus",
+        archiveMetadataConfigs = emptyMap(),
     )
 
     @Bean

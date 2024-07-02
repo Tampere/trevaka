@@ -48,6 +48,7 @@ class HameenkyroConfig {
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
         archiveMetadataOrganization = "Hämeenkyrön kunnan varhaiskasvatus",
+        archiveMetadataConfigs = emptyMap(),
     )
 
     @Bean

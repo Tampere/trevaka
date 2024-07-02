@@ -48,6 +48,7 @@ class NokiaConfig {
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
         archiveMetadataOrganization = "Nokian kaupungin varhaiskasvatus",
+        archiveMetadataConfigs = emptyMap(),
     )
 
     @Bean
