@@ -897,8 +897,8 @@ const fi: DeepPartial<Translations> = {
         Saavutettavuuden valvonnan yksikkö
         <br />
         <ExternalLink
-          href="www.saavutettavuusvaatimukset.fi"
-          text="www.saavutettavuusvaatimukset.fi"
+          href="https://www.saavutettavuusvaatimukset.fi/"
+          text="https://www.saavutettavuusvaatimukset.fi/"
         />
         <br />
         <a href="mailto:saavutettavuus@avi.fi">saavutettavuus@avi.fi</a>
