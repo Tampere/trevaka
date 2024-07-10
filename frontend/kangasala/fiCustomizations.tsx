@@ -581,7 +581,7 @@ const fi: DeepPartial<Translations> = {
           </>
         ),
         jurisdictionText:
-          'Hyvinvointijohtajan päätöksen 20.2.2024 § 5 mukaan varhaiskasvatusyksikön johtaja päättää varhaiskasvatuksessa lapsen tarvitsemasta tuesta ja tukimuodoista.'
+          'Hyvinvointijohtajan päätöksen 20.2.2024 § 5 mukaan varhaiskasvatusyksikön johtaja päättää varhaiskasvatuksessa lapsen tarvitsemasta tuesta ja tukimuodoista ja varhaiskasvatuksen aluejohtaja päättää varhaiskasvatuksessa lapsen tarvitsemasta tuesta ja tukimuodoista kunnallisen ja yksityisen palvelutuottajan tuottamassa varhaiskasvatuksessa olevien lasten osalta.'
       }
     },
     assistancePreschoolDecisions: {
