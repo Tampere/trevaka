@@ -60,6 +60,7 @@ services:
       RATE_LIMIT_CIDR_WHITELIST: "0.0.0.0/0;::/0"
       HTTP_SCHEME: "http"
       KEYCLOAK_URL: "http://auth:8080"
+      FORM_ACTION_URL: ""
     # Enable for debug logging
     # command: [nginx-debug, '-g', 'daemon off;']
     depends_on:
