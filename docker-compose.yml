@@ -159,16 +159,19 @@ services:
         core: evaka/keycloak
     ports:
       - "8080:8080"
+      - "9000:9000" # management port for health endpoint
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_HTTP_RELATIVE_PATH: /auth
+      KC_HEALTH_ENABLED: true
       KC_DB: postgres
       KC_DB_URL_HOST: db
       KC_DB_URL_PORT: 5432
       KC_DB_URL_DATABASE: keycloak
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: postgres
+      KC_FEATURES: persistent-user-sessions
     command: start-dev --import-realm
     volumes:
       - ./auth/realms/tampere:/opt/keycloak/data/import

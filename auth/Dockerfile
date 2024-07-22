@@ -63,7 +63,7 @@ COPY themes/orivesi/OrivesiLogo.svg evaka/login/resources/img/EspooLogoBlue.svg
 RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties
 RUN npm run build && rm -r evaka/account
 
-FROM quay.io/keycloak/keycloak:24.0.5
+FROM quay.io/keycloak/keycloak:25.0.2
 ADD --chmod=0644 \
     --checksum=sha256:424a3e03a17df0a2bc2b3ca749d81b04e79d59cb7aeec8876a5a3f308d0caf51 \
     https://raw.githubusercontent.com/danielmiessler/SecLists/2023.1/Passwords/xato-net-10-million-passwords-1000000.txt \
@@ -77,6 +77,9 @@ COPY --from=nokia evaka /opt/keycloak/themes/evaka-nokia
 COPY --from=pirkkala evaka /opt/keycloak/themes/evaka-pirkkala
 COPY --from=ylojarvi evaka /opt/keycloak/themes/evaka-ylojarvi
 COPY --from=orivesi evaka /opt/keycloak/themes/evaka-orivesi
-RUN /opt/keycloak/bin/kc.sh build --cache=ispn --cache-stack=kubernetes --db=postgres --http-relative-path=/auth --health-enabled=true
-RUN /opt/keycloak/bin/kc.sh show-config
+RUN /opt/keycloak/bin/kc.sh build \
+    --db=postgres \
+    --features=persistent-user-sessions \
+    --http-relative-path=/auth \
+    --health-enabled=true
 CMD ["start","--optimized"]
