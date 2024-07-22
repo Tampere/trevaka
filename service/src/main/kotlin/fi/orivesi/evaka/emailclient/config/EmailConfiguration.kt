@@ -6,6 +6,7 @@ package fi.orivesi.evaka.emailclient.config
 
 import fi.espoo.evaka.daycare.domain.Language
 import fi.espoo.evaka.emailclient.CalendarEventNotificationData
+import fi.espoo.evaka.emailclient.DiscussionSurveyReservationNotificationData
 import fi.espoo.evaka.emailclient.EmailContent
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
 import fi.espoo.evaka.invoicing.domain.FinanceDecisionType
@@ -465,6 +466,50 @@ $unsubscribeFi
 <hr>
 <p>You have received a new $decisionTypeEn in eVaka, the early childhood education system of the city of Orivesi.</p>
 $unsubscribeEn
+            """
+                .trimIndent(),
+        )
+    }
+
+    override fun discussionSurveyReservationNotification(
+        language: Language,
+        notificationDetails: DiscussionSurveyReservationNotificationData,
+    ): EmailContent {
+        return EmailContent.fromHtml(
+            subject =
+            "Uusi keskusteluaika varattu eVakassa / New discussion time reserved in eVaka",
+            html =
+            """
+<p>Uusi keskusteluaika varattu / New discussion time reserved</p>
+<p>${notificationDetails.unitName}: ${notificationDetails.title}</p>
+<p>${notificationDetails.calendarEventTime.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))}</p>
+<p>${notificationDetails.calendarEventTime.startTime.format(DateTimeFormatter.ofPattern("HH:mm"))} - ${notificationDetails.calendarEventTime.endTime.format(DateTimeFormatter.ofPattern("HH:mm"))}</p>
+<hr>
+$unsubscribeFi
+$unsubscribeEn
+<hr>
+            """
+                .trimIndent(),
+        )
+    }
+
+    override fun discussionSurveyReservationCancellationNotification(
+        language: Language,
+        notificationDetails: DiscussionSurveyReservationNotificationData,
+    ): EmailContent {
+        return EmailContent.fromHtml(
+            subject =
+            "Keskusteluaika peruttu eVakassa / Discussion time cancelled in eVaka",
+            html =
+            """
+<p>Varattu keskusteluaika peruttu / Reserved discussion time cancelled</p>
+<p>${notificationDetails.unitName}: ${notificationDetails.title}</p>
+<p>${notificationDetails.calendarEventTime.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))}</p>
+<p>${notificationDetails.calendarEventTime.startTime.format(DateTimeFormatter.ofPattern("HH:mm"))} - ${notificationDetails.calendarEventTime.endTime.format(DateTimeFormatter.ofPattern("HH:mm"))}</p>
+<hr>
+$unsubscribeFi
+$unsubscribeEn
+<hr>
             """
                 .trimIndent(),
         )

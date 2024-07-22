@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-FROM node:20.14.0 AS theme
+FROM node:20.15.1 AS theme
 COPY --from=core theme/package*.json ./
 RUN npm ci
 COPY --from=core theme .
@@ -57,6 +57,12 @@ COPY themes/ylojarvi/YlojarviLogo.svg evaka/login/resources/img/EspooLogoBlue.sv
 RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties
 RUN npm run build && rm -r evaka/account
 
+FROM theme AS orivesi
+COPY themes/orivesi/theme-fi.sed ./
+COPY themes/orivesi/OrivesiLogo.svg evaka/login/resources/img/EspooLogoBlue.svg
+RUN sed -i -E -f theme-fi.sed evaka/login/messages/messages_fi.properties
+RUN npm run build && rm -r evaka/account
+
 FROM quay.io/keycloak/keycloak:25.0.2
 ADD --chmod=0644 \
     --checksum=sha256:424a3e03a17df0a2bc2b3ca749d81b04e79d59cb7aeec8876a5a3f308d0caf51 \
@@ -70,6 +76,7 @@ COPY --from=lempaala evaka /opt/keycloak/themes/evaka-lempaala
 COPY --from=nokia evaka /opt/keycloak/themes/evaka-nokia
 COPY --from=pirkkala evaka /opt/keycloak/themes/evaka-pirkkala
 COPY --from=ylojarvi evaka /opt/keycloak/themes/evaka-ylojarvi
+COPY --from=orivesi evaka /opt/keycloak/themes/evaka-orivesi
 RUN /opt/keycloak/bin/kc.sh build \
     --db=postgres \
     --features=persistent-user-sessions \

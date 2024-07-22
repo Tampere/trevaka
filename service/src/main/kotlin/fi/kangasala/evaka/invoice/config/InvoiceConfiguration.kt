@@ -147,21 +147,21 @@ class KangasalaInvoiceProductProvider : InvoiceProductProvider {
 fun findProduct(key: ProductKey) = Product.entries.find { it.key == key }
     ?: error("Product with key $key not found")
 
-enum class Product(val nameFi: String, val code: String) {
-    DAYCARE("Varhaiskasvatus", "500218"),
-    DAYCARE_DISCOUNT("Alennus - Varhaiskasvatus", "500687"),
-    PRESCHOOL_WITH_DAYCARE("Esiopetusta täydentävä varhaiskasvatus", "500220"),
-    PRESCHOOL_WITH_DAYCARE_DISCOUNT("Alennus - Esiopetusta täydentävä varhaiskasvatus", "509565"),
-    TEMPORARY_CARE("Tilapäinen varhaiskasvatus", "500576"),
-    SCHOOL_SHIFT_CARE("Koululaisen vuorohoito", "500949"),
-    SICK_LEAVE_50("Laskuun vaikuttava poissaolo 50%", "500283"),
-    SICK_LEAVE_100("Laskuun vaikuttava poissaolo 100%", "500248"),
-    ABSENCE("Poissaolovähennys 50%", "500210"),
-    FREE_OF_CHARGE("Hyvityspäivä", "503696"),
-    CORRECTION("Oikaisu", "500177"),
-    FREE_MONTH("Maksuton kuukausi", "500156"),
-    OVER_CONTRACT("Sopimuksen ylitys", "500538"),
-    UNANNOUNCED_ABSENCE("Ilmoittamaton päivystysajan poissaolo", "507292"),
+enum class Product(val nameFi: String) {
+    DAYCARE("Varhaiskasvatus"),
+    DAYCARE_DISCOUNT("Alennus - Varhaiskasvatus"),
+    PRESCHOOL_WITH_DAYCARE("Esiopetusta täydentävä varhaiskasvatus"),
+    PRESCHOOL_WITH_DAYCARE_DISCOUNT("Alennus - Esiopetusta täydentävä varhaiskasvatus"),
+    TEMPORARY_CARE("Tilapäinen varhaiskasvatus"),
+    SCHOOL_SHIFT_CARE("Koululaisen vuorohoito"),
+    SICK_LEAVE_50("Laskuun vaikuttava poissaolo 50%"),
+    SICK_LEAVE_100("Laskuun vaikuttava poissaolo 100%"),
+    ABSENCE("Poissaolovähennys 50%"),
+    FREE_OF_CHARGE("Hyvityspäivä"),
+    CORRECTION("Oikaisu"),
+    FREE_MONTH("Maksuton kuukausi"),
+    OVER_CONTRACT("Sopimuksen ylitys"),
+    UNANNOUNCED_ABSENCE("Ilmoittamaton päivystysajan poissaolo"),
     ;
 
     val key = ProductKey(this.name)

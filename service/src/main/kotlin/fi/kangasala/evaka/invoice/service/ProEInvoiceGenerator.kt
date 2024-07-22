@@ -4,7 +4,10 @@
 
 package fi.kangasala.evaka.invoice.service
 
+import fi.espoo.evaka.daycare.CareType
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
+import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
+import fi.espoo.evaka.invoicing.domain.PersonDetailed
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.kangasala.evaka.invoice.config.Product
 import fi.kangasala.evaka.util.FieldType
@@ -13,6 +16,10 @@ import org.springframework.stereotype.Component
 import java.lang.Math.abs
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+
+private val restrictedStreetAddress = "Sivistyskeskus, Varhaiskasvatus- ja esiopetuspalvelut, PL 50"
+private val restrictedPostCode = "36201"
+private val restrictedPostOffice = "Kangasala"
 
 @Component
 class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val financeDateProvider: FinanceDateProvider) :
@@ -178,7 +185,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             // format description says "value of this field has not been used", example file has "0" here
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.BRUTTO_NETTO, "0")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.DEBIT_ACCOUNTING, "")
-            invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, getCreditAccounting(it.costCenter))
+            invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, getCreditAccounting(it))
 
             childRows.add(invoiceRowData)
         }
@@ -188,10 +195,16 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         return invoiceData
     }
 
-    private fun getCreditAccounting(costCenter: String): String {
+    private fun getCreditAccounting(it: InvoiceRowDetailed): String {
         val tili = "323011"
-        val toiminto = "1913021"
-        return "$tili$costCenter$toiminto"
+        val toiminto = with(it.daycareType) {
+            when {
+                contains(CareType.FAMILY) || contains(CareType.GROUP_FAMILY) -> ""
+                it.costCenter.startsWith("1914014") -> "1918404"
+                else -> "1913021"
+            }
+        }
+        return "$tili${it.costCenter}$toiminto"
     }
 
     fun generateRow(fields: List<InvoiceField>, invoiceData: InvoiceData): String {
@@ -258,10 +271,14 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         val (manuallySent, succeeded) = invoices.partition { invoice -> invoiceChecker.shouldSendManually(invoice) }
         manuallySentList.addAll(manuallySent)
 
-        succeeded.forEach {
-            val invoiceData = gatherInvoiceData(it)
+        succeeded.forEach { invoice ->
+            val invoiceWithCorrectedData = invoice.copy(
+                headOfFamily = handlePerson(invoice.headOfFamily),
+                codebtor = invoice.codebtor?.let { handlePerson(it) },
+            )
+            val invoiceData = gatherInvoiceData(invoiceWithCorrectedData)
             invoiceString += formatInvoice(invoiceData)
-            successList.add(it)
+            successList.add(invoiceWithCorrectedData)
         }
 
         return StringInvoiceGenerator.InvoiceGeneratorResult(
@@ -273,4 +290,46 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             invoiceString,
         )
     }
+}
+
+internal fun handlePerson(person: PersonDetailed): PersonDetailed {
+    val (lastName, firstName) =
+        if (person.invoiceRecipientName.isNotBlank()) {
+            person.invoiceRecipientName.trim() to ""
+        } else {
+            person.lastName.trim() to person.firstName.trim()
+        }
+    val (streetAddress, postalCode, postOffice) = when (person.restrictedDetailsEnabled) {
+        true -> Triple(
+            restrictedStreetAddress,
+            restrictedPostCode,
+            restrictedPostOffice,
+        )
+        false -> if (hasInvoicingAddress(person)) {
+            Triple(
+                person.invoicingStreetAddress.trim(),
+                person.invoicingPostalCode.trim(),
+                person.invoicingPostOffice.trim(),
+            )
+        } else {
+            Triple(
+                person.streetAddress.trim(),
+                person.postalCode.trim(),
+                person.postOffice.trim(),
+            )
+        }
+    }
+    return person.copy(
+        lastName = lastName,
+        firstName = firstName,
+        streetAddress = streetAddress,
+        postalCode = postalCode,
+        postOffice = postOffice,
+    )
+}
+
+internal fun hasInvoicingAddress(person: PersonDetailed): Boolean {
+    return person.invoicingStreetAddress.isNotBlank() &&
+        person.invoicingPostalCode.isNotBlank() &&
+        person.invoicingPostOffice.isNotBlank()
 }

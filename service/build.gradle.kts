@@ -42,7 +42,7 @@ dependencies {
     implementation("org.jdbi:jdbi3-core")
     implementation("org.jdbi:jdbi3-kotlin")
     implementation("software.amazon.awssdk:s3")
-    implementation("software.amazon.awssdk.crt:aws-crt:0.29.19")
+    implementation("software.amazon.awssdk.crt:aws-crt:0.30.0")
     implementation("io.opentracing:opentracing-util")
     implementation("com.github.kagkarlsson:db-scheduler")
     implementation("com.fasterxml.jackson.core:jackson-core")
@@ -54,7 +54,7 @@ dependencies {
     testImplementation("org.junit-pioneer:junit-pioneer:2.2.0") // for CartesianProductTest
     testImplementation("org.mockito.kotlin:mockito-kotlin")
     testImplementation("org.springframework.ws:spring-ws-test")
-    testImplementation(platform("org.springframework.cloud:spring-cloud-dependencies:2023.0.2"))
+    testImplementation(platform("org.springframework.cloud:spring-cloud-dependencies:2023.0.3"))
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
     testImplementation("org.reflections:reflections:0.10.2")
     testImplementation("com.auth0:java-jwt")

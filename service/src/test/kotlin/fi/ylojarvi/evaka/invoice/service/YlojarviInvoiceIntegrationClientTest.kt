@@ -47,13 +47,16 @@ class YlojarviInvoiceIntegrationClientTest {
 310382-956D3Meikäläinen Maiju                                                                                                                                                                  
 310382-956D301.01.2021 - 31.01.2021                                                                                                                                                            
 310382-956D1Esiopetusta täydentävä varhaiskasvatus   000004820000kpl 00000001000000                                                            0                                                            325730010002627 484                                                    
+310382-956D3kuvaus2                                                     
 310382-956D3Meikäläinen Matti                                                                                                                                                                  
 310382-956D301.01.2021 - 31.01.2021                                                                                                                                                            
 310382-956D1Varhaiskasvatus                          000002430000kpl 00000001000000                                                            0                                                            325730010002627 485                                                    
+310382-956D3kuvaus1                                                     
 310382-956D301.01.2021 - 31.01.2021                                                                                                                                                            
 310382-956D1Varhaiskasvatus                          000002500000kpl 00000001000000                                                            0                                                            325730010002627 483                                                    
 310382-956D301.01.2021 - 31.01.2021                                                                                                                                                            
 310382-956D1Hyvityspäivä                             000002500000kpl-00000001000000                                                            0                                                            325730010002627 483                                                    
+310382-956D3kuvaus4                                                     
 """,
             s3SenderArgumentCaptor.firstValue,
         )

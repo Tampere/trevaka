@@ -10,17 +10,16 @@ import { resetDatabaseForE2ETests } from '../../common/tampere-dev-api'
 import { createDaycarePlacements } from 'e2e-test/generated/api-clients'
 import {
   createDaycarePlacementFixture,
-  daycareFixture,
-  enduserChildFixturePorriHatterRestricted, enduserGuardianFixture,
+  testChildRestricted, testAdult,
   Fixture,
   uuidv4
 } from 'e2e-test/dev-api/fixtures'
-import { PersonDetail } from 'e2e-test/dev-api/types'
 import CitizenCalendarPage from 'e2e-test/pages/citizen/citizen-calendar'
 import CitizenHeader from 'e2e-test/pages/citizen/citizen-header'
 import { Page } from 'e2e-test/utils/page'
 import { waitUntilEqual } from "e2e-test/utils";
 import { enduserLogin } from 'e2e-test/utils/user'
+import { DevPerson } from 'e2e-test/generated/api-types'
 
 const mockedTime = HelsinkiDateTime.of(2024, 3, 14, 7, 26)
 const mockedDate = mockedTime.toLocalDate()
@@ -28,17 +27,13 @@ const mockedDate = mockedTime.toLocalDate()
 let page: Page
 let header: CitizenHeader
 let calendarPage: CitizenCalendarPage
-let children: PersonDetail[]
+let children: DevPerson[]
 
 beforeEach(async () => {
     await resetDatabaseForE2ETests()
-    await Fixture.person()
-        .with(enduserChildFixturePorriHatterRestricted)
-        .saveAndUpdateMockVtj()
-    await Fixture.child(enduserChildFixturePorriHatterRestricted.id)
-        .save()
-    await Fixture.daycare()
-        .with({
+    const child = await Fixture.person(testChildRestricted)
+      .saveChild({updateMockVtj: true})
+    const daycare = await Fixture.daycare({
             id: '4f3a32f5-d1bd-4b8b-aa4e-4fd78b18354b',
             areaId: '6529e31e-9777-11eb-ba88-33a923255570', // Etelä
             name: 'Alkuräjähdyksen päiväkoti',
@@ -72,28 +67,25 @@ beforeEach(async () => {
         })
         .save()
     children = [
-        enduserChildFixturePorriHatterRestricted
+        child
     ]
     await createDaycarePlacements({
         body: children.map((child) =>
           createDaycarePlacementFixture(
             uuidv4(),
             child.id,
-            daycareFixture.id,
+            daycare.id,
             mockedDate,
             mockedDate.addYears(1)
           )
         )
       }
     )
-    await Fixture.person()
-      .with(enduserGuardianFixture)
-      .withDependants(...children)
-      .saveAndUpdateMockVtj()
+    const adult = await Fixture.person(testAdult).saveAdult({updateMockVtjWithDependants: children})
 
     page = await Page.open({ mockedTime })
     await page.goto(config.enduserUrl)
-    await enduserLogin(page)
+    await enduserLogin(page, adult)
     header = new CitizenHeader(page)
     calendarPage = new CitizenCalendarPage(page, 'desktop')
     await header.selectTab('calendar')

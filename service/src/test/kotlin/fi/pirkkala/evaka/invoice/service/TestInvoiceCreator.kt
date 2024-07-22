@@ -121,7 +121,7 @@ fun validInvoice(): InvoiceDetailed {
         "2627",
         null,
         null,
-        "kuvaus3",
+        "",
         correctionId = null,
         note = null,
     )

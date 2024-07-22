@@ -581,7 +581,7 @@ const fi: DeepPartial<Translations> = {
           </>
         ),
         jurisdictionText:
-          'Hyvinvointijohtajan päätöksen 20.2.2024 § 5 mukaan varhaiskasvatusyksikön johtaja päättää varhaiskasvatuksessa lapsen tarvitsemasta tuesta ja tukimuodoista.'
+          'Hyvinvointijohtajan päätöksen 20.2.2024 § 5 mukaan varhaiskasvatusyksikön johtaja päättää varhaiskasvatuksessa lapsen tarvitsemasta tuesta ja tukimuodoista ja varhaiskasvatuksen aluejohtaja päättää varhaiskasvatuksessa lapsen tarvitsemasta tuesta ja tukimuodoista kunnallisen ja yksityisen palvelutuottajan tuottamassa varhaiskasvatuksessa olevien lasten osalta.'
       }
     },
     assistancePreschoolDecisions: {
@@ -719,7 +719,7 @@ const fi: DeepPartial<Translations> = {
           koon ja tulojen sekä varhaiskasvatusajan mukaan.
         </p>
         <p data-qa="income-description-p4">
-          <a href="https://kangasala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/">
+          <a href="https://www.kangasala.fi/varhaiskasvatus-ja-opetus/varhaiskasvatus/varhaiskasvatuksen-maksut-ja-tuet/">
             Lisätietoja asiakasmaksuista
           </a>
         </p>
@@ -893,8 +893,8 @@ const fi: DeepPartial<Translations> = {
         Saavutettavuuden valvonnan yksikkö
         <br />
         <ExternalLink
-          href="www.saavutettavuusvaatimukset.fi"
-          text="www.saavutettavuusvaatimukset.fi"
+          href="https://www.saavutettavuusvaatimukset.fi/"
+          text="https://www.saavutettavuusvaatimukset.fi/"
         />
         <br />
         <a href="mailto:saavutettavuus@avi.fi">saavutettavuus@avi.fi</a>

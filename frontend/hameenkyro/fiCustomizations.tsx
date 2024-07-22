@@ -685,7 +685,7 @@ const fi: DeepPartial<Translations> = {
         </>
       ),
       jurisdictionText:
-        'Kasvatus- ja opetuslautakunnan päätös 20.6.2023 § 11 (Kasvatus- ja opetuslautakunnan toimivallan siirto viranhaltijoille), jonka 4 §:n mukaan varhaiskasvatuksen palvelupäällikkö päättää esiopetuksessa annettavasta tuesta ja tukipalveluista.',
+        'Hämeenkyrön kunnan hallintosäännön 108 §:n mukaan varhaiskasvatuksen johtaja päättää esiopetuksessa annettavasta erityisestä tuesta ja tukipalveluista.',
       lawReference:
         'Laki viranomaisen toiminnan julkisuudesta 24 § 1 mom. 30 kohta'
     }
@@ -900,8 +900,8 @@ const fi: DeepPartial<Translations> = {
         Saavutettavuuden valvonnan yksikkö
         <br />
         <ExternalLink
-          href="www.saavutettavuusvaatimukset.fi"
-          text="www.saavutettavuusvaatimukset.fi"
+          href="https://www.saavutettavuusvaatimukset.fi/"
+          text="https://www.saavutettavuusvaatimukset.fi/"
         />
         <br />
         <a href="mailto:saavutettavuus@avi.fi">saavutettavuus@avi.fi</a>

@@ -18,7 +18,8 @@ class HameenkyroInvoiceIntegrationClient(
     override fun send(invoices: List<InvoiceDetailed>): SendResult {
         val failedList = mutableListOf<InvoiceDetailed>()
 
-        val generatorResult = invoiceGenerator.generateInvoice(invoices)
+        val (zeroSumInvoices, nonZeroSumInvoices) = invoices.partition { invoice -> invoice.totalPrice == 0 }
+        val generatorResult = invoiceGenerator.generateInvoice(nonZeroSumInvoices)
         val proEinvoices = generatorResult.invoiceString
         val successList = generatorResult.sendResult.succeeded
         val manuallySentList = generatorResult.sendResult.manuallySent
@@ -28,7 +29,7 @@ class HameenkyroInvoiceIntegrationClient(
             logger.info { "Successfully sent ${successList.size} invoices and created ${manuallySentList.size} manual invoice" }
         }
 
-        return SendResult(successList, failedList, manuallySentList)
+        return SendResult(successList + zeroSumInvoices, failedList, manuallySentList)
     }
 }
 

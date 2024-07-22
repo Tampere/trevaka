@@ -12,7 +12,7 @@ import { enduserLogin } from 'e2e-test/utils/user'
 import {
   resetDatabaseForE2ETests
 } from '../../common/tampere-dev-api'
-import { enduserChildFixturePorriHatterRestricted, enduserGuardianFixture, Fixture } from 'e2e-test/dev-api/fixtures'
+import { testChildRestricted, testAdult, Fixture } from 'e2e-test/dev-api/fixtures'
 
 const mockedTime = HelsinkiDateTime.of(2024, 4, 23, 7, 40)
 const mockedDate = mockedTime.toLocalDate()
@@ -23,16 +23,13 @@ let applicationsPage: CitizenApplicationsPage
 
 beforeEach(async () => {
   await resetDatabaseForE2ETests()
-  const child = await Fixture.person()
-    .with(enduserChildFixturePorriHatterRestricted)
-    .saveAndUpdateMockVtj()
-  await Fixture.person()
-    .with(enduserGuardianFixture)
-    .withDependants(child)
-    .saveAndUpdateMockVtj()
+  const child = await Fixture.person(testChildRestricted)
+    .saveChild({ updateMockVtj: true })
+  const adult = await Fixture.person(testAdult)
+    .saveAdult({ updateMockVtjWithDependants: [child] })
   page = await Page.open({ mockedTime })
   await page.goto(config.enduserUrl)
-  await enduserLogin(page)
+  await enduserLogin(page, adult)
   header = new CitizenHeader(page)
   applicationsPage = new CitizenApplicationsPage(page)
 })
@@ -48,7 +45,7 @@ describe('Citizen applications page', () => {
   test('Applications and ApplicationCreation customizations', async () => {
     await header.selectTab('applications')
     await waitUntilEqual(() => page.find('h1 + p').text, 'Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen, esiopetukseen ja kerhoon. Huoltajan lasten tiedot haetaan tähän näkymään automaattisesti Väestötietojärjestelmästä.')
-    await page.find(`[data-qa="new-application-${enduserChildFixturePorriHatterRestricted.id}"]`).click()
+    await page.find(`[data-qa="new-application-${testChildRestricted.id}"]`).click()
     // Check that all options are visible
     let applicationRadios = await page.findAll('[data-qa^="type-radio-"]')
     expect(await applicationRadios.count()).toBe(3)
@@ -77,17 +74,17 @@ describe('Citizen applications page', () => {
       `Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa siihen asti, kun hakemus otetaan asiakaspalvelussa käsittelyyn. Tämän jälkeen muutokset tai hakemuksen peruminen on mahdollista ottamalla yhteyttä ${customerContactText}`
     )
     await waitUntilEqual(
-      () => page.find('[data-qa="application-options-area"] p:last-of-type a:first-of-type').getAttribute( 'href'),
+      () => page.find('[data-qa="application-options-area"] p:last-of-type a:first-of-type').getAttribute('href'),
       customerContactEmailHref
     )
     await waitUntilEqual(
-      () => page.find('[data-qa="application-options-area"] p:last-of-type a:last-of-type').getAttribute( 'href'),
+      () => page.find('[data-qa="application-options-area"] p:last-of-type a:last-of-type').getAttribute('href'),
       customerContactTelHref
     )
   })
   test('Daycare application form customizations', async () => {
     await header.selectTab('applications')
-    let editorPage = await applicationsPage.createApplication(enduserChildFixturePorriHatterRestricted.id, 'DAYCARE')
+    let editorPage = await applicationsPage.createApplication(testChildRestricted.id, 'DAYCARE')
     await waitUntilEqual(
       () => page.find('[data-qa="application-child-name-title"] + p').text,
       'Varhaiskasvatuspaikkaa voi hakea ympäri vuoden. Varhaiskasvatushakemus tulee jättää viimeistään neljä kuukautta ennen hoidon toivottua alkamisajankohtaa. Mikäli varhaiskasvatuksen tarve johtuu työllistymisestä, opinnoista tai koulutuksesta, eikä hoidon tarpeen ajankohtaa ole pystynyt ennakoimaan, on varhaiskasvatuspaikkaa haettava mahdollisimman pian - kuitenkin viimeistään kaksi viikkoa ennen kuin lapsi tarvitsee hoitopaikan.'
@@ -148,8 +145,8 @@ describe('Citizen applications page', () => {
     // After changing to part time the first sub radio option should be selected
     await new Radio(partTimeOptions.first()).waitUntilChecked()
     await waitUntilEqual(
-        () => partTimeOptions.first().find('label').text,
-        'Osapäiväinen, max 20h viikossa'
+      () => partTimeOptions.first().find('label').text,
+      'Osapäiväinen, max 20h viikossa'
     )
     await waitUntilEqual(
       () => partTimeOptions.nth(1).find('label').text,
@@ -212,7 +209,7 @@ describe('Citizen applications page', () => {
     await waitUntilEqual(
       () => page.find('[data-qa="guardian-future-address-info-text"]').text,
       'Tampereen varhaiskasvatuksessa ja esiopetuksessa virallisena osoitteena pidetään väestötiedoista saatavaa osoitetta. Osoite väestötiedoissa muuttuu hakijan tehdessä muuttoilmoituksen postiin tai maistraattiin.'
-  )
+    )
     await editorPage.openSection('additionalDetails')
     const dietInfo = page.find('[data-qa="diet-expanding-info"]')
     await dietInfo.click()
@@ -227,7 +224,7 @@ describe('Citizen applications page', () => {
     // Click cancel and check text for an existing application
     await page.find('[data-qa="cancel-application-button"]').click()
     await header.selectTab('applications')
-    await page.find(`[data-qa="new-application-${enduserChildFixturePorriHatterRestricted.id}"]`).click()
+    await page.find(`[data-qa="new-application-${testChildRestricted.id}"]`).click()
     await page.find('[data-qa="type-radio-DAYCARE"]').click()
     await waitUntilEqual(
       () => page.find('[data-qa="duplicate-application-notification"]').text,
@@ -236,7 +233,7 @@ describe('Citizen applications page', () => {
   })
   test('Club application form customizations', async () => {
     await header.selectTab('applications')
-    let editorPage = await applicationsPage.createApplication(enduserChildFixturePorriHatterRestricted.id, 'CLUB')
+    let editorPage = await applicationsPage.createApplication(testChildRestricted.id, 'CLUB')
     await waitUntilEqual(
       () => page.find('[data-qa="application-child-name-title"] + p').text,
       'Kerhopaikkaa voi hakea ympäri vuoden. Kerhohakemuksella voi hakea kunnallista tai palvelusetelillä tuettua kerhopaikkaa. Kirjallinen ilmoitus kerhopaikasta lähetään Suomi.fi-viestit -palveluun. Mikäli haluatte ilmoituksen sähköisenä tiedoksiantona, teidän tulee ottaa Suomi.fi-viestit -palvelu käyttöön. Palvelusta ja sen käyttöönotosta saatte lisätietoa https://www.suomi.fi/viestit . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, ilmoitus kerhopaikasta lähetetään teille postitse. Paikka myönnetään yhdeksi toimintakaudeksi kerrallaan.'

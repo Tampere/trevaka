@@ -48,6 +48,7 @@ class PirkkalaConfig {
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
         archiveMetadataOrganization = "Pirkkalan kunnan varhaiskasvatus",
+        archiveMetadataConfigs = emptyMap(),
     )
 
     @Bean
