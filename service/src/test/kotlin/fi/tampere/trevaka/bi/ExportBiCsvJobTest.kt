@@ -49,12 +49,7 @@ import fi.espoo.evaka.vasu.CurriculumType
 import fi.espoo.evaka.vasu.VasuLanguage
 import fi.espoo.evaka.vasu.getDefaultVasuContent
 import fi.espoo.evaka.vasu.insertVasuTemplate
-import fi.tampere.trevaka.AbstractTampereIntegrationTest
-import fi.tampere.trevaka.BiExportProperties
-import fi.tampere.trevaka.BucketProperties
-import fi.tampere.trevaka.InvoiceProperties
-import fi.tampere.trevaka.SummertimeAbsenceProperties
-import fi.tampere.trevaka.TampereProperties
+import fi.tampere.trevaka.*
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -98,6 +93,7 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
             TampereProperties(
                 IpaasProperties("", ""),
                 InvoiceProperties(""),
+                PaymentProperties(""),
                 SummertimeAbsenceProperties(),
                 BucketProperties(
                     export = "trevaka-bi-export-it",
