@@ -53,6 +53,7 @@ import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import fi.tampere.trevaka.BiExportProperties
 import fi.tampere.trevaka.BucketProperties
 import fi.tampere.trevaka.InvoiceProperties
+import fi.tampere.trevaka.PaymentProperties
 import fi.tampere.trevaka.SummertimeAbsenceProperties
 import fi.tampere.trevaka.TampereProperties
 import org.junit.jupiter.api.AfterAll
@@ -98,6 +99,7 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
             TampereProperties(
                 IpaasProperties("", ""),
                 InvoiceProperties(""),
+                PaymentProperties(""),
                 SummertimeAbsenceProperties(),
                 BucketProperties(
                     export = "trevaka-bi-export-it",

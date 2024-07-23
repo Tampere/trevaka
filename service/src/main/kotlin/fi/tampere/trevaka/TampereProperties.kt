@@ -15,6 +15,7 @@ import java.time.Month
 data class TampereProperties(
     val ipaas: IpaasProperties,
     val invoice: InvoiceProperties,
+    val payment: PaymentProperties,
     val summertimeAbsence: SummertimeAbsenceProperties = SummertimeAbsenceProperties(),
     val bucket: BucketProperties,
     val biExport: BiExportProperties,
@@ -29,6 +30,10 @@ data class InvoiceProperties(
     val salesOrderType: String = "ZPH",
     val interfaceID: String = "352",
     val plant: String = "1310",
+)
+
+data class PaymentProperties(
+    val url: String,
 )
 
 data class SummertimeAbsenceProperties(

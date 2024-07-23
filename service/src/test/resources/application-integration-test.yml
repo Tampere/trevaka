@@ -62,6 +62,8 @@ tampere:
     password: pass
   invoice:
     url: http://localhost:${wiremock.server.port}/mock/ipaas/salesOrder
+  payment:
+    url: http://localhost:${wiremock.server.port}/mock/ipaas/payableAccounting
   bucket:
     export: trevaka-export-it
   bi-export:

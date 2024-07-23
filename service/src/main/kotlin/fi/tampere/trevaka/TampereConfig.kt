@@ -18,19 +18,33 @@ import fi.tampere.trevaka.bi.BiExportClient
 import fi.tampere.trevaka.bi.BiExportJob
 import fi.tampere.trevaka.bi.FileBiExportS3Client
 import fi.tampere.trevaka.export.ExportUnitsAclService
+import fi.tampere.trevaka.invoice.config.HTTP_CLIENT_INVOICE
+import fi.tampere.trevaka.payment.TamperePaymentClient
 import fi.tampere.trevaka.security.TampereActionRuleMapping
 import io.opentelemetry.api.trace.Tracer
+import org.apache.hc.client5.http.classic.HttpClient
 import org.jdbi.v3.core.Jdbi
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Profile
 import org.springframework.core.env.Environment
+import org.springframework.oxm.jaxb.Jaxb2Marshaller
+import org.springframework.ws.client.core.WebServiceTemplate
+import org.springframework.ws.soap.SoapVersion
+import org.springframework.ws.soap.saaj.SaajSoapMessageFactory
+import org.springframework.ws.transport.http.HttpComponents5MessageSender
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3AsyncClient
 import trevaka.titania.TrimStartTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
+
+const val WEB_SERVICE_TEMPLATE_PAYMENT = "webServiceTemplatePayment"
+internal val PAYMENT_SOAP_PACKAGES = arrayOf(
+    "generated",
+)
 
 @Configuration
 @Import(TampereAsyncJobRegistration::class)
@@ -45,7 +59,7 @@ class TampereConfig {
         freeAbsenceGivesADailyRefund = false,
         alwaysUseDaycareFinanceDecisionHandler = true,
         invoiceNumberSeriesStart = 5000000000, // previously hardcoded value in use
-        paymentNumberSeriesStart = null, // Payments-feature not currently used in Tampere
+        paymentNumberSeriesStart = 1,
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,
         useContractDaysAsDailyFeeDivisor = true,
@@ -103,8 +117,27 @@ class TampereConfig {
     fun tampereBiJob(biExportClient: BiExportClient): BiExportJob = BiExportJob(biExportClient)
 
     @Bean
-    fun paymentIntegrationClient(): PaymentIntegrationClient =
-        PaymentIntegrationClient.FailingClient()
+    fun paymentIntegrationClient(
+        @Qualifier(WEB_SERVICE_TEMPLATE_PAYMENT) webServiceTemplate: WebServiceTemplate,
+        properties: TampereProperties,
+    ): PaymentIntegrationClient = TamperePaymentClient(webServiceTemplate, properties.payment)
+
+    @Bean(WEB_SERVICE_TEMPLATE_PAYMENT)
+    fun webServiceTemplate(@Qualifier(HTTP_CLIENT_INVOICE) httpClient: HttpClient): WebServiceTemplate {
+        val messageFactory = SaajSoapMessageFactory().apply {
+            setSoapVersion(SoapVersion.SOAP_12)
+            afterPropertiesSet()
+        }
+        val marshaller = Jaxb2Marshaller().apply {
+            setPackagesToScan(*PAYMENT_SOAP_PACKAGES)
+            afterPropertiesSet()
+        }
+        return WebServiceTemplate(messageFactory).apply {
+            this.marshaller = marshaller
+            unmarshaller = marshaller
+            setMessageSender(HttpComponents5MessageSender(httpClient))
+        }
+    }
 
     @Bean fun actionRuleMapping(): ActionRuleMapping = TampereActionRuleMapping()
 
