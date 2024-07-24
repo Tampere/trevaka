@@ -620,7 +620,6 @@ const customizations: EmployeeCustomizations = {
     'PRESCHOOL',
     'PRESCHOOL_DAYCARE',
     'PRESCHOOL_DAYCARE_ONLY',
-    'PRESCHOOL_CLUB',
     'CLUB',
     'SCHOOL_SHIFT_CARE'
   ],
