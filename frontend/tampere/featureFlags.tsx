@@ -17,6 +17,7 @@ type Features = {
 }
 
 const prod: FeatureFlags = {
+  environmentLabel: null,
   citizenShiftCareAbsence: false,
   daycareApplication: {
     dailyTimes: false,
@@ -48,12 +49,14 @@ const prod: FeatureFlags = {
 const features: Features = {
   default: {
     ...prod,
+    environmentLabel: 'Test',
     voucherUnitPayments: true,
     discussionReservations: true,
     automaticFixedScheduleAbsences: true
   },
   staging: {
-    ...prod
+    ...prod,
+    environmentLabel: 'Staging'
   },
   prod
 }

@@ -5,6 +5,7 @@
 import { FeatureFlags } from 'lib-customizations/types'
 
 const featureFlags: FeatureFlags = {
+  environmentLabel: null,
   citizenShiftCareAbsence: false,
   daycareApplication: {
     dailyTimes: false,
