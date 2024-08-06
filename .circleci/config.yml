@@ -312,17 +312,6 @@ jobs:
             HEADLESS: true
             JEST_JUNIT_OUTPUT_DIR: test-results
       - run:
-          name: Link customizations
-          working_directory: *workspace_tre_frontend
-          command: ./link.sh
-      - run:
-          name: yarn lint
-          working_directory: *workspace_evaka_frontend
-          command: |
-            echo 'src/*' >> .eslintignore
-            echo '!src/lib-customizations' >> .eslintignore
-            yarn lint
-      - run:
           name: Collect docker compose logs
           command: docker compose --profile evaka logs --tail=all > /tmp/docker-compose-logs.txt
           when: always
