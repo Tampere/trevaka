@@ -43,7 +43,7 @@ const prod: FeatureFlags = {
   voucherUnitPayments: false,
   assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
-  automaticFixedScheduleAbsences: false
+  automaticFixedScheduleAbsences: true
 }
 
 const features: Features = {
@@ -51,8 +51,7 @@ const features: Features = {
     ...prod,
     environmentLabel: 'Test',
     voucherUnitPayments: true,
-    discussionReservations: true,
-    automaticFixedScheduleAbsences: true
+    discussionReservations: true
   },
   staging: {
     ...prod,
