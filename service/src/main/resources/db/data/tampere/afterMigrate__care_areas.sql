@@ -16,6 +16,6 @@ UPDATE SET
     short_name = EXCLUDED.short_name
 WHERE
     care_area.name <> EXCLUDED.name OR
-    care_area.area_code <> EXCLUDED.area_code OR
-    care_area.sub_cost_center <> EXCLUDED.sub_cost_center OR
+    care_area.area_code IS DISTINCT FROM EXCLUDED.area_code OR
+    care_area.sub_cost_center IS DISTINCT FROM EXCLUDED.sub_cost_center OR
     care_area.short_name <> EXCLUDED.short_name;
