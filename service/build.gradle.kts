@@ -28,7 +28,7 @@ dependencies {
 
     implementation("evaka:evaka-service")
 
-    implementation("ch.qos.logback:logback-access")
+    implementation("ch.qos.logback.access:tomcat")
     implementation("io.github.microutils:kotlin-logging-jvm")
     implementation("net.logstash.logback:logstash-logback-encoder")
     implementation("org.unbescape:unbescape:1.1.6.RELEASE")
