@@ -53,6 +53,10 @@ Files: service/src/test/resources/invoice-client/*.xml
 Copyright: 2021 City of Tampere
 License: LGPL-2.1-or-later
 
+Files: service/src/test/resources/payment-client/*.xml
+Copyright: 2023-2024 Tampere region
+License: LGPL-2.1-or-later
+
 Files: */gradlew*
 Copyright: 2007-2020 The original author or authors <info@gradle.com>
 License: Apache-2.0

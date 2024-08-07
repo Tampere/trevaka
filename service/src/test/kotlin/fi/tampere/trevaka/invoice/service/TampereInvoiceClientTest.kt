@@ -17,11 +17,7 @@ import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.InvoiceId
 import fi.espoo.evaka.shared.InvoiceRowId
 import fi.espoo.evaka.shared.PersonId
-import fi.tampere.trevaka.BiExportProperties
-import fi.tampere.trevaka.BucketProperties
-import fi.tampere.trevaka.InvoiceProperties
-import fi.tampere.trevaka.SummertimeAbsenceProperties
-import fi.tampere.trevaka.TampereProperties
+import fi.tampere.trevaka.*
 import fi.tampere.trevaka.invoice.config.InvoiceConfiguration
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.catchThrowable
@@ -48,6 +44,7 @@ internal class TampereInvoiceClientTest {
         val properties = TampereProperties(
             IpaasProperties("user", "pass"),
             InvoiceProperties("http://localhost:8080/salesOrder"),
+            PaymentProperties(""),
             SummertimeAbsenceProperties(),
             BucketProperties(
                 export = "trevaka-export-it",

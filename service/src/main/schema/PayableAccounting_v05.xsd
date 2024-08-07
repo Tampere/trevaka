@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="PayableAccounting">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Invoice"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Invoice">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PayableAccountingHeader"/>
+        <xs:element maxOccurs="unbounded" ref="PayableAccountingLine"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PayableAccountingHeader">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="SAPVendor"/>
+        <xs:sequence minOccurs="0">
+          <xs:element ref="IBAN"/>
+          <xs:element ref="BIC"/>
+          <xs:element ref="Customer"/>
+        </xs:sequence>
+        <xs:element ref="Organisation"/>
+        <xs:element ref="Date"/>
+        <xs:element minOccurs="0" ref="Year"/>
+        <xs:element ref="ReceiptType"/>
+        <xs:element ref="DebetKredit"/>
+        <xs:sequence minOccurs="0">
+          <xs:element ref="Reference"/>
+          <xs:element ref="Currency"/>
+          <xs:element ref="Description"/>
+        </xs:sequence>
+        <xs:element ref="BillingDate"/>
+        <xs:element ref="BillNumber"/>
+        <xs:element ref="BillValue"/>
+        <xs:sequence minOccurs="0">
+          <xs:element ref="PaymentReference"/>
+          <xs:element ref="PaymentCondition"/>
+          <xs:element ref="SourceReference"/>
+        </xs:sequence>
+        <xs:element ref="BasicDate"/>
+        <xs:element ref="InterfaceID"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SAPVendor" type="xs:NCName"/>
+  <xs:element name="IBAN" type="xs:NCName"/>
+  <xs:element name="BIC" type="xs:NCName"/>
+  <xs:element name="Customer" type="xs:NMTOKEN"/>
+  <xs:element name="Organisation" type="xs:integer"/>
+  <xs:element name="Date" type="xs:NMTOKEN"/>
+  <xs:element name="Year" type="xs:integer"/>
+  <xs:element name="ReceiptType" type="xs:NMTOKEN"/>
+  <xs:element name="Reference" type="xs:integer"/>
+  <xs:element name="Currency" type="xs:NCName"/>
+  <xs:element name="BillingDate" type="xs:NMTOKEN"/>
+  <xs:element name="BillNumber" type="xs:integer"/>
+  <xs:element name="BillValue" type="xs:decimal"/>
+  <xs:element name="PaymentReference" type="xs:NCName"/>
+  <xs:element name="PaymentCondition" type="xs:NCName"/>
+  <xs:element name="SourceReference" type="xs:string"/>
+  <xs:element name="BasicDate" type="xs:NMTOKEN"/>
+  <xs:element name="InterfaceID" type="xs:NCName"/>
+  <xs:element name="PayableAccountingLine">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="Description"/>
+        <xs:element ref="Account"/>
+        <xs:sequence minOccurs="0">
+          <xs:element ref="CostCenter"/>
+          <xs:element ref="ProfitCenter"/>
+          <xs:element ref="InternalOrder"/>
+        </xs:sequence>
+        <xs:element minOccurs="0" ref="NetWork"/>
+        <xs:sequence minOccurs="0">
+          <xs:element ref="TransactionType"/>
+          <xs:element ref="TaxCode"/>
+          <xs:element ref="PartnerCode"/>
+          <xs:element ref="FunctionalArea"/>
+        </xs:sequence>
+        <xs:element ref="DebetKredit"/>
+        <xs:element ref="Value"/>
+        <xs:sequence minOccurs="0">
+          <xs:element ref="ReferenceLine"/>
+          <xs:element ref="WBS_element"/>
+          <xs:element ref="SubOrganisation"/>
+        </xs:sequence>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Account" type="xs:NMTOKEN"/>
+  <xs:element name="CostCenter" type="xs:string"/>
+  <xs:element name="ProfitCenter" type="xs:string"/>
+  <xs:element name="InternalOrder" type="xs:string"/>
+  <xs:element name="NetWork">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Number"/>
+        <xs:element ref="Phase"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Number" type="xs:NMTOKEN"/>
+  <xs:element name="Phase" type="xs:NCName"/>
+  <xs:element name="TransactionType" type="xs:NCName"/>
+  <xs:element name="TaxCode" type="xs:NCName"/>
+  <xs:element name="PartnerCode" type="xs:integer"/>
+  <xs:element name="FunctionalArea" type="xs:NCName"/>
+  <xs:element name="Value" type="xs:decimal"/>
+  <xs:element name="ReferenceLine" type="xs:string"/>
+  <xs:element name="WBS_element" type="xs:string"/>
+  <xs:element name="SubOrganisation" type="xs:string"/>
+  <xs:element name="DebetKredit" type="xs:string"/>
+  <xs:element name="Description" type="xs:string"/>
+</xs:schema>
