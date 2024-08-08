@@ -98,28 +98,12 @@ class PirkkalaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
-        Action.AssistanceNeedDecision.DECIDE,
-        Action.AssistanceNeedDecision.MARK_AS_OPENED,
-        -> {
-            @Suppress("UNCHECKED_CAST")
-            action.defaultRules.asSequence() + sequenceOf(
-                HasUnitRole(UserRole.UNIT_SUPERVISOR).andIsDecisionMakerForAssistanceNeedDecision() as ScopedActionRule<in T>,
-            )
-        }
         Action.AssistanceNeedDecision.READ,
         Action.AssistanceNeedDecision.READ_DECISION_MAKER_OPTIONS,
         -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
-            )
-        }
-        Action.AssistanceNeedDecision.READ_IN_REPORT -> {
-            @Suppress("UNCHECKED_CAST")
-            action.defaultRules.asSequence() + sequenceOf(
-                HasUnitRole(UserRole.UNIT_SUPERVISOR).inUnit() as ScopedActionRule<in T>,
-            ) + sequenceOf(
-                HasUnitRole(UserRole.SPECIAL_EDUCATION_TEACHER).inPlacementUnitOfChildOfAssistanceNeedDecision(hidePastAssistance = false) as ScopedActionRule<in T>,
             )
         }
         Action.Attachment.READ_APPLICATION_ATTACHMENT,
