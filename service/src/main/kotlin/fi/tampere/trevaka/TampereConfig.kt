@@ -5,7 +5,6 @@
 package fi.tampere.trevaka
 
 import fi.espoo.evaka.BucketEnv
-import fi.espoo.evaka.EvakaEnv
 import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.mealintegration.DefaultMealTypeMapper
@@ -28,6 +27,7 @@ import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Profile
 import org.springframework.core.env.Environment
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider
+import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3AsyncClient
 import trevaka.titania.TrimStartTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
@@ -67,12 +67,10 @@ class TampereConfig {
     @Bean
     @Profile("production")
     fun productionS3AsyncClient(
-        evakaEnv: EvakaEnv,
         bucketEnv: BucketEnv,
         credentialsProvider: AwsCredentialsProvider,
     ): S3AsyncClient {
         return S3AsyncClient.crtBuilder()
-            .region(evakaEnv.awsRegion)
             .credentialsProvider(credentialsProvider)
             .build()
     }
@@ -80,12 +78,11 @@ class TampereConfig {
     @Bean
     @Profile("local")
     fun localS3AsyncClient(
-        evakaEnv: EvakaEnv,
         bucketEnv: BucketEnv,
         credentialsProvider: AwsCredentialsProvider,
     ): S3AsyncClient {
         return S3AsyncClient.crtBuilder()
-            .region(evakaEnv.awsRegion)
+            .region(Region.EU_WEST_1)
             .credentialsProvider(credentialsProvider)
             .build()
     }

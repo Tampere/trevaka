@@ -6,12 +6,12 @@ package trevaka
 
 import com.auth0.jwt.algorithms.Algorithm
 import fi.espoo.evaka.BucketEnv
-import fi.espoo.evaka.EvakaEnv
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Profile
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider
+import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3AsyncClient
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.S3Configuration
@@ -24,10 +24,10 @@ import java.security.interfaces.RSAPublicKey
 class IntegrationTestConfiguration {
 
     @Bean
-    fun s3Client(evakaEnv: EvakaEnv, bucketEnv: BucketEnv): S3Client {
+    fun s3Client(bucketEnv: BucketEnv): S3Client {
         val client =
             S3Client.builder()
-                .region(evakaEnv.awsRegion)
+                .region(Region.EU_WEST_1)
                 .serviceConfiguration(
                     S3Configuration.builder().pathStyleAccessEnabled(true).build(),
                 )
@@ -44,9 +44,9 @@ class IntegrationTestConfiguration {
 
     @Bean
     @Profile("tampere_evaka")
-    fun testS3AsyncClient(evakaEnv: EvakaEnv, bucketEnv: BucketEnv): S3AsyncClient {
+    fun testS3AsyncClient(bucketEnv: BucketEnv): S3AsyncClient {
         return S3AsyncClient.crtBuilder()
-            .region(evakaEnv.awsRegion)
+            .region(Region.EU_WEST_1)
             .forcePathStyle(true)
             .endpointOverride(bucketEnv.s3MockUrl)
             .checksumValidationEnabled(false)
@@ -57,9 +57,9 @@ class IntegrationTestConfiguration {
     }
 
     @Bean
-    fun s3Presigner(evakaEnv: EvakaEnv, bucketEnv: BucketEnv): S3Presigner =
+    fun s3Presigner(bucketEnv: BucketEnv): S3Presigner =
         S3Presigner.builder()
-            .region(evakaEnv.awsRegion)
+            .region(Region.EU_WEST_1)
             .serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build())
             .endpointOverride(bucketEnv.s3MockUrl)
             .credentialsProvider(
