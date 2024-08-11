@@ -30,8 +30,6 @@ logging:
         awssdk:
           request: DEBUG
 evaka:
-  aws:
-    region: eu-west-1
   database:
     url: jdbc:postgresql://localhost:5432/evaka_${trevaka.municipality}_local
   email:

@@ -4,8 +4,6 @@
 
 # see AbstractIntegrationTest for dynamic properties
 evaka:
-  aws:
-    region: eu-west-1
   bucket:
     data: trevaka-data-it
     attachments: trevaka-attachments-it
