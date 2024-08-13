@@ -47,5 +47,5 @@
       "<rootDir>/node_modules/"
     ]
   },
-  "packageManager": "yarn@4.1.1"
+  "packageManager": "yarn@4.4.0"
 }
