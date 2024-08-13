@@ -42,14 +42,13 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         invoiceData.setAlphanumericValue(InvoiceFieldName.HEADER_ROW_CODE, "L")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CLIENT_GROUP, "10")
         val clientName = invoiceDetailed.headOfFamily.lastName + " " + invoiceDetailed.headOfFamily.firstName
-        // CLIENT_NAME1 and CLIENT_NAME2 are 50 characters wide, but Intime only reads the first 30(!)
         invoiceData.setAlphanumericValue(
             InvoiceFieldName.CLIENT_NAME1,
-            clientName.substring(0, Math.min(30, clientName.length)),
+            clientName.substring(0, Math.min(50, clientName.length)),
         )
         invoiceData.setAlphanumericValue(
             InvoiceFieldName.CLIENT_NAME2,
-            if (clientName.length > 30) clientName.substring(30, Math.min(60, clientName.length)) else "",
+            if (clientName.length > 50) clientName.substring(50, Math.min(100, clientName.length)) else "",
         )
         invoiceData.setAlphanumericValue(InvoiceFieldName.STREET_ADDRESS, invoiceDetailed.headOfFamily.streetAddress)
         invoiceData.setAlphanumericValue(
