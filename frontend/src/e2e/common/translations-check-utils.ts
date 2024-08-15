@@ -18,8 +18,7 @@ const unwantedTexts: UnwantedText[] = [
         valueCheck: (value) => new RegExp('espoo').test(value)
     },
     {
-        valueCheck: (value) => new RegExp('liittyvä').test(value)
-            && !new RegExp('liittyvä[ät]? (?!varhais)').test(value)
+        valueCheck: (value) => new RegExp('liittyvä\\p{Letter}* varhais', 'u').test(value)
     }
 ]
 
