@@ -34,10 +34,6 @@ enum class BiTable(val fileName: String, val query: BiQueries.CsvQuery) {
     CurriculumDocument("curriculum_document", BiQueries.getCurriculumDocuments),
     CurriculumDocumentEvent("curriculum_document_event", BiQueries.getCurriculumDocumentEvents),
     CurriculumTemplate("curriculum_template", BiQueries.getCurriculumTemplates),
-    DailyServiceTimeNotification(
-        "daily_service_time_notification",
-        BiQueries.getDailyServiceTimeNotifications,
-    ),
     Daycare("daycare", BiQueries.getDaycares),
     DaycareAssistance("daycare_assistance", BiQueries.getDaycareAssistances),
     DaycareCaretaker("daycare_caretaker", BiQueries.getDaycareCaretakers),

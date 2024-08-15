@@ -331,14 +331,6 @@ data class BiCurriculumTemplate(
     val content: String,
 )
 
-data class BiDailyServiceTimeNotification(
-    val id: UUID,
-    val guardian_id: UUID,
-    val daily_service_time_id: UUID,
-    val date_from: LocalDate,
-    val has_deleted_reservations: Boolean,
-)
-
 data class BiDaycare(
     val id: UUID,
     val name: String,
