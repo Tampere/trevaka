@@ -496,6 +496,7 @@ const fi: DeepPartial<Translations> = {
     },
     assistanceDecisions: {
       decision: {
+        unitMayChange: '',
         appealInstructions: (
           <>
             <H3>Oikaisuvaatimusoikeus</H3>

@@ -175,6 +175,11 @@ const customizations: EmployeeCustomizations = {
           }
         },
         assistanceNeedDecision: {
+          structuralMotivationInfo:
+            'Valitse lapsen tarvitsemat rakenteellisen tuen muodot. Jos lapsi on integroidussa varhaiskasvatusryhmässä, valitse "Pienryhmä" ja kirjoita tuen muotojen kuvaukseen, että lapsi on integroidussa varhaiskasvatusryhmässä. Perustele, miksi lapsi saa näitä tuen muotoja.',
+          careMotivationInfo:
+            'Kirjaa tähän lapsen mahdollisesti tarvitsemat yksilölliset hoidollisen tuen muodot, esim. menetelmät lapsen hoitoon, hoivaan ja avustamiseen huomioiden pitkäaikaissairauksien hoito, erityinen ruokavalio (esim. turvaruoka ravitsemusterapeutin suosituksesta), liikkuminen ja näihin liittyvät, varhaiskasvatukseen osallistumisen kannalta tarpeelliset apuvälineet. Kirjaa tähän vain sellaiset apuvälineet, jotka varhaiskasvatus omistaa tai hankkii. Perustele, miksi lapsi saa näitä tuen muotoja.',
+          unitMayChange: '',
           appealInstructions: (
             <>
               <H3>Oikaisuvaatimusoikeus</H3>
