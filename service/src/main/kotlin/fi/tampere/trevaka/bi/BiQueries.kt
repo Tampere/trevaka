@@ -198,16 +198,6 @@ object BiQueries {
             )
         }
 
-    val getDailyServiceTimeNotifications =
-        csvQuery<BiDailyServiceTimeNotification> {
-            sql(
-                """
-            select id, guardian_id, daily_service_time_id, date_from, has_deleted_reservations
-            FROM daily_service_time_notification
-        """,
-            )
-        }
-
     val getDaycares =
         csvQuery<BiDaycare> {
             sql(
