@@ -603,8 +603,7 @@ const en: DeepPartial<Translations> = {
         accessibility standards.
       </P>
       <P>
-        The accessibility of the service was assessed by the development team of
-        the service, and this statement was drawn up on 12 April 2024.
+        This statement was drawn up on 1 August 2024.
       </P>
       <H2>Compliance of the service</H2>
       <P>
@@ -670,20 +669,12 @@ const en: DeepPartial<Translations> = {
       </ul>
       <H2>Alternative ways of accessing the service</H2>
       <P>
-        <ExternalLink
-          href="https://orivesi.fi/asukkaalle/kasvatus-ja-opetuspalvelut/varhaiskasvatus/"
-          text="Early childhood and pre-primary education customer service"
-        />
+        <strong>Varhaiskasvatuspäällikkö Sari Koivisto</strong>
       </P>
-      <H2>Give feedback</H2>
       <P>
-        If you notice an accessibility gap in our online service, please let us
-        know! You can give us feedback using the{' '}
-        <ExternalLink
-          href="https://orivesi.fi/kaupunkimme/osallistu-ja-vaikuta/anna-palautetta-ja-vastaa-kyselyihin/"
-          text="Give accessibility feedback with this web form"
-        />
+        <a href="mailto:sari.koivisto@orivesi.fi">sari.koivisto@orivesi.fi</a>
       </P>
+      <P>tel. 050 522 6246</P>
       <H2>Supervisory authority</H2>
       <P>
         If you notice any accessibility issues on the website, please send us,
