@@ -253,10 +253,10 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
 
         val rowsPerChild = invoiceData.getChildRowMap()
         rowsPerChild.forEach { row ->
-            result += generateRow(childHeaderRowFields, row.value[0])
             row.value.forEach { data ->
-                result += generateRow(rowHeaderRowFields, data)
                 result += generateRow(detailRowFields, data)
+                result += generateRow(childHeaderRowFields, row.value[0])
+                result += generateRow(rowHeaderRowFields, data)
             }
         }
 
