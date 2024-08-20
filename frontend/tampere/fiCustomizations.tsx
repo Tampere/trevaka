@@ -550,7 +550,7 @@ const fi: DeepPartial<Translations> = {
               <br />
               <ExternalLink
                 href="https://www.suomi.fi/palvelut/oppilas-ja-opiskelija-asioita-seka-varhaiskasvatuksen-tukiasioita-koskeva-oikaisuvaatimus-aluehallintovirasto/ee86d56c-1717-4993-b772-8dde0df57b69"
-                text="Oppilas- ja opiskelija-asioita sekä varhaiskasvatuksen tukiasioita koskeva oikaisuvaatimus - Suomi.fi"
+                text="https://www.suomi.fi/palvelut/oppilas-ja-opiskelija-asioita-seka-varhaiskasvatuksen-tukiasioita-koskeva-oikaisuvaatimus-aluehallintovirasto/ee86d56c-1717-4993-b772-8dde0df57b69"
                 newTab
               />
             </P>
@@ -656,7 +656,7 @@ const fi: DeepPartial<Translations> = {
             <br />
             <ExternalLink
               href="https://www.suomi.fi/palvelut/oppilas-ja-opiskelija-asioita-seka-varhaiskasvatuksen-tukiasioita-koskeva-oikaisuvaatimus-aluehallintovirasto/ee86d56c-1717-4993-b772-8dde0df57b69"
-              text="Oppilas- ja opiskelija-asioita sekä varhaiskasvatuksen tukiasioita koskeva oikaisuvaatimus - Suomi.fi"
+              text="https://www.suomi.fi/palvelut/oppilas-ja-opiskelija-asioita-seka-varhaiskasvatuksen-tukiasioita-koskeva-oikaisuvaatimus-aluehallintovirasto/ee86d56c-1717-4993-b772-8dde0df57b69"
               newTab
             />
           </P>
