@@ -481,7 +481,7 @@ const customizations: EmployeeCustomizations = {
             </>
           ),
           jurisdictionText:
-            'Kasvatus- ja opetuslautakunnan päätös 20.6.2023 § 11 (Kasvatus- ja opetuslautakunnan toimivallan siirto viranhaltijoille), jonka 4 §:n mukaan varhaiskasvatuksen palvelupäällikkö päättää esiopetuksessa annettavasta tuesta ja tukipalveluista.',
+            'Delegointipäätös pohjautuu Kasvatus- ja opetuslautakunnan toimivallan siirtämiseen viranhaltijoille 17.4.2024 § 44: Varhaiskasvatuksen aluejohtaja päättää esiopetuksessa annettavasta tuesta ja tukipalveluista (perusopetuslaki 16 §, 16 a § ja 17 §).',
           lawReference:
             'Laki viranomaisen toiminnan julkisuudesta 24 § 1 mom. 30 kohta'
         },
