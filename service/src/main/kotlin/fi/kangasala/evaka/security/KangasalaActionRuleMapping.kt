@@ -161,7 +161,6 @@ class KangasalaActionRuleMapping : ActionRuleMapping {
         Action.Child.READ_PLACEMENT,
         Action.Child.READ_GUARDIANS,
         Action.Child.READ_FEE_ALTERATIONS,
-        Action.Child.READ_CHILD_RECIPIENTS,
         -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
