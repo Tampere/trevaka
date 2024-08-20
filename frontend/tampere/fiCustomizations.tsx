@@ -544,6 +544,16 @@ const fi: DeepPartial<Translations> = {
                 newTab
               />
             </P>
+            <P>
+              Sähköinen lomake oikaisuvaatimuksen tekoa varten on saatavilla
+              aluehallintoviraston asiointipalvelussa:
+              <br />
+              <ExternalLink
+                href="https://www.suomi.fi/palvelut/oppilas-ja-opiskelija-asioita-seka-varhaiskasvatuksen-tukiasioita-koskeva-oikaisuvaatimus-aluehallintovirasto/ee86d56c-1717-4993-b772-8dde0df57b69"
+                text="https://www.suomi.fi/palvelut/oppilas-ja-opiskelija-asioita-seka-varhaiskasvatuksen-tukiasioita-koskeva-oikaisuvaatimus-aluehallintovirasto/ee86d56c-1717-4993-b772-8dde0df57b69"
+                newTab
+              />
+            </P>
             <H3>Oikaisuvaatimuksen muoto ja sisältö</H3>
             <P>
               Oikaisuvaatimus on tehtävä kirjallisesti. Myös sähköinen asiakirja
@@ -637,6 +647,16 @@ const fi: DeepPartial<Translations> = {
             <ExternalLink
               href="mailto:kirjaamo.lansi@avi.fi"
               text="kirjaamo.lansi@avi.fi"
+              newTab
+            />
+          </P>
+          <P>
+            Sähköinen lomake oikaisuvaatimuksen tekoa varten on saatavilla
+            aluehallintoviraston asiointipalvelussa:
+            <br />
+            <ExternalLink
+              href="https://www.suomi.fi/palvelut/oppilas-ja-opiskelija-asioita-seka-varhaiskasvatuksen-tukiasioita-koskeva-oikaisuvaatimus-aluehallintovirasto/ee86d56c-1717-4993-b772-8dde0df57b69"
+              text="https://www.suomi.fi/palvelut/oppilas-ja-opiskelija-asioita-seka-varhaiskasvatuksen-tukiasioita-koskeva-oikaisuvaatimus-aluehallintovirasto/ee86d56c-1717-4993-b772-8dde0df57b69"
               newTab
             />
           </P>
