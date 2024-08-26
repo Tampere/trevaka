@@ -19,6 +19,12 @@ updates:
     ignore:
       - dependency-name: "node"
         update-types: ["version-update:semver-major"]
+  - package-ecosystem: "docker"
+    directory: "/compose"
+    schedule:
+      interval: "daily"
+      time: "10:00"
+      timezone: "Europe/Helsinki"
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:
