@@ -31,7 +31,7 @@ dependencies {
     implementation("ch.qos.logback.access:tomcat")
     implementation("io.github.microutils:kotlin-logging-jvm")
     implementation("net.logstash.logback:logstash-logback-encoder")
-    implementation("org.unbescape:unbescape:1.1.6.RELEASE")
+    implementation("org.thymeleaf:thymeleaf")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-web-services")
@@ -58,7 +58,6 @@ dependencies {
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
     testImplementation("org.reflections:reflections:0.10.2")
     testImplementation("com.auth0:java-jwt")
-    testImplementation("org.thymeleaf:thymeleaf")
 }
 
 springBoot {
