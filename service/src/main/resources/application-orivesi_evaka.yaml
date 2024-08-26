@@ -7,8 +7,8 @@ evaka:
     flyway:
       locations: db/migration,db/data/orivesi
   oph:
-    organizer_oid: "1.2.246.562.10.95000650123"
-    organizer_id: "todo"
+    organizer_oid: "1.2.246.562.10.74499914872"
+    organizer_id: "246"
     municipality_code: "562"
   integration:
     sfi:

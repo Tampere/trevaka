@@ -5,12 +5,12 @@
 package fi.orivesi.evaka
 
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
-import fi.espoo.evaka.mealintegration.DefaultMealTypeMapper
 import fi.espoo.evaka.mealintegration.MealTypeMapper
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
+import fi.orivesi.evaka.mealintegration.OrivesiMealTypeMapper
 import fi.orivesi.evaka.security.OrivesiActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -70,5 +70,5 @@ class OrivesiConfig {
     fun basicAuthCustomizer(properties: OrivesiProperties) = dvvModificationRequestCustomizer(properties.ipaas)
 
     @Bean
-    fun mealTypeMapper(): MealTypeMapper = DefaultMealTypeMapper
+    fun mealTypeMapper(): MealTypeMapper = OrivesiMealTypeMapper()
 }
