@@ -29,7 +29,9 @@ services:
       retries: 5
 
   s3:
-    image: adobe/s3mock:3.7.2
+    build:
+      context: ./compose
+      dockerfile: s3mock.Dockerfile
     ports:
       - "9090:9090"
       - "9876:9191" # for core tests
@@ -182,7 +184,9 @@ services:
       - auth
 
   smtp:
-    image: mailhog/mailhog
+    build:
+      context: ./compose
+      dockerfile: mailhog.Dockerfile
     ports:
       - "1025:1025" # smtp
       - "8025:8025" # http
