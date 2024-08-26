@@ -31,7 +31,7 @@ dependencies {
     implementation("ch.qos.logback.access:tomcat")
     implementation("io.github.microutils:kotlin-logging-jvm")
     implementation("net.logstash.logback:logstash-logback-encoder")
-    implementation("org.unbescape:unbescape:1.1.6.RELEASE")
+    implementation("org.thymeleaf:thymeleaf")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-web-services")
@@ -42,7 +42,7 @@ dependencies {
     implementation("org.jdbi:jdbi3-core")
     implementation("org.jdbi:jdbi3-kotlin")
     implementation("software.amazon.awssdk:s3")
-    implementation("software.amazon.awssdk.crt:aws-crt:0.30.4")
+    implementation("software.amazon.awssdk:http-auth-aws-crt")
     implementation("io.opentracing:opentracing-util")
     implementation("com.github.kagkarlsson:db-scheduler")
     implementation("com.fasterxml.jackson.core:jackson-core")
@@ -58,7 +58,6 @@ dependencies {
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
     testImplementation("org.reflections:reflections:0.10.2")
     testImplementation("com.auth0:java-jwt")
-    testImplementation("org.thymeleaf:thymeleaf")
 }
 
 springBoot {
