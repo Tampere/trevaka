@@ -56,15 +56,14 @@ services:
     ports:
       - "9099:8080"
     environment:
+      # evaka/frontend/proxy/*
       RESOLVER: "127.0.0.11 ipv6=off"
       ENDUSER_GW_URL: "http://apigw:3000"
       INTERNAL_GW_URL: "http://apigw:3000"
       RATE_LIMIT_CIDR_WHITELIST: "0.0.0.0/0;::/0"
       HTTP_SCHEME: "http"
       KEYCLOAK_URL: "http://auth:8080"
-      FORM_ACTION_URL: ""
-    # Enable for debug logging
-    # command: [nginx-debug, '-g', 'daemon off;']
+      FORM_ACTION_URL: "http://localhost:8081/identification/idp/profile/SAML2/POST/SSO"
     depends_on:
       - apigw
     profiles:
@@ -84,26 +83,21 @@ services:
     env_file:
       - .env
     environment:
+      # evaka/apigw/entrypoint.sh
       VOLTTI_ENV: local
+      # evaka/apigw/package.json
       NODE_ENV: local
-      HTTP_PORT: 3000
+      # local profile overrides for docker environment
       EVAKA_SERVICE_URL: ${EVAKA_SERVICE_URL}
-      COOKIE_SECRET: cookie_secret
       REDIS_HOST: ${EVAKA_REDIS_HOST}
-      REDIS_PORT: ${EVAKA_REDIS_PORT}
-      REDIS_DISABLE_SECURITY: "true"
-      JWT_PRIVATE_KEY: /home/evaka/test-cert/jwt_private_key.pem
-      EVAKA_CUSTOMER_SAML_ENTRYPOINT: http://localhost:8080/auth/realms/citizens/protocol/saml
+      # ecosystem.config.js
+      EVAKA_TITANIA_USERNAME: titania
+      EVAKA_TITANIA_PASSWORD: titania
+      EVAKA_CUSTOMER_SAML_ENTRYPOINT: http://localhost:9099/auth/realms/citizens/protocol/saml
       EVAKA_CUSTOMER_SAML_ISSUER: trevaka
-      EVAKA_CUSTOMER_SAML_PUBLIC_CERT: /home/evaka/test-cert/keycloak-local.pem
-      EVAKA_CUSTOMER_SAML_PRIVATE_CERT: /home/evaka/test-cert/saml-private.pem
-      EVAKA_SAML_ENTRYPOINT: http://localhost:8080/auth/realms/employees/protocol/saml
+      EVAKA_SAML_ENTRYPOINT: http://localhost:9099/auth/realms/employees/protocol/saml
       EVAKA_SAML_ISSUER: trevaka
-      EVAKA_SAML_PUBLIC_CERT: /home/evaka/test-cert/keycloak-local.pem
-      EVAKA_SAML_PRIVATE_CERT: /home/evaka/test-cert/saml-private.pem
       AD_SAML_EXTERNAL_ID_PREFIX: tampere-ad
-      ENABLE_DEV_API: "true"
-      PRETTY_LOGS: "false"
     profiles:
       - evaka
 
@@ -122,34 +116,17 @@ services:
     env_file:
       - .env
     environment:
+      # service/entrypoint.sh
       VOLTTI_ENV: local
-      SPRING_PROFILES_ACTIVE: local,trevaka-local,${EVAKA_CUSTOMIZATIONS}_evaka
-      SPRING_PROFILES_INCLUDE: enable_dev_api,enable_mock_integration_endpoint
       JAVA_OPTS: -server -Djava.security.egd=file:/dev/./urandom -Xms1024m -Xss512k -Xmx1024m -XX:TieredStopAtLevel=1
-      FLYWAY_USERNAME: ${EVAKA_SERVICE_FLYWAY_USERNAME}
-      FLYWAY_PASSWORD: ${EVAKA_SERVICE_FLYWAY_PASSWORD}
-      FLYWAY_PLACEHOLDERS_MIGRATION_USER: ${EVAKA_SERVICE_FLYWAY_USERNAME}
-      FLYWAY_PLACEHOLDERS_APPLICATION_USER: ${EVAKA_SERVICE_APPLICATION_USERNAME}
-      SPRING_DATASOURCE_URL: jdbc:postgresql://${EVAKA_DATABASE_HOST}:${EVAKA_DATABASE_PORT}/evaka_${EVAKA_CUSTOMIZATIONS}_local
-      SPRING_DATASOURCE_USERNAME: ${EVAKA_SERVICE_APPLICATION_USERNAME}
-      SPRING_DATASOURCE_PASSWORD: ${EVAKA_SERVICE_APPLICATION_PASSWORD}
-      SPRING_MAIN_BANNER_MODE: "off"
-      # DEBUG: "true"
-      # LOGGING_LEVEL_FI_ESPOO_EVAKA: DEBUG
-      FI_ESPOO_VOLTTI_DOCUMENT_BUCKET_CLUBDECISION: evaka-clubdecisions-dev
-      FI_ESPOO_VOLTTI_DOCUMENT_BUCKET_DAYCAREDECISION: evaka-daycaredecisions-dev
-      FI_ESPOO_VOLTTI_DOCUMENT_BUCKET_PAYMENTDECISION: evaka-paymentdecisions-dev
-      FI_ESPOO_VOLTTI_S3MOCK_URL: ${S3MOCK_URL}
-      FI_ESPOO_INTEGRATION_INVOICE_ENABLED: "false"
-      FI_ESPOO_EVAKA_MESSAGE_ENABLED: "false"
-      FI_ESPOO_INTEGRATION_VARDA_URL: "http://localhost:8888/mock-integration/varda/api"
-      FI_ESPOO_INTEGRATION_BASIC_AUTH: ""
-      FI_ESPOO_VARDA_FORCE_SYNC: "false"
-      FI_ESPOO_VARDA_ORGANIZER: "Tampere"
-      FI_ESPOO_INTEGRATION_KOSKI_URL: ""
-      FI_ESPOO_INTEGRATION_KOSKI_USER: ""
-      FI_ESPOO_INTEGRATION_KOSKI_SECRET: ""
-      FI_ESPOO_INTEGRATION_KOSKI_SOURCE_SYSTEM: ""
+      # service/build.gradle.kts
+      SPRING_PROFILES_INCLUDE: local,trevaka-local
+      # local profile overrides for docker environment
+      EVAKA_DATABASE_URL: jdbc:postgresql://${EVAKA_DATABASE_HOST}:5432/evaka_${EVAKA_CUSTOMIZATIONS}_local
+      EVAKA_S3MOCK_URL: ${S3MOCK_URL}
+      EVAKA_BUCKET_PROXY_THROUGH_NGINX: true
+      # ecosystem.config.js
+      SPRING_PROFILES_ACTIVE: ${EVAKA_CUSTOMIZATIONS}_evaka
     restart: unless-stopped
     profiles:
       - evaka
