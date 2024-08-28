@@ -19,7 +19,7 @@ import fi.tampere.trevaka.bi.BiExportJob
 import fi.tampere.trevaka.bi.FileBiExportS3Client
 import fi.tampere.trevaka.export.ExportUnitsAclService
 import fi.tampere.trevaka.security.TampereActionRuleMapping
-import io.opentracing.Tracer
+import io.opentelemetry.api.trace.Tracer
 import org.jdbi.v3.core.Jdbi
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

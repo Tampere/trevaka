@@ -6,9 +6,9 @@ package trevaka
 
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.dev.runDevScript
+import fi.espoo.evaka.shared.noopTracer
 import fi.espoo.evaka.vtjclient.service.persondetails.MockPersonDetailsService
 import fi.tampere.trevaka.database.resetTampereDatabaseForE2ETests
-import io.opentracing.noop.NoopTracerFactory
 import org.jdbi.v3.core.Jdbi
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -36,7 +36,7 @@ abstract class AbstractIntegrationTest {
 
     @BeforeAll
     protected fun initializeJdbi() {
-        db = Database(jdbi, NoopTracerFactory.create()).connectWithManualLifecycle()
+        db = Database(jdbi, noopTracer()).connectWithManualLifecycle()
         db.transaction { tx -> tx.runDevScript("reset-tampere-database-for-e2e-tests.sql") }
     }
 
