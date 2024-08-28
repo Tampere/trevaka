@@ -43,7 +43,7 @@ dependencies {
     implementation("org.jdbi:jdbi3-kotlin")
     implementation("software.amazon.awssdk:s3")
     implementation("software.amazon.awssdk:http-auth-aws-crt")
-    implementation("io.opentracing:opentracing-util")
+    implementation("io.opentelemetry:opentelemetry-api")
     implementation("com.github.kagkarlsson:db-scheduler")
     implementation("com.fasterxml.jackson.core:jackson-core")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv")
