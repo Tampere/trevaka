@@ -6,7 +6,9 @@ package fi.orivesi.evaka.emailclient.config
 
 import fi.espoo.evaka.daycare.domain.Language
 import fi.espoo.evaka.emailclient.CalendarEventNotificationData
+import fi.espoo.evaka.emailclient.DiscussionSurveyCreationNotificationData
 import fi.espoo.evaka.emailclient.DiscussionSurveyReservationNotificationData
+import fi.espoo.evaka.emailclient.DiscussionTimeReminderData
 import fi.espoo.evaka.emailclient.EmailContent
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
 import fi.espoo.evaka.invoicing.domain.FinanceDecisionType
@@ -480,12 +482,20 @@ $unsubscribeEn
             "Uusi keskusteluaika varattu eVakassa / New discussion time reserved in eVaka",
             html =
             """
-<p>Uusi keskusteluaika varattu / New discussion time reserved</p>
-<p>${notificationDetails.unitName}: ${notificationDetails.title}</p>
+<p>Lapsellenne on varattu keskusteluaika</p>
+<p>${notificationDetails.title}</p>
+<p>${notificationDetails.childName}</p>
 <p>${notificationDetails.calendarEventTime.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))}</p>
 <p>${notificationDetails.calendarEventTime.startTime.format(DateTimeFormatter.ofPattern("HH:mm"))} - ${notificationDetails.calendarEventTime.endTime.format(DateTimeFormatter.ofPattern("HH:mm"))}</p>
-<hr>
+<p>Varauksen voi peruuttaa 2 arkipäivää ennen varattua aikaa suoraan eVakan kalenterinäkymästä. Myöhempää peruutusta varten ota yhteyttä henkilökuntaan.</p>
 $unsubscribeFi
+<hr>
+<p>New discussion time reserved for your child</p>
+<p>${notificationDetails.title}</p>
+<p>${notificationDetails.childName}</p>
+<p>${notificationDetails.calendarEventTime.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))}</p>
+<p>${notificationDetails.calendarEventTime.startTime.format(DateTimeFormatter.ofPattern("HH:mm"))} - ${notificationDetails.calendarEventTime.endTime.format(DateTimeFormatter.ofPattern("HH:mm"))}</p>
+<p>Reservation can be cancelled 2 business days before the reserved time using the eVaka calendar view. For later cancellations contact the daycare staff.</p>
 $unsubscribeEn
 <hr>
             """
@@ -502,12 +512,80 @@ $unsubscribeEn
             "Keskusteluaika peruttu eVakassa / Discussion time cancelled in eVaka",
             html =
             """
-<p>Varattu keskusteluaika peruttu / Reserved discussion time cancelled</p>
-<p>${notificationDetails.unitName}: ${notificationDetails.title}</p>
+<p>Lapsellenne varattu keskusteluaika on peruttu</p>
+<p>${notificationDetails.title}</p>
+<p>${notificationDetails.childName}</p>
 <p>${notificationDetails.calendarEventTime.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))}</p>
 <p>${notificationDetails.calendarEventTime.startTime.format(DateTimeFormatter.ofPattern("HH:mm"))} - ${notificationDetails.calendarEventTime.endTime.format(DateTimeFormatter.ofPattern("HH:mm"))}</p>
-<hr>
 $unsubscribeFi
+<hr>
+<p>Discussion time reserved for your child has been cancelled</p>
+<p>${notificationDetails.title}</p>
+<p>${notificationDetails.childName}</p>
+<p>${notificationDetails.calendarEventTime.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))}</p>
+<p>${notificationDetails.calendarEventTime.startTime.format(DateTimeFormatter.ofPattern("HH:mm"))} - ${notificationDetails.calendarEventTime.endTime.format(DateTimeFormatter.ofPattern("HH:mm"))}</p>
+$unsubscribeEn
+<hr>
+            """
+                .trimIndent(),
+        )
+    }
+
+    override fun discussionSurveyCreationNotification(
+        language: Language,
+        notificationDetails: DiscussionSurveyCreationNotificationData,
+    ): EmailContent {
+        return EmailContent.fromHtml(
+            subject =
+            "Varaa keskusteluaika varhaiskasvatukseen / Reserve a discussion time for early childhood education",
+            html =
+            """
+<p>${notificationDetails.eventTitle}</p>
+<p>${notificationDetails.eventDescription}</p>
+<p>Ajan voi varata eVakan kalenterinäkymästä</p>
+$unsubscribeFi
+<hr>
+<p>${notificationDetails.eventTitle}</p>
+<p>${notificationDetails.eventDescription}</p>
+<p>You can reserve a time using eVaka calendar view</p>
+$unsubscribeEn
+<hr>
+            """
+                .trimIndent(),
+        )
+    }
+
+    override fun discussionTimeReservationReminder(
+        language: Language,
+        reminderData: DiscussionTimeReminderData,
+    ): EmailContent {
+        return EmailContent.fromHtml(
+            subject =
+            "Muistutus tulevasta keskusteluajasta / Reminder for an upcoming discussion time",
+            html =
+            """
+<p>Lapsellenne on varattu keskusteluaika</p>
+<p>${reminderData.title}</p>
+<p>${reminderData.firstName} ${reminderData.lastName}</p>
+<p>${reminderData.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))}</p>
+<p>${reminderData.startTime.format(DateTimeFormatter.ofPattern("HH:mm"))} - ${
+                reminderData.endTime.format(
+                    DateTimeFormatter.ofPattern("HH:mm"),
+                )
+            }</p>
+<p>Varauksen voi peruuttaa 2 arkipäivää ennen varattua aikaa suoraan eVakan kalenterinäkymästä. Myöhempää peruutusta varten ota yhteyttä henkilökuntaan.</p>
+$unsubscribeFi
+<hr>
+<p>New discussion time reserved for your child</p>
+<p>${reminderData.title}</p>
+<p>${reminderData.firstName} ${reminderData.lastName}</p>
+<p>${reminderData.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))}</p>
+<p>${reminderData.startTime.format(DateTimeFormatter.ofPattern("HH:mm"))} - ${
+                reminderData.endTime.format(
+                    DateTimeFormatter.ofPattern("HH:mm"),
+                )
+            }</p>
+<p>Reservation can be cancelled 2 business days before the reserved time using the eVaka calendar view. For later cancellations contact the daycare staff.</p>
 $unsubscribeEn
 <hr>
             """
