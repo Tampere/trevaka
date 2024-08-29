@@ -99,7 +99,7 @@ describe('Citizen attendance reservations', () => {
         await dayView.createAbsence()
         await waitUntilEqual(
             () => page.find('[data-qa="title"]').text,
-            'Ilmoita poissaolo'
+            'Ilmoita poissaoloja'
         )
         let absenceChips = await page.findAll('[data-qa^="absence-"]')
         expect(await absenceChips.count()).toBe(2)
