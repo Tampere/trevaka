@@ -43,7 +43,9 @@ import trevaka.tomcat.tomcatAccessLoggingCustomizer
 
 const val WEB_SERVICE_TEMPLATE_PAYMENT = "webServiceTemplatePayment"
 internal val PAYMENT_SOAP_PACKAGES = arrayOf(
-    "generated",
+    "fi.tampere.messages.ipaas.commontypes.v1",
+    "fi.tampere.messages.sapfico.payableaccounting.v05",
+    "fi.tampere.services.sapfico.payableaccounting.v1",
 )
 
 @Configuration

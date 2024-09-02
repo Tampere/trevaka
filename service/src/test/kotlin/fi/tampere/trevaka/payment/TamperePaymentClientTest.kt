@@ -69,7 +69,7 @@ class TamperePaymentClientTest {
         val payment2 = testPayment
         server.expect(connectionTo("http://localhost:8080/payableAccounting"))
             .andExpect(payload(ClassPathResource("payment-client/payable-accounting.xml")))
-            .andRespond(withPayload(ClassPathResource("payment-client/payable-accounting.xml")))
+            .andRespond(withPayload(ClassPathResource("payment-client/payable-accounting-response-ok.xml")))
 
         val result = client.send(listOf(payment1, payment2), tx)
 

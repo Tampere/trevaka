@@ -24,7 +24,7 @@ class TamperePaymentClientIT : AbstractTampereIntegrationTest() {
                 aResponse()
                     .withStatus(200)
                     .withHeader("Content-Type", "application/soap+xml")
-                    .withBodyFile("payment-client/payable-accounting.xml"),
+                    .withBodyFile("payment-client/payable-accounting-response-ok.xml"),
             ),
         )
 

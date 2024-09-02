@@ -9,11 +9,13 @@ import fi.espoo.evaka.invoicing.domain.Payment
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.shared.db.Database
 import fi.tampere.messages.ipaas.commontypes.v1.FaultType
+import fi.tampere.messages.ipaas.commontypes.v1.SimpleAcknowledgementResponseType
+import fi.tampere.messages.sapfico.payableaccounting.v05.Invoice
+import fi.tampere.messages.sapfico.payableaccounting.v05.PayableAccounting
+import fi.tampere.messages.sapfico.payableaccounting.v05.PayableAccountingHeader
+import fi.tampere.messages.sapfico.payableaccounting.v05.PayableAccountingLine
+import fi.tampere.services.sapfico.payableaccounting.v1.SendPayableAccountingRequest
 import fi.tampere.trevaka.PaymentProperties
-import generated.Invoice
-import generated.PayableAccounting
-import generated.PayableAccountingHeader
-import generated.PayableAccountingLine
 import jakarta.xml.bind.JAXBIntrospector
 import mu.KotlinLogging
 import org.springframework.ws.client.core.WebServiceTemplate
@@ -32,13 +34,16 @@ class TamperePaymentClient(
 ) : PaymentIntegrationClient {
     override fun send(payments: List<Payment>, tx: Database.Read): PaymentIntegrationClient.SendResult {
         try {
-            val payableAccounting = PayableAccounting().apply { invoice.addAll(payments.map(::toInvoice)) }
+            val request = SendPayableAccountingRequest().apply {
+                payableAccounting = PayableAccounting().apply { invoice.addAll(payments.map(::toInvoice)) }
+            }
             val response = webServiceTemplate.marshalSendAndReceive(
                 properties.url,
-                payableAccounting,
+                request,
                 SoapActionCallback("http://www.tampere.fi/services/sapfico/payableaccounting/v1.0/SendPayableAccounting"),
             )
             when (val value = JAXBIntrospector.getValue(response)) {
+                is SimpleAcknowledgementResponseType -> logger.info("Payment batch ended with status ${value.statusMessage}")
                 else -> logger.warn("Unknown response in payment: $value")
             }
         } catch (e: SoapFaultClientException) {
