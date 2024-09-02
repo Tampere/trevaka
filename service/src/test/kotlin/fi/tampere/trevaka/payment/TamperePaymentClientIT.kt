@@ -37,7 +37,7 @@ class TamperePaymentClientIT : AbstractTampereIntegrationTest() {
                 .withBasicAuth(BasicCredentials("user", "pass"))
                 .withHeader(
                     "Content-Type",
-                    equalTo("application/soap+xml; charset=utf-8"),
+                    equalTo("application/soap+xml; charset=utf-8; action=\"http://www.tampere.fi/services/sapfico/payableaccounting/v1.0/SendPayableAccounting\""),
                 )
                 .withoutHeader("SOAPAction"),
         )

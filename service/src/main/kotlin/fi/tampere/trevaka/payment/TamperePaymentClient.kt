@@ -18,6 +18,7 @@ import jakarta.xml.bind.JAXBIntrospector
 import mu.KotlinLogging
 import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.client.SoapFaultClientException
+import org.springframework.ws.soap.client.core.SoapActionCallback
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.LocalDate
@@ -32,7 +33,11 @@ class TamperePaymentClient(
     override fun send(payments: List<Payment>, tx: Database.Read): PaymentIntegrationClient.SendResult {
         try {
             val payableAccounting = PayableAccounting().apply { invoice.addAll(payments.map(::toInvoice)) }
-            val response = webServiceTemplate.marshalSendAndReceive(properties.url, payableAccounting)
+            val response = webServiceTemplate.marshalSendAndReceive(
+                properties.url,
+                payableAccounting,
+                SoapActionCallback("http://www.tampere.fi/services/sapfico/payableaccounting/v1.0/SendPayableAccounting"),
+            )
             when (val value = JAXBIntrospector.getValue(response)) {
                 else -> logger.warn("Unknown response in payment: $value")
             }
