@@ -8,11 +8,12 @@ import fi.espoo.evaka.daycare.domain.Language
 import fi.espoo.evaka.emailclient.CalendarEventNotificationData
 import fi.espoo.evaka.emailclient.EmailContent
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
+import fi.espoo.evaka.emailclient.MessageThreadData
 import fi.espoo.evaka.invoicing.domain.FinanceDecisionType
 import fi.espoo.evaka.invoicing.service.IncomeNotificationType
-import fi.espoo.evaka.messaging.MessageThreadStub
 import fi.espoo.evaka.messaging.MessageType
 import fi.espoo.evaka.shared.ChildId
+import fi.espoo.evaka.shared.HtmlSafe
 import fi.espoo.evaka.shared.MessageThreadId
 import fi.espoo.evaka.shared.domain.FiniteDateRange
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
@@ -78,10 +79,10 @@ internal class EmailMessageProviderTest : AbstractTampereIntegrationTest() {
             "messageNotification",
             emailMessageProvider.messageNotification(
                 Language.fi,
-                MessageThreadStub(
+                MessageThreadData(
                     id = MessageThreadId(UUID.randomUUID()),
                     type = MessageType.MESSAGE,
-                    title = "Ensi viikolla uimaan",
+                    title = HtmlSafe("Ensi viikolla uimaan"),
                     urgent = false,
                     sensitive = false,
                     isCopy = false,
@@ -117,8 +118,8 @@ internal class EmailMessageProviderTest : AbstractTampereIntegrationTest() {
             emailMessageProvider.calendarEventNotification(
                 Language.fi,
                 listOf(
-                    CalendarEventNotificationData("Tapahtuma 1", FiniteDateRange(LocalDate.of(2023, 8, 21), LocalDate.of(2023, 8, 21))),
-                    CalendarEventNotificationData("Tapahtuma 2", FiniteDateRange(LocalDate.of(2023, 8, 22), LocalDate.of(2023, 8, 23))),
+                    CalendarEventNotificationData(HtmlSafe("Tapahtuma 1"), FiniteDateRange(LocalDate.of(2023, 8, 21), LocalDate.of(2023, 8, 21))),
+                    CalendarEventNotificationData(HtmlSafe("Tapahtuma 2"), FiniteDateRange(LocalDate.of(2023, 8, 22), LocalDate.of(2023, 8, 23))),
                 ),
             ),
         ),
