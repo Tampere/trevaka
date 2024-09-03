@@ -20,6 +20,7 @@ import fi.espoo.evaka.shared.PersonId
 import fi.tampere.trevaka.BiExportProperties
 import fi.tampere.trevaka.BucketProperties
 import fi.tampere.trevaka.InvoiceProperties
+import fi.tampere.trevaka.PaymentProperties
 import fi.tampere.trevaka.SummertimeAbsenceProperties
 import fi.tampere.trevaka.TampereProperties
 import fi.tampere.trevaka.invoice.config.InvoiceConfiguration
@@ -48,6 +49,7 @@ internal class TampereInvoiceClientTest {
         val properties = TampereProperties(
             IpaasProperties("user", "pass"),
             InvoiceProperties("http://localhost:8080/salesOrder"),
+            PaymentProperties(""),
             SummertimeAbsenceProperties(),
             BucketProperties(
                 export = "trevaka-export-it",
