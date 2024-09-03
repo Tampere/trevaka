@@ -87,7 +87,7 @@ internal val testPayment = Payment(
         id = DaycareId(UUID.randomUUID()),
         name = "Esimerkkiyksikkö",
         businessId = "1234567-9",
-        iban = "FIxxxxxxxxxxxx",
+        iban = "FIxx xxxx xxxx xx",
         providerId = "81591",
         careType = setOf(CareType.CENTRE),
     ),

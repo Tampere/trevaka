@@ -60,19 +60,22 @@ class TamperePaymentClient(
         val value = payment.amount.centsToEuros()
         return Invoice().apply {
             payableAccountingHeader = PayableAccountingHeader().apply {
-                sapVendor = payment.unit.providerId
-                iban = payment.unit.iban
+                sapVendor = "_${payment.unit.providerId}" // TODO: remove prefix
+                iban = payment.unit.iban?.filterNot { it.isWhitespace() }
+                bic = "_" // TODO: remove
                 customer = payment.unit.businessId
                 organisation = 1310.toBigInteger()
                 date = payment.period.end?.format()
                 receiptType = "6F"
                 debetKredit = "-"
-                description = "Varhaiskasvatus"
+                /**
+                 * TODO: description = "Varhaiskasvatus" (reference & currency must also be set)
+                 */
                 billingDate = payment.paymentDate?.format()
                 billNumber = payment.number?.toBigInteger()
                 billValue = value
                 basicDate = payment.dueDate?.format()
-                interfaceID = "383"
+                interfaceID = "_383" // TODO: remove prefix
             }
             payableAccountingLine.add(
                 PayableAccountingLine().apply {
@@ -85,7 +88,9 @@ class TamperePaymentClient(
                             else -> "20285"
                         }
                     }
-                    taxCode = "29"
+                    /**
+                     * TODO: taxCode = "29" (transactionType, partnerCode & functionalArea must also be set)
+                     */
                     debetKredit = "+"
                     this.value = value
                 },
