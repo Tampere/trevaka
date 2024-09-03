@@ -11,9 +11,9 @@ import fi.espoo.evaka.emailclient.DiscussionSurveyReservationNotificationData
 import fi.espoo.evaka.emailclient.DiscussionTimeReminderData
 import fi.espoo.evaka.emailclient.EmailContent
 import fi.espoo.evaka.emailclient.IEmailMessageProvider
+import fi.espoo.evaka.emailclient.MessageThreadData
 import fi.espoo.evaka.invoicing.domain.FinanceDecisionType
 import fi.espoo.evaka.invoicing.service.IncomeNotificationType
-import fi.espoo.evaka.messaging.MessageThreadStub
 import fi.espoo.evaka.messaging.MessageType
 import fi.espoo.evaka.shared.ChildId
 import fi.espoo.evaka.shared.domain.FiniteDateRange
@@ -190,7 +190,7 @@ $unsubscribeEn
         )
     }
 
-    override fun messageNotification(language: Language, thread: MessageThreadStub): EmailContent {
+    override fun messageNotification(language: Language, thread: MessageThreadData): EmailContent {
         val (typeFi, typeEn) =
             when (thread.type) {
                 MessageType.MESSAGE ->
