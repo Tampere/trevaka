@@ -31,17 +31,19 @@ class TamperePaymentClient(
     private val properties: PaymentProperties,
 ) : PaymentIntegrationClient {
     override fun send(payments: List<Payment>, tx: Database.Read): PaymentIntegrationClient.SendResult {
-        val request = SendPayableAccountingRequest().apply {
-            payableAccounting = PayableAccounting().apply { invoice.addAll(payments.map(::toInvoice)) }
-        }
-        val response = webServiceTemplate.marshalSendAndReceive(
-            properties.url,
-            request,
-            SoapActionCallback("http://www.tampere.fi/services/sapfico/payableaccounting/v1.0/SendPayableAccounting"),
-        )
-        when (val value = JAXBIntrospector.getValue(response)) {
-            is SimpleAcknowledgementResponseType -> logger.info("Payment batch ended with status ${value.statusMessage}")
-            else -> logger.warn("Unknown response in payment: $value")
+        if (payments.isNotEmpty()) {
+            val request = SendPayableAccountingRequest().apply {
+                payableAccounting = PayableAccounting().apply { invoice.addAll(payments.map(::toInvoice)) }
+            }
+            val response = webServiceTemplate.marshalSendAndReceive(
+                properties.url,
+                request,
+                SoapActionCallback("http://www.tampere.fi/services/sapfico/payableaccounting/v1.0/SendPayableAccounting"),
+            )
+            when (val value = JAXBIntrospector.getValue(response)) {
+                is SimpleAcknowledgementResponseType -> logger.info("Payment batch ended with status ${value.statusMessage}")
+                else -> logger.warn("Unknown response in payment: $value")
+            }
         }
         return PaymentIntegrationClient.SendResult(succeeded = payments)
     }
