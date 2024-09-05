@@ -8,7 +8,6 @@ import fi.espoo.evaka.daycare.CareType
 import fi.espoo.evaka.invoicing.domain.Payment
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.shared.db.Database
-import fi.tampere.messages.ipaas.commontypes.v1.FaultType
 import fi.tampere.messages.ipaas.commontypes.v1.SimpleAcknowledgementResponseType
 import fi.tampere.messages.sapfico.payableaccounting.v05.Invoice
 import fi.tampere.messages.sapfico.payableaccounting.v05.PayableAccounting
@@ -19,7 +18,6 @@ import fi.tampere.trevaka.PaymentProperties
 import jakarta.xml.bind.JAXBIntrospector
 import mu.KotlinLogging
 import org.springframework.ws.client.core.WebServiceTemplate
-import org.springframework.ws.soap.client.SoapFaultClientException
 import org.springframework.ws.soap.client.core.SoapActionCallback
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -33,7 +31,7 @@ class TamperePaymentClient(
     private val properties: PaymentProperties,
 ) : PaymentIntegrationClient {
     override fun send(payments: List<Payment>, tx: Database.Read): PaymentIntegrationClient.SendResult {
-        try {
+        if (payments.isNotEmpty()) {
             val request = SendPayableAccountingRequest().apply {
                 payableAccounting = PayableAccounting().apply { invoice.addAll(payments.map(::toInvoice)) }
             }
@@ -46,12 +44,6 @@ class TamperePaymentClient(
                 is SimpleAcknowledgementResponseType -> logger.info("Payment batch ended with status ${value.statusMessage}")
                 else -> logger.warn("Unknown response in payment: $value")
             }
-        } catch (e: SoapFaultClientException) {
-            when (val faultDetail = unmarshalFaultDetail(e)) {
-                is FaultType -> logger.error("Fault in payment: ${faultDetail.errorCode}. Message: ${faultDetail.errorMessage}. Details: ${faultDetail.detailMessage}")
-                else -> logger.error("Unknown fault in payment: $faultDetail", e)
-            }
-            throw e
         }
         return PaymentIntegrationClient.SendResult(succeeded = payments)
     }
@@ -95,19 +87,6 @@ class TamperePaymentClient(
                     this.value = value
                 },
             )
-        }
-    }
-
-    private fun unmarshalFaultDetail(exception: SoapFaultClientException): Any? {
-        return try {
-            val detailEntries = exception.soapFault?.faultDetail?.detailEntries
-            when (detailEntries?.hasNext()) {
-                true -> webServiceTemplate.unmarshaller.unmarshal(detailEntries.next().source)
-                else -> null
-            }
-        } catch (e: Exception) {
-            logger.error("Unable to unmarshal fault detail", e)
-            null
         }
     }
 }

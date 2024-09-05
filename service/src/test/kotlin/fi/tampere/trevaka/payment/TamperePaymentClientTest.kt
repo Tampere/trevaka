@@ -77,6 +77,16 @@ class TamperePaymentClientTest {
             .returns(listOf(payment1, payment2)) { it.succeeded }
             .returns(emptyList()) { it.failed }
     }
+
+    @Test
+    fun `send with zero payments`() {
+        val result = client.send(emptyList(), tx)
+
+        assertThat(result)
+            .returns(emptyList()) { it.succeeded }
+            .returns(emptyList()) { it.failed }
+        server.verify()
+    }
 }
 
 internal val testPayment = Payment(
