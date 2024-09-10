@@ -5,7 +5,8 @@
 version: 2.1
 
 orbs:
-  aws-cli: circleci/aws-cli@4.1.3
+  aws-cli: circleci/aws-cli@5.1.0
+  aws-ecr: circleci/aws-ecr@9.3.2
 
 aliases:
   - &workspace_root /home/circleci/repo
@@ -58,9 +59,9 @@ commands:
           configure_default_region: false
           configure_profile_region: false
           role_arn: "arn:aws:iam::${AWS_ACCOUNT_ID}:role/${AWS_ROLE_NAME_CIRCLECI_UPLOAD}"
-      - run:
-          name: Log into Amazon ECR
-          command: aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+      - aws-ecr/ecr_login:
+          account_id: ${AWS_ACCOUNT_ID}
+          region: ${AWS_REGION}
 
   frontend_install:
     parameters:
