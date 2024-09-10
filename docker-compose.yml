@@ -63,7 +63,7 @@ services:
       RATE_LIMIT_CIDR_WHITELIST: "0.0.0.0/0;::/0"
       HTTP_SCHEME: "http"
       KEYCLOAK_URL: "http://auth:8080"
-      FORM_ACTION_URL: "http://localhost:8081/identification/idp/profile/SAML2/POST/SSO"
+      FORM_ACTION_URL: "http://localhost:8081/identification/idp/profile/SAML2/POST/SSO http://localhost:8081/identification/idp/profile/SAML2/POST/SLO"
     depends_on:
       - apigw
     profiles:
