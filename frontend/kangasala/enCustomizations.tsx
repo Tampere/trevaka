@@ -390,11 +390,7 @@ const en: DeepPartial<Translations> = {
   },
   children: {
     pageDescription:
-      "General information related to your children's early childhood education is displayed on this page.",
-    vasu: {
-      sharingLeopsDisclaimer:
-        "When a child changes to another early childhood education unit in the City of Kangasala, the early childhood education plan and other early childhood education documents are transferred to the new unit (also applies to early childhood education organized by Kangasala as a purchasing service). The guardian will be informed about the transfer in advance. We ask the guardian for permission to hand over the early childhood education plan to an outsider. However, if a child enters private or other municipality's early childhood education, the early childhood education plan must be submitted to the new early childhood education provider even without permission, if the information is necessary for arranging the child's early childhood education (section 41 (3) of the Early Childhood Education Act). In addition, the early childhood education plan must be submitted to the organizer of pre-primary or primary education if it is necessary for the organization of the child's education (section 41 (4) of the Basic Education Act). The guardian will be informed of the transfer in advance."
-    }
+      "General information related to your children's early childhood education is displayed on this page."
   },
   footer: {
     cityLabel: '© City of Kangasala',

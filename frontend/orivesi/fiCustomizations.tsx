@@ -374,11 +374,7 @@ const fi: DeepPartial<Translations> = {
   },
   children: {
     pageDescription:
-      'Tällä sivulla näet lastesi varhaiskasvatukseen liittyvät yleiset tiedot.',
-    vasu: {
-      sharingVasuDisclaimer:
-        'Lapsen vaihtaessa toiseen Oriveden kaupungin varhaiskasvatusyksikköön varhaiskasvatussuunnitelma ja muut varhaiskasvatuksen asiakirjat siirretään uuteen yksikköön (koskee myös Oriveden ostopalveluna järjestämää varhaiskasvatusta). Siirrosta informoidaan huoltajaa etukäteen. Varhaiskasvatussuunnitelman luovuttamiseen ulkopuoliselle pyydämme huoltajalta luvan. Mikäli lapsi siirtyy yksityiseen tai toisen kunnan varhaiskasvatukseen, on varhaiskasvatussuunnitelma kuitenkin toimitettava uudelle varhaiskasvatuksen järjestäjälle myös ilman lupaa, jos tiedot ovat välttämättömiä lapsen varhaiskasvatuksen järjestämiseksi (varhaiskasvatuslaki 41 §:n 3 mom.). Lisäksi varhaiskasvatussuunnitelma on toimitettava esi- tai perusopetuksen järjestäjälle, jos se on välttämätöntä lapsen opetuksen järjestämiseksi (perusopetuslaki 41 §:n 4 mom.). Luovuttamisesta informoidaan huoltajaa etukäteen.'
-    }
+      'Tällä sivulla näet lastesi varhaiskasvatukseen liittyvät yleiset tiedot.'
   },
   footer: {
     cityLabel: '© Oriveden kaupunki',
