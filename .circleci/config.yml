@@ -259,7 +259,7 @@ jobs:
       - setup_remote_docker
       - setup_aws
       - build_docker_image:
-          image: auth
+          image: keycloak
           dir: *workspace_auth
           extra_build_args: --build-context core=evaka/keycloak
           cache: auth
