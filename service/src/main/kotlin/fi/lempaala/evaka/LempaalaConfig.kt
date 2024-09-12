@@ -6,6 +6,8 @@ package fi.lempaala.evaka
 
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.mealintegration.MealTypeMapper
+import fi.espoo.evaka.shared.ArchiveProcessConfig
+import fi.espoo.evaka.shared.ArchiveProcessType
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
@@ -48,7 +50,19 @@ class LempaalaConfig {
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
         archiveMetadataOrganization = "Lempäälän kunnan varhaiskasvatus",
-        archiveMetadataConfigs = emptyMap(),
+        archiveMetadataConfigs =
+        mapOf(
+            ArchiveProcessType.APPLICATION_DAYCARE to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "12.07.01.00",
+                    archiveDurationMonths = 10 * 12,
+                ),
+            ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "12.07.01.03",
+                    archiveDurationMonths = 10 * 12,
+                ),
+        ),
     )
 
     @Bean

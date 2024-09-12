@@ -6,6 +6,8 @@ package fi.pirkkala.evaka
 
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.mealintegration.MealTypeMapper
+import fi.espoo.evaka.shared.ArchiveProcessConfig
+import fi.espoo.evaka.shared.ArchiveProcessType
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
@@ -48,7 +50,29 @@ class PirkkalaConfig {
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
         archiveMetadataOrganization = "Pirkkalan kunnan varhaiskasvatus",
-        archiveMetadataConfigs = emptyMap(),
+        archiveMetadataConfigs =
+        mapOf(
+            ArchiveProcessType.APPLICATION_DAYCARE to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "4801.22",
+                    archiveDurationMonths = 12 * 12,
+                ),
+            ArchiveProcessType.APPLICATION_CLUB to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "4801.23",
+                    archiveDurationMonths = 12 * 12,
+                ),
+            ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "4801.03",
+                    archiveDurationMonths = 15 * 12,
+                ),
+            ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "4102.03",
+                    archiveDurationMonths = 20 * 12,
+                ),
+        ),
     )
 
     @Bean

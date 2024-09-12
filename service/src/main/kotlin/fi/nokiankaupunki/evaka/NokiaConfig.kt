@@ -6,6 +6,8 @@ package fi.nokiankaupunki.evaka
 
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.mealintegration.MealTypeMapper
+import fi.espoo.evaka.shared.ArchiveProcessConfig
+import fi.espoo.evaka.shared.ArchiveProcessType
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
@@ -48,7 +50,29 @@ class NokiaConfig {
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
         archiveMetadataOrganization = "Nokian kaupungin varhaiskasvatus",
-        archiveMetadataConfigs = emptyMap(),
+        archiveMetadataConfigs =
+        mapOf(
+            ArchiveProcessType.APPLICATION_DAYCARE to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "04.01.00.11",
+                    archiveDurationMonths = 10 * 12,
+                ),
+            ArchiveProcessType.APPLICATION_PRESCHOOL to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "04.01.03.41",
+                    archiveDurationMonths = 10 * 12,
+                ),
+            ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "04.01.00.82",
+                    archiveDurationMonths = 10 * 12,
+                ),
+            ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "04.01.03.42",
+                    archiveDurationMonths = 10 * 12,
+                ),
+        ),
     )
 
     @Bean
