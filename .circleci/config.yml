@@ -152,6 +152,18 @@ jobs:
 
   # BUILD JOBS
 
+  datadog_build_image:
+    executor: aws_executor
+    resource_class: medium
+    steps:
+      - checkout_with_submodules
+      - setup_remote_docker
+      - setup_aws
+      - build_docker_image:
+          image: datadog
+          dir: datadog
+          cache: datadog
+
   apigw_build_image:
     executor: aws_executor
     resource_class: medium
@@ -247,7 +259,7 @@ jobs:
       - setup_remote_docker
       - setup_aws
       - build_docker_image:
-          image: auth
+          image: keycloak
           dir: *workspace_auth
           extra_build_args: --build-context core=evaka/keycloak
           cache: auth
@@ -325,6 +337,10 @@ workflows:
     jobs:
       - check_licenses
 
+      - datadog_build_image:
+          context:
+            - trevaka-aws
+
       - apigw_build_image:
           context:
             - trevaka-aws
@@ -375,6 +391,7 @@ workflows:
             - trevaka-infra
           requires:
             - check_licenses
+            - datadog_build_image
             - auth_build_image
             - service_test
             - e2e_test
