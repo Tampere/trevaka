@@ -49,7 +49,7 @@ class HameenkyroConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
-        archiveMetadataOrganization = "Hämeenkyrön kunnan varhaiskasvatus",
+        archiveMetadataOrganization = "Hämeenkyrön kunta, varhaiskasvatus",
         archiveMetadataConfigs =
         mapOf(
             ArchiveProcessType.APPLICATION_DAYCARE to

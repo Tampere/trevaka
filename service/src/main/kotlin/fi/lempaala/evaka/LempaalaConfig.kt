@@ -49,7 +49,7 @@ class LempaalaConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
-        archiveMetadataOrganization = "Lempäälän kunnan varhaiskasvatus",
+        archiveMetadataOrganization = "Lempäälän kunta, varhaiskasvatus",
         archiveMetadataConfigs =
         mapOf(
             ArchiveProcessType.APPLICATION_DAYCARE to

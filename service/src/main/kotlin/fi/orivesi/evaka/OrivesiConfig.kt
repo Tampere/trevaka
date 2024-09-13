@@ -49,7 +49,7 @@ class OrivesiConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
-        archiveMetadataOrganization = "Oriveden kaupungin varhaiskasvatus",
+        archiveMetadataOrganization = "Oriveden kaupunki, varhaiskasvatus",
         archiveMetadataConfigs =
         mapOf(
             ArchiveProcessType.APPLICATION_DAYCARE to

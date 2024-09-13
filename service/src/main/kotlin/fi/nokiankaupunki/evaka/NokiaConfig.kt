@@ -49,7 +49,7 @@ class NokiaConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
-        archiveMetadataOrganization = "Nokian kaupungin varhaiskasvatus",
+        archiveMetadataOrganization = "Nokian kaupunki, varhaiskasvatus ja esiopetus",
         archiveMetadataConfigs =
         mapOf(
             ArchiveProcessType.APPLICATION_DAYCARE to

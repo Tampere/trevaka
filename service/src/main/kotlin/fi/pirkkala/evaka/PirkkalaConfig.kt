@@ -49,7 +49,7 @@ class PirkkalaConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
-        archiveMetadataOrganization = "Pirkkalan kunnan varhaiskasvatus",
+        archiveMetadataOrganization = "Pirkkalan kunta, varhaiskasvatus",
         archiveMetadataConfigs =
         mapOf(
             ArchiveProcessType.APPLICATION_DAYCARE to

@@ -49,7 +49,7 @@ class KangasalaConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
-        archiveMetadataOrganization = "Kangasalan kaupungin varhaiskasvatus",
+        archiveMetadataOrganization = "Kangasalan kaupunki, varhaiskasvatus",
         archiveMetadataConfigs =
         mapOf(
             ArchiveProcessType.APPLICATION_DAYCARE to

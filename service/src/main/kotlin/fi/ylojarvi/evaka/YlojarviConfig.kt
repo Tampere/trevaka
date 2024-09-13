@@ -49,7 +49,7 @@ class YlojarviConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
-        archiveMetadataOrganization = "Ylöjärven kaupungin varhaiskasvatus",
+        archiveMetadataOrganization = "Ylöjärven kaupunki, varhaiskasvatus",
         archiveMetadataConfigs =
         mapOf(
             ArchiveProcessType.APPLICATION_DAYCARE to

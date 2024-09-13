@@ -49,7 +49,7 @@ class VesilahtiConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
-        archiveMetadataOrganization = "Vesilahden kunnan varhaiskasvatus",
+        archiveMetadataOrganization = "Vesilahden kunta, varhaiskasvatus",
         archiveMetadataConfigs =
         mapOf(
             ArchiveProcessType.APPLICATION_DAYCARE to
