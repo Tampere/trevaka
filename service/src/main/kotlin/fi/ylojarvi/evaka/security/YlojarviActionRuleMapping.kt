@@ -101,8 +101,8 @@ class YlojarviActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
-        Action.AssistanceNeedDecision.READ,
-        Action.AssistanceNeedDecision.READ_DECISION_MAKER_OPTIONS,
+        Action.AssistanceNeedDecision.READ_IN_REPORT,
+        Action.AssistanceNeedPreschoolDecision.READ_IN_REPORT,
         -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
@@ -142,6 +142,7 @@ class YlojarviActionRuleMapping : ActionRuleMapping {
         Action.Child.READ_ADDITIONAL_INFO,
         Action.Child.READ_DECISIONS,
         Action.Child.READ_ASSISTANCE_NEED_DECISIONS,
+        Action.Child.READ_ASSISTANCE_NEED_PRESCHOOL_DECISIONS,
         Action.Child.READ_ASSISTANCE_NEED_VOUCHER_COEFFICIENTS,
         Action.Child.READ_BACKUP_CARE,
         Action.Child.READ_DAILY_SERVICE_TIMES,
