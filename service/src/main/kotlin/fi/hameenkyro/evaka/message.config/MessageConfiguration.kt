@@ -5,6 +5,7 @@
 package fi.hameenkyro.evaka.message.config
 
 import fi.espoo.evaka.decision.DecisionSendAddress
+import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.espoo.evaka.shared.message.IMessageProvider
 import fi.espoo.evaka.shared.message.MessageLanguage
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean
@@ -75,6 +76,24 @@ internal class HameenkyroMessageProvider(private val messageSource: MessageSourc
 
     override fun getDefaultFinancialDecisionAddress(lang: MessageLanguage): DecisionSendAddress =
         getDefaultDecisionAddress(lang)
+
+    override fun getPlacementToolHeader(lang: OfficialLanguage): String = "Esitäytetty hakemus esiopetukseen"
+
+    override fun getPlacementToolContent(lang: OfficialLanguage): String = """
+Olemme tehneet lapsellenne esitäytetyn hakemuksen esiopetukseen. Hakemus on tehty lapsen oppilaaksiottoalueen mukaiseen esiopetusyksikköön.
+
+Mikäli haluatte hakeutua muuhun kuin lapsellenne osoitettuun paikkaan, voitte muokata hakemusta eVakassa.
+
+Jos taas hyväksytte osoitetun esiopetuspaikan, teidän ei tarvitse tehdä mitään.
+
+In English:
+
+We have made a pre-filled application for preschool education for your child. The application has been submitted to the pre-school unit according to the child's pupil enrollment area.
+
+If you want to apply for a place other than the one assigned to your child, you can edit the application in eVaka.
+
+If you accept the assigned pre-school place, you don't have to do anything.
+    """.trimIndent()
 
     private fun resolveLocale(lang: MessageLanguage): Locale {
         if (MessageLanguage.SV == lang) return resolveLocale(MessageLanguage.FI)
