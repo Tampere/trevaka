@@ -40,6 +40,7 @@ import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3AsyncClient
 import trevaka.titania.TrimStartTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
+import java.time.MonthDay
 
 const val WEB_SERVICE_TEMPLATE_PAYMENT = "webServiceTemplatePayment"
 internal val PAYMENT_SOAP_PACKAGES = arrayOf(
@@ -78,6 +79,7 @@ class TampereConfig {
         temporaryDaycarePartDayAbsenceGivesADailyRefund = false,
         archiveMetadataOrganization = "Tampereen kaupunki, varhaiskasvatus ja esiopetus",
         archiveMetadataConfigs = emptyMap(),
+        daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
     )
 
     @Bean
