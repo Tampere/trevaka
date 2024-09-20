@@ -66,12 +66,14 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
     @BeforeEach
     fun insertBaseData() {
         val serviceNeedOption = db.transaction { tx ->
-            tx.createUpdate(
-                """
+            tx.createUpdate {
+                sql(
+                    """
                 INSERT INTO holiday_period_questionnaire(id, type, absence_type, requires_strong_auth, active, title, description, description_link, condition_continuous_placement, period_options, period_option_label)
                 VALUES (:questionnaireId, 'FIXED_PERIOD', 'FREE_ABSENCE', false, daterange('2022-04-13', '2022-04-29'), '{"fi": "title"}', '{"fi": "description"}', '{"fi": "link"}', daterange('2021-08-31', '2022-06-30'), array[daterange('2022-06-06', '2022-07-31', '[]'), daterange('2022-06-13', '2022-08-07', '[]'), daterange('2022-06-20', '2022-08-14', '[]'), daterange('2022-06-27', '2022-08-21', '[]'), daterange('2022-07-04', '2022-08-28', '[]')], '{"fi": "period option label"}')
                 """,
-            ).bind("questionnaireId", questionnaireId).execute()
+                )
+            }.bind("questionnaireId", questionnaireId).execute()
             tx.insert(
                 FeeThresholds(
                     validDuring = DateRange(LocalDate.of(2000, 1, 1), null),
@@ -106,7 +108,7 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
             tx.insert(DevChild(testChild.id))
             tx.insert(testAdult, DevPersonType.ADULT)
             tx.insert(testParentship)
-            tx.createUpdate("INSERT INTO evaka_user (id, type, name) VALUES (:id, 'UNKNOWN', 'integration-test')")
+            tx.createUpdate { sql("INSERT INTO evaka_user (id, type, name) VALUES (:id, 'UNKNOWN', 'integration-test')") }
                 .bind("id", evakaUserId)
                 .execute()
             tx.findServiceNeedOptionById(ServiceNeedOptionId(UUID.fromString("86ef70a0-bf85-11eb-91e6-1fb57a101161")))!!
@@ -137,12 +139,14 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
     @Test
     fun test8WeeksReserved() {
         db.transaction { tx ->
-            tx.createUpdate(
-                """
+            tx.createUpdate {
+                sql(
+                    """
                 INSERT INTO absence(child_id, date, absence_type, modified_at, modified_by, category, questionnaire_id)
                 VALUES (:childId, generate_series('2022-06-06', '2022-07-31', interval '1 day')::date, 'FREE_ABSENCE', now(), :evakaUserId, 'BILLABLE', :questionnaireId)
                 """,
-            ).bind("childId", testChild.id).bind("evakaUserId", evakaUserId).bind("questionnaireId", questionnaireId)
+                )
+            }.bind("childId", testChild.id).bind("evakaUserId", evakaUserId).bind("questionnaireId", questionnaireId)
                 .execute()
         }
 
@@ -155,12 +159,14 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
     @Test
     fun test7WeeksReserved() {
         db.transaction { tx ->
-            tx.createUpdate(
-                """
+            tx.createUpdate {
+                sql(
+                    """
                 INSERT INTO absence(child_id, date, absence_type, modified_at, modified_by, category, questionnaire_id)
                 VALUES (:childId, generate_series('2022-06-13', '2022-07-31', interval '1 day')::date, 'FREE_ABSENCE', now(), :evakaUserId, 'BILLABLE', :questionnaireId)
                 """,
-            ).bind("childId", testChild.id).bind("evakaUserId", evakaUserId).bind("questionnaireId", questionnaireId)
+                )
+            }.bind("childId", testChild.id).bind("evakaUserId", evakaUserId).bind("questionnaireId", questionnaireId)
                 .execute()
         }
 
@@ -213,12 +219,14 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
     )
 
     private val getAllInvoices: (Database.Read) -> List<Invoice> = { r ->
-        r.createQuery(
-            """
+        r.createQuery {
+            sql(
+                """
             $invoiceQueryBase
             ORDER BY invoice.id, row.idx
-            """.trimIndent(),
-        )
+                """.trimIndent(),
+            )
+        }
             .toList(Row::toInvoice)
             .let(::flatten)
             .shuffled() // randomize order to expose assumptions
