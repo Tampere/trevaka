@@ -23,9 +23,7 @@ class PersonConfiguration {
      * Custom [WebServiceMessageSender] for [fi.espoo.evaka.vtjclient.config.XroadSoapClientConfig.wsTemplate].
      */
     @Bean
-    fun webServiceMessageSender(@Qualifier(HTTP_CLIENT_PERSON) httpClient: HttpClient): WebServiceMessageSender {
-        return HttpComponents5MessageSender(httpClient)
-    }
+    fun webServiceMessageSender(@Qualifier(HTTP_CLIENT_PERSON) httpClient: HttpClient): WebServiceMessageSender = HttpComponents5MessageSender(httpClient)
 
     @Bean(HTTP_CLIENT_PERSON)
     fun httpClient(properties: TampereProperties) = newIpaasHttpClient(properties.ipaas)

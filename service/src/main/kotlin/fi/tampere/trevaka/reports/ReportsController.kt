@@ -25,7 +25,7 @@ private const val TAKEN_AT_DAY_OF_MONTH = 25
 
 @RestController
 @RequestMapping("/reports")
-class ReportsController() {
+class ReportsController {
 
     @GetMapping("/freeze-voucher-value-report-rows")
     fun freezeVoucherValueReportRows(

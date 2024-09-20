@@ -43,18 +43,17 @@ private val restrictedAddress = Address().apply {
     postCode = "00000"
     town = "TUNTEMATON"
 }
-private const val maxNameLength = 35
-private const val maxStreetLength = 30
-private const val maxTownLength = 25
-private const val maxItemDescriptionLength = 40
-private const val maxItemProfitCenterLength = 10
-private const val maxTextRowLength = 70
+private const val MAX_NAME_LENGTH = 35
+private const val MAX_STREET_LENGTH = 30
+private const val MAX_TOWN_LENGTH = 25
+private const val MAX_ITEM_DESCRIPTION_LENGTH = 40
+private const val MAX_ITEM_PROFIT_CENTER_LENGTH = 10
+private const val MAX_TEXT_ROW_LENGTH = 70
 
 class TampereInvoiceClient(
     private val webServiceTemplate: WebServiceTemplate,
     private val properties: InvoiceProperties,
-) :
-    InvoiceIntegrationClient {
+) : InvoiceIntegrationClient {
 
     private val dateFormatter: DateTimeFormatter =
         DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.of("fi"))
@@ -98,11 +97,9 @@ class TampereInvoiceClient(
         return SendResult(manuallySent = withoutSSN, succeeded = withSSN + zeroSumInvoices)
     }
 
-    private fun toRequest(invoices: List<InvoiceDetailed>): SendSalesOrderRequest {
-        return SendSalesOrderRequest().apply {
-            salesOrder = SalesOrder().apply {
-                header.addAll(invoices.map(this@TampereInvoiceClient::toHeader))
-            }
+    private fun toRequest(invoices: List<InvoiceDetailed>): SendSalesOrderRequest = SendSalesOrderRequest().apply {
+        salesOrder = SalesOrder().apply {
+            header.addAll(invoices.map(this@TampereInvoiceClient::toHeader))
         }
     }
 
@@ -115,8 +112,8 @@ class TampereInvoiceClient(
                 person = Person().apply {
                     ssn = headOfFamily.ssn
                     personName = PersonName().apply {
-                        firstNames = headOfFamily.firstName.take(maxNameLength)
-                        surName = headOfFamily.lastName.take(maxNameLength)
+                        firstNames = headOfFamily.firstName.take(MAX_NAME_LENGTH)
+                        surName = headOfFamily.lastName.take(MAX_NAME_LENGTH)
                     }
                 }
                 address = headOfFamily.address()
@@ -126,8 +123,8 @@ class TampereInvoiceClient(
                     person = Person().apply {
                         ssn = headOfFamily.ssn
                         personName = PersonName().apply {
-                            firstNames = headOfFamily.name().take(maxNameLength)
-                            surName = codebtor.name().take(maxNameLength)
+                            firstNames = headOfFamily.name().take(MAX_NAME_LENGTH)
+                            surName = codebtor.name().take(MAX_NAME_LENGTH)
                         }
                     }
                     address = headOfFamily.address()
@@ -146,17 +143,15 @@ class TampereInvoiceClient(
         }
     }
 
-    private fun toItems(rows: List<InvoiceRowDetailed>): Items {
-        return Items().apply {
-            item.addAll(rows.map(this@TampereInvoiceClient::toItem))
-        }
+    private fun toItems(rows: List<InvoiceRowDetailed>): Items = Items().apply {
+        item.addAll(rows.map(this@TampereInvoiceClient::toItem))
     }
 
     private fun toItem(it: InvoiceRowDetailed): Item {
         val product = findProduct(it.product)
         return Item().apply {
-            description = it.description.take(maxItemDescriptionLength)
-            profitCenter = it.costCenter.take(maxItemProfitCenterLength)
+            description = it.description.take(MAX_ITEM_DESCRIPTION_LENGTH)
+            profitCenter = it.costCenter.take(MAX_ITEM_PROFIT_CENTER_LENGTH)
             internalOrder = product.internalOrder
             material = product.code
             unitPrice = priceInEuros(it.unitPrice)
@@ -167,7 +162,7 @@ class TampereInvoiceClient(
                     Text().apply {
                         textRow.addAll(
                             listOf(
-                                "${it.child.lastName} ${it.child.firstName}".take(maxTextRowLength),
+                                "${it.child.lastName} ${it.child.firstName}".take(MAX_TEXT_ROW_LENGTH),
                                 "${it.periodStart.format(dateFormatter)} - ${it.periodEnd.format(dateFormatter)}",
                             ),
                         )
@@ -180,17 +175,15 @@ class TampereInvoiceClient(
     private fun localDateToXMLGregorianCalendar(localDate: LocalDate): XMLGregorianCalendar =
         DatatypeFactory.newInstance().newXMLGregorianCalendar(localDate.toString())
 
-    private fun unmarshalFaultDetail(exception: SoapFaultClientException): Any? {
-        return try {
-            val detailEntries = exception.soapFault?.faultDetail?.detailEntries
-            when (detailEntries?.hasNext()) {
-                true -> webServiceTemplate.unmarshaller.unmarshal(detailEntries.next().source)
-                else -> null
-            }
-        } catch (e: Exception) {
-            logger.error("Unable to unmarshal fault detail", e)
-            null
+    private fun unmarshalFaultDetail(exception: SoapFaultClientException): Any? = try {
+        val detailEntries = exception.soapFault?.faultDetail?.detailEntries
+        when (detailEntries?.hasNext()) {
+            true -> webServiceTemplate.unmarshaller.unmarshal(detailEntries.next().source)
+            else -> null
         }
+    } catch (e: Exception) {
+        logger.error("Unable to unmarshal fault detail", e)
+        null
     }
 }
 
@@ -219,11 +212,9 @@ internal fun toInvoicePerson(person: PersonDetailed): InvoicePerson {
     return InvoicePerson(ssn!!, lastName, firstName, restrictedDetailsEnabled, streetName, postalCode, postOffice)
 }
 
-internal fun hasInvoicingAddress(person: PersonDetailed): Boolean {
-    return person.invoicingStreetAddress.isNotBlank() &&
-        person.invoicingPostalCode.isNotBlank() &&
-        person.invoicingPostOffice.isNotBlank()
-}
+internal fun hasInvoicingAddress(person: PersonDetailed): Boolean = person.invoicingStreetAddress.isNotBlank() &&
+    person.invoicingPostalCode.isNotBlank() &&
+    person.invoicingPostOffice.isNotBlank()
 
 internal data class InvoicePerson(
     val ssn: String,
@@ -238,8 +229,8 @@ internal data class InvoicePerson(
     fun address(): Address = when (restrictedDetailsEnabled) {
         true -> restrictedAddress
         false -> Address().apply {
-            street = streetName.take(maxStreetLength)
-            town = postOffice.take(maxTownLength)
+            street = streetName.take(MAX_STREET_LENGTH)
+            town = postOffice.take(MAX_TOWN_LENGTH)
             postCode = postalCode
         }
     }

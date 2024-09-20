@@ -28,9 +28,7 @@ class TampereDevApi(
     private val asyncJobRunner: AsyncJobRunner<AsyncJob>,
 ) {
     @GetMapping
-    fun healthCheck(): ResponseEntity<Unit> {
-        return ResponseEntity.noContent().build()
-    }
+    fun healthCheck(): ResponseEntity<Unit> = ResponseEntity.noContent().build()
 
     @PostMapping("/reset-tampere-db-for-e2e-tests")
     fun resetTampereDatabaseForE2ETests(db: Database, clock: EvakaClock = RealEvakaClock()): ResponseEntity<Unit> {

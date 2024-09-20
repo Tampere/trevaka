@@ -39,9 +39,7 @@ private fun basicAuthInterceptor(username: String, password: String) = HttpReque
 private fun encode(data: String) = Base64.getEncoder().encodeToString(data.toByteArray(StandardCharsets.UTF_8))
 
 private class NoConnectionReuseStrategy : ConnectionReuseStrategy {
-    override fun keepAlive(request: HttpRequest?, response: HttpResponse?, context: HttpContext?): Boolean {
-        return false
-    }
+    override fun keepAlive(request: HttpRequest?, response: HttpResponse?, context: HttpContext?): Boolean = false
 
     companion object {
         val INSTANCE = NoConnectionReuseStrategy()

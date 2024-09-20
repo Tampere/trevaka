@@ -13,25 +13,19 @@ class DataMapper<EnumClass> {
         alphanumericValues[field] = value
     }
 
-    fun getAlphanumericValue(field: EnumClass): String? {
-        return alphanumericValues[field]
-    }
+    fun getAlphanumericValue(field: EnumClass): String? = alphanumericValues[field]
 
     fun setNumericValue(field: EnumClass, value: Int) {
         numericValues[field] = value
     }
 
-    fun getNumericValue(field: EnumClass): Int? {
-        return numericValues[field]
-    }
+    fun getNumericValue(field: EnumClass): Int? = numericValues[field]
 
     fun setChildRowMap(childMap: Map<String, List<DataMapper<EnumClass>>>) {
         rowMap = childMap
     }
 
-    fun getChildRowMap(): Map<String, List<DataMapper<EnumClass>>> {
-        return rowMap
-    }
+    fun getChildRowMap(): Map<String, List<DataMapper<EnumClass>>> = rowMap
 }
 
 enum class FieldType {

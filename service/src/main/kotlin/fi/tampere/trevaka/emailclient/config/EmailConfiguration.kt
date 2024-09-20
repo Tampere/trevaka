@@ -72,8 +72,7 @@ internal class EmailMessageProvider : IEmailMessageProvider {
         html = getDecisionEmailHtml(),
     )
 
-    private fun getPendingDecisionEmailHtml(): String {
-        return """
+    private fun getPendingDecisionEmailHtml(): String = """
             <p>Olet saanut päätöksen/ilmoituksen Tampereen varhaiskasvatukselta, joka odottaa toimenpiteitäsi. Myönnetty varhaiskasvatus-/kerhopaikka tulee hyväksyä tai hylätä kahden viikon sisällä päätöksen saapumisesta.</p>
             
             <p>Hakemuksen tekijä voi hyväksyä tai hylätä varhaiskasvatus-/kerhopaikan kirjautumalla Tampereen varhaiskasvatuksen verkkopalveluun eVakaan tai ottamalla yhteyttä päätöksellä mainittuun päiväkodin johtajaan.</p>
@@ -81,11 +80,9 @@ internal class EmailMessageProvider : IEmailMessageProvider {
             <p>Tähän viestiin ei voi vastata. Tarvittaessa ole yhteydessä Varhaiskasvatuksen asiakaspalveluun.</p>
             
             $unsubscribeFi
-        """.trimIndent()
-    }
+    """.trimIndent()
 
-    private fun getClubApplicationReceivedEmailHtml(): String {
-        return """
+    private fun getClubApplicationReceivedEmailHtml(): String = """
             <p>Hyvä huoltaja,</p>
             
             <p>lapsenne kerhohakemus on vastaanotettu.</p>
@@ -106,11 +103,9 @@ internal class EmailMessageProvider : IEmailMessageProvider {
             </p>
             
             <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
-        """.trimIndent()
-    }
+    """.trimIndent()
 
-    private fun getDaycareApplicationReceivedEmailHtml(): String {
-        return """
+    private fun getDaycareApplicationReceivedEmailHtml(): String = """
             <p>Hyvä huoltaja,</p>
             
             <p>lapsenne varhaiskasvatushakemus on vastaanotettu.</p>
@@ -139,11 +134,9 @@ internal class EmailMessageProvider : IEmailMessageProvider {
             </p>
             
             <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
-        """.trimIndent()
-    }
+    """.trimIndent()
 
-    private fun getPreschoolApplicationReceivedEmailHtml(): String {
-        return """
+    private fun getPreschoolApplicationReceivedEmailHtml(): String = """
             <p>Hyvä huoltaja,</p>
 
             <p>lapsenne esiopetukseen ilmoittautuminen on vastaanotettu.</p>
@@ -160,8 +153,7 @@ internal class EmailMessageProvider : IEmailMessageProvider {
             </p>
 
             <p>Tämä on automaattinen viesti, joka kertoo lomakkeen tallennuksesta. Viestiin ei voi vastata reply-/ vastaa-toiminnolla.</p>
-        """.trimIndent()
-    }
+    """.trimIndent()
 
     private fun getDecisionEmailHtml(): String = """
         <p>Hyvä(t) huoltaja(t),</p>
@@ -189,20 +181,18 @@ $unsubscribeEn
         )
     }
 
-    override fun missingHolidayReservationsNotification(language: Language): EmailContent {
-        return EmailContent.fromHtml(
-            subject =
-            "Loma-ajan ilmoitus sulkeutuu / Holiday notification period closing",
-            html =
-            """
+    override fun missingHolidayReservationsNotification(language: Language): EmailContent = EmailContent.fromHtml(
+        subject =
+        "Loma-ajan ilmoitus sulkeutuu / Holiday notification period closing",
+        html =
+        """
 <p>Loma-ajan kysely sulkeutuu kahden päivän päästä. Jos lapseltanne/lapsiltanne puuttuu loma-ajan ilmoitus yhdeltä tai useammalta lomapäivältä, teettehän ilmoituksen eVakan kalenterissa mahdollisimman pian.</p>
 $unsubscribeFi
 <hr>
 <p>Two days left to submit a holiday notification. If you have not submitted a notification for each day, please submit them through the eVaka calendar as soon as possible.</p>
 $unsubscribeEn
 """,
-        )
-    }
+    )
 
     override fun messageNotification(language: Language, thread: MessageThreadData): EmailContent {
         val (typeFi, typeEn) =
@@ -238,11 +228,10 @@ $unsubscribeEn
         )
     }
 
-    override fun childDocumentNotification(language: Language, childId: ChildId): EmailContent {
-        return EmailContent.fromHtml(
-            subject = "Uusi dokumentti eVakassa / New document in eVaka",
-            html =
-            """
+    override fun childDocumentNotification(language: Language, childId: ChildId): EmailContent = EmailContent.fromHtml(
+        subject = "Uusi dokumentti eVakassa / New document in eVaka",
+        html =
+        """
 <p>Sinulle on saapunut uusi dokumentti Tampereen varhaiskasvatuksen verkkopalveluun eVakaan.</p>
 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
 $unsubscribeFi
@@ -251,14 +240,12 @@ $unsubscribeFi
 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
 $unsubscribeEn
 """,
-        )
-    }
+    )
 
-    override fun vasuNotification(language: Language, childId: ChildId): EmailContent {
-        return EmailContent.fromHtml(
-            subject = "Uusi dokumentti eVakassa / New document in eVaka",
-            html =
-            """
+    override fun vasuNotification(language: Language, childId: ChildId): EmailContent = EmailContent.fromHtml(
+        subject = "Uusi dokumentti eVakassa / New document in eVaka",
+        html =
+        """
                 <p>Sinulle on saapunut uusi dokumentti Tampereen varhaiskasvatuksen verkkopalveluun eVakaan. Löydät dokumentin Lapset-välilehdeltä.</p>
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 $unsubscribeFi
@@ -269,16 +256,14 @@ $unsubscribeEn
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 $unsubscribeEn
         """
-                .trimIndent(),
-        )
-    }
+            .trimIndent(),
+    )
 
-    override fun pedagogicalDocumentNotification(language: Language, childId: ChildId): EmailContent {
-        return EmailContent.fromHtml(
-            subject =
-            "Uusi pedagoginen dokumentti eVakassa / New pedagogical document in eVaka",
-            html =
-            """
+    override fun pedagogicalDocumentNotification(language: Language, childId: ChildId): EmailContent = EmailContent.fromHtml(
+        subject =
+        "Uusi pedagoginen dokumentti eVakassa / New pedagogical document in eVaka",
+        html =
+        """
                 <p>Sinulle on saapunut uusi pedagoginen dokumentti Tampereen varhaiskasvatuksen verkkopalveluun eVakaan. Löydät dokumentin Lapset-välilehdeltä.</p>
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 $unsubscribeFi
@@ -289,28 +274,24 @@ $unsubscribeEn
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 $unsubscribeEn
         """
-                .trimIndent(),
-        )
-    }
+            .trimIndent(),
+    )
 
     override fun incomeNotification(
         notificationType: IncomeNotificationType,
         language: Language,
-    ): EmailContent {
-        return when (notificationType) {
-            IncomeNotificationType.INITIAL_EMAIL -> outdatedIncomeNotificationInitial()
-            IncomeNotificationType.REMINDER_EMAIL -> outdatedIncomeNotificationReminder()
-            IncomeNotificationType.EXPIRED_EMAIL -> outdatedIncomeNotificationExpired()
-            IncomeNotificationType.NEW_CUSTOMER -> newCustomerIncomeNotification()
-        }
+    ): EmailContent = when (notificationType) {
+        IncomeNotificationType.INITIAL_EMAIL -> outdatedIncomeNotificationInitial()
+        IncomeNotificationType.REMINDER_EMAIL -> outdatedIncomeNotificationReminder()
+        IncomeNotificationType.EXPIRED_EMAIL -> outdatedIncomeNotificationExpired()
+        IncomeNotificationType.NEW_CUSTOMER -> newCustomerIncomeNotification()
     }
 
-    private fun outdatedIncomeNotificationInitial(): EmailContent {
-        return EmailContent.fromHtml(
-            subject =
-            "Tulotietojen tarkastuskehotus / Request to review income information",
-            html =
-            """
+    private fun outdatedIncomeNotificationInitial(): EmailContent = EmailContent.fromHtml(
+        subject =
+        "Tulotietojen tarkastuskehotus / Request to review income information",
+        html =
+        """
                 <p>Hyvä asiakkaamme</p>
                 
                 <p>Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.</p>
@@ -341,16 +322,14 @@ $unsubscribeEn
                 
                 $unsubscribeEn
         """
-                .trimIndent(),
-        )
-    }
+            .trimIndent(),
+    )
 
-    private fun outdatedIncomeNotificationReminder(): EmailContent {
-        return EmailContent.fromHtml(
-            subject =
-            "Tulotietojen tarkastuskehotus / Request to review income information",
-            html =
-            """
+    private fun outdatedIncomeNotificationReminder(): EmailContent = EmailContent.fromHtml(
+        subject =
+        "Tulotietojen tarkastuskehotus / Request to review income information",
+        html =
+        """
                 <p>Hyvä asiakkaamme</p>
                 
                 <p>Ette ole vielä toimittaneet uusia tulotietoja. Varhaiskasvatuksen asiakasmaksun tai palvelusetelin omavastuuosuuden perusteena olevat tulotiedot tarkistetaan vuosittain.</p>
@@ -381,16 +360,14 @@ $unsubscribeEn
                 
                 $unsubscribeEn
         """
-                .trimIndent(),
-        )
-    }
+            .trimIndent(),
+    )
 
-    private fun outdatedIncomeNotificationExpired(): EmailContent {
-        return EmailContent.fromHtml(
-            subject =
-            "Tulotietojen tarkastuskehotus / Request to review income information",
-            html =
-            """
+    private fun outdatedIncomeNotificationExpired(): EmailContent = EmailContent.fromHtml(
+        subject =
+        "Tulotietojen tarkastuskehotus / Request to review income information",
+        html =
+        """
                 <p>Hyvä asiakkaamme</p>
                 
                 <p>Seuraava asiakasmaksunne määräytyy korkeimman maksuluokan mukaan, sillä ette ole toimittaneet uusia tulotietoja määräaikaan mennessä.</p>
@@ -413,16 +390,14 @@ $unsubscribeEn
                 
                 $unsubscribeEn
                """
-                .trimIndent(),
-        )
-    }
+            .trimIndent(),
+    )
 
-    private fun newCustomerIncomeNotification(): EmailContent {
-        return EmailContent.fromHtml(
-            subject =
-            "Tulotietojen tarkastuskehotus / Request to review income information",
-            html =
-            """
+    private fun newCustomerIncomeNotification(): EmailContent = EmailContent.fromHtml(
+        subject =
+        "Tulotietojen tarkastuskehotus / Request to review income information",
+        html =
+        """
 <p>Hyvä asiakkaamme</p>
 <p>Lapsenne on aloittamassa varhaiskasvatuksessa tämän kuukauden aikana. Pyydämme teitä toimittamaan tulotiedot eVaka-järjestelmän kautta tämän kuukauden loppuun mennessä.</p>
 <p>Lisätietoja saatte tarvittaessa Tampereen kaupungin verkkosivuilta.</p>
@@ -435,9 +410,8 @@ $unsubscribeFi
 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
 $unsubscribeEn
             """
-                .trimIndent(),
-        )
-    }
+            .trimIndent(),
+    )
 
     override fun calendarEventNotification(
         language: Language,
@@ -504,12 +478,11 @@ $unsubscribeEn
     override fun discussionSurveyReservationNotification(
         language: Language,
         notificationDetails: DiscussionSurveyReservationNotificationData,
-    ): EmailContent {
-        return EmailContent.fromHtml(
-            subject =
-            "Uusi keskusteluaika varattu eVakassa / New discussion time reserved in eVaka",
-            html =
-            """
+    ): EmailContent = EmailContent.fromHtml(
+        subject =
+        "Uusi keskusteluaika varattu eVakassa / New discussion time reserved in eVaka",
+        html =
+        """
 <p>Lapsellenne on varattu keskusteluaika</p>
 <p>${notificationDetails.title}</p>
 <p>${notificationDetails.childName}</p>
@@ -527,19 +500,17 @@ $unsubscribeFi
 $unsubscribeEn
 <hr>
             """
-                .trimIndent(),
-        )
-    }
+            .trimIndent(),
+    )
 
     override fun discussionSurveyReservationCancellationNotification(
         language: Language,
         notificationDetails: DiscussionSurveyReservationNotificationData,
-    ): EmailContent {
-        return EmailContent.fromHtml(
-            subject =
-            "Keskusteluaika peruttu eVakassa / Discussion time cancelled in eVaka",
-            html =
-            """
+    ): EmailContent = EmailContent.fromHtml(
+        subject =
+        "Keskusteluaika peruttu eVakassa / Discussion time cancelled in eVaka",
+        html =
+        """
 <p>Lapsellenne varattu keskusteluaika on peruttu</p>
 <p>${notificationDetails.title}</p>
 <p>${notificationDetails.childName}</p>
@@ -555,19 +526,17 @@ $unsubscribeFi
 $unsubscribeEn
 <hr>
             """
-                .trimIndent(),
-        )
-    }
+            .trimIndent(),
+    )
 
     override fun discussionSurveyCreationNotification(
         language: Language,
         notificationDetails: DiscussionSurveyCreationNotificationData,
-    ): EmailContent {
-        return EmailContent.fromHtml(
-            subject =
-            "Varaa keskusteluaika varhaiskasvatukseen / Reserve a discussion time for early childhood education",
-            html =
-            """
+    ): EmailContent = EmailContent.fromHtml(
+        subject =
+        "Varaa keskusteluaika varhaiskasvatukseen / Reserve a discussion time for early childhood education",
+        html =
+        """
 <p>${notificationDetails.eventTitle}</p>
 <p>${notificationDetails.eventDescription}</p>
 <p>Ajan voi varata eVakan kalenterinäkymästä</p>
@@ -579,28 +548,26 @@ $unsubscribeFi
 $unsubscribeEn
 <hr>
             """
-                .trimIndent(),
-        )
-    }
+            .trimIndent(),
+    )
 
     override fun discussionTimeReservationReminder(
         language: Language,
         reminderData: DiscussionTimeReminderData,
-    ): EmailContent {
-        return EmailContent.fromHtml(
-            subject =
-            "Muistutus tulevasta keskusteluajasta / Reminder for an upcoming discussion time",
-            html =
-            """
+    ): EmailContent = EmailContent.fromHtml(
+        subject =
+        "Muistutus tulevasta keskusteluajasta / Reminder for an upcoming discussion time",
+        html =
+        """
 <p>Lapsellenne on varattu keskusteluaika</p>
 <p>${reminderData.title}</p>
 <p>${reminderData.firstName} ${reminderData.lastName}</p>
 <p>${reminderData.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))}</p>
 <p>${reminderData.startTime.format(DateTimeFormatter.ofPattern("HH:mm"))} - ${
-                reminderData.endTime.format(
-                    DateTimeFormatter.ofPattern("HH:mm"),
-                )
-            }</p>
+            reminderData.endTime.format(
+                DateTimeFormatter.ofPattern("HH:mm"),
+            )
+        }</p>
 <p>Varauksen voi peruuttaa 2 arkipäivää ennen varattua aikaa suoraan eVakan kalenterinäkymästä. Myöhempää peruutusta varten ota yhteyttä henkilökuntaan.</p>
 $unsubscribeFi
 <hr>
@@ -609,15 +576,14 @@ $unsubscribeFi
 <p>${reminderData.firstName} ${reminderData.lastName}</p>
 <p>${reminderData.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))}</p>
 <p>${reminderData.startTime.format(DateTimeFormatter.ofPattern("HH:mm"))} - ${
-                reminderData.endTime.format(
-                    DateTimeFormatter.ofPattern("HH:mm"),
-                )
-            }</p>
+            reminderData.endTime.format(
+                DateTimeFormatter.ofPattern("HH:mm"),
+            )
+        }</p>
 <p>Reservation can be cancelled 2 business days before the reserved time using the eVaka calendar view. For later cancellations contact the daycare staff.</p>
 $unsubscribeEn
 <hr>
             """
-                .trimIndent(),
-        )
-    }
+            .trimIndent(),
+    )
 }
