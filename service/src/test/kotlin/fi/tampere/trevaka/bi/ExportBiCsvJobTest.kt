@@ -44,9 +44,9 @@ import fi.espoo.evaka.shared.domain.DateRange
 import fi.espoo.evaka.shared.domain.FiniteDateRange
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.espoo.evaka.shared.domain.MockEvakaClock
+import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.espoo.evaka.shared.security.PilotFeature
 import fi.espoo.evaka.vasu.CurriculumType
-import fi.espoo.evaka.vasu.VasuLanguage
 import fi.espoo.evaka.vasu.getDefaultVasuContent
 import fi.espoo.evaka.vasu.insertVasuTemplate
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
@@ -177,13 +177,13 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
         db.transaction { tx ->
             val areaId =
                 tx.createQuery(
-                    QuerySql.of { sql("select id from care_area order by short_name limit 1") },
+                    QuerySql { sql("select id from care_area order by short_name limit 1") },
                 )
                     .exactlyOne<AreaId>()
 
             val snoId =
                 tx.createQuery(
-                    QuerySql.of {
+                    QuerySql {
                         sql("select id from service_need_option order by name_fi limit 1")
                     },
                 )
@@ -359,8 +359,8 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
                     "Template",
                     valid = FiniteDateRange.ofMonth(2022, it),
                     type = CurriculumType.DAYCARE,
-                    language = VasuLanguage.FI,
-                    content = getDefaultVasuContent(VasuLanguage.FI),
+                    language = OfficialLanguage.FI,
+                    content = getDefaultVasuContent(OfficialLanguage.FI),
                 )
             }
         }

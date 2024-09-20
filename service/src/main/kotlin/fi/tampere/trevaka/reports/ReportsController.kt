@@ -37,7 +37,7 @@ class ReportsController() {
         logger.info { "Freeze all voucher value report rows" }
         db.connect { dbc ->
             dbc.transaction { tx ->
-                val firstDate = tx.createQuery("SELECT min(valid_from) FROM voucher_value_decision")
+                val firstDate = tx.createQuery { sql("SELECT min(valid_from) FROM voucher_value_decision") }
                     .mapTo<LocalDate>()
                     .exactlyOneOrNull() ?: return@transaction
                 val firstYearMonth = YearMonth.of(firstDate.year, firstDate.month)

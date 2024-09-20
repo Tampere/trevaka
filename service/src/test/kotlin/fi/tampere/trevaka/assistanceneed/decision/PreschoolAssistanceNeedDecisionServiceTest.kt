@@ -4,7 +4,6 @@
 
 package fi.tampere.trevaka.assistanceneed.decision
 
-import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionLanguage
 import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionStatus
 import fi.espoo.evaka.assistanceneed.preschooldecision.AssistanceNeedPreschoolDecision
 import fi.espoo.evaka.assistanceneed.preschooldecision.AssistanceNeedPreschoolDecisionChild
@@ -18,6 +17,7 @@ import fi.espoo.evaka.shared.ChildId
 import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.PersonId
+import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -97,7 +97,7 @@ class PreschoolAssistanceNeedDecisionServiceTest : AbstractTampereIntegrationTes
 
 private val validAssistanceNeedPreschoolDecisionForm =
     AssistanceNeedPreschoolDecisionForm(
-        language = AssistanceNeedDecisionLanguage.FI,
+        language = OfficialLanguage.FI,
         type = AssistanceNeedPreschoolDecisionType.NEW,
         validFrom = LocalDate.of(2022, 8, 2),
         validTo = null,

@@ -22,7 +22,6 @@ import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionServiceNeed
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionStatus
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionType
 import fi.espoo.evaka.invoicing.domain.toFeeAlterationsWithEffects
-import fi.espoo.evaka.invoicing.service.DocumentLang
 import fi.espoo.evaka.invoicing.service.FeeDecisionPdfData
 import fi.espoo.evaka.invoicing.service.VoucherValueDecisionPdfData
 import fi.espoo.evaka.pdfgen.Page
@@ -41,6 +40,7 @@ import fi.espoo.evaka.shared.ServiceNeedOptionId
 import fi.espoo.evaka.shared.VoucherValueDecisionId
 import fi.espoo.evaka.shared.domain.DateRange
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
+import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -72,7 +72,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
     fun generateFeeDecisionPdfFromPlacementType(placementType: PlacementType) {
         val decision = validFeeDecision(children = listOf(validFeeDecisionChild().copy(placementType = placementType)))
 
-        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
+        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, OfficialLanguage.FI))
 
         val filename = "PDFServiceTest-fee-decision-placement-type-$placementType.pdf"
         writeReportsFile(filename, bytes)
@@ -93,7 +93,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
     ) {
         val decision = validFeeDecision(listOf(validFeeDecisionChild().copy(placementType = placementType))).copy(decisionType = decisionType)
 
-        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
+        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, OfficialLanguage.FI))
 
         val filename = "PDFServiceTest-fee-decision-placement-type-$placementType-decision-type-$decisionType.pdf"
         writeReportsFile(filename, bytes)
@@ -123,7 +123,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
             ),
         ).copy(decisionType = decisionType)
 
-        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
+        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, OfficialLanguage.FI))
 
         val filename = "PDFServiceTest-fee-decision-placement-type-DAYCARE-and-PRESCHOOL_CLUB-decision-type-$decisionType.pdf"
         writeReportsFile(filename, bytes)
@@ -133,7 +133,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
     @EnumSource(VoucherValueDecisionType::class)
     fun generateVoucherValueDecisionPdfFromDecisionType(decisionType: VoucherValueDecisionType) {
         val decision = validVoucherValueDecision().copy(decisionType = decisionType)
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
+        val data = VoucherValueDecisionPdfData(decision, settings, OfficialLanguage.FI)
 
         val bytes = pdfGenerator.generateVoucherValueDecisionPdf(data)
 
@@ -145,7 +145,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
     fun generateFeeDecisionPdfWithHeadOfFamilyIncome() {
         val decision = validFeeDecision().copy(headOfFamilyIncome = testDecisionIncome)
 
-        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
+        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, OfficialLanguage.FI))
 
         val filename = "PDFServiceTest-fee-decision-head-of-family-income.pdf"
         writeReportsFile(filename, bytes)
@@ -163,7 +163,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
             partnerIsCodebtor = true,
         )
 
-        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
+        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, OfficialLanguage.FI))
 
         val filename = "PDFServiceTest-fee-decision-partner.pdf"
         writeReportsFile(filename, bytes)
@@ -183,7 +183,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
             partnerIsCodebtor = true,
         )
 
-        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
+        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, OfficialLanguage.FI))
 
         val filename = "PDFServiceTest-fee-decision-partner-income.pdf"
         writeReportsFile(filename, bytes)
@@ -195,7 +195,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
             children = listOf(validFeeDecisionChild().copy(childIncome = testDecisionIncome)),
         )
 
-        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
+        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, OfficialLanguage.FI))
 
         val filename = "PDFServiceTest-fee-decision-child-income.pdf"
         writeReportsFile(filename, bytes)
@@ -242,7 +242,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
             ),
         )
 
-        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
+        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, OfficialLanguage.FI))
 
         val filename = "PDFServiceTest-fee-decision-incomes.pdf"
         writeReportsFile(filename, bytes)
@@ -259,7 +259,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
             ),
         )
 
-        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
+        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, OfficialLanguage.FI))
 
         val filename = "PDFServiceTest-fee-decision-empty-address.pdf"
         writeReportsFile(filename, bytes)
@@ -270,7 +270,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
         val decision =
             validFeeDecision(children = listOf(validFeeDecisionChild(feeAlterations = validFeeAlterations())))
 
-        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
+        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, OfficialLanguage.FI))
 
         val filename = "PDFServiceTest-fee-decision-fee-alterations.pdf"
         writeReportsFile(filename, bytes)
@@ -281,7 +281,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
     fun generateVoucherValueDecisionPdfFromPlacementType(placementType: PlacementType) {
         val decision =
             validVoucherValueDecision(placement = validVoucherValueDecisionPlacementDetailed(placementType = placementType))
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
+        val data = VoucherValueDecisionPdfData(decision, settings, OfficialLanguage.FI)
 
         val bytes = pdfGenerator.generateVoucherValueDecisionPdf(data)
 
@@ -292,7 +292,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
     @Test
     fun generateVoucherValueDecisionPdfWithHeadOfFamilyIncome() {
         val decision = validVoucherValueDecision().copy(headOfFamilyIncome = testDecisionIncome)
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
+        val data = VoucherValueDecisionPdfData(decision, settings, OfficialLanguage.FI)
 
         val bytes = pdfGenerator.generateVoucherValueDecisionPdf(data)
 
@@ -303,7 +303,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
     @Test
     fun generateVoucherValueDecisionPdfWithChildIncome() {
         val decision = validVoucherValueDecision().copy(childIncome = testDecisionIncome)
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
+        val data = VoucherValueDecisionPdfData(decision, settings, OfficialLanguage.FI)
 
         val bytes = pdfGenerator.generateVoucherValueDecisionPdf(data)
 
@@ -322,7 +322,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
             ),
             partnerIsCodebtor = true,
         )
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
+        val data = VoucherValueDecisionPdfData(decision, settings, OfficialLanguage.FI)
 
         val bytes = pdfGenerator.generateVoucherValueDecisionPdf(data)
 
@@ -340,7 +340,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
                 "", null, "", null, restrictedDetailsEnabled = false,
             ),
         )
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
+        val data = VoucherValueDecisionPdfData(decision, settings, OfficialLanguage.FI)
 
         val bytes = pdfGenerator.generateVoucherValueDecisionPdf(data)
 
@@ -351,7 +351,7 @@ internal class PDFServiceTest : AbstractTampereIntegrationTest() {
     @Test
     fun generateVoucherValueDecisionPdfWithFeeAlterations() {
         val decision = validVoucherValueDecision(feeAlterations = validFeeAlterations())
-        val data = VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI)
+        val data = VoucherValueDecisionPdfData(decision, settings, OfficialLanguage.FI)
 
         val bytes = pdfGenerator.generateVoucherValueDecisionPdf(data)
 

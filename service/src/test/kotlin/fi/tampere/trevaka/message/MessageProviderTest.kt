@@ -4,8 +4,8 @@
 
 package fi.tampere.trevaka.message
 
+import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.espoo.evaka.shared.message.IMessageProvider
-import fi.espoo.evaka.shared.message.MessageLanguage
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junitpioneer.jupiter.cartesian.ArgumentSets
@@ -21,7 +21,7 @@ internal class MessageProviderTest : AbstractTampereIntegrationTest() {
 
     @CartesianTest
     @CartesianTest.MethodFactory("methodsWithLang")
-    fun `get works for every message type and language`(method: Method, lang: MessageLanguage) {
+    fun `get works for every message type and language`(method: Method, lang: OfficialLanguage) {
         assertThat(((method.invoke(messageProvider, lang)) as String).also(::println))
             .isNotBlank
             .doesNotContainIgnoringCase("espoo")
@@ -33,12 +33,12 @@ internal class MessageProviderTest : AbstractTampereIntegrationTest() {
         fun methodsWithLang(): ArgumentSets {
             val allMethods = getAllMethods(
                 IMessageProvider::class.java,
-                withParametersAssignableTo(MessageLanguage::class.java),
+                withParametersAssignableTo(OfficialLanguage::class.java),
                 withReturnType(String::class.java),
             )
             return ArgumentSets.create()
                 .argumentsForNextParameter(allMethods)
-                .argumentsForNextParameter(MessageLanguage.entries)
+                .argumentsForNextParameter(OfficialLanguage.entries)
         }
     }
 }
