@@ -172,7 +172,7 @@ internal class EmailMessageProvider : IEmailMessageProvider {
     override fun missingReservationsNotification(language: Language, checkedRange: FiniteDateRange): EmailContent {
         val start =
             checkedRange.start.format(
-                DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale("fi", "FI")),
+                DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale.of("fi", "FI")),
             )
         return EmailContent.fromHtml(
             subject =
@@ -444,7 +444,7 @@ $unsubscribeEn
         events: List<CalendarEventNotificationData>,
     ): EmailContent {
         val format =
-            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale("fi", "FI"))
+            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale.of("fi", "FI"))
         val eventsHtml =
             "<ul>" +
                 events.joinToString("\n") { event ->

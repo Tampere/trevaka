@@ -57,7 +57,7 @@ class TampereInvoiceClient(
     InvoiceIntegrationClient {
 
     private val dateFormatter: DateTimeFormatter =
-        DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale("fi"))
+        DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.of("fi"))
 
     private fun priceInEuros(priceInCents: Int?): BigDecimal? =
         if (priceInCents != null) {

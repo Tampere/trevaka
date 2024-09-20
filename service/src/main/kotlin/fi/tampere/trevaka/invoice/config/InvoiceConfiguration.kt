@@ -274,7 +274,7 @@ fun Database.Read.hasFreeSummerAbsence(childId: ChildId, year: Int): Boolean {
         )
         """.trimIndent()
 
-    return createQuery(sql)
+    return createQuery { sql(sql) }
         .bind("year", year)
         .bind("childId", childId)
         .mapTo<Boolean>()
