@@ -456,6 +456,8 @@ workflows:
             - check_licenses
             - datadog_build_image
             - auth_build_image
+            - apigw_build_image
+            - frontend_build_image
             - service_test
             - e2e_test
           filters:
