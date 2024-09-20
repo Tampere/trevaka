@@ -8,3 +8,5 @@
 4245981cf5a5b66876cc0a4ff198e8d1b6befb5f
 # Fix format with prettier
 43e238edb9dde57fbcce430f964f186d6663a8f4
+# Fix format with ktlintFormat task
+ef188f53a1cc2bf37b01124e8ce1af3968fe6992
