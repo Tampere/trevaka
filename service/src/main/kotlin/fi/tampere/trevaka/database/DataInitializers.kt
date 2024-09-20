@@ -14,5 +14,5 @@ fun Database.Transaction.ensureTampereDevData() {
 }
 
 fun Database.Transaction.resetTampereDatabaseForE2ETests() {
-    execute("SELECT reset_tampere_database_for_e2e_tests()")
+    execute { sql("SELECT reset_tampere_database_for_e2e_tests()") }
 }

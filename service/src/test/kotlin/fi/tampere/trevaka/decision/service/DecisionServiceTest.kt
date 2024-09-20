@@ -14,7 +14,6 @@ import fi.espoo.evaka.decision.DecisionType
 import fi.espoo.evaka.decision.DecisionUnit
 import fi.espoo.evaka.decision.createDecisionPdf
 import fi.espoo.evaka.identity.ExternalIdentifier
-import fi.espoo.evaka.invoicing.service.DocumentLang
 import fi.espoo.evaka.pdfgen.PdfGenerator
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.setting.SettingType
@@ -24,6 +23,7 @@ import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.DecisionId
 import fi.espoo.evaka.shared.PersonId
 import fi.espoo.evaka.shared.ServiceNeedOptionId
+import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.espoo.evaka.shared.template.ITemplateProvider
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.junit.jupiter.api.Test
@@ -82,7 +82,7 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
                     ),
                 )
             },
-            lang = DocumentLang.FI,
+            lang = OfficialLanguage.FI,
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
@@ -106,7 +106,7 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
                 partTime = false,
                 serviceNeedOption = null,
             ),
-            lang = DocumentLang.FI,
+            lang = OfficialLanguage.FI,
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
@@ -136,7 +136,7 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
                     null,
                 ),
             ),
-            lang = DocumentLang.FI,
+            lang = OfficialLanguage.FI,
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
@@ -166,7 +166,7 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
                     null,
                 ),
             ),
-            lang = DocumentLang.FI,
+            lang = OfficialLanguage.FI,
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 

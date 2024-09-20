@@ -40,8 +40,8 @@ import fi.espoo.evaka.shared.dev.DevDaycare
 import fi.espoo.evaka.shared.dev.DevParentship
 import fi.espoo.evaka.shared.dev.DevPerson
 import fi.espoo.evaka.shared.dev.DevPersonType
+import fi.espoo.evaka.shared.dev.DevPlacement
 import fi.espoo.evaka.shared.dev.insert
-import fi.espoo.evaka.shared.dev.insertTestPlacement
 import fi.espoo.evaka.shared.domain.DateRange
 import fi.espoo.evaka.shared.domain.FiniteDateRange
 import fi.espoo.evaka.shared.security.PilotFeature
@@ -312,12 +312,14 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
         tx.upsertFeeDecisions(feeDecisions)
         feeDecisions.forEach { decision ->
             decision.children.forEach { part ->
-                tx.insertTestPlacement(
-                    childId = part.child.id,
-                    unitId = part.placement.unitId,
-                    startDate = decision.validFrom,
-                    endDate = decision.validTo!!,
-                    type = part.placement.type,
+                tx.insert(
+                    DevPlacement(
+                        childId = part.child.id,
+                        unitId = part.placement.unitId,
+                        startDate = decision.validFrom,
+                        endDate = decision.validTo!!,
+                        type = part.placement.type,
+                    ),
                 )
             }
         }

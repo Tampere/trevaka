@@ -5,7 +5,7 @@
 package fi.lempaala.evaka.template.config
 
 import fi.espoo.evaka.decision.DecisionType
-import fi.espoo.evaka.invoicing.service.DocumentLang
+import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.espoo.evaka.shared.template.ITemplateProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -18,7 +18,7 @@ class TemplateConfiguration {
 }
 
 class LempaalaTemplateProvider : ITemplateProvider {
-    override fun getLocalizedFilename(type: DecisionType, lang: DocumentLang): String =
+    override fun getLocalizedFilename(type: DecisionType, lang: OfficialLanguage): String =
         when (type) {
             DecisionType.CLUB -> "Kerhopäätös"
             DecisionType.DAYCARE,
