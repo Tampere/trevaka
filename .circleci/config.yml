@@ -7,6 +7,7 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@5.1.0
   aws-ecr: circleci/aws-ecr@9.3.2
+  terraform: circleci/terraform@3.2.1
 
 aliases:
   - &workspace_root /home/circleci/repo
@@ -24,6 +25,9 @@ aliases:
     working_directory: *workspace_root
 
 executors:
+  base:
+    docker:
+      - image: cimg/base:current-22.04
   base_executor:
     <<: *default_config
     docker:
@@ -130,6 +134,11 @@ commands:
               --push \
               --provenance=false \
               << parameters.dir >>
+
+  terraform_install:
+    steps:
+      - terraform/install:
+          terraform_version: 1.9.5
 
 jobs:
   # MISC JOBS
@@ -264,19 +273,6 @@ jobs:
           extra_build_args: --build-context core=evaka/keycloak
           cache: auth
 
-  trigger_deploy:
-    executor: base_executor
-    resource_class: small
-    steps:
-      - run:
-          name: Trigger deploy
-          command: |
-            curl --request POST \
-              --url https://circleci.com/api/v2/project/github/Tampere/trevaka-infra/pipeline \
-              --user ''$CIRCLE_TOKEN':' \
-              --header 'content-type: application/json' \
-              --data '{"branch":"main","parameters":{"workflow":"deploy_pipeline","version":"'$CIRCLE_SHA1'"}}'
-
   e2e_test:
     executor: machine_executor
     resource_class: large
@@ -327,6 +323,73 @@ jobs:
           destination: videos
       - store_test_results:
           path: frontend/test-results
+
+  deploy_frontends:
+    parameters:
+      municipality:
+        type: string
+      environment:
+        type: string
+      version:
+        type: string
+      role-arn:
+        type: string
+        default: ${AWS_ROLE_ARN_DEPLOY_CIRCLECI}
+    executor: base
+    resource_class: small
+    steps:
+      - setup_remote_docker
+      - aws-cli/setup:
+          configure_default_region: false
+          configure_profile_region: false
+          role_arn: "arn:aws:iam::${AWS_ACCOUNT_ID}:role/${AWS_ROLE_NAME_CIRCLECI_UPLOAD}"
+      - aws-ecr/ecr_login:
+          account_id: ${AWS_ACCOUNT_ID}
+          region: ${AWS_REGION}
+      - run:
+          name: Download archive
+          command: |
+            docker pull ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend/<< parameters.municipality >>:<< parameters.version >>
+            container_id=$(docker create ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend/<< parameters.municipality >>:<< parameters.version >>)
+            docker cp "$container_id:/static" "frontend"
+            docker rm "$container_id"
+      - aws-cli/setup:
+          configure_default_region: false
+          configure_profile_region: false
+          role_arn: << parameters.role-arn >>
+      - run:
+          name: Deploy
+          command: |
+            aws s3 sync ./frontend s3://${AWS_S3_BUCKET_STATIC} \
+              --exact-timestamps \
+              --exclude "*index.html" \
+              --exclude "*service-worker.js" --exclude "*service-worker.js.map" \
+              --include "maintenance-page/*"
+  deploy_backends:
+    executor: base
+    resource_class: small
+    parameters:
+      municipality:
+        type: string
+      environment:
+        type: string
+      version:
+        type: string
+      role-arn:
+        type: string
+        default: ${AWS_ROLE_ARN_DEPLOY_CIRCLECI}
+    steps:
+      - checkout
+      - aws-cli/setup:
+          configure_default_region: false
+          configure_profile_region: false
+          role_arn: << parameters.role-arn >>
+      - terraform_install
+      - terraform/apply:
+          backend_config: region=${TF_VAR_region},bucket=${TF_VAR_terraform_bucket}
+          path: infra/deploy
+          var: apps_version=<< parameters.version >>
+          var_file: variables/<< parameters.municipality >>-<<parameters.environment >>-apps.tfvars
 
 workflows:
   version: 2
@@ -386,9 +449,9 @@ workflows:
           context:
             - trevaka-aws
 
-      - trigger_deploy:
-          context:
-            - trevaka-infra
+      # tampere-dev
+      - tampere_dev_approve:
+          type: approval
           requires:
             - check_licenses
             - datadog_build_image
@@ -399,3 +462,168 @@ workflows:
             branches:
               only:
                 - main
+      - deploy_frontends:
+          name: tampere_dev_frontends
+          context:
+            - trevaka-aws
+            - tampere-evaka-dev
+          requires:
+            - tampere_dev_approve
+          municipality: tampere
+          environment: dev
+          version: ${CIRCLE_SHA1}
+      - deploy_backends:
+          name: tampere_dev_backends
+          context:
+            - trevaka-aws
+            - tampere-evaka-dev
+          requires:
+            - tampere_dev_frontends
+          municipality: tampere
+          environment: dev
+          version: ${CIRCLE_SHA1}
+
+      # tampere-test
+      - deploy_frontends:
+          name: tampere_test_frontends
+          context:
+            - trevaka-aws
+            - tampere-evaka-test
+          requires:
+            - tampere_prod_approve
+          municipality: tampere
+          environment: test
+          version: ${CIRCLE_SHA1}
+      - deploy_backends:
+          name: tampere_test_backends
+          context:
+            - trevaka-aws
+            - tampere-evaka-test
+          requires:
+            - tampere_test_frontends
+          municipality: tampere
+          environment: test
+          version: ${CIRCLE_SHA1}
+
+      # tampere-prod
+      - tampere_prod_approve:
+          type: approval
+          requires:
+            - tampere_dev_backends
+      - deploy_frontends:
+          name: tampere_prod_frontends
+          context:
+            - trevaka-aws
+            - tampere-evaka-prod
+          requires:
+            - tampere_prod_approve
+          municipality: tampere
+          environment: prod
+          version: ${CIRCLE_SHA1}
+      - deploy_backends:
+          name: tampere_prod_backends
+          context:
+            - trevaka-aws
+            - tampere-evaka-prod
+          requires:
+            - tampere_prod_frontends
+          municipality: tampere
+          environment: prod
+          version: ${CIRCLE_SHA1}
+
+      # other test environments
+      - deploy_frontends:
+          matrix:
+            parameters:
+              municipality:
+                [
+                  "vesilahti",
+                  "hameenkyro",
+                  "nokia",
+                  "ylojarvi",
+                  "pirkkala",
+                  "kangasala",
+                  "lempaala",
+                  "orivesi",
+                ]
+          name: << matrix.municipality >>_test_frontends
+          context:
+            - trevaka-aws
+            - << matrix.municipality >>-evaka-test
+          requires:
+            - tampere_dev_backends
+          municipality: << matrix.municipality >>
+          environment: test
+          version: ${CIRCLE_SHA1}
+      - deploy_backends:
+          matrix:
+            parameters:
+              municipality:
+                [
+                  "vesilahti",
+                  "hameenkyro",
+                  "nokia",
+                  "ylojarvi",
+                  "pirkkala",
+                  "kangasala",
+                  "lempaala",
+                  "orivesi",
+                ]
+          name: << matrix.municipality >>_test_backends
+          context:
+            - trevaka-aws
+            - << matrix.municipality >>-evaka-test
+          requires:
+            - << matrix.municipality >>_test_frontends
+          municipality: << matrix.municipality >>
+          environment: test
+          version: ${CIRCLE_SHA1}
+
+      # other prod environments
+      - deploy_frontends:
+          matrix:
+            parameters:
+              municipality:
+                [
+                  "vesilahti",
+                  "hameenkyro",
+                  "nokia",
+                  "ylojarvi",
+                  "pirkkala",
+                  "kangasala",
+                  "lempaala",
+                  "orivesi",
+                ]
+          name: << matrix.municipality >>_prod_frontends
+          context:
+            - trevaka-aws
+            - << matrix.municipality >>-evaka-prod
+          requires:
+            - << matrix.municipality >>_test_backends
+            - tampere_prod_backends
+          municipality: << matrix.municipality >>
+          environment: prod
+          version: ${CIRCLE_SHA1}
+      - deploy_backends:
+          matrix:
+            parameters:
+              municipality:
+                [
+                  "vesilahti",
+                  "hameenkyro",
+                  "nokia",
+                  "ylojarvi",
+                  "pirkkala",
+                  "kangasala",
+                  "lempaala",
+                  "orivesi",
+                ]
+          name: << matrix.municipality >>_prod_backends
+          context:
+            - trevaka-aws
+            - << matrix.municipality >>-evaka-prod
+          requires:
+            - << matrix.municipality >>_prod_frontends
+          municipality: << matrix.municipality >>
+          environment: prod
+          version: ${CIRCLE_SHA1}
