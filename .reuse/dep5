@@ -45,6 +45,14 @@ Files: auth/realms/*.json
 Copyright: 2021 City of Tampere
 License: LGPL-2.1-or-later
 
+Files: infra/deploy/.terraform-version
+Copyright: 2023-2024 Tampere region
+License: LGPL-2.1-or-later
+
+Files: infra/deploy/.terraform.lock.hcl
+Copyright: 2023-2024 Tampere region
+License: LGPL-2.1-or-later
+
 Files: service/build.gradle.kts
 Copyright: 2021 City of Tampere
 License: LGPL-2.1-or-later

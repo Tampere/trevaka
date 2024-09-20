@@ -9,3 +9,5 @@
 .gradle_user_home
 
 /auth/theme/
+
+**/.terraform/*
