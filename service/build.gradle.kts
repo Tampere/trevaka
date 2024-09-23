@@ -105,5 +105,5 @@ allprojects {
 }
 
 configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
-    version.set("0.50.0")
+    version.set(libs.versions.ktlint.asProvider().get())
 }

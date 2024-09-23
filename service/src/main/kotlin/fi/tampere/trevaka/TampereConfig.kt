@@ -87,23 +87,19 @@ class TampereConfig {
     fun productionS3AsyncClient(
         bucketEnv: BucketEnv,
         credentialsProvider: AwsCredentialsProvider,
-    ): S3AsyncClient {
-        return S3AsyncClient.crtBuilder()
-            .credentialsProvider(credentialsProvider)
-            .build()
-    }
+    ): S3AsyncClient = S3AsyncClient.crtBuilder()
+        .credentialsProvider(credentialsProvider)
+        .build()
 
     @Bean
     @Profile("local")
     fun localS3AsyncClient(
         bucketEnv: BucketEnv,
         credentialsProvider: AwsCredentialsProvider,
-    ): S3AsyncClient {
-        return S3AsyncClient.crtBuilder()
-            .region(Region.EU_WEST_1)
-            .credentialsProvider(credentialsProvider)
-            .build()
-    }
+    ): S3AsyncClient = S3AsyncClient.crtBuilder()
+        .region(Region.EU_WEST_1)
+        .credentialsProvider(credentialsProvider)
+        .build()
 
     @Bean
     fun fileS3Client(asyncClient: S3AsyncClient, properties: TampereProperties): BiExportClient =

@@ -22,8 +22,7 @@ private val restrictedPostCode = "36201"
 private val restrictedPostOffice = "Kangasala"
 
 @Component
-class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val financeDateProvider: FinanceDateProvider) :
-    StringInvoiceGenerator {
+class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val financeDateProvider: FinanceDateProvider) : StringInvoiceGenerator {
 
     fun generateInvoiceTitle(): String {
         val previousMonth = financeDateProvider.previousMonth()
@@ -328,8 +327,6 @@ internal fun handlePerson(person: PersonDetailed): PersonDetailed {
     )
 }
 
-internal fun hasInvoicingAddress(person: PersonDetailed): Boolean {
-    return person.invoicingStreetAddress.isNotBlank() &&
-        person.invoicingPostalCode.isNotBlank() &&
-        person.invoicingPostOffice.isNotBlank()
-}
+internal fun hasInvoicingAddress(person: PersonDetailed): Boolean = person.invoicingStreetAddress.isNotBlank() &&
+    person.invoicingPostalCode.isNotBlank() &&
+    person.invoicingPostOffice.isNotBlank()
