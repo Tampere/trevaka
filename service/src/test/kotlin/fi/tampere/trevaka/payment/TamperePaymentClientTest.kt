@@ -31,7 +31,9 @@ import org.springframework.ws.test.client.MockWebServiceServer
 import org.springframework.ws.test.client.RequestMatchers.connectionTo
 import org.springframework.ws.test.client.RequestMatchers.payload
 import org.springframework.ws.test.client.ResponseCreators.withPayload
+import trevaka.addClientInterceptors
 import trevaka.ipaas.IpaasProperties
+import trevaka.newPayloadValidatingInterceptor
 import java.time.LocalDate
 import java.time.Month
 import java.util.*
@@ -58,6 +60,14 @@ class TamperePaymentClientTest {
         )
         val configuration = TampereConfig()
         val webServiceTemplate = configuration.webServiceTemplate(InvoiceConfiguration().httpClient(properties))
+        addClientInterceptors(
+            webServiceTemplate,
+            newPayloadValidatingInterceptor(
+                "iPaaS_Common_Types_v1_0.xsd",
+                "PayableAccounting_v05.xsd",
+                "SAPFICO_Ostoreskontra_v1_0_InlineSchema1.xsd",
+            ),
+        )
         client = configuration.paymentIntegrationClient(webServiceTemplate, properties)
         server = MockWebServiceServer.createServer(webServiceTemplate)
         tx = mock {}
