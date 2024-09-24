@@ -6,6 +6,8 @@ package fi.nokiankaupunki.evaka
 
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.mealintegration.MealTypeMapper
+import fi.espoo.evaka.shared.ArchiveProcessConfig
+import fi.espoo.evaka.shared.ArchiveProcessType
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
@@ -48,8 +50,30 @@ class NokiaConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
-        archiveMetadataOrganization = "Nokian kaupungin varhaiskasvatus",
-        archiveMetadataConfigs = emptyMap(),
+        archiveMetadataOrganization = "Nokian kaupunki, varhaiskasvatus ja esiopetus",
+        archiveMetadataConfigs =
+        mapOf(
+            ArchiveProcessType.APPLICATION_DAYCARE to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "04.01.00.11",
+                    archiveDurationMonths = 10 * 12,
+                ),
+            ArchiveProcessType.APPLICATION_PRESCHOOL to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "04.01.03.41",
+                    archiveDurationMonths = 10 * 12,
+                ),
+            ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "04.01.00.82",
+                    archiveDurationMonths = 10 * 12,
+                ),
+            ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "04.01.03.42",
+                    archiveDurationMonths = 10 * 12,
+                ),
+        ),
         daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
     )
 

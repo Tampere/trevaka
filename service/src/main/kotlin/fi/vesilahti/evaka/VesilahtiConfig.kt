@@ -7,6 +7,8 @@ package fi.vesilahti.evaka
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.mealintegration.DefaultMealTypeMapper
 import fi.espoo.evaka.mealintegration.MealTypeMapper
+import fi.espoo.evaka.shared.ArchiveProcessConfig
+import fi.espoo.evaka.shared.ArchiveProcessType
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
@@ -48,8 +50,35 @@ class VesilahtiConfig {
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
-        archiveMetadataOrganization = "Vesilahden kunnan varhaiskasvatus",
-        archiveMetadataConfigs = emptyMap(),
+        archiveMetadataOrganization = "Vesilahden kunta, varhaiskasvatus",
+        archiveMetadataConfigs =
+        mapOf(
+            ArchiveProcessType.APPLICATION_DAYCARE to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "12.07.02",
+                    archiveDurationMonths = 10 * 12,
+                ),
+            ArchiveProcessType.APPLICATION_PRESCHOOL to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "12.01.00",
+                    archiveDurationMonths = 10 * 12,
+                ),
+            ArchiveProcessType.APPLICATION_CLUB to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "12.01.09",
+                    archiveDurationMonths = 10 * 12,
+                ),
+            ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "12.07.03",
+                    archiveDurationMonths = 10 * 12,
+                ),
+            ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL to
+                ArchiveProcessConfig(
+                    processDefinitionNumber = "12.01.03.03",
+                    archiveDurationMonths = 10 * 12,
+                ),
+        ),
         daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
     )
 
