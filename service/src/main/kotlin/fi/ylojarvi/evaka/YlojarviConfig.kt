@@ -20,6 +20,7 @@ import trevaka.ipaas.dvvModificationRequestCustomizer
 import trevaka.ipaas.newIpaasHttpClient
 import trevaka.titania.PrefixTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
+import java.time.MonthDay
 
 @Configuration
 class YlojarviConfig {
@@ -49,6 +50,7 @@ class YlojarviConfig {
         fiveYearsOldDaycareEnabled = false,
         archiveMetadataOrganization = "Ylöjärven kaupungin varhaiskasvatus",
         archiveMetadataConfigs = emptyMap(),
+        daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
     )
 
     @Bean
