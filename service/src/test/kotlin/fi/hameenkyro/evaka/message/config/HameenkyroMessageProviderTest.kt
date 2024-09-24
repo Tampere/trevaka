@@ -4,8 +4,8 @@
 
 package fi.hameenkyro.evaka.message.config
 
+import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.espoo.evaka.shared.message.IMessageProvider
-import fi.espoo.evaka.shared.message.MessageLanguage
 import fi.hameenkyro.evaka.AbstractHameenkyroIntegrationTest
 import org.assertj.core.api.Assertions
 import org.junitpioneer.jupiter.cartesian.ArgumentSets
@@ -23,7 +23,7 @@ class HameenkyroMessageProviderTest : AbstractHameenkyroIntegrationTest() {
 
     @CartesianTest
     @CartesianTest.MethodFactory("methodsWithLang")
-    fun `get works for every message type and language`(method: Method, lang: MessageLanguage) {
+    fun `get works for every message type and language`(method: Method, lang: OfficialLanguage) {
         Assertions.assertThat(((method.invoke(messageProvider, lang)) as String).also(::println))
             .isNotBlank
             .doesNotContainIgnoringCase("espoo")
@@ -35,12 +35,12 @@ class HameenkyroMessageProviderTest : AbstractHameenkyroIntegrationTest() {
         fun methodsWithLang(): ArgumentSets {
             val allMethods = getAllMethods(
                 IMessageProvider::class.java,
-                withParametersAssignableTo(MessageLanguage::class.java),
+                withParametersAssignableTo(OfficialLanguage::class.java),
                 withReturnType(String::class.java),
             )
             return ArgumentSets.create()
                 .argumentsForNextParameter(allMethods)
-                .argumentsForNextParameter(MessageLanguage.entries)
+                .argumentsForNextParameter(OfficialLanguage.entries)
         }
     }
 }

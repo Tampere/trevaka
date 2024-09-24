@@ -22,6 +22,7 @@ import trevaka.ipaas.dvvModificationRequestCustomizer
 import trevaka.ipaas.newIpaasHttpClient
 import trevaka.titania.PrefixTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
+import java.time.MonthDay
 
 @Configuration
 class PirkkalaConfig {
@@ -73,6 +74,7 @@ class PirkkalaConfig {
                     archiveDurationMonths = 20 * 12,
                 ),
         ),
+        daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
     )
 
     @Bean

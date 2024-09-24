@@ -8,7 +8,6 @@ import fi.espoo.evaka.assistanceneed.decision.AssistanceLevel
 import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecision
 import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionChild
 import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionEmployee
-import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionLanguage
 import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionMaker
 import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionService
 import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionStatus
@@ -24,6 +23,7 @@ import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.EmployeeId
 import fi.espoo.evaka.shared.PersonId
 import fi.espoo.evaka.shared.domain.DateRange
+import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -120,7 +120,7 @@ val validAssistanceNeedDecision = AssistanceNeedDecision(
     ),
     validityPeriod = DateRange(LocalDate.of(2022, 8, 2), LocalDate.of(2022, 12, 31)),
     status = AssistanceNeedDecisionStatus.ACCEPTED,
-    language = AssistanceNeedDecisionLanguage.FI,
+    language = OfficialLanguage.FI,
     decisionMade = LocalDate.of(2022, 7, 1),
     sentForDecision = LocalDate.of(2022, 5, 12),
     selectedUnit = UnitInfo(

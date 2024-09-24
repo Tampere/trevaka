@@ -13,13 +13,13 @@ import fi.espoo.evaka.daycare.service.DaycareManager
 import fi.espoo.evaka.decision.DecisionType
 import fi.espoo.evaka.invoicing.domain.FeeDecisionType
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionType
-import fi.espoo.evaka.invoicing.service.DocumentLang
 import fi.espoo.evaka.invoicing.service.FeeDecisionPdfData
 import fi.espoo.evaka.invoicing.service.VoucherValueDecisionPdfData
 import fi.espoo.evaka.pdfgen.PdfGenerator
 import fi.espoo.evaka.placement.PlacementType
 import fi.espoo.evaka.setting.SettingType
 import fi.espoo.evaka.shared.ServiceNeedOptionId
+import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.espoo.evaka.shared.template.ITemplateProvider
 import fi.tampere.trevaka.assistanceneed.decision.validAssistanceNeedDecision
 import fi.tampere.trevaka.assistanceneed.decision.validAssistanceNeedPreschoolDecision
@@ -88,7 +88,7 @@ class YlojarviPdfGeneratorTest : AbstractYlojarviIntegrationTest() {
                     ),
                 )
             },
-            lang = DocumentLang.FI,
+            lang = OfficialLanguage.FI,
             DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
@@ -101,7 +101,7 @@ class YlojarviPdfGeneratorTest : AbstractYlojarviIntegrationTest() {
     fun generateFeeDecisionPdf(placementType: PlacementType) {
         val decision = validFeeDecision(children = listOf(validFeeDecisionChild().copy(placementType = placementType)))
 
-        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
+        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, OfficialLanguage.FI))
 
         val filename = "ylojarvi-fee-decision-with-placement-type-$placementType.pdf"
         writeReportsFile(filename, bytes)
@@ -112,7 +112,7 @@ class YlojarviPdfGeneratorTest : AbstractYlojarviIntegrationTest() {
     fun generateFeeDecisionPdf(decisionType: FeeDecisionType) {
         val decision = validFeeDecision().copy(decisionType = decisionType)
 
-        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, DocumentLang.FI))
+        val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, OfficialLanguage.FI))
 
         val filename = "ylojarvi-fee-decision-with-decision-type-$decisionType.pdf"
         writeReportsFile(filename, bytes)
@@ -123,7 +123,7 @@ class YlojarviPdfGeneratorTest : AbstractYlojarviIntegrationTest() {
     fun generateVoucherValueDecisionPdf(decisionType: VoucherValueDecisionType) {
         val decision = validVoucherValueDecision().copy(decisionType = decisionType)
 
-        val bytes = pdfGenerator.generateVoucherValueDecisionPdf(VoucherValueDecisionPdfData(decision, settings, DocumentLang.FI))
+        val bytes = pdfGenerator.generateVoucherValueDecisionPdf(VoucherValueDecisionPdfData(decision, settings, OfficialLanguage.FI))
 
         val filename = "ylojarvi-voucher-value-decision-with-decision-type-$decisionType.pdf"
         writeReportsFile(filename, bytes)

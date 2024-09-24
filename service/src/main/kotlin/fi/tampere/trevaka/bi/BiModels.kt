@@ -33,12 +33,12 @@ import fi.espoo.evaka.placement.PlacementType
 import fi.espoo.evaka.serviceneed.ShiftCareType
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.domain.DateRange
+import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.espoo.evaka.shared.domain.TimeRange
 import fi.espoo.evaka.shared.security.PilotFeature
 import fi.espoo.evaka.user.EvakaUserType
 import fi.espoo.evaka.vasu.CurriculumType
 import fi.espoo.evaka.vasu.VasuDocumentEventType
-import fi.espoo.evaka.vasu.VasuLanguage
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
@@ -326,7 +326,7 @@ data class BiCurriculumTemplate(
     val updated: String,
     val valid: String, // DateRange
     val type: CurriculumType,
-    val language: VasuLanguage,
+    val language: OfficialLanguage,
     val name: String,
     val content: String,
 )

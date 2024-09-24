@@ -42,6 +42,7 @@ import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3AsyncClient
 import trevaka.titania.TrimStartTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
+import java.time.MonthDay
 
 const val WEB_SERVICE_TEMPLATE_PAYMENT = "webServiceTemplatePayment"
 internal val PAYMENT_SOAP_PACKAGES = arrayOf(
@@ -107,6 +108,7 @@ class TampereConfig {
                     archiveDurationMonths = 120 * 12,
                 ),
         ),
+        daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
     )
 
     @Bean
@@ -114,23 +116,19 @@ class TampereConfig {
     fun productionS3AsyncClient(
         bucketEnv: BucketEnv,
         credentialsProvider: AwsCredentialsProvider,
-    ): S3AsyncClient {
-        return S3AsyncClient.crtBuilder()
-            .credentialsProvider(credentialsProvider)
-            .build()
-    }
+    ): S3AsyncClient = S3AsyncClient.crtBuilder()
+        .credentialsProvider(credentialsProvider)
+        .build()
 
     @Bean
     @Profile("local")
     fun localS3AsyncClient(
         bucketEnv: BucketEnv,
         credentialsProvider: AwsCredentialsProvider,
-    ): S3AsyncClient {
-        return S3AsyncClient.crtBuilder()
-            .region(Region.EU_WEST_1)
-            .credentialsProvider(credentialsProvider)
-            .build()
-    }
+    ): S3AsyncClient = S3AsyncClient.crtBuilder()
+        .region(Region.EU_WEST_1)
+        .credentialsProvider(credentialsProvider)
+        .build()
 
     @Bean
     fun fileS3Client(asyncClient: S3AsyncClient, properties: TampereProperties): BiExportClient =

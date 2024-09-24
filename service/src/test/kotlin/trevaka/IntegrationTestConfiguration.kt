@@ -44,17 +44,15 @@ class IntegrationTestConfiguration {
 
     @Bean
     @Profile("tampere_evaka")
-    fun testS3AsyncClient(bucketEnv: BucketEnv): S3AsyncClient {
-        return S3AsyncClient.crtBuilder()
-            .region(Region.EU_WEST_1)
-            .forcePathStyle(true)
-            .endpointOverride(bucketEnv.s3MockUrl)
-            .checksumValidationEnabled(false)
-            .credentialsProvider(
-                StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar")),
-            )
-            .build()
-    }
+    fun testS3AsyncClient(bucketEnv: BucketEnv): S3AsyncClient = S3AsyncClient.crtBuilder()
+        .region(Region.EU_WEST_1)
+        .forcePathStyle(true)
+        .endpointOverride(bucketEnv.s3MockUrl)
+        .checksumValidationEnabled(false)
+        .credentialsProvider(
+            StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar")),
+        )
+        .build()
 
     @Bean
     fun s3Presigner(bucketEnv: BucketEnv): S3Presigner =

@@ -25,6 +25,12 @@ updates:
       interval: "daily"
       time: "10:00"
       timezone: "Europe/Helsinki"
+  - package-ecosystem: "docker"
+    directory: "/datadog"
+    schedule:
+      interval: "daily"
+      time: "10:00"
+      timezone: "Europe/Helsinki"
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:
@@ -55,6 +61,17 @@ updates:
         patterns:
           - "tslib"
           - "typescript"
+  - package-ecosystem: "terraform"
+    directories:
+      - "/infra/deploy"
+    groups:
+      terraform:
+        patterns:
+          - "*"
+    schedule:
+      interval: "daily"
+      time: "10:00"
+      timezone: "Europe/Helsinki"
   - package-ecosystem: "gradle"
     directory: "/mock/identification"
     schedule:

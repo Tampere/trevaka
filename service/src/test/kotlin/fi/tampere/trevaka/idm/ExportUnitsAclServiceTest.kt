@@ -64,11 +64,11 @@ class ExportUnitsAclServiceTest : AbstractTampereIntegrationTest() {
         val (data, contentType) = s3Client.getObject(request).use {
             it.readAllBytes().toString(StandardCharsets.UTF_8) to it.response().contentType()
         }
-        assertEquals(expected, data)
+        assertEquals(EXPECTED, data)
         assertEquals("text/csv", contentType)
     }
 }
 
-private const val expected = """unit_id;unit_name;first_name;last_name;email;employee_number
+private const val EXPECTED = """unit_id;unit_name;first_name;last_name;email;employee_number
 4e042a2e-f2d3-11ec-b2d6-1bf5942d79f4;Sammon koulun esiopetus;Leena;Testi;leena.testi@tampere.fi;356751
 """
