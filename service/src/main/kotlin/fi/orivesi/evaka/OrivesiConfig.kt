@@ -70,7 +70,7 @@ class OrivesiConfig {
                 ),
             ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE to
                 ArchiveProcessConfig(
-                    processDefinitionNumber = "12.7.2003",
+                    processDefinitionNumber = "12.07.03",
                     archiveDurationMonths = 10 * 12,
                 ),
             ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL to
