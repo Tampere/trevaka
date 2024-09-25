@@ -336,7 +336,7 @@ const fi: DeepPartial<Translations> = {
           <P>
             Lisätietoa varhaiskasvatuksen asiakasmaksuista löydät{' '}
             <ExternalLink
-              href="https://nokiankaupunki.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
+              href="https://www.nokiankaupunki.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatuspalvelut/varhaiskasvatuksen-maksut-tuet-palveluseteli/varhaiskasvatuksen-asiakasmaksut-2/"
               text="Nokian kaupungin sivuilta"
               newTab
             />
@@ -736,7 +736,7 @@ const fi: DeepPartial<Translations> = {
           koon ja tulojen sekä varhaiskasvatusajan mukaan.
         </p>
         <p data-qa="income-description-p4">
-          <a href="https://nokiankaupunki.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/">
+          <a href="https://www.nokiankaupunki.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatuspalvelut/varhaiskasvatuksen-maksut-tuet-palveluseteli/varhaiskasvatuksen-asiakasmaksut-2/">
             Lisätietoja asiakasmaksuista
           </a>
         </p>
@@ -779,7 +779,7 @@ const fi: DeepPartial<Translations> = {
             <a
               target="_blank"
               rel="noreferrer"
-              href="https://nokiankaupunki.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
+              href="https://www.nokiankaupunki.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatuspalvelut/varhaiskasvatuksen-maksut-tuet-palveluseteli/varhaiskasvatuksen-asiakasmaksut-2/"
             >
               tästä
             </a>
