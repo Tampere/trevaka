@@ -9,7 +9,7 @@ set -euo pipefail
 
 # Configuration
 DEBUG=${DEBUG:-false}
-REUSE_VERSION=1.1.2 # NOTE: Update .circleci/config.yml to match
+REUSE_VERSION=4.0.3 # NOTE: Update .circleci/config.yml to match
 START_YEAR=2023
 CURRENT_YEAR=$(date +"%Y")
 if [ "${START_YEAR}" == "${CURRENT_YEAR}" ]; then
@@ -76,16 +76,12 @@ if [ "$REUSE_EXIT_CODE" != 1 ]; then
     exit "$REUSE_EXIT_CODE"
 fi
 
-# NOTE: All of the following nonsense can be dropped if "reuse json" or something else machine-readable
-# is ever implemented in the tool (https://github.com/fsfe/reuse-tool/issues/183).
+set +e
+REUSE_OUTPUT_JSON=$(run_reuse lint --json)
+set -e
 
-# If licenses referenced in some file are missing, the output contains:
-#
-# * Missing licenses: BSD-2-Clause, ANOTHER-LICENSE
-#
-# -> find all quoted license IDs and download them automatically
 # shellcheck disable=SC2207
-MISSING_LICENSES=($(echo "$REUSE_OUTPUT" | grep '^* Missing licenses:' | cut -d ' ' -f 4- | tr ', ' ' '))
+MISSING_LICENSES=($(echo "$REUSE_OUTPUT_JSON" | jq -r '.non_compliant.missing_licenses | keys | .[]'))
 echo "${MISSING_LICENSES[@]}"
 for license in "${MISSING_LICENSES[@]}"; do
     if [ -z "$license" ]; then
@@ -97,12 +93,8 @@ for license in "${MISSING_LICENSES[@]}"; do
     fi
 done
 
-# Unfortunately reuse tool doesn't provide a machine-readable output currently,
-# so some ugly parsing is necessary.
-NONCOMPLIANT_FILES=$(echo "$REUSE_OUTPUT" \
-    | awk '/^$/ {next} /following/ {next} /MISSING COPYRIGHT AND LICENSING INFORMATION/{flag=1; next} /SUMMARY/{flag=0} flag' \
-    | cut -d' ' -f2-
-)
+NONCOMPLIANT_FILES=$(echo "$REUSE_OUTPUT_JSON" \
+    | jq -r '.non_compliant.missing_copyright_info + .non_compliant.missing_licensing_info | unique | .[]')
 
 while IFS= read -r file; do
     if [ -z "$file" ]; then
