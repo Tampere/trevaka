@@ -33,8 +33,7 @@ const featureFlags: FeatureFlags = {
   extendedPreschoolTerm: false,
   hideClubApplication: true,
   discussionReservations: true,
-  jamixIntegration: true,
-  automaticFixedScheduleAbsences: true
+  jamixIntegration: true
 }
 
 export default featureFlags

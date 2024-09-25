@@ -43,8 +43,7 @@ const prod: FeatureFlags = {
   voucherUnitPayments: false,
   assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
-  discussionReservations: true,
-  automaticFixedScheduleAbsences: true
+  discussionReservations: true
 }
 
 const features: Features = {
