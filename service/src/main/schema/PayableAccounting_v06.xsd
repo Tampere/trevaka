@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!--File PayableAccounting_v05.xsd, application TAM_SAPFICO_Ostoreskontra_Service--><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tampere.fi/messages/sapfico/payableaccounting/v05" xmlns="http://www.tampere.fi/messages/sapfico/payableaccounting/v05">
+<?xml version="1.0" encoding="UTF-8"?><!--File PayableAccounting_v06.xsd, application TAM_SAPFICO_Ostoreskontra_Service--><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tampere.fi/messages/sapfico/payableaccounting/v06" xmlns="http://www.tampere.fi/messages/sapfico/payableaccounting/v06">
   <xsd:element name="PayableAccounting">
     <xsd:complexType>
       <xsd:sequence>
@@ -46,7 +46,7 @@
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
-  <xsd:element name="SAPVendor" type="xsd:NCName"/>
+  <xsd:element name="SAPVendor" type="xsd:string"/>
   <xsd:element name="IBAN" type="xsd:NCName"/>
   <xsd:element name="BIC" type="xsd:NCName"/>
   <xsd:element name="Customer" type="xsd:NMTOKEN"/>
@@ -63,7 +63,7 @@
   <xsd:element name="PaymentCondition" type="xsd:NCName"/>
   <xsd:element name="SourceReference" type="xsd:string"/>
   <xsd:element name="BasicDate" type="xsd:NMTOKEN"/>
-  <xsd:element name="InterfaceID" type="xsd:NCName"/>
+  <xsd:element name="InterfaceID" type="xsd:string"/>
   <xsd:element name="PayableAccountingLine">
     <xsd:complexType>
       <xsd:sequence>

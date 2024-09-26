@@ -9,10 +9,10 @@ import fi.espoo.evaka.invoicing.domain.Payment
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.shared.db.Database
 import fi.tampere.messages.ipaas.commontypes.v1.SimpleAcknowledgementResponseType
-import fi.tampere.messages.sapfico.payableaccounting.v05.Invoice
-import fi.tampere.messages.sapfico.payableaccounting.v05.PayableAccounting
-import fi.tampere.messages.sapfico.payableaccounting.v05.PayableAccountingHeader
-import fi.tampere.messages.sapfico.payableaccounting.v05.PayableAccountingLine
+import fi.tampere.messages.sapfico.payableaccounting.v06.Invoice
+import fi.tampere.messages.sapfico.payableaccounting.v06.PayableAccounting
+import fi.tampere.messages.sapfico.payableaccounting.v06.PayableAccountingHeader
+import fi.tampere.messages.sapfico.payableaccounting.v06.PayableAccountingLine
 import fi.tampere.services.sapfico.payableaccounting.v1.SendPayableAccountingRequest
 import fi.tampere.trevaka.PaymentProperties
 import jakarta.xml.bind.JAXBIntrospector
@@ -52,22 +52,19 @@ class TamperePaymentClient(
         val value = payment.amount.centsToEuros()
         return Invoice().apply {
             payableAccountingHeader = PayableAccountingHeader().apply {
-                sapVendor = "_${payment.unit.providerId}" // TODO: remove prefix
+                sapVendor = payment.unit.providerId
                 iban = payment.unit.iban?.filterNot { it.isWhitespace() }
-                bic = "_" // TODO: remove
+                bic = "_"
                 customer = payment.unit.businessId
                 organisation = 1310.toBigInteger()
                 date = payment.period.end?.format()
                 receiptType = "6F"
                 debetKredit = "-"
-                /**
-                 * TODO: description = "Varhaiskasvatus" (reference & currency must also be set)
-                 */
                 billingDate = payment.paymentDate?.format()
                 billNumber = payment.number?.toBigInteger()
                 billValue = value
                 basicDate = payment.dueDate?.format()
-                interfaceID = "_383" // TODO: remove prefix
+                interfaceID = "383"
             }
             payableAccountingLine.add(
                 PayableAccountingLine().apply {
@@ -80,9 +77,6 @@ class TamperePaymentClient(
                             else -> "20285"
                         }
                     }
-                    /**
-                     * TODO: taxCode = "29" (transactionType, partnerCode & functionalArea must also be set)
-                     */
                     debetKredit = "+"
                     this.value = value
                 },

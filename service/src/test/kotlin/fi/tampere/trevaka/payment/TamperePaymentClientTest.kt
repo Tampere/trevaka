@@ -64,7 +64,7 @@ class TamperePaymentClientTest {
             webServiceTemplate,
             newPayloadValidatingInterceptor(
                 "iPaaS_Common_Types_v1_0.xsd",
-                "PayableAccounting_v05.xsd",
+                "PayableAccounting_v06.xsd",
                 "SAPFICO_Ostoreskontra_v1_0_InlineSchema1.xsd",
             ),
         )
