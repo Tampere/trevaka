@@ -90,10 +90,6 @@ internal class EmailMessageProviderTest : AbstractTampereIntegrationTest() {
             ),
         ),
         Arguments.of(
-            "vasuNotification",
-            emailMessageProvider.vasuNotification(Language.fi, ChildId(UUID.randomUUID())),
-        ),
-        Arguments.of(
             "pedagogicalDocumentNotification",
             emailMessageProvider.pedagogicalDocumentNotification(Language.fi, ChildId(UUID.randomUUID())),
         ),

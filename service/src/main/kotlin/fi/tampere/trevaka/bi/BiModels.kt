@@ -33,12 +33,9 @@ import fi.espoo.evaka.placement.PlacementType
 import fi.espoo.evaka.serviceneed.ShiftCareType
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.domain.DateRange
-import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.espoo.evaka.shared.domain.TimeRange
 import fi.espoo.evaka.shared.security.PilotFeature
 import fi.espoo.evaka.user.EvakaUserType
-import fi.espoo.evaka.vasu.CurriculumType
-import fi.espoo.evaka.vasu.VasuDocumentEventType
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
@@ -299,36 +296,6 @@ data class BiChildAttendance(
     val date: LocalDate,
     val start_time: LocalTime,
     val end_time: LocalTime?,
-)
-
-data class BiCurriculumDocument(
-    val id: UUID,
-    val child_id: UUID,
-    val basics: String,
-    val template_id: UUID,
-    val modified_at: String,
-    val created: String,
-    val updated: String,
-)
-
-data class BiCurriculumDocumentEvent(
-    val id: UUID,
-    val created: String,
-    val updated: String,
-    val curriculum_document_id: UUID,
-    val event_type: VasuDocumentEventType,
-    val created_by: UUID,
-)
-
-data class BiCurriculumTemplate(
-    val id: UUID,
-    val created: String,
-    val updated: String,
-    val valid: String, // DateRange
-    val type: CurriculumType,
-    val language: OfficialLanguage,
-    val name: String,
-    val content: String,
 )
 
 data class BiDaycare(
