@@ -50,7 +50,8 @@ const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
-    voucherUnitPayments: true
+    voucherUnitPayments: true,
+    serviceApplications: true
   },
   staging: {
     ...prod,
