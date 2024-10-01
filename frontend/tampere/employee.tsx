@@ -495,9 +495,6 @@ const customizations: EmployeeCustomizations = {
           info: 'Tallenna tähän varhaiskasvatussopimuksella sovittu päivittäinen läsnäoloaika.',
           info2: ''
         },
-        vasu: {
-          title: 'Varhaiskasvatussuunnitelma ja esiopetuksen oppimissuunnitelma'
-        },
         application: {
           types: {
             PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus'
@@ -613,10 +610,6 @@ const customizations: EmployeeCustomizations = {
       }
     },
     sv: {}
-  },
-  vasuTranslations: {
-    FI: {},
-    SV: {}
   },
   cityLogo: {
     src: TampereLogo,

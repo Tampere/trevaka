@@ -242,23 +242,6 @@ $unsubscribeEn
 """,
     )
 
-    override fun vasuNotification(language: Language, childId: ChildId): EmailContent = EmailContent.fromHtml(
-        subject = "Uusi dokumentti eVakassa / New document in eVaka",
-        html =
-        """
-                <p>Sinulle on saapunut uusi dokumentti Tampereen varhaiskasvatuksen verkkopalveluun eVakaan. Löydät dokumentin Lapset-välilehdeltä.</p>
-                <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
-                $unsubscribeFi
-
-                <hr>
-
-                <p>You have received a new document in Tampere`s early childhood education system eVaka. You can find the document on the Children page.</p>
-                <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
-                $unsubscribeEn
-        """
-            .trimIndent(),
-    )
-
     override fun pedagogicalDocumentNotification(language: Language, childId: ChildId): EmailContent = EmailContent.fromHtml(
         subject =
         "Uusi pedagoginen dokumentti eVakassa / New pedagogical document in eVaka",

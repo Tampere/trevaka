@@ -1,10 +1,10 @@
 <ns4:SendPayableAccountingRequest xmlns:ns4="http://www.tampere.fi/services/sapfico/payableaccounting/v1.0"
                                   xmlns:ns2="http://www.tampere.fi/messages/ipaas/commontypes/v1.0"
-                                  xmlns:ns3="http://www.tampere.fi/messages/sapfico/payableaccounting/v05">
+                                  xmlns:ns3="http://www.tampere.fi/messages/sapfico/payableaccounting/v06">
     <ns3:PayableAccounting>
         <ns3:Invoice>
             <ns3:PayableAccountingHeader>
-                <ns3:SAPVendor>_81591</ns3:SAPVendor>
+                <ns3:SAPVendor>81591</ns3:SAPVendor>
                 <ns3:IBAN>FIxxxxxxxxxxxx</ns3:IBAN>
                 <ns3:BIC>_</ns3:BIC>
                 <ns3:Customer>1234567-9</ns3:Customer>
@@ -16,7 +16,7 @@
                 <ns3:BillNumber>134910</ns3:BillNumber>
                 <ns3:BillValue>350.00</ns3:BillValue>
                 <ns3:BasicDate>2024-08-31</ns3:BasicDate>
-                <ns3:InterfaceID>_383</ns3:InterfaceID>
+                <ns3:InterfaceID>383</ns3:InterfaceID>
             </ns3:PayableAccountingHeader>
             <ns3:PayableAccountingLine>
                 <ns3:Account>440100</ns3:Account>
@@ -29,7 +29,7 @@
         </ns3:Invoice>
         <ns3:Invoice>
             <ns3:PayableAccountingHeader>
-                <ns3:SAPVendor>_81591</ns3:SAPVendor>
+                <ns3:SAPVendor>81591</ns3:SAPVendor>
                 <ns3:IBAN>FIxxxxxxxxxxxx</ns3:IBAN>
                 <ns3:BIC>_</ns3:BIC>
                 <ns3:Customer>1234567-9</ns3:Customer>
@@ -41,7 +41,7 @@
                 <ns3:BillNumber>134910</ns3:BillNumber>
                 <ns3:BillValue>350.00</ns3:BillValue>
                 <ns3:BasicDate>2024-08-31</ns3:BasicDate>
-                <ns3:InterfaceID>_383</ns3:InterfaceID>
+                <ns3:InterfaceID>383</ns3:InterfaceID>
             </ns3:PayableAccountingHeader>
             <ns3:PayableAccountingLine>
                 <ns3:Account>440100</ns3:Account>

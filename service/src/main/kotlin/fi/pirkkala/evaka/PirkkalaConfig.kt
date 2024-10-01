@@ -40,7 +40,6 @@ class PirkkalaConfig {
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,
         useContractDaysAsDailyFeeDivisor = true,
-        curriculumDocumentPermissionToShareRequired = false,
         assistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
         preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
         requestedStartUpperLimit = 14,

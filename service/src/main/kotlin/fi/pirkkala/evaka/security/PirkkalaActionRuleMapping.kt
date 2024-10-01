@@ -219,13 +219,6 @@ class PirkkalaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
-        Action.Child.READ_VASU_DOCUMENT -> {
-            @Suppress("UNCHECKED_CAST")
-            action.defaultRules.asSequence() + sequenceOf(
-                HasUnitRole(UserRole.STAFF).withUnitFeatures(PilotFeature.VASU_AND_PEDADOC)
-                    .inPlacementUnitOfChild() as ScopedActionRule<in T>,
-            )
-        }
         Action.Child.READ_PEDAGOGICAL_DOCUMENTS,
         Action.Child.CREATE_PEDAGOGICAL_DOCUMENT,
         -> {
@@ -427,13 +420,6 @@ class PirkkalaActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
-            )
-        }
-        Action.VasuDocument.READ -> {
-            @Suppress("UNCHECKED_CAST")
-            action.defaultRules.asSequence() + sequenceOf(
-                HasUnitRole(UserRole.STAFF).withUnitFeatures(PilotFeature.VASU_AND_PEDADOC)
-                    .inPlacementUnitOfChildOfVasuDocument() as ScopedActionRule<in T>,
             )
         }
 

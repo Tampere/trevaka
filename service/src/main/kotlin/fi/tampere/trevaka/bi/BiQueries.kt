@@ -168,36 +168,6 @@ object BiQueries {
             )
         }
 
-    val getCurriculumDocuments =
-        csvQuery<BiCurriculumDocument> {
-            sql(
-                """
-            select id, created::text, updated::text, child_id, basics::text, template_id, modified_at::text
-            FROM curriculum_document
-        """,
-            )
-        }
-
-    val getCurriculumDocumentEvents =
-        csvQuery<BiCurriculumDocumentEvent> {
-            sql(
-                """
-            select id, created::text, updated::text, curriculum_document_id, event_type, created_by
-            FROM curriculum_document_event
-        """,
-            )
-        }
-
-    val getCurriculumTemplates =
-        csvQuery<BiCurriculumTemplate> {
-            sql(
-                """
-            select id, created::text, updated::text, valid::text, type, language, name, content::text
-            FROM curriculum_template
-        """,
-            )
-        }
-
     val getDaycares =
         csvQuery<BiDaycare> {
             sql(

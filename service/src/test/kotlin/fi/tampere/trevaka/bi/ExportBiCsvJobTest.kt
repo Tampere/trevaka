@@ -41,14 +41,9 @@ import fi.espoo.evaka.shared.dev.DevPlacement
 import fi.espoo.evaka.shared.dev.insert
 import fi.espoo.evaka.shared.dev.insertTestApplication
 import fi.espoo.evaka.shared.domain.DateRange
-import fi.espoo.evaka.shared.domain.FiniteDateRange
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.espoo.evaka.shared.domain.MockEvakaClock
-import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.espoo.evaka.shared.security.PilotFeature
-import fi.espoo.evaka.vasu.CurriculumType
-import fi.espoo.evaka.vasu.getDefaultVasuContent
-import fi.espoo.evaka.vasu.insertVasuTemplate
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import fi.tampere.trevaka.BiExportProperties
 import fi.tampere.trevaka.BucketProperties
@@ -351,16 +346,6 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
                             difference = setOf(VoucherValueDecisionDifference.PLACEMENT),
                         ),
                     ),
-                )
-            }
-
-            Month.entries.forEach {
-                tx.insertVasuTemplate(
-                    "Template",
-                    valid = FiniteDateRange.ofMonth(2022, it),
-                    type = CurriculumType.DAYCARE,
-                    language = OfficialLanguage.FI,
-                    content = getDefaultVasuContent(OfficialLanguage.FI),
                 )
             }
         }
