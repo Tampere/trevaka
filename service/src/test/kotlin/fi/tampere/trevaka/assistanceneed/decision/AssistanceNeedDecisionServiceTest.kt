@@ -119,6 +119,7 @@ val validAssistanceNeedDecision = AssistanceNeedDecision(
         dateOfBirth = LocalDate.of(2020, 1, 5),
     ),
     validityPeriod = DateRange(LocalDate.of(2022, 8, 2), LocalDate.of(2022, 12, 31)),
+    endDateNotKnown = false,
     status = AssistanceNeedDecisionStatus.ACCEPTED,
     language = OfficialLanguage.FI,
     decisionMade = LocalDate.of(2022, 7, 1),
