@@ -350,7 +350,7 @@ const en: DeepPartial<Translations> = {
             You will find further information on client fees for early childhood
             education on{' '}
             <ExternalLink
-              href="https://ylojarvi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
+              href="https://www.ylojarvi.fi/asiakasmaksut-varhaiskasvatuksessa/"
               text="the website of the City of Ylöjärvi"
               newTab
             />
@@ -521,7 +521,7 @@ const en: DeepPartial<Translations> = {
           to family size, income and time in early childhood education.
         </p>
         <p>
-          <a href="https://ylojarvi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/">
+          <a href="https://www.ylojarvi.fi/asiakasmaksut-varhaiskasvatuksessa/">
             Further information on client fees.
           </a>
         </p>
@@ -563,7 +563,7 @@ const en: DeepPartial<Translations> = {
             <a
               target="_blank"
               rel="noreferrer"
-              href="https://ylojarvi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
+              href="https://www.ylojarvi.fi/asiakasmaksut-varhaiskasvatuksessa/"
             >
               hare
             </a>
