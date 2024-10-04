@@ -291,7 +291,7 @@ const customizations: EmployeeCustomizations = {
             </>
           ),
           jurisdictionText:
-            'Hyvinvointijohtajan päätöksen 20.2.2024 § 5 mukaan varhaiskasvatusyksikön johtaja päättää varhaiskasvatuksessa lapsen tarvitsemasta tuesta ja tukimuodoista ja varhaiskasvatuksen aluejohtaja päättää varhaiskasvatuksessa lapsen tarvitsemasta tuesta ja tukimuodoista kunnallisen ja yksityisen palvelutuottajan tuottamassa varhaiskasvatuksessa olevien lasten osalta.'
+            'Hyvinvointijohtajan voimassa olevan delegointipäätöksen mukaan varhaiskasvatusyksikön johtaja päättää varhaiskasvatuksessa lapsen tarvitsemasta tuesta ja tukimuodoista ja varhaiskasvatuksen aluejohtaja päättää varhaiskasvatuksessa lapsen tarvitsemasta tuesta ja tukimuodoista kunnallisen ja yksityisen palvelutuottajan tuottamassa varhaiskasvatuksessa olevien lasten osalta.'
         },
         assistanceNeedPreschoolDecision: {
           validFromInfo: () => (
@@ -477,7 +477,7 @@ const customizations: EmployeeCustomizations = {
             </>
           ),
           jurisdictionText:
-            'Hyvinvointijohtajan delegointipäätöksen 20.2.2024 5 §:n mukaan varhaiskasvatusjohtaja päättää esiopetuksessa erityisen tuen antamisesta oppilaalle (POL 17 §), erityisistä opetusjärjestelyistä (POL 18 §) ja oppivelvollisuuden pidentämisestä (POL 25 § ja 1.8.2021 alkaen oppivelvollisuuslaki 2 § 3 mom.).',
+            'Hyvinvointijohtajan voimassa olevan delegointipäätöksen mukaan varhaiskasvatusjohtaja päättää esiopetuksessa erityisen tuen antamisesta oppilaalle (POL 17 §), erityisistä opetusjärjestelyistä (POL 18 §) ja oppivelvollisuuden pidentämisestä (POL 25 § ja 1.8.2021 alkaen oppivelvollisuuslaki 2 § 3 mom.).',
           lawReference:
             'Laki viranomaisen toiminnan julkisuudesta 24 § 1 mom. 30 kohta'
         },
