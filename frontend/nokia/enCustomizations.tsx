@@ -433,7 +433,7 @@ const en: DeepPartial<Translations> = {
           <P>
             If you are not able to log in here, see the instructions{' '}
             <a
-              href="https://nokiankaupunki.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/varhaiskasvatuksen-jarjestaminen/"
+              href="https://www.nokiankaupunki.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatuspalvelut/varhaiskasvatukseen-hakeminen-ja-irtisanominen/evaka/"
               target="_blank"
               rel="noreferrer"
             >
