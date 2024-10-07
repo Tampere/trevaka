@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("org.springframework.boot") version "3.2.1"
-    id("io.freefair.lombok") version "8.10"
+    id("io.freefair.lombok") version "8.10.2"
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.spring)
 }
@@ -25,7 +25,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    implementation(platform("org.apereo.cas:cas-server-support-bom:7.1.0"))
+    implementation(platform("org.apereo.cas:cas-server-support-bom:7.1.1"))
     implementation("org.apereo.cas:cas-server-webapp-starter-tomcat")
 
     implementation("org.apereo.cas:cas-server-support-generic")
