@@ -193,8 +193,10 @@ $unsubscribeFi
 $unsubscribeEn
 """,
     )
+    override fun messageNotification(language: Language, thread: MessageThreadData): EmailContent =
+        messageNotification(language, thread, false)
 
-    override fun messageNotification(language: Language, thread: MessageThreadData): EmailContent {
+    override fun messageNotification(language: Language, thread: MessageThreadData, isSenderMunicipalAccount: Boolean): EmailContent {
         val (typeFi, typeEn) =
             when (thread.type) {
                 MessageType.MESSAGE ->
@@ -210,17 +212,19 @@ $unsubscribeEn
                         Pair("tiedote", "bulletin")
                     }
             }
+
+        val showSubjectInBody = isSenderMunicipalAccount && thread.type == MessageType.BULLETIN
         return EmailContent.fromHtml(
             subject = "Uusi $typeFi eVakassa / New $typeEn in eVaka",
             html =
             """
-                <p>Sinulle on saapunut uusi $typeFi Tampereen varhaiskasvatuksen verkkopalveluun eVakaan.</p>
+                <p>Sinulle on saapunut uusi $typeFi Tampereen varhaiskasvatuksen verkkopalveluun eVakaan${if (showSubjectInBody) " otsikolla \"" + thread.title + "\"" else ""}.</p>
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 $unsubscribeFi
 
                 <hr>
 
-                <p>You have received a new $typeEn in Tampere`s early childhood education system eVaka.</p>
+                <p>You have received a new $typeEn in Tampere`s early childhood education system eVaka${if (showSubjectInBody) " with subject \"" + thread.title + "\"" else ""}.</p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 $unsubscribeEn
         """
