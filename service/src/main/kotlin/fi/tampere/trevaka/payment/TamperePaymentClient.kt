@@ -60,6 +60,9 @@ class TamperePaymentClient(
                 date = payment.period.end?.format()
                 receiptType = "6F"
                 debetKredit = "-"
+                reference = payment.number?.toBigInteger()
+                currency = "EUR"
+                description = "Varhaiskasvatus"
                 billingDate = payment.paymentDate?.format()
                 billNumber = payment.number?.toBigInteger()
                 billValue = value
