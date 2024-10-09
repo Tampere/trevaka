@@ -12,6 +12,9 @@
                 <ns3:Date>2024-07-31</ns3:Date>
                 <ns3:ReceiptType>6F</ns3:ReceiptType>
                 <ns3:DebetKredit>-</ns3:DebetKredit>
+                <ns3:Reference>134910</ns3:Reference>
+                <ns3:Currency>EUR</ns3:Currency>
+                <ns3:Description>Varhaiskasvatus</ns3:Description>
                 <ns3:BillingDate>2024-07-27</ns3:BillingDate>
                 <ns3:BillNumber>134910</ns3:BillNumber>
                 <ns3:BillValue>350.00</ns3:BillValue>
@@ -37,6 +40,9 @@
                 <ns3:Date>2024-07-31</ns3:Date>
                 <ns3:ReceiptType>6F</ns3:ReceiptType>
                 <ns3:DebetKredit>-</ns3:DebetKredit>
+                <ns3:Reference>134910</ns3:Reference>
+                <ns3:Currency>EUR</ns3:Currency>
+                <ns3:Description>Varhaiskasvatus</ns3:Description>
                 <ns3:BillingDate>2024-07-27</ns3:BillingDate>
                 <ns3:BillNumber>134910</ns3:BillNumber>
                 <ns3:BillValue>350.00</ns3:BillValue>
