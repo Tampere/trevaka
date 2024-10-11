@@ -417,7 +417,7 @@ const fi: DeepPartial<Translations> = {
           <P>
             Mikäli kirjautuminen tästä ei onnistu, katso ohjeet{' '}
             <a
-              href="https://kangasala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/varhaiskasvatuksen-jarjestaminen/"
+              href="https://www.kangasala.fi/varhaiskasvatus-ja-opetus/varhaiskasvatus/sahkoiset-asiointikanavat/evaka/"
               target="_blank"
               rel="noreferrer"
             >
