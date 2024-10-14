@@ -159,6 +159,21 @@ jobs:
               exit 1
             }
 
+  terraform_lint:
+    executor: base
+    resource_class: small
+    parameters:
+      path:
+        type: string
+    steps:
+      - checkout
+      - terraform_install
+      - terraform/validate:
+          path: << parameters.path >>
+      - terraform/fmt:
+          path: << parameters.path >>
+          recursive: true
+
   # BUILD JOBS
 
   datadog_build_image:
@@ -399,6 +414,11 @@ workflows:
         equal: [scheduled_pipeline, << pipeline.trigger_source >>]
     jobs:
       - check_licenses
+      - terraform_lint:
+          matrix:
+            parameters:
+              path:
+                - infra/deploy
 
       - datadog_build_image:
           context:
@@ -454,6 +474,7 @@ workflows:
           type: approval
           requires:
             - check_licenses
+            - terraform_lint
             - datadog_build_image
             - auth_build_image
             - apigw_build_image
