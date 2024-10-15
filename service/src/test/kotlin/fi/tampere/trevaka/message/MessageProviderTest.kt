@@ -35,6 +35,7 @@ internal class MessageProviderTest : AbstractTampereIntegrationTest() {
                 IMessageProvider::class.java,
                 withParametersAssignableTo(OfficialLanguage::class.java),
                 withReturnType(String::class.java),
+                withNamePrefix<Method>("getPlacementTool").negate(),
             )
             return ArgumentSets.create()
                 .argumentsForNextParameter(allMethods)

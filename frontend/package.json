@@ -9,12 +9,12 @@
     "e2e-ci-playwright": "LANG=fi-FI LANGUAGE=fi_FI BASE_URL=http://localhost:9099 jest --testTimeout 60000 --runInBand --bail 1 --retries=2 src/e2e/specs"
   },
   "devDependencies": {
-    "@playwright/test": "^1.47.0",
-    "@types/jest": "^29.5.11",
-    "@types/lodash": "^4.17.0",
-    "@types/node": "^20.16.1",
-    "@types/react": "^18.3.1",
-    "axios": "^1.7.4",
+    "@playwright/test": "^1.48.0",
+    "@types/jest": "^29.5.13",
+    "@types/lodash": "^4.17.10",
+    "@types/node": "^20.16.11",
+    "@types/react": "^18.3.11",
+    "axios": "^1.7.7",
     "e2e-test": "link:../evaka/frontend/src/e2e-test",
     "jest": "^29.7.0",
     "jest-circus": "^29.7.0",
@@ -27,11 +27,11 @@
     "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "styled-components": "6.1.8",
-    "ts-jest": "^29.2.2",
+    "styled-components": "6.1.13",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "tslib": "^2.7.0",
-    "typescript": "~5.6.2"
+    "typescript": "~5.6.3"
   },
   "jest": {
     "testRunner": "jest-circus/runner",

@@ -84,23 +84,9 @@ internal class TampereMessageProvider(val messageSource: MessageSource) : IMessa
     override fun getDefaultFinancialDecisionAddress(lang: OfficialLanguage): DecisionSendAddress =
         getDefaultDecisionAddress(lang)
 
-    override fun getPlacementToolHeader(lang: OfficialLanguage): String = "Esitäytetty hakemus esiopetukseen"
+    override fun getPlacementToolHeader(lang: OfficialLanguage): String = throw UnsupportedOperationException()
 
-    override fun getPlacementToolContent(lang: OfficialLanguage): String = """
-Olemme tehneet lapsellenne esitäytetyn hakemuksen esiopetukseen. Hakemus on tehty lapsen oppilaaksiottoalueen mukaiseen esiopetusyksikköön.
-
-Mikäli haluatte hakeutua muuhun kuin lapsellenne osoitettuun paikkaan, voitte muokata hakemusta eVakassa.
-
-Jos taas hyväksytte osoitetun esiopetuspaikan, teidän ei tarvitse tehdä mitään.
-
-In English:
-
-We have made a pre-filled application for preschool education for your child. The application has been submitted to the pre-school unit according to the child's pupil enrollment area.
-
-If you want to apply for a place other than the one assigned to your child, you can edit the application in eVaka.
-
-If you accept the assigned pre-school place, you don't have to do anything.
-    """.trimIndent()
+    override fun getPlacementToolContent(lang: OfficialLanguage): String = throw UnsupportedOperationException()
 
     private fun resolveLocale(lang: OfficialLanguage): Locale {
         if (OfficialLanguage.SV == lang) return resolveLocale(OfficialLanguage.FI)
