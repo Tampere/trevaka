@@ -6,6 +6,7 @@ package fi.tampere.trevaka
 
 import fi.espoo.evaka.BucketEnv
 import fi.espoo.evaka.ScheduledJobsEnv
+import fi.espoo.evaka.application.ApplicationStatus
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.mealintegration.DefaultMealTypeMapper
 import fi.espoo.evaka.mealintegration.MealTypeMapper
@@ -108,6 +109,7 @@ class TampereConfig {
                 ),
         ),
         daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
+        placementToolApplicationStatus = ApplicationStatus.WAITING_DECISION,
     )
 
     @Bean
