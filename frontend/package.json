@@ -30,7 +30,7 @@
     "styled-components": "6.1.13",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
-    "tslib": "^2.7.0",
+    "tslib": "^2.8.0",
     "typescript": "~5.6.3"
   },
   "jest": {
