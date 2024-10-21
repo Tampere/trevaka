@@ -425,6 +425,14 @@ class TampereActionRuleMapping : ActionRuleMapping {
             )
         }
         Action.Unit.READ_EXCEEDED_SERVICE_NEEDS_REPORT -> emptySequence()
+        Action.Unit.READ_PRESCHOOL_APPLICATION_REPORT -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.ADMIN, UserRole.SERVICE_WORKER, UserRole.DIRECTOR) as ScopedActionRule<in T>,
+            ) + sequenceOf(
+                HasUnitRole(UserRole.UNIT_SUPERVISOR).inUnit() as ScopedActionRule<in T>,
+            )
+        }
         Action.VoucherValueDecision.READ -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
