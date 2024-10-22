@@ -2,4 +2,4 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-FROM datadog/agent:7.57.2-jmx
+FROM datadog/agent:7.58.0-jmx
