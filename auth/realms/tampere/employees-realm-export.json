@@ -1566,7 +1566,8 @@
   },
   "internationalizationEnabled": true,
   "supportedLocales": [
-    "fi"
+    "fi",
+    "en"
   ],
   "defaultLocale": "fi",
   "authenticationFlows": [
