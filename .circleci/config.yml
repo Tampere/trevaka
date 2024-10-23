@@ -18,7 +18,6 @@ aliases:
   - &workspace_auth /home/circleci/repo/auth
 
   - &base_image cimg/base:current-22.04
-  - &aws_image cimg/aws:2024.03
   - &reuse_image fsfe/reuse:4.0.3 # NOTE: Update add-license-headers.sh to match
 
   - &default_config
@@ -32,10 +31,6 @@ executors:
     <<: *default_config
     docker:
       - image: *base_image
-  aws_executor:
-    <<: *default_config
-    docker:
-      - image: *aws_image
   reuse_tool:
     <<: *default_config
     docker:
@@ -177,7 +172,7 @@ jobs:
   # BUILD JOBS
 
   datadog_build_image:
-    executor: aws_executor
+    executor: base_executor
     resource_class: medium
     steps:
       - checkout_with_submodules
@@ -189,7 +184,7 @@ jobs:
           cache: datadog
 
   apigw_build_image:
-    executor: aws_executor
+    executor: base_executor
     resource_class: medium
     steps:
       - checkout_with_submodules
@@ -201,7 +196,7 @@ jobs:
           cache: api-gateway
 
   frontend_build_image:
-    executor: aws_executor
+    executor: base_executor
     resource_class: large
     parameters:
       customizations:
@@ -227,7 +222,7 @@ jobs:
           cache: frontend-<< parameters.customizations >>
 
   service_build_image:
-    executor: aws_executor
+    executor: base_executor
     resource_class: large
     steps:
       - checkout_with_submodules
@@ -276,7 +271,7 @@ jobs:
           destination: build/reports
 
   auth_build_image:
-    executor: aws_executor
+    executor: base_executor
     resource_class: medium
     steps:
       - checkout_with_submodules
