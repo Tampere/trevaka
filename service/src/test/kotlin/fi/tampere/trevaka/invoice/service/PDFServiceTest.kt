@@ -38,7 +38,7 @@ import fi.espoo.evaka.shared.FeeDecisionId
 import fi.espoo.evaka.shared.PersonId
 import fi.espoo.evaka.shared.ServiceNeedOptionId
 import fi.espoo.evaka.shared.VoucherValueDecisionId
-import fi.espoo.evaka.shared.domain.DateRange
+import fi.espoo.evaka.shared.domain.FiniteDateRange
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
@@ -382,9 +382,9 @@ fun validFeeDecision(children: List<FeeDecisionChildDetailed> = listOf(validFeeD
     FeeDecisionDetailed(
         id = FeeDecisionId(UUID.randomUUID()),
         children = children,
-        validDuring = DateRange(
+        validDuring = FiniteDateRange(
             LocalDate.now(),
-            LocalDate.now().plusYears(1), // end is nullable but actually never is null for fee decisions
+            LocalDate.now().plusYears(1),
         ),
         status = FeeDecisionStatus.WAITING_FOR_SENDING,
         decisionNumber = 100200,

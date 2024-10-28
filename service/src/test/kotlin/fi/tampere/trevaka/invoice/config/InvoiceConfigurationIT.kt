@@ -52,6 +52,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.time.YearMonth
 import java.util.UUID
 
 internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
@@ -61,7 +62,7 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
 
     private final val questionnaireId = UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11")
     private final val evakaUserId = EvakaUserId(UUID.randomUUID())
-    private final val placementPeriod = DateRange(LocalDate.of(2021, 8, 31), LocalDate.of(2022, 8, 31))
+    private final val placementPeriod = FiniteDateRange(LocalDate.of(2021, 8, 31), LocalDate.of(2022, 8, 31))
 
     @BeforeEach
     fun insertBaseData() {
@@ -150,7 +151,7 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
                 .execute()
         }
 
-        val june = FiniteDateRange(LocalDate.of(2022, 6, 1), LocalDate.of(2022, 6, 30))
+        val june = YearMonth.of(2022, 6)
         db.transaction { generator.createAndStoreAllDraftInvoices(it, june) }
         val result = db.read { getAllInvoices(it) }
         Assertions.assertEquals(0, result.size)
@@ -170,7 +171,7 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
                 .execute()
         }
 
-        val june = FiniteDateRange(LocalDate.of(2022, 6, 1), LocalDate.of(2022, 6, 30))
+        val june = YearMonth.of(2022, 6)
         db.transaction { generator.createAndStoreAllDraftInvoices(it, june) }
         val result = db.read { getAllInvoices(it) }
         Assertions.assertEquals(1, result.size)
@@ -263,7 +264,7 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
     private fun createFeeDecisionFixture(
         status: FeeDecisionStatus,
         decisionType: FeeDecisionType,
-        period: DateRange,
+        period: FiniteDateRange,
         headOfFamilyId: PersonId,
         children: List<FeeDecisionChild>,
         partnerId: PersonId? = null,
