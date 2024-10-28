@@ -41,6 +41,7 @@ import fi.espoo.evaka.shared.dev.DevPlacement
 import fi.espoo.evaka.shared.dev.insert
 import fi.espoo.evaka.shared.dev.insertTestApplication
 import fi.espoo.evaka.shared.domain.DateRange
+import fi.espoo.evaka.shared.domain.FiniteDateRange
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.espoo.evaka.shared.domain.MockEvakaClock
 import fi.espoo.evaka.shared.security.PilotFeature
@@ -283,7 +284,7 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
                                 ),
                             ),
                             headOfFamilyId = guardianId,
-                            validDuring = DateRange.ofMonth(2019, Month.JANUARY),
+                            validDuring = FiniteDateRange.ofMonth(2019, Month.JANUARY),
                             status = FeeDecisionStatus.SENT,
                             decisionNumber = 999L,
                             decisionType = FeeDecisionType.NORMAL,
