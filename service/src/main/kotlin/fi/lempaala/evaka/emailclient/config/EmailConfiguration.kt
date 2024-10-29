@@ -177,8 +177,7 @@ $unsubscribeFi
 $unsubscribeEn
 """,
     )
-    override fun messageNotification(language: Language, thread: MessageThreadData): EmailContent =
-        messageNotification(language, thread, false)
+    override fun messageNotification(language: Language, thread: MessageThreadData): EmailContent = messageNotification(language, thread, false)
     override fun messageNotification(language: Language, thread: MessageThreadData, isSenderMunicipalAccount: Boolean): EmailContent {
         val (typeFi, typeEn) =
             when (thread.type) {

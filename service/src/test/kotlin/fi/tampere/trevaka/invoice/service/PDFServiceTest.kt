@@ -378,42 +378,41 @@ private fun validDecisionIncome(income: Int = 314100) = DecisionIncome(
     worksAtECHA = false,
 )
 
-fun validFeeDecision(children: List<FeeDecisionChildDetailed> = listOf(validFeeDecisionChild())) =
-    FeeDecisionDetailed(
-        id = FeeDecisionId(UUID.randomUUID()),
-        children = children,
-        validDuring = FiniteDateRange(
-            LocalDate.now(),
-            LocalDate.now().plusYears(1),
-        ),
-        status = FeeDecisionStatus.WAITING_FOR_SENDING,
-        decisionNumber = 100200,
-        decisionType = FeeDecisionType.NORMAL,
-        headOfFamily = PersonDetailed(
-            PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
-            "Maija", "Meikäläinen",
-            "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
-            "", null, "", null, restrictedDetailsEnabled = false,
-        ),
-        partner = null,
-        headOfFamilyIncome = null,
-        partnerIncome = null,
-        familySize = 1 + children.size,
-        feeThresholds = FeeDecisionThresholds(
-            minIncomeThreshold = 387400,
-            maxIncomeThreshold = 662640,
-            incomeMultiplier = BigDecimal("0.1070"),
-            maxFee = 29500,
-            minFee = 2800,
-        ),
-        documentKey = null,
-        approvedBy = EmployeeWithName(EmployeeId(UUID.randomUUID()), "Markus", "Maksusihteeri"),
-        approvedAt = HelsinkiDateTime.now(),
-        sentAt = null,
-        financeDecisionHandlerFirstName = null,
-        financeDecisionHandlerLastName = null,
-        documentContainsContactInfo = false,
-    )
+fun validFeeDecision(children: List<FeeDecisionChildDetailed> = listOf(validFeeDecisionChild())) = FeeDecisionDetailed(
+    id = FeeDecisionId(UUID.randomUUID()),
+    children = children,
+    validDuring = FiniteDateRange(
+        LocalDate.now(),
+        LocalDate.now().plusYears(1),
+    ),
+    status = FeeDecisionStatus.WAITING_FOR_SENDING,
+    decisionNumber = 100200,
+    decisionType = FeeDecisionType.NORMAL,
+    headOfFamily = PersonDetailed(
+        PersonId(UUID.randomUUID()), LocalDate.of(1982, 3, 31), null,
+        "Maija", "Meikäläinen",
+        "310382-956D", "Meikäläisenkuja 6 B 7", "33730", "TAMPERE",
+        "", null, "", null, restrictedDetailsEnabled = false,
+    ),
+    partner = null,
+    headOfFamilyIncome = null,
+    partnerIncome = null,
+    familySize = 1 + children.size,
+    feeThresholds = FeeDecisionThresholds(
+        minIncomeThreshold = 387400,
+        maxIncomeThreshold = 662640,
+        incomeMultiplier = BigDecimal("0.1070"),
+        maxFee = 29500,
+        minFee = 2800,
+    ),
+    documentKey = null,
+    approvedBy = EmployeeWithName(EmployeeId(UUID.randomUUID()), "Markus", "Maksusihteeri"),
+    approvedAt = HelsinkiDateTime.now(),
+    sentAt = null,
+    financeDecisionHandlerFirstName = null,
+    financeDecisionHandlerLastName = null,
+    documentContainsContactInfo = false,
+)
 
 fun validFeeDecisionChild(
     child: PersonDetailed = validChild(),
@@ -509,17 +508,16 @@ fun validVoucherValueDecision(
     documentContainsContactInfo = false,
 )
 
-private fun validVoucherValueDecisionPlacementDetailed(placementType: PlacementType) =
-    VoucherValueDecisionPlacementDetailed(
-        UnitData(
-            DaycareId(UUID.randomUUID()),
-            name = "Touhula Ylöjärvi",
-            areaId = AreaId(UUID.randomUUID()),
-            areaName = "Länsi",
-            language = "fi",
-        ),
-        type = placementType,
-    )
+private fun validVoucherValueDecisionPlacementDetailed(placementType: PlacementType) = VoucherValueDecisionPlacementDetailed(
+    UnitData(
+        DaycareId(UUID.randomUUID()),
+        name = "Touhula Ylöjärvi",
+        areaId = AreaId(UUID.randomUUID()),
+        areaName = "Länsi",
+        language = "fi",
+    ),
+    type = placementType,
+)
 
 private fun validFeeAlterations(childId: ChildId = ChildId(UUID.randomUUID())) = FeeAlterationType.entries.flatMap {
     listOf(

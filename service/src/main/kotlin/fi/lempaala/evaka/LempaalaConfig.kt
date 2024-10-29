@@ -79,8 +79,7 @@ class LempaalaConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun webServiceMessageSender(properties: LempaalaProperties) =
-        HttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
+    fun webServiceMessageSender(properties: LempaalaProperties) = HttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
 
     @Bean
     fun basicAuthCustomizer(properties: LempaalaProperties) = dvvModificationRequestCustomizer(properties.ipaas)

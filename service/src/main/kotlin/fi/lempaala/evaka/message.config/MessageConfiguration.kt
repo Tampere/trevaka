@@ -32,35 +32,25 @@ class MessageConfiguration {
 
 internal class LempaalaMessageProvider(private val messageSource: MessageSource) : IMessageProvider {
 
-    override fun getDecisionHeader(lang: OfficialLanguage): String =
-        messageSource.getMessage("$PREFIX.DECISION_HEADER", null, resolveLocale(lang))
+    override fun getDecisionHeader(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.DECISION_HEADER", null, resolveLocale(lang))
 
-    override fun getDecisionContent(lang: OfficialLanguage): String =
-        messageSource.getMessage("$PREFIX.DECISION_CONTENT", null, resolveLocale(lang))
+    override fun getDecisionContent(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.DECISION_CONTENT", null, resolveLocale(lang))
 
-    override fun getFeeDecisionHeader(lang: OfficialLanguage): String =
-        messageSource.getMessage("$PREFIX.FEE_DECISION_HEADER", null, resolveLocale(lang))
+    override fun getFeeDecisionHeader(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.FEE_DECISION_HEADER", null, resolveLocale(lang))
 
-    override fun getFeeDecisionContent(lang: OfficialLanguage): String =
-        messageSource.getMessage("$PREFIX.FEE_DECISION_CONTENT", null, resolveLocale(lang))
+    override fun getFeeDecisionContent(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.FEE_DECISION_CONTENT", null, resolveLocale(lang))
 
-    override fun getVoucherValueDecisionHeader(lang: OfficialLanguage): String =
-        messageSource.getMessage("$PREFIX.VOUCHER_VALUE_DECISION_HEADER", null, resolveLocale(lang))
+    override fun getVoucherValueDecisionHeader(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.VOUCHER_VALUE_DECISION_HEADER", null, resolveLocale(lang))
 
-    override fun getVoucherValueDecisionContent(lang: OfficialLanguage): String =
-        messageSource.getMessage("$PREFIX.VOUCHER_VALUE_DECISION_CONTENT", null, resolveLocale(lang))
+    override fun getVoucherValueDecisionContent(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.VOUCHER_VALUE_DECISION_CONTENT", null, resolveLocale(lang))
 
-    override fun getAssistanceNeedDecisionHeader(lang: OfficialLanguage): String =
-        messageSource.getMessage("$PREFIX.ASSISTANCE_NEED_DECISION_HEADER", null, resolveLocale(lang))
+    override fun getAssistanceNeedDecisionHeader(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.ASSISTANCE_NEED_DECISION_HEADER", null, resolveLocale(lang))
 
-    override fun getAssistanceNeedDecisionContent(lang: OfficialLanguage): String =
-        messageSource.getMessage("$PREFIX.ASSISTANCE_NEED_DECISION_CONTENT", null, resolveLocale(lang))
+    override fun getAssistanceNeedDecisionContent(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.ASSISTANCE_NEED_DECISION_CONTENT", null, resolveLocale(lang))
 
-    override fun getAssistanceNeedPreschoolDecisionHeader(lang: OfficialLanguage): String =
-        getAssistanceNeedDecisionHeader(lang)
+    override fun getAssistanceNeedPreschoolDecisionHeader(lang: OfficialLanguage): String = getAssistanceNeedDecisionHeader(lang)
 
-    override fun getAssistanceNeedPreschoolDecisionContent(lang: OfficialLanguage): String =
-        getAssistanceNeedDecisionContent(lang)
+    override fun getAssistanceNeedPreschoolDecisionContent(lang: OfficialLanguage): String = getAssistanceNeedDecisionContent(lang)
 
     override fun getDefaultDecisionAddress(lang: OfficialLanguage): DecisionSendAddress = when (lang) {
         OfficialLanguage.FI, OfficialLanguage.SV -> DecisionSendAddress(
@@ -73,8 +63,7 @@ internal class LempaalaMessageProvider(private val messageSource: MessageSource)
         )
     }
 
-    override fun getDefaultFinancialDecisionAddress(lang: OfficialLanguage): DecisionSendAddress =
-        getDefaultDecisionAddress(lang)
+    override fun getDefaultFinancialDecisionAddress(lang: OfficialLanguage): DecisionSendAddress = getDefaultDecisionAddress(lang)
 
     override fun getPlacementToolHeader(lang: OfficialLanguage): String = "Esitäytetty hakemus esiopetukseen"
 
@@ -107,6 +96,5 @@ internal class YamlMessageSource(resource: Resource) : AbstractMessageSource() {
         afterPropertiesSet()
     }.`object`!!
 
-    override fun resolveCode(code: String, locale: Locale): MessageFormat? =
-        properties.getProperty("$code.${locale.language.lowercase()}")?.let { MessageFormat(it, locale) }
+    override fun resolveCode(code: String, locale: Locale): MessageFormat? = properties.getProperty("$code.${locale.language.lowercase()}")?.let { MessageFormat(it, locale) }
 }

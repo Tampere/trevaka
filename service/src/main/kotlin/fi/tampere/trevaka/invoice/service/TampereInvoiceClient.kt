@@ -58,16 +58,15 @@ class TampereInvoiceClient(
     private val dateFormatter: DateTimeFormatter =
         DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.of("fi"))
 
-    private fun priceInEuros(priceInCents: Int?): BigDecimal? =
-        if (priceInCents != null) {
-            BigDecimal(priceInCents).divide(
-                BigDecimal(100),
-                2,
-                RoundingMode.HALF_UP,
-            )
-        } else {
-            null
-        }
+    private fun priceInEuros(priceInCents: Int?): BigDecimal? = if (priceInCents != null) {
+        BigDecimal(priceInCents).divide(
+            BigDecimal(100),
+            2,
+            RoundingMode.HALF_UP,
+        )
+    } else {
+        null
+    }
 
     override fun send(invoices: List<InvoiceDetailed>): SendResult {
         logger.info("Invoice batch started")
@@ -172,8 +171,7 @@ class TampereInvoiceClient(
         }
     }
 
-    private fun localDateToXMLGregorianCalendar(localDate: LocalDate): XMLGregorianCalendar =
-        DatatypeFactory.newInstance().newXMLGregorianCalendar(localDate.toString())
+    private fun localDateToXMLGregorianCalendar(localDate: LocalDate): XMLGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(localDate.toString())
 
     private fun unmarshalFaultDetail(exception: SoapFaultClientException): Any? = try {
         val detailEntries = exception.soapFault?.faultDetail?.detailEntries

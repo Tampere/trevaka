@@ -94,8 +94,7 @@ class HameenkyroConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun webServiceMessageSender(properties: HameenkyroProperties) =
-        HttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
+    fun webServiceMessageSender(properties: HameenkyroProperties) = HttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
 
     @Bean
     fun basicAuthCustomizer(properties: HameenkyroProperties) = dvvModificationRequestCustomizer(properties.ipaas)

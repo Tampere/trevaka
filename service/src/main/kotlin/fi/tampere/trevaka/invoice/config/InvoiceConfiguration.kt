@@ -112,16 +112,15 @@ class TampereIncomeTypesProvider : IncomeTypesProvider {
 }
 
 class TampereIncomeCoefficientMultiplierProvider : IncomeCoefficientMultiplierProvider {
-    override fun multiplier(coefficient: IncomeCoefficient): BigDecimal =
-        when (coefficient) {
-            IncomeCoefficient.MONTHLY_WITH_HOLIDAY_BONUS -> BigDecimal("1.0417")
-            IncomeCoefficient.MONTHLY_NO_HOLIDAY_BONUS -> BigDecimal("1.0000")
-            IncomeCoefficient.BI_WEEKLY_WITH_HOLIDAY_BONUS -> BigDecimal("2.2323")
-            IncomeCoefficient.BI_WEEKLY_NO_HOLIDAY_BONUS -> BigDecimal("2.1429")
-            IncomeCoefficient.DAILY_ALLOWANCE_21_5 -> BigDecimal("21.5")
-            IncomeCoefficient.DAILY_ALLOWANCE_25 -> BigDecimal("25")
-            IncomeCoefficient.YEARLY -> BigDecimal("0.0833")
-        }
+    override fun multiplier(coefficient: IncomeCoefficient): BigDecimal = when (coefficient) {
+        IncomeCoefficient.MONTHLY_WITH_HOLIDAY_BONUS -> BigDecimal("1.0417")
+        IncomeCoefficient.MONTHLY_NO_HOLIDAY_BONUS -> BigDecimal("1.0000")
+        IncomeCoefficient.BI_WEEKLY_WITH_HOLIDAY_BONUS -> BigDecimal("2.2323")
+        IncomeCoefficient.BI_WEEKLY_NO_HOLIDAY_BONUS -> BigDecimal("2.1429")
+        IncomeCoefficient.DAILY_ALLOWANCE_21_5 -> BigDecimal("21.5")
+        IncomeCoefficient.DAILY_ALLOWANCE_25 -> BigDecimal("25")
+        IncomeCoefficient.YEARLY -> BigDecimal("0.0833")
+    }
 }
 
 class TampereInvoiceProductProvider : InvoiceProductProvider {

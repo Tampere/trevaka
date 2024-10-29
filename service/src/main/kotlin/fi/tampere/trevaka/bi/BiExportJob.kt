@@ -12,8 +12,7 @@ import fi.tampere.trevaka.TampereAsyncJob
 import java.time.Duration
 
 class BiExportJob(private val client: BiExportClient) {
-    fun sendBiTable(db: Database.Connection, clock: EvakaClock, msg: TampereAsyncJob.SendBiTable) =
-        sendBiTable(db, clock, msg.table.fileName, msg.table.query)
+    fun sendBiTable(db: Database.Connection, clock: EvakaClock, msg: TampereAsyncJob.SendBiTable) = sendBiTable(db, clock, msg.table.fileName, msg.table.query)
 
     fun sendBiTable(
         db: Database.Connection,

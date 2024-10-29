@@ -18,18 +18,17 @@ class TemplateConfiguration {
 }
 
 class LempaalaTemplateProvider : ITemplateProvider {
-    override fun getLocalizedFilename(type: DecisionType, lang: OfficialLanguage): String =
-        when (type) {
-            DecisionType.CLUB -> "Kerhopäätös"
-            DecisionType.DAYCARE,
-            DecisionType.DAYCARE_PART_TIME,
-            -> "Varhaiskasvatuspäätös"
-            DecisionType.PRESCHOOL -> "Esiopetuspäätös"
-            DecisionType.PRESCHOOL_DAYCARE,
-            DecisionType.PRESCHOOL_CLUB,
-            -> "Esiopetusta_täydentävän_toiminnan_päätös"
-            DecisionType.PREPARATORY_EDUCATION -> "Valmistavan_opetuksen_päätös"
-        }
+    override fun getLocalizedFilename(type: DecisionType, lang: OfficialLanguage): String = when (type) {
+        DecisionType.CLUB -> "Kerhopäätös"
+        DecisionType.DAYCARE,
+        DecisionType.DAYCARE_PART_TIME,
+        -> "Varhaiskasvatuspäätös"
+        DecisionType.PRESCHOOL -> "Esiopetuspäätös"
+        DecisionType.PRESCHOOL_DAYCARE,
+        DecisionType.PRESCHOOL_CLUB,
+        -> "Esiopetusta_täydentävän_toiminnan_päätös"
+        DecisionType.PREPARATORY_EDUCATION -> "Valmistavan_opetuksen_päätös"
+    }
     override fun getFeeDecisionPath(): String = "lempaala/fee-decision/decision"
     override fun getVoucherValueDecisionPath(): String = "lempaala/fee-decision/voucher-value-decision"
     override fun getClubDecisionPath(): String = "lempaala/club/decision"

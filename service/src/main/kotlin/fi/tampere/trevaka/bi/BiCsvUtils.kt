@@ -18,21 +18,20 @@ val CSV_CHARSET = Charsets.UTF_8
 const val CSV_FIELD_SEPARATOR = ","
 const val CSV_RECORD_SEPARATOR = "\r\n"
 
-fun convertToCsv(value: Any?): String =
-    when (value) {
-        null -> ""
-        is Number -> value.toString()
-        is String -> value
-        is Boolean -> if (value) "t" else "f"
-        is UUID -> value.toString()
-        is LocalDate -> value.format(DateTimeFormatter.ISO_LOCAL_DATE)
-        is List<*> -> "{${value.joinToString(",") { if (it == null) "NULL" else convertToCsv(it) }}}"
-        is Enum<*> -> value.name
-        is TimeRange -> "\"(${convertToCsv(value.start.inner)},${convertToCsv(value.end.inner)})\""
-        is DateRange -> "[${convertToCsv(value.start)},${convertToCsv(value.end?.plusDays(1))})"
-        is LocalTime -> value.format(DateTimeFormatter.ISO_LOCAL_TIME)
-        else -> error("Unsupported CSV field type ${value.javaClass}")
-    }
+fun convertToCsv(value: Any?): String = when (value) {
+    null -> ""
+    is Number -> value.toString()
+    is String -> value
+    is Boolean -> if (value) "t" else "f"
+    is UUID -> value.toString()
+    is LocalDate -> value.format(DateTimeFormatter.ISO_LOCAL_DATE)
+    is List<*> -> "{${value.joinToString(",") { if (it == null) "NULL" else convertToCsv(it) }}}"
+    is Enum<*> -> value.name
+    is TimeRange -> "\"(${convertToCsv(value.start.inner)},${convertToCsv(value.end.inner)})\""
+    is DateRange -> "[${convertToCsv(value.start)},${convertToCsv(value.end?.plusDays(1))})"
+    is LocalTime -> value.format(DateTimeFormatter.ISO_LOCAL_TIME)
+    else -> error("Unsupported CSV field type ${value.javaClass}")
+}
 
 fun <T : Any> toCsvRecords(
     converter: (value: Any?) -> String,

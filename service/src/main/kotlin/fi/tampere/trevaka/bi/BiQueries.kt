@@ -501,18 +501,16 @@ object BiQueries {
         override operator fun <R> invoke(
             tx: Database.Read,
             useResults: (records: Sequence<String>) -> R,
-        ): R =
-            query(tx).useSequence { rows ->
-                useResults(toCsvRecords(::convertToCsv, clazz, rows))
-            }
+        ): R = query(tx).useSequence { rows ->
+            useResults(toCsvRecords(::convertToCsv, clazz, rows))
+        }
     }
 
     private const val QUERY_STREAM_CHUNK_SIZE = 10_000
 
     private inline fun <reified T : Any> csvQuery(
         crossinline f: QuerySql.Builder.() -> QuerySql,
-    ): CsvQuery =
-        StreamingCsvQuery(T::class) { tx ->
-            tx.createQuery { f() }.setFetchSize(QUERY_STREAM_CHUNK_SIZE).mapTo<T>()
-        }
+    ): CsvQuery = StreamingCsvQuery(T::class) { tx ->
+        tx.createQuery { f() }.setFetchSize(QUERY_STREAM_CHUNK_SIZE).mapTo<T>()
+    }
 }
