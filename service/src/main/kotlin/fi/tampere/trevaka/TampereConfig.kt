@@ -132,16 +132,14 @@ class TampereConfig {
         .build()
 
     @Bean
-    fun fileS3Client(asyncClient: S3AsyncClient, properties: TampereProperties): BiExportClient =
-        FileBiExportS3Client(asyncClient, properties)
+    fun fileS3Client(asyncClient: S3AsyncClient, properties: TampereProperties): BiExportClient = FileBiExportS3Client(asyncClient, properties)
 
     @Bean
     fun tampereAsyncJobRunner(
         jdbi: Jdbi,
         tracer: Tracer,
         env: Environment,
-    ): AsyncJobRunner<TampereAsyncJob> =
-        AsyncJobRunner(TampereAsyncJob::class, listOf(TampereAsyncJob.pool), jdbi, tracer)
+    ): AsyncJobRunner<TampereAsyncJob> = AsyncJobRunner(TampereAsyncJob::class, listOf(TampereAsyncJob.pool), jdbi, tracer)
 
     @Bean
     fun tampereBiJob(biExportClient: BiExportClient): BiExportJob = BiExportJob(biExportClient)
@@ -172,8 +170,7 @@ class TampereConfig {
     @Bean fun actionRuleMapping(): ActionRuleMapping = TampereActionRuleMapping()
 
     @Bean
-    fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter =
-        TrimStartTitaniaEmployeeIdConverter()
+    fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter = TrimStartTitaniaEmployeeIdConverter()
 
     @Bean fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
@@ -181,12 +178,11 @@ class TampereConfig {
     fun mealTypeMapper(): MealTypeMapper = DefaultMealTypeMapper
 
     @Bean
-    fun tampereScheduledJobEnv(env: Environment): ScheduledJobsEnv<TampereScheduledJob> =
-        ScheduledJobsEnv.fromEnvironment(
-            TampereScheduledJob.entries.associateWith { it.defaultSettings },
-            "tampere.job",
-            env,
-        )
+    fun tampereScheduledJobEnv(env: Environment): ScheduledJobsEnv<TampereScheduledJob> = ScheduledJobsEnv.fromEnvironment(
+        TampereScheduledJob.entries.associateWith { it.defaultSettings },
+        "tampere.job",
+        env,
+    )
 
     @Bean
     fun tampereScheduledJobs(

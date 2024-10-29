@@ -55,15 +55,14 @@ class IntegrationTestConfiguration {
         .build()
 
     @Bean
-    fun s3Presigner(bucketEnv: BucketEnv): S3Presigner =
-        S3Presigner.builder()
-            .region(Region.EU_WEST_1)
-            .serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build())
-            .endpointOverride(bucketEnv.s3MockUrl)
-            .credentialsProvider(
-                StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar")),
-            )
-            .build()
+    fun s3Presigner(bucketEnv: BucketEnv): S3Presigner = S3Presigner.builder()
+        .region(Region.EU_WEST_1)
+        .serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build())
+        .endpointOverride(bucketEnv.s3MockUrl)
+        .credentialsProvider(
+            StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar")),
+        )
+        .build()
 
     @Bean
     fun jwtAlgorithm(): Algorithm {

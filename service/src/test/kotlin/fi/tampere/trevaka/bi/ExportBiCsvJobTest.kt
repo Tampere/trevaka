@@ -122,10 +122,9 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
     }
 
     @TestFactory
-    fun testBiTableExports() =
-        BiTable.entries.map {
-            DynamicTest.dynamicTest("Test '${it.fileName}' export") { sendAndAssertBiTableCsv(it) }
-        }
+    fun testBiTableExports() = BiTable.entries.map {
+        DynamicTest.dynamicTest("Test '${it.fileName}' export") { sendAndAssertBiTableCsv(it) }
+    }
 
     private fun sendAndAssertBiTableCsv(table: BiTable) {
         val bucket = properties.bucket.export

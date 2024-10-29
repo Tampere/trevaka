@@ -203,16 +203,15 @@ private fun newUpdateRequest(period: TitaniaPeriod, vararg person: TitaniaPerson
     ),
 )
 
-private fun newGetRequest(period: TitaniaPeriod, vararg person: TitaniaStampedPersonRequest) =
-    GetStampedWorkingTimeEventsRequest(
-        period = period,
-        schedulingUnit = listOf(
-            TitaniaStampedUnitRequest(
-                code = "x",
-                person = person.toList(),
-            ),
+private fun newGetRequest(period: TitaniaPeriod, vararg person: TitaniaStampedPersonRequest) = GetStampedWorkingTimeEventsRequest(
+    period = period,
+    schedulingUnit = listOf(
+        TitaniaStampedUnitRequest(
+            code = "x",
+            person = person.toList(),
         ),
-    )
+    ),
+)
 
 private fun newGetResponse(vararg person: TitaniaStampedPersonResponse) = GetStampedWorkingTimeEventsResponse(
     schedulingUnit = listOf(
@@ -223,5 +222,4 @@ private fun newGetResponse(vararg person: TitaniaStampedPersonResponse) = GetSta
     ),
 )
 
-private fun Database.Read.getDevEmployees(): List<DevEmployee> =
-    createQuery { sql("SELECT * FROM employee") }.toList<DevEmployee>()
+private fun Database.Read.getDevEmployees(): List<DevEmployee> = createQuery { sql("SELECT * FROM employee") }.toList<DevEmployee>()

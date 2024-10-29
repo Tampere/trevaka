@@ -8,24 +8,23 @@ import fi.espoo.evaka.mealintegration.MealType
 import fi.espoo.evaka.mealintegration.MealTypeMapper
 
 object LempaalaMealTypeMapper : MealTypeMapper {
-    override fun toMealId(mealType: MealType, specialDiet: Boolean): Int =
-        if (specialDiet) {
-            when (mealType) {
-                MealType.BREAKFAST -> 578
-                MealType.LUNCH -> 8
-                MealType.LUNCH_PRESCHOOL -> 8
-                MealType.SNACK -> 20
-                MealType.SUPPER -> 25
-                MealType.EVENING_SNACK -> 27
-            }
-        } else {
-            when (mealType) {
-                MealType.BREAKFAST -> 578
-                MealType.LUNCH -> 7
-                MealType.LUNCH_PRESCHOOL -> 7
-                MealType.SNACK -> 20
-                MealType.SUPPER -> 24
-                MealType.EVENING_SNACK -> 27
-            }
+    override fun toMealId(mealType: MealType, specialDiet: Boolean): Int = if (specialDiet) {
+        when (mealType) {
+            MealType.BREAKFAST -> 578
+            MealType.LUNCH -> 8
+            MealType.LUNCH_PRESCHOOL -> 8
+            MealType.SNACK -> 20
+            MealType.SUPPER -> 25
+            MealType.EVENING_SNACK -> 27
         }
+    } else {
+        when (mealType) {
+            MealType.BREAKFAST -> 578
+            MealType.LUNCH -> 7
+            MealType.LUNCH_PRESCHOOL -> 7
+            MealType.SNACK -> 20
+            MealType.SUPPER -> 24
+            MealType.EVENING_SNACK -> 27
+        }
+    }
 }
