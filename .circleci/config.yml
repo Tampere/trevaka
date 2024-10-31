@@ -4,6 +4,15 @@
 
 version: 2.1
 
+parameters:
+  workflow:
+    type: enum
+    enum: ["build", "deploy"]
+    default: build
+  version:
+    type: string
+    default: << pipeline.git.revision >>
+
 orbs:
   aws-cli: circleci/aws-cli@5.1.0
   aws-ecr: circleci/aws-ecr@9.3.2
@@ -113,6 +122,8 @@ commands:
         default: ""
       cache:
         type: string
+      version:
+        type: string
     steps:
       - run:
           name: Build docker image
@@ -121,7 +132,7 @@ commands:
             docker buildx build --progress=plain \
               --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-${CIRCLE_SHA1} \
               $(readarray -t PARENT_COMMITS < <(git rev-parse ${CIRCLE_SHA1}^@); echo "${PARENT_COMMITS[@]/#/--cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-}") \
-              -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/<< parameters.image >>:${CIRCLE_SHA1} \
+              -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/<< parameters.image >>:<< parameters.version >> \
               --build-arg "CACHE_BUST=$(date '+%Y-%V')" \
               --build-arg "build=${CIRCLE_BUILD_NUM}" \
               --build-arg "commit=${CIRCLE_SHA1}" \
@@ -174,6 +185,9 @@ jobs:
   datadog_build_image:
     executor: base_executor
     resource_class: medium
+    parameters:
+      version:
+        type: string
     steps:
       - checkout_with_submodules
       - setup_remote_docker
@@ -182,10 +196,14 @@ jobs:
           image: datadog
           dir: datadog
           cache: datadog
+          version: << parameters.version >>
 
   apigw_build_image:
     executor: base_executor
     resource_class: medium
+    parameters:
+      version:
+        type: string
     steps:
       - checkout_with_submodules
       - setup_remote_docker
@@ -194,11 +212,14 @@ jobs:
           image: api-gateway
           dir: *workspace_apigw
           cache: api-gateway
+          version: << parameters.version >>
 
   frontend_build_image:
     executor: base_executor
     resource_class: large
     parameters:
+      version:
+        type: string
       customizations:
         type: string
     steps:
@@ -220,10 +241,14 @@ jobs:
           dir: *workspace_evaka_frontend
           extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=<< parameters.customizations >> --build-arg ICONS=pro --build-context customizations=frontend/<< parameters.customizations >>
           cache: frontend-<< parameters.customizations >>
+          version: << parameters.version >>
 
   service_build_image:
     executor: base_executor
     resource_class: large
+    parameters:
+      version:
+        type: string
     steps:
       - checkout_with_submodules
       - setup_remote_docker
@@ -233,15 +258,20 @@ jobs:
           dir: *workspace_service
           extra_build_args: --build-context core=evaka --target builder
           cache: service
+          version: << parameters.version >>
       - build_docker_image:
           image: service
           dir: *workspace_service
           extra_build_args: --build-context core=evaka
           cache: service
+          version: << parameters.version >>
 
   service_test:
     executor: machine_executor
     resource_class: large
+    parameters:
+      version:
+        type: string
     steps:
       - checkout_with_submodules
       - setup_aws
@@ -255,7 +285,7 @@ jobs:
             docker run --rm --network=host \
               --mount type=bind,source="/tmp/service/build/test-results",destination=/service/build/test-results \
               --mount type=bind,source="/tmp/service/build/reports",destination=/service/build/reports \
-              ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service-builder:${CIRCLE_SHA1} \
+              ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service-builder:<< parameters.version >> \
               ./gradlew --no-daemon check
       - run:
           name: Collect docker compose logs
@@ -273,6 +303,9 @@ jobs:
   auth_build_image:
     executor: base_executor
     resource_class: medium
+    parameters:
+      version:
+        type: string
     steps:
       - checkout_with_submodules
       - setup_remote_docker
@@ -282,11 +315,14 @@ jobs:
           dir: *workspace_auth
           extra_build_args: --build-context core=evaka/keycloak
           cache: auth
+          version: << parameters.version >>
 
   e2e_test:
     executor: machine_executor
     resource_class: large
     parameters:
+      version:
+        type: string
       customizations:
         type: string
     steps:
@@ -299,9 +335,9 @@ jobs:
           name: Start up compose stack
           command: |
             CI=true LOCAL_DIR='../evaka/frontend' \
-            EVAKA_FRONTEND_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend/<< parameters.customizations >>:${CIRCLE_SHA1} \
-            EVAKA_GW_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/api-gateway:${CIRCLE_SHA1} \
-            EVAKA_SRV_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service:${CIRCLE_SHA1} \
+            EVAKA_FRONTEND_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend/<< parameters.customizations >>:<< parameters.version >> \
+            EVAKA_GW_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/api-gateway:<< parameters.version >> \
+            EVAKA_SRV_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service:<< parameters.version >> \
             docker compose --progress plain --profile evaka up --quiet-pull --no-build -d
           environment:
             EVAKA_CUSTOMIZATIONS: << parameters.customizations >>
@@ -403,10 +439,12 @@ jobs:
 
 workflows:
   version: 2
-  build_test_and_deploy:
+  build:
     when:
-      not:
-        equal: [scheduled_pipeline, << pipeline.trigger_source >>]
+      and:
+        - equal: [build, << pipeline.parameters.workflow >>]
+        - not:
+            equal: [scheduled_pipeline, << pipeline.trigger_source >>]
     jobs:
       - check_licenses
       - terraform_lint:
@@ -418,10 +456,12 @@ workflows:
       - datadog_build_image:
           context:
             - trevaka-aws
+          version: << pipeline.parameters.version >>
 
       - apigw_build_image:
           context:
             - trevaka-aws
+          version: << pipeline.parameters.version >>
 
       - e2e_test:
           context:
@@ -430,6 +470,7 @@ workflows:
             - frontend_build_image-<< matrix.customizations >>
             - apigw_build_image
             - service_build_image
+          version: << pipeline.parameters.version >>
           matrix:
             parameters:
               customizations:
@@ -438,6 +479,7 @@ workflows:
       - frontend_build_image:
           context:
             - trevaka-aws
+          version: << pipeline.parameters.version >>
           matrix:
             parameters:
               customizations:
@@ -454,32 +496,33 @@ workflows:
       - service_build_image:
           context:
             - trevaka-aws
+          version: << pipeline.parameters.version >>
       - service_test:
           context:
             - trevaka-aws
           requires:
             - service_build_image
+          version: << pipeline.parameters.version >>
 
       - auth_build_image:
           context:
             - trevaka-aws
+          version: << pipeline.parameters.version >>
 
+  deploy:
+    when:
+      and:
+        - or:
+            - equal: [deploy, << pipeline.parameters.workflow >>]
+            - and:
+                - equal: [build, << pipeline.parameters.workflow >>]
+                - equal: [main, << pipeline.git.branch >>]
+        - not:
+            equal: [scheduled_pipeline, << pipeline.trigger_source >>]
+    jobs:
       # tampere-dev
       - tampere_dev_approve:
           type: approval
-          requires:
-            - check_licenses
-            - terraform_lint
-            - datadog_build_image
-            - auth_build_image
-            - apigw_build_image
-            - frontend_build_image
-            - service_test
-            - e2e_test
-          filters:
-            branches:
-              only:
-                - main
       - deploy_frontends:
           name: tampere_dev_frontends
           context:
@@ -489,7 +532,7 @@ workflows:
             - tampere_dev_approve
           municipality: tampere
           environment: dev
-          version: ${CIRCLE_SHA1}
+          version: << pipeline.parameters.version >>
       - deploy_backends:
           name: tampere_dev_backends
           context:
@@ -499,7 +542,7 @@ workflows:
             - tampere_dev_frontends
           municipality: tampere
           environment: dev
-          version: ${CIRCLE_SHA1}
+          version: << pipeline.parameters.version >>
 
       # tampere-test
       - deploy_frontends:
@@ -511,7 +554,7 @@ workflows:
             - tampere_prod_approve
           municipality: tampere
           environment: test
-          version: ${CIRCLE_SHA1}
+          version: << pipeline.parameters.version >>
       - deploy_backends:
           name: tampere_test_backends
           context:
@@ -521,7 +564,7 @@ workflows:
             - tampere_test_frontends
           municipality: tampere
           environment: test
-          version: ${CIRCLE_SHA1}
+          version: << pipeline.parameters.version >>
 
       # tampere-prod
       - tampere_prod_approve:
@@ -537,7 +580,7 @@ workflows:
             - tampere_prod_approve
           municipality: tampere
           environment: prod
-          version: ${CIRCLE_SHA1}
+          version: << pipeline.parameters.version >>
       - deploy_backends:
           name: tampere_prod_backends
           context:
@@ -547,7 +590,7 @@ workflows:
             - tampere_prod_frontends
           municipality: tampere
           environment: prod
-          version: ${CIRCLE_SHA1}
+          version: << pipeline.parameters.version >>
 
       # other test environments
       - deploy_frontends:
@@ -572,7 +615,7 @@ workflows:
             - tampere_dev_backends
           municipality: << matrix.municipality >>
           environment: test
-          version: ${CIRCLE_SHA1}
+          version: << pipeline.parameters.version >>
       - deploy_backends:
           matrix:
             parameters:
@@ -595,7 +638,7 @@ workflows:
             - << matrix.municipality >>_test_frontends
           municipality: << matrix.municipality >>
           environment: test
-          version: ${CIRCLE_SHA1}
+          version: << pipeline.parameters.version >>
 
       # other prod environments
       - deploy_frontends:
@@ -621,7 +664,7 @@ workflows:
             - tampere_prod_backends
           municipality: << matrix.municipality >>
           environment: prod
-          version: ${CIRCLE_SHA1}
+          version: << pipeline.parameters.version >>
       - deploy_backends:
           matrix:
             parameters:
@@ -644,4 +687,4 @@ workflows:
             - << matrix.municipality >>_prod_frontends
           municipality: << matrix.municipality >>
           environment: prod
-          version: ${CIRCLE_SHA1}
+          version: << pipeline.parameters.version >>
