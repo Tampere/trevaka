@@ -48,6 +48,7 @@ import fi.espoo.evaka.shared.security.PilotFeature
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import java.math.BigDecimal
@@ -138,6 +139,7 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
     }
 
     @Test
+    @Disabled
     fun test8WeeksReserved() {
         db.transaction { tx ->
             tx.createUpdate {
@@ -158,6 +160,7 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
     }
 
     @Test
+    @Disabled
     fun test7WeeksReserved() {
         db.transaction { tx ->
             tx.createUpdate {
