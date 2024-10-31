@@ -10,7 +10,6 @@ import fi.espoo.evaka.invoicing.domain.IncomeType
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.espoo.evaka.invoicing.service.IncomeCoefficientMultiplierProvider
 import fi.espoo.evaka.invoicing.service.IncomeTypesProvider
-import fi.espoo.evaka.invoicing.service.InvoiceGenerationLogic
 import fi.espoo.evaka.invoicing.service.InvoiceGenerationLogicChooser
 import fi.espoo.evaka.invoicing.service.InvoiceProductProvider
 import fi.espoo.evaka.invoicing.service.ProductKey
@@ -33,7 +32,7 @@ import org.springframework.ws.soap.saaj.SaajSoapMessageFactory
 import org.springframework.ws.transport.http.HttpComponents5MessageSender
 import trevaka.ipaas.newIpaasHttpClient
 import java.math.BigDecimal
-import java.time.Month
+import java.time.YearMonth
 
 const val WEB_SERVICE_TEMPLATE_INVOICE = "webServiceTemplateInvoice"
 const val HTTP_CLIENT_INVOICE = "httpClientInvoice"
@@ -223,55 +222,8 @@ class TampereInvoiceGeneratorLogicChooser(
     private val properties: SummertimeAbsenceProperties,
 ) : InvoiceGenerationLogicChooser {
 
-    override fun logicForMonth(tx: Database.Read, year: Int, month: Month, childId: ChildId): InvoiceGenerationLogic = when {
-        month == properties.freeMonth && tx.hasFreeSummerAbsence(childId, year) -> InvoiceGenerationLogic.Free
-        else -> InvoiceGenerationLogic.Default
+    override fun getFreeChildren(tx: Database.Read, month: YearMonth): Set<ChildId> = when {
+        month.month == properties.freeMonth -> throw UnsupportedOperationException("Not implemented yet")
+        else -> emptySet()
     }
-}
-
-fun Database.Read.hasFreeSummerAbsence(childId: ChildId, year: Int): Boolean {
-    // language=SQL
-    val sql =
-        """
-        SELECT EXISTS(
-            SELECT 1
-            FROM holiday_period_questionnaire hpq
-            WHERE
-                hpq.absence_type = 'FREE_ABSENCE'
-                AND date_part('year', upper(hpq.active) - interval '1 day') = :year
-                AND EXISTS(
-                    SELECT count(a.id), period
-                    FROM
-                        absence a
-                        JOIN placement pl ON pl.child_id = a.child_id AND daterange(pl.start_date, pl.end_date, '[]') @> a.date
-                        JOIN daycare dc ON dc.id = pl.unit_id,
-                        unnest(hpq.period_options) period
-                    WHERE
-                        a.absence_type = 'FREE_ABSENCE'
-                        AND a.child_id = :childId
-                        AND period @> a.date
-                        AND a.date NOT IN (SELECT h.date FROM holiday h)
-                        AND date_part('isodow', a.date) = ANY(dc.operation_days)
-                    GROUP BY period
-                    HAVING count(a.id) >= (
-                        SELECT count(*)
-                        FROM
-                            placement pl
-                            JOIN daycare dc ON dc.id = pl.unit_id,
-                            generate_series(lower(period), upper(period) - interval '1 day', interval '1 day') period_date
-                        WHERE
-                        pl.child_id = :childId
-                        AND period_date NOT IN (SELECT h.date FROM holiday h)
-                        AND daterange(pl.start_date, pl.end_date, '[]') @> period_date::date
-                        AND date_part('isodow', period_date) = ANY(dc.operation_days)
-                    )
-                )
-        )
-        """.trimIndent()
-
-    return createQuery { sql(sql) }
-        .bind("year", year)
-        .bind("childId", childId)
-        .mapTo<Boolean>()
-        .exactlyOne()
 }
