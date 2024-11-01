@@ -40,7 +40,7 @@ const prod: FeatureFlags = {
   intermittentShiftCare: true,
   citizenAttendanceSummary: true,
   noAbsenceType: true,
-  voucherUnitPayments: false,
+  voucherUnitPayments: true,
   assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
   discussionReservations: true
@@ -50,7 +50,6 @@ const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
-    voucherUnitPayments: true,
     serviceApplications: true
   },
   staging: {
