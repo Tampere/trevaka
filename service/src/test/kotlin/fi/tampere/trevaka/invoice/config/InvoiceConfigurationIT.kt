@@ -4,9 +4,7 @@
 
 package fi.tampere.trevaka.invoice.config
 
-import fi.espoo.evaka.invoicing.data.flatten
-import fi.espoo.evaka.invoicing.data.invoiceQueryBase
-import fi.espoo.evaka.invoicing.data.toInvoice
+import fi.espoo.evaka.invoicing.data.invoiceDetailedQuery
 import fi.espoo.evaka.invoicing.data.upsertFeeDecisions
 import fi.espoo.evaka.invoicing.domain.ChildWithDateOfBirth
 import fi.espoo.evaka.invoicing.domain.DecisionIncome
@@ -20,7 +18,7 @@ import fi.espoo.evaka.invoicing.domain.FeeDecisionStatus
 import fi.espoo.evaka.invoicing.domain.FeeDecisionThresholds
 import fi.espoo.evaka.invoicing.domain.FeeDecisionType
 import fi.espoo.evaka.invoicing.domain.FeeThresholds
-import fi.espoo.evaka.invoicing.domain.Invoice
+import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.service.InvoiceGenerator
 import fi.espoo.evaka.placement.PlacementType
 import fi.espoo.evaka.serviceneed.ServiceNeedOption
@@ -34,7 +32,6 @@ import fi.espoo.evaka.shared.ParentshipId
 import fi.espoo.evaka.shared.PersonId
 import fi.espoo.evaka.shared.ServiceNeedOptionId
 import fi.espoo.evaka.shared.db.Database
-import fi.espoo.evaka.shared.db.Row
 import fi.espoo.evaka.shared.dev.DevChild
 import fi.espoo.evaka.shared.dev.DevDaycare
 import fi.espoo.evaka.shared.dev.DevParentship
@@ -139,6 +136,12 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
     }
 
     @Test
+    fun getAllInvoices() {
+        val result = db.read { getAllInvoices(it) }
+        Assertions.assertEquals(0, result.size)
+    }
+
+    @Test
     @Disabled
     fun test8WeeksReserved() {
         db.transaction { tx ->
@@ -222,17 +225,9 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
         enabledPilotFeatures = setOf(PilotFeature.MESSAGING, PilotFeature.MOBILE, PilotFeature.RESERVATIONS, PilotFeature.PLACEMENT_TERMINATION),
     )
 
-    private val getAllInvoices: (Database.Read) -> List<Invoice> = { r ->
-        r.createQuery {
-            sql(
-                """
-            $invoiceQueryBase
-            ORDER BY invoice.id, row.idx
-                """.trimIndent(),
-            )
-        }
-            .toList(Row::toInvoice)
-            .let(::flatten)
+    private val getAllInvoices: (Database.Read) -> List<InvoiceDetailed> = { r ->
+        r.createQuery { invoiceDetailedQuery() }
+            .toList<InvoiceDetailed>()
             .shuffled() // randomize order to expose assumptions
     }
 
