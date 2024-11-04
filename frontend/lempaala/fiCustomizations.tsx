@@ -587,7 +587,7 @@ const fi: DeepPartial<Translations> = {
             </P>
           </>
         ),
-        jurisdictionText:
+        jurisdictionText: () =>
           'Tämän päätöksen peruste tulee Lempäälän kunnan hallintosäännöstä: 3 luku Henkilöstöorganisaatio ja toimivalta, 3 § Palvelualueet, 3.1 Palvelualuejohtaja 3 momentti Palvelualuejohtajat voivat siirtää edellä mainittua toimivaltaansa ja 6 §:ssä kirjattua erityistoimivaltaansa alaisilleen viranhaltijoille, sivistysjohtajan subdelegointipäätös 6.3.2023 § 37 Toimivallan siirto varhaiskasvatuksen tehtäväalueen viranhaltijoille 1.1.2023 lukien.'
       }
     },

@@ -587,7 +587,7 @@ const fi: DeepPartial<Translations> = {
             </P>
           </>
         ),
-        jurisdictionText:
+        jurisdictionText: () =>
           'Hallintosääntö 113 §, varhaiskasvatuksen aluejohtaja kohta 9.'
       }
     },

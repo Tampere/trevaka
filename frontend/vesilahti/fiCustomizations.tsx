@@ -587,7 +587,7 @@ const fi: DeepPartial<Translations> = {
             </P>
           </>
         ),
-        jurisdictionText:
+        jurisdictionText: () =>
           'Delegointipäätös pohjautuu Sivistyslautakunnan toimivallan siirtämiseen viranhaltijoille Vesilahden kunnan hallintosäännössä. Varhaiskasvatusjohtaja päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista yksityisessä ja kunnallisessa varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku).'
       }
     },

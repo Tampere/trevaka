@@ -290,7 +290,7 @@ const customizations: EmployeeCustomizations = {
               </P>
             </>
           ),
-          jurisdictionText:
+          jurisdictionText: () =>
             'Hyvinvointijohtajan voimassa olevan delegointipäätöksen mukaan varhaiskasvatusyksikön johtaja päättää varhaiskasvatuksessa lapsen tarvitsemasta tuesta ja tukimuodoista ja varhaiskasvatuksen aluejohtaja päättää varhaiskasvatuksessa lapsen tarvitsemasta tuesta ja tukimuodoista kunnallisen ja yksityisen palvelutuottajan tuottamassa varhaiskasvatuksessa olevien lasten osalta.'
         },
         assistanceNeedPreschoolDecision: {
