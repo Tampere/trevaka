@@ -122,16 +122,23 @@ commands:
         default: ""
       cache:
         type: string
+        default: ""
       version:
         type: string
     steps:
       - run:
+          name: Create docker builder instance
+          command: docker buildx inspect trevaka || docker buildx create --driver=docker-container --name trevaka --use
+      - run:
           name: Build docker image
           command: |
-            docker buildx create --driver=docker-container --name trevaka --node << parameters.cache >> --use
+            build_args=()
+            if [ -n "<< parameters.cache >>" ]; then
+              build_args+=("--cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-${CIRCLE_SHA1}")
+              build_args+=($(readarray -t PARENT_COMMITS < <(git rev-parse ${CIRCLE_SHA1}^@); echo "${PARENT_COMMITS[@]/#/--cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-}"))
+            fi
             docker buildx build --progress=plain \
-              --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-${CIRCLE_SHA1} \
-              $(readarray -t PARENT_COMMITS < <(git rev-parse ${CIRCLE_SHA1}^@); echo "${PARENT_COMMITS[@]/#/--cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-}") \
+              ${build_args[*]} \
               -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/<< parameters.image >>:<< parameters.version >> \
               --build-arg "CACHE_BUST=$(date '+%Y-%V')" \
               --build-arg "build=${CIRCLE_BUILD_NUM}" \
@@ -254,16 +261,15 @@ jobs:
       - setup_remote_docker
       - setup_aws
       - build_docker_image:
-          image: service-builder
-          dir: *workspace_service
-          extra_build_args: --build-context core=evaka --target builder
-          cache: service
-          version: << parameters.version >>
-      - build_docker_image:
           image: service
           dir: *workspace_service
           extra_build_args: --build-context core=evaka
           cache: service
+          version: << parameters.version >>
+      - build_docker_image:
+          image: service-builder
+          dir: *workspace_service
+          extra_build_args: --build-context core=evaka --target builder --cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:service-<< pipeline.git.revision >>
           version: << parameters.version >>
 
   service_test:
