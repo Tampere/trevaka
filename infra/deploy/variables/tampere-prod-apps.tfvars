@@ -49,6 +49,7 @@ evaka_integration_sfi_enabled           = true
 
 evaka_job_cancel_outdated_transfer_applications_enabled = true
 evaka_job_freeze_voucher_value_reports_enabled          = true
+evaka_job_freeze_voucher_value_reports_cron             = "0 30 23 L * ?"
 evaka_job_remove_old_draft_applications_enabled         = true
 send_pending_decision_reminder_emails_enabled           = true
 evaka_job_inactive_people_cleanup_enabled               = true
