@@ -19,6 +19,7 @@ evaka:
     flyway:
       username: evaka_it
       password: evaka_it
+    maximum_pool_size: 8
   email:
     sender_address: evaka@localhost
     sender_name:

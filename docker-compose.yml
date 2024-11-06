@@ -4,7 +4,7 @@
 
 services:
   db:
-    build: compose/db
+    build: evaka/compose/db
     ports:
       - "5432:5432"
     volumes:
@@ -12,6 +12,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      EVAKA_DATABASES: evaka,evaka_tampere,evaka_vesilahti,evaka_hameenkyro,evaka_nokia,evaka_ylojarvi,evaka_pirkkala,evaka_kangasala,evaka_lempaala,evaka_orivesi
     healthcheck:
       test: "pg_isready -U postgres"
       interval: 2s
