@@ -14,10 +14,7 @@ enum class BiTable(val fileName: String, val query: BiQueries.CsvQuery) {
         "assistance_action_option_ref",
         BiQueries.getAssistanceActionOptionRefs,
     ),
-    AssistanceBasisOption("assistance_basis_option", BiQueries.getAssistanceBasisOptions),
-    AssistanceBasisOptionRef("assistance_basis_option_ref", BiQueries.getAssistanceBasisOptionRefs),
     AssistanceFactor("assistance_factor", BiQueries.getAssistanceFactors),
-    AssistanceNeed("assistance_need", BiQueries.getAssistanceNeeds),
     AssistanceNeedDecision("assistance_need_decision", BiQueries.getAssistanceNeedDecisions),
     AssistanceNeedDecisionGuardian(
         "assistance_need_decision_guardian",

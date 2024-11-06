@@ -23,7 +23,7 @@ object BiQueries {
         csvQuery<BiPerson> {
             sql(
                 """
-            SELECT id, social_security_number, first_name, last_name, email, aad_object_id, language, date_of_birth, created::text, updated::text, street_address, postal_code, post_office, nationalities, restricted_details_enabled, restricted_details_end_date, phone, updated_from_vtj::text, invoicing_street_address, invoicing_postal_code, invoicing_post_office, invoice_recipient_name, date_of_death, residence_code, force_manual_fee_decisions, backup_phone, last_login::text, oph_person_oid, vtj_guardians_queried::text, vtj_dependants_queried::text, ssn_adding_disabled, preferred_name, duplicate_of, enabled_email_types
+            SELECT id, social_security_number, first_name, last_name, email, aad_object_id, language, date_of_birth, created::text, updated::text, street_address, postal_code, post_office, nationalities, restricted_details_enabled, restricted_details_end_date, phone, updated_from_vtj::text, invoicing_street_address, invoicing_postal_code, invoicing_post_office, invoice_recipient_name, date_of_death, residence_code, force_manual_fee_decisions, backup_phone, last_login::text, oph_person_oid, vtj_guardians_queried::text, vtj_dependants_queried::text, ssn_adding_disabled, preferred_name, duplicate_of, NULL AS enabled_email_types
             FROM person
             """,
             )
@@ -79,42 +79,12 @@ object BiQueries {
             )
         }
 
-    val getAssistanceBasisOptions =
-        csvQuery<BiAssistanceBasisOption> {
-            sql(
-                """
-            select id, created::text, updated::text, value, name_fi, description_fi, display_order
-            FROM assistance_basis_option
-        """,
-            )
-        }
-
-    val getAssistanceBasisOptionRefs =
-        csvQuery<BiAssistanceBasisOptionRef> {
-            sql(
-                """
-            select need_id, option_id, created::text
-            FROM assistance_basis_option_ref
-        """,
-            )
-        }
-
     val getAssistanceFactors =
         csvQuery<BiAssistanceFactor> {
             sql(
                 """
             select id, created::text, updated::text, child_id, modified::text, modified_by, valid_during::text, capacity_factor
             FROM assistance_factor
-        """,
-            )
-        }
-
-    val getAssistanceNeeds =
-        csvQuery<BiAssistanceNeed> {
-            sql(
-                """
-            select id, created::text, updated::text, updated_by, child_id, start_date, end_date, capacity_factor
-            FROM assistance_need
         """,
             )
         }
