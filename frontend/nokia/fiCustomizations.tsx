@@ -587,7 +587,7 @@ const fi: DeepPartial<Translations> = {
             </P>
           </>
         ),
-        jurisdictionText:
+        jurisdictionText: () =>
           'Sivistyslautakunnan toimivallan delegointi viranhaltijoille 1.3.2023 alkaen: Varhaiskasvatuksen palvelupäällikkö päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista yksityisessä varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku) ja päiväkodin johtaja päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista kunnallisessa varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku)'
       }
     },

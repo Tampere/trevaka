@@ -605,7 +605,7 @@ const fi: DeepPartial<Translations> = {
             </P>
           </>
         ),
-        jurisdictionText:
+        jurisdictionText: () =>
           'Delegointipäätös pohjautuu Kasvatus- ja opetuslautakunnan toimivallan siirtämiseen viranhaltijoille 17.4.2024 § 44: Varhaiskasvatuksen asiakaspalvelupäällikkö päättää varhaiskasvatuksessa annettavasta tuesta ja tukipalveluista yksityisessä varhaiskasvatuksessa (varhaiskasvatuslaki 15 e §), varhaiskasvatuksen aluejohtaja päättää esiopetuksessa annettavasta tuesta ja tukipalveluista (perusopetuslaki 16 §, 16 a § ja 17 §) ja varhaiskasvatusyksikön johtaja päättää varhaiskasvatuksessa annettavasta tuesta ja tukipalveluista kunnallisessa varhaiskasvatuksessa (varhaiskasvatuslaki 15 e §)'
       }
     },

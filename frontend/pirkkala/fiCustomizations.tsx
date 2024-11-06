@@ -587,7 +587,7 @@ const fi: DeepPartial<Translations> = {
             </P>
           </>
         ),
-        jurisdictionText:
+        jurisdictionText: () =>
           'Toimivallan peruste Hallintosääntö, varhaiskasvatuspäällikön toimivaltaan kuuluva asia. Varhaiskasvatuspäällikkö päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista kunnallisessa ja yksityisessä varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku)'
       }
     },

@@ -290,7 +290,7 @@ const customizations: EmployeeCustomizations = {
               </P>
             </>
           ),
-          jurisdictionText:
+          jurisdictionText: () =>
             'Hämeenkyrön kunnan hallintosäännön 108 §:n mukaan varhaiskasvatuksen johtaja päättää varhaiskasvatuksessa annettavasta tehostetusta ja erityisestä tuesta ja tukipalveluista.'
         },
         assistanceNeedPreschoolDecision: {

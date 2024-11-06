@@ -587,8 +587,25 @@ const fi: DeepPartial<Translations> = {
             </P>
           </>
         ),
-        jurisdictionText:
-          'Sivistyslautakunnan toimivallan delegointi viranhaltijoille 1.3.2023 alkaen: Varhaiskasvatuksen palvelupäällikkö päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista yksityisessä varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku) ja päiväkodin johtaja päättää varhaiskasvatuslain mukaisesta tuesta ja tukipalveluista kunnallisessa varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku)'
+        jurisdictionText: () => (
+          <>
+            <P>
+              Valtuuston toimivallan delegointi viranhaltijoille 1.1.2024 alkaen
+              (Oriveden kaupungin Hallintosääntö 43§ ja 45§):
+            </P>
+            <P>
+              Varhaiskasvatusyksikön johtaja päättää varhaiskasvatuslain mukaisesta
+              tehostetusta tuesta ja tukipalveluista kunnallisessa varhaiskasvatuksessa
+              (Varhaiskasvatuslaki 3 a luku). Varhaiskasvatuspäällikkö päättää
+              varhaiskasvatuslain mukaisesta erityisestä tuesta ja tukipalveluista
+              kunnallisessa varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku).
+            </P>
+            <P>
+              Varhaiskasvatuspäällikkö päättää varhaiskasvatuslain mukaisesta tuesta
+              ja tukipalveluista yksityisessä varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku).
+            </P>
+          </>
+        )
       }
     },
     assistancePreschoolDecisions: {

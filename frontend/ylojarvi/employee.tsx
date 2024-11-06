@@ -290,7 +290,7 @@ const customizations: EmployeeCustomizations = {
               </P>
             </>
           ),
-          jurisdictionText:
+          jurisdictionText: () =>
             'Hallintosääntö 113 §, varhaiskasvatuksen aluejohtaja kohta 9.'
         },
         assistanceNeedPreschoolDecision: {
