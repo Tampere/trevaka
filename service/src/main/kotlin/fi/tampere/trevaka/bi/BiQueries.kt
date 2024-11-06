@@ -79,42 +79,12 @@ object BiQueries {
             )
         }
 
-    val getAssistanceBasisOptions =
-        csvQuery<BiAssistanceBasisOption> {
-            sql(
-                """
-            select id, created::text, updated::text, value, name_fi, description_fi, display_order
-            FROM assistance_basis_option
-        """,
-            )
-        }
-
-    val getAssistanceBasisOptionRefs =
-        csvQuery<BiAssistanceBasisOptionRef> {
-            sql(
-                """
-            select need_id, option_id, created::text
-            FROM assistance_basis_option_ref
-        """,
-            )
-        }
-
     val getAssistanceFactors =
         csvQuery<BiAssistanceFactor> {
             sql(
                 """
             select id, created::text, updated::text, child_id, modified::text, modified_by, valid_during::text, capacity_factor
             FROM assistance_factor
-        """,
-            )
-        }
-
-    val getAssistanceNeeds =
-        csvQuery<BiAssistanceNeed> {
-            sql(
-                """
-            select id, created::text, updated::text, updated_by, child_id, start_date, end_date, capacity_factor
-            FROM assistance_need
         """,
             )
         }

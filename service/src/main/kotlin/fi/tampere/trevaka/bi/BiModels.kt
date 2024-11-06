@@ -161,22 +161,6 @@ data class BiAssistanceActionOptionRef(
     val created: String,
 )
 
-data class BiAssistanceBasisOption(
-    val id: UUID,
-    val created: String,
-    val updated: String,
-    val value: String,
-    val name_fi: String,
-    val display_order: Int?,
-    val description_fi: String?,
-)
-
-data class BiAssistanceBasisOptionRef(
-    val need_id: UUID,
-    val option_id: UUID,
-    val created: String,
-)
-
 data class BiAssistanceFactor(
     val id: UUID,
     val created: String,
@@ -185,17 +169,6 @@ data class BiAssistanceFactor(
     val modified: String,
     val modified_by: UUID,
     val valid_during: String, // DateRange
-    val capacity_factor: BigDecimal,
-)
-
-data class BiAssistanceNeed(
-    val id: UUID,
-    val created: String,
-    val updated: String,
-    val updated_by: UUID,
-    val child_id: UUID,
-    val start_date: LocalDate,
-    val end_date: LocalDate,
     val capacity_factor: BigDecimal,
 )
 
