@@ -598,9 +598,7 @@ const en: DeepPartial<Translations> = {
         continuously improve the user experience and apply appropriate
         accessibility standards.
       </P>
-      <P>
-        This statement was drawn up on 1 August 2024.
-      </P>
+      <P>This statement was drawn up on 1 August 2024.</P>
       <H2>Compliance of the service</H2>
       <P>
         The online service complies with the statutory critical accessibility
