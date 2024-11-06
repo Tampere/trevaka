@@ -293,19 +293,21 @@ const customizations: EmployeeCustomizations = {
           jurisdictionText: () => (
             <>
               <P>
-                Valtuuston toimivallan delegointi viranhaltijoille 1.1.2024 alkaen
-                (Oriveden kaupungin Hallintosääntö 43§ ja 45§):
+                Valtuuston toimivallan delegointi viranhaltijoille 1.1.2024
+                alkaen (Oriveden kaupungin Hallintosääntö 43§ ja 45§):
               </P>
               <P>
-                Varhaiskasvatusyksikön johtaja päättää varhaiskasvatuslain mukaisesta
-                tehostetusta tuesta ja tukipalveluista kunnallisessa varhaiskasvatuksessa
-                (Varhaiskasvatuslaki 3 a luku). Varhaiskasvatuspäällikkö päättää
-                varhaiskasvatuslain mukaisesta erityisestä tuesta ja tukipalveluista
-                kunnallisessa varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku).
+                Varhaiskasvatusyksikön johtaja päättää varhaiskasvatuslain
+                mukaisesta tehostetusta tuesta ja tukipalveluista kunnallisessa
+                varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku).
+                Varhaiskasvatuspäällikkö päättää varhaiskasvatuslain mukaisesta
+                erityisestä tuesta ja tukipalveluista kunnallisessa
+                varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku).
               </P>
               <P>
-                Varhaiskasvatuspäällikkö päättää varhaiskasvatuslain mukaisesta tuesta
-                ja tukipalveluista yksityisessä varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku).
+                Varhaiskasvatuspäällikkö päättää varhaiskasvatuslain mukaisesta
+                tuesta ja tukipalveluista yksityisessä varhaiskasvatuksessa
+                (Varhaiskasvatuslaki 3 a luku).
               </P>
             </>
           )

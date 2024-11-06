@@ -594,15 +594,17 @@ const fi: DeepPartial<Translations> = {
               (Oriveden kaupungin Hallintosääntö 43§ ja 45§):
             </P>
             <P>
-              Varhaiskasvatusyksikön johtaja päättää varhaiskasvatuslain mukaisesta
-              tehostetusta tuesta ja tukipalveluista kunnallisessa varhaiskasvatuksessa
-              (Varhaiskasvatuslaki 3 a luku). Varhaiskasvatuspäällikkö päättää
-              varhaiskasvatuslain mukaisesta erityisestä tuesta ja tukipalveluista
-              kunnallisessa varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku).
+              Varhaiskasvatusyksikön johtaja päättää varhaiskasvatuslain
+              mukaisesta tehostetusta tuesta ja tukipalveluista kunnallisessa
+              varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku).
+              Varhaiskasvatuspäällikkö päättää varhaiskasvatuslain mukaisesta
+              erityisestä tuesta ja tukipalveluista kunnallisessa
+              varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku).
             </P>
             <P>
-              Varhaiskasvatuspäällikkö päättää varhaiskasvatuslain mukaisesta tuesta
-              ja tukipalveluista yksityisessä varhaiskasvatuksessa (Varhaiskasvatuslaki 3 a luku).
+              Varhaiskasvatuspäällikkö päättää varhaiskasvatuslain mukaisesta
+              tuesta ja tukipalveluista yksityisessä varhaiskasvatuksessa
+              (Varhaiskasvatuslaki 3 a luku).
             </P>
           </>
         )
@@ -830,9 +832,7 @@ const fi: DeepPartial<Translations> = {
         käyttäjäkokemusta jatkuvasti ja soveltamaan asianmukaisia
         saavutettavuusstandardeja.
       </P>
-      <P>
-        Seloste on laadittu 1.8.2024.
-      </P>
+      <P>Seloste on laadittu 1.8.2024.</P>
       <H2>Palvelun vaatimustenmukaisuus</H2>
       <P>
         Verkkopalvelu täyttää lain asettamat kriittiset

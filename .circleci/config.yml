@@ -375,6 +375,24 @@ jobs:
           destination: videos
       - store_test_results:
           path: frontend/test-results
+      - run:
+          name: Link customizations
+          working_directory: *workspace_tre_frontend
+          command: ./link.sh
+      - run:
+          name: Lint customizations
+          working_directory: *workspace_evaka_frontend
+          command: |
+            yarn eslint --max-warnings 0 \
+              src/lib-customizations/tampere/. \
+              src/lib-customizations/vesilahti/. \
+              src/lib-customizations/hameenkyro/. \
+              src/lib-customizations/nokia/. \
+              src/lib-customizations/ylojarvi/. \
+              src/lib-customizations/pirkkala/. \
+              src/lib-customizations/kangasala/. \
+              src/lib-customizations/lempaala/. \
+              src/lib-customizations/orivesi/.
 
   deploy_frontends:
     parameters:
