@@ -12,6 +12,7 @@ import {
   daycareAssistanceLevels,
   preschoolAssistanceLevels
 } from 'lib-common/generated/api-types/assistance'
+import LocalDate from 'lib-common/local-date'
 import ExternalLink from 'lib-components/atoms/ExternalLink'
 import { H3, P } from 'lib-components/typography'
 import { EmployeeCustomizations } from 'lib-customizations/types'
@@ -649,7 +650,8 @@ const customizations: EmployeeCustomizations = {
     'PRIVATE',
     'PRIVATE_SERVICE_VOUCHER'
   ],
-  voucherValueDecisionTypes: ['NORMAL', 'RELIEF_ACCEPTED', 'RELIEF_REJECTED']
+  voucherValueDecisionTypes: ['NORMAL', 'RELIEF_ACCEPTED', 'RELIEF_REJECTED'],
+  getPaymentsDueDate: () => LocalDate.todayInHelsinkiTz()
 }
 
 export default customizations
