@@ -48,6 +48,7 @@ const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
+    aromiIntegration: true,
     serviceApplications: true
   },
   staging: {
