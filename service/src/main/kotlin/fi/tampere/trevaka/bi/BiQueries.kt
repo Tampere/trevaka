@@ -222,7 +222,7 @@ object BiQueries {
         csvQuery<BiFeeAlteration> {
             sql(
                 """
-            select id, person_id, type, amount, is_absolute, valid_from, valid_to, notes, updated_at::text, updated_by
+            select id, person_id, type, amount, is_absolute, valid_from, valid_to, notes, modified_at::text AS updated_at, modified_by AS updated_by
             FROM fee_alteration
         """,
             )
@@ -321,7 +321,7 @@ object BiQueries {
         csvQuery<BiIncome> {
             sql(
                 """
-            select id, person_id, data::text, valid_from, valid_to, notes, updated_at::text, effect, is_entrepreneur, works_at_echa, application_id, updated_by
+            select id, person_id, data::text, valid_from, valid_to, notes, modified_at::text AS updated_at, effect, is_entrepreneur, works_at_echa, application_id, modified_by AS updated_by
             FROM income
         """,
             )

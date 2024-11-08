@@ -530,8 +530,8 @@ private fun validFeeAlterations(childId: ChildId = ChildId(UUID.randomUUID())) =
             validFrom = LocalDate.now(),
             validTo = null,
             notes = "",
-            updatedAt = null,
-            updatedBy = null,
+            modifiedAt = null,
+            modifiedBy = null,
         ),
         FeeAlteration(
             id = FeeAlterationId(UUID.randomUUID()),
@@ -542,8 +542,8 @@ private fun validFeeAlterations(childId: ChildId = ChildId(UUID.randomUUID())) =
             validFrom = LocalDate.now(),
             validTo = null,
             notes = "",
-            updatedAt = null,
-            updatedBy = null,
+            modifiedAt = null,
+            modifiedBy = null,
         ),
     )
 }
