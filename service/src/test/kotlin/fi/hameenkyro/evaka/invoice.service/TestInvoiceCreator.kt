@@ -143,6 +143,8 @@ fun validInvoice(): InvoiceDetailed {
             LocalDateTime.of(2022, 5, 5, 1, 1),
         ),
         emptyList(),
+        0,
+        null,
     )
 }
 

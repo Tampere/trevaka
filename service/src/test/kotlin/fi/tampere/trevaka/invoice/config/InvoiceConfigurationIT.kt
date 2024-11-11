@@ -157,7 +157,7 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
         }
 
         val june = YearMonth.of(2022, 6)
-        db.transaction { generator.createAndStoreAllDraftInvoices(it, june) }
+        db.transaction { generator.generateAllDraftInvoices(it, june) }
         val result = db.read { getAllInvoices(it) }
         Assertions.assertEquals(0, result.size)
     }
@@ -178,7 +178,7 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
         }
 
         val june = YearMonth.of(2022, 6)
-        db.transaction { generator.createAndStoreAllDraftInvoices(it, june) }
+        db.transaction { generator.generateAllDraftInvoices(it, june) }
         val result = db.read { getAllInvoices(it) }
         Assertions.assertEquals(1, result.size)
     }
