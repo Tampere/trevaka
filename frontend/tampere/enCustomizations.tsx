@@ -92,7 +92,12 @@ const en: DeepPartial<Translations> = {
               "It is our greatest wish that the child is allocated in pre-primary education to the same school as the child's older sibling."
           },
           info: {
-            PRESCHOOL: null
+            PRESCHOOL: (
+              <P>
+                The sibling basis can be used when the older sibling is in
+                elementary school.
+              </P>
+            )
           },
           unit: "Sibling's school",
           unitPlaceholder: 'The name of the school'

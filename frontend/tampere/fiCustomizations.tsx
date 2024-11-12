@@ -94,7 +94,12 @@ const fi: DeepPartial<Translations> = {
               'Toivomme ensisijaisesti esiopetukseen samaan kouluun, jossa lapsen vanhempi sisarus on.'
           },
           info: {
-            PRESCHOOL: null
+            PRESCHOOL: (
+              <P>
+                Sisarusperustetta voidaan käyttää, kun vanhempi sisarus on
+                alakoulussa.
+              </P>
+            )
           },
           unit: 'Sisaruksen koulu',
           unitPlaceholder: 'Koulun nimi'
