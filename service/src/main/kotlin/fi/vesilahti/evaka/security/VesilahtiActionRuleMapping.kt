@@ -29,7 +29,6 @@ class VesilahtiActionRuleMapping : ActionRuleMapping {
         Action.Global.READ_DECISION_UNITS,
         Action.Global.READ_ENDED_PLACEMENTS_REPORT,
         Action.Global.READ_INVOICE_REPORT,
-        Action.Global.READ_STARTING_PLACEMENTS_REPORT,
         Action.Global.READ_INCOME_TYPES,
         Action.Global.READ_INVOICE_CODES,
         Action.Global.READ_EMPLOYEES,
@@ -371,6 +370,7 @@ class VesilahtiActionRuleMapping : ActionRuleMapping {
         Action.Unit.READ_FAMILY_CONFLICT_REPORT,
         Action.Unit.READ_PARTNERS_IN_DIFFERENT_ADDRESS_REPORT,
         Action.Unit.READ_SERVICE_VOUCHER_VALUES_REPORT,
+        Action.Unit.READ_STARTING_PLACEMENTS_REPORT,
         Action.Unit.READ_MISSING_GROUP_PLACEMENTS,
         -> {
             @Suppress("UNCHECKED_CAST")
