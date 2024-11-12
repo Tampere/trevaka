@@ -84,7 +84,9 @@ const fi: DeepPartial<Translations> = {
           },
           info: {
             PRESCHOOL: null
-          }
+          },
+          unit: 'Sisaruksen koulu',
+          unitPlaceholder: 'Koulun nimi'
         },
         units: {
           info: {
