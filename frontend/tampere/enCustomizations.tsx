@@ -93,7 +93,9 @@ const en: DeepPartial<Translations> = {
           },
           info: {
             PRESCHOOL: null
-          }
+          },
+          unit: "Sibling's school",
+          unitPlaceholder: 'The name of the school'
         },
         units: {
           info: {
