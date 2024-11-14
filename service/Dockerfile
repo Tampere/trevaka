@@ -21,7 +21,7 @@ RUN ./gradlew --no-daemon :service:sficlient:wsdl2java :service:vtjclient:wsdl2j
 COPY --from=core . ../evaka
 COPY . ./
 RUN ./gradlew --offline --no-daemon assemble \
-    && java -Djarmode=layertools -jar build/libs/trevaka-service.jar extract --destination build/extracted
+    && java -Djarmode=tools -jar build/libs/trevaka-service.jar extract --layers --launcher --destination build/extracted
 
 FROM eclipse-temurin:21-jre-noble
 LABEL maintainer="https://github.com/tampere/trevaka"
