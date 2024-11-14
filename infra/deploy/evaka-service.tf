@@ -172,7 +172,7 @@ module "app_service" {
     EVAKA_NOT_FOR_PROD_FORCE_UNPUBLISH_DOCUMENT_TEMPLATE_ENABLED = contains(["dev", "test"], var.environment) ? true : null
 
     # JwtEnv
-    EVAKA_JWT_PUBLIC_KEYS_URL = "file:///home/evaka/s3/jwks.json"
+    EVAKA_JWT_PUBLIC_KEYS_URL = "file:///home/ubuntu/s3/jwks.json"
 
     # WebPushEnv
     EVAKA_WEB_PUSH_ENABLED = true
@@ -222,7 +222,7 @@ module "app_service" {
     # SfiEnv
     EVAKA_INTEGRATION_SFI_ADDRESS                 = var.evaka_integration_sfi_enabled ? var.sfi_msg_service_address : null
     EVAKA_INTEGRATION_SFI_TRUST_STORE_LOCATION    = var.evaka_integration_sfi_enabled ? "file:///opt/java/openjdk/lib/security/cacerts" : null
-    EVAKA_INTEGRATION_SFI_KEY_STORE_LOCATION      = var.evaka_integration_sfi_enabled ? "file:///home/evaka/s3/keystore.p12" : null
+    EVAKA_INTEGRATION_SFI_KEY_STORE_LOCATION      = var.evaka_integration_sfi_enabled ? "file:///home/ubuntu/s3/keystore.p12" : null
     EVAKA_INTEGRATION_SFI_SIGNING_KEY_ALIAS       = var.evaka_integration_sfi_enabled ? var.sfi_msg_keystore_alias : null
     EVAKA_INTEGRATION_SFI_AUTHORITY_IDENTIFIER    = var.evaka_integration_sfi_enabled ? var.sfi_msg_authority_identifier : null
     EVAKA_INTEGRATION_SFI_SERVICE_IDENTIFIER      = var.evaka_integration_sfi_enabled ? var.sfi_msg_service_identifier : null

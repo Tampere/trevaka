@@ -16,7 +16,7 @@ fi
 
 # Download deployment specific files from S3 if in a non-local environment
 if [ "${VOLTTI_ENV:-X}" != "local" ]; then
-  s3download "$DEPLOYMENT_BUCKET" evaka-srv /home/evaka/s3
+  s3download "$DEPLOYMENT_BUCKET" evaka-srv /home/ubuntu/s3
 fi
 
 # Run as exec so the application can receive any Unix signals sent to the container, e.g.,
