@@ -36,7 +36,6 @@ if [ "${DD_PROFILING_ENABLED:-false}" = "true" ]; then
 
   # shellcheck disable=SC2086
   exec java \
-    -Ddd.jmxfetch.config=/etc/jmxfetch/conf.yaml \
     -Ddd.profiling.enabled=true \
     -Ddd.logs.injection=true \
     -Ddd.trace.sample.rate=1 \

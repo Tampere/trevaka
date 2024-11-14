@@ -45,7 +45,6 @@ RUN apt-get update \
     && dpkg-reconfigure --frontend noninteractive tzdata \
     && rm -rf /var/lib/apt/lists/*
 
-ADD ./dd-jmxfetch/ /etc/jmxfetch/
 WORKDIR /evaka/service
 COPY entrypoint.sh entrypoint.sh
 ENTRYPOINT ["./entrypoint.sh"]
