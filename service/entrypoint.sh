@@ -6,12 +6,12 @@
 
 set -euo pipefail
 
-# For log tagging (with a default value and error logging without crashing)
+# For log tagging
 # shellcheck disable=SC2155
 if [ -z "${ECS_CONTAINER_METADATA_URI_V4+x}" ]; then
-  export HOST_IP=$(curl --silent --fail --show-error http://169.254.169.254/latest/meta-data/local-ipv4 || printf 'UNAVAILABLE')
+  export HOST_IP="UNAVAILABLE"
 else
-  export HOST_IP=$(curl --silent --fail --show-error ${ECS_CONTAINER_METADATA_URI_V4}/task | jq -r '.AvailabilityZone' || printf 'UNAVAILABLE')
+  export HOST_IP=$(curl --silent --fail --show-error ${ECS_CONTAINER_METADATA_URI_V4}/task | jq -r '.AvailabilityZone')
 fi
 
 # Download deployment specific files from S3 if in a non-local environment
