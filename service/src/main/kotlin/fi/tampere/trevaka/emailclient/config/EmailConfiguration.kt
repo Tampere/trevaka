@@ -516,13 +516,9 @@ $unsubscribeEn
         "Varaa keskusteluaika varhaiskasvatukseen / Reserve a discussion time for early childhood education",
         html =
         """
-<p>${notificationDetails.eventTitle}</p>
-<p>${notificationDetails.eventDescription}</p>
 <p>Ajan voi varata eVakan kalenterinäkymästä</p>
 $unsubscribeFi
 <hr>
-<p>${notificationDetails.eventTitle}</p>
-<p>${notificationDetails.eventDescription}</p>
 <p>You can reserve a time using eVaka calendar view</p>
 $unsubscribeEn
 <hr>
