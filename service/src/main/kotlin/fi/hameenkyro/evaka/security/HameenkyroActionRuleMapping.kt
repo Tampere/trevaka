@@ -37,6 +37,11 @@ class HameenkyroActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR),
             )
         }
+        Action.Global.READ_HOLIDAY_PERIODS -> {
+            action.defaultRules.asSequence() + sequenceOf(
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inAnyUnit(),
+            )
+        }
         Action.Global.READ_MISSING_HEAD_OF_FAMILY_REPORT,
         -> {
             action.defaultRules.asSequence() + sequenceOf(
@@ -423,6 +428,12 @@ class HameenkyroActionRuleMapping : ActionRuleMapping {
             ) + sequenceOf(
                 HasUnitRole(UserRole.UNIT_SUPERVISOR, UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inUnit() as ScopedActionRule<in T>,
             )
+        Action.Unit.READ_HOLIDAY_PERIOD_ATTENDANCE_REPORT -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).withUnitFeatures(PilotFeature.RESERVATIONS).inUnit() as ScopedActionRule<in T>,
+            )
+        }
         Action.VoucherValueDecision.READ -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
