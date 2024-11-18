@@ -53,6 +53,11 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR, UserRole.FINANCE_ADMIN, UserRole.SERVICE_WORKER),
             )
         }
+        Action.Global.READ_PLACEMENT_COUNT_REPORT -> {
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.REPORT_VIEWER),
+            )
+        }
         Action.Global.READ_PLACEMENT_SKETCHING_REPORT -> {
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR),
