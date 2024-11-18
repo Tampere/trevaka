@@ -25,6 +25,9 @@ const customizations: EmployeeCustomizations = {
   translations: {
     fi: {
       // override translations here
+      titles: {
+        placementTool: 'Esiopetussijoitusten tuonti'
+      },
       application: {
         serviceNeed: {
           connectedLabel: 'Täydentävä toiminta',
@@ -608,6 +611,11 @@ const customizations: EmployeeCustomizations = {
       terms: {
         extendedTermStartInfo:
           'Aika, jolloin varhaiskasvatusmaksu määräytyy täydentävän varhaiskasvatuksen mukaan.'
+      },
+      placementTool: {
+        title: 'Esiopetussijoitusten tuonti',
+        description:
+          'Voit luoda tuotetuista sijoitusehdotuksista hakemukset eVakaan. Hakemukset luodaan suoraan odottamaan päätöstä.'
       }
     },
     sv: {}
