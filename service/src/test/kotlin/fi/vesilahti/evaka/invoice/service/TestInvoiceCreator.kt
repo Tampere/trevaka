@@ -145,6 +145,8 @@ fun validInvoice(): InvoiceDetailed {
         emptyList(),
         0,
         null,
+        null,
+        null,
     )
 }
 
