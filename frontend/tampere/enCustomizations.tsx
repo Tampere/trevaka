@@ -83,6 +83,11 @@ const en: DeepPartial<Translations> = {
               PRESCHOOL: 'Start of pre-primary education'
             }
           }
+        },
+        unitPreference: {
+          siblingBasis: {
+            unit: "Sibling's school"
+          }
         }
       },
       unitPreference: {
