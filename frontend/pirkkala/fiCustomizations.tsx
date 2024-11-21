@@ -74,6 +74,11 @@ const fi: DeepPartial<Translations> = {
               PRESCHOOL: 'Esiopetuksen aloitus'
             }
           }
+        },
+        unitPreference: {
+          siblingBasis: {
+            unit: 'Sisaruksen koulu'
+          }
         }
       },
       unitPreference: {
