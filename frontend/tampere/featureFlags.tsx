@@ -49,8 +49,7 @@ const features: Features = {
     ...prod,
     environmentLabel: 'Test',
     aromiIntegration: true,
-    serviceApplications: true,
-    calendarMonthView: true
+    serviceApplications: true
   },
   staging: {
     ...prod,
