@@ -222,7 +222,7 @@ class TampereInvoiceGeneratorLogicChooser(
     private val properties: SummertimeAbsenceProperties,
 ) : InvoiceGenerationLogicChooser {
 
-    override fun getFreeChildren(tx: Database.Read, month: YearMonth): Set<ChildId> = when {
+    override fun getFreeChildren(tx: Database.Read, month: YearMonth, childIds: Set<ChildId>): Set<ChildId> = when {
         month.month == properties.freeMonth -> throw UnsupportedOperationException("Not implemented yet")
         else -> emptySet()
     }
