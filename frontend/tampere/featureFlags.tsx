@@ -41,15 +41,15 @@ const prod: FeatureFlags = {
   voucherUnitPayments: true,
   assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
-  discussionReservations: true
+  discussionReservations: true,
+  serviceApplications: true
 }
 
 const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
-    aromiIntegration: true,
-    serviceApplications: true
+    aromiIntegration: true
   },
   staging: {
     ...prod,
