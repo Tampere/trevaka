@@ -557,16 +557,14 @@ workflows:
           matrix:
             parameters:
               municipality:
-                [
-                  "vesilahti",
-                  "hameenkyro",
-                  "nokia",
-                  "ylojarvi",
-                  "pirkkala",
-                  "kangasala",
-                  "lempaala",
-                  "orivesi",
-                ]
+                - vesilahti
+                - hameenkyro
+                - nokia
+                - ylojarvi
+                - pirkkala
+                - kangasala
+                - lempaala
+                - orivesi
           name: << matrix.municipality >>_test_frontends
           context:
             - trevaka-aws
@@ -580,16 +578,14 @@ workflows:
           matrix:
             parameters:
               municipality:
-                [
-                  "vesilahti",
-                  "hameenkyro",
-                  "nokia",
-                  "ylojarvi",
-                  "pirkkala",
-                  "kangasala",
-                  "lempaala",
-                  "orivesi",
-                ]
+                - vesilahti
+                - hameenkyro
+                - nokia
+                - ylojarvi
+                - pirkkala
+                - kangasala
+                - lempaala
+                - orivesi
           name: << matrix.municipality >>_test_backends
           context:
             - trevaka-aws
@@ -605,16 +601,14 @@ workflows:
           matrix:
             parameters:
               municipality:
-                [
-                  "vesilahti",
-                  "hameenkyro",
-                  "nokia",
-                  "ylojarvi",
-                  "pirkkala",
-                  "kangasala",
-                  "lempaala",
-                  "orivesi",
-                ]
+                - vesilahti
+                - hameenkyro
+                - nokia
+                - ylojarvi
+                - pirkkala
+                - kangasala
+                - lempaala
+                - orivesi
           name: << matrix.municipality >>_prod_frontends
           context:
             - trevaka-aws
@@ -629,16 +623,14 @@ workflows:
           matrix:
             parameters:
               municipality:
-                [
-                  "vesilahti",
-                  "hameenkyro",
-                  "nokia",
-                  "ylojarvi",
-                  "pirkkala",
-                  "kangasala",
-                  "lempaala",
-                  "orivesi",
-                ]
+                - vesilahti
+                - hameenkyro
+                - nokia
+                - ylojarvi
+                - pirkkala
+                - kangasala
+                - lempaala
+                - orivesi
           name: << matrix.municipality >>_prod_backends
           context:
             - trevaka-aws
