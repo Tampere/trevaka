@@ -351,8 +351,7 @@ jobs:
           include_e2e: true
       - run:
           name: Waiting for compose stack to be up...
-          working_directory: *workspace_evaka_frontend
-          command: ./wait-for-url.sh "http://localhost:9099/api/internal/dev-api/tampere" 204
+          command: ./evaka/compose/e2e/playwright/bin/wait-for-url.sh "http://localhost:9099/api/internal/dev-api/tampere" 204
       - run:
           name: Run E2E tests
           working_directory: *workspace_tre_frontend
