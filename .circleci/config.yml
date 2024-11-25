@@ -18,34 +18,17 @@ orbs:
   aws-ecr: circleci/aws-ecr@9.3.2
   terraform: circleci/terraform@3.2.1
 
-aliases:
-  - &workspace_root /home/circleci/repo
-  - &workspace_apigw /home/circleci/repo/evaka/apigw
-  - &workspace_evaka_frontend /home/circleci/repo/evaka/frontend
-  - &workspace_tre_frontend /home/circleci/repo/frontend
-  - &workspace_service /home/circleci/repo/service
-  - &workspace_auth /home/circleci/repo/auth
-
-  - &base_image cimg/base:current-22.04
-  - &reuse_image fsfe/reuse:4.0.3 # NOTE: Update add-license-headers.sh to match
-
-  - &default_config
-    working_directory: *workspace_root
-
 executors:
   base:
     docker:
       - image: cimg/base:current-22.04
   base_executor:
-    <<: *default_config
     docker:
-      - image: *base_image
+      - image: cimg/base:current-22.04
   reuse_tool:
-    <<: *default_config
     docker:
-      - image: *reuse_image
+      - image: fsfe/reuse:4.0.3 # NOTE: Update add-license-headers.sh to match
   machine_executor:
-    <<: *default_config
     machine:
       image: ubuntu-2404:current
     environment:
@@ -83,7 +66,7 @@ commands:
             - yarn-cache-frontend-v1-
             - yarn-cache-frontend-
       - run:
-          working_directory: *workspace_evaka_frontend
+          working_directory: evaka/frontend
           command: yarn install --immutable
       - save_cache:
           key: yarn-cache-frontend-v1-{{ checksum "evaka/frontend/yarn.lock" }}
@@ -101,7 +84,7 @@ commands:
                   - yarn-cache-e2e-v3-
                   - yarn-cache-e2e-
             - run:
-                working_directory: *workspace_tre_frontend
+                working_directory: frontend
                 command: |
                   yarn install --immutable
                   yarn playwright install chromium
@@ -217,7 +200,7 @@ jobs:
       - setup_aws
       - build_docker_image:
           image: api-gateway
-          dir: *workspace_apigw
+          dir: evaka/apigw
           cache: api-gateway
           version: << parameters.version >>
 
@@ -234,7 +217,7 @@ jobs:
       - setup_aws
       - run:
           name: Install commercial frontend dependencies
-          working_directory: *workspace_evaka_frontend
+          working_directory: evaka/frontend
           command: |
             aws s3 sync s3://trevaka-artifacts/vendor/fortawesome/ ./vendor/fortawesome/
             echo "Running unpack-pro-icons.sh" && ./unpack-pro-icons.sh
@@ -242,7 +225,7 @@ jobs:
       - setup_remote_docker
       - build_docker_image:
           image: frontend/<< parameters.customizations >>
-          dir: *workspace_evaka_frontend
+          dir: evaka/frontend
           extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=<< parameters.customizations >> --build-arg ICONS=pro --build-context customizations=frontend/<< parameters.customizations >>
           cache: frontend-<< parameters.customizations >>
           version: << parameters.version >>
@@ -259,13 +242,13 @@ jobs:
       - setup_aws
       - build_docker_image:
           image: service
-          dir: *workspace_service
+          dir: service
           extra_build_args: --build-context core=evaka
           cache: service
           version: << parameters.version >>
       - build_docker_image:
           image: service-builder
-          dir: *workspace_service
+          dir: service
           extra_build_args: --build-context core=evaka --target builder --cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:service-<< pipeline.git.revision >>
           version: << parameters.version >>
 
@@ -315,7 +298,7 @@ jobs:
       - setup_aws
       - build_docker_image:
           image: keycloak
-          dir: *workspace_auth
+          dir: auth
           extra_build_args: --build-context core=evaka/keycloak
           cache: auth
           version: << parameters.version >>
@@ -351,7 +334,7 @@ jobs:
           command: ./evaka/compose/e2e/playwright/bin/wait-for-url.sh "http://localhost:9099/api/internal/dev-api/tampere" 204
       - run:
           name: Run E2E tests
-          working_directory: *workspace_tre_frontend
+          working_directory: frontend
           command: yarn e2e-ci-playwright
           environment:
             HEADLESS: true
@@ -373,7 +356,7 @@ jobs:
           path: frontend/test-results
       - run:
           name: Lint customizations
-          working_directory: *workspace_tre_frontend
+          working_directory: frontend
           command: ./link.sh && ./lint.sh
 
   deploy_frontends:
