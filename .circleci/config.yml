@@ -50,46 +50,6 @@ commands:
           account_id: ${AWS_ACCOUNT_ID}
           region: ${AWS_REGION}
 
-  frontend_install:
-    parameters:
-      include_e2e:
-        type: boolean
-        default: false
-    steps:
-      - restore_cache:
-          keys:
-            - yarn-cache-frontend-v1-{{ checksum "evaka/frontend/yarn.lock" }}
-            - yarn-cache-frontend-v1-
-            - yarn-cache-frontend-
-      - run:
-          working_directory: evaka/frontend
-          command: yarn install --immutable
-      - save_cache:
-          key: yarn-cache-frontend-v1-{{ checksum "evaka/frontend/yarn.lock" }}
-          paths:
-            - evaka/frontend/.yarn/cache
-            - /home/circleci/.npm/sentry-cli
-      - when:
-          condition:
-            equal: [true, << parameters.include_e2e >>]
-          steps:
-            - restore_cache:
-                name: Restore e2e yarn cache
-                keys:
-                  - yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
-                  - yarn-cache-e2e-v3-
-                  - yarn-cache-e2e-
-            - run:
-                working_directory: frontend
-                command: |
-                  yarn install --immutable
-                  yarn playwright install chromium
-            - save_cache:
-                name: Store e2e yarn cache
-                key: yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
-                paths:
-                  - frontend/.yarn/cache
-
   build_docker_image:
     parameters:
       image:
@@ -318,8 +278,35 @@ jobs:
             docker compose --progress plain --profile evaka up --quiet-pull --no-build -d
           environment:
             EVAKA_CUSTOMIZATIONS: << parameters.customizations >>
-      - frontend_install:
-          include_e2e: true
+      - restore_cache:
+          keys:
+            - yarn-cache-frontend-v1-{{ checksum "evaka/frontend/yarn.lock" }}
+            - yarn-cache-frontend-v1-
+            - yarn-cache-frontend-
+      - run:
+          working_directory: evaka/frontend
+          command: yarn install --immutable
+      - save_cache:
+          key: yarn-cache-frontend-v1-{{ checksum "evaka/frontend/yarn.lock" }}
+          paths:
+            - evaka/frontend/.yarn/cache
+            - /home/circleci/.npm/sentry-cli
+      - restore_cache:
+          name: Restore e2e yarn cache
+          keys:
+            - yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
+            - yarn-cache-e2e-v3-
+            - yarn-cache-e2e-
+      - run:
+          working_directory: frontend
+          command: |
+            yarn install --immutable
+            yarn playwright install chromium
+      - save_cache:
+          name: Store e2e yarn cache
+          key: yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
+          paths:
+            - frontend/.yarn/cache
       - run:
           name: Waiting for compose stack to be up...
           command: ./evaka/compose/e2e/playwright/bin/wait-for-url.sh "http://localhost:9099/api/internal/dev-api/tampere" 204
