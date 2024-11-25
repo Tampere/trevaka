@@ -19,16 +19,13 @@ orbs:
   terraform: circleci/terraform@3.2.1
 
 executors:
-  base:
+  docker_ubuntu:
     docker:
       - image: cimg/base:current-22.04
-  base_executor:
-    docker:
-      - image: cimg/base:current-22.04
-  reuse_tool:
+  docker_reuse:
     docker:
       - image: fsfe/reuse:4.0.3 # NOTE: Update add-license-headers.sh to match
-  machine_executor:
+  machine_ubuntu:
     machine:
       image: ubuntu-2404:current
     environment:
@@ -120,7 +117,7 @@ commands:
               build_args+=("--cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-${CIRCLE_SHA1}")
               build_args+=($(readarray -t PARENT_COMMITS < <(git rev-parse ${CIRCLE_SHA1}^@); echo "${PARENT_COMMITS[@]/#/--cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-}"))
             fi
-            docker buildx build --progress=plain \
+            docker buildx build \
               ${build_args[*]} \
               -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/<< parameters.image >>:<< parameters.version >> \
               --build-arg "CACHE_BUST=$(date '+%Y-%V')" \
@@ -140,7 +137,7 @@ jobs:
   # MISC JOBS
 
   check_licenses:
-    executor: reuse_tool
+    executor: docker_reuse
     resource_class: small
     steps:
       - checkout
@@ -156,7 +153,7 @@ jobs:
             }
 
   terraform_lint:
-    executor: base
+    executor: docker_ubuntu
     resource_class: small
     parameters:
       path:
@@ -173,14 +170,13 @@ jobs:
   # BUILD JOBS
 
   datadog_build_image:
-    executor: base_executor
+    executor: machine_ubuntu
     resource_class: medium
     parameters:
       version:
         type: string
     steps:
       - checkout_with_submodules
-      - setup_remote_docker
       - setup_aws
       - build_docker_image:
           image: datadog
@@ -189,14 +185,13 @@ jobs:
           version: << parameters.version >>
 
   apigw_build_image:
-    executor: base_executor
+    executor: machine_ubuntu
     resource_class: medium
     parameters:
       version:
         type: string
     steps:
       - checkout_with_submodules
-      - setup_remote_docker
       - setup_aws
       - build_docker_image:
           image: api-gateway
@@ -205,7 +200,7 @@ jobs:
           version: << parameters.version >>
 
   frontend_build_image:
-    executor: base_executor
+    executor: machine_ubuntu
     resource_class: large
     parameters:
       version:
@@ -222,7 +217,6 @@ jobs:
             aws s3 sync s3://trevaka-artifacts/vendor/fortawesome/ ./vendor/fortawesome/
             echo "Running unpack-pro-icons.sh" && ./unpack-pro-icons.sh
             rm -v ./vendor/fortawesome/*
-      - setup_remote_docker
       - build_docker_image:
           image: frontend/<< parameters.customizations >>
           dir: evaka/frontend
@@ -231,14 +225,13 @@ jobs:
           version: << parameters.version >>
 
   service_build_image:
-    executor: base_executor
+    executor: machine_ubuntu
     resource_class: large
     parameters:
       version:
         type: string
     steps:
       - checkout_with_submodules
-      - setup_remote_docker
       - setup_aws
       - build_docker_image:
           image: service
@@ -253,7 +246,7 @@ jobs:
           version: << parameters.version >>
 
   service_test:
-    executor: machine_executor
+    executor: machine_ubuntu
     resource_class: large
     parameters:
       version:
@@ -287,14 +280,13 @@ jobs:
           destination: build/reports
 
   auth_build_image:
-    executor: base_executor
+    executor: machine_ubuntu
     resource_class: medium
     parameters:
       version:
         type: string
     steps:
       - checkout_with_submodules
-      - setup_remote_docker
       - setup_aws
       - build_docker_image:
           image: keycloak
@@ -304,7 +296,7 @@ jobs:
           version: << parameters.version >>
 
   e2e_test:
-    executor: machine_executor
+    executor: machine_ubuntu
     resource_class: large
     parameters:
       version:
@@ -370,7 +362,7 @@ jobs:
       role-arn:
         type: string
         default: ${AWS_ROLE_ARN_DEPLOY_CIRCLECI}
-    executor: base
+    executor: docker_ubuntu
     resource_class: small
     steps:
       - setup_remote_docker
@@ -401,7 +393,7 @@ jobs:
               --exclude "*service-worker.js" --exclude "*service-worker.js.map" \
               --include "maintenance-page/*"
   deploy_backends:
-    executor: base
+    executor: docker_ubuntu
     resource_class: small
     parameters:
       municipality:
