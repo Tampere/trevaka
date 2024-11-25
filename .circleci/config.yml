@@ -365,13 +365,7 @@ jobs:
     resource_class: small
     steps:
       - setup_remote_docker
-      - aws-cli/setup:
-          configure_default_region: false
-          configure_profile_region: false
-          role_arn: "arn:aws:iam::${AWS_ACCOUNT_ID}:role/${AWS_ROLE_NAME_CIRCLECI_UPLOAD}"
-      - aws-ecr/ecr_login:
-          account_id: ${AWS_ACCOUNT_ID}
-          region: ${AWS_REGION}
+      - setup_aws
       - run:
           name: Download archive
           command: |
