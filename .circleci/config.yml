@@ -29,7 +29,6 @@ executors:
     machine:
       image: ubuntu-2404:current
     environment:
-      NODE_ENV: development
       BUILDKIT_PROGRESS: plain
 
 commands:
