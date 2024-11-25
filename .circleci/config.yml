@@ -271,10 +271,9 @@ jobs:
       - run:
           name: Start up compose stack
           command: |
-            CI=true LOCAL_DIR='../evaka/frontend' \
             EVAKA_FRONTEND_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend/<< parameters.customizations >>:<< parameters.version >> \
-            EVAKA_GW_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/api-gateway:<< parameters.version >> \
-            EVAKA_SRV_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service:<< parameters.version >> \
+            EVAKA_APIGW_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/api-gateway:<< parameters.version >> \
+            EVAKA_SERVICE_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service:<< parameters.version >> \
             docker compose --progress plain --profile evaka up --quiet-pull --no-build -d
           environment:
             EVAKA_CUSTOMIZATIONS: << parameters.customizations >>

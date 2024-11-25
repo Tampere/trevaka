@@ -72,7 +72,7 @@ services:
 
   apigw:
     build: evaka/apigw
-    image: ${EVAKA_GW_IMAGE}
+    image: ${EVAKA_APIGW_IMAGE}
     ports:
       - "3000"
     hostname: apigw
@@ -89,8 +89,8 @@ services:
       # evaka/apigw/package.json
       NODE_ENV: local
       # local profile overrides for docker environment
-      EVAKA_SERVICE_URL: ${EVAKA_SERVICE_URL}
-      REDIS_HOST: ${EVAKA_REDIS_HOST}
+      EVAKA_SERVICE_URL: http://service:8888
+      REDIS_HOST: redis
       # ecosystem.config.js
       EVAKA_TITANIA_USERNAME: titania
       EVAKA_TITANIA_PASSWORD: titania
@@ -107,7 +107,7 @@ services:
       context: service
       additional_contexts: # requires docker-compose 2.17.0 or newer
         core: evaka
-    image: ${EVAKA_SRV_IMAGE}
+    image: ${EVAKA_SERVICE_IMAGE}
     ports:
       - "8888:8888"
     hostname: service
@@ -123,8 +123,8 @@ services:
       # service/build.gradle.kts
       SPRING_PROFILES_INCLUDE: local,trevaka-local
       # local profile overrides for docker environment
-      EVAKA_DATABASE_URL: jdbc:postgresql://${EVAKA_DATABASE_HOST}:5432/evaka_${EVAKA_CUSTOMIZATIONS}_local
-      EVAKA_S3MOCK_URL: ${S3MOCK_URL}
+      EVAKA_DATABASE_URL: jdbc:postgresql://db:5432/evaka_${EVAKA_CUSTOMIZATIONS}_local
+      EVAKA_S3MOCK_URL: http://s3:9090
       EVAKA_BUCKET_PROXY_THROUGH_NGINX: true
       # ecosystem.config.js
       SPRING_PROFILES_ACTIVE: ${EVAKA_CUSTOMIZATIONS}_evaka
