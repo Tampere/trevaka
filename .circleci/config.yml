@@ -73,15 +73,15 @@ commands:
           command: |
             build_args=()
             if [ -n "<< parameters.cache >>" ]; then
-              build_args+=("--cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-${CIRCLE_SHA1}")
-              build_args+=($(readarray -t PARENT_COMMITS < <(git rev-parse ${CIRCLE_SHA1}^@); echo "${PARENT_COMMITS[@]/#/--cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-}"))
+              build_args+=("--cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-<< pipeline.git.revision >>")
+              build_args+=($(readarray -t PARENT_COMMITS < <(git rev-parse << pipeline.git.revision >>^@); echo "${PARENT_COMMITS[@]/#/--cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-}"))
             fi
             docker buildx build \
               ${build_args[*]} \
               -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/<< parameters.image >>:<< parameters.version >> \
               --build-arg "CACHE_BUST=$(date '+%Y-%V')" \
-              --build-arg "build=${CIRCLE_BUILD_NUM}" \
-              --build-arg "commit=${CIRCLE_SHA1}" \
+              --build-arg "build=<< pipeline.number >>" \
+              --build-arg "commit=<< pipeline.git.revision >>" \
               << parameters.extra_build_args >> \
               --push \
               --provenance=false \
