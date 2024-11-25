@@ -18,38 +18,17 @@ orbs:
   aws-ecr: circleci/aws-ecr@9.3.2
   terraform: circleci/terraform@3.2.1
 
-aliases:
-  - &workspace_root /home/circleci/repo
-  - &workspace_apigw /home/circleci/repo/evaka/apigw
-  - &workspace_evaka_frontend /home/circleci/repo/evaka/frontend
-  - &workspace_tre_frontend /home/circleci/repo/frontend
-  - &workspace_service /home/circleci/repo/service
-  - &workspace_auth /home/circleci/repo/auth
-
-  - &base_image cimg/base:current-22.04
-  - &reuse_image fsfe/reuse:4.0.3 # NOTE: Update add-license-headers.sh to match
-
-  - &default_config
-    working_directory: *workspace_root
-
 executors:
-  base:
+  docker_ubuntu:
     docker:
       - image: cimg/base:current-22.04
-  base_executor:
-    <<: *default_config
+  docker_reuse:
     docker:
-      - image: *base_image
-  reuse_tool:
-    <<: *default_config
-    docker:
-      - image: *reuse_image
-  machine_executor:
-    <<: *default_config
+      - image: fsfe/reuse:4.0.3 # NOTE: Update add-license-headers.sh to match
+  machine_ubuntu:
     machine:
       image: ubuntu-2404:current
     environment:
-      NODE_ENV: development
       BUILDKIT_PROGRESS: plain
 
 commands:
@@ -70,46 +49,6 @@ commands:
       - aws-ecr/ecr_login:
           account_id: ${AWS_ACCOUNT_ID}
           region: ${AWS_REGION}
-
-  frontend_install:
-    parameters:
-      include_e2e:
-        type: boolean
-        default: false
-    steps:
-      - restore_cache:
-          keys:
-            - yarn-cache-frontend-v1-{{ checksum "evaka/frontend/yarn.lock" }}
-            - yarn-cache-frontend-v1-
-            - yarn-cache-frontend-
-      - run:
-          working_directory: *workspace_evaka_frontend
-          command: yarn install --immutable
-      - save_cache:
-          key: yarn-cache-frontend-v1-{{ checksum "evaka/frontend/yarn.lock" }}
-          paths:
-            - evaka/frontend/.yarn/cache
-            - /home/circleci/.npm/sentry-cli
-      - when:
-          condition:
-            equal: [true, << parameters.include_e2e >>]
-          steps:
-            - restore_cache:
-                name: Restore e2e yarn cache
-                keys:
-                  - yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
-                  - yarn-cache-e2e-v3-
-                  - yarn-cache-e2e-
-            - run:
-                working_directory: *workspace_tre_frontend
-                command: |
-                  yarn install --immutable
-                  yarn playwright install chromium
-            - save_cache:
-                name: Store e2e yarn cache
-                key: yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
-                paths:
-                  - frontend/.yarn/cache
 
   build_docker_image:
     parameters:
@@ -134,15 +73,15 @@ commands:
           command: |
             build_args=()
             if [ -n "<< parameters.cache >>" ]; then
-              build_args+=("--cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-${CIRCLE_SHA1}")
-              build_args+=($(readarray -t PARENT_COMMITS < <(git rev-parse ${CIRCLE_SHA1}^@); echo "${PARENT_COMMITS[@]/#/--cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-}"))
+              build_args+=("--cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-<< pipeline.git.revision >>")
+              build_args+=($(readarray -t PARENT_COMMITS < <(git rev-parse << pipeline.git.revision >>^@); echo "${PARENT_COMMITS[@]/#/--cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:<< parameters.cache >>-}"))
             fi
-            docker buildx build --progress=plain \
+            docker buildx build \
               ${build_args[*]} \
               -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/<< parameters.image >>:<< parameters.version >> \
               --build-arg "CACHE_BUST=$(date '+%Y-%V')" \
-              --build-arg "build=${CIRCLE_BUILD_NUM}" \
-              --build-arg "commit=${CIRCLE_SHA1}" \
+              --build-arg "build=<< pipeline.number >>" \
+              --build-arg "commit=<< pipeline.git.revision >>" \
               << parameters.extra_build_args >> \
               --push \
               --provenance=false \
@@ -157,7 +96,7 @@ jobs:
   # MISC JOBS
 
   check_licenses:
-    executor: reuse_tool
+    executor: docker_reuse
     resource_class: small
     steps:
       - checkout
@@ -173,7 +112,7 @@ jobs:
             }
 
   terraform_lint:
-    executor: base
+    executor: docker_ubuntu
     resource_class: small
     parameters:
       path:
@@ -190,14 +129,13 @@ jobs:
   # BUILD JOBS
 
   datadog_build_image:
-    executor: base_executor
+    executor: machine_ubuntu
     resource_class: medium
     parameters:
       version:
         type: string
     steps:
       - checkout_with_submodules
-      - setup_remote_docker
       - setup_aws
       - build_docker_image:
           image: datadog
@@ -206,23 +144,22 @@ jobs:
           version: << parameters.version >>
 
   apigw_build_image:
-    executor: base_executor
+    executor: machine_ubuntu
     resource_class: medium
     parameters:
       version:
         type: string
     steps:
       - checkout_with_submodules
-      - setup_remote_docker
       - setup_aws
       - build_docker_image:
           image: api-gateway
-          dir: *workspace_apigw
+          dir: evaka/apigw
           cache: api-gateway
           version: << parameters.version >>
 
   frontend_build_image:
-    executor: base_executor
+    executor: machine_ubuntu
     resource_class: large
     parameters:
       version:
@@ -233,47 +170,42 @@ jobs:
       - checkout_with_submodules
       - setup_aws
       - run:
-          name: Fetch commercial frontend dependencies
-          working_directory: *workspace_evaka_frontend
+          name: Install commercial frontend dependencies
+          working_directory: evaka/frontend
           command: |
             aws s3 sync s3://trevaka-artifacts/vendor/fortawesome/ ./vendor/fortawesome/
-      - run:
-          name: Unpack commercial frontend dependencies
-          working_directory: *workspace_evaka_frontend
-          command: |
-            ./unpack-pro-icons.sh
-      - setup_remote_docker
+            echo "Running unpack-pro-icons.sh" && ./unpack-pro-icons.sh
+            rm -v ./vendor/fortawesome/*
       - build_docker_image:
           image: frontend/<< parameters.customizations >>
-          dir: *workspace_evaka_frontend
+          dir: evaka/frontend
           extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=<< parameters.customizations >> --build-arg ICONS=pro --build-context customizations=frontend/<< parameters.customizations >>
           cache: frontend-<< parameters.customizations >>
           version: << parameters.version >>
 
   service_build_image:
-    executor: base_executor
+    executor: machine_ubuntu
     resource_class: large
     parameters:
       version:
         type: string
     steps:
       - checkout_with_submodules
-      - setup_remote_docker
       - setup_aws
       - build_docker_image:
           image: service
-          dir: *workspace_service
+          dir: service
           extra_build_args: --build-context core=evaka
           cache: service
           version: << parameters.version >>
       - build_docker_image:
           image: service-builder
-          dir: *workspace_service
+          dir: service
           extra_build_args: --build-context core=evaka --target builder --cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:service-<< pipeline.git.revision >>
           version: << parameters.version >>
 
   service_test:
-    executor: machine_executor
+    executor: machine_ubuntu
     resource_class: large
     parameters:
       version:
@@ -307,24 +239,23 @@ jobs:
           destination: build/reports
 
   auth_build_image:
-    executor: base_executor
+    executor: machine_ubuntu
     resource_class: medium
     parameters:
       version:
         type: string
     steps:
       - checkout_with_submodules
-      - setup_remote_docker
       - setup_aws
       - build_docker_image:
           image: keycloak
-          dir: *workspace_auth
+          dir: auth
           extra_build_args: --build-context core=evaka/keycloak
           cache: auth
           version: << parameters.version >>
 
   e2e_test:
-    executor: machine_executor
+    executor: machine_ubuntu
     resource_class: large
     parameters:
       version:
@@ -340,22 +271,47 @@ jobs:
       - run:
           name: Start up compose stack
           command: |
-            CI=true LOCAL_DIR='../evaka/frontend' \
             EVAKA_FRONTEND_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend/<< parameters.customizations >>:<< parameters.version >> \
-            EVAKA_GW_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/api-gateway:<< parameters.version >> \
-            EVAKA_SRV_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service:<< parameters.version >> \
+            EVAKA_APIGW_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/api-gateway:<< parameters.version >> \
+            EVAKA_SERVICE_IMAGE=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service:<< parameters.version >> \
             docker compose --progress plain --profile evaka up --quiet-pull --no-build -d
           environment:
             EVAKA_CUSTOMIZATIONS: << parameters.customizations >>
-      - frontend_install:
-          include_e2e: true
+      - restore_cache:
+          keys:
+            - yarn-cache-frontend-v1-{{ checksum "evaka/frontend/yarn.lock" }}
+            - yarn-cache-frontend-v1-
+            - yarn-cache-frontend-
+      - run:
+          working_directory: evaka/frontend
+          command: yarn install --immutable
+      - save_cache:
+          key: yarn-cache-frontend-v1-{{ checksum "evaka/frontend/yarn.lock" }}
+          paths:
+            - evaka/frontend/.yarn/cache
+            - /home/circleci/.npm/sentry-cli
+      - restore_cache:
+          name: Restore e2e yarn cache
+          keys:
+            - yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
+            - yarn-cache-e2e-v3-
+            - yarn-cache-e2e-
+      - run:
+          working_directory: frontend
+          command: |
+            yarn install --immutable
+            yarn playwright install chromium
+      - save_cache:
+          name: Store e2e yarn cache
+          key: yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
+          paths:
+            - frontend/.yarn/cache
       - run:
           name: Waiting for compose stack to be up...
-          working_directory: *workspace_evaka_frontend
-          command: ./wait-for-url.sh "http://localhost:9099/api/internal/dev-api/tampere" 204
+          command: ./evaka/compose/e2e/playwright/bin/wait-for-url.sh "http://localhost:9099/api/internal/dev-api/tampere" 204
       - run:
           name: Run E2E tests
-          working_directory: *workspace_tre_frontend
+          working_directory: frontend
           command: yarn e2e-ci-playwright
           environment:
             HEADLESS: true
@@ -377,7 +333,7 @@ jobs:
           path: frontend/test-results
       - run:
           name: Lint customizations
-          working_directory: *workspace_tre_frontend
+          working_directory: frontend
           command: ./link.sh && ./lint.sh
 
   deploy_frontends:
@@ -391,17 +347,11 @@ jobs:
       role-arn:
         type: string
         default: ${AWS_ROLE_ARN_DEPLOY_CIRCLECI}
-    executor: base
+    executor: docker_ubuntu
     resource_class: small
     steps:
       - setup_remote_docker
-      - aws-cli/setup:
-          configure_default_region: false
-          configure_profile_region: false
-          role_arn: "arn:aws:iam::${AWS_ACCOUNT_ID}:role/${AWS_ROLE_NAME_CIRCLECI_UPLOAD}"
-      - aws-ecr/ecr_login:
-          account_id: ${AWS_ACCOUNT_ID}
-          region: ${AWS_REGION}
+      - setup_aws
       - run:
           name: Download archive
           command: |
@@ -422,7 +372,7 @@ jobs:
               --exclude "*service-worker.js" --exclude "*service-worker.js.map" \
               --include "maintenance-page/*"
   deploy_backends:
-    executor: base
+    executor: docker_ubuntu
     resource_class: small
     parameters:
       municipality:
@@ -607,16 +557,14 @@ workflows:
           matrix:
             parameters:
               municipality:
-                [
-                  "vesilahti",
-                  "hameenkyro",
-                  "nokia",
-                  "ylojarvi",
-                  "pirkkala",
-                  "kangasala",
-                  "lempaala",
-                  "orivesi",
-                ]
+                - vesilahti
+                - hameenkyro
+                - nokia
+                - ylojarvi
+                - pirkkala
+                - kangasala
+                - lempaala
+                - orivesi
           name: << matrix.municipality >>_test_frontends
           context:
             - trevaka-aws
@@ -630,16 +578,14 @@ workflows:
           matrix:
             parameters:
               municipality:
-                [
-                  "vesilahti",
-                  "hameenkyro",
-                  "nokia",
-                  "ylojarvi",
-                  "pirkkala",
-                  "kangasala",
-                  "lempaala",
-                  "orivesi",
-                ]
+                - vesilahti
+                - hameenkyro
+                - nokia
+                - ylojarvi
+                - pirkkala
+                - kangasala
+                - lempaala
+                - orivesi
           name: << matrix.municipality >>_test_backends
           context:
             - trevaka-aws
@@ -655,16 +601,14 @@ workflows:
           matrix:
             parameters:
               municipality:
-                [
-                  "vesilahti",
-                  "hameenkyro",
-                  "nokia",
-                  "ylojarvi",
-                  "pirkkala",
-                  "kangasala",
-                  "lempaala",
-                  "orivesi",
-                ]
+                - vesilahti
+                - hameenkyro
+                - nokia
+                - ylojarvi
+                - pirkkala
+                - kangasala
+                - lempaala
+                - orivesi
           name: << matrix.municipality >>_prod_frontends
           context:
             - trevaka-aws
@@ -679,16 +623,14 @@ workflows:
           matrix:
             parameters:
               municipality:
-                [
-                  "vesilahti",
-                  "hameenkyro",
-                  "nokia",
-                  "ylojarvi",
-                  "pirkkala",
-                  "kangasala",
-                  "lempaala",
-                  "orivesi",
-                ]
+                - vesilahti
+                - hameenkyro
+                - nokia
+                - ylojarvi
+                - pirkkala
+                - kangasala
+                - lempaala
+                - orivesi
           name: << matrix.municipality >>_prod_backends
           context:
             - trevaka-aws
