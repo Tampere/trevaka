@@ -49,7 +49,8 @@ const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
-    aromiIntegration: true
+    aromiIntegration: true,
+    multiSelectDeparture: true
   },
   staging: {
     ...prod,
