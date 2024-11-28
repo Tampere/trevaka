@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
 [versions]
-kotlin = "2.0.21"
+kotlin = "2.1.0"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
