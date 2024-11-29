@@ -4,7 +4,13 @@
 
 import { FeatureFlags } from 'lib-customizations/types'
 
-const featureFlags: FeatureFlags = {
+import { env, Env } from './env'
+
+type Features = {
+  default: FeatureFlags
+} & Record<Env, FeatureFlags>
+
+const prod: FeatureFlags = {
   environmentLabel: null,
   citizenShiftCareAbsence: false,
   daycareApplication: {
@@ -36,5 +42,16 @@ const featureFlags: FeatureFlags = {
   jamixIntegration: true,
   serviceApplications: true
 }
+
+const features: Features = {
+  default: {
+    ...prod,
+    environmentLabel: 'Test',
+    preschool: true
+  },
+  prod
+}
+
+const featureFlags = features[env()]
 
 export default featureFlags

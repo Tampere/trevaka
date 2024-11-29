@@ -624,6 +624,7 @@ const customizations: EmployeeCustomizations = {
   placementTypes: [
     'DAYCARE',
     'TEMPORARY_DAYCARE',
+    ...(featureFlags.preschool ? (['PRESCHOOL_DAYCARE'] as const) : []),
     'PRESCHOOL_DAYCARE_ONLY',
     'PREPARATORY_DAYCARE_ONLY',
     'SCHOOL_SHIFT_CARE'
