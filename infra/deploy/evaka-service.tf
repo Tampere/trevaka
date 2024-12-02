@@ -200,8 +200,6 @@ module "app_service" {
     EVAKA_INTEGRATION_VARDA_START_DATE    = var.evaka_integration_varda_start_date
     EVAKA_INTEGRATION_VARDA_END_DATE      = var.evaka_integration_varda_end_date
 
-    EVAKA_INTEGRATION_VARDA_NEW_INTEGRATION_ENABLED = true
-
     # DvvModificationsEnv
     EVAKA_INTEGRATION_DVV_MODIFICATIONS_XROAD_CLIENT_ID = var.dvv_modifications_service_xroadclientid
 
