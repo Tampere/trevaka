@@ -25,7 +25,7 @@ apigw_auth_employees_key         = "apigw-to-auth-employees.key"
 # internal-gw
 titania_enabled            = true
 ad_saml_entrypoint_url     = "https://login.microsoftonline.com/dde5dc12-bd3c-4c06-85cc-34361efe9ad4/saml2"
-ad_saml_public_cert        = ["tamperead-internal-prod.pem", "TreVaka_Tuotanto.pem"]
+ad_saml_public_cert        = ["TreVaka_Tuotanto.pem"]
 ad_saml_external_id_prefix = "tampere-ad"
 
 # service
