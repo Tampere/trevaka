@@ -37,8 +37,8 @@ const checkTampereTranslationInner = (translationKeyAgg: string, object: any, er
     if (React.isValidElement(object)) {
         checkTampereTranslation(translationKeyAgg, JSON.stringify(object), errors);
     } else if (isObject(object)) {
-        Object.keys(object).forEach(key => {
-            checkTampereTranslationInner(translationKeyAgg.concat('.', key), object[key], errors)
+        Object.entries(object).forEach(([key, value]) => {
+            checkTampereTranslationInner(translationKeyAgg.concat('.', key), value, errors)
         });
     } else if (isArray(object)) {
         let valAsArray = toArray(object)

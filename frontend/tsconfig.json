@@ -1,9 +1,12 @@
 {
   "extends": "../evaka/frontend/tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": ".",
     "baseUrl": "../evaka/frontend/src/",
     "noEmit": true,
+    "types": [
+      "jest",
+      "node"
+    ],
     "jsx": "react"
   }
 }
