@@ -269,11 +269,34 @@ const fi: DeepPartial<Translations> = {
         shiftCare: {
           instructions:
             'Mikäli lapsi tarvitsee esiopetuksen lisäksi ilta-/vuorohoitoa, hänet pitää ilmoittaa ilta- tai vuorohoidon esiopetukseen. Lisäksi täydentäväksi toiminnaksi on lapselle valittava täydentävä varhaiskasvatus, yli 5h päivässä. Päiväkodit palvelevat normaalisti arkisin klo 6.00–18.00. Iltahoito on tarkoitettu lapsille, jotka vanhempien työn tai tutkintoon johtavan opiskelun vuoksi tarvitsevat säännöllisesti hoitoa klo 18.00 jälkeen. Iltahoitoa tarjoavat päiväkodit aukeavat tarvittaessa klo 5.30 ja menevät kiinni viimeistään klo 22.30. Osa iltahoitoa antavista päiväkodeista on auki myös viikonloppuisin. Vuorohoito on tarkoitettu niille lapsille, joiden vanhemmat tekevät vuorotyötä ja lapsen hoitoon sisältyy myös öitä.',
-          message: {
-            text: 'Ilta- ja vuorohoito on tarkoitettu lapsille, jotka vanhempien työn tai tutkintoon johtavan opiskelun vuoksi tarvitsevat ilta- ja vuorohoitoa. Hakemuksen liitteeksi on toimitettava vanhempien osalta työnantajan todistus vuorotyöstä tai opiskelusta johtuvasta ilta- tai vuorohoidon tarpeesta.'
-          },
           attachmentsMessage: {
-            text: 'Ilta- ja vuorohoito on tarkoitettu lapsille, jotka vanhempien työn tai tutkintoon johtavan opiskelun vuoksi tarvitsevat ilta- ja vuorohoitoa. Hakemuksen liitteeksi on toimitettava vanhempien osalta työnantajan todistus vuorotyöstä tai opiskelusta johtuvasta ilta- tai vuorohoidon tarpeesta.'
+            DAYCARE: (
+              <P>
+                Ilta- ja vuorohoito on tarkoitettu lapsille, jotka vanhempien
+                työn tai tutkintoon johtavan opiskelun vuoksi tarvitsevat ilta-
+                ja vuorohoitoa. Hakemuksen liitteeksi on toimitettava vanhempien
+                osalta työnantajan todistus vuorotyöstä tai opiskelusta
+                johtuvasta ilta- tai vuorohoidon tarpeesta.
+              </P>
+            ),
+            PRESCHOOL: (
+              <>
+                <P>
+                  Esiopetushakemukselle pyydämme liittämään samassa taloudessa
+                  asuvien huoltajien osalta todistukset työnantajalta
+                  säännöllisestä vuorotyöstä tai oppilaitoksen edustajalta
+                  päätoimisesta iltaopiskelusta. Dokumenttien tulee olla
+                  kirjattu sinä vuonna, kun hakemus esiopetukseen tehdään.
+                </P>
+                <P>
+                  Ilta- ja vuorohoito on tarkoitettu lapsille, jotka vanhempien
+                  työn tai tutkintoon johtavan opiskelun vuoksi tarvitsevat
+                  ilta- ja vuorohoitoa. Hakemuksen liitteeksi on toimitettava
+                  vanhempien osalta työnantajan todistus vuorotyöstä tai
+                  opiskelusta johtuvasta ilta- tai vuorohoidon tarpeesta.
+                </P>
+              </>
+            )
           }
         },
         assistanceNeedInstructions: {
