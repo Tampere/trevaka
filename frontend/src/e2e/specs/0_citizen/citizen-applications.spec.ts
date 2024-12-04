@@ -47,8 +47,8 @@ describe('Citizen applications page', () => {
     await waitUntilEqual(() => page.find('h1 + p').text, 'Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen, esiopetukseen ja kerhoon. Huoltajan lasten tiedot haetaan tähän näkymään automaattisesti Väestötietojärjestelmästä.')
     await page.find(`[data-qa="new-application-${testChildRestricted.id}"]`).click()
     // Check that all options are visible
-    let applicationRadios = await page.findAll('[data-qa^="type-radio-"]')
-    expect(await applicationRadios.count()).toBe(3)
+    const applicationRadios = page.findAll('[data-qa^="type-radio-"]')
+    await applicationRadios.assertCount(3)
     await waitUntilEqual(
       () => applicationRadios.first().find('label').text,
       'Varhaiskasvatus- ja palvelusetelihakemus'
