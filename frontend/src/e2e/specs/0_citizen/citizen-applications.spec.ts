@@ -47,8 +47,8 @@ describe('Citizen applications page', () => {
     await waitUntilEqual(() => page.find('h1 + p').text, 'Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen, esiopetukseen ja kerhoon. Huoltajan lasten tiedot haetaan tähän näkymään automaattisesti Väestötietojärjestelmästä.')
     await page.find(`[data-qa="new-application-${testChildRestricted.id}"]`).click()
     // Check that all options are visible
-    let applicationRadios = await page.findAll('[data-qa^="type-radio-"]')
-    expect(await applicationRadios.count()).toBe(3)
+    const applicationRadios = page.findAll('[data-qa^="type-radio-"]')
+    await applicationRadios.assertCount(3)
     await waitUntilEqual(
       () => applicationRadios.first().find('label').text,
       'Varhaiskasvatus- ja palvelusetelihakemus'
@@ -178,10 +178,6 @@ describe('Citizen applications page', () => {
     await waitUntilEqual(
       () => page.find('[data-qa="shiftcare-instructions-text"]').text,
       'Mikäli lapsi tarvitsee esiopetuksen lisäksi ilta-/vuorohoitoa, hänet pitää ilmoittaa ilta- tai vuorohoidon esiopetukseen. Lisäksi täydentäväksi toiminnaksi on lapselle valittava täydentävä varhaiskasvatus, yli 5h päivässä. Päiväkodit palvelevat normaalisti arkisin klo 6.00–18.00. Iltahoito on tarkoitettu lapsille, jotka vanhempien työn tai tutkintoon johtavan opiskelun vuoksi tarvitsevat säännöllisesti hoitoa klo 18.00 jälkeen. Iltahoitoa tarjoavat päiväkodit aukeavat tarvittaessa klo 5.30 ja menevät kiinni viimeistään klo 22.30. Osa iltahoitoa antavista päiväkodeista on auki myös viikonloppuisin. Vuorohoito on tarkoitettu niille lapsille, joiden vanhemmat tekevät vuorotyötä ja lapsen hoitoon sisältyy myös öitä.'
-    )
-    await waitUntilEqual(
-      () => page.find('[data-qa="shiftcare-attachments-message"]').text,
-      'Ilta- ja vuorohoito on tarkoitettu lapsille, jotka vanhempien työn tai tutkintoon johtavan opiskelun vuoksi tarvitsevat ilta- ja vuorohoitoa. Hakemuksen liitteeksi on toimitettava vanhempien osalta työnantajan todistus vuorotyöstä tai opiskelusta johtuvasta ilta- tai vuorohoidon tarpeesta.'
     )
     const assistanceNeedInstructionsDaycare = page.find('[data-qa="assistanceNeedInstructions-DAYCARE"]')
     await assistanceNeedInstructionsDaycare.click()

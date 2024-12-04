@@ -273,11 +273,35 @@ const en: DeepPartial<Translations> = {
         shiftCare: {
           instructions:
             "If a child needs evening or day care in addition to pre-school education, he or she must be enrolled in evening or day care pre-school education. In addition, the child must be enrolled in supplementary early childhood education and care, for more than 5 hours per day. The day care centres are open normally on weekdays, from 6 am to 6 pm. Evening care is for children who, due to their parents' work or studies leading to a degree, require regular care after 6 pm. Day care centres offering evening care open at 5.30 am if necessary and close at 10.30 pm at the latest. Some day care centres providing evening care are also open at weekends. Shift care is for children whose parents work shifts and whose care also includes nights.",
-          message: {
-            text: 'Evening and shift care is intended for those children who, due to the parents work or studies that lead to a qualification, require evening and shift care. In the case of the parents, an employer’s certificate of a need for evening or shift care due to shift work or study must be attached to the application.'
-          },
           attachmentsMessage: {
-            text: 'Evening and shift care is intended for those children who, due to the parents’ work or studies that lead to a qualification, require evening and shift care. In the case of the parents, an employer’s certificate of a need for evening or shift care due to shift work or study must be attached to the application.'
+            DAYCARE: (
+              <P>
+                Evening and shift care is intended for those children who, due
+                to the parents’ work or studies that lead to a qualification,
+                require evening and shift care. In the case of the parents, an
+                employer’s certificate of a need for evening or shift care due
+                to shift work or study must be attached to the application.
+              </P>
+            ),
+            PRESCHOOL: (
+              <>
+                <P>
+                  If a guardian living in the same household does regular shift
+                  work or attends evening studies full-time, they must provide
+                  proof of this (a document issued by their employer or the
+                  educational institution) together with the application for
+                  pre-primary education. The documents must be dated in the year
+                  when the application for pre-primary education is submitted.
+                </P>
+                <P>
+                  Evening and shift care is intended for those children who, due
+                  to the parents’ work or studies that lead to a qualification,
+                  require evening and shift care. In the case of the parents, an
+                  employer’s certificate of a need for evening or shift care due
+                  to shift work or study must be attached to the application.
+                </P>
+              </>
+            )
           }
         },
         assistanceNeedInstructions: {
