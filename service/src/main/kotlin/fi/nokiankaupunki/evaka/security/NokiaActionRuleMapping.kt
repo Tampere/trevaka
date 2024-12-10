@@ -197,6 +197,7 @@ class NokiaActionRuleMapping : ActionRuleMapping {
         Action.Child.READ_PRESCHOOL_ASSISTANCES,
         Action.Child.READ_ASSISTANCE_ACTION,
         Action.Child.READ_OTHER_ASSISTANCE_MEASURES,
+        Action.Child.READ_CHILD_DOCUMENT,
         -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
@@ -256,6 +257,12 @@ class NokiaActionRuleMapping : ActionRuleMapping {
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY)
                     .inPlacementUnitOfChild() as ScopedActionRule<in T>,
+            )
+        }
+        Action.ChildDocument.READ -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
         Action.Decision.DOWNLOAD_PDF -> {

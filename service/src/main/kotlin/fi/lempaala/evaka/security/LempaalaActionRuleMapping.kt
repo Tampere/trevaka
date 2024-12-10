@@ -155,6 +155,7 @@ class LempaalaActionRuleMapping : ActionRuleMapping {
         Action.Child.READ_PLACEMENT,
         Action.Child.READ_GUARDIANS,
         Action.Child.READ_FEE_ALTERATIONS,
+        Action.Child.READ_CHILD_DOCUMENT,
         -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
@@ -181,6 +182,12 @@ class LempaalaActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR, UserRole.FINANCE_ADMIN) as ScopedActionRule<in T>,
+            )
+        }
+        Action.ChildDocument.READ -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
         Action.AssistanceFactor.READ,
