@@ -2,4 +2,4 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-FROM adobe/s3mock:3.11.0
+FROM adobe/s3mock:3.12.0
