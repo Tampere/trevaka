@@ -563,8 +563,8 @@ const en: DeepPartial<Translations> = {
         <P data-qa="income-formDescription-p1">
           The income statement including attachments must be submitted by the
           end of the calendar month in which the child started early childhood
-          education. In case of incomplete income information, the fee may be
-          set at the highest fee.
+          education. In case of incomplete income information, the highest fee
+          may be charged.
         </P>
         <P>
           The client fee is charged from the first day of early education in
