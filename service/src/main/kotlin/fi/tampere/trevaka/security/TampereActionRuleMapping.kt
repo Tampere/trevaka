@@ -163,6 +163,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
         Action.Child.READ_PLACEMENT,
         Action.Child.READ_GUARDIANS,
         Action.Child.READ_FEE_ALTERATIONS,
+        Action.Child.READ_CHILD_DOCUMENT,
         -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
@@ -261,6 +262,12 @@ class TampereActionRuleMapping : ActionRuleMapping {
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY)
                     .inPlacementUnitOfChild() as ScopedActionRule<in T>,
+            )
+        }
+        Action.ChildDocument.READ -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
         Action.Decision.DOWNLOAD_PDF -> {

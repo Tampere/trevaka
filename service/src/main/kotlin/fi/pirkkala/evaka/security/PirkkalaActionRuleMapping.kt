@@ -194,7 +194,14 @@ class PirkkalaActionRuleMapping : ActionRuleMapping {
         Action.Child.READ_PRESCHOOL_ASSISTANCES,
         Action.Child.READ_ASSISTANCE_ACTION,
         Action.Child.READ_OTHER_ASSISTANCE_MEASURES,
+        Action.Child.READ_CHILD_DOCUMENT,
         -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
+            )
+        }
+        Action.ChildDocument.READ -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
