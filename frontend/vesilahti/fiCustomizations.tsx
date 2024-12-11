@@ -781,10 +781,11 @@ const fi: DeepPartial<Translations> = {
     formDescription: (
       <>
         <P data-qa="income-formDescription-p1">
-          Tuloselvitys liitteineen palautetaan kuukauden kuluessa
-          varhaiskasvatuksen aloittamisesta. Maksu voidaan määrätä
-          puutteellisilla tulotiedoilla korkeimpaan maksuun. Puutteellisia
-          tulotietoja ei korjata takautuvasti oikaisuvaatimusajan jälkeen.
+          Tuloselvitys liitteineen palautetaan sen kalenterikuukauden loppuun
+          mennessä, jolloin lapsi on aloittanut varhaiskasvatuksessa. Maksu
+          voidaan määrätä puutteellisilla tulotiedoilla korkeimpaan maksuun.
+          Puutteellisia tulotietoja ei korjata takautuvasti oikaisuvaatimusajan
+          jälkeen.
         </P>
         <P>
           Asiakasmaksu peritään päätöksen mukaisesta varhaiskasvatuksen
