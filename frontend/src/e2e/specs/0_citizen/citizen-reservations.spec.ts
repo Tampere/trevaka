@@ -5,6 +5,8 @@
 import HelsinkiDateTime from 'lib-common/helsinki-date-time'
 import TimeRange from 'lib-common/time-range'
 import LocalTime from 'lib-common/local-time'
+import { fromUuid } from 'lib-common/id-type'
+import { AreaId, DaycareId } from 'lib-common/generated/api-types/shared'
 import config from 'e2e-test/config'
 import { resetDatabaseForE2ETests } from '../../common/tampere-dev-api'
 import { createDaycarePlacements } from 'e2e-test/generated/api-clients'
@@ -34,8 +36,8 @@ beforeEach(async () => {
     const child = await Fixture.person(testChildRestricted)
       .saveChild({updateMockVtj: true})
     const daycare = await Fixture.daycare({
-            id: '4f3a32f5-d1bd-4b8b-aa4e-4fd78b18354b',
-            areaId: '6529e31e-9777-11eb-ba88-33a923255570', // Etelä
+            id: fromUuid<DaycareId>('4f3a32f5-d1bd-4b8b-aa4e-4fd78b18354b'),
+            areaId: fromUuid<AreaId>('6529e31e-9777-11eb-ba88-33a923255570'), // Etelä
             name: 'Alkuräjähdyksen päiväkoti',
             type: ['CENTRE', 'PRESCHOOL', 'PREPARATORY_EDUCATION'],
             costCenter: '31500',
