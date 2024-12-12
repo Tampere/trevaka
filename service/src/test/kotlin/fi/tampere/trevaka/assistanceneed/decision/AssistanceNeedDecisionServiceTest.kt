@@ -187,6 +187,7 @@ val validPersonDTO = PersonDTO(
     postalCode = "33730",
     postOffice = "TAMPERE",
     residenceCode = "",
+    municipalityOfResidence = "Tampere",
 )
 
 fun PersonDTO.toPersonDetailed() = PersonDetailed(

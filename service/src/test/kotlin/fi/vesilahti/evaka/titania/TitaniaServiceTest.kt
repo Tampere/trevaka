@@ -29,7 +29,6 @@ import fi.espoo.evaka.titania.TitaniaWorkingTimeEvents
 import fi.espoo.evaka.titania.UpdateWorkingTimeEventsRequest
 import fi.vesilahti.evaka.AbstractVesilahtiIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.groups.Tuple
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
@@ -41,7 +40,7 @@ class TitaniaServiceTest : AbstractVesilahtiIntegrationTest() {
     private lateinit var titaniaService: TitaniaService
 
     @Test
-    fun `updateWorkingTimeEvents should create employee when employee number is unknown`() {
+    fun `updateWorkingTimeEvents should ignore unknown employee number`() {
         val request = newUpdateRequest(
             TitaniaPeriod.from(LocalDate.of(2024, 3, 4)),
             TitaniaPerson(
@@ -62,8 +61,7 @@ class TitaniaServiceTest : AbstractVesilahtiIntegrationTest() {
         assertThat(response).returns("OK") { it.updateWorkingTimeEventsResponse.message }
 
         val employees = db.read { tx -> tx.getDevEmployees() }
-        assertThat(employees).extracting({ it.lastName }, { it.firstName }, { it.employeeNumber })
-            .containsExactly(Tuple("ESIMERKKI", "ELLI", "ves1234"))
+        assertThat(employees).isEmpty()
     }
 
     @Test

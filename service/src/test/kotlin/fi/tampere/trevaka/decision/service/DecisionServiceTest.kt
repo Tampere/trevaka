@@ -227,5 +227,6 @@ fun validChild(restrictedDetailsEnabled: Boolean = false) = PersonDTO(
     postalCode = "33870",
     postOffice = "Tampere",
     residenceCode = "",
+    municipalityOfResidence = "Tampere",
     restrictedDetailsEnabled = restrictedDetailsEnabled,
 )
