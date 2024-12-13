@@ -29,6 +29,7 @@ const featureFlags: FeatureFlags = {
   citizenAttendanceSummary: true,
   noAbsenceType: true,
   voucherUnitPayments: false,
+  voucherValueSeparation: false,
   assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
   hideClubApplication: false,
