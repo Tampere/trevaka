@@ -39,6 +39,7 @@ const prod: FeatureFlags = {
   citizenAttendanceSummary: true,
   noAbsenceType: true,
   voucherUnitPayments: true,
+  voucherValueSeparation: false,
   assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
   discussionReservations: true,
