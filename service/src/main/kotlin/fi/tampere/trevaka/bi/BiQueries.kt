@@ -33,7 +33,7 @@ object BiQueries {
         csvQuery<BiApplication> {
             sql(
                 """
-            select id, created::text, updated::text, sentdate, duedate, guardian_id, child_id, checkedbyadmin, hidefromguardian, transferapplication, additionaldaycareapplication, status, origin, duedate_set_manually_at::text, service_worker_note, type, allow_other_guardian_access, document::text, form_modified::text
+            select id, created_at::text AS created, updated_at::text AS updated, sentdate, duedate, guardian_id, child_id, checkedbyadmin, hidefromguardian, transferapplication, additionaldaycareapplication, status, origin, duedate_set_manually_at::text, service_worker_note, type, allow_other_guardian_access, document::text, modified_at::text AS form_modified
             FROM application
         """,
             )
