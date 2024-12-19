@@ -414,6 +414,20 @@ $unsubscribeEn
         )
     }
 
+    override fun decisionNotification(): EmailContent = EmailContent.fromHtml(
+        subject =
+        "Uusi päätös eVakassa / New decision in eVaka",
+        html =
+        """
+<p>Sinulle on saapunut uusi päätös Kangasalan varhaiskasvatuksen verkkopalveluun eVakaan.</p>
+$unsubscribeFi
+<hr>
+<p>You have received a new decision in Kangasala`s early childhood education system eVaka.</p>
+$unsubscribeEn
+            """
+            .trimIndent(),
+    )
+
     override fun financeDecisionNotification(
         decisionType: FinanceDecisionType,
     ): EmailContent {
