@@ -15,8 +15,8 @@ import fi.tampere.messages.sapfico.payableaccounting.v06.PayableAccountingHeader
 import fi.tampere.messages.sapfico.payableaccounting.v06.PayableAccountingLine
 import fi.tampere.services.sapfico.payableaccounting.v1.SendPayableAccountingRequest
 import fi.tampere.trevaka.PaymentProperties
+import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.xml.bind.JAXBIntrospector
-import mu.KotlinLogging
 import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.client.core.SoapActionCallback
 import java.math.BigDecimal
@@ -41,8 +41,8 @@ class TamperePaymentClient(
                 SoapActionCallback("http://www.tampere.fi/services/sapfico/payableaccounting/v1.0/SendPayableAccounting"),
             )
             when (val value = JAXBIntrospector.getValue(response)) {
-                is SimpleAcknowledgementResponseType -> logger.info("Payment batch ended with status ${value.statusMessage}")
-                else -> logger.warn("Unknown response in payment: $value")
+                is SimpleAcknowledgementResponseType -> logger.info { "Payment batch ended with status ${value.statusMessage}" }
+                else -> logger.warn { "Unknown response in payment: $value" }
             }
         }
         return PaymentIntegrationClient.SendResult(succeeded = payments)

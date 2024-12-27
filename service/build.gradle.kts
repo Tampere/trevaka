@@ -28,8 +28,8 @@ dependencies {
 
     implementation("evaka:evaka-service")
 
-    implementation("ch.qos.logback.access:tomcat")
-    implementation("io.github.microutils:kotlin-logging-jvm")
+    implementation("ch.qos.logback.access:logback-access-tomcat")
+    implementation("io.github.oshai:kotlin-logging-jvm")
     implementation("net.logstash.logback:logstash-logback-encoder")
     implementation("org.thymeleaf:thymeleaf")
 

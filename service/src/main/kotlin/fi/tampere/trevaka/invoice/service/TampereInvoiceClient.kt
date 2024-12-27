@@ -23,8 +23,8 @@ import fi.tampere.messages.sapsd.salesorder.v11.Text
 import fi.tampere.services.sapsd.salesorder.v1.SendSalesOrderRequest
 import fi.tampere.trevaka.InvoiceProperties
 import fi.tampere.trevaka.invoice.config.findProduct
+import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.xml.bind.JAXBIntrospector
-import mu.KotlinLogging
 import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.client.SoapFaultClientException
 import org.springframework.ws.soap.client.core.SoapActionCallback
@@ -69,7 +69,7 @@ class TampereInvoiceClient(
     }
 
     override fun send(invoices: List<InvoiceDetailed>): SendResult {
-        logger.info("Invoice batch started")
+        logger.info { "Invoice batch started" }
         val (zeroSumInvoices, nonZeroSumInvoices) = invoices.partition { invoice -> invoice.totalPrice == 0 }
         val (withSSN, withoutSSN) = nonZeroSumInvoices.partition { invoice -> invoice.headOfFamily.ssn != null }
 
@@ -82,13 +82,13 @@ class TampereInvoiceClient(
                     SoapActionCallback("http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder"),
                 )
                 when (val value = JAXBIntrospector.getValue(response)) {
-                    is SimpleAcknowledgementResponseType -> logger.info("Invoice batch ended with status ${value.statusMessage}")
-                    else -> logger.warn("Unknown response in invoice: $value")
+                    is SimpleAcknowledgementResponseType -> logger.info { "Invoice batch ended with status ${value.statusMessage}" }
+                    else -> logger.warn { "Unknown response in invoice: $value" }
                 }
             } catch (e: SoapFaultClientException) {
                 when (val faultDetail = unmarshalFaultDetail(e)) {
-                    is FaultType -> logger.error("Fault in invoice: ${faultDetail.errorCode}. Message: ${faultDetail.errorMessage}. Details: ${faultDetail.detailMessage}")
-                    else -> logger.error("Unknown fault in invoice: $faultDetail", e)
+                    is FaultType -> logger.error { "Fault in invoice: ${faultDetail.errorCode}. Message: ${faultDetail.errorMessage}. Details: ${faultDetail.detailMessage}" }
+                    else -> logger.error(e) { "Unknown fault in invoice: $faultDetail" }
                 }
                 throw e
             }
@@ -180,7 +180,7 @@ class TampereInvoiceClient(
             else -> null
         }
     } catch (e: Exception) {
-        logger.error("Unable to unmarshal fault detail", e)
+        logger.error(e) { "Unable to unmarshal fault detail" }
         null
     }
 }
