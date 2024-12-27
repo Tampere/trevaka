@@ -15,7 +15,7 @@ import fi.espoo.evaka.shared.job.ScheduledJobDefinition
 import fi.espoo.evaka.shared.job.ScheduledJobSettings
 import fi.tampere.trevaka.bi.BiTable
 import fi.tampere.trevaka.export.ExportUnitsAclService
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.time.LocalTime
 
 enum class TampereScheduledJob(
@@ -50,7 +50,7 @@ class TampereScheduledJobs(
 
     fun planBiJobs(db: Database.Connection, clock: EvakaClock, selectedTables: List<BiTable>?) {
         val tables = selectedTables ?: BiTable.entries
-        logger.info("Planning BI jobs for ${tables.size} tables")
+        logger.info { "Planning BI jobs for ${tables.size} tables" }
         db.transaction { tx ->
             tx.removeUnclaimedJobs(setOf(AsyncJobType(TampereAsyncJob.SendBiTable::class)))
             asyncJobRunner.plan(

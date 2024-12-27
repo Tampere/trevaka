@@ -7,7 +7,7 @@ package fi.tampere.trevaka.bi
 import fi.espoo.evaka.espoo.bi.EspooBiJob
 import fi.espoo.evaka.shared.domain.EvakaClock
 import fi.tampere.trevaka.TampereProperties
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import software.amazon.awssdk.core.async.AsyncRequestBody
 import software.amazon.awssdk.services.s3.S3AsyncClient
 import java.io.BufferedOutputStream
@@ -30,7 +30,7 @@ class FileBiExportS3Client(
     ): Pair<String, String> {
         val date = clock.now().toLocalDate()
         val entryName = "$tableName.csv"
-        logger.info("Sending BI content for '$tableName'")
+        logger.info { "Sending BI content for '$tableName'" }
         val bucket = properties.bucket.export
         val prefix = properties.biExport.prefix
         val fileName = "${tableName}_${date.format(DateTimeFormatter.ISO_DATE)}.zip"
@@ -60,7 +60,7 @@ class FileBiExportS3Client(
             val response = futureResponse.join().sdkHttpResponse()
 
             if (response.isSuccessful) {
-                logger.info("BI file '$key' successfully sent ($contentLength bytes)")
+                logger.info { "BI file '$key' successfully sent ($contentLength bytes)" }
             } else {
                 logger.warn {
                     "BI file '$key' sending failed ($contentLength bytes): ${response.statusCode()} ${response.statusText()}"

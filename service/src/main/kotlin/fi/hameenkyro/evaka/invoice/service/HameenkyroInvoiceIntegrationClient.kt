@@ -7,7 +7,7 @@ package fi.hameenkyro.evaka.invoice.service
 import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient.SendResult
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
 
