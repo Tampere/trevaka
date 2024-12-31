@@ -11,6 +11,7 @@ import fi.espoo.evaka.emailclient.IEmailMessageProvider
 import fi.espoo.evaka.emailclient.MessageThreadData
 import fi.espoo.evaka.invoicing.domain.FinanceDecisionType
 import fi.espoo.evaka.invoicing.service.IncomeNotificationType
+import fi.espoo.evaka.messaging.AccountType
 import fi.espoo.evaka.messaging.MessageType
 import fi.espoo.evaka.shared.ChildId
 import fi.espoo.evaka.shared.HtmlSafe
@@ -85,6 +86,8 @@ internal class EmailMessageProviderTest : AbstractTampereIntegrationTest() {
                     title = HtmlSafe("Ensi viikolla uimaan"),
                     urgent = false,
                     sensitive = false,
+                    senderName = HtmlSafe("Kaisa Kasvattaja"),
+                    senderType = AccountType.PERSONAL,
                     isCopy = false,
                 ),
             ),
