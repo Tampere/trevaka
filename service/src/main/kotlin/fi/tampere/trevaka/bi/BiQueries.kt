@@ -391,7 +391,7 @@ object BiQueries {
         csvQuery<BiStaffAttendance> {
             sql(
                 """
-            select id, group_id, date, count, created::text, count_other, updated::text
+            select id, group_id, date, count, created::text, 0::numeric AS count_other, updated::text
             FROM staff_attendance
         """,
             )
