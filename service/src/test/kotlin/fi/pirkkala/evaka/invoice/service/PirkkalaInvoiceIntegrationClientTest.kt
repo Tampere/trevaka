@@ -43,20 +43,20 @@ class PirkkalaInvoiceIntegrationClientTest {
 
         verify(s3SenderMock).send(s3SenderArgumentCaptor.capture())
         assertEquals(
-            """310382-956DL10Meikäläinen Matti                                                                                   Meikäläisenkuja 6 B 7         90100 OULU                                                                                                                             01 N0K20210204202103062022050500000000            1                           N1000           000Varhaiskasvatus 01.2021                                                                                                                                                                                                                                                                       
-310382-956D3Meikäläinen Maiju                                                                                                                                                                  
-310382-956D301.01.2021 - 31.01.2021                                                                                                                                                            
-310382-956D1Esiopetusta täydentävä varhaiskasvatus   000004820000kpl 00000001000000                                                            0                                                            325730010002627                                                        
-310382-956D3kuvaus2                                                     
-310382-956D3Meikäläinen Matti                                                                                                                                                                  
-310382-956D301.01.2021 - 31.01.2021                                                                                                                                                            
-310382-956D1Varhaiskasvatus                          000002430000kpl 00000001000000                                                            0                                                            325730010002627                                                        
-310382-956D3kuvaus1                                                     
-310382-956D301.01.2021 - 31.01.2021                                                                                                                                                            
-310382-956D1Varhaiskasvatus                          000002500000kpl 00000001000000                                                            0                                                            325730010002627                                                        
-310382-956D301.01.2021 - 31.01.2021                                                                                                                                                            
-310382-956D1Hyvityspäivä                             000002500000kpl-00000001000000                                                            0                                                            325730010002627                                                        
-310382-956D3kuvaus4                                                     
+            """310382-956DL  Meikäläinen Matti                                                                                   Meikäläisenkuja 6 B 7         90100 OULU                                                                                                                              1   K202102042021030620220505                    1                            1000              Varhaiskasvatus 01.2021                                                                                                                                                                                                                                                                                      
+310382-956D3Meikäläinen Maiju                                                                                                     
+310382-956D301.01.2021 - 31.01.2021                                                                                               
+310382-956D1Esiopetusta täydentävä varhaiskasvatus   000004820000KPL 00000001000000                                                                                                                         325730010002627                                                        
+310382-956D3kuvaus2                                                                                                               
+310382-956D3Meikäläinen Matti                                                                                                     
+310382-956D301.01.2021 - 31.01.2021                                                                                               
+310382-956D1Varhaiskasvatus                          000002430000KPL 00000001000000                                                                                                                         325730010002627                                                        
+310382-956D3kuvaus1                                                                                                               
+310382-956D301.01.2021 - 31.01.2021                                                                                               
+310382-956D1Varhaiskasvatus                          000002500000KPL 00000001000000                                                                                                                         325730010002627                                                        
+310382-956D301.01.2021 - 31.01.2021                                                                                               
+310382-956D1Hyvityspäivä                             000002500000KPL-00000001000000                                                                                                                         325730010002627                                                        
+310382-956D3kuvaus4                                                                                                               
 """,
             s3SenderArgumentCaptor.firstValue,
         )

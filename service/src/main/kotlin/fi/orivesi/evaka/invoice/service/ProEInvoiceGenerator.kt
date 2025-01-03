@@ -35,11 +35,11 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         val invoiceDateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
 
         invoiceData.setAlphanumericValue(InvoiceFieldName.NOT_USED, "")
+        invoiceData.setAlphanumericValue(InvoiceFieldName.GAP_IN_SPEC, "")
 
         // we have previously made sure the head of family has an SSN but the compiler doesn't realize it
         invoiceData.setAlphanumericValue(InvoiceFieldName.INVOICE_IDENTIFIER, invoiceDetailed.headOfFamily.ssn ?: "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.HEADER_ROW_CODE, "L")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.CLIENT_GROUP, "10")
         val clientName = invoiceDetailed.headOfFamily.lastName + " " + invoiceDetailed.headOfFamily.firstName
         invoiceData.setAlphanumericValue(
             InvoiceFieldName.CLIENT_NAME1,
@@ -54,19 +54,10 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             InvoiceFieldName.POSTAL_ADDRESS,
             invoiceDetailed.headOfFamily.postalCode + " " + invoiceDetailed.headOfFamily.postOffice,
         )
-        invoiceData.setAlphanumericValue(InvoiceFieldName.PHONE_NUMBER, invoiceDetailed.headOfFamily.phone)
-        invoiceData.setAlphanumericValue(InvoiceFieldName.FAX_NUMBER, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CLIENT_CONTACT, "")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.CLIENT_BANK, "")
-        // 0 = external client
-        invoiceData.setAlphanumericValue(InvoiceFieldName.CLIENT_TYPE, "0")
         // 1 = Finnish
         invoiceData.setAlphanumericValue(InvoiceFieldName.LANGUAGE_CODE, "1")
         invoiceData.setAlphanumericValue(InvoiceFieldName.REMINDER_CODE, "")
-        // N = normal invoicing
-        invoiceData.setAlphanumericValue(InvoiceFieldName.PAYMENT_METHOD, "N")
-        // 0 = no payments defaulted
-        invoiceData.setAlphanumericValue(InvoiceFieldName.PAYMENT_DEFAULT_CODE, "0")
         // K = print a normal invoice
         invoiceData.setAlphanumericValue(InvoiceFieldName.PRINTING_METHOD, "K")
         invoiceData.setAlphanumericValue(
@@ -82,32 +73,22 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             invoiceDetailed.sentAt?.toLocalDateTime()?.format(invoiceDateFormatter) ?: LocalDate.now()
                 .format(invoiceDateFormatter),
         )
-        invoiceData.setNumericValue(InvoiceFieldName.INCLUDED_LATE_PAYMENT_INTEREST, 0)
+        invoiceData.setAlphanumericValue(InvoiceFieldName.PRINTING_DATE, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CREDIT_NOTE_INVOICE_NUMBER, "")
         invoiceData.setAlphanumericValue(
             InvoiceFieldName.INVOICE_NUMBER,
             if (invoiceDetailed.number != null) invoiceDetailed.number.toString() else "",
         )
         invoiceData.setAlphanumericValue(InvoiceFieldName.REFERENCE_NUMBER, "")
-        // N = normal
-        invoiceData.setAlphanumericValue(InvoiceFieldName.PAYMENT_TYPE, "N")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.PARTNER_CODE, "N")
+        invoiceData.setAlphanumericValue(InvoiceFieldName.PARTNER_CODE, "1000")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CURRENCY, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.INVOICE_TYPE, "")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.INVOICING_UNIT, "000")
         // what should we put here?
         invoiceData.setAlphanumericValue(InvoiceFieldName.DESCRIPTION, generateInvoiceTitle())
         invoiceData.setAlphanumericValue(InvoiceFieldName.SECURITY_DENIAL, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CONTRACT_NUMBER, "")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.ORDER_NUMBER, "")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.ADDRESS2, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.COUNTRY, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.SSN, "")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.LATE_PAYMENT_INTEREST, "")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.VAT_IDENTIFIER, "")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.DELIVERY_DATE, "")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.OVT_IDENTIFIER, "")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.PAYMENT_TERM, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.RF_REFERENCE, "")
 
         invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_ROW_CODE, "Y")
@@ -124,20 +105,15 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
                 InvoiceFieldName.CODEBTOR_POSTAL_ADDRESS,
                 codebtor.postalCode + " " + codebtor.postOffice,
             )
-            invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_PHONE_NUMBER, codebtor.phone)
         } else {
             invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_IDENTIFIER, "")
             invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_NAME, "")
             invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_STREET_ADDRESS, "")
             invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_POSTAL_ADDRESS, "")
-            invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_PHONE_NUMBER, "")
         }
         invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_LANGUAGE_CODE, "1")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_ADDRESS2, "")
+        invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_PARTNER_CODE, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_COUNTRY, "")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_NAME2, "")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_VAT_IDENTIFIER, "")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_OVT_IDENTIFIER, "")
 
         val sortedRows = invoiceDetailed.rows.sortedBy { row -> row.child.firstName }
 
@@ -169,21 +145,18 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
                 InvoiceFieldName.TIME_PERIOD,
                 it.periodStart.format(dateFormatter) + " - " + it.periodEnd.format(dateFormatter),
             )
-            invoiceRowData.setAlphanumericValue(InvoiceFieldName.INVOICE_ROW_HEADER, "")
-            invoiceRowData.setAlphanumericValue(InvoiceFieldName.CONSTANT_TEXT_IDENTIFIER, "")
 
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.DETAIL_ROW_CODE, "1")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.PRODUCT_NAME, Product.valueOf(it.product.value).nameFi)
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.PRICE_SIGN, "")
             invoiceRowData.setNumericValue(InvoiceFieldName.UNIT_PRICE, abs(it.unitPrice))
-            invoiceRowData.setAlphanumericValue(InvoiceFieldName.UNIT, "kpl")
+            invoiceRowData.setAlphanumericValue(InvoiceFieldName.UNIT, "KPL")
             // empty value is interpreted as a plus sign
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.AMOUNT_SIGN, if (it.unitPrice < 0) "-" else "")
             invoiceRowData.setNumericValue(InvoiceFieldName.AMOUNT, it.amount)
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.VAT_CODE, "00")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.VAT_ACCOUNT, "")
-            // format description says "value of this field has not been used", example file has "0" here
-            invoiceRowData.setAlphanumericValue(InvoiceFieldName.BRUTTO_NETTO, "0")
+            invoiceRowData.setAlphanumericValue(InvoiceFieldName.BRUTTO_NETTO, "")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.DEBIT_ACCOUNTING, "")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, getCreditAccounting(it))
 
@@ -199,16 +172,18 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
 
     private fun getCreditAccounting(it: InvoiceRowDetailed): String {
         val tili = "3257"
-        val kustannuspaikka = it.costCenter.padStart(6, '0')
-
+        val alv = "300"
+        val kumppani = "1000"
+        val kustannuspaikka = "3202"
         val toiminto = with(it.daycareType) {
             when {
                 contains(CareType.CENTRE) -> "3021"
                 else -> "3022"
             }
         }
+        val kohde = it.costCenter
 
-        return "$tili$kustannuspaikka$toiminto"
+        return "$tili$alv$kumppani$kustannuspaikka$toiminto      $kohde"
     }
 
     fun generateRow(fields: List<InvoiceField>, invoiceData: InvoiceData): String {
@@ -252,10 +227,14 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
 
         val rowsPerChild = invoiceData.getChildRowMap()
         rowsPerChild.forEach { row ->
+            result += generateRow(childHeaderRowFields, row.value[0])
             row.value.forEach { data ->
-                result += generateRow(detailRowFields, data)
-                result += generateRow(childHeaderRowFields, row.value[0])
                 result += generateRow(rowHeaderRowFields, data)
+                result += generateRow(detailRowFields, data)
+
+                if (data.getAlphanumericValue(InvoiceFieldName.DESCRIPTION) != "") {
+                    result += generateRow(descriptionRowFields, data)
+                }
             }
         }
 

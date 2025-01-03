@@ -7,7 +7,6 @@ package fi.lempaala.evaka.util
 class DataMapper<EnumClass> {
     val alphanumericValues: MutableMap<EnumClass, String> = mutableMapOf()
     val numericValues: MutableMap<EnumClass, Int> = mutableMapOf()
-    val numericLongValues: MutableMap<EnumClass, Long> = mutableMapOf()
     var rowMap: Map<String, List<DataMapper<EnumClass>>> = mapOf()
 
     fun setAlphanumericValue(field: EnumClass, value: String) {
@@ -22,12 +21,6 @@ class DataMapper<EnumClass> {
 
     fun getNumericValue(field: EnumClass): Int? = numericValues[field]
 
-    fun setNumericLongValue(field: EnumClass, value: Long) {
-        numericLongValues[field] = value
-    }
-
-    fun getNumericLongValue(field: EnumClass): Long? = numericLongValues[field]
-
     fun setChildRowMap(childMap: Map<String, List<DataMapper<EnumClass>>>) {
         rowMap = childMap
     }
@@ -38,7 +31,6 @@ class DataMapper<EnumClass> {
 enum class FieldType {
     ALPHANUMERIC,
     NUMERIC,
-    NUMERIC_LONG,
 
     // we need a specific monetary type because they are prescaled by 100, so they include two decimals
     MONETARY,

@@ -576,6 +576,9 @@ const customizations: EmployeeCustomizations = {
         }
       },
       unitEditor: {
+        label: {
+          costCenter: 'Kohde'
+        },
         placeholder: {
           phone: 'esim. +358 40 555 5555',
           email: 'etunimi.sukunimi@orivesi.fi',
@@ -589,6 +592,9 @@ const customizations: EmployeeCustomizations = {
           decisionCustomization: {
             handler: ['Palveluohjaus', 'Varhaiskasvatusyksikön johtaja']
           }
+        },
+        error: {
+          costCenter: 'Kohde puuttuu'
         }
       },
       welcomePage: {
@@ -611,6 +617,9 @@ const customizations: EmployeeCustomizations = {
         },
         placementSketching: {
           connected: 'Täydentävä'
+        },
+        units: {
+          costCenter: 'Kohde'
         }
       },
       roles: {
