@@ -62,7 +62,7 @@ module.exports = {
   }, {
     name: 'trevaka-service',
     script: `${__dirname}/evaka/compose/run-after-db.sh`,
-    args: './gradlew --no-daemon bootRun',
+    args: './gradlew bootRun',
     cwd: path.resolve(__dirname, 'service'),
     env: {
       SPRING_PROFILES_ACTIVE: 'tampere_evaka',

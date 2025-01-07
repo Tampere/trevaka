@@ -14,13 +14,13 @@ COPY --from=core ./service/sficlient/*.kts ./service/sficlient/
 WORKDIR /service
 COPY ./gradle/ ./gradle/
 COPY ./gradlew ./build.gradle.kts ./gradle.properties ./settings.gradle.kts ./settings-dependabot-ignore.gradle.kts ./
-RUN ./gradlew --no-daemon resolveDependencies service:copyDownloadOnlyDeps
+RUN ./gradlew resolveDependencies service:copyDownloadOnlyDeps
 COPY --from=core ./service/sficlient/ ../evaka/service/sficlient/
 COPY --from=core ./service/vtjclient/ ../evaka/service/vtjclient/
-RUN ./gradlew --no-daemon :service:sficlient:wsdl2java :service:vtjclient:wsdl2java
+RUN ./gradlew :service:sficlient:wsdl2java :service:vtjclient:wsdl2java
 COPY --from=core . ../evaka
 COPY . ./
-RUN ./gradlew --offline --no-daemon assemble \
+RUN ./gradlew --offline assemble \
     && java -Djarmode=tools -jar build/libs/trevaka-service.jar extract --layers --launcher --destination build/extracted
 
 FROM eclipse-temurin:21-jre-noble

@@ -224,7 +224,7 @@ jobs:
               --mount type=bind,source="/tmp/service/build/test-results",destination=/service/build/test-results \
               --mount type=bind,source="/tmp/service/build/reports",destination=/service/build/reports \
               ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/service-builder:<< parameters.version >> \
-              ./gradlew --no-daemon check
+              ./gradlew check
       - run:
           name: Collect docker compose logs
           command: docker compose logs --tail=all > /tmp/docker-compose-logs.txt
