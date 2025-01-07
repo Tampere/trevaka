@@ -536,7 +536,7 @@ const fi: DeepPartial<Translations> = {
             <H3>Oikaisuviranomainen</H3>
             <P>
               Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle
-              (Vaasan päätoimipaikka).
+              (Vaasan toimipaikka).
             </P>
             <P>
               Länsi- ja Sisä-Suomen aluehallintovirasto
@@ -571,43 +571,34 @@ const fi: DeepPartial<Translations> = {
             </P>
             <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
             <ul>
-              <li>
-                Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite,
-                puhelinnumero ja muut asian hoitamiseksi tarvittavat
-                yhteystiedot
-              </li>
               <li>päätös, johon haetaan oikaisua</li>
-              <li>
-                miltä osin päätökseen haetaan oikaisua ja mitä oikaisua siihen
-                vaaditaan tehtäväksi
-              </li>
-              <li>vaatimuksen perusteet</li>
+              <li>miten päätöstä halutaan oikaistavaksi</li>
+              <li>perusteet, joilla oikaisua vaaditaan</li>
             </ul>
+            <P>
+              Oikaisuvaatimuksessa on lisäksi ilmoitettava tekijän nimi,
+              kotikunta, postiosoite ja puhelinnumero. Jos oikaisuvaatimuksen
+              tekijän puhevaltaa käyttää hänen laillinen edustajansa tai
+              asiamiehensä, tai jos oikaisuvaatimuksen laatijana on joku muu
+              henkilö, oikaisuvaatimuksessa on ilmoitettava myös tämän nimi ja
+              kotikunta.
+            </P>
             <P>
               Jos oikaisuvaatimuspäätös voidaan antaa tiedoksi sähköisenä
               viestinä, yhteystietona pyydetään ilmoittamaan myös
               sähköpostiosoite.
             </P>
             <P>
-              Jos oikaisuvaatimuksen tekijän puhevaltaa käyttää hänen laillinen
-              edustajansa tai asiamiehensä tai jos oikaisuvaatimuksen laatijana
-              on joku muu henkilö, oikaisuvaatimuksessa on ilmoitettava myös
-              tämän nimi ja kotikunta.
+              Oikaisuvaatimuksen tekijän, laillisen edustajan tai asiamiehen on
+              allekirjoitettava valitus. Sähköistä asiakirjaa ei kuitenkaan
+              tarvitse täydentää allekirjoituksella, jos asiakirjassa on tiedot
+              lähettäjästä eikä asiakirjan alkuperäisyyttä tai eheyttä ole syytä
+              epäillä.
             </P>
-            <P noMargin>Oikaisuvaatimukseen on liitettävä</P>
+            <P noMargin>Oikaisuvaatimukseen on liitettävä:</P>
             <ul>
-              <li>
-                päätös, johon haetaan oikaisua, alkuperäisenä tai jäljennöksenä
-              </li>
-              <li>
-                todistus siitä, minä päivänä päätös on annettu tiedoksi, tai muu
-                selvitys oikaisuvaatimusajan alkamisen ajankohdasta
-              </li>
-              <li>
-                asiakirjat, joihin oikaisuvaatimuksen tekijä vetoaa
-                oikaisuvaatimuksensa tueksi, jollei niitä ole jo aikaisemmin
-                toimitettu viranomaiselle.
-              </li>
+              <li>asiakirjat, joihin vedotaan</li>
+              <li>valtakirja, mikäli käytetään asiamiestä.</li>
             </ul>
             <H3>Oikaisuvaatimuksen toimittaminen</H3>
             <P>
@@ -624,6 +615,8 @@ const fi: DeepPartial<Translations> = {
       }
     },
     assistancePreschoolDecisions: {
+      disclaimer:
+        'Perusopetuslain 17 §:n mukaan tämä päätös voidaan panna täytäntöön muutoksenhausta huolimatta.',
       appealInstructions: (
         <>
           <P>
@@ -642,7 +635,7 @@ const fi: DeepPartial<Translations> = {
           <H3>Oikaisuviranomainen</H3>
           <P>
             Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle (Vaasan
-            päätoimipaikka).
+            toimipaikka).
           </P>
           <P>
             Länsi- ja Sisä-Suomen aluehallintovirasto
@@ -691,7 +684,7 @@ const fi: DeepPartial<Translations> = {
           <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
           <ul>
             <li>
-              Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite,
+              Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite ja
               puhelinnumero
             </li>
             <li>päätös, johon haetaan oikaisua</li>
@@ -721,7 +714,7 @@ const fi: DeepPartial<Translations> = {
           <P>
             Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten
             oikeudenkäynnistä hallintoasioissa annetun lain (808/2019) 32 §:ssä
-            säädetään
+            säädetään.
           </P>
           <H3>Oikaisuvaatimuksen toimittaminen</H3>
           <P>

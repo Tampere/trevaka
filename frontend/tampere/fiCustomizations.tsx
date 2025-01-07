@@ -647,6 +647,8 @@ const fi: DeepPartial<Translations> = {
       }
     },
     assistancePreschoolDecisions: {
+      disclaimer:
+        'Perusopetuslain 17 §:n mukaan tämä päätös voidaan panna täytäntöön muutoksenhausta huolimatta.',
       appealInstructions: (
         <>
           <P>
@@ -714,7 +716,7 @@ const fi: DeepPartial<Translations> = {
           <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
           <ul>
             <li>
-              Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite,
+              Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite ja
               puhelinnumero
             </li>
             <li>päätös, johon haetaan oikaisua</li>
@@ -744,7 +746,7 @@ const fi: DeepPartial<Translations> = {
           <P>
             Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten
             oikeudenkäynnistä hallintoasioissa annetun lain (808/2019) 32 §:ssä
-            säädetään
+            säädetään.
           </P>
           <H3>Oikaisuvaatimuksen toimittaminen</H3>
           <P>
