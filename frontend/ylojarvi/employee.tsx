@@ -258,9 +258,9 @@ const customizations: EmployeeCustomizations = {
                 sähköpostiosoite.
               </P>
               <P>
-                Oikaisuvaatimuksen saa tehdä se, johon päätöps on kohdistettu
-                tai jonka oikeuteen, velvollisuuteen tai etuun päätöps
-                välittöpmästi vaikuttaa (asianosainen). Asiamiehen on liitettävä
+                Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
+                jonka oikeuteen, velvollisuuteen tai etuun päätös välittömästi
+                vaikuttaa (asianosainen). Asiamiehen on liitettävä
                 valituskirjelmään valtakirja, kuten oikeudenkäynnistä
                 hallintoasioissa annetun lain (808/2019) 32 §:ssä säädetään. Jos
                 oikaisuvaatimuksen tekijän puhevaltaa käyttää hänen laillinen
@@ -460,9 +460,9 @@ const customizations: EmployeeCustomizations = {
                 sähköpostiosoite.
               </P>
               <P>
-                Oikaisuvaatimuksen saa tehdä se, johon päätöps on kohdistettu
-                tai jonka oikeuteen, velvollisuuteen tai etuun päätöps
-                välittöpmästi vaikuttaa (asianosainen). Asiamiehen on liitettävä
+                Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
+                jonka oikeuteen, velvollisuuteen tai etuun päätös välittömästi
+                vaikuttaa (asianosainen). Asiamiehen on liitettävä
                 valituskirjelmään valtakirja, kuten oikeudenkäynnistä
                 hallintoasioissa annetun lain (808/2019) 32 §:ssä säädetään. Jos
                 oikaisuvaatimuksen tekijän puhevaltaa käyttää hänen laillinen

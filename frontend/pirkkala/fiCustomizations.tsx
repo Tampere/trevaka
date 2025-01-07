@@ -589,8 +589,8 @@ const fi: DeepPartial<Translations> = {
               sähköpostiosoite.
             </P>
             <P>
-              Oikaisuvaatimuksen saa tehdä se, johon päätöps on kohdistettu tai
-              jonka oikeuteen, velvollisuuteen tai etuun päätöps välittöpmästi
+              Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
+              jonka oikeuteen, velvollisuuteen tai etuun päätös välittömästi
               vaikuttaa (asianosainen). Asiamiehen on liitettävä
               valituskirjelmään valtakirja, kuten oikeudenkäynnistä
               hallintoasioissa annetun lain (808/2019) 32 §:ssä säädetään. Jos
@@ -725,8 +725,8 @@ const fi: DeepPartial<Translations> = {
             sähköpostiosoite.
           </P>
           <P>
-            Oikaisuvaatimuksen saa tehdä se, johon päätöps on kohdistettu tai
-            jonka oikeuteen, velvollisuuteen tai etuun päätöps välittöpmästi
+            Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
+            jonka oikeuteen, velvollisuuteen tai etuun päätös välittömästi
             vaikuttaa (asianosainen). Asiamiehen on liitettävä valituskirjelmään
             valtakirja, kuten oikeudenkäynnistä hallintoasioissa annetun lain
             (808/2019) 32 §:ssä säädetään. Jos oikaisuvaatimuksen tekijän
