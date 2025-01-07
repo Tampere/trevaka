@@ -204,17 +204,16 @@ const customizations: EmployeeCustomizations = {
               </P>
               <H3>Oikaisuviranomainen</H3>
               <P>
-                Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle
-                (Vaasan päätoimipaikka).
+                Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle.
               </P>
               <P>
                 Länsi- ja Sisä-Suomen aluehallintovirasto
                 <br />
-                Wolffintie 35
+                Yliopistonkatu 38
                 <br />
-                PL 200, 65101 Vaasa
+                PL 5, 13035 AVI
                 <br />
-                faksi: 06 317 4817
+                03 3891820
                 <br />
                 sähköposti:{' '}
                 <ExternalLink
@@ -371,12 +370,15 @@ const customizations: EmployeeCustomizations = {
           ),
           viewOfGuardiansInfo: () =>
             'Kirjaa tähän huoltajien näkemys lapselle esitetystä tuesta.',
+          disclaimer:
+            'Perusopetuslain 17 §:n mukaan tämä päätös voidaan panna täytäntöön muutoksenhausta huolimatta.',
           appealInstructions: (
             <>
               <P>
                 Tähän päätökseen tyytymätön voi tehdä kirjallisen
                 oikaisuvaatimuksen.
               </P>
+
               <H3>Oikaisuvaatimusoikeus</H3>
               <P>
                 Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
@@ -384,19 +386,19 @@ const customizations: EmployeeCustomizations = {
                 vaikuttaa (asianosainen). Alle 15-vuotiaan lapsen päätökseen
                 oikaisua voi hakea lapsen huoltaja tai muu laillinen edustaja.
               </P>
+
               <H3>Oikaisuviranomainen</H3>
               <P>
-                Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle
-                (Vaasan päätoimipaikka).
+                Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle.
               </P>
               <P>
                 Länsi- ja Sisä-Suomen aluehallintovirasto
                 <br />
-                Wolffintie 35
+                Yliopistonkatu 38
                 <br />
-                PL 200, 65101 Vaasa
+                PL 5, 13035 AVI
                 <br />
-                faksi: 06 317 4817
+                03 3891820
                 <br />
                 sähköposti:{' '}
                 <ExternalLink
@@ -431,6 +433,7 @@ const customizations: EmployeeCustomizations = {
                 vapunpäivä, joulu- tai juhannusaatto tai arkilauantai, saa
                 tehtävän toimittaa ensimmäisenä arkipäivänä sen jälkeen.
               </P>
+
               <H3>Oikaisuvaatimus</H3>
               <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
               <ul>
@@ -445,6 +448,7 @@ const customizations: EmployeeCustomizations = {
                 </li>
                 <li>vaatimuksen perusteet</li>
               </ul>
+
               <P noMargin>Oikaisuvaatimukseen on liitettävä</P>
               <ul>
                 <li>
@@ -461,10 +465,11 @@ const customizations: EmployeeCustomizations = {
                   toimitettu viranomaiselle.
                 </li>
               </ul>
+
               <P>
                 Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten
                 oikeudenkäynnistä hallintoasioissa annetun lain (808/2019) 32
-                §:ssä säädetään
+                §:ssä säädetään.
               </P>
               <H3>Oikaisuvaatimuksen toimittaminen</H3>
               <P>
