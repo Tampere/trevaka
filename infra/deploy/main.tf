@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
 terraform {
-  required_version = ">= 1.9.5"
+  required_version = ">= 1.9.8"
   required_providers {
     aws = {
       source  = "hashicorp/aws"

@@ -90,7 +90,7 @@ commands:
   terraform_install:
     steps:
       - terraform/install:
-          terraform_version: 1.9.5
+          terraform_version: 1.9.8
 
 jobs:
   # MISC JOBS
