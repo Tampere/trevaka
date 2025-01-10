@@ -31,7 +31,7 @@ const fi: DeepPartial<Translations> = {
         'Varhaiskasvatushakemuksella haetaan paikkaa kunnallisesta päiväkodista tai perhepäivähoidosta tai ostopalvelupäiväkodista tuetusta päiväkodista.',
       clubInfo:
         'Kerhohakemuksella haetaan paikkaa kunnallisista tai palvelusetelillä tuetuista kerhoista.',
-      preschoolLabel: 'Esiopetukseen ilmoittautuminen',
+      preschoolLabel: 'Esiopetusta täydentävään varhaiskasvatukseen hakeminen',
       preschoolInfo:
         'Maksutonta esiopetusta on neljä tuntia päivässä. Tämän lisäksi lapselle voidaan hakea maksullista täydentävää toimintaa. Hakemuksen täydentävään toimintaan voi tehdä esiopetukseen ilmoittautumisen yhteydessä tai erillisenä hakemuksena opetuksen jo alettua. Täydentävän toiminnan paikkaa ei pysty hakemaan tietystä yksiköstä, vaan se määräytyy aina esiopetusyksikön mukaan. Mikäli täydentävän toiminnan paikkaa haetaan myöhemmin, hakemukselle merkitään myös esiopetuksen tarve.',
       preschoolDaycareInfo:
@@ -50,7 +50,7 @@ const fi: DeepPartial<Translations> = {
         DAYCARE:
           'Lapsella on jo paikka Vesilahden varhaiskasvatuksessa. Tällä hakemuksella voit hakea siirtoa toiseen varhaiskasvatusta tarjoavaan yksikköön Vesilahdella.',
         PRESCHOOL:
-          'Lapsella on jo esiopetuspaikka. Tällä hakemuksella voit hakea esiopetusta täydentävää toimintaa tai siirtoa toiseen esiopetusta tarjoavaan yksikköön.'
+          'Lapsella on jo esiopetuspaikka. Tällä hakemuksella voit hakea esiopetusta täydentävää toimintaa.'
       }
     },
     editor: {
@@ -297,11 +297,11 @@ const fi: DeepPartial<Translations> = {
           connectedDaycareInfo: (
             <>
               <P>
-                Esiopetusaika on neljä tuntia päivässä, pääsääntöisesti klo
-                9–13. Esiopetuksen lisäksi lapsi voi osallistua maksulliseen
-                täydentävään toimintaan aamuisin ja iltapäivisin. Täydentävän
-                toiminnan vaihtoehtoina ovat päiväkodeissa annettava täydentävä
-                varhaiskasvatus ja kouluilla annettava esiopetuksen kerho.
+                Esiopetusaika on neljä tuntia päivässä. Esiopetuksen lisäksi
+                lapsi voi osallistua maksulliseen täydentävään toimintaan
+                aamuisin ja iltapäivisin. Täydentävän toiminnan vaihtoehtoina
+                ovat päiväkodeissa annettava täydentävä varhaiskasvatus ja
+                kouluilla annettava esiopetuksen kerho.
               </P>
               <P>
                 Lisätietoa täydentävästä toiminnasta ja asiakasmaksuista{' '}
