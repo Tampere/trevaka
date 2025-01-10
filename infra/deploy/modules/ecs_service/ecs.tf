@@ -33,6 +33,10 @@ resource "aws_ecs_service" "service" {
       registry_arn = var.service_discovery_service_arn
     }
   }
+
+  timeouts {
+    update = "${var.health_check_grace_period + 60 * 2}s"
+  }
 }
 
 resource "aws_ecs_task_definition" "service" {

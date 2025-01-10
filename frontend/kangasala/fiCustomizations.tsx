@@ -220,9 +220,7 @@ const fi: DeepPartial<Translations> = {
             PRESCHOOL: null
           },
           info: {
-            PRESCHOOL: [
-              'Lukuvuosi 2024-2025 alkaa keskiviikkona 7.8.2024 ja päättyy keskiviikkona 28.5.2025.'
-            ]
+            PRESCHOOL: ['Lukuvuosi 2025-2026 alkaa keskiviikkona 6.8.2025.']
           },
           label: {
             PRESCHOOL: 'Tarve alkaen'
@@ -609,6 +607,12 @@ const fi: DeepPartial<Translations> = {
                 toimitettu viranomaiselle.
               </li>
             </ul>
+
+            <P>
+              Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten
+              oikeudenkäynnistä hallintoasioissa annetun lain (808/2019) 32
+              §:ssä säädetään.
+            </P>
             <H3>Oikaisuvaatimuksen toimittaminen</H3>
             <P>
               Oikaisuvaatimuskirjelmä on toimitettava oikaisuvaatimusajan
@@ -624,6 +628,8 @@ const fi: DeepPartial<Translations> = {
       }
     },
     assistancePreschoolDecisions: {
+      disclaimer:
+        'Perusopetuslain 17 §:n mukaan tämä päätös voidaan panna täytäntöön muutoksenhausta huolimatta.',
       appealInstructions: (
         <>
           <P>
@@ -640,10 +646,7 @@ const fi: DeepPartial<Translations> = {
           </P>
 
           <H3>Oikaisuviranomainen</H3>
-          <P>
-            Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle (Vaasan
-            päätoimipaikka).
-          </P>
+          <P>Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle.</P>
           <P>
             Länsi- ja Sisä-Suomen aluehallintovirasto
             <br />
@@ -691,7 +694,7 @@ const fi: DeepPartial<Translations> = {
           <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
           <ul>
             <li>
-              Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite,
+              Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite ja
               puhelinnumero
             </li>
             <li>päätös, johon haetaan oikaisua</li>
@@ -721,7 +724,7 @@ const fi: DeepPartial<Translations> = {
           <P>
             Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten
             oikeudenkäynnistä hallintoasioissa annetun lain (808/2019) 32 §:ssä
-            säädetään
+            säädetään.
           </P>
           <H3>Oikaisuvaatimuksen toimittaminen</H3>
           <P>

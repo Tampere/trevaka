@@ -205,7 +205,7 @@ const customizations: EmployeeCustomizations = {
               <H3>Oikaisuviranomainen</H3>
               <P>
                 Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle
-                (Vaasan päätoimipaikka).
+                (Vaasan toimipaikka).
               </P>
               <P>
                 Länsi- ja Sisä-Suomen aluehallintovirasto
@@ -258,11 +258,15 @@ const customizations: EmployeeCustomizations = {
                 sähköpostiosoite.
               </P>
               <P>
-                Jos oikaisuvaatimuksen tekijän puhevaltaa käyttää hänen
-                laillinen edustajansa tai asiamiehensä tai jos
-                oikaisuvaatimuksen laatijana on joku muu henkilö,
-                oikaisuvaatimuksessa on ilmoitettava myös tämän nimi ja
-                kotikunta.
+                Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
+                jonka oikeuteen, velvollisuuteen tai etuun päätös välittömästi
+                vaikuttaa (asianosainen). Asiamiehen on liitettävä
+                valituskirjelmään valtakirja, kuten oikeudenkäynnistä
+                hallintoasioissa annetun lain (808/2019) 32 §:ssä säädetään. Jos
+                oikaisuvaatimuksen tekijän puhevaltaa käyttää hänen laillinen
+                edustajansa tai asiamiehensä tai jos oikaisuvaatimuksen
+                laatijana on joku muu henkilö, oikaisuvaatimuksessa on
+                ilmoitettava myös tämän nimi ja kotikunta.
               </P>
               <P noMargin>Oikaisuvaatimukseen on liitettävä</P>
               <ul>
@@ -371,12 +375,15 @@ const customizations: EmployeeCustomizations = {
           ),
           viewOfGuardiansInfo: () =>
             'Kirjaa tähän huoltajien näkemys lapselle esitetystä tuesta.',
+          disclaimer:
+            'Perusopetuslain 17 §:n mukaan tämä päätös voidaan panna täytäntöön muutoksenhausta huolimatta.',
           appealInstructions: (
             <>
               <P>
                 Tähän päätökseen tyytymätön voi tehdä kirjallisen
                 oikaisuvaatimuksen.
               </P>
+
               <H3>Oikaisuvaatimusoikeus</H3>
               <P>
                 Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
@@ -384,10 +391,11 @@ const customizations: EmployeeCustomizations = {
                 vaikuttaa (asianosainen). Alle 15-vuotiaan lapsen päätökseen
                 oikaisua voi hakea lapsen huoltaja tai muu laillinen edustaja.
               </P>
+
               <H3>Oikaisuviranomainen</H3>
               <P>
                 Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle
-                (Vaasan päätoimipaikka).
+                (Vaasan toimipaikka).
               </P>
               <P>
                 Länsi- ja Sisä-Suomen aluehallintovirasto
@@ -431,11 +439,12 @@ const customizations: EmployeeCustomizations = {
                 vapunpäivä, joulu- tai juhannusaatto tai arkilauantai, saa
                 tehtävän toimittaa ensimmäisenä arkipäivänä sen jälkeen.
               </P>
+
               <H3>Oikaisuvaatimus</H3>
               <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
               <ul>
                 <li>
-                  Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite,
+                  Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite ja
                   puhelinnumero
                 </li>
                 <li>päätös, johon haetaan oikaisua</li>
@@ -445,6 +454,22 @@ const customizations: EmployeeCustomizations = {
                 </li>
                 <li>vaatimuksen perusteet</li>
               </ul>
+              <P>
+                Jos oikaisuvaatimuspäätös voidaan antaa tiedoksi sähköisenä
+                viestinä, yhteystietona pyydetään ilmoittamaan myös
+                sähköpostiosoite.
+              </P>
+              <P>
+                Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
+                jonka oikeuteen, velvollisuuteen tai etuun päätös välittömästi
+                vaikuttaa (asianosainen). Asiamiehen on liitettävä
+                valituskirjelmään valtakirja, kuten oikeudenkäynnistä
+                hallintoasioissa annetun lain (808/2019) 32 §:ssä säädetään. Jos
+                oikaisuvaatimuksen tekijän puhevaltaa käyttää hänen laillinen
+                edustajansa tai asiamiehensä tai jos oikaisuvaatimuksen
+                laatijana on joku muu henkilö, oikaisuvaatimuksessa on
+                ilmoitettava myös tämän nimi ja kotikunta.
+              </P>
               <P noMargin>Oikaisuvaatimukseen on liitettävä</P>
               <ul>
                 <li>
@@ -461,10 +486,11 @@ const customizations: EmployeeCustomizations = {
                   toimitettu viranomaiselle.
                 </li>
               </ul>
+
               <P>
                 Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten
                 oikeudenkäynnistä hallintoasioissa annetun lain (808/2019) 32
-                §:ssä säädetään
+                §:ssä säädetään.
               </P>
               <H3>Oikaisuvaatimuksen toimittaminen</H3>
               <P>

@@ -220,9 +220,7 @@ const fi: DeepPartial<Translations> = {
             PRESCHOOL: null
           },
           info: {
-            PRESCHOOL: [
-              'Lukuvuosi 2024-2025 alkaa keskiviikkona 7.8.2024 ja päättyy keskiviikkona 28.5.2025.'
-            ]
+            PRESCHOOL: ['Lukuvuosi 2025-2026 alkaa keskiviikkona 6.8.2025.']
           },
           label: {
             PRESCHOOL: 'Tarve alkaen'
@@ -509,6 +507,11 @@ const fi: DeepPartial<Translations> = {
         unitMayChange: '',
         appealInstructions: (
           <>
+            <P>
+              Tähän päätökseen tyytymätön voi tehdä oikaisuvaatimuksen.
+              Päätökseen ei saa hakea muutosta valittamalla.
+            </P>
+
             <H3>Oikaisuvaatimusoikeus</H3>
             <P>
               Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
@@ -517,26 +520,33 @@ const fi: DeepPartial<Translations> = {
             </P>
             <H3>Oikaisuvaatimusaika</H3>
             <P>
-              Oikaisuvaatimus on tehtävä 30 päivän kuluessa päätöksen
+              Oikaisuvaatimus on tehtävä 14 päivän kuluessa päätöksen
               tiedoksisaannista.
+            </P>
+            <P>
+              Oikaisuvaatimus on toimitettava oikaisuvaatimusviranomaiselle
+              määräajan viimeisenä päivänä ennen virka-ajan päättymistä.
+              Oikaisuvaatimuksen lähettäminen postitse tai sähköisesti tapahtuu
+              lähettäjän omalla vastuulla.
             </P>
             <H3>Tiedoksisaanti</H3>
             <P>
               Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
-              näytetä, seitsemän päivän kuluttua kirjeen lähettämisestä tai
-              saantitodistukseen tai tiedoksiantotodistukseen merkittynä
-              päivänä. Käytettäessä tavallista sähköistä tiedoksiantoa
-              asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
-              näytetä kolmantena päivänä viestin lähettämisestä.
-              Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan viimeinen
-              päivä on pyhäpäivä, itsenäisyyspäivä, vapunpäivä, joulu- tai
-              juhannusaatto tai arkilauantai, saa tehtävän toimittaa
-              ensimmäisenä arkipäivänä sen jälkeen.
+              näytetä, 7 päivän kuluttua kirjeen lähettämisestä, 3 päivän
+              kuluttua sähköpostin lähettämisestä, saantitodistuksen osoittamana
+              aikana tai tiedoksisaantitodistukseen merkittynä aikana.
+            </P>
+            <P>
+              Tiedoksisaantipäivää tai sitä päivää, jona päätös on asetettu
+              nähtäväksi, ei lueta määräaikaan. Jos määräajan viimeinen päivä on
+              pyhäpäivä tai muu sellainen päivä, jona työt virastoissa on
+              keskeytettävä, saa tehtävän toimittaa ensimmäisenä arkipäivänä sen
+              jälkeen.
             </P>
             <H3>Oikaisuviranomainen</H3>
             <P>
               Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle
-              (Vaasan päätoimipaikka).
+              (Vaasan toimipaikka).
             </P>
             <P>
               Länsi- ja Sisä-Suomen aluehallintovirasto
@@ -571,43 +581,34 @@ const fi: DeepPartial<Translations> = {
             </P>
             <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
             <ul>
-              <li>
-                Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite,
-                puhelinnumero ja muut asian hoitamiseksi tarvittavat
-                yhteystiedot
-              </li>
               <li>päätös, johon haetaan oikaisua</li>
-              <li>
-                miltä osin päätökseen haetaan oikaisua ja mitä oikaisua siihen
-                vaaditaan tehtäväksi
-              </li>
-              <li>vaatimuksen perusteet</li>
+              <li>miten päätöstä halutaan oikaistavaksi</li>
+              <li>perusteet, joilla oikaisua vaaditaan</li>
             </ul>
+            <P>
+              Oikaisuvaatimuksessa on lisäksi ilmoitettava tekijän nimi,
+              kotikunta, postiosoite ja puhelinnumero. Jos oikaisuvaatimuksen
+              tekijän puhevaltaa käyttää hänen laillinen edustajansa tai
+              asiamiehensä, tai jos oikaisuvaatimuksen laatijana on joku muu
+              henkilö, oikaisuvaatimuksessa on ilmoitettava myös tämän nimi ja
+              kotikunta.
+            </P>
             <P>
               Jos oikaisuvaatimuspäätös voidaan antaa tiedoksi sähköisenä
               viestinä, yhteystietona pyydetään ilmoittamaan myös
               sähköpostiosoite.
             </P>
             <P>
-              Jos oikaisuvaatimuksen tekijän puhevaltaa käyttää hänen laillinen
-              edustajansa tai asiamiehensä tai jos oikaisuvaatimuksen laatijana
-              on joku muu henkilö, oikaisuvaatimuksessa on ilmoitettava myös
-              tämän nimi ja kotikunta.
+              Oikaisuvaatimuksen tekijän, laillisen edustajan tai asiamiehen on
+              allekirjoitettava valitus. Sähköistä asiakirjaa ei kuitenkaan
+              tarvitse täydentää allekirjoituksella, jos asiakirjassa on tiedot
+              lähettäjästä eikä asiakirjan alkuperäisyyttä tai eheyttä ole syytä
+              epäillä.
             </P>
             <P noMargin>Oikaisuvaatimukseen on liitettävä</P>
             <ul>
-              <li>
-                päätös, johon haetaan oikaisua, alkuperäisenä tai jäljennöksenä
-              </li>
-              <li>
-                todistus siitä, minä päivänä päätös on annettu tiedoksi, tai muu
-                selvitys oikaisuvaatimusajan alkamisen ajankohdasta
-              </li>
-              <li>
-                asiakirjat, joihin oikaisuvaatimuksen tekijä vetoaa
-                oikaisuvaatimuksensa tueksi, jollei niitä ole jo aikaisemmin
-                toimitettu viranomaiselle.
-              </li>
+              <li>asiakirjat, joihin vedotaan</li>
+              <li>valtakirja, mikäli käytetään asiamiestä.</li>
             </ul>
             <H3>Oikaisuvaatimuksen toimittaminen</H3>
             <P>
@@ -643,6 +644,8 @@ const fi: DeepPartial<Translations> = {
       }
     },
     assistancePreschoolDecisions: {
+      disclaimer:
+        'Perusopetuslain 17 §:n mukaan tämä päätös voidaan panna täytäntöön muutoksenhausta huolimatta.',
       appealInstructions: (
         <>
           <P>
@@ -661,7 +664,7 @@ const fi: DeepPartial<Translations> = {
           <H3>Oikaisuviranomainen</H3>
           <P>
             Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle (Vaasan
-            päätoimipaikka).
+            toimipaikka).
           </P>
           <P>
             Länsi- ja Sisä-Suomen aluehallintovirasto
@@ -710,7 +713,7 @@ const fi: DeepPartial<Translations> = {
           <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
           <ul>
             <li>
-              Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite,
+              Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite ja
               puhelinnumero
             </li>
             <li>päätös, johon haetaan oikaisua</li>
@@ -740,7 +743,7 @@ const fi: DeepPartial<Translations> = {
           <P>
             Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten
             oikeudenkäynnistä hallintoasioissa annetun lain (808/2019) 32 §:ssä
-            säädetään
+            säädetään.
           </P>
           <H3>Oikaisuvaatimuksen toimittaminen</H3>
           <P>

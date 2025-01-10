@@ -205,7 +205,7 @@ const customizations: EmployeeCustomizations = {
               <H3>Oikaisuviranomainen</H3>
               <P>
                 Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle
-                (Vaasan päätoimipaikka).
+                (Vaasan toimipaikka).
               </P>
               <P>
                 Länsi- ja Sisä-Suomen aluehallintovirasto
@@ -371,12 +371,15 @@ const customizations: EmployeeCustomizations = {
           ),
           viewOfGuardiansInfo: () =>
             'Kirjaa tähän huoltajien näkemys lapselle esitetystä tuesta.',
+          disclaimer:
+            'Perusopetuslain 17 §:n mukaan tämä päätös voidaan panna täytäntöön muutoksenhausta huolimatta.',
           appealInstructions: (
             <>
               <P>
                 Tähän päätökseen tyytymätön voi tehdä kirjallisen
                 oikaisuvaatimuksen.
               </P>
+
               <H3>Oikaisuvaatimusoikeus</H3>
               <P>
                 Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
@@ -384,10 +387,11 @@ const customizations: EmployeeCustomizations = {
                 vaikuttaa (asianosainen). Alle 15-vuotiaan lapsen päätökseen
                 oikaisua voi hakea lapsen huoltaja tai muu laillinen edustaja.
               </P>
+
               <H3>Oikaisuviranomainen</H3>
               <P>
                 Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle
-                (Vaasan päätoimipaikka).
+                (Vaasan toimipaikka).
               </P>
               <P>
                 Länsi- ja Sisä-Suomen aluehallintovirasto
@@ -431,11 +435,12 @@ const customizations: EmployeeCustomizations = {
                 vapunpäivä, joulu- tai juhannusaatto tai arkilauantai, saa
                 tehtävän toimittaa ensimmäisenä arkipäivänä sen jälkeen.
               </P>
+
               <H3>Oikaisuvaatimus</H3>
               <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
               <ul>
                 <li>
-                  Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite,
+                  Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite ja
                   puhelinnumero
                 </li>
                 <li>päätös, johon haetaan oikaisua</li>
@@ -445,6 +450,7 @@ const customizations: EmployeeCustomizations = {
                 </li>
                 <li>vaatimuksen perusteet</li>
               </ul>
+
               <P noMargin>Oikaisuvaatimukseen on liitettävä</P>
               <ul>
                 <li>
@@ -461,10 +467,11 @@ const customizations: EmployeeCustomizations = {
                   toimitettu viranomaiselle.
                 </li>
               </ul>
+
               <P>
                 Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten
                 oikeudenkäynnistä hallintoasioissa annetun lain (808/2019) 32
-                §:ssä säädetään
+                §:ssä säädetään.
               </P>
               <H3>Oikaisuvaatimuksen toimittaminen</H3>
               <P>
@@ -477,7 +484,7 @@ const customizations: EmployeeCustomizations = {
             </>
           ),
           jurisdictionText:
-            'Kasvatus- ja opetuslautakunnan päätös 20.6.2023 § 11 (Kasvatus- ja opetuslautakunnan toimivallan siirto viranhaltijoille), jonka 4 §:n mukaan varhaiskasvatuksen palvelupäällikkö päättää esiopetuksessa annettavasta tuesta ja tukipalveluista.',
+            'Tämän päätöksen peruste tulee Lempäälän kunnan hallintosäännöstä: 3 luku Henkilöstöorganisaatio ja toimivalta, 3 § Palvelualueet, 3.1 Palvelualuejohtaja 3 momentti Palvelualuejohtajat voivat siirtää edellä mainittua toimivaltaansa ja 6 §:ssä kirjattua erityistoimivaltaansa alaisilleen viranhaltijoille, sivistysjohtajan subdelegointipäätös 6.3.2023 § 37 Toimivallan siirto varhaiskasvatuksen tehtäväalueen viranhaltijoille 1.1.2023 lukien.',
           lawReference:
             'Laki viranomaisen toiminnan julkisuudesta 24 § 1 mom. 30 kohta'
         },

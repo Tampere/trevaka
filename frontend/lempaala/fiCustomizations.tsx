@@ -220,9 +220,7 @@ const fi: DeepPartial<Translations> = {
             PRESCHOOL: null
           },
           info: {
-            PRESCHOOL: [
-              'Lukuvuosi 2024-2025 alkaa keskiviikkona 7.8.2024 ja päättyy keskiviikkona 28.5.2025.'
-            ]
+            PRESCHOOL: ['Lukuvuosi 2025-2026 alkaa keskiviikkona 6.8.2025.']
           },
           label: {
             PRESCHOOL: 'Tarve alkaen'
@@ -536,7 +534,7 @@ const fi: DeepPartial<Translations> = {
             <H3>Oikaisuviranomainen</H3>
             <P>
               Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle
-              (Vaasan päätoimipaikka).
+              (Vaasan toimipaikka).
             </P>
             <P>
               Länsi- ja Sisä-Suomen aluehallintovirasto
@@ -624,6 +622,8 @@ const fi: DeepPartial<Translations> = {
       }
     },
     assistancePreschoolDecisions: {
+      disclaimer:
+        'Perusopetuslain 17 §:n mukaan tämä päätös voidaan panna täytäntöön muutoksenhausta huolimatta.',
       appealInstructions: (
         <>
           <P>
@@ -642,7 +642,7 @@ const fi: DeepPartial<Translations> = {
           <H3>Oikaisuviranomainen</H3>
           <P>
             Oikaisu tehdään Länsi- ja Sisä-Suomen aluehallintovirastolle (Vaasan
-            päätoimipaikka).
+            toimipaikka).
           </P>
           <P>
             Länsi- ja Sisä-Suomen aluehallintovirasto
@@ -691,7 +691,7 @@ const fi: DeepPartial<Translations> = {
           <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
           <ul>
             <li>
-              Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite,
+              Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite ja
               puhelinnumero
             </li>
             <li>päätös, johon haetaan oikaisua</li>
@@ -721,7 +721,7 @@ const fi: DeepPartial<Translations> = {
           <P>
             Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten
             oikeudenkäynnistä hallintoasioissa annetun lain (808/2019) 32 §:ssä
-            säädetään
+            säädetään.
           </P>
           <H3>Oikaisuvaatimuksen toimittaminen</H3>
           <P>
@@ -734,7 +734,7 @@ const fi: DeepPartial<Translations> = {
         </>
       ),
       jurisdictionText:
-        'Kasvatus- ja opetuslautakunnan päätös 20.6.2023 § 11 (Kasvatus- ja opetuslautakunnan toimivallan siirto viranhaltijoille), jonka 4 §:n mukaan varhaiskasvatuksen palvelupäällikkö päättää esiopetuksessa annettavasta tuesta ja tukipalveluista.',
+        'Tämän päätöksen peruste tulee Lempäälän kunnan hallintosäännöstä: 3 luku Henkilöstöorganisaatio ja toimivalta, 3 § Palvelualueet, 3.1 Palvelualuejohtaja 3 momentti Palvelualuejohtajat voivat siirtää edellä mainittua toimivaltaansa ja 6 §:ssä kirjattua erityistoimivaltaansa alaisilleen viranhaltijoille, sivistysjohtajan subdelegointipäätös 6.3.2023 § 37 Toimivallan siirto varhaiskasvatuksen tehtäväalueen viranhaltijoille 1.1.2023 lukien.',
       lawReference:
         'Laki viranomaisen toiminnan julkisuudesta 24 § 1 mom. 30 kohta'
     }
