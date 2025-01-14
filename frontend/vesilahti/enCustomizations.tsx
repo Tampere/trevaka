@@ -98,18 +98,29 @@ const en: DeepPartial<Translations> = {
             PRESCHOOL: (
               <>
                 <P>
-                  The pre-school place is determined by the child&apos;s home
-                  address, in accordance with the future school path. At the
-                  time of enrolment, the child is enrolled in a pre-school or
-                  weighted pre-school according to the school path. If the child
-                  needs regular evening or shift care, he or she is enrolled in
-                  evening or shift care in early childhood education.
+                  Supplementary early childhood education place may be applied
+                  for all year round. The application for supplementary early
+                  childhood education must be submitted no later than four
+                  months prior to the desired start date. If the need for
+                  supplementary early childhood education is due to employment,
+                  studies or training, and it has not been possible to
+                  anticipate the need for care, a supplementary early childhood
+                  education place must be sought as soon as possible – however,
+                  no later than two weeks before the child needs the place.
                 </P>
                 <P>
-                  Information about the future pre-school place is communicated
-                  to the custodians electronically via the Suomi.fi message
-                  service. If the custodian has not registered for the service,
-                  the information will be sent to them by letter.
+                  A written decision on the supplementary early childhood
+                  education place will be sent to the Suomi.fi Messages service.
+                  If you wish to be notified of the decision electronically, you
+                  will need to activate the Suomi.fi Messages service. Further
+                  information on the service and its activation is available at{' '}
+                  <ExternalLink
+                    text="https://www.suomi.fi/messages"
+                    href="https://www.suomi.fi/messages"
+                    newTab
+                  />
+                  . If you do not activate the Suomi.fi Messages service, the
+                  decision will be sent to you by post.
                 </P>
                 <P>
                   Further information{' '}
@@ -214,6 +225,9 @@ const en: DeepPartial<Translations> = {
       },
       serviceNeed: {
         startDate: {
+          header: {
+            PRESCHOOL: 'Start of supplementary early childhood education'
+          },
           instructions: {
             DAYCARE: (
               <>
@@ -410,7 +424,7 @@ const en: DeepPartial<Translations> = {
   },
   applicationsList: {
     title: `Applying for early childhood education${
-      preschoolEnabled ? ' and pre-primary education' : ''
+      preschoolEnabled ? ' and supplementary early childhood education' : ''
     }`,
     summary: (
       <P width="800px">
