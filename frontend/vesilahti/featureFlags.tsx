@@ -41,7 +41,8 @@ const prod: FeatureFlags = {
   hideClubApplication: true,
   discussionReservations: true,
   jamixIntegration: true,
-  serviceApplications: true
+  serviceApplications: true,
+  multiSelectDeparture: true
 }
 
 const features: Features = {
