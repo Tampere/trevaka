@@ -35,7 +35,8 @@ const featureFlags: FeatureFlags = {
   hideClubApplication: true,
   discussionReservations: true,
   jamixIntegration: true,
-  serviceApplications: true
+  serviceApplications: true,
+  multiSelectDeparture: true
 }
 
 export default featureFlags
