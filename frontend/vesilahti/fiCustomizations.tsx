@@ -98,18 +98,28 @@ const fi: DeepPartial<Translations> = {
             PRESCHOOL: (
               <>
                 <P>
-                  Esiopetuspaikka määräytyy lapsen kotiosoitteen mukaan, tulevan
-                  koulupolun mukaisesti. Ilmoittautuessa lapsi ilmoitetaan
-                  koulupolun mukaiseen esiopetukseen tai painotettuun
-                  esiopetukseen. Mikäli lapsi tarvitsee säännöllisesti ilta- tai
-                  vuorohoitoa, hänet ilmoitetaan ilta- tai vuorohoidon
-                  esiopetukseen.
+                  Täydentävän varhaiskasvatuksen paikkaa voi hakea ympäri
+                  vuoden. Täydentävän varhaiskasvatuksen hakemus tulee jättää
+                  viimeistään neljä kuukautta ennen hoidon toivottua
+                  alkamisajankohtaa. Mikäli täydentävän varhaiskasvatuksen tarve
+                  johtuu työllistymisestä, opinnoista tai koulutuksesta, eikä
+                  hoidon tarpeen ajankohtaa ole pystynyt ennakoimaan, on paikkaa
+                  haettava mahdollisimman pian - kuitenkin viimeistään kaksi
+                  viikkoa ennen kuin lapsi tarvitsee hoitopaikan.
                 </P>
                 <P>
-                  Tieto tulevasta esiopetuspaikasta ilmoitetaan huoltajille
-                  sähköisesti Suomi.fi-viestit palvelun kautta. Mikäli huoltaja
-                  ei ole ottanut palvelua käyttöönsä, tieto lähetetään hänelle
-                  kirjeitse.
+                  Kirjallinen päätös täydentävän varhaiskasvatuksen paikasta
+                  lähetetään Suomi.fi-viestit -palveluun. Mikäli haluatte
+                  päätöksen sähköisenä tiedoksiantona, teidän tulee ottaa
+                  Suomi.fi-viestit -palvelu käyttöön. Palvelusta ja sen
+                  käyttöönotosta saatte lisätietoa{' '}
+                  <ExternalLink
+                    text="https://www.suomi.fi/viestit"
+                    href="https://www.suomi.fi/viestit"
+                    newTab
+                  />
+                  . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, päätös
+                  lähetetään teille postitse.
                 </P>
                 <P>
                   Lisätietoa{' '}
@@ -208,6 +218,9 @@ const fi: DeepPartial<Translations> = {
       },
       serviceNeed: {
         startDate: {
+          header: {
+            PRESCHOOL: 'Täydentävän esiopetuksen aloitus'
+          },
           instructions: {
             DAYCARE: (
               <>
@@ -394,7 +407,7 @@ const fi: DeepPartial<Translations> = {
   },
   applicationsList: {
     title: `Hakeminen varhaiskasvatukseen${
-      preschoolEnabled ? ' ja esiopetukseen' : ''
+      preschoolEnabled ? ' ja täydentävään esiopetukseen' : ''
     }`,
     summary: (
       <P width="800px">
