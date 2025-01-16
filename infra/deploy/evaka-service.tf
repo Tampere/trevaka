@@ -16,7 +16,7 @@ module "app_service" {
   desired_count             = var.service_count
   task_cpu                  = var.service_task_cpu
   task_memory               = var.service_task_memory_mb
-  health_check_grace_period = 60 * 60
+  health_check_grace_period = 60 * 10
   health_check_path         = "/health"
 
   wait_for_steady_state = true
