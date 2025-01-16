@@ -62,12 +62,7 @@ updates:
           - "tslib"
           - "typescript"
   - package-ecosystem: "terraform"
-    directories:
-      - "/infra/deploy"
-    groups:
-      terraform:
-        patterns:
-          - "*"
+    directory: "/infra/deploy"
     schedule:
       interval: "daily"
       time: "10:00"
