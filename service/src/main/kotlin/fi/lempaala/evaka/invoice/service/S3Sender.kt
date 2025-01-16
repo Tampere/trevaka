@@ -17,7 +17,16 @@ import java.util.*
 class S3Sender(private val s3Client: S3Client, private val properties: LempaalaProperties) {
     fun send(content: String) {
         val bucket = properties.bucket.export
-        val fileName = SimpleDateFormat("'invoices/Lempaala_eVaka_'ddMMyyyy_HHmmss'.dat'").format(Date())
+        val municipalityCode = "418"
+        val invoiceType = "53"
+        val timestamp = SimpleDateFormat("yyyyMMddHHmm").format(Date())
+        val fileName = "invoices/"
+            .plus(municipalityCode)
+            .plus("_")
+            .plus(invoiceType)
+            .plus("_")
+            .plus(timestamp)
+            .plus(".dat")
 
         val request = PutObjectRequest.builder()
             .bucket(bucket)

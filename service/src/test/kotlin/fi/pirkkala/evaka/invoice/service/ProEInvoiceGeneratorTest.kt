@@ -79,13 +79,13 @@ internal class ProEInvoiceGeneratorTest {
         val format = listOf(
             InvoiceField(InvoiceFieldName.INVOICE_IDENTIFIER, FieldType.ALPHANUMERIC, 1, 11),
             InvoiceField(InvoiceFieldName.CLIENT_NAME1, FieldType.ALPHANUMERIC, 12, 30),
-            InvoiceField(InvoiceFieldName.INCLUDED_LATE_PAYMENT_INTEREST, FieldType.NUMERIC, 42, 6, 2),
+            InvoiceField(InvoiceFieldName.AMOUNT, FieldType.NUMERIC, 42, 6, 2),
         )
         val invoiceData = InvoiceData()
 
         invoiceData.setAlphanumericValue(InvoiceFieldName.INVOICE_IDENTIFIER, "121212A121A")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CLIENT_NAME1, "Jokunen Jaska")
-        invoiceData.setNumericValue(InvoiceFieldName.INCLUDED_LATE_PAYMENT_INTEREST, 42)
+        invoiceData.setNumericValue(InvoiceFieldName.AMOUNT, 42)
 
         val result = proEInvoiceGenerator.generateRow(format, invoiceData)
 
