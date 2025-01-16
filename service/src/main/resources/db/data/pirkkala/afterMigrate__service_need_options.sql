@@ -72,20 +72,3 @@ WHERE
     service_need_option.valid_to IS DISTINCT FROM EXCLUDED.valid_to OR
     service_need_option.show_for_citizen <> EXCLUDED.show_for_citizen OR
     service_need_option.display_order <> EXCLUDED.display_order;
-
--- automatically add missing service needs
--- TODO: remove after production deployment
-INSERT INTO service_need (option_id, placement_id, start_date, end_date, part_week)
-SELECT service_need_option.id,
-       placement.id,
-       GREATEST(placement.start_date, service_need_option.valid_from),
-       LEAST(placement.end_date, service_need_option.valid_to),
-       service_need_option.part_week
-FROM placement
-         JOIN service_need_option ON service_need_option.valid_placement_type = placement.type AND
-                                     NOT service_need_option.default_option
-WHERE NOT EXISTS (SELECT FROM service_need WHERE service_need.placement_id = placement.id)
-  AND placement.created < service_need_option.created
-  AND type IN ('PRESCHOOL_DAYCARE', 'PRESCHOOL_DAYCARE_ONLY')
-  AND GREATEST(placement.start_date, service_need_option.valid_from) <=
-      LEAST(placement.end_date, service_need_option.valid_to);
