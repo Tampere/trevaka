@@ -25,6 +25,11 @@ variable "force_new_deployment" {
   default = false
 }
 
+variable "maintenance_mode_bucket" {
+  type    = string
+  default = null
+}
+
 # internal
 
 variable "municipality" {
