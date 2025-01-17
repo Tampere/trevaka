@@ -442,9 +442,9 @@ object BiQueries {
         csvQuery<BiChildAttendance> {
             sql(
                 """
-            select id, child_id, created_at::text AS created, updated_at::text AS updated, unit_id, date, start_time, end_time
+            select id, child_id, created_at::text AS created, modified_at::text AS updated, unit_id, date, start_time, end_time
             FROM child_attendance
-            WHERE updated_at >= (current_date AT TIME ZONE 'Europe/Helsinki' - interval '60 days')::date
+            WHERE modified_at >= (current_date AT TIME ZONE 'Europe/Helsinki' - interval '60 days')::date
         """,
             )
         }
