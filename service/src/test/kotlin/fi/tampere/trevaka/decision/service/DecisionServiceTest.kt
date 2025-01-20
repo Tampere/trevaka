@@ -6,8 +6,8 @@ package fi.tampere.trevaka.decision.service
 
 import fi.espoo.evaka.application.ServiceNeed
 import fi.espoo.evaka.application.ServiceNeedOption
+import fi.espoo.evaka.daycare.UnitManager
 import fi.espoo.evaka.daycare.domain.ProviderType
-import fi.espoo.evaka.daycare.service.DaycareManager
 import fi.espoo.evaka.decision.Decision
 import fi.espoo.evaka.decision.DecisionStatus
 import fi.espoo.evaka.decision.DecisionType
@@ -83,7 +83,8 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
                 )
             },
             lang = OfficialLanguage.FI,
-            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
+            unitManager = UnitManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
+            preschoolManager = UnitManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
         val filename = "DecisionServiceTest-$decisionType-$providerType${if (isTransferApplication) "-transfer" else ""}.pdf"
@@ -107,7 +108,8 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
                 serviceNeedOption = null,
             ),
             lang = OfficialLanguage.FI,
-            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
+            unitManager = UnitManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
+            preschoolManager = UnitManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
         val filename = "DecisionServiceTest-DAYCARE-without-service-need-option.pdf"
@@ -137,7 +139,8 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
                 ),
             ),
             lang = OfficialLanguage.FI,
-            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
+            unitManager = UnitManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
+            preschoolManager = UnitManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
         val filename = "DecisionServiceTest-DAYCARE-without-settings.pdf"
@@ -167,7 +170,8 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
                 ),
             ),
             lang = OfficialLanguage.FI,
-            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
+            unitManager = UnitManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
+            preschoolManager = UnitManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
         val filename = "DecisionServiceTest-DAYCARE-restricted-details-enabled.pdf"

@@ -8,8 +8,8 @@ import fi.espoo.evaka.application.ServiceNeed
 import fi.espoo.evaka.application.ServiceNeedOption
 import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionService
 import fi.espoo.evaka.assistanceneed.preschooldecision.AssistanceNeedPreschoolDecisionService
+import fi.espoo.evaka.daycare.UnitManager
 import fi.espoo.evaka.daycare.domain.ProviderType
-import fi.espoo.evaka.daycare.service.DaycareManager
 import fi.espoo.evaka.decision.DecisionType
 import fi.espoo.evaka.decision.createDecisionPdf
 import fi.espoo.evaka.invoicing.domain.FeeDecisionType
@@ -85,7 +85,8 @@ class VesilahtiPdfGeneratorTest : AbstractVesilahtiIntegrationTest() {
                 )
             },
             lang = OfficialLanguage.FI,
-            DaycareManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
+            unitManager = UnitManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
+            preschoolManager = UnitManager("Päivi Päiväkodinjohtaja", "paivi.paivakodinjohtaja@example.com", "0451231234"),
         )
 
         val filename = "vesilahti-decision-$decisionType-$providerType${if (isTransferApplication) "-transfer" else ""}.pdf"

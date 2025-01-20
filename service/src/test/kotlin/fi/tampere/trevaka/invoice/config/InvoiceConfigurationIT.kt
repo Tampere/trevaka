@@ -32,6 +32,7 @@ import fi.espoo.evaka.shared.ParentshipId
 import fi.espoo.evaka.shared.PersonId
 import fi.espoo.evaka.shared.ServiceNeedOptionId
 import fi.espoo.evaka.shared.db.Database
+import fi.espoo.evaka.shared.db.Predicate
 import fi.espoo.evaka.shared.dev.DevChild
 import fi.espoo.evaka.shared.dev.DevDaycare
 import fi.espoo.evaka.shared.dev.DevParentship
@@ -226,7 +227,7 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
     )
 
     private val getAllInvoices: (Database.Read) -> List<InvoiceDetailed> = { r ->
-        r.createQuery { invoiceDetailedQuery() }
+        r.createQuery { invoiceDetailedQuery(Predicate.alwaysTrue()) }
             .toList<InvoiceDetailed>()
             .shuffled() // randomize order to expose assumptions
     }
