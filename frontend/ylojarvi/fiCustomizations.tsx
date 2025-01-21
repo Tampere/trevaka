@@ -623,7 +623,7 @@ const fi: DeepPartial<Translations> = {
           </>
         ),
         jurisdictionText: () =>
-          'Hallintosääntö 113 §, varhaiskasvatuksen aluejohtaja kohta 9.'
+          'Kunnallisen yksikön päätöksen tekee varhaiskasvatusyksikön johtaja; Hallintosääntö 114§; varhaiskasvatusyksikön johtaja kohta 7. Palveluseteli yksikön osalta päätöksen tekee varhaiskasvatuksen palvelujohtaja; Hallintosääntö 113§, varhaiskasvatuksen palvelujohtaja kohta 11.'
       }
     },
     assistancePreschoolDecisions: {
@@ -753,7 +753,7 @@ const fi: DeepPartial<Translations> = {
         </>
       ),
       jurisdictionText:
-        'Hallintosääntö 113 §, varhaiskasvatuksen aluejohtaja kohta 9.',
+        'Kunnallisen yksikön päätöksen tekee varhaiskasvatusyksikön johtaja; Hallintosääntö 114§; varhaiskasvatusyksikön johtaja kohta 7. Palveluseteli yksikön osalta päätöksen tekee varhaiskasvatuksen palvelujohtaja; Hallintosääntö 113§, varhaiskasvatuksen palvelujohtaja kohta 11.',
       lawReference:
         'Laki viranomaisen toiminnan julkisuudesta 24 § 1 mom. 30 kohta'
     }
