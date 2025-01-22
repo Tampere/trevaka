@@ -154,6 +154,8 @@ class TitaniaServiceTest : AbstractVesilahtiIntegrationTest() {
                     arrived = HelsinkiDateTime.of(date = date, LocalTime.of(8, 0)),
                     departed = HelsinkiDateTime.of(date = date, LocalTime.of(16, 0)),
                     type = StaffAttendanceType.TRAINING,
+                    modifiedAt = null,
+                    modifiedBy = null,
                 ),
             )
         }
