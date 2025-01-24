@@ -200,7 +200,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
                     // if the value is non-zero it has been multiplied by 100 to already contain two decimals
                     val decimals = if (value == 0) it.decimals else it.decimals - 2
                     val length = if (value == 0) it.length else it.length + 2
-                    val sign = if (value < 0) "–" else "0"
+                    val sign = if (value < 0) "–" else ""
                     val stringValue = sign + abs(value).toString().padStart(length - sign.length, '0')
                     result += stringValue.padEnd(length + decimals, '0')
                 }
