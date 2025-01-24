@@ -20,7 +20,7 @@ import trevaka.ipaas.IpaasProperties
 
 val testProperties = LempaalaProperties(
     IpaasProperties("user", "pass"),
-    InvoiceProperties("604", "54"),
+    InvoiceProperties("193", "54"),
     BucketProperties("trevaka-export-it"),
 )
 

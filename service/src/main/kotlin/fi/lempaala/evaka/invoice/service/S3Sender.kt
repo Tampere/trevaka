@@ -17,11 +17,11 @@ import java.util.*
 class S3Sender(private val s3Client: S3Client, private val properties: LempaalaProperties) {
     fun send(content: String) {
         val bucket = properties.bucket.export
-        val municipalityCode = properties.invoice.municipalityCode
+        val organizationCode = properties.invoice.organizationCode
         val invoiceType = properties.invoice.invoiceType
         val timestamp = SimpleDateFormat("yyyyMMddHHmm").format(Date())
         val fileName = "invoices/"
-            .plus(municipalityCode)
+            .plus(organizationCode)
             .plus("_")
             .plus(invoiceType)
             .plus("_")
