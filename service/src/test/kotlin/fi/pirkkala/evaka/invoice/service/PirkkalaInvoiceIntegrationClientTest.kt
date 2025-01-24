@@ -4,6 +4,9 @@
 
 package fi.pirkkala.evaka.invoice.service
 
+import fi.pirkkala.evaka.BucketProperties
+import fi.pirkkala.evaka.InvoiceProperties
+import fi.pirkkala.evaka.PirkkalaProperties
 import fi.pirkkala.evaka.util.FinanceDateProvider
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -13,6 +16,13 @@ import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
+import trevaka.ipaas.IpaasProperties
+
+val testProperties = PirkkalaProperties(
+    IpaasProperties("user", "pass"),
+    InvoiceProperties("604", "53"),
+    BucketProperties("trevaka-export-it"),
+)
 
 class PirkkalaInvoiceIntegrationClientTest {
 
@@ -31,7 +41,7 @@ class PirkkalaInvoiceIntegrationClientTest {
         }
         pirkkalaInvoiceIntegrationClient = PirkkalaInvoiceIntegrationClient(
             s3SenderMock,
-            ProEInvoiceGenerator(InvoiceChecker(), financeDateProviderMock),
+            ProEInvoiceGenerator(InvoiceChecker(), financeDateProviderMock, testProperties),
         )
     }
 
@@ -43,19 +53,19 @@ class PirkkalaInvoiceIntegrationClientTest {
 
         verify(s3SenderMock).send(s3SenderArgumentCaptor.capture())
         assertEquals(
-            """310382-956DL  Meikäläinen Matti                                                                                   Meikäläisenkuja 6 B 7         90100 OULU                                                                                                                              1   K202102042021030620220505                    1                            1000              Varhaiskasvatus 01.2021                                                                                                                                                                                                                                                                                      
+            """310382-956DL  Meikäläinen Matti                                                                                   Meikäläisenkuja 6 B 7         90100 OULU                                                                                                                              1   K202102042021030620220505                    1                            1000         53   Varhaiskasvatus 01.2021                                                                                                                                                                                                                                                                                      
 310382-956D3Meikäläinen Maiju                                                                                                     
 310382-956D301.01.2021 - 31.01.2021                                                                                               
-310382-956D1Esiopetusta täydentävä varhaiskasvatus   000004820000KPL 00000001000000                                                                                                                         325730010002627                                                        
+310382-956D1Esiopetusta täydentävä varhaiskasvatus   000004820000KPL 00000001000000                                                                                                                         325730010002627                                             00000048200
 310382-956D3kuvaus2                                                                                                               
 310382-956D3Meikäläinen Matti                                                                                                     
 310382-956D301.01.2021 - 31.01.2021                                                                                               
-310382-956D1Varhaiskasvatus                          000002430000KPL 00000001000000                                                                                                                         325730010002627                                                        
+310382-956D1Varhaiskasvatus                          000002430000KPL 00000001000000                                                                                                                         325730010002627                                             00000024300
 310382-956D3kuvaus1                                                                                                               
 310382-956D301.01.2021 - 31.01.2021                                                                                               
-310382-956D1Varhaiskasvatus                          000002500000KPL 00000001000000                                                                                                                         325730010002627                                                        
+310382-956D1Varhaiskasvatus                          000002500000KPL 00000001000000                                                                                                                         325730010002627                                             00000025000
 310382-956D301.01.2021 - 31.01.2021                                                                                               
-310382-956D1Hyvityspäivä                             000002500000KPL-00000001000000                                                                                                                         325730010002627                                                        
+310382-956D1Hyvityspäivä                             000002500000KPL-00000001000000                                                                                                                         325730010002627                                             –0000025000
 310382-956D3kuvaus4                                                                                                               
 """,
             s3SenderArgumentCaptor.firstValue,
