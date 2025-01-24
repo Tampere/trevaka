@@ -16,6 +16,7 @@ import fi.espoo.evaka.invoicing.domain.FinanceDecisionType
 import fi.espoo.evaka.invoicing.service.IncomeNotificationType
 import fi.espoo.evaka.messaging.MessageType
 import fi.espoo.evaka.shared.ChildId
+import fi.espoo.evaka.shared.HtmlSafe
 import fi.espoo.evaka.shared.domain.FiniteDateRange
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -566,4 +567,17 @@ $unsubscribeEn
             },
         )
     }
+
+    override fun confirmationCode(confirmationCode: HtmlSafe<String>): EmailContent = EmailContent.fromHtml(
+        subject =
+        "eVaka-vahvistuskoodi / eVaka confirmation code",
+        html =
+        """
+<p>eVakasta on lähetetty tämä vahvistuskoodi tietojesi muokkaamista varten. Syötä oheinen vahvistuskoodi pyydettyyn kenttään eVakassa.</p>
+<hr>
+<p>This confirmation code has been sent from eVaka for editing your information. Enter the provided confirmation code in the requested field in eVaka.</p>
+<hr>
+<p>Vahvistuskoodi / confirmation code: <strong>$confirmationCode</strong></p>
+""",
+    )
 }
