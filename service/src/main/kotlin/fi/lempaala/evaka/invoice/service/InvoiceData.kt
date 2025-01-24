@@ -167,9 +167,7 @@ var detailRowFields = listOf(
     InvoiceField(InvoiceFieldName.BRUTTO_NETTO, FieldType.ALPHANUMERIC, 144, 1),
     InvoiceField(InvoiceFieldName.DEBIT_ACCOUNTING, FieldType.ALPHANUMERIC, 145, 60),
     InvoiceField(InvoiceFieldName.CREDIT_ACCOUNTING, FieldType.ALPHANUMERIC, 205, 60),
-    // format says that ROW_SUM is a numeric field, but the example file has this
-    // empty which is not possible the way we implemented numeric fields
-    InvoiceField(InvoiceFieldName.ROW_SUM, FieldType.ALPHANUMERIC, 265, 11),
+    InvoiceField(InvoiceFieldName.ROW_SUM, FieldType.MONETARY, 265, 9, 2),
 )
 
 var descriptionRowFields = listOf(

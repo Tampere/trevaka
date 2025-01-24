@@ -19,7 +19,7 @@ private val restrictedPostOffice = "Orivesi"
 
 internal class ProEInvoiceGeneratorTest {
     val financeDateProvider = mock<FinanceDateProvider>()
-    val proEInvoiceGenerator = ProEInvoiceGenerator(InvoiceChecker(), financeDateProvider)
+    val proEInvoiceGenerator = ProEInvoiceGenerator(InvoiceChecker(), financeDateProvider, testProperties)
 
     @BeforeEach
     fun setup() {

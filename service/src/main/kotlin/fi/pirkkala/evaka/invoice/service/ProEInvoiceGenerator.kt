@@ -8,6 +8,7 @@ import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
 import fi.espoo.evaka.invoicing.domain.PersonDetailed
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
+import fi.pirkkala.evaka.PirkkalaProperties
 import fi.pirkkala.evaka.invoice.config.Product
 import fi.pirkkala.evaka.util.FieldType
 import fi.pirkkala.evaka.util.FinanceDateProvider
@@ -21,7 +22,7 @@ private val restrictedPostCode = "33961"
 private val restrictedPostOffice = "Pirkkala"
 
 @Component
-class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val financeDateProvider: FinanceDateProvider) : StringInvoiceGenerator {
+class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val financeDateProvider: FinanceDateProvider, val properties: PirkkalaProperties) : StringInvoiceGenerator {
 
     fun generateInvoiceTitle(): String {
         val previousMonth = financeDateProvider.previousMonth()
@@ -81,7 +82,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         invoiceData.setAlphanumericValue(InvoiceFieldName.REFERENCE_NUMBER, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.PARTNER_CODE, "1000")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CURRENCY, "")
-        invoiceData.setAlphanumericValue(InvoiceFieldName.INVOICE_TYPE, "")
+        invoiceData.setAlphanumericValue(InvoiceFieldName.INVOICE_TYPE, properties.invoice.invoiceType)
         // what should we put here?
         invoiceData.setAlphanumericValue(InvoiceFieldName.DESCRIPTION, generateInvoiceTitle())
         invoiceData.setAlphanumericValue(InvoiceFieldName.SECURITY_DENIAL, "")
@@ -158,6 +159,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.BRUTTO_NETTO, "")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.DEBIT_ACCOUNTING, "")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, getCreditAccounting(it))
+            invoiceRowData.setNumericValue(InvoiceFieldName.ROW_SUM, it.price)
 
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.DESCRIPTION, it.description)
 
@@ -198,7 +200,8 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
                     // if the value is non-zero it has been multiplied by 100 to already contain two decimals
                     val decimals = if (value == 0) it.decimals else it.decimals - 2
                     val length = if (value == 0) it.length else it.length + 2
-                    val stringValue = value.toString().padStart(length, '0')
+                    val sign = if (value < 0) "–" else "0"
+                    val stringValue = sign + abs(value).toString().padStart(length - sign.length, '0')
                     result += stringValue.padEnd(length + decimals, '0')
                 }
             }
