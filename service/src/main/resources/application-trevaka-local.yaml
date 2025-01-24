@@ -48,9 +48,9 @@ tampere:
     username: user
     password: pass
   invoice:
-    url: http://localhost:${server.port}/salesOrder
+    url: http://localhost:${server.port}/dev-api/tampere/salesOrder
   payment:
-    url: http://localhost:${server.port}/payableAccounting
+    url: http://localhost:${server.port}/dev-api/tampere/payableAccounting
   bucket:
     export: trevaka-export-dev
   bi-export:

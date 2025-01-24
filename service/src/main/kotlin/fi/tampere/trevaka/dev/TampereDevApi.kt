@@ -12,13 +12,19 @@ import fi.espoo.evaka.shared.domain.EvakaClock
 import fi.espoo.evaka.shared.domain.RealEvakaClock
 import fi.espoo.evaka.vtjclient.service.persondetails.MockPersonDetailsService
 import fi.tampere.trevaka.database.resetTampereDatabaseForE2ETests
+import io.github.oshai.kotlinlogging.KotlinLogging
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.context.annotation.Profile
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.lang.System.lineSeparator
 import java.time.Duration
+import java.util.stream.Collectors.joining
+
+private val logger = KotlinLogging.logger {}
 
 @Profile("enable_dev_api")
 @RestController
@@ -39,5 +45,15 @@ class TampereDevApi(
         db.connect { c -> c.transaction { tx -> tx.resetTampereDatabaseForE2ETests() } }
         MockPersonDetailsService.reset()
         return ResponseEntity.noContent().build()
+    }
+
+    @PostMapping("/salesOrder")
+    fun salesOrder(request: HttpServletRequest) {
+        logger.info { request.reader.lines().collect(joining(lineSeparator())) }
+    }
+
+    @PostMapping("/payableAccounting")
+    fun payableAccounting(request: HttpServletRequest) {
+        logger.info { request.reader.lines().collect(joining(lineSeparator())) }
     }
 }
