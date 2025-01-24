@@ -59,6 +59,7 @@ enum class InvoiceFieldName {
     BRUTTO_NETTO,
     DEBIT_ACCOUNTING,
     CREDIT_ACCOUNTING,
+    ROW_SUM_SIGN,
     ROW_SUM,
 }
 
@@ -166,7 +167,8 @@ var detailRowFields = listOf(
     InvoiceField(InvoiceFieldName.VAT_ACCOUNT, FieldType.ALPHANUMERIC, 84, 60),
     InvoiceField(InvoiceFieldName.BRUTTO_NETTO, FieldType.ALPHANUMERIC, 144, 1),
     InvoiceField(InvoiceFieldName.DEBIT_ACCOUNTING, FieldType.ALPHANUMERIC, 145, 60),
-    InvoiceField(InvoiceFieldName.CREDIT_ACCOUNTING, FieldType.ALPHANUMERIC, 205, 60),
+    InvoiceField(InvoiceFieldName.CREDIT_ACCOUNTING, FieldType.ALPHANUMERIC, 205, 59), // spec says length is 60, but next field starts after 59 chars
+    InvoiceField(InvoiceFieldName.ROW_SUM_SIGN, FieldType.ALPHANUMERIC, 264, 1),
     InvoiceField(InvoiceFieldName.ROW_SUM, FieldType.MONETARY, 265, 9, 2),
 )
 

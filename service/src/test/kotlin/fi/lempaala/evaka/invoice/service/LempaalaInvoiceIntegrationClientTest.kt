@@ -66,7 +66,7 @@ class LempaalaInvoiceIntegrationClientTest {
 310382-956D1Varhaiskasvatus                          000002500000KPL 00000001000000                                                                                                                         327530010002627                                             00000025000
 310382-956D3kuvaus3                                                                                                               
 310382-956D301.01.2021 - 31.01.2021                                                                                               
-310382-956D1Hyvityspäivä                             000002500000KPL-00000001000000                                                                                                                         327530010002627                                             –0000025000
+310382-956D1Hyvityspäivä                             000002500000KPL-00000001000000                                                                                                                         327530010002627                                            -00000025000
 310382-956D3kuvaus4                                                                                                               
 """,
             s3SenderArgumentCaptor.firstValue,
