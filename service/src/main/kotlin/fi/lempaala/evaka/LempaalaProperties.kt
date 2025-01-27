@@ -15,7 +15,7 @@ data class LempaalaProperties(
 )
 
 data class InvoiceProperties(
-    val municipalityCode: String,
+    val organizationCode: String,
     val invoiceType: String,
 )
 

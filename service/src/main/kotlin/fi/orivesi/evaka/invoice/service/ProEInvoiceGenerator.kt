@@ -160,7 +160,8 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.BRUTTO_NETTO, "")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.DEBIT_ACCOUNTING, "")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, getCreditAccounting(it))
-            invoiceRowData.setNumericValue(InvoiceFieldName.ROW_SUM, it.price)
+            invoiceRowData.setAlphanumericValue(InvoiceFieldName.ROW_SUM_SIGN, if (it.price < 0) "-" else "")
+            invoiceRowData.setNumericValue(InvoiceFieldName.ROW_SUM, abs(it.price))
 
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.DESCRIPTION, it.description)
 
@@ -209,8 +210,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
                     // if the value is non-zero it has been multiplied by 100 to already contain two decimals
                     val decimals = if (value == 0) it.decimals else it.decimals - 2
                     val length = if (value == 0) it.length else it.length + 2
-                    val sign = if (value < 0) "–" else ""
-                    val stringValue = sign + abs(value).toString().padStart(length - sign.length, '0')
+                    val stringValue = value.toString().padStart(length, '0')
                     result += stringValue.padEnd(length + decimals, '0')
                 }
             }

@@ -23,5 +23,5 @@ trevaka:
   municipality: lempaala
 lempaala:
   invoice:
-    municipalityCode: 418
+    organizationCode: 193
     invoiceType: 54
