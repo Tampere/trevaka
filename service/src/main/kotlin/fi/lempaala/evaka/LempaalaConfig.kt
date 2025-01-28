@@ -38,7 +38,6 @@ class LempaalaConfig {
         freeSickLeaveOnContractDays = true,
         freeAbsenceGivesADailyRefund = false,
         alwaysUseDaycareFinanceDecisionHandler = true,
-        invoiceNumberSeriesStart = 5400042258,
         paymentNumberSeriesStart = null,
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,

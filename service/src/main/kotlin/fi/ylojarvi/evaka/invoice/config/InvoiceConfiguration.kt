@@ -44,6 +44,9 @@ class InvoiceConfiguration {
 
     @Bean
     fun invoiceGenerationLogicChooser() = DefaultInvoiceGenerationLogic
+
+    @Bean
+    fun invoiceNumberProvider(): InvoiceNumberProvider = DefaultInvoiceNumberProvider(1)
 }
 
 class YlojarviIncomeTypesProvider : IncomeTypesProvider {
