@@ -17,8 +17,6 @@ import fi.tampere.trevaka.export.ExportUnitsAclService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import software.amazon.awssdk.services.s3.S3Client
-import software.amazon.awssdk.services.s3.model.GetObjectRequest
 import java.nio.charset.StandardCharsets
 import java.time.LocalDate
 import java.time.LocalTime
@@ -28,9 +26,6 @@ class ExportUnitsAclServiceTest : AbstractTampereIntegrationTest() {
 
     @Autowired
     private lateinit var exportUnitsAclService: ExportUnitsAclService
-
-    @Autowired
-    private lateinit var s3Client: S3Client
 
     @Test
     fun exportUnitsAcl() {
@@ -60,8 +55,7 @@ class ExportUnitsAclServiceTest : AbstractTampereIntegrationTest() {
 
         val (bucket, key) = db.transaction { tx -> exportUnitsAclService.exportUnitsAcl(tx, timestamp) }
 
-        val request = GetObjectRequest.builder().bucket(bucket).key(key).build()
-        val (data, contentType) = s3Client.getObject(request).use {
+        val (data, contentType) = getS3Object(bucket, key).use {
             it.readAllBytes().toString(StandardCharsets.UTF_8) to it.response().contentType()
         }
         assertEquals(EXPECTED, data)

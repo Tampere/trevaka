@@ -8,12 +8,16 @@ import fi.espoo.evaka.daycare.domain.ProviderType
 import fi.espoo.evaka.decision.DecisionType
 import fi.espoo.evaka.invoicing.domain.FeeDecisionType
 import fi.espoo.evaka.placement.PlacementType
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ActiveProfiles
 import trevaka.AbstractIntegrationTest
 import java.util.stream.Stream
 
 @ActiveProfiles(value = ["integration-test", "vesilahti_evaka"])
 abstract class AbstractVesilahtiIntegrationTest : AbstractIntegrationTest() {
+    @Autowired
+    protected lateinit var properties: VesilahtiProperties
+
     protected fun supportedDecisionTypes(): Stream<DecisionType> = Stream.of(
         DecisionType.DAYCARE,
         DecisionType.PRESCHOOL_DAYCARE,

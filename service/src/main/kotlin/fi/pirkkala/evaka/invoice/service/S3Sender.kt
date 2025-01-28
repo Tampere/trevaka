@@ -4,22 +4,23 @@
 
 package fi.pirkkala.evaka.invoice.service
 
+import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.pirkkala.evaka.PirkkalaProperties
 import org.springframework.stereotype.Service
 import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.model.PutObjectRequest
 import java.nio.charset.StandardCharsets
-import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Service
 class S3Sender(private val s3Client: S3Client, private val properties: PirkkalaProperties) {
-    fun send(content: String) {
+    fun send(content: String, now: HelsinkiDateTime) {
         val bucket = properties.bucket.export
         val municipalityCode = properties.invoice.municipalityCode
         val invoiceType = properties.invoice.invoiceType
-        val timestamp = SimpleDateFormat("yyyyMMddHHmm").format(Date())
+        val timestamp = now.toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"))
         val fileName = "invoices/"
             .plus(municipalityCode)
             .plus("_")

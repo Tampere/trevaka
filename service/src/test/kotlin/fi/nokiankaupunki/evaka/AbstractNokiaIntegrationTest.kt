@@ -9,12 +9,16 @@ import fi.espoo.evaka.decision.DecisionType
 import fi.espoo.evaka.invoicing.domain.FeeDecisionType
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionType
 import fi.espoo.evaka.placement.PlacementType
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ActiveProfiles
 import trevaka.AbstractIntegrationTest
 import java.util.stream.Stream
 
 @ActiveProfiles(value = ["integration-test", "nokia_evaka"])
 abstract class AbstractNokiaIntegrationTest : AbstractIntegrationTest() {
+    @Autowired
+    protected lateinit var properties: NokiaProperties
+
     protected fun supportedDecisionTypes(): Stream<DecisionType> = Stream.of(
         DecisionType.DAYCARE,
         DecisionType.PREPARATORY_EDUCATION,
