@@ -126,6 +126,7 @@ services:
       EVAKA_DATABASE_URL: jdbc:postgresql://db:5432/evaka_${EVAKA_CUSTOMIZATIONS}_local
       EVAKA_S3MOCK_URL: http://s3:9090
       EVAKA_BUCKET_PROXY_THROUGH_NGINX: true
+      EVAKA_PASSWORD_BLACKLIST_DIRECTORY: /opt/password-blacklists
       # ecosystem.config.js
       SPRING_PROFILES_ACTIVE: ${EVAKA_CUSTOMIZATIONS}_evaka
     restart: unless-stopped

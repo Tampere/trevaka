@@ -9,7 +9,7 @@
     "e2e-ci-playwright": "LANG=fi-FI LANGUAGE=fi_FI BASE_URL=http://localhost:9099 jest --testTimeout 60000 --runInBand --bail 1 --retries=2 src/e2e/specs"
   },
   "devDependencies": {
-    "@playwright/test": "^1.49.0",
+    "@playwright/test": "^1.50.0",
     "@types/jest": "^29.5.14",
     "@types/lodash": "^4.17.13",
     "@types/node": "^20.17.6",
