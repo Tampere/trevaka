@@ -4,20 +4,20 @@
 
 package fi.hameenkyro.evaka.invoice.service
 
+import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.hameenkyro.evaka.HameenkyroProperties
 import org.springframework.stereotype.Service
 import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.model.PutObjectRequest
 import java.nio.charset.StandardCharsets
-import java.text.SimpleDateFormat
-import java.util.*
+import java.time.format.DateTimeFormatter
 
 @Service
 class S3Sender(private val s3Client: S3Client, private val properties: HameenkyroProperties) {
-    fun send(content: String) {
+    fun send(content: String, now: HelsinkiDateTime) {
         val bucket = properties.bucket.export
-        val fileName = SimpleDateFormat("'invoices/vaka'yyyyMMdd'.txt'").format(Date())
+        val fileName = now.toLocalDateTime().format(DateTimeFormatter.ofPattern("'invoices/vaka'yyyyMMdd'.txt'"))
 
         val request = PutObjectRequest.builder()
             .bucket(bucket)

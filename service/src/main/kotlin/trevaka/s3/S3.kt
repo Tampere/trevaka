@@ -8,6 +8,7 @@ import fi.hameenkyro.evaka.HameenkyroProperties
 import fi.kangasala.evaka.KangasalaProperties
 import fi.lempaala.evaka.LempaalaProperties
 import fi.nokiankaupunki.evaka.NokiaProperties
+import fi.orivesi.evaka.OrivesiProperties
 import fi.pirkkala.evaka.PirkkalaProperties
 import fi.tampere.trevaka.TampereProperties
 import fi.vesilahti.evaka.VesilahtiProperties
@@ -28,6 +29,7 @@ class S3Initializer(
     pirkkalaProperties: PirkkalaProperties?,
     kangasalaProperties: KangasalaProperties?,
     lempaalaProperties: LempaalaProperties?,
+    orivesiProperties: OrivesiProperties?,
 ) {
     init {
         tampereProperties?.let { createBucketsIfNeeded(client, it.bucket.allBuckets()) }
@@ -38,6 +40,7 @@ class S3Initializer(
         pirkkalaProperties?.let { createBucketsIfNeeded(client, it.bucket.allBuckets()) }
         kangasalaProperties?.let { createBucketsIfNeeded(client, it.bucket.allBuckets()) }
         lempaalaProperties?.let { createBucketsIfNeeded(client, it.bucket.allBuckets()) }
+        orivesiProperties?.let { createBucketsIfNeeded(client, it.bucket.allBuckets()) }
     }
 }
 

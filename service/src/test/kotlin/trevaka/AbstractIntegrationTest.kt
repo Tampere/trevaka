@@ -14,9 +14,21 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.fail
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean
+import software.amazon.awssdk.core.ResponseInputStream
+import software.amazon.awssdk.services.s3.S3Client
+import software.amazon.awssdk.services.s3.model.Delete
+import software.amazon.awssdk.services.s3.model.DeleteObjectsRequest
+import software.amazon.awssdk.services.s3.model.GetObjectRequest
+import software.amazon.awssdk.services.s3.model.GetObjectResponse
+import software.amazon.awssdk.services.s3.model.ListObjectsRequest
+import software.amazon.awssdk.services.s3.model.NoSuchKeyException
+import software.amazon.awssdk.services.s3.model.ObjectIdentifier
+import trevaka.time.ClockService
 import java.io.FileOutputStream
 import java.nio.file.Paths
 
@@ -29,10 +41,16 @@ private val reportsPath: String = "${Paths.get("build").toAbsolutePath()}/report
 @AutoConfigureWireMock(port = 0)
 abstract class AbstractIntegrationTest {
 
+    @MockitoSpyBean
+    protected lateinit var clockService: ClockService
+
     @Autowired
     private lateinit var jdbi: Jdbi
 
     protected lateinit var db: Database.Connection
+
+    @Autowired
+    protected lateinit var s3Client: S3Client
 
     @BeforeAll
     protected fun initializeJdbi() {
@@ -43,6 +61,7 @@ abstract class AbstractIntegrationTest {
     @BeforeEach
     fun setup() {
         db.transaction { tx -> tx.resetTampereDatabaseForE2ETests() }
+        clearBucket("trevaka-export-it")
         MockPersonDetailsService.reset()
     }
 
@@ -54,5 +73,30 @@ abstract class AbstractIntegrationTest {
     protected fun writeReportsFile(filename: String, bytes: ByteArray) {
         val filepath = "$reportsPath/$filename"
         FileOutputStream(filepath).use { it.write(bytes) }
+    }
+
+    protected fun getS3Object(bucket: String, key: String): ResponseInputStream<GetObjectResponse> = try {
+        s3Client.getObject(GetObjectRequest.builder().bucket(bucket).key(key).build())
+    } catch (exception: NoSuchKeyException) {
+        val keys = s3Client.listObjects(ListObjectsRequest.builder().bucket(bucket).build())
+            .contents()
+            .map { it.key() }
+        fail("The key $key does not exist. Available keys: $keys")
+    }
+
+    private fun clearBucket(bucket: String) {
+        val objectList =
+            s3Client.listObjects(ListObjectsRequest.builder().bucket(bucket).build()).contents()
+
+        if (objectList.size > 0) {
+            val objectIdList = objectList.map { ObjectIdentifier.builder().key(it.key()).build() }
+
+            s3Client.deleteObjects(
+                DeleteObjectsRequest.builder()
+                    .bucket(bucket)
+                    .delete(Delete.builder().objects(objectIdList).build())
+                    .build(),
+            )
+        }
     }
 }

@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
 import software.amazon.awssdk.services.s3.S3Client
+import trevaka.time.ClockService
 import java.math.BigDecimal
 
 @Configuration
@@ -25,12 +26,13 @@ class InvoiceConfiguration {
     @Primary
     @Bean(name = ["ylojarviInvoiceIntegrationClient"])
     fun invoiceIntegrationClient(
+        clockService: ClockService,
         properties: YlojarviProperties,
         invoiceGenerator: ProEInvoiceGenerator,
         s3Client: S3Client,
     ): InvoiceIntegrationClient {
         val s3Sender = S3Sender(s3Client, properties)
-        return YlojarviInvoiceIntegrationClient(s3Sender, invoiceGenerator)
+        return YlojarviInvoiceIntegrationClient(clockService, s3Sender, invoiceGenerator)
     }
 
     @Bean

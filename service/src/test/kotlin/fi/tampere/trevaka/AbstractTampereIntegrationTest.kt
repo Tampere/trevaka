@@ -4,8 +4,12 @@
 
 package fi.tampere.trevaka
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ActiveProfiles
 import trevaka.AbstractIntegrationTest
 
 @ActiveProfiles(value = ["integration-test", "tampere_evaka"])
-abstract class AbstractTampereIntegrationTest : AbstractIntegrationTest()
+abstract class AbstractTampereIntegrationTest : AbstractIntegrationTest() {
+    @Autowired
+    protected lateinit var properties: TampereProperties
+}

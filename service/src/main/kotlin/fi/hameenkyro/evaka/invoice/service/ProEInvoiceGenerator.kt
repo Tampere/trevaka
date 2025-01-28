@@ -9,10 +9,10 @@ import fi.espoo.evaka.invoicing.domain.PersonDetailed
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.hameenkyro.evaka.invoice.config.Product
 import fi.hameenkyro.evaka.util.FieldType
-import fi.hameenkyro.evaka.util.FinanceDateProvider
 import org.springframework.stereotype.Component
 import java.lang.Math.abs
 import java.time.LocalDate
+import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
 private val restrictedStreetAddress = "Varhaiskasvatus ja esiopetus, Härkikuja 7"
@@ -20,14 +20,14 @@ private val restrictedPostCode = "39100"
 private val restrictedPostOffice = "Hämeenkyrö"
 
 @Component
-class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val financeDateProvider: FinanceDateProvider) : StringInvoiceGenerator {
+class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker) : StringInvoiceGenerator {
 
-    fun generateInvoiceTitle(): String {
-        val previousMonth = financeDateProvider.previousMonth()
+    fun generateInvoiceTitle(period: YearMonth): String {
+        val previousMonth = period.format(DateTimeFormatter.ofPattern("MM.yyyy"))
         return "Varhaiskasvatus " + previousMonth
     }
 
-    fun gatherInvoiceData(invoiceDetailed: InvoiceDetailed): InvoiceData {
+    fun gatherInvoiceData(invoiceDetailed: InvoiceDetailed, period: YearMonth): InvoiceData {
         val invoiceData = InvoiceData()
 
         val invoiceDateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
@@ -94,7 +94,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         invoiceData.setAlphanumericValue(InvoiceFieldName.INVOICE_TYPE, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.INVOICING_UNIT, "000")
         // what should we put here?
-        invoiceData.setAlphanumericValue(InvoiceFieldName.DESCRIPTION, generateInvoiceTitle())
+        invoiceData.setAlphanumericValue(InvoiceFieldName.DESCRIPTION, generateInvoiceTitle(period))
         invoiceData.setAlphanumericValue(InvoiceFieldName.SECURITY_DENIAL, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CONTRACT_NUMBER, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.ORDER_NUMBER, "")
@@ -245,7 +245,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
         return result
     }
 
-    override fun generateInvoice(invoices: List<InvoiceDetailed>): StringInvoiceGenerator.InvoiceGeneratorResult {
+    override fun generateInvoice(invoices: List<InvoiceDetailed>, period: YearMonth): StringInvoiceGenerator.InvoiceGeneratorResult {
         var invoiceString = ""
         val successList = mutableListOf<InvoiceDetailed>()
         val failedList = mutableListOf<InvoiceDetailed>()
@@ -259,7 +259,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val finan
                 headOfFamily = handlePerson(invoice.headOfFamily),
                 codebtor = invoice.codebtor?.let { handlePerson(it) },
             )
-            val invoiceData = gatherInvoiceData(invoiceWithCorrectedData)
+            val invoiceData = gatherInvoiceData(invoiceWithCorrectedData, period)
             invoiceString += formatInvoice(invoiceData)
             successList.add(invoiceWithCorrectedData)
         }
