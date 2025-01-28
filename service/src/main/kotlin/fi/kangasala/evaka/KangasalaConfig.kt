@@ -4,11 +4,14 @@
 
 package fi.kangasala.evaka
 
+import fi.espoo.evaka.espoo.DefaultPasswordSpecification
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.mealintegration.MealTypeMapper
 import fi.espoo.evaka.shared.ArchiveProcessConfig
 import fi.espoo.evaka.shared.ArchiveProcessType
 import fi.espoo.evaka.shared.FeatureConfig
+import fi.espoo.evaka.shared.auth.PasswordConstraints
+import fi.espoo.evaka.shared.auth.PasswordSpecification
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
@@ -96,4 +99,15 @@ class KangasalaConfig {
 
     @Bean
     fun mealTypeMapper(): MealTypeMapper = KangasalaMealTypeMapper
+
+    @Bean
+    fun passwordSpecification(): PasswordSpecification = DefaultPasswordSpecification(
+        PasswordConstraints.UNCONSTRAINED.copy(
+            minLength = 8,
+            minLowers = 1,
+            minUppers = 1,
+            minDigits = 1,
+            minSymbols = 0,
+        ),
+    )
 }
