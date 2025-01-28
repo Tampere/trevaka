@@ -67,7 +67,6 @@ class TampereConfig {
         freeSickLeaveOnContractDays = true,
         freeAbsenceGivesADailyRefund = false,
         alwaysUseDaycareFinanceDecisionHandler = true,
-        invoiceNumberSeriesStart = 5000000000, // previously hardcoded value in use
         paymentNumberSeriesStart = 1,
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,

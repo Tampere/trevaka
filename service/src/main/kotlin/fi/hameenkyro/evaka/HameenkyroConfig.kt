@@ -38,7 +38,6 @@ class HameenkyroConfig {
         freeSickLeaveOnContractDays = true,
         freeAbsenceGivesADailyRefund = false,
         alwaysUseDaycareFinanceDecisionHandler = true,
-        invoiceNumberSeriesStart = 1,
         paymentNumberSeriesStart = null,
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,
