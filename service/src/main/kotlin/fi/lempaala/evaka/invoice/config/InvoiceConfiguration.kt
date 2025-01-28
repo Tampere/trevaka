@@ -173,6 +173,6 @@ enum class Product(val nameFi: String, val code: String) {
 
 class LempaalaInvoiceNumberProvider : InvoiceNumberProvider {
     override fun getNextInvoiceNumber(tx: Database.Read): Long = tx
-        .createQuery { sql("SELECT max(number) FROM invoice WHERE number < 5400042258") }
+        .createQuery { sql("SELECT max(number) FROM invoice WHERE number >= 54000001 AND number < 5400042258") }
         .exactlyOneOrNull<Long>()?.let { it + 1 } ?: 54000001
 }

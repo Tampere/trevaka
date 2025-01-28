@@ -99,7 +99,7 @@ class LempaalaInvoiceNumberTest : AbstractLempaalaIntegrationTest() {
     }
 
     @Test
-    fun `first invoice with new series start has correct number`() {
+    fun `first invoice with third series start has correct number`() {
         val invoices = db.transaction { tx ->
             val employee = DevEmployee(roles = setOf(UserRole.FINANCE_ADMIN)).also { tx.insert(it) }
             val clock = MockEvakaClock(HelsinkiDateTime.of(LocalDate.of(2025, 1, 7), LocalTime.of(12, 34)))
@@ -107,7 +107,19 @@ class LempaalaInvoiceNumberTest : AbstractLempaalaIntegrationTest() {
             tx.insert(
                 DevInvoice(
                     status = InvoiceStatus.SENT,
-                    number = 5400042258, // old series start
+                    number = 1, // first series start
+                    invoiceDate = LocalDate.of(2024, 11, 11),
+                    dueDate = LocalDate.of(2024, 11, 25),
+                    periodStart = LocalDate.of(2024, 10, 1),
+                    periodEnd = LocalDate.of(2024, 10, 31),
+                    headOfFamilyId = headOfFamilyId,
+                    areaId = AreaId(UUID.fromString("e23ed34d-1b35-48f0-b9a5-252d633be5b9")),
+                ),
+            )
+            tx.insert(
+                DevInvoice(
+                    status = InvoiceStatus.SENT,
+                    number = 5400042258, // second series start
                     invoiceDate = LocalDate.of(2024, 12, 9),
                     dueDate = LocalDate.of(2024, 12, 23),
                     periodStart = LocalDate.of(2024, 11, 1),
