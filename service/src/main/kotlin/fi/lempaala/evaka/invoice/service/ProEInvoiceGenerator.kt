@@ -75,10 +75,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val prope
         )
         invoiceData.setAlphanumericValue(InvoiceFieldName.PRINTING_DATE, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CREDIT_NOTE_INVOICE_NUMBER, "")
-        invoiceData.setAlphanumericValue(
-            InvoiceFieldName.INVOICE_NUMBER,
-            if (invoiceDetailed.number != null) invoiceDetailed.number.toString() else "",
-        )
+        invoiceData.setAlphanumericValue(InvoiceFieldName.INVOICE_NUMBER, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.REFERENCE_NUMBER, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.PARTNER_CODE, "1000")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CURRENCY, "")
