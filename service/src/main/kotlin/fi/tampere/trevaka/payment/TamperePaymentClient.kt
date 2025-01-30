@@ -9,10 +9,10 @@ import fi.espoo.evaka.invoicing.domain.Payment
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.shared.db.Database
 import fi.tampere.messages.ipaas.commontypes.v1.SimpleAcknowledgementResponseType
-import fi.tampere.messages.sapfico.payableaccounting.v06.Invoice
-import fi.tampere.messages.sapfico.payableaccounting.v06.PayableAccounting
-import fi.tampere.messages.sapfico.payableaccounting.v06.PayableAccountingHeader
-import fi.tampere.messages.sapfico.payableaccounting.v06.PayableAccountingLine
+import fi.tampere.messages.sapfico.payableaccounting.v07.Invoice
+import fi.tampere.messages.sapfico.payableaccounting.v07.PayableAccounting
+import fi.tampere.messages.sapfico.payableaccounting.v07.PayableAccountingHeader
+import fi.tampere.messages.sapfico.payableaccounting.v07.PayableAccountingLine
 import fi.tampere.services.sapfico.payableaccounting.v1.SendPayableAccountingRequest
 import fi.tampere.trevaka.PaymentProperties
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -50,6 +50,8 @@ class TamperePaymentClient(
 
     private fun toInvoice(payment: Payment): Invoice {
         val value = payment.amount.centsToEuros()
+        val costCenter = payment.unit.costCenter?.trim()?.ifEmpty { null }
+        val number = payment.number?.toString()
         return Invoice().apply {
             payableAccountingHeader = PayableAccountingHeader().apply {
                 sapVendor = payment.unit.providerId
@@ -60,7 +62,7 @@ class TamperePaymentClient(
                 date = payment.period.end?.format()
                 receiptType = "6F"
                 debetKredit = "-"
-                reference = payment.number?.toBigInteger()
+                reference = costCenter?.let { "${it}_$number" } ?: number
                 currency = "EUR"
                 description = "Varhaiskasvatus"
                 billingDate = payment.paymentDate?.format()
@@ -72,7 +74,7 @@ class TamperePaymentClient(
             payableAccountingLine.add(
                 PayableAccountingLine().apply {
                     account = "440100"
-                    costCenter = "131111"
+                    this.costCenter = "131111"
                     profitCenter = "131111"
                     internalOrder = with(payment.unit.careType) {
                         when {

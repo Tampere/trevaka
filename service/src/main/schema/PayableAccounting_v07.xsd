@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!--File PayableAccounting_v06.xsd, application TAM_SAPFICO_Ostoreskontra_Service--><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tampere.fi/messages/sapfico/payableaccounting/v06" xmlns="http://www.tampere.fi/messages/sapfico/payableaccounting/v06">
+<?xml version="1.0" encoding="UTF-8"?><!--File PayableAccounting_v07.xsd, application TAM_SAPFICO_Ostoreskontra_Service--><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tampere.fi/messages/sapfico/payableaccounting/v07" xmlns="http://www.tampere.fi/messages/sapfico/payableaccounting/v07">
   <xsd:element name="PayableAccounting">
     <xsd:complexType>
       <xsd:sequence>
@@ -54,7 +54,7 @@
   <xsd:element name="Date" type="xsd:NMTOKEN"/>
   <xsd:element name="Year" type="xsd:integer"/>
   <xsd:element name="ReceiptType" type="xsd:NMTOKEN"/>
-  <xsd:element name="Reference" type="xsd:integer"/>
+  <xsd:element name="Reference" type="xsd:string"/>
   <xsd:element name="Currency" type="xsd:NCName"/>
   <xsd:element name="BillingDate" type="xsd:NMTOKEN"/>
   <xsd:element name="BillNumber" type="xsd:integer"/>
