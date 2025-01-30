@@ -25,7 +25,7 @@ beforeEach(async () => {
   await page.goto(config.enduserUrl)
   await enduserLogin(page, adult)
   header = new CitizenHeader(page)
-  incomePage = new CitizenIncomePage(page)
+  incomePage = new CitizenIncomePage(page, 'desktop')
 })
 afterEach(async () => {
   await page.close()
