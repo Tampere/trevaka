@@ -110,6 +110,7 @@ internal val testPayment = Payment(
         iban = "FIxx xxxx xxxx xx",
         providerId = "81591",
         careType = setOf(CareType.CENTRE),
+        costCenter = null,
     ),
     number = 134910,
     period = DateRange.ofMonth(2024, Month.JULY),
