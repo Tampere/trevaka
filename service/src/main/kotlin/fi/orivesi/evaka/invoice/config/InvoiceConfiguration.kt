@@ -10,6 +10,7 @@ import fi.espoo.evaka.invoicing.domain.IncomeType
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.espoo.evaka.invoicing.service.*
 import fi.espoo.evaka.placement.PlacementType
+import fi.espoo.evaka.shared.db.Database
 import fi.orivesi.evaka.OrivesiProperties
 import fi.orivesi.evaka.invoice.service.OrivesiInvoiceIntegrationClient
 import fi.orivesi.evaka.invoice.service.ProEInvoiceGenerator
@@ -48,7 +49,7 @@ class InvoiceConfiguration {
     fun invoiceGenerationLogicChooser() = DefaultInvoiceGenerationLogic
 
     @Bean
-    fun invoiceNumberProvider(): InvoiceNumberProvider = DefaultInvoiceNumberProvider(54000001)
+    fun invoiceNumberProvider(): InvoiceNumberProvider = OrivesiInvoiceNumberProvider()
 }
 
 class OrivesiIncomeTypesProvider : IncomeTypesProvider {
@@ -168,4 +169,10 @@ enum class Product(val nameFi: String, val code: String) {
     ;
 
     val key = ProductKey(this.name)
+}
+
+class OrivesiInvoiceNumberProvider : InvoiceNumberProvider {
+    override fun getNextInvoiceNumber(tx: Database.Read): Long = tx
+        .createQuery { sql("SELECT max(number) FROM invoice WHERE number >= 30000001 AND number < 54000001") }
+        .exactlyOneOrNull<Long>()?.let { it + 1 } ?: 30000001
 }
