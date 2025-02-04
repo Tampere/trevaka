@@ -48,7 +48,7 @@ class InvoiceConfiguration {
     fun invoiceGenerationLogicChooser() = DefaultInvoiceGenerationLogic
 
     @Bean
-    fun invoiceNumberProvider(): InvoiceNumberProvider = DefaultInvoiceNumberProvider(53000001)
+    fun invoiceNumberProvider(): InvoiceNumberProvider = DefaultInvoiceNumberProvider(53089798)
 }
 
 class PirkkalaIncomeTypesProvider : IncomeTypesProvider {
