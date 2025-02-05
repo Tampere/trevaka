@@ -43,7 +43,7 @@ class YlojarviConfig {
         maxContractDaySurplusThreshold = null,
         useContractDaysAsDailyFeeDivisor = true,
         assistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
-        preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
+        preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
         requestedStartUpperLimit = 14,
         postOffice = "YLÖJÄRVI",
         municipalMessageAccountName = "Ylöjärven kaupunki",
