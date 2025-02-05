@@ -16,7 +16,7 @@ const featureFlags: FeatureFlags = {
     serviceNeedOption: true
   },
   decisionDraftMultipleUnits: true,
-  urgencyAttachments: false,
+  urgencyAttachments: true,
   preschool: false,
   preparatory: false,
   assistanceActionOther: false,
