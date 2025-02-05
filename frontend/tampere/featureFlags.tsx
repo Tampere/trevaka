@@ -51,7 +51,9 @@ const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
-    aromiIntegration: true
+    aromiIntegration: true,
+    weakLogin: true,
+    employeeSfiLogin: true
   },
   staging: {
     ...prod,
