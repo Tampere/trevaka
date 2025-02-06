@@ -29,7 +29,8 @@ const en: DeepPartial<Translations> = {
         'An applicant for early childhood education applies for a place in a municipal day care centre or family day care, an outsourced service day care centre or a day care centre supported by a service voucher.',
       clubInfo:
         'With a club application one may apply for a place at municipal clubs or clubs supported by a service voucher.',
-      preschoolLabel: 'Enrolment in pre-primary education',
+      preschoolLabel:
+        'Applying for activities complementary to pre-primary education',
       preschoolInfo:
         'There are four hours of free pre-school education per day. In addition, supplementary activities, for which a fee is charged, can be applied for the child. An application for supplementary activities can be made when enrolling for pre-school education or as a separate application once education has started. The unit for supplementary activities cannot be selected in the application as it is always determined by the preschool unit. If a place in supplementary activities is applied for later, the need for pre-primary education will also be entered in the application.',
       preschoolDaycareInfo:
@@ -49,7 +50,7 @@ const en: DeepPartial<Translations> = {
         DAYCARE:
           'The child already has a place in early childhood education in Vesilahti. With this application you can apply for a transfer to another unit offering early childhood education in Vesilahti.',
         PRESCHOOL:
-          'The child already has a pre-school place. With this application, you can apply for activities that supplement preschool education or transfer to another unit that offers preschool education.'
+          'The child already has a pre-school place. With this application, you can apply for activities that supplement preschool education.'
       }
     },
     editor: {
@@ -138,6 +139,10 @@ const en: DeepPartial<Translations> = {
         }
       },
       heading: {
+        title: {
+          PRESCHOOL:
+            'Applying for activities complementary to pre-primary education'
+        },
         info: {
           DAYCARE: (
             <>
@@ -172,13 +177,6 @@ const en: DeepPartial<Translations> = {
           ),
           PRESCHOOL: (
             <>
-              <P>
-                In accordance with the Basic Education Act (Section 26 a §),
-                children must participate in pre-primary education or other
-                activities that achieve the goals of pre-primary education in
-                the year preceding the commencement of compulsory education.
-                Pre-primary education is free of charge.
-              </P>
               <P>
                 The decisions will be sent to the{' '}
                 <a
@@ -321,12 +319,9 @@ const en: DeepPartial<Translations> = {
           connectedDaycareInfo: (
             <>
               <P>
-                Pre-school education lasts for four hours a day, generally from
-                9 am to 1 pm. In addition, the child can participate in paid
-                supplementary activities in the mornings and in the afternoons.
-                Options for supplementary activities are supplementary early
-                childhood education in day care centres and pre-school clubs in
-                schools.
+                Pre-school education lasts for four hours a day. In addition,
+                the child can participate in paid supplementary activities in
+                the mornings and in the afternoons.
               </P>
               <P>
                 Further information about supplementary activities and client
@@ -424,13 +419,17 @@ const en: DeepPartial<Translations> = {
   },
   applicationsList: {
     title: `Applying for early childhood education${
-      preschoolEnabled ? ' and supplementary early childhood education' : ''
+      preschoolEnabled
+        ? ' and activities complementary to pre-primary education'
+        : ''
     }`,
     summary: (
       <P width="800px">
         The child&apos;s custodian can apply for early childhood education
-        {preschoolEnabled ? ', pre-primary education' : ''} and a club for the
-        child. Information about the custodian&apos;s children is automatically
+        {preschoolEnabled
+          ? ' and activities complementary to pre-primary education'
+          : ''}
+        . Information about the custodian&apos;s children is automatically
         retrieved from the Population data register for this view.
       </P>
     )
