@@ -137,6 +137,9 @@ const fi: DeepPartial<Translations> = {
         }
       },
       heading: {
+        title: {
+          PRESCHOOL: 'Hakeminen esiopetusta täydentävään varhaiskasvatukseen'
+        },
         info: {
           DAYCARE: (
             <>
@@ -169,12 +172,6 @@ const fi: DeepPartial<Translations> = {
           ),
           PRESCHOOL: (
             <>
-              <P>
-                Perusopetuslain (26 a §) mukaan lasten on oppivelvollisuuden
-                alkamista edeltävänä vuonna osallistuttava vuoden kestävään
-                esiopetukseen tai muuhun esiopetuksen tavoitteet saavuttavaan
-                toimintaan. Esiopetus on maksutonta.
-              </P>
               <P>
                 Päätökset tulevat{' '}
                 <a
@@ -312,9 +309,7 @@ const fi: DeepPartial<Translations> = {
               <P>
                 Esiopetusaika on neljä tuntia päivässä. Esiopetuksen lisäksi
                 lapsi voi osallistua maksulliseen täydentävään toimintaan
-                aamuisin ja iltapäivisin. Täydentävän toiminnan vaihtoehtoina
-                ovat päiväkodeissa annettava täydentävä varhaiskasvatus ja
-                kouluilla annettava esiopetuksen kerho.
+                aamuisin ja iltapäivisin.
               </P>
               <P>
                 Lisätietoa täydentävästä toiminnasta ja asiakasmaksuista{' '}
@@ -407,13 +402,16 @@ const fi: DeepPartial<Translations> = {
   },
   applicationsList: {
     title: `Hakeminen varhaiskasvatukseen${
-      preschoolEnabled ? ' ja täydentävään esiopetukseen' : ''
+      preschoolEnabled ? ' ja esiopetusta täydentävään esiopetukseen' : ''
     }`,
     summary: (
       <P width="800px">
         Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen
-        {preschoolEnabled ? ' ja esiopetukseen' : ''}. Huoltajan lasten tiedot
-        haetaan tähän näkymään automaattisesti Väestötietojärjestelmästä.
+        {preschoolEnabled
+          ? ' ja esiopetusta täydentävään varhaiskasvatukseen'
+          : ''}
+        . Huoltajan lasten tiedot haetaan tähän näkymään automaattisesti
+        Väestötietojärjestelmästä.
       </P>
     )
   },
