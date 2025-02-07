@@ -14,6 +14,7 @@ import { DeepPartial } from 'lib-customizations/types'
 import featureFlags from '../ylojarvi/featureFlags'
 
 export const preschoolEnabled = featureFlags.preschool
+export const serviceApplicationsEnabled = featureFlags.serviceApplications
 
 const customerContactText = function () {
   return (
@@ -438,8 +439,9 @@ const fi: DeepPartial<Translations> = {
         `hyväksyä lapsesi varhaiskasvatus-${
           preschoolEnabled ? '  tai esiopetus' : ''
         }paikan`,
+        serviceApplicationsEnabled ? 'muuttaa lapsesi palveluntarvetta' : '',
         'irtisanoa lapsen varhaiskasvatuspaikan.'
-      ]
+      ].filter((s) => s.length > 0)
     },
     login: {
       infoBoxText: (

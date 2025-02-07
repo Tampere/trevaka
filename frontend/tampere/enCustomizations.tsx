@@ -15,7 +15,10 @@ import { Gap } from 'lib-components/white-space'
 import { Translations } from 'lib-customizations/citizen'
 import { DeepPartial } from 'lib-customizations/types'
 
-import { preschoolEnabled } from './fiCustomizations'
+import {
+  preschoolEnabled,
+  serviceApplicationsEnabled
+} from './fiCustomizations'
 
 const customerContactText = function () {
   return (
@@ -468,12 +471,15 @@ const en: DeepPartial<Translations> = {
         `view pictures and other documents related to your child’s early childhood${
           preschoolEnabled ? ' and pre-primary' : ''
         }`,
-        "report your or your child's income information",
-        `accept your child's early childhood${
+        'report your or your child’s income information',
+        `accept your child’s early childhood${
           preschoolEnabled ? ', pre-primary' : ''
         } or club place`,
-        "terminate your child's early childhood or club place."
-      ]
+        serviceApplicationsEnabled
+          ? 'change your child’s need for services'
+          : '',
+        'terminate your child’s early childhood or club place.'
+      ].filter((s) => s.length > 0)
     },
     login: {
       infoBoxText: (
