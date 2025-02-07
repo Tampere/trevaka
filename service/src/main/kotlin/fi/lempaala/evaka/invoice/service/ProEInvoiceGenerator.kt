@@ -62,7 +62,8 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val prope
         invoiceData.setAlphanumericValue(InvoiceFieldName.PRINTING_METHOD, "K")
         invoiceData.setAlphanumericValue(
             InvoiceFieldName.INVOICE_DATE,
-            invoiceDetailed.invoiceDate.format(invoiceDateFormatter),
+            invoiceDetailed.sentAt?.toLocalDateTime()?.format(invoiceDateFormatter) ?: LocalDate.now()
+                .format(invoiceDateFormatter),
         )
         invoiceData.setAlphanumericValue(
             InvoiceFieldName.DUE_DATE,
@@ -70,8 +71,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val prope
         )
         invoiceData.setAlphanumericValue(
             InvoiceFieldName.ACCOUNTING_DATE,
-            invoiceDetailed.sentAt?.toLocalDateTime()?.format(invoiceDateFormatter) ?: LocalDate.now()
-                .format(invoiceDateFormatter),
+            invoiceDetailed.invoiceDate.format(invoiceDateFormatter),
         )
         invoiceData.setAlphanumericValue(InvoiceFieldName.PRINTING_DATE, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CREDIT_NOTE_INVOICE_NUMBER, "")
