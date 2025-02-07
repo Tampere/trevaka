@@ -9,6 +9,26 @@ parameters:
     type: enum
     enum: ["build", "deploy"]
     default: build
+  # deploy parameters:
+  municipality:
+    type: enum
+    enum:
+      - all
+      - tampere
+      - vesilahti
+      - hameenkyro
+      - nokia
+      - ylojarvi
+      - pirkkala
+      - kangasala
+      - lempaala
+      - orivesi
+    default: all
+  environment:
+    type: enum
+    enum: ["all", "dev", "test", "prod"]
+    default: all
+  # version parameter is also supported by build workflow, if needed
   version:
     type: string
     default: << pipeline.git.revision >>
@@ -477,6 +497,8 @@ workflows:
             - and:
                 - equal: [build, << pipeline.parameters.workflow >>]
                 - equal: [main, << pipeline.git.branch >>]
+        - equal: [all, << pipeline.parameters.municipality >>]
+        - equal: [all, << pipeline.parameters.environment >>]
         - not:
             equal: [scheduled_pipeline, << pipeline.trigger_source >>]
     jobs:
@@ -639,4 +661,33 @@ workflows:
             - << matrix.municipality >>_prod_frontends
           municipality: << matrix.municipality >>
           environment: prod
+          version: << pipeline.parameters.version >>
+  deploy_env:
+    when:
+      and:
+        - equal: [deploy, << pipeline.parameters.workflow >>]
+        - not:
+            equal: [all, << pipeline.parameters.municipality >>]
+        - not:
+            equal: [all, << pipeline.parameters.environment >>]
+        - not:
+            equal: [scheduled_pipeline, << pipeline.trigger_source >>]
+    jobs:
+      - deploy_frontends:
+          name: << pipeline.parameters.municipality >>_<< pipeline.parameters.environment >>_frontends
+          context:
+            - trevaka-aws
+            - << pipeline.parameters.municipality >>-evaka-<< pipeline.parameters.environment >>
+          municipality: << pipeline.parameters.municipality >>
+          environment: << pipeline.parameters.environment >>
+          version: << pipeline.parameters.version >>
+      - deploy_backends:
+          name: << pipeline.parameters.municipality >>_<< pipeline.parameters.environment >>_backends
+          context:
+            - trevaka-aws
+            - << pipeline.parameters.municipality >>-evaka-<< pipeline.parameters.environment >>
+          requires:
+            - << pipeline.parameters.municipality >>_<< pipeline.parameters.environment >>_frontends
+          municipality: << pipeline.parameters.municipality >>
+          environment: << pipeline.parameters.environment >>
           version: << pipeline.parameters.version >>
