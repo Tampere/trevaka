@@ -423,7 +423,7 @@ const fi: DeepPartial<Translations> = {
       </P>
     ),
     type: {
-      PRESCHOOL: 'Esiopetusta täydentävä varhaiskasvatushakemus'
+      PRESCHOOL: 'Esiopetusta täydentävän varhaiskasvatuksen hakemus'
     }
   },
   children: {
