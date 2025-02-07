@@ -67,6 +67,10 @@ const en: DeepPartial<Translations> = {
         )
       },
       verification: {
+        title: {
+          PRESCHOOL:
+            'Verifying the activities complementary to pre-primary education application'
+        },
         serviceNeed: {
           connectedDaycare: {
             label: 'Activities supplementing pre-primary education',
@@ -435,7 +439,10 @@ const en: DeepPartial<Translations> = {
         . Information about the custodian&apos;s children is automatically
         retrieved from the Population data register for this view.
       </P>
-    )
+    ),
+    type: {
+      PRESCHOOL: 'Activities complementary to pre-primary education application'
+    }
   },
   children: {
     pageDescription:
@@ -515,6 +522,8 @@ const en: DeepPartial<Translations> = {
     searchPlaceholder: 'E.g. Amurin päiväkoti'
   },
   decisions: {
+    childhoodEducationTitle:
+      'Decisions regarding child’s early childhood education, activities complementary to pre-primary education and clubs',
     summary: (
       <P width="800px">
         This page displays the received decisions regarding your child.
