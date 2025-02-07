@@ -19,6 +19,8 @@ import fi.espoo.evaka.invoicing.service.ProductWithName
 import fi.espoo.evaka.placement.PlacementType
 import fi.espoo.evaka.shared.ChildId
 import fi.espoo.evaka.shared.db.Database
+import fi.espoo.evaka.shared.domain.FiniteDateRange
+import fi.espoo.evaka.shared.domain.getHolidays
 import fi.tampere.trevaka.SummertimeAbsenceProperties
 import fi.tampere.trevaka.TampereProperties
 import fi.tampere.trevaka.invoice.service.TampereInvoiceClient
@@ -34,6 +36,7 @@ import org.springframework.ws.soap.saaj.SaajSoapMessageFactory
 import org.springframework.ws.transport.http.HttpComponents5MessageSender
 import trevaka.ipaas.newIpaasHttpClient
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.YearMonth
 
 const val WEB_SERVICE_TEMPLATE_INVOICE = "webServiceTemplateInvoice"
@@ -227,8 +230,59 @@ class TampereInvoiceGeneratorLogicChooser(
     private val properties: SummertimeAbsenceProperties,
 ) : InvoiceGenerationLogicChooser {
 
-    override fun getFreeChildren(tx: Database.Read, month: YearMonth, childIds: Set<ChildId>): Set<ChildId> = when {
-        month.month == properties.freeMonth -> throw UnsupportedOperationException("Not implemented yet")
-        else -> emptySet()
+    override fun getFreeChildren(tx: Database.Read, month: YearMonth, childIds: Set<ChildId>): Set<ChildId> {
+        val holidays = getHolidays(FiniteDateRange(LocalDate.of(month.year, 1, 1), LocalDate.of(month.year, 12, 31)))
+        return when {
+            properties.freeMonth == month.month -> tx.freeSummerAbsenceChildren(month, childIds, holidays)
+            else -> emptySet()
+        }
+    }
+
+    private fun Database.Read.freeSummerAbsenceChildren(month: YearMonth, childIds: Set<ChildId>, holidays: Set<LocalDate>): Set<ChildId> {
+        // language=SQL
+        val sql =
+            """
+WITH holidays AS (SELECT day FROM unnest(:holidays::date[]) day)
+SELECT candidate as child_id FROM unnest(:childIds::uuid[]) candidate
+WHERE EXISTS(
+    SELECT 1
+    FROM holiday_period_questionnaire hpq
+    WHERE
+        hpq.absence_type = 'FREE_ABSENCE'
+      AND date_part('year', upper(hpq.active) - interval '1 day') = :year
+      AND EXISTS(
+        SELECT count(a.id), period
+        FROM
+            absence a
+                JOIN placement pl ON pl.child_id = a.child_id AND daterange(pl.start_date, pl.end_date, '[]') @> a.date
+                JOIN daycare dc ON dc.id = pl.unit_id,
+            unnest(hpq.period_options) period
+        WHERE
+            a.absence_type = 'FREE_ABSENCE'
+          AND a.child_id = candidate
+          AND period @> a.date
+          AND a.date NOT IN (SELECT day FROM holidays)
+          AND date_part('isodow', a.date) = ANY(dc.operation_days)
+        GROUP BY period
+        HAVING count(a.id) >= (
+            SELECT count(*)
+            FROM
+                placement pl
+                    JOIN daycare dc ON dc.id = pl.unit_id,
+                generate_series(lower(period), upper(period) - interval '1 day', interval '1 day') period_date
+            WHERE
+                pl.child_id = candidate
+              AND period_date NOT IN (SELECT day FROM holidays)
+              AND daterange(pl.start_date, pl.end_date, '[]') @> period_date::date
+              AND date_part('isodow', period_date) = ANY(dc.operation_days)
+        )
+    )
+)
+            """.trimIndent()
+        return createQuery { sql(sql) }
+            .bind("year", month.year)
+            .bind("childIds", childIds)
+            .bind("holidays", holidays)
+            .toSet<ChildId>()
     }
 }
