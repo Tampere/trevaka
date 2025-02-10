@@ -42,7 +42,8 @@ const prod: FeatureFlags = {
   discussionReservations: true,
   jamixIntegration: true,
   serviceApplications: true,
-  multiSelectDeparture: true
+  multiSelectDeparture: true,
+  employeeSfiLogin: true
 }
 
 const features: Features = {

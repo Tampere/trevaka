@@ -36,7 +36,8 @@ const featureFlags: FeatureFlags = {
   discussionReservations: true,
   jamixIntegration: true,
   serviceApplications: true,
-  multiSelectDeparture: true
+  multiSelectDeparture: true,
+  employeeSfiLogin: true
 }
 
 export default featureFlags
