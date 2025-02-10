@@ -83,6 +83,8 @@ module "app_apigw" {
     EVAKA_CUSTOMER_SAML_PUBLIC_CERT  = "/home/evaka/s3/${coalesce(var.apigw_auth_certificate, "auth.crt")}"
     EVAKA_CUSTOMER_SAML_PRIVATE_CERT = "/home/evaka/s3/${coalesce(var.apigw_auth_citizens_key, "apigw.key")}"
 
+    CITIZEN_WEAK_LOGIN_RATE_LIMIT = 5
+
     DIGITRANSIT_API_URL = "https://api.digitransit.fi"
 
     # internal
