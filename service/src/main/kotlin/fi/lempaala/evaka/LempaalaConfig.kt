@@ -92,7 +92,7 @@ class LempaalaConfig {
     @Bean
     fun passwordSpecification(): PasswordSpecification = DefaultPasswordSpecification(
         PasswordConstraints.UNCONSTRAINED.copy(
-            minLength = 8,
+            minLength = 10,
             minLowers = 1,
             minUppers = 1,
             minDigits = 1,
