@@ -33,7 +33,7 @@ const en: DeepPartial<Translations> = {
       clubInfo:
         'With a club application one may apply for a place at municipal clubs or clubs supported by a service voucher.',
       preschoolLabel:
-        'Applying for activities complementary to pre-primary education',
+        'Applying for activities supplementing pre-primary education',
       preschoolInfo:
         'There are four hours of free pre-school education per day. In addition, supplementary activities, for which a fee is charged, can be applied for the child. An application for supplementary activities can be made when enrolling for pre-school education or as a separate application once education has started. The unit for supplementary activities cannot be selected in the application as it is always determined by the preschool unit. If a place in supplementary activities is applied for later, the need for pre-primary education will also be entered in the application.',
       preschoolDaycareInfo:
@@ -67,6 +67,10 @@ const en: DeepPartial<Translations> = {
         )
       },
       verification: {
+        title: {
+          PRESCHOOL:
+            'Verifying the application for activities supplementing pre-primary education'
+        },
         serviceNeed: {
           connectedDaycare: {
             label: 'Activities supplementing pre-primary education',
@@ -144,7 +148,7 @@ const en: DeepPartial<Translations> = {
       heading: {
         title: {
           PRESCHOOL:
-            'Applying for activities complementary to pre-primary education'
+            'Applying for activities supplementing pre-primary education'
         },
         info: {
           DAYCARE: (
@@ -423,19 +427,23 @@ const en: DeepPartial<Translations> = {
   applicationsList: {
     title: `Applying for early childhood education${
       preschoolEnabled
-        ? ' and activities complementary to pre-primary education'
+        ? ' and activities supplementing pre-primary education'
         : ''
     }`,
     summary: (
       <P width="800px">
         The child&apos;s custodian can apply for early childhood education
         {preschoolEnabled
-          ? ' and activities complementary to pre-primary education'
+          ? ' and activities supplementing pre-primary education'
           : ''}
         . Information about the custodian&apos;s children is automatically
         retrieved from the Population data register for this view.
       </P>
-    )
+    ),
+    type: {
+      PRESCHOOL:
+        'Application for activities supplementing pre-primary education'
+    }
   },
   children: {
     pageDescription:
@@ -515,6 +523,8 @@ const en: DeepPartial<Translations> = {
     searchPlaceholder: 'E.g. Amurin päiväkoti'
   },
   decisions: {
+    childhoodEducationTitle:
+      'Decisions regarding child’s early childhood education, activities supplementing pre-primary education and clubs',
     summary: (
       <P width="800px">
         This page displays the received decisions regarding your child.

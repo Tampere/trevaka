@@ -34,9 +34,9 @@ const fi: DeepPartial<Translations> = {
         'Kerhohakemuksella haetaan paikkaa kunnallisista tai palvelusetelillä tuetuista kerhoista.',
       preschoolLabel: 'Esiopetusta täydentävään varhaiskasvatukseen hakeminen',
       preschoolInfo:
-        'Maksutonta esiopetusta on neljä tuntia päivässä. Tämän lisäksi lapselle voidaan hakea maksullista täydentävää toimintaa. Hakemuksen täydentävään toimintaan voi tehdä esiopetukseen ilmoittautumisen yhteydessä tai erillisenä hakemuksena opetuksen jo alettua. Täydentävän toiminnan paikkaa ei pysty hakemaan tietystä yksiköstä, vaan se määräytyy aina esiopetusyksikön mukaan. Mikäli täydentävän toiminnan paikkaa haetaan myöhemmin, hakemukselle merkitään myös esiopetuksen tarve.',
+        'Maksutonta esiopetusta on neljä tuntia päivässä. Tämän lisäksi lapselle voidaan hakea maksullista esiopetusta täydentävää varhaiskasvatusta. Hakemuksen esiopetusta täydentävään varhaiskasvatukseen voi tehdä esiopetukseen ilmoittautumisen yhteydessä tai erillisenä hakemuksena opetuksen jo alettua. Esiopetusta täydentävän varhaiskasvatuksen paikkaa ei pysty hakemaan tietystä yksiköstä, vaan se määräytyy aina esiopetusyksikön mukaan. Mikäli esiopetusta täydentävän varhaiskasvatuksen paikkaa haetaan myöhemmin, hakemukselle merkitään myös esiopetuksen tarve.',
       preschoolDaycareInfo:
-        'Täydentävän toiminnan hakeminen lapsille, jotka ilmoitetaan / on ilmoitettu esiopetukseen',
+        'Esiopetusta täydentävän varhaiskasvatuksen hakeminen lapsille, jotka ilmoitetaan / on ilmoitettu esiopetukseen',
       applicationInfo: (
         <P>
           Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa siihen asti,
@@ -51,7 +51,7 @@ const fi: DeepPartial<Translations> = {
         DAYCARE:
           'Lapsella on jo paikka Vesilahden varhaiskasvatuksessa. Tällä hakemuksella voit hakea siirtoa toiseen varhaiskasvatusta tarjoavaan yksikköön Vesilahdella.',
         PRESCHOOL:
-          'Lapsella on jo esiopetuspaikka. Tällä hakemuksella voit hakea esiopetusta täydentävää toimintaa.'
+          'Lapsella on jo esiopetuspaikka. Tällä hakemuksella voit hakea esiopetusta täydentävää varhaiskasvatusta.'
       }
     },
     editor: {
@@ -65,14 +65,19 @@ const fi: DeepPartial<Translations> = {
         )
       },
       verification: {
+        title: {
+          PRESCHOOL:
+            'Esiopetusta täydentävän varhaiskasvatushakemuksen tarkistaminen'
+        },
         serviceNeed: {
           connectedDaycare: {
-            label: 'Esiopetusta täydentävä toiminta',
-            withConnectedDaycare: 'Haen esiopetusta täydentävää toimintaa.'
+            label: 'Esiopetusta täydentävä varhaiskasvatus',
+            withConnectedDaycare:
+              'Haen esiopetusta täydentävää varhaiskasvatusta.'
           },
           startDate: {
             title: {
-              PRESCHOOL: 'Esiopetuksen aloitus'
+              PRESCHOOL: 'Esiopetusta täydentävän varhaiskasvatuksen aloitus'
             }
           }
         },
@@ -99,20 +104,21 @@ const fi: DeepPartial<Translations> = {
             PRESCHOOL: (
               <>
                 <P>
-                  Täydentävän varhaiskasvatuksen paikkaa voi hakea ympäri
-                  vuoden. Täydentävän varhaiskasvatuksen hakemus tulee jättää
-                  viimeistään neljä kuukautta ennen hoidon toivottua
-                  alkamisajankohtaa. Mikäli täydentävän varhaiskasvatuksen tarve
-                  johtuu työllistymisestä, opinnoista tai koulutuksesta, eikä
-                  hoidon tarpeen ajankohtaa ole pystynyt ennakoimaan, on paikkaa
-                  haettava mahdollisimman pian - kuitenkin viimeistään kaksi
-                  viikkoa ennen kuin lapsi tarvitsee hoitopaikan.
+                  Esiopetusta täydentävän varhaiskasvatuksen paikkaa voi hakea
+                  ympäri vuoden. Esiopetusta täydentävän varhaiskasvatuksen
+                  hakemus tulee jättää viimeistään neljä kuukautta ennen hoidon
+                  toivottua alkamisajankohtaa. Mikäli esiopetusta täydentävän
+                  varhaiskasvatuksen tarve johtuu työllistymisestä, opinnoista
+                  tai koulutuksesta, eikä hoidon tarpeen ajankohtaa ole pystynyt
+                  ennakoimaan, on paikkaa haettava mahdollisimman pian -
+                  kuitenkin viimeistään kaksi viikkoa ennen kuin lapsi tarvitsee
+                  hoitopaikan.
                 </P>
                 <P>
-                  Kirjallinen päätös täydentävän varhaiskasvatuksen paikasta
-                  lähetetään Suomi.fi-viestit -palveluun. Mikäli haluatte
-                  päätöksen sähköisenä tiedoksiantona, teidän tulee ottaa
-                  Suomi.fi-viestit -palvelu käyttöön. Palvelusta ja sen
+                  Kirjallinen päätös esiopetusta täydentävän varhaiskasvatuksen
+                  paikasta lähetetään Suomi.fi-viestit -palveluun. Mikäli
+                  haluatte päätöksen sähköisenä tiedoksiantona, teidän tulee
+                  ottaa Suomi.fi-viestit -palvelu käyttöön. Palvelusta ja sen
                   käyttöönotosta saatte lisätietoa{' '}
                   <ExternalLink
                     text="https://www.suomi.fi/viestit"
@@ -217,7 +223,7 @@ const fi: DeepPartial<Translations> = {
       serviceNeed: {
         startDate: {
           header: {
-            PRESCHOOL: 'Täydentävän esiopetuksen aloitus'
+            PRESCHOOL: 'Esiopetusta täydentävän varhaiskasvatuksen aloitus'
           },
           instructions: {
             DAYCARE: (
@@ -258,7 +264,7 @@ const fi: DeepPartial<Translations> = {
         },
         shiftCare: {
           instructions:
-            'Mikäli lapsi tarvitsee esiopetuksen lisäksi ilta-/vuorohoitoa, hänet pitää ilmoittaa ilta- tai vuorohoidon esiopetukseen. Lisäksi täydentäväksi toiminnaksi on lapselle valittava täydentävä varhaiskasvatus, yli 5h päivässä. Päiväkodit palvelevat normaalisti arkisin klo 6.00–18.00. Iltahoito on tarkoitettu lapsille, jotka vanhempien työn tai tutkintoon johtavan opiskelun vuoksi tarvitsevat säännöllisesti hoitoa klo 18.00 jälkeen. Iltahoitoa tarjoavat päiväkodit aukeavat tarvittaessa klo 5.30 ja menevät kiinni viimeistään klo 22.30. Osa iltahoitoa antavista päiväkodeista on auki myös viikonloppuisin. Vuorohoito on tarkoitettu niille lapsille, joiden vanhemmat tekevät vuorotyötä ja lapsen hoitoon sisältyy myös öitä.',
+            'Mikäli lapsi tarvitsee esiopetuksen lisäksi ilta-/vuorohoitoa, hänet pitää ilmoittaa ilta- tai vuorohoidon esiopetukseen. Lisäksi esiopetusta täydentäväksi varhaiskasvatukseksi on lapselle valittava täydentävä varhaiskasvatus, yli 5h päivässä. Päiväkodit palvelevat normaalisti arkisin klo 6.00–18.00. Iltahoito on tarkoitettu lapsille, jotka vanhempien työn tai tutkintoon johtavan opiskelun vuoksi tarvitsevat säännöllisesti hoitoa klo 18.00 jälkeen. Iltahoitoa tarjoavat päiväkodit aukeavat tarvittaessa klo 5.30 ja menevät kiinni viimeistään klo 22.30. Osa iltahoitoa antavista päiväkodeista on auki myös viikonloppuisin. Vuorohoito on tarkoitettu niille lapsille, joiden vanhemmat tekevät vuorotyötä ja lapsen hoitoon sisältyy myös öitä.',
           attachmentsMessage: {
             DAYCARE: (
               <P>
@@ -302,18 +308,19 @@ const fi: DeepPartial<Translations> = {
         dailyTime: {
           label: {
             DAYCARE: 'Palveluntarve',
-            PRESCHOOL: 'Esiopetusta täydentävä toiminta'
+            PRESCHOOL: 'Esiopetusta täydentävä varhaiskasvatus'
           },
-          connectedDaycare: 'Haen esiopetusta täydentävää toimintaa.',
+          connectedDaycare: 'Haen esiopetusta täydentävää varhaiskasvatusta',
           connectedDaycareInfo: (
             <>
               <P>
                 Esiopetusaika on neljä tuntia päivässä. Esiopetuksen lisäksi
-                lapsi voi osallistua maksulliseen täydentävään toimintaan
-                aamuisin ja iltapäivisin.
+                lapsi voi osallistua maksulliseen esiopetusta täydentäväään
+                varhaiskasvatukseen aamuisin ja iltapäivisin.
               </P>
               <P>
-                Lisätietoa täydentävästä toiminnasta ja asiakasmaksuista{' '}
+                Lisätietoa esiopetusta täydentävästä varhaiskasvatuksesta ja
+                asiakasmaksuista{' '}
                 <ExternalLink
                   href="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/iltapaivatoiminta/"
                   text="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/iltapaivatoiminta/"
@@ -363,11 +370,11 @@ const fi: DeepPartial<Translations> = {
           ),
           PRESCHOOL: (
             <P>
-              Esiopetus on maksutonta, mutta sitä täydentävä toiminta on
+              Esiopetus on maksutonta, mutta sitä täydentävä varhaiskasvatus on
               maksullista. Jos lapsi osallistuu esiopetusta täydentävään
-              toimintaan, perhe toimittaa tuloselvityksen bruttotuloistaan
-              tuloselvityslomakkeella viimeistään kahden viikon kuluessa siitä,
-              kun lapsi on aloittanut esiopetuksen.
+              varhaiskasvatukseen, perhe toimittaa tuloselvityksen
+              bruttotuloistaan tuloselvityslomakkeella viimeistään kahden viikon
+              kuluessa siitä, kun lapsi on aloittanut esiopetuksen.
             </P>
           )
         },
@@ -403,7 +410,7 @@ const fi: DeepPartial<Translations> = {
   },
   applicationsList: {
     title: `Hakeminen varhaiskasvatukseen${
-      preschoolEnabled ? ' ja esiopetusta täydentävään esiopetukseen' : ''
+      preschoolEnabled ? ' ja esiopetusta täydentävään varhaiskasvatukseen' : ''
     }`,
     summary: (
       <P width="800px">
@@ -414,7 +421,10 @@ const fi: DeepPartial<Translations> = {
         . Huoltajan lasten tiedot haetaan tähän näkymään automaattisesti
         Väestötietojärjestelmästä.
       </P>
-    )
+    ),
+    type: {
+      PRESCHOOL: 'Esiopetusta täydentävän varhaiskasvatuksen hakemus'
+    }
   },
   children: {
     pageDescription:
@@ -490,6 +500,8 @@ const fi: DeepPartial<Translations> = {
     searchPlaceholder: 'Esim. Peiponpellon päiväkoti'
   },
   decisions: {
+    childhoodEducationTitle:
+      'Varhaiskasvatukseen, esiopetusta täydentävään varhaiskasvatukseen ja kerhoon liittyvät päätökset',
     summary: (
       <P width="800px">
         Tälle sivulle saapuvat kaikki lasta koskevat päätökset.
@@ -497,22 +509,22 @@ const fi: DeepPartial<Translations> = {
     ),
     applicationDecisions: {
       type: {
-        PRESCHOOL_DAYCARE: 'täydentävästä varhaiskasvatuksesta'
+        PRESCHOOL_DAYCARE: 'esiopetusta täydentävästä varhaiskasvatuksesta'
       },
       confirmationInfo: {
         preschool:
-          'Esiopetuspaikka ja/tai esiopetusta täydentävän toiminnan paikka tulee vastaanottaa tai hylätä viipymättä, viimeistään kahden viikon kuluessa päätöksen tiedoksisaannista. Mikäli olet hakenut sekä esiopetukseen että esiopetusta täydentävään toimintaan, saat molemmista erilliset päätökset.'
+          'Esiopetuspaikka ja/tai esiopetusta täydentävän varhaiskasvatuksen paikka tulee vastaanottaa tai hylätä viipymättä, viimeistään kahden viikon kuluessa päätöksen tiedoksisaannista. Mikäli olet hakenut sekä esiopetukseen että esiopetusta täydentävään varhaiskasvatukseen, saat molemmista erilliset päätökset.'
       },
       summary:
         'Päätöksessä ilmoitettu paikka tulee vastaanottaa tai hylätä viipymättä, viimeistään kahden viikon kuluessa päätöksen tiedoksisaannista.',
       warnings: {
         doubleRejectWarning: {
-          text: 'Olet hylkäämässä tarjotun esiopetuspaikan. Täydentävän toiminnan paikka merkitään samalla hylätyksi.'
+          text: 'Olet hylkäämässä tarjotun esiopetuspaikan. Esiopetusta täydentävän varhaiskasvatuksen paikka merkitään samalla hylätyksi.'
         }
       },
       response: {
         disabledInfo:
-          'HUOM! Pystyt vastaanottamaan / hylkäämään esiopetusta täydentävän toiminnan paikan vasta sen jälkeen, kun olet vastaanottanut esiopetuspaikan.'
+          'HUOM! Pystyt vastaanottamaan / hylkäämään esiopetusta täydentävän varhaiskasvatuksen paikan vasta sen jälkeen, kun olet vastaanottanut esiopetuspaikan.'
       }
     },
     assistanceDecisions: {
@@ -748,12 +760,12 @@ const fi: DeepPartial<Translations> = {
   },
   placement: {
     type: {
-      PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus',
-      PRESCHOOL_DAYCARE_ONLY: 'Täydentävä varhaiskasvatus',
+      PRESCHOOL_DAYCARE: 'Esiopetusta täydentävä varhaiskasvatus',
+      PRESCHOOL_DAYCARE_ONLY: 'Esiopetusta täydentävä varhaiskasvatus',
       PRESCHOOL_CLUB: 'Esiopetuksen kerho koululla klo 7-17',
       PREPARATORY_DAYCARE: 'Valmistava opetus',
       PREPARATORY_DAYCARE_ONLY: 'Valmistava opetus',
-      PRESCHOOL_WITH_DAYCARE: 'Täydentävä varhaiskasvatus',
+      PRESCHOOL_WITH_DAYCARE: 'Esiopetusta täydentävä varhaiskasvatus',
       PREPARATORY_WITH_DAYCARE: 'Valmistava opetus'
     }
   },
