@@ -75,6 +75,8 @@ tampere_job_export_units_acl_enabled = true
 tampere_job_plan_bi_export_jobs_enabled = true
 tampere_job_plan_bi_export_jobs_cron    = "0 0 1 * * *"
 
+tampere_summertime_absence_free_month = "JANUARY"
+
 # auth
 auth_count          = 1
 auth_internal_realm = "tampere"
