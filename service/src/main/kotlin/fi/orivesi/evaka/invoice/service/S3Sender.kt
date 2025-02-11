@@ -18,7 +18,7 @@ class S3Sender(private val s3Client: S3Client, private val properties: OrivesiPr
     fun send(content: String, now: HelsinkiDateTime) {
         val bucket = properties.bucket.export
         val municipalityCode = properties.invoice.municipalityCode
-        val invoiceType = properties.invoice.invoiceType
+        val invoiceType = "30"
         val timestamp = now.toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"))
         val fileName = "invoices/"
             .plus(municipalityCode)

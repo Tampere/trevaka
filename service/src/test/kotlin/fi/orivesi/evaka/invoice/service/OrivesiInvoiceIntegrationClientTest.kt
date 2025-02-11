@@ -39,7 +39,7 @@ class OrivesiInvoiceIntegrationClientTest : AbstractOrivesiIntegrationTest() {
             .returns(invoices) { it.succeeded }
             .returns(emptyList()) { it.failed }
             .returns(emptyList()) { it.manuallySent }
-        val data = getS3Object(properties.bucket.export, "invoices/562_54_202102011234.dat")
+        val data = getS3Object(properties.bucket.export, "invoices/562_30_202102011234.dat")
             .use { it.readAllBytes().toString(StandardCharsets.ISO_8859_1) }
         assertEquals(
             """310382-956DL  Bengtsson-Henriksson Tes Matilda Josefina                                                           Meikäläisenkuja 6 B 7         90100 OULU                                                                                                                              1   K202102042021030620220505                    1                            1000         54   Varhaiskasvatus 01.2021                                                                                                                                                                                                                                                                                      
