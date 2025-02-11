@@ -399,10 +399,8 @@ const fi: DeepPartial<Translations> = {
         dietInfo: (
           <>
             Erityisruokavaliosta huoltaja toimittaa varhaiskasvatus
-            {preschoolEnabled
-              ? ' tai esiopetuspaikkaan'
-              : 'paikkaan'} lääkärin tai ravitsemusterapeutin täyttämän ja
-            allekirjoittaman{' '}
+            {preschoolEnabled ? ' tai esiopetuspaikkaan' : 'paikkaan'} lääkärin
+            tai ravitsemusterapeutin täyttämän ja allekirjoittaman{' '}
             <ExternalLink
               href="https://www.tampere.fi/erityisruokavaliot"
               text="Selvitys erityisruokavaliosta -lomakkeen"
