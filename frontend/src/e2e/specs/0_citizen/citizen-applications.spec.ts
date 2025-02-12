@@ -113,8 +113,8 @@ describe('Citizen applications page', () => {
     const preferredStartDate = new DatePicker(page.findByDataQa('preferredStartDate-input'))
     await preferredStartDate.fill(mockedDate.format())
     await editorPage.setCheckbox('urgent', true)
-    // Missing Fileupload for urgent application attachments
-    await page.find('[data-qa="urgent-file-upload"]').waitUntilHidden()
+    // Visible Fileupload for urgent application attachments
+    await page.find('[data-qa="urgent-file-upload"]').waitUntilVisible()
     // Check service need options (order, it is working, aso.)
     const partTimeRadio = page.find('[data-qa="partTime-input-true"]')
     const fullTimeRadio = page.find('[data-qa="partTime-input-false"]')
