@@ -26,7 +26,7 @@ const prod: FeatureFlags = {
     serviceNeedOption: true
   },
   decisionDraftMultipleUnits: true,
-  urgencyAttachments: false,
+  urgencyAttachments: true,
   preschool: true,
   preparatory: false,
   assistanceActionOther: false,
@@ -45,6 +45,7 @@ const prod: FeatureFlags = {
   discussionReservations: true,
   serviceApplications: true,
   multiSelectDeparture: true,
+  requireAttachments: true,
   employeeSfiLogin: true
 }
 
