@@ -44,7 +44,8 @@ const prod: FeatureFlags = {
   extendedPreschoolTerm: false,
   discussionReservations: true,
   serviceApplications: true,
-  multiSelectDeparture: true
+  multiSelectDeparture: true,
+  employeeSfiLogin: true
 }
 
 const features: Features = {
@@ -52,8 +53,7 @@ const features: Features = {
     ...prod,
     environmentLabel: 'Test',
     aromiIntegration: true,
-    weakLogin: true,
-    employeeSfiLogin: true
+    weakLogin: true
   },
   staging: {
     ...prod,
