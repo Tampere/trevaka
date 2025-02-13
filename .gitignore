@@ -9,5 +9,6 @@
 .gradle_user_home
 
 /auth/theme/
+/mock/identification/
 
 **/.terraform/*
