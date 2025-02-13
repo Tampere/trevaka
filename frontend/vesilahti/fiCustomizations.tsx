@@ -846,6 +846,15 @@ const fi: DeepPartial<Translations> = {
     grossIncome: {
       otherIncomeDescription:
         'Mikäli sinulla on muita tuloja, tulee niistä toimittaa tositteet liitteenä.'
+    },
+    entrepreneurIncome: {
+      description: (
+        <>
+          Tällä lomakkeella voit tarvittaessa täyttää tiedot myös useammalle
+          yritykselle valitsemalla kaikkia yrityksiäsi koskevat kohdat. Toimita
+          tarkemmat yrityskohtaiset tiedot liitteinä.
+        </>
+      )
     }
   },
   calendar: {

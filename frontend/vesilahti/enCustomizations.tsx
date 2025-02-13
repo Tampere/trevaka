@@ -641,6 +641,16 @@ const en: DeepPartial<Translations> = {
     grossIncome: {
       otherIncomeDescription:
         'If you have other income, it must be itemised in an attachment.'
+    },
+    entrepreneurIncome: {
+      description: (
+        <>
+          If necessary, you can fill in the information for more than one
+          company by ticking the boxes that apply to all of your companies.
+          Please provide more detailed company-specific information as
+          attachments.
+        </>
+      )
     }
   },
   calendar: {
