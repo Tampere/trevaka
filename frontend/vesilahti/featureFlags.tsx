@@ -23,7 +23,7 @@ const prod: FeatureFlags = {
   },
   decisionDraftMultipleUnits: true,
   urgencyAttachments: true,
-  preschool: false,
+  preschool: true,
   preparatory: false,
   assistanceActionOther: false,
   financeDecisionHandlerSelect: true,
@@ -50,8 +50,7 @@ const prod: FeatureFlags = {
 const features: Features = {
   default: {
     ...prod,
-    environmentLabel: 'Test',
-    preschool: true
+    environmentLabel: 'Test'
   },
   prod
 }
