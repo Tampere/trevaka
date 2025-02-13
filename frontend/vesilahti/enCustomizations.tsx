@@ -637,7 +637,11 @@ const en: DeepPartial<Translations> = {
         </UnorderedList>
         <P>* The information denoted with an asterisk is mandatory.</P>
       </>
-    )
+    ),
+    grossIncome: {
+      otherIncomeDescription:
+        'If you have other income, it must be itemised in an attachment.'
+    }
   },
   calendar: {
     absenceModal: {

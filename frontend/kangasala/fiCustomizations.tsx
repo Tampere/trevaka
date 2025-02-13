@@ -824,7 +824,11 @@ const fi: DeepPartial<Translations> = {
         </UnorderedList>
         <P>* Tähdellä merkityt tiedot ovat pakollisia</P>
       </>
-    )
+    ),
+    grossIncome: {
+      otherIncomeDescription:
+        'Mikäli sinulla on muita tuloja, tulee niistä toimittaa tositteet liitteenä.'
+    }
   },
   calendar: {
     absenceModal: {
