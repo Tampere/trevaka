@@ -34,7 +34,7 @@ services:
       context: ./compose
       dockerfile: s3mock.Dockerfile
     ports:
-      - "9090:9090"
+      - "9091:9090"
       - "9876:9191" # for core tests
     volumes:
       - s3-data:/data
@@ -45,6 +45,14 @@ services:
       interval: 1s
       timeout: 5s
       retries: 5
+
+  dummy-idp:
+    build:
+      context: evaka/dummy-idp
+    init: true
+    restart: on-failure
+    ports:
+      - "9090:9090"
 
   frontend:
     build:
