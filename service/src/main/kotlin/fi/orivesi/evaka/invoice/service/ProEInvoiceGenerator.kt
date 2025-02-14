@@ -9,8 +9,10 @@ import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
 import fi.espoo.evaka.invoicing.domain.PersonDetailed
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
+import fi.espoo.evaka.shared.PersonId
 import fi.orivesi.evaka.OrivesiProperties
 import fi.orivesi.evaka.invoice.config.Product
+import fi.orivesi.evaka.invoice.config.findProduct
 import fi.orivesi.evaka.util.FieldType
 import org.springframework.stereotype.Component
 import java.lang.Math.abs
@@ -116,6 +118,9 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val prope
         invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_PARTNER_CODE, "")
         invoiceData.setAlphanumericValue(InvoiceFieldName.CODEBTOR_COUNTRY, "")
 
+        val costCenterByChild = invoiceDetailed.rows
+            .mapNotNull { row -> findProduct(row.product).costCenter?.let { row.child.id to it } }
+            .toMap()
         val sortedRows = invoiceDetailed.rows.sortedBy { row -> row.child.firstName }
 
         val rowsPerChild: MutableMap<String, List<InvoiceData>> = mutableMapOf()
@@ -159,7 +164,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val prope
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.VAT_ACCOUNT, "")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.BRUTTO_NETTO, "")
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.DEBIT_ACCOUNTING, "")
-            invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, getCreditAccounting(it))
+            invoiceRowData.setAlphanumericValue(InvoiceFieldName.CREDIT_ACCOUNTING, getCreditAccounting(it, costCenterByChild))
             invoiceRowData.setAlphanumericValue(InvoiceFieldName.ROW_SUM_SIGN, if (it.price < 0) "-" else "")
             invoiceRowData.setNumericValue(InvoiceFieldName.ROW_SUM, abs(it.price))
 
@@ -173,20 +178,19 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val prope
         return invoiceData
     }
 
-    private fun getCreditAccounting(it: InvoiceRowDetailed): String {
+    private fun getCreditAccounting(row: InvoiceRowDetailed, costCenterByChild: Map<PersonId, String>): String {
         val tili = "3257"
         val alv = "300"
         val kumppani = "1000"
-        val kustannuspaikka = "3202"
-        val toiminto = with(it.daycareType) {
-            when {
-                contains(CareType.CENTRE) -> "3021"
-                else -> "3022"
-            }
+        val kustannuspaikka = when {
+            row.daycareType.any { it == CareType.FAMILY || it == CareType.GROUP_FAMILY } -> "3204"
+            else -> findProduct(row.product).costCenter
+                ?: costCenterByChild[row.child.id]
+                ?: error("No cost center for invoice row ${row.id}")
         }
-        val kohde = it.costCenter
+        val kohde = row.costCenter
 
-        return "$tili$alv$kumppani$kustannuspaikka$toiminto      $kohde"
+        return "$tili$alv$kumppani$kustannuspaikka          $kohde"
     }
 
     fun generateRow(fields: List<InvoiceField>, invoiceData: InvoiceData): String {
