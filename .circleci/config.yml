@@ -258,22 +258,6 @@ jobs:
           path: /tmp/service/build/reports
           destination: build/reports
 
-  auth_build_image:
-    executor: machine_ubuntu
-    resource_class: medium
-    parameters:
-      version:
-        type: string
-    steps:
-      - checkout_with_submodules
-      - setup_aws
-      - build_docker_image:
-          image: keycloak
-          dir: auth
-          extra_build_args: --build-context core=evaka/keycloak
-          cache: auth
-          version: << parameters.version >>
-
   e2e_test:
     executor: machine_ubuntu
     resource_class: large
@@ -482,11 +466,6 @@ workflows:
             - trevaka-aws
           requires:
             - service_build_image
-          version: << pipeline.parameters.version >>
-
-      - auth_build_image:
-          context:
-            - trevaka-aws
           version: << pipeline.parameters.version >>
 
   deploy:
