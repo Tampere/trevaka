@@ -170,7 +170,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val prope
     }
 
     private fun getCreditAccounting(it: InvoiceRowDetailed): String {
-        val tili = "3275"
+        val tili = "3257"
         val alv = "300"
         val kumppani = "1000"
         val kustannuspaikka = it.costCenter
