@@ -43,19 +43,29 @@ class OrivesiInvoiceIntegrationClientTest : AbstractOrivesiIntegrationTest() {
             .use { it.readAllBytes().toString(StandardCharsets.ISO_8859_1) }
         assertEquals(
             """310382-956DL  Bengtsson-Henriksson Tes Matilda Josefina                                                           Meikäläisenkuja 6 B 7         90100 OULU                                                                                                                              1   K202102042021030620220505                    1                            1000         30   Varhaiskasvatus 01.2021                                                                                                                                                                                                                                                                                      
+310382-956D3Eskarilainen Essi                                                                                                     
+310382-956D301.01.2021 - 15.01.2021                                                                                               
+310382-956D1Varhaiskasvatus                          000002430000KPL 00000001000000                                                                                                                         325730010003202          2627                               00000024300
+310382-956D3alkukuukausi vakaa                                                                                                    
+310382-956D316.01.2021 - 31.01.2021                                                                                               
+310382-956D1Esiopetusta täydentävä varhaiskasvatus   000002430000KPL 00000001000000                                                                                                                         325730010003203          2627                               00000024300
+310382-956D3loppukuukausi eskaria                                                                                                 
 310382-956D3Meikäläinen Maiju                                                                                                     
 310382-956D301.01.2021 - 31.01.2021                                                                                               
-310382-956D1Esiopetusta täydentävä varhaiskasvatus   000004820000KPL 00000001000000                                                                                                                         3257300100032023021      2627                               00000048200
+310382-956D1Esiopetusta täydentävä varhaiskasvatus   000004820000KPL 00000001000000                                                                                                                         325730010003203          2627                               00000048200
 310382-956D3kuvaus2                                                                                                               
 310382-956D3Meikäläinen Matti                                                                                                     
 310382-956D301.01.2021 - 31.01.2021                                                                                               
-310382-956D1Varhaiskasvatus                          000002430000KPL 00000001000000                                                                                                                         3257300100032023021      2627                               00000024300
+310382-956D1Varhaiskasvatus                          000002430000KPL 00000001000000                                                                                                                         325730010003202          2627                               00000024300
 310382-956D3kuvaus1                                                                                                               
 310382-956D301.01.2021 - 31.01.2021                                                                                               
-310382-956D1Varhaiskasvatus                          000002500000KPL 00000001000000                                                                                                                         3257300100032023022      2627                               00000025000
+310382-956D1Varhaiskasvatus                          000002500000KPL 00000001000000                                                                                                                         325730010003204          2627                               00000025000
 310382-956D301.01.2021 - 31.01.2021                                                                                               
-310382-956D1Hyvityspäivä                             000002500000KPL-00000001000000                                                                                                                         3257300100032023022      2627                              -00000025000
+310382-956D1Hyvityspäivä                             000002500000KPL-00000001000000                                                                                                                         325730010003204          2627                              -00000025000
 310382-956D3kuvaus4                                                                                                               
+310382-956D301.01.2021 - 31.01.2021                                                                                               
+310382-956D1Hyvityspäivä                             000002500000KPL-00000001000000                                                                                                                         325730010003202          2627                              -00000025000
+310382-956D3kuvaus5                                                                                                               
 """,
             data,
         )
