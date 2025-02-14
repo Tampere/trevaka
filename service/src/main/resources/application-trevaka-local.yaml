@@ -41,7 +41,7 @@ evaka:
     koski:
       enabled: false
   s3mock:
-    url: "http://localhost:9090"
+    url: "http://localhost:9091"
 
 tampere:
   ipaas:
