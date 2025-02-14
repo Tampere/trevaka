@@ -97,6 +97,11 @@ variable "auth_force_new_deployment" {
   default = false
 }
 
+variable "auth_enabled" {
+  type    = bool
+  default = true
+}
+
 variable "auth_task_cpu" {
   type    = number
   default = 512
