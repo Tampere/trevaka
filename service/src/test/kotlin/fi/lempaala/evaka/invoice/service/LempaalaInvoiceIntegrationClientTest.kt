@@ -45,17 +45,17 @@ class LempaalaInvoiceIntegrationClientTest : AbstractLempaalaIntegrationTest() {
             """310382-956DL  Meikäläinen Matti                                                                                   Meikäläisenkuja 6 B 7         90100 OULU                                                                                                                              1   K202205052021030620210204                                                 1000         54   Varhaiskasvatus 01.2021                                                                                                                                                                                                                                                                                      
 310382-956D3Meikäläinen Maiju                                                                                                     
 310382-956D301.01.2021 - 31.01.2021                                                                                               
-310382-956D1Esiopetusta täydentävä varhaiskasvatus   000004820000KPL 00000001000000                                                                                                                         327530010002627                                             00000048200
+310382-956D1Esiopetusta täydentävä varhaiskasvatus   000004820000KPL 00000001000000                                                                                                                         325730010002627                                             00000048200
 310382-956D3kuvaus2                                                                                                               
 310382-956D3Meikäläinen Matti                                                                                                     
 310382-956D301.01.2021 - 31.01.2021                                                                                               
-310382-956D1Varhaiskasvatus                          000002430000KPL 00000001000000                                                                                                                         327530010002627                                             00000024300
+310382-956D1Varhaiskasvatus                          000002430000KPL 00000001000000                                                                                                                         325730010002627                                             00000024300
 310382-956D3kuvaus1                                                                                                               
 310382-956D301.01.2021 - 31.01.2021                                                                                               
-310382-956D1Varhaiskasvatus                          000002500000KPL 00000001000000                                                                                                                         327530010002627                                             00000025000
+310382-956D1Varhaiskasvatus                          000002500000KPL 00000001000000                                                                                                                         325730010002627                                             00000025000
 310382-956D3kuvaus3                                                                                                               
 310382-956D301.01.2021 - 31.01.2021                                                                                               
-310382-956D1Hyvityspäivä                             000002500000KPL-00000001000000                                                                                                                         327530010002627                                            -00000025000
+310382-956D1Hyvityspäivä                             000002500000KPL-00000001000000                                                                                                                         325730010002627                                            -00000025000
 310382-956D3kuvaus4                                                                                                               
 """,
             data,
