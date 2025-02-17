@@ -74,4 +74,5 @@ jamix_diets_enabled  = true
 # service: OrivesiProperties
 
 # auth
-auth_count = 1
+auth_count   = 1
+auth_enabled = false

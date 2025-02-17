@@ -54,4 +54,5 @@ sfi_msg_printing_provider    = "Posti"
 # service: PirkkalaProperties
 
 # auth
-auth_count = 1
+auth_count   = 1
+auth_enabled = false
