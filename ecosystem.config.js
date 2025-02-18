@@ -16,10 +16,6 @@ module.exports = {
     env: {
       EVAKA_TITANIA_USERNAME: 'titania',
       EVAKA_TITANIA_PASSWORD: 'titania',
-      EVAKA_CUSTOMER_SAML_ENTRYPOINT: 'http://localhost:8080/auth/realms/citizens/protocol/saml',
-      EVAKA_CUSTOMER_SAML_ISSUER: 'trevaka',
-      EVAKA_SAML_ENTRYPOINT: 'http://localhost:8080/auth/realms/employees/protocol/saml',
-      EVAKA_SAML_ISSUER: 'trevaka',
       AD_SAML_EXTERNAL_ID_PREFIX: 'tampere-ad'
     },
     ...defaults

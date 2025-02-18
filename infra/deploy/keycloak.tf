@@ -81,11 +81,6 @@ module "app_auth" {
   }
 }
 
-variable "keycloak_version" {
-  type    = string
-  default = ""
-}
-
 variable "auth_count" {
   description = "Desired count of auth ECS tasks"
   type        = string
@@ -133,9 +128,5 @@ variable "auth_admin_password" {
 }
 
 locals {
-  keycloak_version = var.keycloak_version != "" ? var.keycloak_version : var.apps_version
-}
-
-output "keycloak_version" {
-  value = local.keycloak_version
+  keycloak_version = "248945b54fad70da2e2a78ca4a73c06c1cf24eaa" # last build
 }

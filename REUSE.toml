@@ -62,12 +62,6 @@ SPDX-FileCopyrightText = "2021 City of Tampere"
 SPDX-License-Identifier = "LGPL-2.1-or-later"
 
 [[annotations]]
-path = "auth/realms/**.json"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2021 City of Tampere"
-SPDX-License-Identifier = "LGPL-2.1-or-later"
-
-[[annotations]]
 path = "infra/deploy/.terraform-version"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2023-2024 Tampere region"
@@ -96,12 +90,6 @@ path = "service/src/test/resources/payment-client/**.xml"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2023-2024 Tampere region"
 SPDX-License-Identifier = "LGPL-2.1-or-later"
-
-[[annotations]]
-path = "**/gradlew**"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2007-2020 The original author or authors <info@gradle.com>"
-SPDX-License-Identifier = "Apache-2.0"
 
 [[annotations]]
 path = "**/gradle/wrapper/**"

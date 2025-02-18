@@ -11,15 +11,6 @@ updates:
       time: "05:00"
       timezone: "Europe/Helsinki"
   - package-ecosystem: "docker"
-    directory: "/auth"
-    schedule:
-      interval: "daily"
-      time: "10:00"
-      timezone: "Europe/Helsinki"
-    ignore:
-      - dependency-name: "node"
-        update-types: ["version-update:semver-major"]
-  - package-ecosystem: "docker"
     directory: "/compose"
     schedule:
       interval: "daily"
@@ -67,14 +58,6 @@ updates:
       interval: "daily"
       time: "10:00"
       timezone: "Europe/Helsinki"
-  - package-ecosystem: "gradle"
-    directory: "/mock/identification"
-    schedule:
-      interval: "daily"
-      time: "10:00"
-      timezone: "Europe/Helsinki"
-    ignore:
-      - dependency-name: "org.springframework.boot"
   - package-ecosystem: "gradle"
     directory: "/service"
     schedule:

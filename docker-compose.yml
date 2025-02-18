@@ -71,8 +71,6 @@ services:
       INTERNAL_GW_URL: "http://apigw:3000"
       RATE_LIMIT_CIDR_WHITELIST: "0.0.0.0/0;::/0"
       HTTP_SCHEME: "http"
-      KEYCLOAK_URL: "http://auth:8080"
-      FORM_ACTION_URL: "http://localhost:8081/identification/idp/profile/SAML2/POST/SSO http://localhost:8081/identification/idp/profile/SAML2/POST/SLO"
     depends_on:
       - apigw
     profiles:
@@ -102,10 +100,6 @@ services:
       # ecosystem.config.js
       EVAKA_TITANIA_USERNAME: titania
       EVAKA_TITANIA_PASSWORD: titania
-      EVAKA_CUSTOMER_SAML_ENTRYPOINT: http://localhost:9099/auth/realms/citizens/protocol/saml
-      EVAKA_CUSTOMER_SAML_ISSUER: trevaka
-      EVAKA_SAML_ENTRYPOINT: http://localhost:9099/auth/realms/employees/protocol/saml
-      EVAKA_SAML_ISSUER: trevaka
       AD_SAML_EXTERNAL_ID_PREFIX: tampere-ad
     profiles:
       - evaka
@@ -140,52 +134,6 @@ services:
     restart: unless-stopped
     profiles:
       - evaka
-
-  auth:
-    build:
-      context: auth
-      additional_contexts: # requires docker-compose 2.17.0 or newer
-        core: evaka/keycloak
-    ports:
-      - "8080:8080"
-      - "9000:9000" # management port for health endpoint
-    environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_HTTP_RELATIVE_PATH: /auth
-      KC_HEALTH_ENABLED: true
-      KC_DB: postgres
-      KC_DB_URL_HOST: db
-      KC_DB_URL_PORT: 5432
-      KC_DB_URL_DATABASE: keycloak
-      KC_DB_USERNAME: postgres
-      KC_DB_PASSWORD: postgres
-      KC_FEATURES: persistent-user-sessions
-    command: start-dev --import-realm
-    volumes:
-      - ./auth/realms/tampere:/opt/keycloak/data/import
-    depends_on:
-      - db
-      - smtp
-    profiles:
-      - auth
-
-  smtp:
-    build:
-      context: ./compose
-      dockerfile: mailhog.Dockerfile
-    ports:
-      - "1025:1025" # smtp
-      - "8025:8025" # http
-    profiles:
-      - auth
-
-  identification:
-    build: mock/identification
-    ports:
-      - "8081:8081"
-    profiles:
-      - auth
 
 volumes:
   db-data:
