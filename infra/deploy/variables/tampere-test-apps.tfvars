@@ -71,4 +71,5 @@ sfi_msg_keystore_alias       = "viestit"
 
 # auth
 auth_count          = 1
+auth_enabled        = false
 auth_internal_realm = "tampere"

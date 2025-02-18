@@ -81,7 +81,8 @@ tampere_job_plan_bi_export_jobs_enabled = true
 tampere_job_plan_bi_export_jobs_cron    = "0 0 1 * * *"
 
 # auth
-auth_count = 1
+auth_count   = 1
+auth_enabled = false
 
 auth_task_cpu       = 1024
 auth_task_memory_mb = 2048
