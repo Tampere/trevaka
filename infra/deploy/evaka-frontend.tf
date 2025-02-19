@@ -7,23 +7,22 @@ module "app_proxy" {
 
   region = var.region
 
-  project         = local.project
-  name            = var.municipality == "tampere" ? "proxy" : "frontend"
-  municipality    = var.municipality
-  environment     = var.environment
-  image           = "${var.utility_account_id}.dkr.ecr.${var.region}.amazonaws.com/trevaka/frontend/${var.municipality}:${local.frontend_version}"
-  container_ports = [8080]
-  desired_count   = var.proxy_count
-  task_cpu        = 256
-  task_memory     = 512
-  public          = true
+  project        = local.project
+  name           = var.municipality == "tampere" ? "proxy" : "frontend"
+  municipality   = var.municipality
+  environment    = var.environment
+  image          = "${var.utility_account_id}.dkr.ecr.${var.region}.amazonaws.com/trevaka/frontend/${var.municipality}:${local.frontend_version}"
+  container_port = 8080
+  desired_count  = var.proxy_count
+  task_cpu       = 256
+  task_memory    = 512
+  public         = true
 
   wait_for_steady_state = true
   force_new_deployment  = var.force_new_deployment || var.proxy_force_new_deployment
 
   vpc_id                   = data.terraform_remote_state.base.outputs.vpc_id
   ecs_cluster_id           = data.terraform_remote_state.base.outputs.ecs_cluster_id
-  public_domain_name       = data.terraform_remote_state.base.outputs.public_domain_name
   public_alb_listener_arn  = data.terraform_remote_state.base.outputs.public_alb_listener_arn
   internal_domain_name     = data.terraform_remote_state.base.outputs.internal_domain_name
   internal_zone_id         = data.terraform_remote_state.base.outputs.internal_zone_id

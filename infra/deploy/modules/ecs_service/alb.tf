@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
 resource "aws_lb_target_group" "service" {
-  port                 = var.container_ports[0]
+  port                 = var.container_port
   protocol             = var.container_protocol
   vpc_id               = var.vpc_id
   deregistration_delay = 60
@@ -42,17 +42,14 @@ resource "aws_lb_listener_rule" "service" {
     for_each = var.public ? [] : [1]
     content {
       host_header {
-        values = concat(
-          [local.internal_service_address],
-          var.alb_include_public_host ? [var.public_domain_name] : [],
-        )
+        values = [local.internal_service_address]
       }
     }
   }
 
   condition {
     path_pattern {
-      values = var.alb_paths
+      values = ["/*"]
     }
   }
 }

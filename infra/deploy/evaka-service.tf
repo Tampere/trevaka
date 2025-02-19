@@ -12,7 +12,7 @@ module "app_service" {
   municipality              = var.municipality
   environment               = var.environment
   image                     = "${var.utility_account_id}.dkr.ecr.${var.region}.amazonaws.com/trevaka/service:${local.service_version}"
-  container_ports           = [8888]
+  container_port            = 8888
   desired_count             = var.service_count
   task_cpu                  = var.service_task_cpu
   task_memory               = var.service_task_memory_mb
@@ -24,7 +24,6 @@ module "app_service" {
 
   vpc_id                   = data.terraform_remote_state.base.outputs.vpc_id
   ecs_cluster_id           = data.terraform_remote_state.base.outputs.ecs_cluster_id
-  public_domain_name       = data.terraform_remote_state.base.outputs.public_domain_name
   internal_domain_name     = data.terraform_remote_state.base.outputs.internal_domain_name
   internal_zone_id         = data.terraform_remote_state.base.outputs.internal_zone_id
   public_alb_listener_arn  = data.terraform_remote_state.base.outputs.public_alb_listener_arn

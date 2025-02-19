@@ -14,10 +14,6 @@ variable "ecs_cluster_id" {
   type = string
 }
 
-variable "public_domain_name" {
-  type = string
-}
-
 variable "internal_domain_name" {
   type = string
 }
@@ -67,16 +63,6 @@ variable "image" {
 variable "public" {
   description = "Is this private or public service?"
   default     = false
-}
-
-variable "alb_include_public_host" {
-  type    = bool
-  default = false
-}
-
-variable "alb_paths" {
-  description = "What path and/or host_headers will be routed from ALB to this service"
-  default     = ["/*"]
 }
 
 variable "env_vars" {
@@ -141,20 +127,14 @@ variable "force_new_deployment" {
   default = false
 }
 
-variable "container_ports" {
+variable "container_port" {
   description = "Port where docker is listening"
-  default     = [8080]
+  type        = number
 }
 
 variable "container_protocol" {
   description = "Protocol is docker listening"
   default     = "HTTP"
-}
-
-variable "internal_ports" {
-  description = "Additional ports which are exposed to service itself"
-  type        = list(number)
-  default     = []
 }
 
 variable "desired_count" {
@@ -190,11 +170,6 @@ variable "private_subnet_ids" {
 
 variable "log_group_name" {
   type = string
-}
-
-variable "service_discovery_service_arn" {
-  type    = string
-  default = null
 }
 
 variable "lb_listener_rule_priority" {
