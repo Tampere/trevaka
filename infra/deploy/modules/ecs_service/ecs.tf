@@ -18,20 +18,13 @@ resource "aws_ecs_service" "service" {
   load_balancer {
     target_group_arn = aws_lb_target_group.service.arn
     container_name   = "${var.project}-${var.name}-${var.environment}"
-    container_port   = var.container_ports[0]
+    container_port   = var.container_port
   }
 
   network_configuration {
     assign_public_ip = false
     security_groups  = var.security_group_ids
     subnets          = var.private_subnet_ids
-  }
-
-  dynamic "service_registries" {
-    for_each = var.service_discovery_service_arn != null ? [1] : []
-    content {
-      registry_arn = var.service_discovery_service_arn
-    }
   }
 
   timeouts {
@@ -52,7 +45,7 @@ resource "aws_ecs_task_definition" "service" {
     {
       name         = "${var.project}-${var.name}-${var.environment}"
       image        = var.image
-      portMappings = [for port in concat(var.container_ports, var.internal_ports) : { hostPort : port, containerPort : port, protocol : "tcp" }]
+      portMappings = [{ hostPort : var.container_port, containerPort : var.container_port, protocol : "tcp" }]
       environment  = [for name, value in var.env_vars : { name : name, value : value } if value != null]
       essential    = true
       secrets      = [for name, arn in var.secrets : { name : name, valueFrom : arn } if arn != null]

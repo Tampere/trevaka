@@ -7,22 +7,21 @@ module "app_apigw" {
 
   region = var.region
 
-  project         = local.project
-  name            = "apigw"
-  municipality    = var.municipality
-  environment     = var.environment
-  image           = "${var.utility_account_id}.dkr.ecr.${var.region}.amazonaws.com/trevaka/api-gateway:${local.apigw_version}"
-  container_ports = [3000]
-  desired_count   = var.apigw_count
-  task_cpu        = 256
-  task_memory     = 512
+  project        = local.project
+  name           = "apigw"
+  municipality   = var.municipality
+  environment    = var.environment
+  image          = "${var.utility_account_id}.dkr.ecr.${var.region}.amazonaws.com/trevaka/api-gateway:${local.apigw_version}"
+  container_port = 3000
+  desired_count  = var.apigw_count
+  task_cpu       = 256
+  task_memory    = 512
 
   wait_for_steady_state = true
   force_new_deployment  = var.force_new_deployment || var.apigw_force_new_deployment
 
   vpc_id                   = data.terraform_remote_state.base.outputs.vpc_id
   ecs_cluster_id           = data.terraform_remote_state.base.outputs.ecs_cluster_id
-  public_domain_name       = data.terraform_remote_state.base.outputs.public_domain_name
   public_alb_listener_arn  = data.terraform_remote_state.base.outputs.public_alb_listener_arn
   internal_domain_name     = data.terraform_remote_state.base.outputs.internal_domain_name
   internal_zone_id         = data.terraform_remote_state.base.outputs.internal_zone_id
