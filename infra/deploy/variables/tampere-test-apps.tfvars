@@ -68,8 +68,3 @@ sfi_msg_printing_provider    = "Posti"
 sfi_msg_keystore_alias       = "viestit"
 
 # service: TampereProperties
-
-# auth
-auth_count          = 1
-auth_enabled        = false
-auth_internal_realm = "tampere"

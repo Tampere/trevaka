@@ -51,7 +51,3 @@ sfi_msg_enable_printing      = false
 sfi_msg_printing_provider    = "Posti"
 
 # service: LempaalaProperties
-
-# auth
-auth_count   = 1
-auth_enabled = false
