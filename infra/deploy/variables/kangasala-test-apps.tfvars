@@ -56,7 +56,3 @@ jamix_orders_enabled = true
 jamix_diets_enabled  = true
 
 # service: KangasalaProperties
-
-# auth
-auth_count   = 1
-auth_enabled = false

@@ -72,10 +72,3 @@ jamix_orders_enabled = true
 jamix_diets_enabled  = true
 
 # service: NokiaProperties
-
-# auth
-auth_count   = 1
-auth_enabled = false
-
-auth_task_cpu       = 1024
-auth_task_memory_mb = 2048

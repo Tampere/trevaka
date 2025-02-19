@@ -52,7 +52,3 @@ sfi_msg_enable_printing      = false
 sfi_msg_printing_provider    = "Posti"
 
 # service: YlojarviProperties
-
-# auth
-auth_count   = 1
-auth_enabled = false

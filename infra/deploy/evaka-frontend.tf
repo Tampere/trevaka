@@ -40,7 +40,6 @@ module "app_proxy" {
 
   secrets = {
     RATE_LIMIT_CIDR_WHITELIST = "${local.param_prefix}/frontend/rate-limit-cidr-allowlist"
-    KEYCLOAK_ADMIN_ALLOWLIST  = "${local.param_prefix}/frontend/keycloak-admin-allowlist"
     STATIC_FILES_ENDPOINT_URL = "${local.param_prefix}/frontend/bucket/static-website-url"
   }
 
@@ -48,8 +47,6 @@ module "app_proxy" {
     ENDUSER_GW_URL  = "http://${module.app_apigw.internal_service_address}"
     INTERNAL_GW_URL = "http://${module.app_apigw.internal_service_address}"
     NGINX_ENV       = var.environment
-    KEYCLOAK_URL    = var.auth_enabled ? "http://${module.app_auth.internal_service_address}" : null
-    FORM_ACTION_URL = var.auth_enabled ? var.environment == "prod" ? "https://tunnistautuminen.suomi.fi/idp/profile/SAML2/POST/SSO https://tunnistautuminen.suomi.fi/idp/profile/SAML2/POST/SLO" : "https://testi.apro.tunnistus.fi/idp/profile/SAML2/POST/SSO https://testi.apro.tunnistus.fi/idp/profile/SAML2/POST/SLO" : null
 
     DD_PROFILING_ENABLED = var.datadog_enabled ? true : null
     DD_AGENT_HOST        = var.datadog_enabled ? module.app_datadog_agent.internal_service_address : null
