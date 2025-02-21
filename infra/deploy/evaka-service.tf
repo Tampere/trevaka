@@ -79,8 +79,7 @@ module "app_service" {
     EVAKA_INTEGRATION_VTJ_XROAD_ADDRESS = "${local.param_prefix}/service/vtj/address"
 
     # SfiEnv
-    EVAKA_INTEGRATION_SFI_KEY_STORE_PASSWORD = var.evaka_integration_sfi_enabled ? "${local.param_prefix}/message-service/keystore/password" : null
-    EVAKA_INTEGRATION_SFI_REST_USERNAME      = var.evaka_integration_sfi_enabled ? "${local.param_prefix}/service/sfi/username" : null
+    EVAKA_INTEGRATION_SFI_REST_USERNAME = var.evaka_integration_sfi_enabled ? "${local.param_prefix}/service/sfi/username" : null
 
     # SfiPrintingEnv
     EVAKA_INTEGRATION_SFI_PRINTING_BILLING_ID       = var.evaka_integration_sfi_enabled ? "${local.param_prefix}/service/sfi/printing/id" : null
@@ -219,17 +218,10 @@ module "app_service" {
     EVAKA_INTEGRATION_VTJ_XROAD_SERVICE_SERVICE_VERSION = "v1"
 
     # SfiEnv
-    EVAKA_INTEGRATION_SFI_ADDRESS                 = var.evaka_integration_sfi_enabled ? var.sfi_msg_service_address : null
-    EVAKA_INTEGRATION_SFI_TRUST_STORE_LOCATION    = var.evaka_integration_sfi_enabled ? "file:///opt/java/openjdk/lib/security/cacerts" : null
-    EVAKA_INTEGRATION_SFI_KEY_STORE_LOCATION      = var.evaka_integration_sfi_enabled ? "file:///home/ubuntu/s3/keystore.p12" : null
-    EVAKA_INTEGRATION_SFI_SIGNING_KEY_ALIAS       = var.evaka_integration_sfi_enabled ? var.sfi_msg_keystore_alias : null
-    EVAKA_INTEGRATION_SFI_AUTHORITY_IDENTIFIER    = var.evaka_integration_sfi_enabled ? var.sfi_msg_authority_identifier : null
-    EVAKA_INTEGRATION_SFI_SERVICE_IDENTIFIER      = var.evaka_integration_sfi_enabled ? var.sfi_msg_service_identifier : null
-    EVAKA_INTEGRATION_SFI_CERTIFICATE_COMMON_NAME = var.evaka_integration_sfi_enabled ? var.sfi_msg_certificate_cn : null
-    EVAKA_INTEGRATION_SFI_PRINTING_ENABLED        = var.evaka_integration_sfi_enabled ? var.sfi_msg_enable_printing : null
-    EVAKA_INTEGRATION_SFI_REST_ENABLED            = var.evaka_integration_sfi_enabled ? true : null
-    EVAKA_INTEGRATION_SFI_REST_ADDRESS            = var.evaka_integration_sfi_enabled ? var.environment == "prod" ? "https://api.messages.suomi.fi" : "https://api.messages-qa.suomi.fi" : null
-    EVAKA_INTEGRATION_SFI_REST_PASSWORD_SSM_NAME  = var.evaka_integration_sfi_enabled ? "${local.param_prefix}/service/sfi/password" : null
+    EVAKA_INTEGRATION_SFI_SERVICE_IDENTIFIER     = var.evaka_integration_sfi_enabled ? var.sfi_msg_service_identifier : null
+    EVAKA_INTEGRATION_SFI_PRINTING_ENABLED       = var.evaka_integration_sfi_enabled ? var.sfi_msg_enable_printing : null
+    EVAKA_INTEGRATION_SFI_REST_ADDRESS           = var.evaka_integration_sfi_enabled ? var.environment == "prod" ? "https://api.messages.suomi.fi" : "https://api.messages-qa.suomi.fi" : null
+    EVAKA_INTEGRATION_SFI_REST_PASSWORD_SSM_NAME = var.evaka_integration_sfi_enabled ? "${local.param_prefix}/service/sfi/password" : null
 
     # SfiPrintingEnv
     EVAKA_INTEGRATION_SFI_PRINTING_FORCE_PRINT_FOR_ELECTRONIC_USER = var.evaka_integration_sfi_enabled ? var.sfi_msg_force_print_for_electronic_user : null
@@ -561,19 +553,7 @@ variable "evaka_job_send_outdated_income_notifications_enabled" {
   default = false
 }
 
-variable "sfi_msg_service_address" {
-  type = string
-}
-
-variable "sfi_msg_authority_identifier" {
-  type = string
-}
-
 variable "sfi_msg_service_identifier" {
-  type = string
-}
-
-variable "sfi_msg_certificate_cn" {
   type = string
 }
 
@@ -588,11 +568,6 @@ variable "sfi_msg_force_print_for_electronic_user" {
 
 variable "sfi_msg_printing_provider" {
   type = string
-}
-
-variable "sfi_msg_keystore_alias" {
-  type    = string
-  default = "signing-key"
 }
 
 variable "jamix_orders_enabled" {

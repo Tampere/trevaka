@@ -60,12 +60,9 @@ evaka_integration_koski_municipality_caller_id = "lempaalaevaka"
 varda_integration_enabled = true
 
 # service: sfi message
-sfi_msg_service_address      = "https://pr0.integraatiopalvelu.fi/Asiointitili/ViranomaispalvelutWSInterface"
-sfi_msg_authority_identifier = "lempaala_ws_evaka"
-sfi_msg_service_identifier   = "lempaala_ws_evaka"
-sfi_msg_certificate_cn       = "eVaka Lempäälä"
-sfi_msg_enable_printing      = true
-sfi_msg_printing_provider    = "Posti"
+sfi_msg_service_identifier = "lempaala_ws_evaka"
+sfi_msg_enable_printing    = true
+sfi_msg_printing_provider  = "Posti"
 
 # service: jamix
 jamix_orders_enabled = true

@@ -60,13 +60,9 @@ koski_integration_api_url                      = "https://koski.testiopintopolku
 evaka_integration_koski_municipality_caller_id = "tampereevaka"
 
 # service: sfi message
-sfi_msg_service_address      = "https://qat.integraatiopalvelu.fi/Asiointitili/ViranomaispalvelutWSInterfaceNonSigned"
-sfi_msg_authority_identifier = "tampere_ws_evaka"
-sfi_msg_service_identifier   = "tampere_ws_evaka"
-sfi_msg_certificate_cn       = "Viestit"
-sfi_msg_enable_printing      = false
-sfi_msg_printing_provider    = "Posti"
-sfi_msg_keystore_alias       = "viestit"
+sfi_msg_service_identifier = "tampere_ws_evaka"
+sfi_msg_enable_printing    = false
+sfi_msg_printing_provider  = "Posti"
 
 # service: TampereProperties
 tampere_job_export_units_acl_enabled = true
