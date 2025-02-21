@@ -43,11 +43,8 @@ evaka_job_send_missing_reservation_reminders_enabled = true
 evaka_job_send_outdated_income_notifications_enabled = true
 
 # service: sfi message
-sfi_msg_service_address      = "https://qat.integraatiopalvelu.fi/Asiointitili/ViranomaispalvelutWSInterfaceNonSigned"
-sfi_msg_authority_identifier = "nokia_ws_evaka"
-sfi_msg_service_identifier   = "nokia_ws_evaka"
-sfi_msg_certificate_cn       = "eVaka Nokia"
-sfi_msg_enable_printing      = false
-sfi_msg_printing_provider    = "Posti"
+sfi_msg_service_identifier = "nokia_ws_evaka"
+sfi_msg_enable_printing    = false
+sfi_msg_printing_provider  = "Posti"
 
 # service: NokiaProperties
