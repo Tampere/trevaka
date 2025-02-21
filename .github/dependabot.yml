@@ -55,7 +55,7 @@ updates:
   - package-ecosystem: "terraform"
     directory: "/infra/deploy"
     schedule:
-      interval: "daily"
+      interval: "monthly"
       time: "10:00"
       timezone: "Europe/Helsinki"
   - package-ecosystem: "gradle"
