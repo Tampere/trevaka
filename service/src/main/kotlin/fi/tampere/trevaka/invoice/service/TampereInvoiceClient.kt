@@ -30,12 +30,9 @@ import org.springframework.ws.soap.client.SoapFaultClientException
 import org.springframework.ws.soap.client.core.SoapActionCallback
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
-import javax.xml.datatype.DatatypeFactory
-import javax.xml.datatype.XMLGregorianCalendar
 
 private val logger = KotlinLogging.logger {}
 private val restrictedAddress = Address().apply {
@@ -131,8 +128,8 @@ class TampereInvoiceClient(
                 false -> null
             }
             paymentTerm = properties.paymentTerm
-            dueDate = localDateToXMLGregorianCalendar(invoice.dueDate)
-            billingDate = localDateToXMLGregorianCalendar(invoice.invoiceDate)
+            dueDate = invoice.dueDate
+            billingDate = invoice.invoiceDate
             salesOrganisation = properties.salesOrganisation
             distributionChannel = properties.distributionChannel
             division = properties.division
@@ -170,8 +167,6 @@ class TampereInvoiceClient(
             )
         }
     }
-
-    private fun localDateToXMLGregorianCalendar(localDate: LocalDate): XMLGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(localDate.toString())
 
     private fun unmarshalFaultDetail(exception: SoapFaultClientException): Any? = try {
         val detailEntries = exception.soapFault?.faultDetail?.detailEntries

@@ -47,6 +47,7 @@ dependencies {
     implementation("com.github.kagkarlsson:db-scheduler")
     implementation("com.fasterxml.jackson.core:jackson-core")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv")
+    implementation("io.github.threeten-jaxb:threeten-jaxb-core:2.2.0")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
@@ -106,4 +107,8 @@ allprojects {
 
 configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
     version.set(libs.versions.ktlint.asProvider().get())
+}
+
+xjc {
+    extension = true // required for bindings.xjb
 }
