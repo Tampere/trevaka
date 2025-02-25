@@ -26,6 +26,10 @@
                 <ns3:CostCenter>131111</ns3:CostCenter>
                 <ns3:ProfitCenter>131111</ns3:ProfitCenter>
                 <ns3:InternalOrder>20285</ns3:InternalOrder>
+                <ns3:TransactionType>_</ns3:TransactionType>
+                <ns3:TaxCode>_</ns3:TaxCode>
+                <ns3:PartnerCode>5900</ns3:PartnerCode>
+                <ns3:FunctionalArea>_</ns3:FunctionalArea>
                 <ns3:DebetKredit>+</ns3:DebetKredit>
                 <ns3:Value>350.00</ns3:Value>
             </ns3:PayableAccountingLine>
@@ -54,13 +58,17 @@
                 <ns3:CostCenter>131111</ns3:CostCenter>
                 <ns3:ProfitCenter>131111</ns3:ProfitCenter>
                 <ns3:InternalOrder>20285</ns3:InternalOrder>
+                <ns3:TransactionType>_</ns3:TransactionType>
+                <ns3:TaxCode>_</ns3:TaxCode>
+                <ns3:PartnerCode>5900</ns3:PartnerCode>
+                <ns3:FunctionalArea>_</ns3:FunctionalArea>
                 <ns3:DebetKredit>+</ns3:DebetKredit>
                 <ns3:Value>350.00</ns3:Value>
             </ns3:PayableAccountingLine>
         </ns3:Invoice>
         <ns3:Invoice>
             <ns3:PayableAccountingHeader>
-                <ns3:SAPVendor>81591</ns3:SAPVendor>
+                <ns3:SAPVendor>79184</ns3:SAPVendor>
                 <ns3:IBAN>FIxxxxxxxxxxxx</ns3:IBAN>
                 <ns3:BIC>_</ns3:BIC>
                 <ns3:Customer>1234567-9</ns3:Customer>
@@ -82,6 +90,10 @@
                 <ns3:CostCenter>131111</ns3:CostCenter>
                 <ns3:ProfitCenter>131111</ns3:ProfitCenter>
                 <ns3:InternalOrder>20285</ns3:InternalOrder>
+                <ns3:TransactionType>_</ns3:TransactionType>
+                <ns3:TaxCode>_</ns3:TaxCode>
+                <ns3:PartnerCode>5810</ns3:PartnerCode>
+                <ns3:FunctionalArea>_</ns3:FunctionalArea>
                 <ns3:DebetKredit>+</ns3:DebetKredit>
                 <ns3:Value>350.00</ns3:Value>
             </ns3:PayableAccountingLine>
