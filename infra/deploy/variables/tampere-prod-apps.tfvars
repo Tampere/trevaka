@@ -18,9 +18,6 @@ apigw_count = 4
 apigw_service_key                = "apigw-to-service.key"
 apigw_suomifi_identification_key = "apigw-to-suomifi-identification.key"
 apigw_ad_key                     = "apigw-to-ad.key"
-apigw_auth_certificate           = "apigw-to-suomifi-identification.crt"
-apigw_auth_citizens_key          = "apigw-to-auth-citizens.key"
-apigw_auth_employees_key         = "apigw-to-auth-employees.key"
 
 # internal-gw
 titania_enabled            = true

@@ -18,9 +18,6 @@ apigw_count = 1
 apigw_service_key                = "apigw-to-service.key"
 apigw_suomifi_identification_key = "apigw-to-suomifi-identification.key"
 apigw_ad_key                     = "apigw-to-ad.key"
-apigw_auth_certificate           = "apigw-to-suomifi-identification.crt"
-apigw_auth_citizens_key          = "apigw-to-auth-citizens.key"
-apigw_auth_employees_key         = "apigw-to-auth-employees.key"
 
 # internal-gw
 ad_saml_entrypoint_url     = "https://login.microsoftonline.com/dde5dc12-bd3c-4c06-85cc-34361efe9ad4/saml2"
