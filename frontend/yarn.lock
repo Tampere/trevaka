@@ -1163,14 +1163,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.7.7":
-  version: 1.7.7
-  resolution: "axios@npm:1.7.7"
+"axios@npm:^1.8.0":
+  version: 1.8.0
+  resolution: "axios@npm:1.8.0"
   dependencies:
     follow-redirects: "npm:^1.15.6"
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
-  checksum: 10/7f875ea13b9298cd7b40fd09985209f7a38d38321f1118c701520939de2f113c4ba137832fe8e3f811f99a38e12c8225481011023209a77b0c0641270e20cde1
+  checksum: 10/4eab6c9eed00fdb07295f6991010a3d3a8affad7d0791f819a76de3f01ca0c5943e539e93a1eb72f2bfa182728401e19f5f5f6bb1ffde68b67f9934989bf9aa6
   languageName: node
   linkType: hard
 
@@ -4084,7 +4084,7 @@ __metadata:
     "@types/lodash": "npm:^4.17.13"
     "@types/node": "npm:^20.17.6"
     "@types/react": "npm:^18.3.12"
-    axios: "npm:^1.7.7"
+    axios: "npm:^1.8.0"
     e2e-test: "link:../evaka/frontend/src/e2e-test"
     jest: "npm:^29.7.0"
     jest-circus: "npm:^29.7.0"
