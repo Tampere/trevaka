@@ -38,8 +38,6 @@ const featureFlags: FeatureFlags = {
   serviceApplications: true,
   multiSelectDeparture: true,
   requireAttachments: true,
-  weakLogin: true,
-  employeeSfiLogin: true
 }
 
 export default featureFlags

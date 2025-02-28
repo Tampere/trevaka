@@ -46,8 +46,6 @@ const prod: FeatureFlags = {
   serviceApplications: true,
   multiSelectDeparture: true,
   requireAttachments: true,
-  weakLogin: true,
-  employeeSfiLogin: true
 }
 
 const features: Features = {
@@ -55,7 +53,6 @@ const features: Features = {
     ...prod,
     environmentLabel: 'Test',
     aromiIntegration: true,
-    weakLogin: true
   },
   staging: {
     ...prod,

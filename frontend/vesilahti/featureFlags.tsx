@@ -44,8 +44,6 @@ const prod: FeatureFlags = {
   serviceApplications: true,
   multiSelectDeparture: true,
   requireAttachments: true,
-  weakLogin: true,
-  employeeSfiLogin: true
 }
 
 const features: Features = {
