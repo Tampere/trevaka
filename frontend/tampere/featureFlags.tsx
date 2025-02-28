@@ -45,17 +45,14 @@ const prod: FeatureFlags = {
   discussionReservations: true,
   serviceApplications: true,
   multiSelectDeparture: true,
-  requireAttachments: true,
-  weakLogin: true,
-  employeeSfiLogin: true
+  requireAttachments: true
 }
 
 const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
-    aromiIntegration: true,
-    weakLogin: true
+    aromiIntegration: true
   },
   staging: {
     ...prod,

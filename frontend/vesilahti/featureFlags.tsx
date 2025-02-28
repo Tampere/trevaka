@@ -43,9 +43,7 @@ const prod: FeatureFlags = {
   jamixIntegration: true,
   serviceApplications: true,
   multiSelectDeparture: true,
-  requireAttachments: true,
-  weakLogin: true,
-  employeeSfiLogin: true
+  requireAttachments: true
 }
 
 const features: Features = {
