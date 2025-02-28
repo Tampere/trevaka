@@ -37,7 +37,7 @@ const featureFlags: FeatureFlags = {
   jamixIntegration: true,
   serviceApplications: true,
   multiSelectDeparture: true,
-  requireAttachments: true,
+  requireAttachments: true
 }
 
 export default featureFlags

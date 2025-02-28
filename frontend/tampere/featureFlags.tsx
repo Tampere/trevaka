@@ -45,7 +45,7 @@ const prod: FeatureFlags = {
   discussionReservations: true,
   serviceApplications: true,
   multiSelectDeparture: true,
-  requireAttachments: true,
+  requireAttachments: true
 }
 
 const features: Features = {
