@@ -10,12 +10,14 @@ updates:
       interval: "daily"
       time: "05:00"
       timezone: "Europe/Helsinki"
-  - package-ecosystem: "docker"
-    directory: "/compose"
+  - package-ecosystem: "docker-compose"
+    directory: "/"
     schedule:
       interval: "daily"
       time: "10:00"
       timezone: "Europe/Helsinki"
+    allow:
+      - dependency-name: "adobe/s3mock"
   - package-ecosystem: "docker"
     directory: "/datadog"
     schedule:
