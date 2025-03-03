@@ -64,7 +64,7 @@ class TamperePaymentClientTest {
             webServiceTemplate,
             newPayloadValidatingInterceptor(
                 "iPaaS_Common_Types_v1_0.xsd",
-                "PayableAccounting_v07.xsd",
+                "PayableAccounting_v08.xsd",
                 "SAPFICO_Ostoreskontra_v1_0_InlineSchema1.xsd",
             ),
         )
@@ -77,7 +77,7 @@ class TamperePaymentClientTest {
     fun `send with multiple payments`() {
         val payment1 = testPayment
         val payment2 = testPayment.copy(unit = testPayment.unit.copy(costCenter = " "))
-        val payment3 = testPayment.copy(unit = testPayment.unit.copy(costCenter = " 131000  "))
+        val payment3 = testPayment.copy(unit = testPayment.unit.copy(providerId = "79184", costCenter = " 131000  "))
         server.expect(connectionTo("http://localhost:8080/payableAccounting"))
             .andExpect(payload(ClassPathResource("payment-client/payable-accounting.xml")))
             .andRespond(withPayload(ClassPathResource("payment-client/payable-accounting-response-ok.xml")))
