@@ -9,10 +9,10 @@ import fi.espoo.evaka.invoicing.domain.Payment
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.shared.db.Database
 import fi.tampere.messages.ipaas.commontypes.v1.SimpleAcknowledgementResponseType
-import fi.tampere.messages.sapfico.payableaccounting.v07.Invoice
-import fi.tampere.messages.sapfico.payableaccounting.v07.PayableAccounting
-import fi.tampere.messages.sapfico.payableaccounting.v07.PayableAccountingHeader
-import fi.tampere.messages.sapfico.payableaccounting.v07.PayableAccountingLine
+import fi.tampere.messages.sapfico.payableaccounting.v08.Invoice
+import fi.tampere.messages.sapfico.payableaccounting.v08.PayableAccounting
+import fi.tampere.messages.sapfico.payableaccounting.v08.PayableAccountingHeader
+import fi.tampere.messages.sapfico.payableaccounting.v08.PayableAccountingLine
 import fi.tampere.services.sapfico.payableaccounting.v1.SendPayableAccountingRequest
 import fi.tampere.trevaka.PaymentProperties
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -67,7 +67,7 @@ class TamperePaymentClient(
                 currency = "EUR"
                 description = "Varhaiskasvatus"
                 billingDate = payment.paymentDate?.format()
-                billNumber = payment.number?.toBigInteger()
+                billNumber = payment.number?.toString()
                 billValue = value
                 basicDate = payment.dueDate?.format()
                 interfaceID = "383"
@@ -83,12 +83,7 @@ class TamperePaymentClient(
                             else -> "20285"
                         }
                     }
-                    if (partnerCode != null) {
-                        transactionType = "_"
-                        taxCode = "_"
-                        this.partnerCode = partnerCode.toBigInteger()
-                        functionalArea = "_"
-                    }
+                    this.partnerCode = partnerCode?.toBigInteger()
                     debetKredit = "+"
                     this.value = value
                 },
