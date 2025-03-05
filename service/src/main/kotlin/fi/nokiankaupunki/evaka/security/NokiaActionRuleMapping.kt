@@ -86,6 +86,7 @@ class NokiaActionRuleMapping : ActionRuleMapping {
         Action.Global.UPDATE_SETTINGS,
         ->
             action.defaultRules.asSequence() + sequenceOf(HasGlobalRole(UserRole.SERVICE_WORKER))
+        Action.Global.READ_TAMPERE_REGIONAL_SURVEY_REPORT -> sequenceOf(HasGlobalRole(UserRole.ADMIN, UserRole.REPORT_VIEWER))
         else -> action.defaultRules.asSequence()
     }
 

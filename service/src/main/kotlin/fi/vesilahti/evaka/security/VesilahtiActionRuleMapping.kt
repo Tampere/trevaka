@@ -83,6 +83,7 @@ class VesilahtiActionRuleMapping : ActionRuleMapping {
         }
         Action.Global.SEND_PATU_REPORT, Action.Global.SUBMIT_PATU_REPORT -> emptySequence()
         Action.Global.SETTINGS_PAGE, Action.Global.UPDATE_SETTINGS -> emptySequence()
+        Action.Global.READ_TAMPERE_REGIONAL_SURVEY_REPORT -> sequenceOf(HasGlobalRole(UserRole.ADMIN, UserRole.REPORT_VIEWER))
         else -> action.defaultRules.asSequence()
     }
 
