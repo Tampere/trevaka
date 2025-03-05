@@ -41,6 +41,7 @@ dependencies {
     implementation("com.github.kittinunf.fuel:fuel")
     implementation("org.jdbi:jdbi3-core")
     implementation("org.jdbi:jdbi3-kotlin")
+    implementation("org.jdbi:jdbi3-json")
     implementation("software.amazon.awssdk:s3")
     implementation("software.amazon.awssdk:http-auth-aws-crt")
     implementation("io.opentelemetry:opentelemetry-api")
