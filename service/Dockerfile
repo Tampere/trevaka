@@ -10,12 +10,14 @@ COPY --from=core ./service/build.gradle.kts ./service/gradle.properties ./servic
 COPY --from=core ./service/vtjclient/build.gradle.kts ./service/vtjclient/build.gradle.kts
 COPY --from=core ./service/service-lib/*.kts ./service/service-lib/
 COPY --from=core ./service/evaka-bom/*.kts ./service/evaka-bom/
+COPY --from=core ./service/sarmamodel/build.gradle.kts ./service/sarmamodel/
 WORKDIR /service
 COPY ./gradle/ ./gradle/
 COPY ./gradlew ./build.gradle.kts ./gradle.properties ./settings.gradle.kts ./settings-dependabot-ignore.gradle.kts ./
 RUN ./gradlew resolveDependencies service:copyDownloadOnlyDeps
 COPY --from=core ./service/vtjclient/ ../evaka/service/vtjclient/
-RUN ./gradlew :service:vtjclient:wsdl2java
+COPY --from=core ./service/sarmamodel/ ../evaka/service/sarmamodel/
+RUN ./gradlew :service:vtjclient:wsdl2java :service:sarmamodel:build
 COPY --from=core . ../evaka
 COPY . ./
 RUN ./gradlew --offline assemble \
