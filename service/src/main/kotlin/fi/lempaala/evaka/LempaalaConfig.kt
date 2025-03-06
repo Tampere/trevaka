@@ -36,7 +36,7 @@ class LempaalaConfig {
         citizenReservationThresholdHours = (7 + 3) * 24 - 9, // Fri 09:00 (1 week + 3 days before)
         dailyFeeDivisorOperationalDaysOverride = 20,
         freeSickLeaveOnContractDays = true,
-        freeAbsenceGivesADailyRefund = false,
+        freeAbsenceGivesADailyRefund = true,
         alwaysUseDaycareFinanceDecisionHandler = true,
         paymentNumberSeriesStart = null,
         unplannedAbsencesAreContractSurplusDays = true,

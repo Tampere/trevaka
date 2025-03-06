@@ -36,7 +36,7 @@ class PirkkalaConfig {
         citizenReservationThresholdHours = 7 * 24 - 9, // Mon 09:00
         dailyFeeDivisorOperationalDaysOverride = 20,
         freeSickLeaveOnContractDays = true,
-        freeAbsenceGivesADailyRefund = false,
+        freeAbsenceGivesADailyRefund = true,
         alwaysUseDaycareFinanceDecisionHandler = true,
         paymentNumberSeriesStart = null,
         unplannedAbsencesAreContractSurplusDays = true,
