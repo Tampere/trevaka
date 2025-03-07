@@ -1,0 +1,68 @@
+<!--
+SPDX-FileCopyrightText: 2024-2025 Tampere region
+
+SPDX-License-Identifier: LGPL-2.1-or-later
+-->
+
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="correction">
+    <h1 th:text="#{special.title}"></h1>
+    <div class="correction-content">
+        <div th:utext="#{special.content}"></div>
+    </div>
+
+    <div class="correction-content">
+        <h2 th:text="#{special.right.title}">Oikaisuvaatimusoikeus</h2>
+        <div th:utext="#{special.right.content}"></div>
+    </div>
+
+    <div class="correction-content">
+        <h2 th:text="#{special.address.title}">Oikaisuviranomaisen osoite</h2>
+        <div th:utext="#{special.address.content}">Nokian kaupunki, Sivistyslautakunta, ...</div>
+    </div>
+
+    <div class="correction-content">
+        <h2 th:text="#{special.time.title}">Valitusaika</h2>
+        <div th:utext="#{special.time.content}">Valitusaika on 30 päivää tiedoksisaannista</div>
+    </div>
+
+    <div class="correction-content">
+        <h2 th:text="#{special.complaint.title}">Oikaisuvaatimuksen muoto ja sisältö</h2>
+        <div th:utext="#{special.complaint.content}">Oikaisuvaatimus on tehtävä kirjallisesti ...</div>
+    </div>
+
+    <div class="correction-content">
+        <h1 th:text="#{service.title}"></h1>
+        <div th:utext="#{service.content}"></div>
+    </div>
+
+    <div class="correction-content">
+        <h2 th:text="#{service.right.title}"></h2>
+        <div th:utext="#{service.right.content}"></div>
+    </div>
+
+    <div class="correction-content">
+        <h2 th:text="#{service.time.title}"></h2>
+        <div th:utext="#{service.time.content}"></div>
+    </div>
+
+    <div class="correction-content">
+        <h2 th:text="#{service.address.title}"></h2>
+        <div th:utext="#{service.address.content}"></div>
+    </div>
+
+    <div class="correction-content">
+        <h2 th:text="#{service.complaint.title}"></h2>
+        <div th:utext="#{service.complaint.content}"></div>
+    </div>
+
+    <div class="correction-content">
+        <h2 th:text="#{service.complaint.payment.title}"></h2>
+        <div th:utext="#{service.complaint.payment.content}"></div>
+    </div>
+</th:block>
+</body>
+</html>

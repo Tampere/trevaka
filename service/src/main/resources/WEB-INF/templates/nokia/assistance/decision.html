@@ -213,6 +213,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             ></div>
           </div>
         </div>
+        <div class="decision-details" th:text="#{decision.unitMayChange}"></div>
         <div
           class="decision-details"
           th:if="${decision.motivationForDecision} != null"
@@ -278,9 +279,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
     </div>
 
     <div class="page last-page">
-      <h1 th:text="#{appealInstructionTitle}"></h1>
-      <p th:text="#{appealInstructionDescription}"></p>
-      <div th:utext="#{appealInstructions}"></div>
+      <div th:replace="~{nokia/shared/assistance-correction :: correction}"></div>
     </div>
   </body>
 </html>
