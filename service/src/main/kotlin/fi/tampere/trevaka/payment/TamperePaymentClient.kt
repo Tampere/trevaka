@@ -52,7 +52,7 @@ class TamperePaymentClient(
         val value = payment.amount.centsToEuros()
         val costCenter = payment.unit.costCenter?.trim()?.ifEmpty { null }
         val number = payment.number?.toString()
-        val partnerCode = payment.unit.providerId?.let { if (it >= "80000") 5900 else 5810 }
+        val partnerCode = payment.unit.partnerCode?.trim()?.ifEmpty { null }
         return Invoice().apply {
             payableAccountingHeader = PayableAccountingHeader().apply {
                 sapVendor = payment.unit.providerId
