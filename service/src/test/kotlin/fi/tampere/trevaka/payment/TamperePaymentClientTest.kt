@@ -110,6 +110,7 @@ internal val testPayment = Payment(
         businessId = "1234567-9",
         iban = "FIxx xxxx xxxx xx",
         providerId = "81591",
+        partnerCode = null,
         careType = setOf(CareType.CENTRE),
         costCenter = null,
     ),
