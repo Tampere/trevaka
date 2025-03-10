@@ -94,6 +94,12 @@ module "app_service" {
     EVAKA_INTEGRATION_JAMIX_USER     = local.jamix_enabled ? "${local.param_prefix}/service/jamix/user" : null
     EVAKA_INTEGRATION_JAMIX_PASSWORD = local.jamix_enabled ? "${local.param_prefix}/service/jamix/password" : null
 
+    # AromiEnv
+    EVAKA_INTEGRATION_AROMI_SFTP_HOST      = var.aromi_enabled ? "${local.param_prefix}/service/aromi/sftp/url" : null
+    EVAKA_INTEGRATION_AROMI_SFTP_HOST_KEYS = var.aromi_enabled ? "${local.param_prefix}/service/aromi/sftp/host-keys" : null
+    EVAKA_INTEGRATION_AROMI_SFTP_USERNAME  = var.aromi_enabled ? "${local.param_prefix}/service/aromi/sftp/username" : null
+    EVAKA_INTEGRATION_AROMI_SFTP_PASSWORD  = var.aromi_enabled ? "${local.param_prefix}/service/aromi/sftp/password" : null
+
     # TampereProperties
     TAMPERE_IPAAS_USERNAME = var.municipality == "tampere" ? "${local.param_prefix}/service/ipaas/username" : null
     TAMPERE_IPAAS_PASSWORD = var.municipality == "tampere" ? "${local.param_prefix}/service/ipaas/password" : null
@@ -231,6 +237,10 @@ module "app_service" {
     EVAKA_INTEGRATION_JAMIX_ENABLED = local.jamix_enabled
     EVAKA_INTEGRATION_JAMIX_URL     = local.jamix_enabled ? "https://fi.jamix.cloud/japi/pirnet/" : null
 
+    # AromiEnv
+    EVAKA_INTEGRATION_AROMI_ENABLED      = var.aromi_enabled
+    EVAKA_INTEGRATION_AROMI_FILE_PATTERN = var.aromi_enabled ? "'In/EVAKA'ddMMyyyy'.${var.environment == "prod" ? "csv" : "csvtst"}'" : null
+
     # ScheduledJobsEnv
     EVAKA_JOB_CANCEL_OUTDATED_TRANSFER_APPLICATIONS_ENABLED      = var.evaka_job_cancel_outdated_transfer_applications_enabled
     EVAKA_JOB_DVV_UPDATE_ENABLED                                 = var.dvv_mutp_update_enabled
@@ -246,6 +256,7 @@ module "app_service" {
     EVAKA_JOB_REMOVE_OLD_DRAFT_APPLICATIONS_ENABLED              = var.evaka_job_remove_old_draft_applications_enabled
     EVAKA_JOB_SEND_JAMIX_ORDERS_ENABLED                          = var.jamix_orders_enabled
     EVAKA_JOB_SYNC_JAMIX_DIETS_ENABLED                           = var.jamix_diets_enabled
+    EVAKA_JOB_SEND_AROMI_ORDERS_ENABLED                          = var.aromi_enabled
     EVAKA_JOB_SEND_PENDING_DECISION_REMINDER_EMAILS_ENABLED      = var.send_pending_decision_reminder_emails_enabled
     EVAKA_JOB_VARDA_UPDATE_ENABLED                               = var.varda_integration_enabled
     EVAKA_JOB_VARDA_UPDATE_CRON                                  = var.evaka_job_varda_update_cron
@@ -576,6 +587,11 @@ variable "jamix_orders_enabled" {
 }
 
 variable "jamix_diets_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "aromi_enabled" {
   type    = bool
   default = false
 }
