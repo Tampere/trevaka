@@ -26,20 +26,11 @@ module "app_datadog_agent" {
   region                   = var.region
 }
 
-variable "datadog_version" {
-  type    = string
-  default = ""
-}
-
 variable "datadog_force_new_deployment" {
   type    = bool
   default = false
 }
 
 locals {
-  datadog_version = var.datadog_version != "" ? var.datadog_version : var.apps_version
-}
-
-output "datadog_version" {
-  value = local.datadog_version
+  datadog_version = "313b03429336ee1bfd0e81cd8d77228add2db162" # last build
 }

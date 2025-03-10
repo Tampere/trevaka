@@ -46,10 +46,6 @@ module "app_proxy" {
     ENDUSER_GW_URL  = "http://${module.app_apigw.internal_service_address}"
     INTERNAL_GW_URL = "http://${module.app_apigw.internal_service_address}"
     NGINX_ENV       = var.environment
-
-    DD_PROFILING_ENABLED = var.datadog_enabled ? true : null
-    DD_AGENT_HOST        = var.datadog_enabled ? module.app_datadog_agent.internal_service_address : null
-    DD_AGENT_PORT        = var.datadog_enabled ? 80 : null
   }
 }
 

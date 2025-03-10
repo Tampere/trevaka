@@ -18,12 +18,6 @@ updates:
       timezone: "Europe/Helsinki"
     allow:
       - dependency-name: "adobe/s3mock"
-  - package-ecosystem: "docker"
-    directory: "/datadog"
-    schedule:
-      interval: "daily"
-      time: "10:00"
-      timezone: "Europe/Helsinki"
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:

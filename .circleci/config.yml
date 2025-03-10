@@ -148,21 +148,6 @@ jobs:
 
   # BUILD JOBS
 
-  datadog_build_image:
-    executor: machine_ubuntu
-    resource_class: medium
-    parameters:
-      version:
-        type: string
-    steps:
-      - checkout_with_submodules
-      - setup_aws
-      - build_docker_image:
-          image: datadog
-          dir: datadog
-          cache: datadog
-          version: << parameters.version >>
-
   apigw_build_image:
     executor: machine_ubuntu
     resource_class: medium
@@ -416,11 +401,6 @@ workflows:
             parameters:
               path:
                 - infra/deploy
-
-      - datadog_build_image:
-          context:
-            - trevaka-aws
-          version: << pipeline.parameters.version >>
 
       - apigw_build_image:
           context:
