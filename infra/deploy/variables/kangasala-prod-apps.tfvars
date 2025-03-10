@@ -6,9 +6,6 @@
 municipality = "kangasala"
 environment  = "prod"
 
-# datadog
-datadog_enabled = false
-
 # proxy
 proxy_count = 2
 

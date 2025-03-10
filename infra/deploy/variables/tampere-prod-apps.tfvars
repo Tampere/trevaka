@@ -6,9 +6,6 @@
 municipality = "tampere"
 environment  = "prod"
 
-# datadog
-datadog_enabled = true
-
 # proxy
 proxy_count = 3
 
