@@ -57,7 +57,6 @@ class TamperePaymentClient(
             payableAccountingHeader = PayableAccountingHeader().apply {
                 sapVendor = payment.unit.providerId
                 iban = payment.unit.iban?.filterNot { it.isWhitespace() }
-                bic = "_"
                 customer = payment.unit.businessId
                 organisation = 1310.toBigInteger()
                 date = payment.period.end?.format()

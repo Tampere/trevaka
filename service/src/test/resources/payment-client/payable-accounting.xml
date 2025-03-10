@@ -6,7 +6,6 @@
             <ns3:PayableAccountingHeader>
                 <ns3:SAPVendor>81591</ns3:SAPVendor>
                 <ns3:IBAN>FIxxxxxxxxxxxx</ns3:IBAN>
-                <ns3:BIC>_</ns3:BIC>
                 <ns3:Customer>1234567-9</ns3:Customer>
                 <ns3:Organisation>1310</ns3:Organisation>
                 <ns3:Date>2024-07-31</ns3:Date>
@@ -34,7 +33,6 @@
             <ns3:PayableAccountingHeader>
                 <ns3:SAPVendor>81591</ns3:SAPVendor>
                 <ns3:IBAN>FIxxxxxxxxxxxx</ns3:IBAN>
-                <ns3:BIC>_</ns3:BIC>
                 <ns3:Customer>1234567-9</ns3:Customer>
                 <ns3:Organisation>1310</ns3:Organisation>
                 <ns3:Date>2024-07-31</ns3:Date>
@@ -62,7 +60,6 @@
             <ns3:PayableAccountingHeader>
                 <ns3:SAPVendor>81591</ns3:SAPVendor>
                 <ns3:IBAN>FIxxxxxxxxxxxx</ns3:IBAN>
-                <ns3:BIC>_</ns3:BIC>
                 <ns3:Customer>1234567-9</ns3:Customer>
                 <ns3:Organisation>1310</ns3:Organisation>
                 <ns3:Date>2024-07-31</ns3:Date>
