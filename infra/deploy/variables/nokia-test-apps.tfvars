@@ -6,9 +6,6 @@
 municipality = "nokia"
 environment  = "test"
 
-# datadog
-datadog_enabled = false
-
 # proxy
 proxy_count = 1
 
