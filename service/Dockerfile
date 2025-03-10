@@ -14,7 +14,7 @@ COPY --from=core ./service/sarmamodel/build.gradle.kts ./service/sarmamodel/
 WORKDIR /service
 COPY ./gradle/ ./gradle/
 COPY ./gradlew ./build.gradle.kts ./gradle.properties ./settings.gradle.kts ./settings-dependabot-ignore.gradle.kts ./
-RUN ./gradlew resolveDependencies service:copyDownloadOnlyDeps
+RUN ./gradlew resolveDependencies
 COPY --from=core ./service/vtjclient/ ../evaka/service/vtjclient/
 COPY --from=core ./service/sarmamodel/ ../evaka/service/sarmamodel/
 RUN ./gradlew :service:vtjclient:wsdl2java :service:sarmamodel:build
@@ -52,7 +52,6 @@ RUN apt-get update \
 WORKDIR /evaka/service
 COPY entrypoint.sh entrypoint.sh
 ENTRYPOINT ["./entrypoint.sh"]
-COPY --from=builder /evaka/service/build/download-only/dd-java-agent.jar /opt/dd-java-agent.jar
 COPY --from=builder /service/build/extracted/dependencies/ ./
 COPY --from=builder /service/build/extracted/spring-boot-loader/ ./
 COPY --from=builder /service/build/extracted/snapshot-dependencies/ ./

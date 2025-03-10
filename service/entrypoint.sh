@@ -21,28 +21,5 @@ fi
 
 # Run as exec so the application can receive any Unix signals sent to the container, e.g.,
 # Ctrl + C.
-if [ "${DD_PROFILING_ENABLED:-false}" = "true" ]; then
-  export DD_AGENT_HOST="${DD_AGENT_HOST:-localhost}"
-  export DD_TRACE_AGENT_PORT="${DD_TRACE_AGENT_PORT:-8126}"
-  export DD_ENV="${DD_ENV:-$VOLTTI_ENV}"
-  export DD_VERSION="${DD_VERSION:-$APP_COMMIT}"
-  export DD_SERVICE="${DD_SERVICE:-$APP_NAME}"
-  export DD_TRACE_OTEL_ENABLED=true
-
-  if [ "$DD_AGENT_HOST" = "UNAVAILABLE" ]; then
-    echo "Invalid DD_AGENT_HOST. Is it unset and not in AWS environment?"
-    exit 1
-  fi
-
-  # shellcheck disable=SC2086
-  exec java \
-    -Ddd.profiling.enabled=true \
-    -Ddd.logs.injection=true \
-    -Ddd.trace.sample.rate=1 \
-    -javaagent:/opt/dd-java-agent.jar \
-    -XX:FlightRecorderOptions=stackdepth=256 \
-    -cp . -server $JAVA_OPTS org.springframework.boot.loader.launch.JarLauncher "$@"
-else
-  # shellcheck disable=SC2086
-  exec java -cp . -server $JAVA_OPTS org.springframework.boot.loader.launch.JarLauncher "$@"
-fi
+# shellcheck disable=SC2086
+exec java -cp . -server $JAVA_OPTS org.springframework.boot.loader.launch.JarLauncher "$@"

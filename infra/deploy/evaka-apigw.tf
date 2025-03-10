@@ -66,10 +66,6 @@ module "app_apigw" {
     JWT_PRIVATE_KEY = "/home/evaka/s3/${coalesce(var.apigw_service_key, "apigw.key")}"
     JWT_KID         = "${local.project}-apigw"
 
-    DD_TRACE_ENABLED        = var.datadog_enabled ? true : null
-    DD_TRACE_AGENT_HOSTNAME = var.datadog_enabled ? module.app_datadog_agent.internal_service_address : null
-    DD_TRACE_AGENT_PORT     = var.datadog_enabled ? 80 : null
-
     # enduser
     SFI_MODE              = var.environment == "prod" ? "prod" : "test"
     SFI_SAML_CALLBACK_URL = "${local.frontend_url}/api/application/auth/saml/login/callback"

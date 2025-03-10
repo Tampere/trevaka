@@ -153,12 +153,6 @@ module "app_service" {
     VOLTTI_ENV = var.environment
     JAVA_OPTS  = "-Djava.security.egd=file:/dev/./urandom -Djdk.tls.client.protocols=TLSv1.2,TLSv1.3 -XX:MaxMetaspaceSize=256m -XX:ReservedCodeCacheSize=256m -Xms512m -Xmx${var.service_heap_size_mb}m"
 
-    DD_PROFILING_ENABLED = var.datadog_enabled ? true : null
-    DD_AGENT_HOST        = var.datadog_enabled ? module.app_datadog_agent.internal_service_address : null
-    DD_TRACE_AGENT_PORT  = var.datadog_enabled ? 80 : null
-    DD_SERVICE           = var.datadog_enabled ? "evaka-service" : null
-    DD_VERSION           = var.datadog_enabled ? local.service_version : null
-
     # Spring
     SPRING_APPLICATION_JSON = length(var.service_logging_levels) > 0 ? jsonencode({ "logging.level" : var.service_logging_levels }) : null
     SPRING_PROFILES_ACTIVE  = join(",", ["production", "${var.municipality}_evaka"])
