@@ -504,32 +504,22 @@ const fi: DeepPartial<Translations> = {
     },
     assistanceDecisions: {
       decision: {
+        disclaimer:
+          'Varhaiskasvatuslain 15 e §:n mukaan tämä päätös voidaan panna täytäntöön muutoksenhausta huolimatta.',
         unitMayChange: '',
+        appealInstructionsTitle: 'OIKAISUVAATIMUSOHJE',
+        legalInstructionsText: 'Varhaiskasvatuslaki (540/2018), 3 a luku',
         appealInstructions: (
           <>
+            <P>
+              Tähän päätökseen tyytymätön voi tehdä oikaisuvaatimuksen.
+              Päätökseen ei saa hakea muutosta valittamalla.
+            </P>
             <H3>Oikaisuvaatimusoikeus</H3>
             <P>
               Oikaisuvaatimuksen saa tehdä se, johon päätös on kohdistettu tai
               jonka oikeuteen, velvollisuuteen tai etuun päätös välittömästi
               vaikuttaa (asianosainen).
-            </P>
-            <H3>Oikaisuvaatimusaika</H3>
-            <P>
-              Oikaisuvaatimus on tehtävä 30 päivän kuluessa päätöksen
-              tiedoksisaannista.
-            </P>
-            <H3>Tiedoksisaanti</H3>
-            <P>
-              Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
-              näytetä, seitsemän päivän kuluttua kirjeen lähettämisestä tai
-              saantitodistukseen tai tiedoksiantotodistukseen merkittynä
-              päivänä. Käytettäessä tavallista sähköistä tiedoksiantoa
-              asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
-              näytetä kolmantena päivänä viestin lähettämisestä.
-              Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan viimeinen
-              päivä on pyhäpäivä, itsenäisyyspäivä, vapunpäivä, joulu- tai
-              juhannusaatto tai arkilauantai, saa tehtävän toimittaa
-              ensimmäisenä arkipäivänä sen jälkeen.
             </P>
             <H3>Oikaisuviranomainen</H3>
             <P>
@@ -539,11 +529,9 @@ const fi: DeepPartial<Translations> = {
             <P>
               Länsi- ja Sisä-Suomen aluehallintovirasto
               <br />
-              Wolffintie 35
+              Vaasan toimipaikka
               <br />
               PL 200, 65101 Vaasa
-              <br />
-              faksi: 06 317 4817
               <br />
               sähköposti:{' '}
               <ExternalLink
@@ -562,49 +550,62 @@ const fi: DeepPartial<Translations> = {
                 newTab
               />
             </P>
+            <H3>Oikaisuvaatimusaika</H3>
+            <P>
+              Oikaisuvaatimus on tehtävä 30 päivän kuluessa päätöksen
+              tiedoksisaannista. Oikaisuvaatimus on toimitettava
+              oikaisuvaatimusviranomaiselle viimeistään määräajan viimeisenä
+              päivänä ennen virka-ajan päättymistä. Oikaisuvaatimuksen
+              lähettäminen postitse tai sähköisesti tapahtuu lähettäjän omalla
+              vastuulla.
+            </P>
+            <P>
+              Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
+              näytetä, 7 päivän kuluttua kirjeen lähettämisestä, 3 päivän
+              kuluttua sähköpostin lähettämisestä, saantitodistuksen osoittamana
+              aikana tai tiedoksisaantitodistukseen merkittynä aikana.
+              Tiedoksisaantipäivää tai sitä päivää, jona päätös on asetettu
+              nähtäväksi, ei lueta määräaikaan. Jos määräajan viimeinen päivä on
+              pyhäpäivä tai muu sellainen päivä, jona työt virastoissa on
+              keskeytettävä, saa tehtävän toimittaa ensimmäisenä arkipäivänä sen
+              jälkeen.
+            </P>
+
             <H3>Oikaisuvaatimuksen muoto ja sisältö</H3>
             <P>
               Oikaisuvaatimus on tehtävä kirjallisesti. Myös sähköinen asiakirja
               täyttää vaatimuksen kirjallisesta muodosta.
             </P>
-            <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
-            <ul>
+            <P noMargin>Oikaisuvaatimuksessa on ilmoitettava:</P>
+            <ol>
+              <li>
+                oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite ja
+                puhelinnumero. Jos oikaisuvaatimuksen tekijän puhevaltaa käyttää
+                hänen laillinen edustajansa tai asiamiehensä, tai jos
+                oikaisuvaatimuksen laatijana on joku muu henkilö,
+                oikaisuvaatimuksessa on ilmoitettava myös tämän nimi ja
+                kotikunta.
+              </li>
+              <li>
+                mikäli oikaisuvaatimuspäätös voidaan antaa tiedoksi
+                sähköpostilla, yhteystietona pyydetään ilmoittamaan myös
+                sähköpostiosoite
+              </li>
               <li>päätös, johon haetaan oikaisua</li>
               <li>miten päätöstä halutaan oikaistavaksi</li>
-              <li>perusteet, joilla oikaisua vaaditaan</li>
-            </ul>
-            <P>
-              Oikaisuvaatimuksessa on lisäksi ilmoitettava tekijän nimi,
-              kotikunta, postiosoite ja puhelinnumero. Jos oikaisuvaatimuksen
-              tekijän puhevaltaa käyttää hänen laillinen edustajansa tai
-              asiamiehensä, tai jos oikaisuvaatimuksen laatijana on joku muu
-              henkilö, oikaisuvaatimuksessa on ilmoitettava myös tämän nimi ja
-              kotikunta.
-            </P>
-            <P>
-              Jos oikaisuvaatimuspäätös voidaan antaa tiedoksi sähköisenä
-              viestinä, yhteystietona pyydetään ilmoittamaan myös
-              sähköpostiosoite.
-            </P>
+              <li>perusteet, joilla oikaisua vaaditaan.</li>
+            </ol>
+            <P noMargin>Oikaisuvaatimukseen on liitettävä:</P>
+            <ol>
+              <li>asiakirjat, joihin vedotaan</li>
+              <li>valtakirja, mikäli käytetään asiamiestä.</li>
+            </ol>
             <P>
               Oikaisuvaatimuksen tekijän, laillisen edustajan tai asiamiehen on
               allekirjoitettava valitus. Sähköistä asiakirjaa ei kuitenkaan
               tarvitse täydentää allekirjoituksella, jos asiakirjassa on tiedot
               lähettäjästä eikä asiakirjan alkuperäisyyttä tai eheyttä ole syytä
               epäillä.
-            </P>
-            <P noMargin>Oikaisuvaatimukseen on liitettävä:</P>
-            <ul>
-              <li>asiakirjat, joihin vedotaan</li>
-              <li>valtakirja, mikäli käytetään asiamiestä.</li>
-            </ul>
-            <H3>Oikaisuvaatimuksen toimittaminen</H3>
-            <P>
-              Oikaisuvaatimuskirjelmä on toimitettava oikaisuvaatimusajan
-              kuluessa oikaisuvaatimusviranomaiselle. Oikaisuvaatimuskirjelmän
-              tulee olla perillä oikaisuvaatimusajan viimeisenä päivänä ennen
-              viraston aukiolon päättymistä. Oikaisuvaatimuksen lähettäminen
-              postitse tai sähköisesti tapahtuu lähettäjän omalla vastuulla.
             </P>
           </>
         ),
@@ -615,11 +616,13 @@ const fi: DeepPartial<Translations> = {
     assistancePreschoolDecisions: {
       disclaimer:
         'Perusopetuslain 17 §:n mukaan tämä päätös voidaan panna täytäntöön muutoksenhausta huolimatta.',
+      appealInstructionsTitle: 'Oikaisuvaatimus- ja valitusosoitusohje',
       appealInstructions: (
         <>
+          <H2>OIKAISUVAATIMUSOHJE ERITYISEN TUEN PÄÄTÖKSESTÄ</H2>
           <P>
             Tähän päätökseen tyytymätön voi tehdä kirjallisen
-            oikaisuvaatimuksen.
+            oikaisuvaatimuksen. Päätökseen ei saa hakea muutosta valittamalla.
           </P>
 
           <H3>Oikaisuvaatimusoikeus</H3>
@@ -638,11 +641,9 @@ const fi: DeepPartial<Translations> = {
           <P>
             Länsi- ja Sisä-Suomen aluehallintovirasto
             <br />
-            Wolffintie 35
+            Vaasan toimipaikka
             <br />
             PL 200, 65101 Vaasa
-            <br />
-            faksi: 06 317 4817
             <br />
             sähköposti:{' '}
             <ExternalLink
@@ -664,63 +665,149 @@ const fi: DeepPartial<Translations> = {
           <H3>Oikaisuvaatimusaika</H3>
           <P>
             Oikaisuvaatimus on tehtävä 14 päivän kuluessa päätöksen
-            tiedoksisaannista.
+            tiedoksisaannista. Oikaisuvaatimus on toimitettava
+            oikaisuvaatimusviranomaiselle määräajan viimeisenä päivänä ennen
+            virka-ajan päättymistä. Oikaisuvaatimuksen lähettäminen postitse tai
+            sähköisesti tapahtuu lähettäjän omalla vastuulla.
           </P>
-          <H3>Tiedoksisaanti</H3>
-          <P>
-            Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
-            näytetä, 7 päivän kuluttua kirjeen lähettämisestä, 3 päivän kuluttua
-            sähköpostin lähettämisestä, saantitodistuksen osoittamana aikana tai
-            erilliseen tiedoksisaantitodistukseen merkittynä aikana.
-            Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan viimeinen
-            päivä on pyhäpäivä, itsenäisyyspäivä, vapunpäivä, joulu- tai
-            juhannusaatto tai arkilauantai, saa tehtävän toimittaa ensimmäisenä
-            arkipäivänä sen jälkeen.
-          </P>
-
-          <H3>Oikaisuvaatimus</H3>
-          <P noMargin>Oikaisuvaatimuksessa on ilmoitettava</P>
-          <ul>
+          <H3>Oikaisuvaatimuksen muoto ja kieli</H3>
+          <P noMargin>Oikaisuvaatimuksessa on ilmoitettava:</P>
+          <ol>
             <li>
               Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite ja
               puhelinnumero
             </li>
-            <li>päätös, johon haetaan oikaisua</li>
             <li>
-              miltä osin päätökseen haetaan oikaisua ja mitä oikaisua siihen
-              vaaditaan tehtäväksi
+              mikäli oikaisuvaatimuspäätös voidaan antaa tiedoksi sähköisenä
+              viestinä, yhteystietona pyydetään ilmoittamaan myös
+              sähköpostiosoite
             </li>
-            <li>vaatimuksen perusteet</li>
-          </ul>
+            <li>päätös, johon haetaan oikaisua</li>
+            <li>miten päätöstä halutaan oikaistavaksi</li>
+            <li>perusteet, joilla oikaisua vaaditaan</li>
+          </ol>
 
           <P noMargin>Oikaisuvaatimukseen on liitettävä</P>
-          <ul>
-            <li>
-              päätös, johon haetaan oikaisua, alkuperäisenä tai jäljennöksenä
-            </li>
-            <li>
-              todistus siitä, minä päivänä päätös on annettu tiedoksi, tai muu
-              selvitys oikaisuvaatimusajan alkamisen ajankohdasta
-            </li>
-            <li>
-              asiakirjat, joihin oikaisuvaatimuksen tekijä vetoaa
-              oikaisuvaatimuksensa tueksi, jollei niitä ole jo aikaisemmin
-              toimitettu viranomaiselle.
-            </li>
-          </ul>
+          <ol>
+            <li>asiakirjat, joihin vedotaan</li>
+            <li>valtakirja, mikäli käytetään asiamiestä</li>
+          </ol>
 
           <P>
-            Asiamiehen on liitettävä valituskirjelmään valtakirja, kuten
-            oikeudenkäynnistä hallintoasioissa annetun lain (808/2019) 32 §:ssä
-            säädetään.
+            Oikaisuvaatimuksen tekijän, laillisen edustajan tai asiamiehen on
+            allekirjoitettava oikaisuvaatimus. Sähköistä asiakirjaa ei
+            kuitenkaan tarvitse täydentää allekirjoituksella, jos asiakirjassa
+            on tiedot lähettäjästä eikä asiakirjan alkuperäisyyttä tai eheyttä
+            ole syytä epäillä.
           </P>
-          <H3>Oikaisuvaatimuksen toimittaminen</H3>
+
+          <H2>VALITUSOSOITUS TULKITSEMIS- JA AVUSTAJAPALVELUISTA</H2>
+
+          <P>Tähän päätökseen saa hakea muutosta hallintovalituksella.</P>
+
+          <H3>Valitusoikeus</H3>
           <P>
-            Oikaisuvaatimuskirjelmä on toimitettava oikaisuvaatimusajan kuluessa
-            oikaisuvaatimusviranomaiselle. Oikaisuvaatimuskirjelmän tulee olla
-            perillä oikaisuvaatimusajan viimeisenä päivänä ennen viraston
-            aukiolon päättymistä. Oikaisuvaatimuksen lähettäminen postitse tai
-            sähköisesti tapahtuu lähettäjän omalla vastuulla.
+            Valituksen voi tehdä se, johon päätös on kohdistettu tai jonka
+            oikeuteen, velvollisuuteen tai etuun päätös välittömästi vaikuttaa
+            (asianosainen) ja se, jonka valitusoikeudesta laissa erikseen
+            säädetään. Viranomainen saa hakea muutosta valittamalla myös, jos
+            valittaminen on tarpeen viranomaisen valvottavana olevan yleisen
+            edun vuoksi.
+          </P>
+
+          <H3>Valitusaika</H3>
+          <P>
+            Valitus päätöksestä on tehtävä 30 päivän kuluessa päätöksen
+            tiedoksisaannista. Valitus on toimitettava valitusviranomaiselle
+            viimeistään valitusajan viimeisenä päivänä ennen valitusviranomaisen
+            virka-ajan päättymistä.
+          </P>
+          <P>
+            Asianosaisen katsotaan saaneen päätöksestä tiedon, jollei muuta
+            näytetä, 7 päivän kuluttua kirjeen lähettämisestä, 3 päivän kuluttua
+            sähköpostin lähettämisestä, saantitodistuksen osoittamana aikana tai
+            tiedoksisaantitodistukseen merkittynä aikana. Päätöksen katsotaan
+            tulleen viranomaisen tietoon kuitenkin kirjeen saapumispäivänä.
+          </P>
+          <P>
+            Käytettäessä todisteellista sähköistä tiedoksiantoa päätös katsotaan
+            annetun tiedoksi, kun asiakirja on noudettu viranomaisen
+            osoittamalta palvelimelta, tietokannasta tai muusta tiedostosta.
+          </P>
+          <P>
+            Tiedoksisaantipäivää ei lueta määräaikaan. Jos määräajan viimeinen
+            päivä on pyhäpäivä tai muu sellainen päivä, jona työt virastoissa on
+            keskeytettävä, saa tehtävän toimittaa ensimmäisenä arkipäivänä sen
+            jälkeen.
+          </P>
+          <H3>Valitusviranomainen</H3>
+          <P>
+            Hämeenlinnan hallinto-oikeus
+            <br />
+            Raatihuoneenkatu 1
+            <br />
+            13100 Hämeenlinna
+            <br />
+            Puhelin 029 56 42200 (vaihde)
+            <br />
+            sähköposti:{' '}
+            <ExternalLink
+              href="mailto:hameenlinna.hao@oikeus.fi"
+              text="hameenlinna.hao@oikeus.fi"
+              newTab
+            />
+            <br />
+            Valituksen voi tehdä myös hallinto- ja erityistuomioistuinten
+            asiointipalvelun sivulla neuvonta ja ohjaus.
+          </P>
+          <H3>Valituksen muoto ja sisältö</H3>
+          <P>
+            Valitus on tehtävä kirjallisesti. Myös sähköinen asiakirja täyttää
+            vaatimuksen kirjallisesta muodosta.
+          </P>
+          <P noMargin>Valituksessa on ilmoitettava:</P>
+          <ol>
+            <li>päätös, johon haetaan muutosta</li>
+            <li>
+              miltä kohdin päätökseen haetaan muutosta ja mitä muutoksia siihen
+              vaaditaan tehtäväksi
+            </li>
+            <li>vaatimusten perustelut</li>
+            <li>
+              mihin valitusoikeus perustuu, jos valituksen kohteena oleva päätös
+              ei kohdistu valittajaan.
+            </li>
+          </ol>
+          <P>
+            Valituksessa on lisäksi ilmoitettava valittajan nimi ja
+            yhteystiedot. Jos puhevaltaa käyttää valittajan laillinen edustaja
+            tai asiamies, myös tämän yhteystiedot on ilmoitettava.
+            Yhteystietojen muutoksesta on valituksen vireillä ollessa
+            ilmoitettava viipymättä hallintotuomioistuimelle. Valituksessa on
+            ilmoitettava myös se postiosoite ja mahdollinen muu osoite, johon
+            oikeudenkäyntiin liittyvät asiakirjat voidaan lähettää. Mikäli
+            valittaja on ilmoittanut enemmän kuin yhden osoitteen, voi
+            hallintotuomioistuin valita, mihin ilmoitetuista osoitteista se
+            toimittaa oikeudenkäyntiin liittyvät asiakirjat.
+          </P>
+
+          <P noMargin>Valitukseen on liitettävä</P>
+          <ol>
+            <li>
+              selvitys siitä, milloin valittaja on saanut päätöksen tiedoksi,
+              tai muu selvitys valitusajan alkamisen ajankohdasta
+            </li>
+            <li>
+              asiakirjat, joihin valittaja vetoaa vaatimuksensa tueksi, jollei
+              niitä ole jo aikaisemmin toimitettu viranomaiselle.
+            </li>
+          </ol>
+          <H3>Oikeudenkäyntimaksu</H3>
+          <P>
+            Tuomioistuinmaksulain (1455/2015) 2 §:n nojalla muutoksenhakijalta
+            peritään oikeudenkäyntimaksua hallinto-oikeudessa 270 euroa.
+            Tuomioistuinmaksulaissa on erikseen säädetty tapauksista, joissa
+            maksua ei peritä.
           </P>
         </>
       ),

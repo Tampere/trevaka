@@ -91,11 +91,6 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         <div class="decision-details" th:text="#{unitMayChange}"></div>
 
         <div class="decision-details">
-            <h3 th:text="#{primaryGroup}"></h3>
-            <div th:text="${decision.form.primaryGroup}"></div>
-        </div>
-
-        <div class="decision-details">
             <h3 th:text="#{decisionBasis}"></h3>
             <div class="multi-line" th:text="${decision.form.decisionBasis}"></div>
         </div>
@@ -217,8 +212,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 </div>
 
 <div class="page last-page">
-    <h1 th:text="#{appealInstructionTitle}"></h1>
-    <div th:utext="#{appealInstructions}"></div>
+    <div th:replace="~{nokia/shared/preschool-assistance-correction :: correction}"></div>
 </div>
 </body>
 </html>
