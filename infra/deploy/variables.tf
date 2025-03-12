@@ -39,8 +39,3 @@ variable "municipality" {
 variable "environment" {
   type = string
 }
-
-variable "datadog_enabled" {
-  type    = bool
-  default = false
-}
