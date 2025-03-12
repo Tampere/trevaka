@@ -230,7 +230,7 @@ class ChildDocumentExportTest : AbstractTampereIntegrationTest() {
                         "1.2" to true,
                         "1.3" to listOf("1.3.1", "1.3.3"),
                         "1.4" to "1.4.2",
-                        "1.6" to "2025-02-11",
+                        "1.6" to "11.02.2025",
                         "1.7" to listOf(mapOf("1.7.1" to "1.7.1 answer", "1.7.2" to "1.7.2 answer", "1.7.3" to "1.7.3 answer")),
                         "1.8" to listOf(
                             mapOf("1.8.1" to "1.8.1 answer1", "1.8.2" to "1.8.2 answer1", "1.8.3" to "1.8.3 answer1"),
