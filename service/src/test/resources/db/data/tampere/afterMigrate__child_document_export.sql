@@ -39,6 +39,8 @@ WITH template AS (SELECT id, content
                                                                                            THEN (SELECT option -> 'label'
                                                                                                  FROM jsonb_array_elements(question -> 'options') option
                                                                                                  WHERE answer -> 'answer' = option -> 'id')
+                                                                                       WHEN 'DATE'
+                                                                                           THEN to_jsonb(to_char(to_date(answer ->> 'answer', 'YYYY-MM-DD'), 'DD.MM.YYYY'))
                                                                                        WHEN 'GROUPED_TEXT_FIELDS'
                                                                                            THEN (SELECT jsonb_agg(row.object)
                                                                                                  FROM (SELECT jsonb_object_agg(label.value #>> '{}', cell.value) AS object
