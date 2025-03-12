@@ -406,7 +406,7 @@ data class BiEmployee(
     val updated: String,
     val roles: List<UserRole>,
     val external_id: String?,
-    val last_login: String,
+    val last_login: String?,
     val employee_number: String?,
     val preferred_first_name: String?,
     val temporary_in_unit_id: UUID?,
