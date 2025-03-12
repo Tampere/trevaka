@@ -202,7 +202,7 @@ object BiQueries {
         csvQuery<BiEmployee> {
             sql(
                 """
-            select id, active, first_name, last_name, email, created::text, updated::text, roles, external_id, last_login::text, employee_number, preferred_first_name, temporary_in_unit_id
+            select id, active, first_name, last_name, email, created::text, updated::text, roles, external_id, coalesce(last_login::text, '2020-12-31 22:00:00+00') AS last_login, employee_number, preferred_first_name, temporary_in_unit_id
             FROM employee
         """,
             )

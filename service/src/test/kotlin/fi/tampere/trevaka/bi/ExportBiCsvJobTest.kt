@@ -35,6 +35,7 @@ import fi.espoo.evaka.shared.VoucherValueDecisionId
 import fi.espoo.evaka.shared.db.QuerySql
 import fi.espoo.evaka.shared.dev.DevDaycare
 import fi.espoo.evaka.shared.dev.DevDaycareGroup
+import fi.espoo.evaka.shared.dev.DevEmployee
 import fi.espoo.evaka.shared.dev.DevPerson
 import fi.espoo.evaka.shared.dev.DevPersonType
 import fi.espoo.evaka.shared.dev.DevPlacement
@@ -111,6 +112,10 @@ class ExportBiCsvJobTest : AbstractTampereIntegrationTest() {
 
     private fun insertCriticalTestData() {
         db.transaction { tx ->
+            tx.insert(DevEmployee())
+            tx.insert(DevEmployee())
+                .also { employeeId -> tx.createUpdate { sql("UPDATE employee SET last_login = NULL WHERE id = ${bind(employeeId)}") }.updateExactlyOne() }
+
             val areaId =
                 tx.createQuery(
                     QuerySql { sql("select id from care_area order by short_name limit 1") },
