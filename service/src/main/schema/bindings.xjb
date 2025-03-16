@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+SPDX-FileCopyrightText: 2023-2025 Tampere region
+
+SPDX-License-Identifier: LGPL-2.1-or-later
+-->
+
+<jaxb:bindings version="3.0"
+               xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <jaxb:globalBindings>
+        <xjc:javaType name="java.time.LocalDate"
+                      xmlType="xsd:date"
+                      adapter="io.github.threetenjaxb.core.LocalDateXmlAdapter"/>
+    </jaxb:globalBindings>
+</jaxb:bindings>
