@@ -457,6 +457,12 @@ class TampereActionRuleMapping : ActionRuleMapping {
                 HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).withUnitFeatures(PilotFeature.RESERVATIONS).inUnit() as ScopedActionRule<in T>,
             )
         }
+        Action.Unit.READ_TRANSFER_APPLICATIONS -> {
+            @Suppress("UNCHECKED_CAST")
+            action.defaultRules.asSequence() + sequenceOf(
+                HasUnitRole(UserRole.UNIT_SUPERVISOR).inUnit() as ScopedActionRule<in T>,
+            )
+        }
         Action.VoucherValueDecision.READ -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
