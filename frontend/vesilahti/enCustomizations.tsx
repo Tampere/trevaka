@@ -52,8 +52,12 @@ const en: DeepPartial<Translations> = {
       transferApplicationInfo: {
         DAYCARE:
           'The child already has a place in early childhood education in Vesilahti. With this application you can apply for a transfer to another unit offering early childhood education in Vesilahti.',
-        PRESCHOOL:
-          'The child already has a pre-school place. With this application, you can apply for activities that supplement preschool education.'
+        PRESCHOOL: (
+          <span>
+            The child already has a pre-school place. With this application, you
+            can apply for activities that supplement preschool education.
+          </span>
+        )
       }
     },
     editor: {

@@ -50,8 +50,12 @@ const fi: DeepPartial<Translations> = {
       transferApplicationInfo: {
         DAYCARE:
           'Lapsella on jo paikka Vesilahden varhaiskasvatuksessa. Tällä hakemuksella voit hakea siirtoa toiseen varhaiskasvatusta tarjoavaan yksikköön Vesilahdella.',
-        PRESCHOOL:
-          'Lapsella on jo esiopetuspaikka. Tällä hakemuksella voit hakea esiopetusta täydentävää varhaiskasvatusta.'
+        PRESCHOOL: (
+          <span>
+            Lapsella on jo esiopetuspaikka. Tällä hakemuksella voit hakea
+            esiopetusta täydentävää varhaiskasvatusta.
+          </span>
+        )
       }
     },
     editor: {
