@@ -9,7 +9,7 @@
                 <ns3:Customer>1234567-9</ns3:Customer>
                 <ns3:Organisation>1310</ns3:Organisation>
                 <ns3:Date>2024-07-31</ns3:Date>
-                <ns3:ReceiptType>6F</ns3:ReceiptType>
+                <ns3:ReceiptType>6S</ns3:ReceiptType>
                 <ns3:DebetKredit>-</ns3:DebetKredit>
                 <ns3:Reference>134910</ns3:Reference>
                 <ns3:Currency>EUR</ns3:Currency>
@@ -36,7 +36,7 @@
                 <ns3:Customer>1234567-9</ns3:Customer>
                 <ns3:Organisation>1310</ns3:Organisation>
                 <ns3:Date>2024-07-31</ns3:Date>
-                <ns3:ReceiptType>6F</ns3:ReceiptType>
+                <ns3:ReceiptType>6S</ns3:ReceiptType>
                 <ns3:DebetKredit>-</ns3:DebetKredit>
                 <ns3:Reference>134910</ns3:Reference>
                 <ns3:Currency>EUR</ns3:Currency>
@@ -63,7 +63,7 @@
                 <ns3:Customer>1234567-9</ns3:Customer>
                 <ns3:Organisation>1310</ns3:Organisation>
                 <ns3:Date>2024-07-31</ns3:Date>
-                <ns3:ReceiptType>6F</ns3:ReceiptType>
+                <ns3:ReceiptType>6S</ns3:ReceiptType>
                 <ns3:DebetKredit>-</ns3:DebetKredit>
                 <ns3:Reference>131000_134910</ns3:Reference>
                 <ns3:Currency>EUR</ns3:Currency>

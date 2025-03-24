@@ -60,7 +60,7 @@ class TamperePaymentClient(
                 customer = payment.unit.businessId
                 organisation = 1310.toBigInteger()
                 date = payment.period.end?.format()
-                receiptType = "6F"
+                receiptType = "6S"
                 debetKredit = "-"
                 reference = costCenter?.let { "${it}_$number" } ?: number
                 currency = "EUR"
