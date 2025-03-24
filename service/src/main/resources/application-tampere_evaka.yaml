@@ -20,5 +20,7 @@ evaka:
         street_address: "PL 487"
         postal_code: "33101"
         post_office: "Tampere"
+  placement_tool:
+    service_need_option_id: "0a58d934-6fd1-11ed-a75e-c353faef5857"
 trevaka:
   municipality: tampere

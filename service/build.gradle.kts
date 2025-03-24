@@ -48,6 +48,7 @@ dependencies {
     implementation("com.github.kagkarlsson:db-scheduler")
     implementation("com.fasterxml.jackson.core:jackson-core")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv")
+    implementation("org.bouncycastle:bcpkix-jdk18on")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
