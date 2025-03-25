@@ -48,6 +48,7 @@ class HameenkyroConfig {
         postOffice = "HÄMEENKYRÖ",
         municipalMessageAccountName = "Hämeenkyrön kunta",
         serviceWorkerMessageAccountName = "Hämeenkyrön kunnan palveluohjaus",
+        financeMessageAccountName = "Hämeenkyrön kunnan asiakasmaksut",
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,

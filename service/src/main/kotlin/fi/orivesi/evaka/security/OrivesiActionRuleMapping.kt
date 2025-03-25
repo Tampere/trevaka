@@ -312,18 +312,6 @@ class OrivesiActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
-        Action.Parentship.READ -> {
-            @Suppress("UNCHECKED_CAST")
-            action.defaultRules.asSequence() + sequenceOf(
-                HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
-            )
-        }
-        Action.Partnership.READ -> {
-            @Suppress("UNCHECKED_CAST")
-            action.defaultRules.asSequence() + sequenceOf(
-                HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
-            )
-        }
         Action.PedagogicalDocument.DELETE,
         Action.PedagogicalDocument.UPDATE,
         Action.PedagogicalDocument.CREATE_ATTACHMENT,
