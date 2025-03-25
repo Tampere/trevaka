@@ -48,6 +48,7 @@ class KangasalaConfig {
         postOffice = "KANGASALA",
         municipalMessageAccountName = "Kangasalan kaupunki",
         serviceWorkerMessageAccountName = "Kangasalan kaupungin varhaiskasvatuksen ja esiopetuksen palveluohjaus",
+        financeMessageAccountName = "Kangasalan kaupungin varhaiskasvatuksen ja esiopetuksen asiakasmaksut",
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,

@@ -48,6 +48,7 @@ class PirkkalaConfig {
         postOffice = "PIRKKALA",
         municipalMessageAccountName = "Pirkkalan kunta",
         serviceWorkerMessageAccountName = "Pirkkalan kunnan varhaiskasvatus",
+        financeMessageAccountName = "Pirkkalan kunnan varhaiskasvatus",
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,

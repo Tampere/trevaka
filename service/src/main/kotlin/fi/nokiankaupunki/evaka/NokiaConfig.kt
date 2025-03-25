@@ -48,6 +48,7 @@ class NokiaConfig {
         postOffice = "NOKIA",
         municipalMessageAccountName = "Nokian kaupunki",
         serviceWorkerMessageAccountName = "Nokian kaupunki",
+        financeMessageAccountName = "Nokian kaupunki",
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,

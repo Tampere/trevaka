@@ -48,6 +48,7 @@ class VesilahtiConfig {
         postOffice = "VESILAHTI",
         municipalMessageAccountName = "Vesilahden kunta",
         serviceWorkerMessageAccountName = "Vesilahden kunta",
+        financeMessageAccountName = "Vesilahden kunta",
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,

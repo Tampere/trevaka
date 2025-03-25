@@ -48,6 +48,7 @@ class LempaalaConfig {
         postOffice = "LEMPÄÄLÄ",
         municipalMessageAccountName = "Lempäälän kunnan varhaiskasvatuspalvelut",
         serviceWorkerMessageAccountName = "Lempäälän kunnan varhaiskasvatuksen palveluohjaus",
+        financeMessageAccountName = "Lempäälän kunnan varhaiskasvatuksen asiakasmaksut",
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,

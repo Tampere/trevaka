@@ -77,6 +77,7 @@ class TampereConfig {
         postOffice = "TAMPERE",
         municipalMessageAccountName = "Tampereen kaupunki",
         serviceWorkerMessageAccountName = "Tampereen kaupungin palveluohjaus",
+        financeMessageAccountName = "Tampereen kaupungin asiakasmaksut",
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,

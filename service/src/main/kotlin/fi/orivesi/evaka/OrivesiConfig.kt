@@ -48,6 +48,7 @@ class OrivesiConfig {
         postOffice = "ORIVESI",
         municipalMessageAccountName = "Oriveden kaupunki, varhaiskasvatuspalvelut",
         serviceWorkerMessageAccountName = "Oriveden kaupunki, varhaiskasvatuspalvelut",
+        financeMessageAccountName = "Oriveden kaupunki, varhaiskasvatuspalvelut",
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
