@@ -99,9 +99,7 @@ class VesilahtiActionRuleMapping : ActionRuleMapping {
         Action.Application.READ_IF_HAS_ASSISTANCE_NEED,
         Action.Application.READ_PLACEMENT_PLAN_DRAFT,
         Action.Application.READ_DECISION_DRAFT,
-        Action.Application.READ_DECISIONS,
         Action.Application.READ_NOTES,
-        Action.Application.READ_ATTACHMENTS,
         -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
@@ -147,7 +145,6 @@ class VesilahtiActionRuleMapping : ActionRuleMapping {
         Action.Child.READ_ABSENCES,
         Action.Child.READ_FUTURE_ABSENCES,
         Action.Child.READ_ADDITIONAL_INFO,
-        Action.Child.READ_DECISIONS,
         Action.Child.READ_ASSISTANCE_NEED_DECISIONS,
         Action.Child.READ_ASSISTANCE_NEED_PRESCHOOL_DECISIONS,
         Action.Child.READ_ASSISTANCE_NEED_VOUCHER_COEFFICIENTS,
@@ -368,9 +365,6 @@ class VesilahtiActionRuleMapping : ActionRuleMapping {
         Action.Unit.READ_GROUP_DETAILS,
         Action.Unit.READ_GROUPS,
         Action.Unit.READ_CHILD_CAPACITY_FACTORS,
-        Action.Unit.READ_BACKUP_CARE,
-        Action.Unit.READ_PLACEMENT,
-        Action.Unit.READ_PLACEMENT_PLAN,
         Action.Unit.READ_APPLICATIONS_REPORT,
         Action.Unit.READ_CHILD_IN_DIFFERENT_ADDRESS_REPORT,
         Action.Unit.READ_FAMILY_CONFLICT_REPORT,
@@ -398,7 +392,6 @@ class VesilahtiActionRuleMapping : ActionRuleMapping {
         }
         Action.Unit.READ_STAFF_OCCUPANCY_COEFFICIENTS,
         Action.Unit.UPSERT_STAFF_OCCUPANCY_COEFFICIENTS,
-        Action.Unit.DELETE_STAFF_ATTENDANCES,
         Action.Unit.UPDATE_STAFF_ATTENDANCES,
         -> {
             @Suppress("UNCHECKED_CAST")
