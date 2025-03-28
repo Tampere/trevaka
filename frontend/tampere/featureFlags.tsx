@@ -43,6 +43,7 @@ const prod: FeatureFlags = {
   assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
   discussionReservations: true,
+  aromiIntegration: true,
   serviceApplications: true,
   multiSelectDeparture: true,
   requireAttachments: true
@@ -51,8 +52,7 @@ const prod: FeatureFlags = {
 const features: Features = {
   default: {
     ...prod,
-    environmentLabel: 'Test',
-    aromiIntegration: true
+    environmentLabel: 'Test'
   },
   staging: {
     ...prod,
