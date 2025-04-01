@@ -178,6 +178,8 @@ class ChildDocumentExportTest : AbstractTampereIntegrationTest() {
                     contentModifiedAt = clock.now(),
                     contentModifiedBy = null,
                     publishedAt = clock.now(),
+                    answeredAt = null,
+                    answeredBy = null,
                 ),
             )
             val child2Id = tx.insert(
@@ -208,6 +210,8 @@ class ChildDocumentExportTest : AbstractTampereIntegrationTest() {
                     contentModifiedAt = clock.now(),
                     contentModifiedBy = null,
                     publishedAt = clock.now(),
+                    answeredAt = null,
+                    answeredBy = null,
                 ),
             )
         }
