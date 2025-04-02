@@ -52,7 +52,8 @@ const prod: FeatureFlags = {
 const features: Features = {
   default: {
     ...prod,
-    environmentLabel: 'Test'
+    environmentLabel: 'Test',
+    citizenChildDocumentTypes: true
   },
   staging: {
     ...prod,
