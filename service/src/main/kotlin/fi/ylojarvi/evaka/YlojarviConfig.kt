@@ -48,7 +48,7 @@ class YlojarviConfig {
         postOffice = "YLÖJÄRVI",
         municipalMessageAccountName = "Ylöjärven kaupunki",
         serviceWorkerMessageAccountName = "Ylöjärven kaupungin palveluohjaus",
-        financeMessageAccountName = "Ylöjärven kaupungin asiakasmaksut",
+        financeMessageAccountName = "Ylöjärven varhaiskasvatuksen asiakasmaksut",
         applyPlacementUnitFromDecision = true,
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
