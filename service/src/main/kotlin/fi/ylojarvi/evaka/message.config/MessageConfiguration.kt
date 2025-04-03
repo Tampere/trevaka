@@ -34,7 +34,7 @@ internal class YlojarviMessageProvider(private val messageSource: MessageSource)
 
     override fun getDecisionHeader(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.DECISION_HEADER", null, resolveLocale(lang))
 
-    override fun getDecisionContent(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.DECISION_CONTENT", null, resolveLocale(lang))
+    override fun getDecisionContent(lang: OfficialLanguage, skipGuardianApproval: Boolean?): String = messageSource.getMessage("$PREFIX.DECISION_CONTENT", null, resolveLocale(lang))
 
     override fun getFeeDecisionHeader(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.FEE_DECISION_HEADER", null, resolveLocale(lang))
 
