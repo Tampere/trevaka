@@ -82,6 +82,7 @@ class TamperePaymentClient(
                             else -> "20285"
                         }
                     }
+                    taxCode = "29"
                     this.partnerCode = partnerCode?.toBigInteger()
                     debetKredit = "+"
                     this.value = value
