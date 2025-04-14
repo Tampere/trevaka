@@ -370,12 +370,10 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             <strong th:text="#{notice.noticeMethodTitle}">Tiedoksiantotapa:</strong>
             <span th:text="#{notice.noticeMethod.sent}">Lähetetty</span>
         </p>
-        <th:block th:if="${decision.type.name() == 'PRESCHOOL'}">
-            <p>
-                <strong th:text="${#messages.msgOrNull('decision.preparer.prefix.' + decision.type)}"></strong>
-                <span th:text="${#messages.msgOrNull('decision.preparer.' + decision.type)}"></span>
-            </p>
-        </th:block>
+        <p th:unless="${type == 'notice'}">
+            <strong th:text="#{decision.preparer.prefix}"></strong>
+            <span th:text="#{decision.preparer}"></span>
+        </p>
         <p>
             <strong th:text="${#messages.msgOrNull('decision.approver.prefix.' + decision.type)} ?: #{decision.approver.prefix}">Päätöksentekijä</strong>
         </p>
@@ -386,9 +384,6 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         </th:block>
 
         <th:block th:unless="${type == 'notice'}">
-            <div th:if="${not #strings.isEmpty(#messages.msgOrNull('decision.preparer.prefix.' + decision.type))}">
-
-            </div>
             <div th:if="${not #strings.isEmpty(decisionMakerName)}" th:text="${decisionMakerName}"></div>
             <div th:if="${not #strings.isEmpty(decisionMakerTitle)}" th:text="${decisionMakerTitle}">Asiakaspalvelupäällikkö</div>
             <div th:if="${not #strings.isEmpty(decisionMakerName) or not #strings.isEmpty(decisionMakerTitle)}"
