@@ -8,7 +8,6 @@ export const createConfig = (customizations: string): Config.InitialOptions => (
   displayName: `e2e-playwright (${customizations})`,
   preset: 'ts-jest',
   testEnvironment: '../../../evaka/frontend/src/e2e-test/jest-environment',
-  testRunner: 'jest-circus/runner',
   moduleNameMapper: {
     '^e2e/(.*)$': '<rootDir>/$1',
     '^@evaka/customizations/(.*)': `<rootDir>/../../${customizations}/$1`,
