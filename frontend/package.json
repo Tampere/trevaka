@@ -3,28 +3,23 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "type-check": "tsc -b .",
-    "test": "jest src/e2e/specs/**/*translations.spec.ts",
-    "e2e-playwright": "jest --testTimeout 60000 --runInBand src/e2e/specs --testPathIgnorePatterns src/e2e/specs/**/*translations.spec.ts",
+    "e2e-playwright": "jest --testTimeout 60000 --runInBand src/e2e/specs",
     "e2e-ci-playwright": "LANG=fi-FI LANGUAGE=fi_FI BASE_URL=http://localhost:9099 jest --testTimeout 60000 --runInBand --bail 1 --retries=2 src/e2e/specs"
   },
   "devDependencies": {
     "@playwright/test": "^1.51.1",
     "@types/jest": "^29.5.14",
-    "@types/lodash": "^4.17.16",
     "@types/node": "^22.14.0",
     "@types/react": "^18.3.20",
     "axios": "^1.8.4",
     "e2e-test": "link:../evaka/frontend/src/e2e-test",
     "jest": "^29.7.0",
-    "jest-circus": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-environment-node": "^29.7.0",
     "jest-junit": "^16.0.0",
     "lib-common": "link:../evaka/frontend/src/lib-common",
     "lib-components": "link:../evaka/frontend/src/lib-components",
     "lib-customizations": "link:../evaka/frontend/src/lib-customizations",
-    "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "styled-components": "6.1.17",
@@ -34,10 +29,8 @@
     "typescript": "~5.8.3"
   },
   "jest": {
-    "testRunner": "jest-circus/runner",
     "projects": [
-      "./src/e2e/tampere.jest.config.ts",
-      "./src/e2e/vesilahti.jest.config.ts"
+      "./src/e2e/tampere.jest.config.ts"
     ],
     "reporters": [
       "default",
