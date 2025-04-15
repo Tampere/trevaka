@@ -119,10 +119,3 @@ orivesi:
     export: trevaka-export-it
 
 debug: true
-
-logging:
-  level:
-    software:
-      amazon:
-        awssdk:
-          request: DEBUG
