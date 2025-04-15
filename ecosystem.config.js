@@ -61,6 +61,7 @@ module.exports = {
     args: './gradlew bootRun',
     cwd: path.resolve(__dirname, 'service'),
     env: {
+      SPRING_PROFILES_INCLUDE: 'local,trevaka-local',
       SPRING_PROFILES_ACTIVE: 'tampere_evaka',
     },
     env_tampere: {
