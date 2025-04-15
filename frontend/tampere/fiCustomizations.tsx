@@ -133,19 +133,11 @@ const fi: DeepPartial<Translations> = {
                   ei ole ottanut palvelua käyttöönsä, tieto lähetetään hänelle
                   kirjeitse.
                 </P>
-                <P>
-                  Lisätietoa{' '}
-                  <ExternalLink
-                    href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus"
-                    text="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus"
-                    newTab
-                  />
-                </P>
               </>
             )
           },
           serviceVoucherLink:
-            'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit'
+            'https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatus/paivakodit/palvelusetelipaivakodit'
         }
       },
       heading: {
@@ -320,21 +312,11 @@ const fi: DeepPartial<Translations> = {
           },
           connectedDaycare: 'Haen esiopetusta täydentävää toimintaa.',
           connectedDaycareInfo: (
-            <>
-              <P>
-                Esiopetusaika on neljä tuntia päivässä, pääsääntöisesti klo
-                9–13. Esiopetuksen lisäksi lapsi voi osallistua maksulliseen
-                täydentävään varhaiskasvatukseen aamuisin ja iltapäivisin.
-              </P>
-              <P>
-                Lisätietoa täydentävästä toiminnasta ja asiakasmaksuista{' '}
-                <ExternalLink
-                  href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus/esiopetusta-taydentava-toiminta"
-                  text="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus/esiopetusta-taydentava-toiminta"
-                  newTab
-                />
-              </P>
-            </>
+            <P>
+              Esiopetusaika on neljä tuntia päivässä, pääsääntöisesti klo 9–13.
+              Esiopetuksen lisäksi lapsi voi osallistua maksulliseen
+              täydentävään varhaiskasvatukseen aamuisin ja iltapäivisin.
+            </P>
           )
         }
       },
@@ -501,7 +483,7 @@ const fi: DeepPartial<Translations> = {
     }`,
     privateUnitInfo: <></>,
     serviceVoucherLink:
-      'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit',
+      'https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatus/paivakodit/palvelusetelipaivakodit',
     searchPlaceholder: 'Esim. Amurin päiväkoti'
   },
   decisions: {
