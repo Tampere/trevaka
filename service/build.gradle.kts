@@ -77,9 +77,6 @@ tasks {
     test {
         useJUnitPlatform()
     }
-    bootRun {
-        systemProperty("spring.profiles.include", "local,trevaka-local")
-    }
 }
 
 allprojects {

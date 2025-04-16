@@ -120,14 +120,13 @@ services:
       # service/entrypoint.sh
       VOLTTI_ENV: local
       JAVA_OPTS: -server -Djava.security.egd=file:/dev/./urandom -Xms1024m -Xss512k -Xmx1024m -XX:TieredStopAtLevel=1
-      # service/build.gradle.kts
-      SPRING_PROFILES_INCLUDE: local,trevaka-local
       # local profile overrides for docker environment
       EVAKA_DATABASE_URL: jdbc:postgresql://db:5432/evaka_${EVAKA_CUSTOMIZATIONS}_local
       EVAKA_S3MOCK_URL: http://s3:9090
       EVAKA_BUCKET_PROXY_THROUGH_NGINX: true
       EVAKA_PASSWORD_BLACKLIST_DIRECTORY: /opt/password-blacklists
       # ecosystem.config.js
+      SPRING_PROFILES_INCLUDE: local,trevaka-local
       SPRING_PROFILES_ACTIVE: ${EVAKA_CUSTOMIZATIONS}_evaka
     restart: unless-stopped
     profiles:
