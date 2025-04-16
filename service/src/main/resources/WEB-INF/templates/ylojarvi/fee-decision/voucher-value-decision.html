@@ -164,9 +164,6 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 
         <p th:utext="#{decision.approver.details}"></p>
     </div>
-
-    <p th:if="${hasPartner}" th:text="#{decision.inform.guardians}">Tiedoksi: Huoltajat</p>
-    <p th:if="${!hasPartner}" th:text="#{decision.inform.guardian}">Tiedoksi: Huoltaja</p>
 </div>
 
 <div class="page last-page">
