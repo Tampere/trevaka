@@ -133,19 +133,11 @@ const en: DeepPartial<Translations> = {
                   service. If the custodian has not registered for the service,
                   the information will be sent to them by letter.
                 </P>
-                <P>
-                  Further information{' '}
-                  <ExternalLink
-                    href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus"
-                    text="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus"
-                    newTab
-                  />
-                </P>
               </>
             )
           },
           serviceVoucherLink:
-            'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit'
+            'https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatus/paivakodit/palvelusetelipaivakodit'
         }
       },
       heading: {
@@ -330,23 +322,12 @@ const en: DeepPartial<Translations> = {
           connectedDaycare:
             'I am applying for a supplementary activity to pre-school education.',
           connectedDaycareInfo: (
-            <>
-              <P>
-                Pre-school education lasts for four hours a day, generally from
-                9 am to 1 pm. In addition, the child can participate in paid
-                supplementary early childhood education in the mornings and in
-                the afternoons.
-              </P>
-              <P>
-                Further information about supplementary activities and client
-                fees{' '}
-                <ExternalLink
-                  href="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus/esiopetusta-taydentava-toiminta"
-                  text="https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/esiopetus/esiopetusta-taydentava-toiminta"
-                  newTab
-                />
-              </P>
-            </>
+            <P>
+              Pre-school education lasts for four hours a day, generally from 9
+              am to 1 pm. In addition, the child can participate in paid
+              supplementary early childhood education in the mornings and in the
+              afternoons.
+            </P>
           )
         }
       },
@@ -518,7 +499,7 @@ const en: DeepPartial<Translations> = {
     }`,
     privateUnitInfo: <></>,
     serviceVoucherLink:
-      'https://www.tampere.fi/varhaiskasvatus-ja-koulutus/varhaiskasvatus/paivakodit.html#palvelusetelipaivakodit',
+      'https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatus/paivakodit/palvelusetelipaivakodit',
     searchPlaceholder: 'E.g. Amurin päiväkoti'
   },
   decisions: {
