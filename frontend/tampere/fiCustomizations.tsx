@@ -136,6 +136,13 @@ const fi: DeepPartial<Translations> = {
               </>
             )
           },
+          preferences: {
+            infoByApplicationType: {
+              PRESCHOOL: () => 'Valitse yksi vaihtoehto',
+              CLUB: (maxUnits: number) =>
+                `Laita 1-${maxUnits} kerhoa toivomaasi järjestykseen.`
+            }
+          },
           serviceVoucherLink:
             'https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatus/paivakodit/palvelusetelipaivakodit'
         }
