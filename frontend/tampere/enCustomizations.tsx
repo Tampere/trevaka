@@ -136,6 +136,13 @@ const en: DeepPartial<Translations> = {
               </>
             )
           },
+          preferences: {
+            infoByApplicationType: {
+              PRESCHOOL: () => 'Select one option',
+              CLUB: (maxUnits: number) =>
+                `Place 1-${maxUnits} clubs in the order you want.`
+            }
+          },
           serviceVoucherLink:
             'https://www.tampere.fi/varhaiskasvatus-ja-esiopetus/varhaiskasvatus/paivakodit/palvelusetelipaivakodit'
         }
