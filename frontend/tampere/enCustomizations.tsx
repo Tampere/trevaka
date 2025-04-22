@@ -739,20 +739,20 @@ const en: DeepPartial<Translations> = {
       <P>
         <strong>Contact information of the supervisory authority</strong>
         <br />
-        Regional State Administrative Agency of Southern Finland
+        Finnish Transport and Communications Agency Traficom
         <br />
-        Accessibility Supervision Unit
+        Digital Accessibility Supervision Unit
         <br />
         <ExternalLink
           href="https://www.webaccessibility.fi/"
           text="https://www.webaccessibility.fi/"
         />
         <br />
-        <a href="mailto:saavutettavuus@avi.fi">saavutettavuus@avi.fi</a>
+        <a href="mailto:saavutettavuus@traficom.fi">
+          saavutettavuus@traficom.fi
+        </a>
         <br />
-        tel. (exchange) 0295 016 000
-        <br />
-        Open: Mon-Fri 8.00–16.15
+        telephone switchboard 029 534 5000
       </P>
     </>
   )
