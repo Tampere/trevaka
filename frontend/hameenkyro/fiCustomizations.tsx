@@ -943,21 +943,23 @@ const fi: DeepPartial<Translations> = {
       </P>
 
       <P>
-        <strong>Valvontaviranomaisen yhteystiedot </strong>
+        <strong>Valvontaviranomaisen yhteystiedot</strong>
         <br />
-        Etelä-Suomen aluehallintovirasto <br />
-        Saavutettavuuden valvonnan yksikkö
+        Liikenne- ja viestintävirasto Traficom
+        <br />
+        Digitaalisen esteettömyyden ja saavutettavuuden valvontayksikkö
         <br />
         <ExternalLink
           href="https://www.saavutettavuusvaatimukset.fi/"
           text="https://www.saavutettavuusvaatimukset.fi/"
         />
         <br />
-        <a href="mailto:saavutettavuus@avi.fi">saavutettavuus@avi.fi</a>
+        <a href="mailto:saavutettavuus@traficom.fi">
+          saavutettavuus@traficom.fi
+        </a>
         <br />
-        puhelinnumero vaihde 0295 016 000
+        puhelinnumero vaihde 029 534 5000
         <br />
-        Avoinna: ma-pe klo 8.00–16.15
       </P>
     </>
   )
