@@ -6,7 +6,11 @@ plugins {
     alias(libs.plugins.ktlint.gradle)
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_21
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 repositories {
     mavenCentral()
@@ -66,17 +70,14 @@ springBoot {
     mainClass.set("trevaka.TrevakaMainKt")
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "21"
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.addAll("-Xjsr305=strict")
     }
 }
 
-tasks {
-    test {
-        useJUnitPlatform()
-    }
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 allprojects {
