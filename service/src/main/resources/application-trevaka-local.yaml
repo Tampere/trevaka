@@ -40,7 +40,7 @@ evaka:
   integration:
     koski:
       enabled: false
-  s3mock:
+  local_s3:
     url: "http://localhost:9091"
 
 tampere:
