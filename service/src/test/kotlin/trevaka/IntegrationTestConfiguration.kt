@@ -31,9 +31,9 @@ class IntegrationTestConfiguration {
                 .serviceConfiguration(
                     S3Configuration.builder().pathStyleAccessEnabled(true).build(),
                 )
-                .endpointOverride(bucketEnv.s3MockUrl)
+                .endpointOverride(bucketEnv.localS3Url)
                 .credentialsProvider(
-                    StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar")),
+                    StaticCredentialsProvider.create(AwsBasicCredentials.create(bucketEnv.localS3AccessKeyId, bucketEnv.localS3SecretAccessKey)),
                 )
                 .build()
 
@@ -47,10 +47,10 @@ class IntegrationTestConfiguration {
     fun testS3AsyncClient(bucketEnv: BucketEnv): S3AsyncClient = S3AsyncClient.crtBuilder()
         .region(Region.EU_WEST_1)
         .forcePathStyle(true)
-        .endpointOverride(bucketEnv.s3MockUrl)
+        .endpointOverride(bucketEnv.localS3Url)
         .checksumValidationEnabled(false)
         .credentialsProvider(
-            StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar")),
+            StaticCredentialsProvider.create(AwsBasicCredentials.create(bucketEnv.localS3AccessKeyId, bucketEnv.localS3SecretAccessKey)),
         )
         .build()
 
@@ -58,9 +58,9 @@ class IntegrationTestConfiguration {
     fun s3Presigner(bucketEnv: BucketEnv): S3Presigner = S3Presigner.builder()
         .region(Region.EU_WEST_1)
         .serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build())
-        .endpointOverride(bucketEnv.s3MockUrl)
+        .endpointOverride(bucketEnv.localS3Url)
         .credentialsProvider(
-            StaticCredentialsProvider.create(AwsBasicCredentials.create("foo", "bar")),
+            StaticCredentialsProvider.create(AwsBasicCredentials.create(bucketEnv.localS3AccessKeyId, bucketEnv.localS3SecretAccessKey)),
         )
         .build()
 
