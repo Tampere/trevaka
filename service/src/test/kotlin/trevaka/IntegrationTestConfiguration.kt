@@ -48,7 +48,6 @@ class IntegrationTestConfiguration {
         .region(Region.EU_WEST_1)
         .forcePathStyle(true)
         .endpointOverride(bucketEnv.localS3Url)
-        .checksumValidationEnabled(false)
         .credentialsProvider(
             StaticCredentialsProvider.create(AwsBasicCredentials.create(bucketEnv.localS3AccessKeyId, bucketEnv.localS3SecretAccessKey)),
         )
