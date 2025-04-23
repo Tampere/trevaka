@@ -24,23 +24,15 @@ import java.security.interfaces.RSAPublicKey
 class IntegrationTestConfiguration {
 
     @Bean
-    fun s3Client(bucketEnv: BucketEnv): S3Client {
-        val client =
-            S3Client.builder()
-                .region(Region.EU_WEST_1)
-                .serviceConfiguration(
-                    S3Configuration.builder().pathStyleAccessEnabled(true).build(),
-                )
-                .endpointOverride(bucketEnv.localS3Url)
-                .credentialsProvider(
-                    StaticCredentialsProvider.create(AwsBasicCredentials.create(bucketEnv.localS3AccessKeyId, bucketEnv.localS3SecretAccessKey)),
-                )
-                .build()
-
-        createBucketsIfNeeded(client, bucketEnv.allBuckets())
-
-        return client
-    }
+    fun s3Client(bucketEnv: BucketEnv): S3Client = S3Client.builder()
+        .region(Region.EU_WEST_1)
+        .serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build())
+        .endpointOverride(bucketEnv.localS3Url)
+        .credentialsProvider(
+            StaticCredentialsProvider.create(AwsBasicCredentials.create(bucketEnv.localS3AccessKeyId, bucketEnv.localS3SecretAccessKey)),
+        )
+        .build()
+        .also { client -> createBucketsIfNeeded(client, bucketEnv.allBuckets()) }
 
     @Bean
     @Profile("tampere_evaka")
@@ -48,7 +40,6 @@ class IntegrationTestConfiguration {
         .region(Region.EU_WEST_1)
         .forcePathStyle(true)
         .endpointOverride(bucketEnv.localS3Url)
-        .checksumValidationEnabled(false)
         .credentialsProvider(
             StaticCredentialsProvider.create(AwsBasicCredentials.create(bucketEnv.localS3AccessKeyId, bucketEnv.localS3SecretAccessKey)),
         )

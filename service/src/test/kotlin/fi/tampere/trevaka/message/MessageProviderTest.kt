@@ -10,9 +10,11 @@ import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junitpioneer.jupiter.cartesian.ArgumentSets
 import org.junitpioneer.jupiter.cartesian.CartesianTest
-import org.reflections.ReflectionUtils.*
 import org.springframework.beans.factory.annotation.Autowired
 import java.lang.reflect.Method
+import kotlin.reflect.full.functions
+import kotlin.reflect.full.valueParameters
+import kotlin.reflect.jvm.javaMethod
 
 internal class MessageProviderTest : AbstractTampereIntegrationTest() {
 
@@ -31,12 +33,11 @@ internal class MessageProviderTest : AbstractTampereIntegrationTest() {
     companion object {
         @JvmStatic
         fun methodsWithLang(): ArgumentSets {
-            val allMethods = getAllMethods(
-                IMessageProvider::class.java,
-                withParametersAssignableTo(OfficialLanguage::class.java),
-                withReturnType(String::class.java),
-                withNamePrefix<Method>("getPlacementTool").negate(),
-            )
+            val allMethods = IMessageProvider::class.functions
+                .filter { it.valueParameters.map { param -> param.type.classifier } == listOf(OfficialLanguage::class) }
+                .filter { it.returnType.classifier == String::class }
+                .filterNot { it.name.startsWith("getPlacementTool") }
+                .map { it.javaMethod }
             return ArgumentSets.create()
                 .argumentsForNextParameter(allMethods)
                 .argumentsForNextParameter(OfficialLanguage.entries)
