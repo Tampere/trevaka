@@ -18,10 +18,12 @@ import {
 
 const customerContactText = function () {
   return (
-    <ExternalLink
-      href="https://pirkkala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
-      text="customer service of the Early childhood education"
-    />
+    <>
+      <a href="mailto:varhaiskasvatus@pirkkala.fi">
+        varhaiskasvatus@pirkkala.fi
+      </a>{' '}
+      t. 050 597 2469
+    </>
   )
 }
 
@@ -42,7 +44,7 @@ const en: DeepPartial<Translations> = {
           The custodian can make amendments to the application on the web up
           until the moment that the application is accepted for processing by
           the customer service. After this, amendments or cancellation of the
-          application are possible by getting in contact with the
+          application are possible by getting in contact with the{' '}
           {customerContactText()}
         </P>
       ),
@@ -119,19 +121,10 @@ const en: DeepPartial<Translations> = {
                   service. If the custodian has not registered for the service,
                   the information will be sent to them by letter.
                 </P>
-                <P>
-                  Further information{' '}
-                  <ExternalLink
-                    href="https://pirkkala.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
-                    text="https://pirkkala.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
-                    newTab
-                  />
-                </P>
               </>
             )
           },
-          serviceVoucherLink:
-            'https://pirkkala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/yksityiset-paivakodit/'
+          serviceVoucherLink: 'https://www.pirkkala.fi/palvelusetelipaivakodit/'
         }
       },
       heading: {
@@ -313,25 +306,14 @@ const en: DeepPartial<Translations> = {
           connectedDaycare:
             'I am applying for a supplementary activity to pre-school education.',
           connectedDaycareInfo: (
-            <>
-              <P>
-                Pre-school education lasts for four hours a day, generally from
-                9 am to 1 pm. In addition, the child can participate in paid
-                supplementary activities in the mornings and in the afternoons.
-                Options for supplementary activities are supplementary early
-                childhood education in day care centres and pre-school clubs in
-                schools.
-              </P>
-              <P>
-                Further information about supplementary activities and client
-                fees{' '}
-                <ExternalLink
-                  href="https://pirkkala.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
-                  text="https://pirkkala.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
-                  newTab
-                />
-              </P>
-            </>
+            <P>
+              Pre-school education lasts for four hours a day, generally from 9
+              am to 1 pm. In addition, the child can participate in paid
+              supplementary activities in the mornings and in the afternoons.
+              Options for supplementary activities are supplementary early
+              childhood education in day care centres and pre-school clubs in
+              schools.
+            </P>
           )
         }
       },
@@ -403,7 +385,7 @@ const en: DeepPartial<Translations> = {
             childhood education
             {preschoolEnabled ? ' or pre-school education centre' : ''} a{' '}
             <ExternalLink
-              href="https://pirkkala.fi/palvelut/asuminen-ja-elinymparisto/siivous-ja-ruokapalvelu/erityisruokavaliot/"
+              href="https://www.pirkkala.fi/erityisruokavaliot/"
               text="Notification of Special Diet form"
               newTab
             />
@@ -500,8 +482,7 @@ const en: DeepPartial<Translations> = {
         : ''
     }`,
     privateUnitInfo: <></>,
-    serviceVoucherLink:
-      'https://pirkkala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/yksityiset-paivakodit/',
+    serviceVoucherLink: 'https://www.pirkkala.fi/palvelusetelipaivakodit/',
     searchPlaceholder: 'E.g. Amurin päiväkoti'
   },
   decisions: {
@@ -563,7 +544,7 @@ const en: DeepPartial<Translations> = {
           to family size, income and time in early childhood education.
         </p>
         <p>
-          <a href="https://pirkkala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/">
+          <a href="https://www.pirkkala.fi/varhaiskasvatuksen-asiakasmaksut/">
             Further information on client fees.
           </a>
         </p>

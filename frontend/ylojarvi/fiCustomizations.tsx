@@ -18,10 +18,12 @@ export const serviceApplicationsEnabled = featureFlags.serviceApplications
 
 const customerContactText = function () {
   return (
-    <ExternalLink
-      href="https://ylojarvi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
-      text="varhaiskasvatuksen asiakaspalveluun"
-    />
+    <>
+      <a href="mailto:varhaiskasvatuksenpalveluohjaus@ylojarvi.fi">
+        varhaiskasvatuksenpalveluohjaus@ylojarvi.fi
+      </a>{' '}
+      p. 040 133 1469
+    </>
   )
 }
 
@@ -41,7 +43,7 @@ const fi: DeepPartial<Translations> = {
         <P>
           Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa siihen asti,
           kun hakemus otetaan asiakaspalvelussa käsittelyyn. Tämän jälkeen
-          muutokset tai hakemuksen peruminen on mahdollista ottamalla yhteyttä
+          muutokset tai hakemuksen peruminen on mahdollista ottamalla yhteyttä{' '}
           {customerContactText()}.
         </P>
       ),
@@ -117,19 +119,11 @@ const fi: DeepPartial<Translations> = {
                   ei ole ottanut palvelua käyttöönsä, tieto lähetetään hänelle
                   kirjeitse.
                 </P>
-                <P>
-                  Lisätietoa{' '}
-                  <ExternalLink
-                    href="https://ylojarvi.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
-                    text="https://ylojarvi.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
-                    newTab
-                  />
-                </P>
               </>
             )
           },
           serviceVoucherLink:
-            'https://ylojarvi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/yksityiset-paivakodit/'
+            'https://www.ylojarvi.fi/palveluseteli-varhaiskasvatuksessa/'
         }
       },
       heading: {
@@ -301,23 +295,13 @@ const fi: DeepPartial<Translations> = {
           },
           connectedDaycare: 'Haen esiopetusta täydentävää toimintaa.',
           connectedDaycareInfo: (
-            <>
-              <P>
-                Esiopetusaika on neljä tuntia päivässä, pääsääntöisesti klo
-                9–13. Esiopetuksen lisäksi lapsi voi osallistua maksulliseen
-                täydentävään toimintaan aamuisin ja iltapäivisin. Täydentävän
-                toiminnan vaihtoehtoina ovat päiväkodeissa annettava täydentävä
-                varhaiskasvatus ja kouluilla annettava esiopetuksen kerho.
-              </P>
-              <P>
-                Lisätietoa täydentävästä toiminnasta ja asiakasmaksuista{' '}
-                <ExternalLink
-                  href="https://ylojarvi.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
-                  text="https://ylojarvi.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
-                  newTab
-                />
-              </P>
-            </>
+            <P>
+              Esiopetusaika on neljä tuntia päivässä, pääsääntöisesti klo 9–13.
+              Esiopetuksen lisäksi lapsi voi osallistua maksulliseen
+              täydentävään toimintaan aamuisin ja iltapäivisin. Täydentävän
+              toiminnan vaihtoehtoina ovat päiväkodeissa annettava täydentävä
+              varhaiskasvatus ja kouluilla annettava esiopetuksen kerho.
+            </P>
           )
         }
       },
@@ -384,7 +368,7 @@ const fi: DeepPartial<Translations> = {
             {preschoolEnabled ? ' tai esiopetuspaikkaan' : 'paikkaan'} lääkärin
             tai ravitsemusterapeutin täyttämän ja allekirjoittaman{' '}
             <ExternalLink
-              href="https://ylojarvi.fi/palvelut/asuminen-ja-elinymparisto/siivous-ja-ruokapalvelu/erityisruokavaliot/"
+              href="https://www.ylojarvi.fi/erityisruokavaliot/"
               text="Selvitys erityisruokavaliosta -lomakkeen"
               newTab
             />
@@ -478,7 +462,7 @@ const fi: DeepPartial<Translations> = {
     }`,
     privateUnitInfo: <></>,
     serviceVoucherLink:
-      'https://ylojarvi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/yksityiset-paivakodit/',
+      'https://www.ylojarvi.fi/palveluseteli-varhaiskasvatuksessa/',
     searchPlaceholder: 'Esim. Peiponpellon päiväkoti'
   },
   decisions: {

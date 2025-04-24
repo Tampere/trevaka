@@ -18,10 +18,12 @@ import {
 
 const customerContactText = function () {
   return (
-    <ExternalLink
-      href="https://www.vesilahti.fi/kasvatus-ja-opetus/varhaiskasvatus/"
-      text="customer service of the Early childhood education"
-    />
+    <>
+      <a href="mailto:varhaiskasvatus@vesilahti.fi">
+        varhaiskasvatus@vesilahti.fi
+      </a>
+      , tel.050 3895 217
+    </>
   )
 }
 
@@ -43,7 +45,7 @@ const en: DeepPartial<Translations> = {
           The custodian can make amendments to the application on the web up
           until the moment that the application is accepted for processing by
           the customer service. After this, amendments or cancellation of the
-          application are possible by getting in contact with the
+          application are possible by getting in contact with the{' '}
           {customerContactText()}
         </P>
       ),
@@ -133,14 +135,6 @@ const en: DeepPartial<Translations> = {
                   />
                   . If you do not activate the Suomi.fi Messages service, the
                   decision will be sent to you by post.
-                </P>
-                <P>
-                  Further information{' '}
-                  <ExternalLink
-                    href="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/"
-                    text="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/"
-                    newTab
-                  />
                 </P>
               </>
             )
@@ -328,22 +322,11 @@ const en: DeepPartial<Translations> = {
           connectedDaycare:
             'I am applying for a supplementary activity to pre-school education.',
           connectedDaycareInfo: (
-            <>
-              <P>
-                Pre-school education lasts for four hours a day. In addition,
-                the child can participate in paid supplementary activities in
-                the mornings and in the afternoons.
-              </P>
-              <P>
-                Further information about supplementary activities and client
-                fees{' '}
-                <ExternalLink
-                  href="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/iltapaivatoiminta/"
-                  text="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/iltapaivatoiminta/"
-                  newTab
-                />
-              </P>
-            </>
+            <P>
+              Pre-school education lasts for four hours a day. In addition, the
+              child can participate in paid supplementary activities in the
+              mornings and in the afternoons.
+            </P>
           )
         }
       },
@@ -413,16 +396,15 @@ const en: DeepPartial<Translations> = {
       additionalDetails: {
         dietInfo: (
           <>
-            In the case of a special diet, the custodian submits to the early
-            childhood education
-            {preschoolEnabled ? ' or pre-school education centre' : ''} a{' '}
+            The guardian submits a report on the special diet to the early
+            childhood education{' '}
+            {preschoolEnabled ? ' or pre-school education centre' : ''},
+            completed and signed by a doctor or nutritionist:
             <ExternalLink
-              href="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/kouluruokailu-ja-ruokalista/"
-              text="Notification of Special Diet form"
+              href="https://www.vesilahti.fi/kasvatus-ja-opetus/varhaiskasvatus/varhaiskasvatuksen-arki/ruokailu-paivakodeissa-ja-ruokalista/"
+              text="https://www.vesilahti.fi/kasvatus-ja-opetus/varhaiskasvatus/varhaiskasvatuksen-arki/ruokailu-paivakodeissa-ja-ruokalista/"
               newTab
             />
-            , completed and signed by a doctor or nutritionist, which is valid
-            for a limited period of time.
           </>
         )
       }
