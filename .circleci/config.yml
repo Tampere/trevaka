@@ -284,23 +284,23 @@ jobs:
       - restore_cache:
           name: Restore e2e yarn cache
           keys:
-            - yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
+            - yarn-cache-e2e-v3-{{ checksum "e2e/yarn.lock" }}
             - yarn-cache-e2e-v3-
             - yarn-cache-e2e-
       - run:
-          working_directory: frontend
+          working_directory: e2e
           command: yarn install --immutable
       - save_cache:
           name: Store e2e yarn cache
-          key: yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
+          key: yarn-cache-e2e-v3-{{ checksum "e2e/yarn.lock" }}
           paths:
-            - frontend/.yarn/cache
+            - e2e/.yarn/cache
       - run:
           name: Waiting for compose stack to be up...
           command: ./evaka/compose/e2e/playwright/bin/wait-for-url.sh "http://localhost:9099/api/dev-api/tampere" 204
       - run:
           name: Run E2E tests
-          working_directory: frontend
+          working_directory: e2e
           command: yarn e2e-ci-playwright
           environment:
             HEADLESS: true
@@ -313,13 +313,13 @@ jobs:
           path: /tmp/docker-compose-logs.txt
           destination: docker-compose-logs.txt
       - store_artifacts:
-          path: frontend/screenshots
+          path: e2e/screenshots
           destination: screenshots
       - store_artifacts:
-          path: frontend/videos
+          path: e2e/videos
           destination: videos
       - store_test_results:
-          path: frontend/test-results
+          path: e2e/test-results
       - run:
           name: Lint customizations
           working_directory: frontend

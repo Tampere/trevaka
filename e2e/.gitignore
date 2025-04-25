@@ -1,0 +1,13 @@
+node_modules/
+dist/
+junit.xml
+screenshots/
+traces/
+
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

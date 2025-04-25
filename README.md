@@ -44,7 +44,7 @@ pm2 start # starts tampere configurations (default)
 ### e2e ([Playwright](https://playwright.dev/))
 
 1. Start treVaka dev environment
-2. `cd frontend`
+2. `cd e2e`
 3. `yarn e2e-playwright`
 
 

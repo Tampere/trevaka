@@ -1453,9 +1453,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"e2e-test@link:../evaka/frontend/src/e2e-test::locator=trevaka-frontend%40workspace%3A.":
+"e2e-test@link:../evaka/frontend/src/e2e-test::locator=trevaka-e2e%40workspace%3A.":
   version: 0.0.0-use.local
-  resolution: "e2e-test@link:../evaka/frontend/src/e2e-test::locator=trevaka-frontend%40workspace%3A."
+  resolution: "e2e-test@link:../evaka/frontend/src/e2e-test::locator=trevaka-e2e%40workspace%3A."
   languageName: node
   linkType: soft
 
@@ -2595,21 +2595,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lib-common@link:../evaka/frontend/src/lib-common::locator=trevaka-frontend%40workspace%3A.":
+"lib-common@link:../evaka/frontend/src/lib-common::locator=trevaka-e2e%40workspace%3A.":
   version: 0.0.0-use.local
-  resolution: "lib-common@link:../evaka/frontend/src/lib-common::locator=trevaka-frontend%40workspace%3A."
+  resolution: "lib-common@link:../evaka/frontend/src/lib-common::locator=trevaka-e2e%40workspace%3A."
   languageName: node
   linkType: soft
 
-"lib-components@link:../evaka/frontend/src/lib-components::locator=trevaka-frontend%40workspace%3A.":
+"lib-components@link:../evaka/frontend/src/lib-components::locator=trevaka-e2e%40workspace%3A.":
   version: 0.0.0-use.local
-  resolution: "lib-components@link:../evaka/frontend/src/lib-components::locator=trevaka-frontend%40workspace%3A."
+  resolution: "lib-components@link:../evaka/frontend/src/lib-components::locator=trevaka-e2e%40workspace%3A."
   languageName: node
   linkType: soft
 
-"lib-customizations@link:../evaka/frontend/src/lib-customizations::locator=trevaka-frontend%40workspace%3A.":
+"lib-customizations@link:../evaka/frontend/src/lib-customizations::locator=trevaka-e2e%40workspace%3A.":
   version: 0.0.0-use.local
-  resolution: "lib-customizations@link:../evaka/frontend/src/lib-customizations::locator=trevaka-frontend%40workspace%3A."
+  resolution: "lib-customizations@link:../evaka/frontend/src/lib-customizations::locator=trevaka-e2e%40workspace%3A."
   languageName: node
   linkType: soft
 
@@ -3492,9 +3492,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"trevaka-frontend@workspace:.":
+"trevaka-e2e@workspace:.":
   version: 0.0.0-use.local
-  resolution: "trevaka-frontend@workspace:."
+  resolution: "trevaka-e2e@workspace:."
   dependencies:
     "@types/jest": "npm:^29.5.14"
     "@types/node": "npm:^22.15.2"

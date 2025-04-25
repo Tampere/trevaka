@@ -19,7 +19,7 @@ updates:
     allow:
       - dependency-name: "adobe/s3mock"
   - package-ecosystem: "npm"
-    directory: "/frontend"
+    directory: "/e2e"
     schedule:
       interval: "daily"
       time: "10:00"
