@@ -9,7 +9,7 @@
   "devDependencies": {
     "@playwright/test": "^1.52.0",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.14.0",
+    "@types/node": "^22.15.2",
     "@types/react": "^18.3.20",
     "axios": "^1.8.4",
     "e2e-test": "link:../evaka/frontend/src/e2e-test",
