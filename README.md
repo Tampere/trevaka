@@ -23,6 +23,9 @@ Frontend customizations [must be linked](frontend/README.md) under eVaka-reposit
     cd frontend
     ./link.sh
 
+It is also recommended to exclude folders under `frontend` so that files don't show twice after linking,
+e.g. Intellij IDEA: select all folders under `frontend` -> Mark Directory as -> Excluded.
+
 ### Starting treVaka dev environment
 1. `docker-compose up -d --build`
 2. `pm2 start` (starts all apps)
