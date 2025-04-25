@@ -273,7 +273,9 @@ jobs:
             - yarn-cache-frontend-
       - run:
           working_directory: evaka/frontend
-          command: yarn install --immutable
+          command: |
+            yarn install --immutable
+            yarn playwright install chromium
       - save_cache:
           key: yarn-cache-frontend-v1-{{ checksum "evaka/frontend/yarn.lock" }}
           paths:
@@ -287,9 +289,7 @@ jobs:
             - yarn-cache-e2e-
       - run:
           working_directory: frontend
-          command: |
-            yarn install --immutable
-            yarn playwright install chromium
+          command: yarn install --immutable
       - save_cache:
           name: Store e2e yarn cache
           key: yarn-cache-e2e-v3-{{ checksum "frontend/yarn.lock" }}
