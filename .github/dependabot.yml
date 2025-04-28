@@ -19,15 +19,11 @@ updates:
     allow:
       - dependency-name: "adobe/s3mock"
   - package-ecosystem: "npm"
-    directory: "/frontend"
+    directory: "/e2e"
     schedule:
       interval: "daily"
       time: "10:00"
       timezone: "Europe/Helsinki"
-    ignore:
-      - dependency-name: "@playwright/test" # version must match with core
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major", "version-update:semver-patch"]
     groups:
       jest:
         patterns:
@@ -36,14 +32,6 @@ updates:
           - "ts-jest"
         exclude-patterns:
           - "jest-junit"
-      lodash:
-        patterns:
-          - "lodash"
-          - "@types/lodash"
-      react:
-        patterns:
-          - "react"
-          - "react-dom"
       typescript:
         patterns:
           - "tslib"
