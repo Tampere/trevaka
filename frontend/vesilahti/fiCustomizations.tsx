@@ -18,10 +18,12 @@ export const serviceApplicationsEnabled = featureFlags.serviceApplications
 
 const customerContactText = function () {
   return (
-    <ExternalLink
-      href="https://www.vesilahti.fi/kasvatus-ja-opetus/varhaiskasvatus/"
-      text="varhaiskasvatuksen asiakaspalveluun"
-    />
+    <>
+      <a href="mailto:varhaiskasvatus@vesilahti.fi">
+        varhaiskasvatus@vesilahti.fi
+      </a>
+      , puh.050 3895 217
+    </>
   )
 }
 
@@ -41,7 +43,7 @@ const fi: DeepPartial<Translations> = {
         <P>
           Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa siihen asti,
           kun hakemus otetaan asiakaspalvelussa käsittelyyn. Tämän jälkeen
-          muutokset tai hakemuksen peruminen on mahdollista ottamalla yhteyttä
+          muutokset tai hakemuksen peruminen on mahdollista ottamalla yhteyttä{' '}
           {customerContactText()}.
         </P>
       ),
@@ -131,14 +133,6 @@ const fi: DeepPartial<Translations> = {
                   />
                   . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, päätös
                   lähetetään teille postitse.
-                </P>
-                <P>
-                  Lisätietoa{' '}
-                  <ExternalLink
-                    href="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/"
-                    text="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/"
-                    newTab
-                  />
                 </P>
               </>
             )
@@ -316,22 +310,11 @@ const fi: DeepPartial<Translations> = {
           },
           connectedDaycare: 'Haen esiopetusta täydentävää varhaiskasvatusta',
           connectedDaycareInfo: (
-            <>
-              <P>
-                Esiopetusaika on neljä tuntia päivässä. Esiopetuksen lisäksi
-                lapsi voi osallistua maksulliseen esiopetusta täydentäväään
-                varhaiskasvatukseen aamuisin ja iltapäivisin.
-              </P>
-              <P>
-                Lisätietoa esiopetusta täydentävästä varhaiskasvatuksesta ja
-                asiakasmaksuista{' '}
-                <ExternalLink
-                  href="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/iltapaivatoiminta/"
-                  text="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/iltapaivatoiminta/"
-                  newTab
-                />
-              </P>
-            </>
+            <P>
+              Esiopetusaika on neljä tuntia päivässä. Esiopetuksen lisäksi lapsi
+              voi osallistua maksulliseen esiopetusta täydentäväään
+              varhaiskasvatukseen aamuisin ja iltapäivisin.
+            </P>
           )
         }
       },
@@ -398,13 +381,12 @@ const fi: DeepPartial<Translations> = {
           <>
             Erityisruokavaliosta huoltaja toimittaa varhaiskasvatus
             {preschoolEnabled ? ' tai esiopetuspaikkaan' : 'paikkaan'} lääkärin
-            tai ravitsemusterapeutin täyttämän ja allekirjoittaman{' '}
+            tai ravitsemusterapeutin täyttämän ja allekirjoittaman selvityksen:{' '}
             <ExternalLink
-              href="https://www.vesilahti.fi/kasvatus-ja-opetus/esi-ja-perusopetus/kouluruokailu-ja-ruokalista/"
-              text="Selvitys erityisruokavaliosta -lomakkeen"
+              href="https://www.vesilahti.fi/kasvatus-ja-opetus/varhaiskasvatus/varhaiskasvatuksen-arki/ruokailu-paivakodeissa-ja-ruokalista/"
+              text="https://www.vesilahti.fi/kasvatus-ja-opetus/varhaiskasvatus/varhaiskasvatuksen-arki/ruokailu-paivakodeissa-ja-ruokalista/"
               newTab
             />
-            , joka on määräaikainen.
           </>
         )
       }

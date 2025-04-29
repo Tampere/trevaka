@@ -41,7 +41,7 @@ const fi: DeepPartial<Translations> = {
         <P>
           Huoltaja voi tehdä muutoksia hakemukseen verkkopalvelussa siihen asti,
           kun hakemus otetaan asiakaspalvelussa käsittelyyn. Tämän jälkeen
-          muutokset tai hakemuksen peruminen on mahdollista ottamalla yhteyttä
+          muutokset tai hakemuksen peruminen on mahdollista ottamalla yhteyttä{' '}
           {customerContactText()}.
         </P>
       ),
@@ -116,14 +116,6 @@ const fi: DeepPartial<Translations> = {
                   sähköisesti Suomi.fi-viestit palvelun kautta. Mikäli huoltaja
                   ei ole ottanut palvelua käyttöönsä, tieto lähetetään hänelle
                   kirjeitse.
-                </P>
-                <P>
-                  Lisätietoa{' '}
-                  <ExternalLink
-                    href="https://orivesi.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
-                    text="https://orivesi.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
-                    newTab
-                  />
                 </P>
               </>
             )
@@ -301,23 +293,13 @@ const fi: DeepPartial<Translations> = {
           },
           connectedDaycare: 'Haen esiopetusta täydentävää toimintaa.',
           connectedDaycareInfo: (
-            <>
-              <P>
-                Esiopetusaika on neljä tuntia päivässä, pääsääntöisesti klo
-                9–13. Esiopetuksen lisäksi lapsi voi osallistua maksulliseen
-                täydentävään toimintaan aamuisin ja iltapäivisin. Täydentävän
-                toiminnan vaihtoehtoina ovat päiväkodeissa annettava täydentävä
-                varhaiskasvatus ja kouluilla annettava esiopetuksen kerho.
-              </P>
-              <P>
-                Lisätietoa täydentävästä toiminnasta ja asiakasmaksuista{' '}
-                <ExternalLink
-                  href="https://orivesi.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
-                  text="https://orivesi.fi/palvelut/kasvatus-ja-opetus/esiopetus/"
-                  newTab
-                />
-              </P>
-            </>
+            <P>
+              Esiopetusaika on neljä tuntia päivässä, pääsääntöisesti klo 9–13.
+              Esiopetuksen lisäksi lapsi voi osallistua maksulliseen
+              täydentävään toimintaan aamuisin ja iltapäivisin. Täydentävän
+              toiminnan vaihtoehtoina ovat päiväkodeissa annettava täydentävä
+              varhaiskasvatus ja kouluilla annettava esiopetuksen kerho.
+            </P>
           )
         }
       },
