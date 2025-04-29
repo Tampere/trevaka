@@ -18,10 +18,10 @@ export const serviceApplicationsEnabled = featureFlags.serviceApplications
 
 const customerContactText = function () {
   return (
-    <ExternalLink
-      href="https://orivesi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
-      text="varhaiskasvatuksen asiakaspalveluun"
-    />
+    <>
+      <a href="mailto:sari.koivisto@orivesi.fi">sari.koivisto@orivesi.fi</a>,
+      puh. 050 552 6246
+    </>
   )
 }
 
@@ -121,7 +121,7 @@ const fi: DeepPartial<Translations> = {
             )
           },
           serviceVoucherLink:
-            'https://orivesi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/yksityiset-paivakodit/'
+            'https://orivesi.fi/asukkaalle/kasvatus-ja-opetuspalvelut/varhaiskasvatus/yksityinen-varhaiskasvatus/'
         }
       },
       heading: {
@@ -352,7 +352,7 @@ const fi: DeepPartial<Translations> = {
           <P>
             Lisätietoa varhaiskasvatuksen asiakasmaksuista löydät{' '}
             <ExternalLink
-              href="https://orivesi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
+              href="https://orivesi.fi/asukkaalle/kasvatus-ja-opetuspalvelut/varhaiskasvatus/varhaiskasvatuksen-lomakkeet/"
               text="Oriveden kaupungin sivuilta"
               newTab
             />
@@ -364,13 +364,7 @@ const fi: DeepPartial<Translations> = {
           <>
             Erityisruokavaliosta huoltaja toimittaa varhaiskasvatus
             {preschoolEnabled ? ' tai esiopetuspaikkaan' : 'paikkaan'} lääkärin
-            tai ravitsemusterapeutin täyttämän ja allekirjoittaman{' '}
-            <ExternalLink
-              href="https://orivesi.fi/palvelut/asuminen-ja-elinymparisto/siivous-ja-ruokapalvelu/erityisruokavaliot/"
-              text="Selvitys erityisruokavaliosta -lomakkeen"
-              newTab
-            />
-            , joka on määräaikainen.
+            tai ravitsemusterapeutin täyttämän ja allekirjoittaman selvityksen.
           </>
         )
       }
@@ -460,7 +454,7 @@ const fi: DeepPartial<Translations> = {
     }`,
     privateUnitInfo: <></>,
     serviceVoucherLink:
-      'https://orivesi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/yksityiset-paivakodit/',
+      'https://orivesi.fi/asukkaalle/kasvatus-ja-opetuspalvelut/varhaiskasvatus/yksityinen-varhaiskasvatus/',
     searchPlaceholder: 'Esim. Peiponpellon päiväkoti'
   },
   decisions: {
@@ -777,7 +771,7 @@ const fi: DeepPartial<Translations> = {
           koon ja tulojen sekä varhaiskasvatusajan mukaan.
         </p>
         <p data-qa="income-description-p4">
-          <a href="https://orivesi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/">
+          <a href="https://orivesi.fi/asukkaalle/kasvatus-ja-opetuspalvelut/varhaiskasvatus/varhaiskasvatuksen-lomakkeet/">
             Lisätietoja asiakasmaksuista
           </a>
         </p>
@@ -821,7 +815,7 @@ const fi: DeepPartial<Translations> = {
             <a
               target="_blank"
               rel="noreferrer"
-              href="https://orivesi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
+              href="https://orivesi.fi/asukkaalle/kasvatus-ja-opetuspalvelut/varhaiskasvatus/varhaiskasvatuksen-lomakkeet/"
             >
               tästä
             </a>

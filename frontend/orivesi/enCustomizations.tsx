@@ -18,10 +18,10 @@ import {
 
 const customerContactText = function () {
   return (
-    <ExternalLink
-      href="https://orivesi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/"
-      text="customer service of the Early childhood education"
-    />
+    <>
+      <a href="mailto:sari.koivisto@orivesi.fi">sari.koivisto@orivesi.fi</a>,
+      tel. 050 552 6246
+    </>
   )
 }
 
@@ -123,7 +123,7 @@ const en: DeepPartial<Translations> = {
             )
           },
           serviceVoucherLink:
-            'https://orivesi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/yksityiset-paivakodit/'
+            'https://orivesi.fi/asukkaalle/kasvatus-ja-opetuspalvelut/varhaiskasvatus/yksityinen-varhaiskasvatus/'
         }
       },
       heading: {
@@ -370,7 +370,7 @@ const en: DeepPartial<Translations> = {
             You will find further information on client fees for early childhood
             education on{' '}
             <ExternalLink
-              href="https://orivesi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
+              href="https://orivesi.fi/asukkaalle/kasvatus-ja-opetuspalvelut/varhaiskasvatus/varhaiskasvatuksen-lomakkeet/"
               text="the website of the City of Orivesi"
               newTab
             />
@@ -380,16 +380,10 @@ const en: DeepPartial<Translations> = {
       additionalDetails: {
         dietInfo: (
           <>
-            In the case of a special diet, the custodian submits to the early
-            childhood education
-            {preschoolEnabled ? ' or pre-school education centre' : ''} a{' '}
-            <ExternalLink
-              href="https://orivesi.fi/palvelut/asuminen-ja-elinymparisto/siivous-ja-ruokapalvelu/erityisruokavaliot/"
-              text="Notification of Special Diet form"
-              newTab
-            />
-            , completed and signed by a doctor or nutritionist, which is valid
-            for a limited period of time.
+            The guardian submits a report on the special diet to the early
+            childhood education{' '}
+            {preschoolEnabled ? ' or pre-school education centre' : ''},
+            completed and signed by a doctor or nutritionist.
           </>
         )
       }
@@ -482,7 +476,7 @@ const en: DeepPartial<Translations> = {
     }`,
     privateUnitInfo: <></>,
     serviceVoucherLink:
-      'https://orivesi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/yksityiset-paivakodit/',
+      'https://orivesi.fi/asukkaalle/kasvatus-ja-opetuspalvelut/varhaiskasvatus/yksityinen-varhaiskasvatus/',
     searchPlaceholder: 'E.g. Amurin päiväkoti'
   },
   decisions: {
@@ -544,7 +538,7 @@ const en: DeepPartial<Translations> = {
           to family size, income and time in early childhood education.
         </p>
         <p>
-          <a href="https://orivesi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/">
+          <a href="https://orivesi.fi/asukkaalle/kasvatus-ja-opetuspalvelut/varhaiskasvatus/varhaiskasvatuksen-lomakkeet/">
             Further information on client fees.
           </a>
         </p>
@@ -587,7 +581,7 @@ const en: DeepPartial<Translations> = {
             <a
               target="_blank"
               rel="noreferrer"
-              href="https://orivesi.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
+              href="https://orivesi.fi/asukkaalle/kasvatus-ja-opetuspalvelut/varhaiskasvatus/varhaiskasvatuksen-lomakkeet/"
             >
               hare
             </a>
