@@ -19,12 +19,12 @@ services:
       timeout: 5s
       retries: 5
 
-  redis:
-    image: redis:7.0-alpine
+  valkey:
+    image: valkey/valkey:8.0-alpine
     ports:
       - "6379:6379"
     healthcheck:
-      test: '[ "$$(redis-cli -h 127.0.0.1 ping)" == "PONG" ]'
+      test: '[ "$$(valkey-cli -h 127.0.0.1 ping)" == "PONG" ]'
       interval: 1s
       timeout: 5s
       retries: 5
@@ -81,7 +81,7 @@ services:
       - "3000"
     hostname: apigw
     depends_on:
-      - redis
+      - valkey
       - service
     volumes:
       - ./evaka/apigw/config/test-cert:/home/evaka/test-cert
@@ -94,7 +94,7 @@ services:
       NODE_ENV: local
       # local profile overrides for docker environment
       EVAKA_SERVICE_URL: http://service:8888
-      REDIS_HOST: redis
+      REDIS_HOST: valkey
       # ecosystem.config.js
       EVAKA_TITANIA_USERNAME: titania
       EVAKA_TITANIA_PASSWORD: titania
