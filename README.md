@@ -28,7 +28,7 @@ e.g. Intellij IDEA: select all folders under `frontend` -> Mark Directory as -> 
 
 ### Starting treVaka dev environment
 1. `docker-compose up -d --build`
-2. `pm2 start` (starts all apps)
+2. `pm2 start` or `mise start` (starts all apps)
 3. Open browser: http://localhost:9099/
 
 You can also start other supported configurations with `--env` command line parameter, e.g.:
@@ -41,6 +41,8 @@ pm2 start # starts vesilahti configurations from previously used --env parameter
 pm2 delete all
 pm2 start # starts tampere configurations (default)
 ```
+
+or with `mise`: `mise start --env vesilahti`.
 
 ## Running treVaka frontend tests
 
