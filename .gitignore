@@ -12,3 +12,5 @@
 /mock/identification/
 
 **/.terraform/*
+
+/mise.local.toml
