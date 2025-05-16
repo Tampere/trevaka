@@ -36,6 +36,14 @@ internal class TampereMessageProvider(val messageSource: MessageSource) : IMessa
 
     override fun getDecisionContent(lang: OfficialLanguage, skipGuardianApproval: Boolean?): String = messageSource.getMessage("$PREFIX.DECISION_CONTENT", null, resolveLocale(lang))
 
+    override fun getChildDocumentDecisionHeader(lang: OfficialLanguage): String = getDecisionHeader(lang)
+
+    override fun getChildDocumentDecisionContent(lang: OfficialLanguage): String = """
+Lapsellenne on tehty päätös. Voit katsella päätöstä eVakassa.
+
+Koska olette ottanut Suomi.fi -palvelun käyttöönne, on päätös myös luettavissa alla olevista liitteistä.
+    """.trimIndent()
+
     override fun getFeeDecisionHeader(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.FEE_DECISION_HEADER", null, resolveLocale(lang))
 
     override fun getFeeDecisionContent(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.FEE_DECISION_CONTENT", null, resolveLocale(lang))
