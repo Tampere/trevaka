@@ -1,4 +1,5 @@
-# syntax=docker/dockerfile:1.6.0
+# syntax=docker/dockerfile:1.15.1
+# check=error=true
 # SPDX-FileCopyrightText: 2021 City of Tampere
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
@@ -25,9 +26,9 @@ RUN ./gradlew --offline assemble \
 
 FROM eclipse-temurin:21-jre-noble
 LABEL maintainer="https://github.com/tampere/trevaka"
-ENV LC_ALL C.UTF-8
-ENV LANG C.UTF-8
-ENV LANGUAGE C.UTF-8
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+ENV LANGUAGE=C.UTF-8
 ADD --chmod=0755 \
     --checksum=sha256:520ea232e83a7cefe2a87d4f2af8433e383a4351464e213b7dd3b78ca0dc200f \
     https://github.com/espoon-voltti/s3-downloader/releases/download/v1.4.1/s3downloader-linux-amd64 \
@@ -61,7 +62,7 @@ USER ubuntu
 
 ARG build=none
 ARG commit=none
-ENV APP_BUILD "$build"
-ENV APP_COMMIT "$commit"
+ENV APP_BUILD="$build"
+ENV APP_COMMIT="$commit"
 LABEL fi.tampere.build="$build" \
       fi.tampere.commit="$commit"
