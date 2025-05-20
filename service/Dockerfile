@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.6.0
+# syntax=docker/dockerfile:1.15.1
 # SPDX-FileCopyrightText: 2021 City of Tampere
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
