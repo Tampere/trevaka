@@ -53,6 +53,7 @@ const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
+    absenceApplications: true,
     citizenChildDocumentTypes: true
   },
   staging: {
