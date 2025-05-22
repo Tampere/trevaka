@@ -7,7 +7,7 @@ import type { Config } from '@jest/types'
 export const createConfig = (customizations: string): Config.InitialOptions => ({
   displayName: `e2e-playwright (${customizations})`,
   preset: 'ts-jest',
-  testEnvironment: '../../../evaka/frontend/src/e2e-test/jest-environment',
+  testEnvironment: '../../../evaka/frontend/src/e2e-test/jest-environment.cjs',
   moduleNameMapper: {
     '^e2e/(.*)$': '<rootDir>/$1',
     '^@evaka/customizations/(.*)': `<rootDir>/../../${customizations}/$1`,

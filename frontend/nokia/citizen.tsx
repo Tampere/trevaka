@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-import { CitizenCustomizations } from 'lib-customizations/types'
+import type { CitizenCustomizations } from 'lib-customizations/types'
 
 import NokiaLogo from './NokiaLogo.svg'
 import enCustomizations from './enCustomizations'

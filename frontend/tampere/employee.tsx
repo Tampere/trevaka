@@ -15,7 +15,7 @@ import {
 import LocalDate from 'lib-common/local-date'
 import ExternalLink from 'lib-components/atoms/ExternalLink'
 import { H3, P } from 'lib-components/typography'
-import { EmployeeCustomizations } from 'lib-customizations/types'
+import type { EmployeeCustomizations } from 'lib-customizations/types'
 
 import TampereLogo from './city-logo.svg'
 import featureFlags from './featureFlags'

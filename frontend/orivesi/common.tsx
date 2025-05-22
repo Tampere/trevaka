@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-import { CommonCustomizations } from 'lib-customizations/types'
+import type { CommonCustomizations } from 'lib-customizations/types'
 
-import theme from '../orivesi/orivesi-theme'
+import theme from './orivesi-theme'
 
 const customizations: CommonCustomizations = {
   theme

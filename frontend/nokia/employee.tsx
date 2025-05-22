@@ -11,7 +11,7 @@ import {
 } from 'lib-common/generated/api-types/assistance'
 import ExternalLink from 'lib-components/atoms/ExternalLink'
 import { H2, H3, P } from 'lib-components/typography'
-import { EmployeeCustomizations } from 'lib-customizations/types'
+import type { EmployeeCustomizations } from 'lib-customizations/types'
 
 import NokiaLogo from './NokiaLogo.svg'
 import featureFlags from './featureFlags'
