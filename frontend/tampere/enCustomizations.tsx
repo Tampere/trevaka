@@ -12,8 +12,8 @@ import ExternalLink from 'lib-components/atoms/ExternalLink'
 import UnorderedList from 'lib-components/atoms/UnorderedList'
 import { H1, H2, P } from 'lib-components/typography'
 import { Gap } from 'lib-components/white-space'
-import { Translations } from 'lib-customizations/citizen'
-import { DeepPartial } from 'lib-customizations/types'
+import type { Translations } from 'lib-customizations/citizen'
+import type { DeepPartial } from 'lib-customizations/types'
 
 import {
   preschoolEnabled,

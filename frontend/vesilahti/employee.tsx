@@ -7,7 +7,7 @@ import React from 'react'
 import { daycareAssistanceLevels } from 'lib-common/generated/api-types/assistance'
 import ExternalLink from 'lib-components/atoms/ExternalLink'
 import { H3, P } from 'lib-components/typography'
-import { EmployeeCustomizations } from 'lib-customizations/types'
+import type { EmployeeCustomizations } from 'lib-customizations/types'
 
 import VesilahtiLogo from './VesilahtiLogo.svg'
 import featureFlags from './featureFlags'

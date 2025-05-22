@@ -10,7 +10,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { desktopMin, tabletMin } from 'lib-components/breakpoints'
-import { CitizenCustomizations } from 'lib-customizations/types'
+import type { CitizenCustomizations } from 'lib-customizations/types'
 
 import TampereLogo from './city-logo-citizen.svg'
 import enCustomizations from './enCustomizations'

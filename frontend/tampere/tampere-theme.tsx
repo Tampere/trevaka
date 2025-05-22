@@ -6,7 +6,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 */
 }
 
-import { Theme } from 'lib-common/theme'
+import type { Theme } from 'lib-common/theme'
 
 const theme: Theme = {
   colors: {

@@ -6,9 +6,10 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 */
 }
 
-import { FeatureFlags } from 'lib-customizations/types'
+import type { FeatureFlags } from 'lib-customizations/types'
 
-import { env, Env } from './env'
+import type { Env } from './env'
+import { env } from './env'
 
 type Features = {
   default: FeatureFlags
