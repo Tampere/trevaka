@@ -2,6 +2,13 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-.gradle/
-.idea/
-build/
+*
+!gradle/
+!src/
+!.editorconfig
+!build.gradle.kts
+!entrypoint.sh
+!gradle.properties
+!gradlew
+!settings.gradle.kts
+!settings-dependabot-ignore.gradle.kts
