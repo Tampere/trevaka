@@ -90,7 +90,7 @@ commands:
     steps:
       - run:
           name: Create docker builder instance
-          command: docker buildx inspect trevaka || docker buildx create --driver=docker-container --name trevaka --use
+          command: docker buildx inspect trevaka || docker buildx create --driver=docker-container --name trevaka --bootstrap --use && docker buildx inspect trevaka
       - run:
           name: Build docker image
           command: |
