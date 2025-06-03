@@ -20,7 +20,7 @@ import fi.lempaala.evaka.security.LempaalaActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
-import org.springframework.ws.transport.http.HttpComponents5MessageSender
+import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
 import trevaka.ipaas.dvvModificationRequestCustomizer
 import trevaka.ipaas.newIpaasHttpClient
 import trevaka.titania.PrefixTitaniaEmployeeIdConverter
@@ -82,7 +82,7 @@ class LempaalaConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun webServiceMessageSender(properties: LempaalaProperties) = HttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
+    fun webServiceMessageSender(properties: LempaalaProperties) = SimpleHttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
 
     @Bean
     fun basicAuthCustomizer(properties: LempaalaProperties) = dvvModificationRequestCustomizer(properties.ipaas)

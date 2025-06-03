@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.ws.transport.WebServiceMessageSender
-import org.springframework.ws.transport.http.HttpComponents5MessageSender
+import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
 import trevaka.ipaas.dvvModificationRequestCustomizer
 import trevaka.ipaas.newIpaasHttpClient
 
@@ -23,7 +23,7 @@ class PersonConfiguration {
      * Custom [WebServiceMessageSender] for [fi.espoo.evaka.vtjclient.config.XroadSoapClientConfig.wsTemplate].
      */
     @Bean
-    fun webServiceMessageSender(@Qualifier(HTTP_CLIENT_PERSON) httpClient: HttpClient): WebServiceMessageSender = HttpComponents5MessageSender(httpClient)
+    fun webServiceMessageSender(@Qualifier(HTTP_CLIENT_PERSON) httpClient: HttpClient): WebServiceMessageSender = SimpleHttpComponents5MessageSender(httpClient)
 
     @Bean(HTTP_CLIENT_PERSON)
     fun httpClient(properties: TampereProperties) = newIpaasHttpClient(properties.ipaas)
