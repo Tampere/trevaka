@@ -5,8 +5,8 @@
 package fi.tampere.trevaka.childdocument
 
 import fi.espoo.evaka.document.CheckboxGroupQuestionOption
+import fi.espoo.evaka.document.ChildDocumentType
 import fi.espoo.evaka.document.DocumentTemplateContent
-import fi.espoo.evaka.document.DocumentType
 import fi.espoo.evaka.document.Question
 import fi.espoo.evaka.document.RadioButtonGroupQuestionOption
 import fi.espoo.evaka.document.Section
@@ -40,7 +40,7 @@ class ChildDocumentExportTest : AbstractTampereIntegrationTest() {
         db.transaction { tx ->
             val templateId = tx.insert(
                 DevDocumentTemplate(
-                    type = DocumentType.LEOPS,
+                    type = ChildDocumentType.LEOPS,
                     validity = DateRange(clock.today(), null),
                     content = DocumentTemplateContent(
                         sections = listOf(

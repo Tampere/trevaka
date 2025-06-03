@@ -13,7 +13,7 @@ import org.apache.hc.core5.http.HttpRequestInterceptor
 import org.apache.hc.core5.http.HttpResponse
 import org.apache.hc.core5.http.message.BasicHeader
 import org.apache.hc.core5.http.protocol.HttpContext
-import org.springframework.ws.transport.http.HttpComponents5MessageSender
+import org.springframework.ws.transport.http.HttpComponents5ClientFactory
 import java.nio.charset.StandardCharsets
 import java.util.Base64
 
@@ -23,7 +23,7 @@ data class IpaasProperties(
 )
 
 fun newIpaasHttpClient(properties: IpaasProperties) = HttpClientBuilder.create()
-    .addRequestInterceptorFirst(HttpComponents5MessageSender.RemoveSoapHeadersInterceptor())
+    .addRequestInterceptorFirst(HttpComponents5ClientFactory.RemoveSoapHeadersInterceptor())
     .addRequestInterceptorFirst(basicAuthInterceptor(properties.username, properties.password))
     .setConnectionReuseStrategy(NoConnectionReuseStrategy.INSTANCE) // fix random "connection reset" errors
     .build()

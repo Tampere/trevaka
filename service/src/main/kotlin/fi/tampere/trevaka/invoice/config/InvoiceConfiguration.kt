@@ -33,7 +33,7 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller
 import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.SoapVersion
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory
-import org.springframework.ws.transport.http.HttpComponents5MessageSender
+import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
 import trevaka.ipaas.newIpaasHttpClient
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -73,7 +73,7 @@ class InvoiceConfiguration {
         return WebServiceTemplate(messageFactory).apply {
             this.marshaller = marshaller
             unmarshaller = marshaller
-            setMessageSender(HttpComponents5MessageSender(httpClient))
+            setMessageSender(SimpleHttpComponents5MessageSender(httpClient))
         }
     }
 

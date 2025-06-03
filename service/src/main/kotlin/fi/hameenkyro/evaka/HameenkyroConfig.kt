@@ -20,7 +20,7 @@ import fi.hameenkyro.evaka.security.HameenkyroActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
-import org.springframework.ws.transport.http.HttpComponents5MessageSender
+import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
 import trevaka.ipaas.dvvModificationRequestCustomizer
 import trevaka.ipaas.newIpaasHttpClient
 import trevaka.titania.PrefixTitaniaEmployeeIdConverter
@@ -97,7 +97,7 @@ class HameenkyroConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun webServiceMessageSender(properties: HameenkyroProperties) = HttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
+    fun webServiceMessageSender(properties: HameenkyroProperties) = SimpleHttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
 
     @Bean
     fun basicAuthCustomizer(properties: HameenkyroProperties) = dvvModificationRequestCustomizer(properties.ipaas)
