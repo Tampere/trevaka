@@ -55,7 +55,7 @@ evaka:
       xroad:
         address: http://localhost:${wiremock.server.port}/mock/vtj
   local_s3:
-    url: "http://localhost:9091"
+    url: "https://localhost:9876"
 
 tampere:
   ipaas:
