@@ -2,6 +2,23 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
+moved {
+  from = module.app_service.aws_route53_record.internal[0]
+  to   = aws_route53_record.evaka_service
+}
+
+resource "aws_route53_record" "evaka_service" {
+  zone_id = data.terraform_remote_state.base.outputs.internal_zone_id
+  name    = "${local.project}-service.${data.terraform_remote_state.base.outputs.internal_domain_name}"
+  type    = "A"
+
+  alias {
+    name                   = data.aws_lb.private.dns_name
+    zone_id                = data.aws_lb.private.zone_id
+    evaluate_target_health = false
+  }
+}
+
 module "app_service" {
   source = "./modules/ecs_service"
 
@@ -16,25 +33,22 @@ module "app_service" {
   desired_count             = var.service_count
   task_cpu                  = var.service_task_cpu
   task_memory               = var.service_task_memory_mb
+  host_headers              = [aws_route53_record.evaka_service.name]
+  path_patterns             = ["/*"]
   health_check_grace_period = 60 * 10
   health_check_path         = "/health"
 
   wait_for_steady_state = true
   force_new_deployment  = var.force_new_deployment || var.service_force_new_deployment
 
-  vpc_id                   = data.terraform_remote_state.base.outputs.vpc_id
-  ecs_cluster_id           = data.terraform_remote_state.base.outputs.ecs_cluster_id
-  internal_domain_name     = data.terraform_remote_state.base.outputs.internal_domain_name
-  internal_zone_id         = data.terraform_remote_state.base.outputs.internal_zone_id
-  public_alb_listener_arn  = data.terraform_remote_state.base.outputs.public_alb_listener_arn
-  private_alb_listener_arn = data.terraform_remote_state.base.outputs.private_alb_listener_arn
-  private_alb_dns_name     = data.aws_lb.private.dns_name
-  private_alb_zone_id      = data.aws_lb.private.zone_id
-  task_role_arn            = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_service.task_role_arn
-  execution_role_arn       = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_service.execution_role_arn
-  security_group_ids       = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_service.security_group_ids
-  private_subnet_ids       = data.aws_subnets.private.ids
-  log_group_name           = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_service.log_group_name
+  vpc_id             = data.terraform_remote_state.base.outputs.vpc_id
+  ecs_cluster_id     = data.terraform_remote_state.base.outputs.ecs_cluster_id
+  alb_listener_arn   = data.terraform_remote_state.base.outputs.private_alb_listener_arn
+  task_role_arn      = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_service.task_role_arn
+  execution_role_arn = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_service.execution_role_arn
+  security_group_ids = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_service.security_group_ids
+  private_subnet_ids = data.aws_subnets.private.ids
+  log_group_name     = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_service.log_group_name
 
   lb_listener_rule_priority = 200
 

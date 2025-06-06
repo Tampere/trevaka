@@ -2,6 +2,23 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
+moved {
+  from = module.app_apigw.aws_route53_record.internal[0]
+  to   = aws_route53_record.evaka_apigw
+}
+
+resource "aws_route53_record" "evaka_apigw" {
+  zone_id = data.terraform_remote_state.base.outputs.internal_zone_id
+  name    = "${local.project}-apigw.${data.terraform_remote_state.base.outputs.internal_domain_name}"
+  type    = "A"
+
+  alias {
+    name                   = data.aws_lb.private.dns_name
+    zone_id                = data.aws_lb.private.zone_id
+    evaluate_target_health = false
+  }
+}
+
 module "app_apigw" {
   source = "./modules/ecs_service"
 
@@ -16,23 +33,20 @@ module "app_apigw" {
   desired_count  = var.apigw_count
   task_cpu       = 256
   task_memory    = 512
+  host_headers   = [aws_route53_record.evaka_apigw.name]
+  path_patterns  = ["/*"]
 
   wait_for_steady_state = true
   force_new_deployment  = var.force_new_deployment || var.apigw_force_new_deployment
 
-  vpc_id                   = data.terraform_remote_state.base.outputs.vpc_id
-  ecs_cluster_id           = data.terraform_remote_state.base.outputs.ecs_cluster_id
-  public_alb_listener_arn  = data.terraform_remote_state.base.outputs.public_alb_listener_arn
-  internal_domain_name     = data.terraform_remote_state.base.outputs.internal_domain_name
-  internal_zone_id         = data.terraform_remote_state.base.outputs.internal_zone_id
-  private_alb_listener_arn = data.terraform_remote_state.base.outputs.private_alb_listener_arn
-  private_alb_dns_name     = data.aws_lb.private.dns_name
-  private_alb_zone_id      = data.aws_lb.private.zone_id
-  task_role_arn            = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_apigw.task_role_arn
-  execution_role_arn       = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_apigw.execution_role_arn
-  security_group_ids       = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_apigw.security_group_ids
-  private_subnet_ids       = data.aws_subnets.private.ids
-  log_group_name           = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_apigw.log_group_name
+  vpc_id             = data.terraform_remote_state.base.outputs.vpc_id
+  ecs_cluster_id     = data.terraform_remote_state.base.outputs.ecs_cluster_id
+  alb_listener_arn   = data.terraform_remote_state.base.outputs.private_alb_listener_arn
+  task_role_arn      = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_apigw.task_role_arn
+  execution_role_arn = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_apigw.execution_role_arn
+  security_group_ids = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_apigw.security_group_ids
+  private_subnet_ids = data.aws_subnets.private.ids
+  log_group_name     = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_apigw.log_group_name
 
   lb_listener_rule_priority = 100
 
@@ -59,7 +73,7 @@ module "app_apigw" {
     VOLTTI_ENV        = var.environment
     HTTP_PORT         = 3000
     EVAKA_BASE_URL    = local.frontend_url
-    EVAKA_SERVICE_URL = "http://${module.app_service.internal_service_address}"
+    EVAKA_SERVICE_URL = "http://${aws_route53_record.evaka_service.name}"
     ENABLE_DEV_API    = false
     AD_MOCK           = local.apigw_ad_mock
 
