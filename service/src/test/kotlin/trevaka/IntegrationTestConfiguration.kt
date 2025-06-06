@@ -11,11 +11,14 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Profile
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider
+import software.amazon.awssdk.core.internal.http.loader.DefaultSdkHttpClientBuilder
+import software.amazon.awssdk.http.SdkHttpConfigurationOption
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3AsyncClient
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.S3Configuration
 import software.amazon.awssdk.services.s3.presigner.S3Presigner
+import software.amazon.awssdk.utils.AttributeMap
 import trevaka.s3.createBucketsIfNeeded
 import java.security.KeyPairGenerator
 import java.security.interfaces.RSAPublicKey
@@ -25,6 +28,7 @@ class IntegrationTestConfiguration {
 
     @Bean
     fun s3Client(bucketEnv: BucketEnv): S3Client = S3Client.builder()
+        .httpClient(DefaultSdkHttpClientBuilder().buildWithDefaults(AttributeMap.builder().put(SdkHttpConfigurationOption.TRUST_ALL_CERTIFICATES, true).build()))
         .region(Region.EU_WEST_1)
         .serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build())
         .endpointOverride(bucketEnv.localS3Url)
@@ -37,6 +41,7 @@ class IntegrationTestConfiguration {
     @Bean
     @Profile("tampere_evaka")
     fun testS3AsyncClient(bucketEnv: BucketEnv): S3AsyncClient = S3AsyncClient.crtBuilder()
+        .httpConfiguration { it.trustAllCertificatesEnabled(true) }
         .region(Region.EU_WEST_1)
         .forcePathStyle(true)
         .endpointOverride(bucketEnv.localS3Url)

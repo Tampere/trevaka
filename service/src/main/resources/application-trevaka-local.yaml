@@ -41,7 +41,7 @@ evaka:
     koski:
       enabled: false
   local_s3:
-    url: "http://localhost:9091"
+    url: "https://localhost:9876"
 
 tampere:
   ipaas:

@@ -32,8 +32,7 @@ services:
   s3:
     image: adobe/s3mock:4.4.0
     ports:
-      - "9091:9090"
-      - "9876:9191" # for core tests
+      - "9876:9191"
     volumes:
       - s3-data:/data
     environment:
