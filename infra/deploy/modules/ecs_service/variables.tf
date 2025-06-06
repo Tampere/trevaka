@@ -14,27 +14,7 @@ variable "ecs_cluster_id" {
   type = string
 }
 
-variable "internal_domain_name" {
-  type = string
-}
-
-variable "internal_zone_id" {
-  type = string
-}
-
-variable "public_alb_listener_arn" {
-  type = string
-}
-
-variable "private_alb_listener_arn" {
-  type = string
-}
-
-variable "private_alb_dns_name" {
-  type = string
-}
-
-variable "private_alb_zone_id" {
+variable "alb_listener_arn" {
   type = string
 }
 
@@ -60,9 +40,14 @@ variable "image" {
   type = string
 }
 
-variable "public" {
-  description = "Is this private or public service?"
-  default     = false
+variable "host_headers" {
+  type    = list(string)
+  default = null
+}
+
+variable "path_patterns" {
+  type    = list(string)
+  default = null
 }
 
 variable "env_vars" {
@@ -174,8 +159,4 @@ variable "log_group_name" {
 
 variable "lb_listener_rule_priority" {
   type = number
-}
-
-locals {
-  internal_service_address = "${var.project}-${var.name}.${var.internal_domain_name}"
 }

@@ -30,7 +30,7 @@ resource "aws_lb_target_group" "service" {
 }
 
 resource "aws_lb_listener_rule" "service" {
-  listener_arn = var.public ? var.public_alb_listener_arn : var.private_alb_listener_arn
+  listener_arn = var.alb_listener_arn
   priority     = var.lb_listener_rule_priority
 
   action {
@@ -39,17 +39,30 @@ resource "aws_lb_listener_rule" "service" {
   }
 
   dynamic "condition" {
-    for_each = var.public ? [] : [1]
+    for_each = var.host_headers != null ? [1] : []
     content {
       host_header {
-        values = [local.internal_service_address]
+        values = var.host_headers
       }
     }
   }
 
-  condition {
-    path_pattern {
-      values = ["/*"]
+  dynamic "condition" {
+    for_each = var.path_patterns != null ? [1] : []
+    content {
+      path_pattern {
+        values = var.path_patterns
+      }
+    }
+  }
+
+  lifecycle {
+    precondition {
+      condition = length(concat(
+        var.host_headers != null ? var.host_headers : [],
+        var.path_patterns != null ? var.path_patterns : [],
+      )) > 0
+      error_message = "At least one host_headers or path_patterns must be provided."
     }
   }
 }
