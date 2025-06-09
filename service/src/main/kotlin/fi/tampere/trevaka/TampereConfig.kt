@@ -40,7 +40,7 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller
 import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.SoapVersion
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory
-import org.springframework.ws.transport.http.HttpComponents5MessageSender
+import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3AsyncClient
@@ -166,7 +166,7 @@ class TampereConfig {
         return WebServiceTemplate(messageFactory).apply {
             this.marshaller = marshaller
             unmarshaller = marshaller
-            setMessageSender(HttpComponents5MessageSender(httpClient))
+            setMessageSender(SimpleHttpComponents5MessageSender(httpClient))
         }
     }
 
