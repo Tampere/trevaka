@@ -53,29 +53,33 @@ class KangasalaConfig {
         preferredStartRelativeApplicationDueDate = true,
         fiveYearsOldDaycareEnabled = false,
         archiveMetadataOrganization = "Kangasalan kaupunki, varhaiskasvatus",
-        archiveMetadataConfigs =
-        mapOf(
-            ArchiveProcessType.APPLICATION_DAYCARE to
-                ArchiveProcessConfig(
-                    processDefinitionNumber = "46.00.06",
-                    archiveDurationMonths = 120 * 12,
-                ),
-            ArchiveProcessType.APPLICATION_PRESCHOOL to
-                ArchiveProcessConfig(
-                    processDefinitionNumber = " 46.00.06",
-                    archiveDurationMonths = 120 * 12,
-                ),
-            ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE to
-                ArchiveProcessConfig(
-                    processDefinitionNumber = "46.00.06",
-                    archiveDurationMonths = 120 * 12,
-                ),
-            ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL to
-                ArchiveProcessConfig(
-                    processDefinitionNumber = "46.00.06",
-                    archiveDurationMonths = 120 * 12,
-                ),
-        ),
+        archiveMetadataConfigs = { type, year ->
+            when (type) {
+                ArchiveProcessType.APPLICATION_DAYCARE ->
+                    ArchiveProcessConfig(
+                        processDefinitionNumber = "46.00.06",
+                        archiveDurationMonths = 120 * 12,
+                    )
+                ArchiveProcessType.APPLICATION_PRESCHOOL ->
+                    ArchiveProcessConfig(
+                        processDefinitionNumber = " 46.00.06",
+                        archiveDurationMonths = 120 * 12,
+                    )
+                ArchiveProcessType.APPLICATION_CLUB -> null
+                ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE ->
+                    ArchiveProcessConfig(
+                        processDefinitionNumber = "46.00.06",
+                        archiveDurationMonths = 120 * 12,
+                    )
+                ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL ->
+                    ArchiveProcessConfig(
+                        processDefinitionNumber = "46.00.06",
+                        archiveDurationMonths = 120 * 12,
+                    )
+                ArchiveProcessType.FEE_DECISION -> null
+                ArchiveProcessType.VOUCHER_VALUE_DECISION -> null
+            }
+        },
         daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
     )
 
