@@ -24,6 +24,9 @@ updates:
       interval: "daily"
       time: "10:00"
       timezone: "Europe/Helsinki"
+    ignore:
+      - dependency-name: "@types/node"
+        update-types: [ "version-update:semver-major", "version-update:semver-patch" ]
     groups:
       jest:
         patterns:
