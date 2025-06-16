@@ -44,7 +44,8 @@ const prod: FeatureFlags = {
   jamixIntegration: true,
   serviceApplications: true,
   multiSelectDeparture: true,
-  requireAttachments: true
+  requireAttachments: true,
+  showCitizenApplicationPreschoolTerms: true
 }
 
 const features: Features = {
