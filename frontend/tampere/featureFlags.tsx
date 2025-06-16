@@ -47,7 +47,8 @@ const prod: FeatureFlags = {
   aromiIntegration: true,
   serviceApplications: true,
   multiSelectDeparture: true,
-  requireAttachments: true
+  requireAttachments: true,
+  showCitizenApplicationPreschoolTerms: true
 }
 
 const features: Features = {
@@ -55,8 +56,7 @@ const features: Features = {
     ...prod,
     environmentLabel: 'Test',
     absenceApplications: true,
-    citizenChildDocumentTypes: true,
-    showCitizenApplicationPreschoolTerms: true
+    citizenChildDocumentTypes: true
   },
   staging: {
     ...prod,

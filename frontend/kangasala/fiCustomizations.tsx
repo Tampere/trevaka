@@ -220,7 +220,7 @@ const fi: DeepPartial<Translations> = {
             PRESCHOOL: null
           },
           info: {
-            PRESCHOOL: ['Lukuvuosi 2025-2026 alkaa keskiviikkona 6.8.2025.']
+            PRESCHOOL: ['Esiopetusta järjestetään esiopetuskausittain.']
           },
           label: {
             PRESCHOOL: 'Tarve alkaen'
