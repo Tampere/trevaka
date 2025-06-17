@@ -7,7 +7,7 @@
     "e2e-ci-playwright": "LANG=fi-FI LANGUAGE=fi_FI BASE_URL=http://localhost:9099 jest --testTimeout 60000 --runInBand --bail 1 --retries=2 src/e2e/specs"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.14",
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.15.30",
     "axios": "^1.10.0",
     "e2e-test": "link:../evaka/frontend/src/e2e-test",
