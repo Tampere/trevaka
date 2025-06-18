@@ -2,10 +2,6 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-frontend_version = "7a60d22deae8a851642cbf139d69b3df500cd6c0"
-apigw_version    = "7a60d22deae8a851642cbf139d69b3df500cd6c0"
-service_version  = "7a60d22deae8a851642cbf139d69b3df500cd6c0"
-
 # common
 municipality = "tampere"
 environment  = "test"
@@ -38,7 +34,7 @@ vtj_xroad_client_instance                     = "FI-TEST"
 vtj_xroad_client_membercode                   = "0211675-2"
 vtj_xroad_client_subsystemcode                = "treVaka"
 vtj_xroad_service_instance                    = "FI-TEST"
-email_allowlist                               = "^(.+)@tampere.fi$,^(.+)@ssrf.fi$"
+email_allowlist                               = "^(.+)@tampere.fi$"
 email_name                                    = "Tampereen varhaiskasvatus"
 email_subject_postfix                         = "staging"
 dvv_modifications_service_xroadclientid       = "FI-TEST/MUN/0211675-2/treVaka"
