@@ -19,20 +19,20 @@ RETURN CASE type
 CREATE FUNCTION message_export(message_account_id uuid, period daterange)
     RETURNS TABLE
             (
-                title      text,
-                sent_at    timestamp without time zone,
-                sender     text,
-                recipients text,
-                content    text
+                otsikko        text,
+                lahetysaika    timestamp without time zone,
+                lahettaja      text,
+                vastaanottajat text,
+                sisalto        text
             )
 AS
 $$
-SELECT message_thread.title                                                     AS title,
-       message.sent_at AT TIME ZONE 'Europe/Helsinki'                           AS sent_at,
-       message_account_name(sender_account_view.type, sender_account_view.name) AS sender,
+SELECT message_thread.title                                                     AS otsikko,
+       message.sent_at AT TIME ZONE 'Europe/Helsinki'                           AS lahetysaika,
+       message_account_name(sender_account_view.type, sender_account_view.name) AS lahettaja,
        string_agg(message_account_name(recipient_account_view.type, recipient_account_view.name), ', '
-                  ORDER BY recipient_account_view.name)                         AS recipients,
-       message_content.content                                                  AS content
+                  ORDER BY recipient_account_view.name)                         AS vastaanottajat,
+       message_content.content                                                  AS sisalto
 FROM message
          JOIN message_thread ON message.thread_id = message_thread.id
          JOIN message_content ON message.content_id = message_content.id
