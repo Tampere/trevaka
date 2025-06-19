@@ -36,11 +36,13 @@ SELECT message_thread.title                                                     
 FROM message
          JOIN message_thread ON message.thread_id = message_thread.id
          JOIN message_content ON message.content_id = message_content.id
+         JOIN message_thread_participant ON message_thread.id = message_thread_participant.thread_id
          JOIN message_account_view sender_account_view ON message.sender_id = sender_account_view.id
          LEFT JOIN message_recipients ON message.id = message_recipients.message_id
          LEFT JOIN message_account_view recipient_account_view
                    ON message_recipients.recipient_id = recipient_account_view.id
-WHERE (message.sender_id = $1 OR
+WHERE message_thread_participant.participant_id = $1
+  AND (message.sender_id = $1 OR
        EXISTS (SELECT FROM message_recipients mr WHERE mr.message_id = message.id AND mr.recipient_id = $1))
   AND $2 @> (message.sent_at AT TIME ZONE 'Europe/Helsinki')::date
 GROUP BY 1, 2, 3, 5
