@@ -53,7 +53,7 @@ object BiQueries {
         csvQuery<BiAssistanceAction> {
             sql(
                 """
-            select id, created_at::text AS created, updated_at::text AS updated, modified_by AS updated_by, child_id, start_date, end_date, other_action, measures::text
+            select id, created_at::text AS created, updated_at::text AS updated, modified_by AS updated_by, child_id, start_date, end_date, other_action, '' AS measures
             FROM assistance_action
         """,
             )
