@@ -76,8 +76,14 @@ class PirkkalaConfig {
                         processDefinitionNumber = "4102.03",
                         archiveDurationMonths = 20 * 12,
                     )
-                ArchiveProcessType.FEE_DECISION -> null
-                ArchiveProcessType.VOUCHER_VALUE_DECISION -> null
+                ArchiveProcessType.FEE_DECISION -> ArchiveProcessConfig(
+                    processDefinitionNumber = "4801.102",
+                    archiveDurationMonths = 15 * 12,
+                )
+                ArchiveProcessType.VOUCHER_VALUE_DECISION -> ArchiveProcessConfig(
+                    processDefinitionNumber = "4801.102",
+                    archiveDurationMonths = 15 * 12,
+                )
             }
         },
         daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),

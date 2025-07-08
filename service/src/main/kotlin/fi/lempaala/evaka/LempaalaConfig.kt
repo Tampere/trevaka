@@ -68,8 +68,14 @@ class LempaalaConfig {
                         archiveDurationMonths = 10 * 12,
                     )
                 ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL -> null
-                ArchiveProcessType.FEE_DECISION -> null
-                ArchiveProcessType.VOUCHER_VALUE_DECISION -> null
+                ArchiveProcessType.FEE_DECISION -> ArchiveProcessConfig(
+                    processDefinitionNumber = "12.07.01.01",
+                    archiveDurationMonths = 10 * 12,
+                )
+                ArchiveProcessType.VOUCHER_VALUE_DECISION -> ArchiveProcessConfig(
+                    processDefinitionNumber = "02.07.01.01",
+                    archiveDurationMonths = 10 * 12,
+                )
             }
         },
         daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),

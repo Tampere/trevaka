@@ -76,8 +76,14 @@ class KangasalaConfig {
                         processDefinitionNumber = "46.00.06",
                         archiveDurationMonths = 120 * 12,
                     )
-                ArchiveProcessType.FEE_DECISION -> null
-                ArchiveProcessType.VOUCHER_VALUE_DECISION -> null
+                ArchiveProcessType.FEE_DECISION -> ArchiveProcessConfig(
+                    processDefinitionNumber = "46.00.06",
+                    archiveDurationMonths = 10 * 12,
+                )
+                ArchiveProcessType.VOUCHER_VALUE_DECISION -> ArchiveProcessConfig(
+                    processDefinitionNumber = "46.02.07",
+                    archiveDurationMonths = 10 * 12,
+                )
             }
         },
         daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
