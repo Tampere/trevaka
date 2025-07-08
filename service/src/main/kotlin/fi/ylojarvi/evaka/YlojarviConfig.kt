@@ -80,8 +80,14 @@ class YlojarviConfig {
                         processDefinitionNumber = "12.01.02",
                         archiveDurationMonths = 120 * 12,
                     )
-                ArchiveProcessType.FEE_DECISION -> null
-                ArchiveProcessType.VOUCHER_VALUE_DECISION -> null
+                ArchiveProcessType.FEE_DECISION -> ArchiveProcessConfig(
+                    processDefinitionNumber = "12.06.01.23",
+                    archiveDurationMonths = 10 * 12,
+                )
+                ArchiveProcessType.VOUCHER_VALUE_DECISION -> ArchiveProcessConfig(
+                    processDefinitionNumber = "12.06.01.23",
+                    archiveDurationMonths = 10 * 12,
+                )
             }
         },
         daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),

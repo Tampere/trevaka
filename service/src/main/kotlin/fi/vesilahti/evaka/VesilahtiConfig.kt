@@ -80,8 +80,14 @@ class VesilahtiConfig {
                         processDefinitionNumber = "12.01.03.03",
                         archiveDurationMonths = 10 * 12,
                     )
-                ArchiveProcessType.FEE_DECISION -> null
-                ArchiveProcessType.VOUCHER_VALUE_DECISION -> null
+                ArchiveProcessType.FEE_DECISION -> ArchiveProcessConfig(
+                    processDefinitionNumber = "12.07.02",
+                    archiveDurationMonths = 6 * 12,
+                )
+                ArchiveProcessType.VOUCHER_VALUE_DECISION -> ArchiveProcessConfig(
+                    processDefinitionNumber = "12.07.02",
+                    archiveDurationMonths = 6 * 12,
+                )
             }
         },
         daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
