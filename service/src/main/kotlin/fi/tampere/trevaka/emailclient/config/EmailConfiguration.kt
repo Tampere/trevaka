@@ -5,6 +5,7 @@
 package fi.tampere.trevaka.emailclient.config
 
 import fi.espoo.evaka.daycare.domain.Language
+import fi.espoo.evaka.document.childdocument.ChildDocumentNotificationType
 import fi.espoo.evaka.emailclient.CalendarEventNotificationData
 import fi.espoo.evaka.emailclient.DiscussionSurveyCreationNotificationData
 import fi.espoo.evaka.emailclient.DiscussionSurveyReservationNotificationData
@@ -233,7 +234,7 @@ $unsubscribeEn
         )
     }
 
-    override fun childDocumentNotification(language: Language, childId: ChildId): EmailContent = EmailContent.fromHtml(
+    override fun childDocumentNotification(language: Language, childId: ChildId, notificationType: ChildDocumentNotificationType): EmailContent = EmailContent.fromHtml(
         subject = "Uusi dokumentti eVakassa / New document in eVaka",
         html =
         """
