@@ -31,7 +31,6 @@ const prod: FeatureFlags = {
   feeDecisionPreschoolClubFilter: true,
   placementGuarantee: true,
   staffAttendanceTypes: true,
-  personDuplicate: true,
   intermittentShiftCare: true,
   citizenAttendanceSummary: true,
   noAbsenceType: true,
