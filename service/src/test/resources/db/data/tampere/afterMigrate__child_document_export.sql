@@ -10,7 +10,7 @@ CREATE VIEW child_document_export AS
 WITH template AS (SELECT id, content
                   FROM document_template
                   WHERE type = 'LEOPS'
-                    AND validity @> current_date),
+                    AND validity @> date(timezone('Europe/Helsinki', now()))),
      question AS (SELECT template.id AS template_id, question
                   FROM template
                            CROSS JOIN jsonb_array_elements(template.content -> 'sections') section
