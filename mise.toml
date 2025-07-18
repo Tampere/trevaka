@@ -24,12 +24,12 @@ depends = ["trevaka-frontend", "trevaka-apigw", "trevaka-service"]
 
 [tasks.trevaka-frontend]
 dir = "evaka/frontend"
-run = "yarn && yarn clean && yarn dev"
+run = ["yarn", "yarn clean", "yarn dev"]
 env.EVAKA_CUSTOMIZATIONS = "{{ vars.municipality }}"
 
 [tasks.trevaka-apigw]
 dir = "evaka/apigw"
-run = "yarn && yarn clean && yarn dev"
+run = ["yarn", "yarn clean", "yarn dev"]
 env.EVAKA_TITANIA_USERNAME = "titania"
 env.EVAKA_TITANIA_PASSWORD = "titania"
 env.AD_SAML_EXTERNAL_ID_PREFIX = "tampere-ad"
@@ -46,11 +46,11 @@ depends = ["evaka-frontend", "evaka-apigw", "evaka-service"]
 
 [tasks.evaka-frontend]
 dir = "evaka/frontend"
-run = "yarn && yarn clean && yarn dev"
+run = ["yarn", "yarn clean", "yarn dev"]
 
 [tasks.evaka-apigw]
 dir = "evaka/apigw"
-run = "yarn && yarn clean && yarn dev"
+run = ["yarn", "yarn clean", "yarn dev"]
 
 [tasks.evaka-service]
 dir = "evaka/service"
