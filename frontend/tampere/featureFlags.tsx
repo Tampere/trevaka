@@ -55,7 +55,8 @@ const features: Features = {
     ...prod,
     environmentLabel: 'Test',
     absenceApplications: true,
-    citizenChildDocumentTypes: true
+    citizenChildDocumentTypes: true,
+    decisionChildDocumentTypes: true
   },
   staging: {
     ...prod,
