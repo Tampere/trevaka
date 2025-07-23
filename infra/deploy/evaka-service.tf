@@ -265,6 +265,7 @@ module "app_service" {
     EVAKA_JOB_SEND_JAMIX_ORDERS_ENABLED                          = var.jamix_orders_enabled
     EVAKA_JOB_SYNC_JAMIX_DIETS_ENABLED                           = var.jamix_diets_enabled
     EVAKA_JOB_SEND_AROMI_ORDERS_ENABLED                          = var.aromi_enabled
+    EVAKA_JOB_SEND_AROMI_ORDERS_CRON                             = "0 15 1 * * *" // daily 1:15 am
     EVAKA_JOB_SEND_PENDING_DECISION_REMINDER_EMAILS_ENABLED      = var.send_pending_decision_reminder_emails_enabled
     EVAKA_JOB_VARDA_UPDATE_ENABLED                               = var.varda_integration_enabled
     EVAKA_JOB_VARDA_UPDATE_CRON                                  = var.evaka_job_varda_update_cron
