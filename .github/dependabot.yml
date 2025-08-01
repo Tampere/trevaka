@@ -51,6 +51,7 @@ updates:
       interval: "daily"
       time: "10:00"
       timezone: "Europe/Helsinki"
-    ignore:
-      - dependency-name: "com.sun.xml.bind:jaxb-xjc"
-      - dependency-name: "com.sun.xml.bind:jaxb-impl"
+    groups:
+      jaxb:
+        patterns:
+          - "com.sun.xml.bind:jaxb-*"
