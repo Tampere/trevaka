@@ -2,7 +2,11 @@
 --
 -- SPDX-License-Identifier: LGPL-2.1-or-later
 
--- Usage: \copy (select data from child_document_export) to child_document_export.json
+-- Usage:
+-- \t
+-- \a
+-- \o child_document_export.json
+-- select data from child_document_export;
 
 DROP VIEW IF EXISTS child_document_export;
 
