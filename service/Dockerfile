@@ -5,23 +5,13 @@
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
 FROM eclipse-temurin:21-noble AS builder
-WORKDIR /evaka
-COPY --from=core ./service/gradle/ ./service/gradle/
-COPY --from=core ./service/build.gradle.kts ./service/gradle.properties ./service/settings.gradle.kts ./service/
-COPY --from=core ./service/vtjclient/build.gradle.kts ./service/vtjclient/build.gradle.kts
-COPY --from=core ./service/service-lib/*.kts ./service/service-lib/
-COPY --from=core ./service/evaka-bom/*.kts ./service/evaka-bom/
-COPY --from=core ./service/sarmamodel/build.gradle.kts ./service/sarmamodel/
 WORKDIR /service
 COPY ./gradle/ ./gradle/
-COPY ./gradlew ./build.gradle.kts ./gradle.properties ./settings.gradle.kts ./settings-dependabot-ignore.gradle.kts ./
-RUN ./gradlew resolveDependencies
-COPY --from=core ./service/vtjclient/ ../evaka/service/vtjclient/
-COPY --from=core ./service/sarmamodel/ ../evaka/service/sarmamodel/
-RUN ./gradlew :service:vtjclient:wsdl2java :service:sarmamodel:build
+COPY ./gradlew ./
+RUN ./gradlew --version
 COPY --from=core . ../evaka
 COPY . ./
-RUN ./gradlew --offline assemble \
+RUN ./gradlew assemble \
     && java -Djarmode=tools -jar build/libs/trevaka-service.jar extract --layers --launcher --destination build/extracted
 
 FROM eclipse-temurin:21-jre-noble
