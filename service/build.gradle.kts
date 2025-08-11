@@ -51,8 +51,8 @@ sourceSets.main {
 }
 
 dependencies {
-    xjcTool("com.sun.xml.bind:jaxb-xjc:3.0.2")
-    xjcTool("com.sun.xml.bind:jaxb-impl:3.0.2")
+    xjcTool("com.sun.xml.bind:jaxb-xjc:4.0.5")
+    xjcTool("com.sun.xml.bind:jaxb-impl:4.0.5")
 
     implementation(platform("evaka:evaka-bom"))
     testImplementation(platform("evaka:evaka-bom"))
