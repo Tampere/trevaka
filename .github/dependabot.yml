@@ -51,7 +51,3 @@ updates:
       interval: "daily"
       time: "10:00"
       timezone: "Europe/Helsinki"
-    groups:
-      jaxb:
-        patterns:
-          - "com.sun.xml.bind:jaxb-*"
