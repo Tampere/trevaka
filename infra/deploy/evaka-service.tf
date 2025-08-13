@@ -210,16 +210,16 @@ module "app_service" {
     EVAKA_INTEGRATION_VARDA_END_DATE      = var.evaka_integration_varda_end_date
 
     # DvvModificationsEnv
-    EVAKA_INTEGRATION_DVV_MODIFICATIONS_XROAD_CLIENT_ID = var.dvv_modifications_service_xroadclientid
+    EVAKA_INTEGRATION_DVV_MODIFICATIONS_XROAD_CLIENT_ID = "${local.xroad_instance}/MUN/${var.vtj_xroad_client_membercode}/${var.vtj_xroad_client_subsystemcode}"
 
     # VtjXroadClientEnv
-    EVAKA_INTEGRATION_VTJ_XROAD_CLIENT_INSTANCE       = var.vtj_xroad_client_instance
+    EVAKA_INTEGRATION_VTJ_XROAD_CLIENT_INSTANCE       = local.xroad_instance
     EVAKA_INTEGRATION_VTJ_XROAD_CLIENT_MEMBER_CLASS   = "MUN"
     EVAKA_INTEGRATION_VTJ_XROAD_CLIENT_MEMBER_CODE    = var.vtj_xroad_client_membercode
     EVAKA_INTEGRATION_VTJ_XROAD_CLIENT_SUBSYSTEM_CODE = var.vtj_xroad_client_subsystemcode
 
     # VtjXroadServiceEnv
-    EVAKA_INTEGRATION_VTJ_XROAD_SERVICE_INSTANCE        = var.vtj_xroad_service_instance
+    EVAKA_INTEGRATION_VTJ_XROAD_SERVICE_INSTANCE        = local.xroad_instance
     EVAKA_INTEGRATION_VTJ_XROAD_SERVICE_MEMBER_CLASS    = "GOV"
     EVAKA_INTEGRATION_VTJ_XROAD_SERVICE_MEMBER_CODE     = "0245437-2"
     EVAKA_INTEGRATION_VTJ_XROAD_SERVICE_SUBSYSTEM_CODE  = "VTJkysely"
@@ -375,19 +375,11 @@ variable "evaka_async_job_runner_disable_runner" {
   default = null
 }
 
-variable "vtj_xroad_client_instance" {
-  type = string
-}
-
 variable "vtj_xroad_client_membercode" {
   type = string
 }
 
 variable "vtj_xroad_client_subsystemcode" {
-  type = string
-}
-
-variable "vtj_xroad_service_instance" {
   type = string
 }
 
@@ -445,12 +437,6 @@ variable "email_subject_postfix" {
   description = "Email subject postfix (for test environments)"
   type        = string
   default     = null
-}
-
-variable "dvv_modifications_service_xroadclientid" {
-  description = "Enable DVV mutp api xroad client id"
-  type        = string
-  default     = ""
 }
 
 variable "evaka_job_cancel_outdated_transfer_applications_enabled" {
@@ -612,6 +598,7 @@ variable "service_logging_levels" {
 locals {
   service_version = var.service_version != "" ? var.service_version : var.apps_version
   jamix_enabled   = var.jamix_orders_enabled || var.jamix_diets_enabled
+  xroad_instance  = var.environment == "prod" ? "FI" : "FI-TEST"
 }
 
 output "service_version" {
