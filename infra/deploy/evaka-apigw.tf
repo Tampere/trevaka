@@ -2,11 +2,6 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-moved {
-  from = module.app_apigw.aws_route53_record.internal[0]
-  to   = aws_route53_record.evaka_apigw
-}
-
 resource "aws_route53_record" "evaka_apigw" {
   zone_id = data.terraform_remote_state.base.outputs.internal_zone_id
   name    = "${local.project}-apigw.${data.terraform_remote_state.base.outputs.internal_domain_name}"
