@@ -34,7 +34,6 @@ module "app_apigw" {
   task_cpu       = 256
   task_memory    = 512
   host_headers   = [aws_route53_record.evaka_apigw.name]
-  path_patterns  = ["/*"]
 
   wait_for_steady_state = true
   force_new_deployment  = var.force_new_deployment || var.apigw_force_new_deployment

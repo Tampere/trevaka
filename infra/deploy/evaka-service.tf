@@ -34,7 +34,6 @@ module "app_service" {
   task_cpu                  = var.service_task_cpu
   task_memory               = var.service_task_memory_mb
   host_headers              = [aws_route53_record.evaka_service.name]
-  path_patterns             = ["/*"]
   health_check_grace_period = 60 * 10
   health_check_path         = "/health"
 
