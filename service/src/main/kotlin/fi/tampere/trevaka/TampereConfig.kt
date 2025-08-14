@@ -44,6 +44,7 @@ import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3AsyncClient
+import trevaka.security.TrevakaActionRuleMapping
 import trevaka.titania.TrimStartTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
 import java.time.MonthDay
@@ -179,7 +180,7 @@ class TampereConfig {
         }
     }
 
-    @Bean fun actionRuleMapping(): ActionRuleMapping = TampereActionRuleMapping()
+    @Bean fun actionRuleMapping(): ActionRuleMapping = TampereActionRuleMapping(TrevakaActionRuleMapping())
 
     @Bean
     fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter = TrimStartTitaniaEmployeeIdConverter()

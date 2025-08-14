@@ -11,7 +11,7 @@ import fi.espoo.evaka.shared.security.Action
 import fi.espoo.evaka.shared.security.PilotFeature
 import fi.espoo.evaka.shared.security.actionrule.*
 
-class OrivesiActionRuleMapping : ActionRuleMapping {
+class OrivesiActionRuleMapping(private val commonRules: ActionRuleMapping) : ActionRuleMapping {
     override fun rulesOf(action: Action.UnscopedAction): Sequence<UnscopedActionRule> = when (action) {
         Action.Global.APPLICATIONS_PAGE,
         Action.Global.FINANCE_PAGE,
@@ -87,7 +87,7 @@ class OrivesiActionRuleMapping : ActionRuleMapping {
         ->
             action.defaultRules.asSequence() + sequenceOf(HasGlobalRole(UserRole.SERVICE_WORKER))
         Action.Global.READ_TAMPERE_REGIONAL_SURVEY_REPORT -> sequenceOf(HasGlobalRole(UserRole.ADMIN, UserRole.REPORT_VIEWER))
-        else -> action.defaultRules.asSequence()
+        else -> commonRules.rulesOf(action)
     }
 
     override fun <T> rulesOf(action: Action.ScopedAction<in T>): Sequence<ScopedActionRule<in T>> = when (action) {
@@ -444,6 +444,6 @@ class OrivesiActionRuleMapping : ActionRuleMapping {
             )
         }
 
-        else -> action.defaultRules.asSequence()
+        else -> commonRules.rulesOf(action)
     }
 }

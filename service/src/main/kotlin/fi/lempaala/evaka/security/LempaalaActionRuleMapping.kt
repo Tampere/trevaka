@@ -11,7 +11,7 @@ import fi.espoo.evaka.shared.security.Action
 import fi.espoo.evaka.shared.security.PilotFeature
 import fi.espoo.evaka.shared.security.actionrule.*
 
-class LempaalaActionRuleMapping : ActionRuleMapping {
+class LempaalaActionRuleMapping(private val commonRules: ActionRuleMapping) : ActionRuleMapping {
     override fun rulesOf(action: Action.UnscopedAction): Sequence<UnscopedActionRule> = when (action) {
         Action.Global.APPLICATIONS_PAGE,
         Action.Global.FINANCE_PAGE,
@@ -84,7 +84,7 @@ class LempaalaActionRuleMapping : ActionRuleMapping {
         Action.Global.SEND_PATU_REPORT, Action.Global.SUBMIT_PATU_REPORT -> emptySequence()
         Action.Global.SETTINGS_PAGE, Action.Global.UPDATE_SETTINGS -> emptySequence()
         Action.Global.READ_TAMPERE_REGIONAL_SURVEY_REPORT -> sequenceOf(HasGlobalRole(UserRole.ADMIN, UserRole.REPORT_VIEWER))
-        else -> action.defaultRules.asSequence()
+        else -> commonRules.rulesOf(action)
     }
 
     override fun <T> rulesOf(action: Action.ScopedAction<in T>): Sequence<ScopedActionRule<in T>> = when (action) {
@@ -441,6 +441,6 @@ class LempaalaActionRuleMapping : ActionRuleMapping {
             )
         }
 
-        else -> action.defaultRules.asSequence()
+        else -> commonRules.rulesOf(action)
     }
 }

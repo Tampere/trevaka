@@ -16,7 +16,7 @@ import fi.espoo.evaka.shared.security.actionrule.IsEmployee
 import fi.espoo.evaka.shared.security.actionrule.ScopedActionRule
 import fi.espoo.evaka.shared.security.actionrule.UnscopedActionRule
 
-class TampereActionRuleMapping : ActionRuleMapping {
+class TampereActionRuleMapping(private val commonRules: ActionRuleMapping) : ActionRuleMapping {
     override fun rulesOf(action: Action.UnscopedAction): Sequence<UnscopedActionRule> = when (action) {
         Action.Global.APPLICATIONS_PAGE,
         Action.Global.FINANCE_PAGE,
@@ -92,7 +92,7 @@ class TampereActionRuleMapping : ActionRuleMapping {
         ->
             action.defaultRules.asSequence() + sequenceOf(HasGlobalRole(UserRole.SERVICE_WORKER))
         Action.Global.READ_TAMPERE_REGIONAL_SURVEY_REPORT -> sequenceOf(HasGlobalRole(UserRole.ADMIN, UserRole.REPORT_VIEWER))
-        else -> action.defaultRules.asSequence()
+        else -> commonRules.rulesOf(action)
     }
 
     override fun <T> rulesOf(action: Action.ScopedAction<in T>): Sequence<ScopedActionRule<in T>> = when (action) {
@@ -451,6 +451,6 @@ class TampereActionRuleMapping : ActionRuleMapping {
             )
         }
 
-        else -> action.defaultRules.asSequence()
+        else -> commonRules.rulesOf(action)
     }
 }
