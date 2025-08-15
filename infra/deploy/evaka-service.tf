@@ -192,16 +192,12 @@ module "app_service" {
     EVAKA_WEB_PUSH_ENABLED = true
 
     # EmailEnv
-    EVAKA_EMAIL_ENABLED                                = true
-    EVAKA_EMAIL_WHITELIST                              = var.email_allowlist
-    EVAKA_EMAIL_SENDER_ADDRESS                         = "noreply@${data.terraform_remote_state.base.outputs.public_domain_name}"
-    EVAKA_EMAIL_SENDER_NAME_FI                         = var.email_name
-    EVAKA_EMAIL_SENDER_NAME_SV                         = var.email_name
-    EVAKA_EMAIL_SUBJECT_POSTFIX                        = var.email_subject_postfix
-    EVAKA_EMAIL_APPLICATION_RECEIVED_SENDER_ADDRESS_FI = "noreply@${data.terraform_remote_state.base.outputs.public_domain_name}"
-    EVAKA_EMAIL_APPLICATION_RECEIVED_SENDER_ADDRESS_SV = "noreply@${data.terraform_remote_state.base.outputs.public_domain_name}"
-    EVAKA_EMAIL_APPLICATION_RECEIVED_SENDER_NAME_FI    = var.email_name
-    EVAKA_EMAIL_APPLICATION_RECEIVED_SENDER_NAME_SV    = var.email_name
+    EVAKA_EMAIL_ENABLED         = true
+    EVAKA_EMAIL_WHITELIST       = var.email_allowlist
+    EVAKA_EMAIL_SENDER_ADDRESS  = "noreply@${data.terraform_remote_state.base.outputs.public_domain_name}"
+    EVAKA_EMAIL_SENDER_NAME_FI  = var.email_name
+    EVAKA_EMAIL_SENDER_NAME_SV  = var.email_name
+    EVAKA_EMAIL_SUBJECT_POSTFIX = var.email_subject_postfix
 
     # KoskiEnv
     EVAKA_INTEGRATION_KOSKI_URL                    = var.evaka_integration_koski_enabled ? var.koski_integration_api_url : null
