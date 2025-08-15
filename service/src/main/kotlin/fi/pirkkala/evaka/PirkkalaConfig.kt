@@ -23,6 +23,7 @@ import org.springframework.core.env.Environment
 import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
 import trevaka.ipaas.dvvModificationRequestCustomizer
 import trevaka.ipaas.newIpaasHttpClient
+import trevaka.security.TrevakaActionRuleMapping
 import trevaka.titania.PrefixTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
 import java.time.MonthDay
@@ -93,7 +94,7 @@ class PirkkalaConfig {
     fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()
 
     @Bean
-    fun actionRuleMapping(): ActionRuleMapping = PirkkalaActionRuleMapping()
+    fun actionRuleMapping(): ActionRuleMapping = PirkkalaActionRuleMapping(TrevakaActionRuleMapping())
 
     @Bean
     fun titaniaEmployeeIdConverter(): TitaniaEmployeeIdConverter = PrefixTitaniaEmployeeIdConverter("pir")
