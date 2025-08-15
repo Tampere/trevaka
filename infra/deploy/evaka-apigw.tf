@@ -2,11 +2,6 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-moved {
-  from = module.app_apigw.aws_route53_record.internal[0]
-  to   = aws_route53_record.evaka_apigw
-}
-
 resource "aws_route53_record" "evaka_apigw" {
   zone_id = data.terraform_remote_state.base.outputs.internal_zone_id
   name    = "${local.project}-apigw.${data.terraform_remote_state.base.outputs.internal_domain_name}"
@@ -34,7 +29,6 @@ module "app_apigw" {
   task_cpu       = 256
   task_memory    = 512
   host_headers   = [aws_route53_record.evaka_apigw.name]
-  path_patterns  = ["/*"]
 
   wait_for_steady_state = true
   force_new_deployment  = var.force_new_deployment || var.apigw_force_new_deployment
