@@ -341,7 +341,7 @@ object BiQueries {
         csvQuery<BiPlacement> {
             sql(
                 """
-            select id, created::text, updated::text, type, child_id, unit_id, start_date, end_date, termination_requested_date, terminated_by, place_guarantee
+            select id, created_at::text AS created, updated_at::text AS updated, type, child_id, unit_id, start_date, end_date, termination_requested_date, terminated_by, place_guarantee
             FROM placement
         """,
             )
