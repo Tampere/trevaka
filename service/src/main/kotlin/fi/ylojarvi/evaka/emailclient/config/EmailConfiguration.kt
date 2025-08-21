@@ -626,4 +626,21 @@ $unsubscribeEn
 <p>If you changed your email address yourself, you can ignore this message. If not, log in to eVaka with strong authentication (Sign in using Suomi.fi) and correct your email address.</p>
 """,
     )
+
+    override fun newBrowserLoginNotification(): EmailContent = EmailContent.fromHtml(
+        subject =
+        "Kirjautuminen uudella laitteella eVakaan / Login on a new device to eVaka",
+        html =
+        """
+<p><strong>Kirjautuminen uudella laitteella eVakaan</strong></p>
+<p>Havaitsimme kirjautumisen eVaka-tilillesi uudelta laitteelta. Jos tämä olit sinä, voit jättää tämän viestin huomiotta.</p>
+<p><strong>Jos et tunnista tätä kirjautumista:</strong></p>
+<p>Kirjaudu eVakaan vahvalla tunnistautumisella (Kirjaudu Suomi.fi:ssä) ja vaihda salasanasi.</p>
+<hr>
+<p><strong>Login on a new device to eVaka</strong></p>
+<p>We detected a login to your eVaka account from a new device. If this was you, you can ignore this message.</p>
+<p><strong>If you don't recognize this login:</strong></p>
+<p>Sign into eVaka using strong authentication (Sign in using Suomi.fi) and change your password.</p>
+""",
+    )
 }
