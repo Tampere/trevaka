@@ -19,12 +19,12 @@ VALUES
 
     ('35', 'Esiopetuksen erityisryhmä', NULL, 210, 'PRESCHOOL', NULL, NULL),
     ('55', 'Integroitu esiopetusryhmä', 'Lapsi on integroidussa esiopetusryhmässä.', 200, 'PRESCHOOL', NULL, NULL),
-    ('200', 'Erho', NULL, 220, 'PRESCHOOL', '2025-08-01'::date, NULL),
+    ('200', 'Erho', NULL, 220, 'PRESCHOOL', NULL, NULL),
     ('210', 'Erityisopettajan antama opetus muun opetuksen yhteydessä', 'Ryhmäkohtainen tukimuoto', 230, 'PRESCHOOL', '2025-08-01'::date, NULL),
     ('220', 'Säännöllinen erityisopettajan antama opetus osittain pienryhmässä ja muun opetuksen yhteydessä', 'Lapsikohtainen tukitoimi', 240, 'PRESCHOOL', '2025-08-01'::date, NULL),
     ('230', 'Kokoaikainen erityisopettajan antama opetus pienryhmässä', 'Lapsikohtainen tukitoimi', 240, 'PRESCHOOL', '2025-08-01'::date, NULL),
     ('240', 'Lapsikohtainen avustaja', 'Lapsikohtainen tukitoimi', 250, 'PRESCHOOL', '2025-08-01'::date, NULL),
-    ('250', 'Tulkitsemispalvelut', 'Lapsikohtainen tukitoimi', 260, 'PRESCHOOL', '2025-08-01'::date, NULL),
+    ('250', 'Tulkitsemispalvelut', 'Lapsikohtainen tukitoimi', 260, 'PRESCHOOL', NULL, NULL),
     ('260', 'Apuvälineet', 'Lapsikohtainen tukitoimi', 270, 'PRESCHOOL', '2025-08-01'::date, NULL)
 
 
@@ -39,7 +39,7 @@ UPDATE SET
 WHERE
     assistance_action_option.name_fi <> EXCLUDED.name_fi OR
     assistance_action_option.description_fi IS DISTINCT FROM EXCLUDED.description_fi OR
-    assistance_action_option.display_order <> EXCLUDED.display_order OR
+    assistance_action_option.display_order IS DISTINCT FROM EXCLUDED.display_order OR
     assistance_action_option.category <> EXCLUDED.category OR
-    assistance_action_option.valid_from <> EXCLUDED.valid_from OR
-    assistance_action_option.valid_to <> EXCLUDED.valid_to;
+    assistance_action_option.valid_from IS DISTINCT FROM EXCLUDED.valid_from OR
+    assistance_action_option.valid_to IS DISTINCT FROM EXCLUDED.valid_to;
