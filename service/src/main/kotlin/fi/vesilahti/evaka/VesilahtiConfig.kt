@@ -35,7 +35,7 @@ class VesilahtiConfig {
     fun featureConfig() = FeatureConfig(
         valueDecisionCapacityFactorEnabled = true,
         citizenReservationThresholdHours = 7 * 24 - 9, // Mon 09:00
-        dailyFeeDivisorOperationalDaysOverride = 20,
+        dailyFeeDivisorOperationalDaysOverride = null,
         freeSickLeaveOnContractDays = true,
         freeAbsenceGivesADailyRefund = true,
         alwaysUseDaycareFinanceDecisionHandler = true,
