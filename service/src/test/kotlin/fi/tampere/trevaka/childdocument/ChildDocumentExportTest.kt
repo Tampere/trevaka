@@ -257,7 +257,7 @@ class ChildDocumentExportTest : AbstractTampereIntegrationTest() {
     }
 }
 
-private data class ChildDocumentExport(@Json val data: List<ChildDocumentExportRow>)
+private data class ChildDocumentExport(@param:Json val data: List<ChildDocumentExportRow>)
 private data class ChildDocumentExportRow(val child: ChildDocumentExportChild, val document: Map<String, Any?>)
 private data class ChildDocumentExportChild(
     val oid: String?,

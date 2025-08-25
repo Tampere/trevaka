@@ -31,6 +31,7 @@ const featureFlags: FeatureFlags = {
   voucherValueSeparation: false,
   assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
+  hideOvertimeSelection: false,
   hideClubApplication: false,
   discussionReservations: true,
   jamixIntegration: true,

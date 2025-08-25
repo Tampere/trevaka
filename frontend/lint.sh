@@ -17,4 +17,5 @@ set -euo pipefail
     src/lib-customizations/kangasala/. \
     src/lib-customizations/lempaala/. \
     src/lib-customizations/orivesi/.
+  yarn tsc --build --force src/lib-customizations/
 )

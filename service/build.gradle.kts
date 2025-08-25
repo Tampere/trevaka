@@ -99,6 +99,7 @@ springBoot {
 
 kotlin {
     compilerOptions {
+        allWarningsAsErrors = true
         freeCompilerArgs.addAll("-Xjsr305=strict")
     }
 }
