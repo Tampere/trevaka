@@ -64,7 +64,7 @@ class TampereConfig {
     fun featureConfig(): FeatureConfig = FeatureConfig(
         valueDecisionCapacityFactorEnabled = true,
         citizenReservationThresholdHours = 6 * 24, // Tue 00:00
-        dailyFeeDivisorOperationalDaysOverride = 20,
+        dailyFeeDivisorOperationalDaysOverride = null,
         freeSickLeaveOnContractDays = true,
         freeAbsenceGivesADailyRefund = false,
         alwaysUseDaycareFinanceDecisionHandler = true,
