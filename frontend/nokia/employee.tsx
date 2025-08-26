@@ -610,7 +610,9 @@ const customizations: EmployeeCustomizations = {
     'PREPARATORY_DAYCARE_ONLY'
   ],
   placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER'],
-  preschoolAssistanceLevels: [...preschoolAssistanceLevels],
+  preschoolAssistanceLevels: preschoolAssistanceLevels.filter(
+    (level) => level !== 'GROUP_SUPPORT'
+  ),
   unitProviderTypes: [
     'MUNICIPAL',
     'PURCHASED',

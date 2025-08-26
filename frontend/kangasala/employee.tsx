@@ -652,7 +652,9 @@ const customizations: EmployeeCustomizations = {
     'SCHOOL_SHIFT_CARE'
   ],
   placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER'],
-  preschoolAssistanceLevels: [...preschoolAssistanceLevels],
+  preschoolAssistanceLevels: preschoolAssistanceLevels.filter(
+    (level) => level !== 'GROUP_SUPPORT'
+  ),
   unitProviderTypes: [
     'MUNICIPAL',
     'PURCHASED',
