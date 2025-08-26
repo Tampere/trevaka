@@ -36,6 +36,7 @@ const featureFlags: FeatureFlags = {
   discussionReservations: true,
   jamixIntegration: true,
   serviceApplications: true,
+  absenceApplications: false,
   multiSelectDeparture: true,
   requireAttachments: true,
   showCitizenApplicationPreschoolTerms: true

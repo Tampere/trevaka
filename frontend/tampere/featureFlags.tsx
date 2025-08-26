@@ -46,6 +46,7 @@ const prod: FeatureFlags = {
   discussionReservations: true,
   aromiIntegration: true,
   serviceApplications: true,
+  absenceApplications: true,
   multiSelectDeparture: true,
   requireAttachments: true,
   showCitizenApplicationPreschoolTerms: true
@@ -55,7 +56,6 @@ const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
-    absenceApplications: true,
     citizenChildDocumentTypes: true,
     decisionChildDocumentTypes: true
   },
