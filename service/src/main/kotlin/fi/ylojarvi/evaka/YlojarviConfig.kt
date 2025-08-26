@@ -82,11 +82,11 @@ class YlojarviConfig {
                         archiveDurationMonths = 120 * 12,
                     )
                 ArchiveProcessType.FEE_DECISION -> ArchiveProcessConfig(
-                    processDefinitionNumber = "12.06.01.23",
+                    processDefinitionNumber = "12.07.01",
                     archiveDurationMonths = 10 * 12,
                 )
                 ArchiveProcessType.VOUCHER_VALUE_DECISION -> ArchiveProcessConfig(
-                    processDefinitionNumber = "12.06.01.23",
+                    processDefinitionNumber = "12.07.01",
                     archiveDurationMonths = 10 * 12,
                 )
             }
