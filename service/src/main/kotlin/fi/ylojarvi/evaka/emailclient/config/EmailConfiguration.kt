@@ -555,24 +555,10 @@ $unsubscribeEn
             .trimIndent(),
     )
 
-    override fun absenceApplicationDecidedNotification(accepted: Boolean, startDate: LocalDate, endDate: LocalDate): EmailContent {
-        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-        val range = "${formatter.format(startDate)} - ${formatter.format(endDate)}"
-        return EmailContent.fromHtml(
-            subject =
-            if (accepted) {
-                "Esiopetuksen poissaolohakemus hyväksytty"
-            } else {
-                "Esiopetuksen poissaolohakemus hylätty"
-            },
-            html =
-            if (accepted) {
-                "<p>Lapsesi esiopetuksen poissaolohakemus ajalle $range on hyväksytty ja poissaolot on merkitty eVakaan. Lue lisää eVakasta.</p>"
-            } else {
-                "<p>Lapsesi esiopetuksen poissaolohakemus ajalle $range on hylätty. Lue lisää eVakasta.</p>"
-            },
-        )
-    }
+    override fun absenceApplicationDecidedNotification(accepted: Boolean, startDate: LocalDate, endDate: LocalDate): EmailContent = EmailContent.fromHtml(
+        subject = "Esiopetuksen poissaolohakemus käsitelty",
+        html = "<p>Lapsesi esiopetuksen poissaolohakemus käsitelty. Lue lisää eVakasta.</p>",
+    )
 
     override fun serviceApplicationDecidedNotification(
         accepted: Boolean,
