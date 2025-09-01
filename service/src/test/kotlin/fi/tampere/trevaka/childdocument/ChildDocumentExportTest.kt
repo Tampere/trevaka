@@ -16,6 +16,7 @@ import fi.espoo.evaka.document.childdocument.DocumentContent
 import fi.espoo.evaka.document.childdocument.DocumentStatus
 import fi.espoo.evaka.shared.dev.DevChildDocument
 import fi.espoo.evaka.shared.dev.DevDocumentTemplate
+import fi.espoo.evaka.shared.dev.DevEmployee
 import fi.espoo.evaka.shared.dev.DevPerson
 import fi.espoo.evaka.shared.dev.DevPersonType
 import fi.espoo.evaka.shared.dev.insert
@@ -33,11 +34,13 @@ class ChildDocumentExportTest : AbstractTampereIntegrationTest() {
     @Test
     fun `child_document_export executes`() {
         val clock = MockEvakaClock(HelsinkiDateTime.now())
+        val employee = DevEmployee()
         val child1 = DevPerson(
             ophPersonOid = "1.2.3.4",
         )
         val child2 = DevPerson()
         db.transaction { tx ->
+            tx.insert(employee)
             val templateId = tx.insert(
                 DevDocumentTemplate(
                     type = ChildDocumentType.LEOPS,
@@ -175,11 +178,12 @@ class ChildDocumentExportTest : AbstractTampereIntegrationTest() {
                         ),
                     ),
                     modifiedAt = clock.now(),
-                    contentModifiedAt = clock.now(),
-                    contentModifiedBy = null,
+                    contentLockedAt = clock.now(),
+                    contentLockedBy = employee.id,
                     publishedAt = clock.now(),
                     answeredAt = null,
-                    answeredBy = null,
+                    modifiedBy = employee.evakaUserId,
+                    publishedBy = employee.evakaUserId,
                 ),
             )
             val child2Id = tx.insert(
@@ -207,11 +211,12 @@ class ChildDocumentExportTest : AbstractTampereIntegrationTest() {
                         ),
                     ),
                     modifiedAt = clock.now(),
-                    contentModifiedAt = clock.now(),
-                    contentModifiedBy = null,
+                    contentLockedAt = clock.now(),
+                    contentLockedBy = employee.id,
                     publishedAt = clock.now(),
                     answeredAt = null,
-                    answeredBy = null,
+                    modifiedBy = employee.evakaUserId,
+                    publishedBy = employee.evakaUserId,
                 ),
             )
         }
