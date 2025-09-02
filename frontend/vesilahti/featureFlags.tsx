@@ -46,7 +46,8 @@ const prod: FeatureFlags = {
   absenceApplications: false,
   multiSelectDeparture: true,
   requireAttachments: true,
-  showCitizenApplicationPreschoolTerms: true
+  showCitizenApplicationPreschoolTerms: true,
+  decisionChildDocumentTypes: true
 }
 
 const features: Features = {

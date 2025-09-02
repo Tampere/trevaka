@@ -39,7 +39,8 @@ const featureFlags: FeatureFlags = {
   absenceApplications: false,
   multiSelectDeparture: true,
   requireAttachments: true,
-  showCitizenApplicationPreschoolTerms: true
+  showCitizenApplicationPreschoolTerms: true,
+  decisionChildDocumentTypes: true
 }
 
 export default featureFlags

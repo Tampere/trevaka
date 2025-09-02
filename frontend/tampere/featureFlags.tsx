@@ -49,15 +49,15 @@ const prod: FeatureFlags = {
   absenceApplications: true,
   multiSelectDeparture: true,
   requireAttachments: true,
-  showCitizenApplicationPreschoolTerms: true
+  showCitizenApplicationPreschoolTerms: true,
+  decisionChildDocumentTypes: true
 }
 
 const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
-    citizenChildDocumentTypes: true,
-    decisionChildDocumentTypes: true
+    citizenChildDocumentTypes: true
   },
   staging: {
     ...prod,
