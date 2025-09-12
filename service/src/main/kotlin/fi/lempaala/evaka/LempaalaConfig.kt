@@ -4,6 +4,7 @@
 
 package fi.lempaala.evaka
 
+import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.espoo.DefaultPasswordSpecification
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.mealintegration.MealTypeMapper
@@ -113,4 +114,7 @@ class LempaalaConfig {
             minSymbols = 0,
         ),
     )
+
+    @Bean
+    fun archivalIntegrationClient(): ArchivalIntegrationClient = ArchivalIntegrationClient.FailingClient()
 }

@@ -7,6 +7,7 @@ package fi.tampere.trevaka
 import fi.espoo.evaka.BucketEnv
 import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.application.ApplicationStatus
+import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.espoo.DefaultPasswordSpecification
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.mealintegration.DefaultMealTypeMapper
@@ -214,4 +215,7 @@ class TampereConfig {
             minSymbols = 0,
         ),
     )
+
+    @Bean
+    fun archivalIntegrationClient(): ArchivalIntegrationClient = ArchivalIntegrationClient.FailingClient()
 }
