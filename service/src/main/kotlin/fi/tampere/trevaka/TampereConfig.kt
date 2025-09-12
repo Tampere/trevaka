@@ -5,6 +5,7 @@
 package fi.tampere.trevaka
 
 import fi.espoo.evaka.BucketEnv
+import fi.espoo.evaka.EvakaEnv
 import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.application.ApplicationStatus
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
@@ -21,6 +22,7 @@ import fi.espoo.evaka.shared.auth.PasswordSpecification
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
+import fi.tampere.trevaka.archival.TampereArchivalClient
 import fi.tampere.trevaka.bi.BiExportClient
 import fi.tampere.trevaka.bi.BiExportJob
 import fi.tampere.trevaka.bi.FileBiExportS3Client
@@ -217,5 +219,9 @@ class TampereConfig {
     )
 
     @Bean
-    fun archivalIntegrationClient(): ArchivalIntegrationClient = ArchivalIntegrationClient.FailingClient()
+    fun archivalIntegrationClient(evakaEnv: EvakaEnv, properties: TampereProperties): ArchivalIntegrationClient = if (evakaEnv.archivalEnabled) {
+        TampereArchivalClient(properties.archival ?: error("Archival properties not set (TAMPERE_ARCHIVAL_*)"))
+    } else {
+        ArchivalIntegrationClient.FailingClient()
+    }
 }

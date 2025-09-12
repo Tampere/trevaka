@@ -56,4 +56,9 @@ class TampereDevApi(
     fun payableAccounting(request: HttpServletRequest) {
         logger.info { request.reader.lines().collect(joining(lineSeparator())) }
     }
+
+    @PostMapping("/archival")
+    fun archive(request: HttpServletRequest) {
+        logger.info { request.reader.lines().collect(joining(lineSeparator())) }
+    }
 }

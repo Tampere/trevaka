@@ -19,6 +19,7 @@ data class TampereProperties(
     val summertimeAbsence: SummertimeAbsenceProperties = SummertimeAbsenceProperties(),
     val bucket: BucketProperties,
     val biExport: BiExportProperties,
+    val archival: ArchivalProperties? = null,
 )
 
 data class InvoiceProperties(
@@ -48,4 +49,9 @@ data class BucketProperties(
 
 data class BiExportProperties(
     val prefix: String,
+)
+
+data class ArchivalProperties(
+    val baseUrl: String,
+    val apiKey: String,
 )
