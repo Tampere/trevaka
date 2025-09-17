@@ -109,11 +109,15 @@ module "app_service" {
     EVAKA_INTEGRATION_AROMI_SFTP_PASSWORD  = var.aromi_enabled ? "${local.param_prefix}/service/aromi/sftp/password" : null
 
     # TampereProperties
-    TAMPERE_IPAAS_USERNAME = var.municipality == "tampere" ? "${local.param_prefix}/service/ipaas/username" : null
-    TAMPERE_IPAAS_PASSWORD = var.municipality == "tampere" ? "${local.param_prefix}/service/ipaas/password" : null
-    TAMPERE_BUCKET_EXPORT  = var.municipality == "tampere" ? "${local.param_prefix}/service/bucket/export" : null
-    TAMPERE_INVOICE_URL    = var.municipality == "tampere" ? "${local.param_prefix}/service/invoice/url" : null
-    TAMPERE_PAYMENT_URL    = var.municipality == "tampere" ? "${local.param_prefix}/service/payment/url" : null
+    TAMPERE_IPAAS_USERNAME    = var.municipality == "tampere" ? "${local.param_prefix}/service/ipaas/username" : null
+    TAMPERE_IPAAS_PASSWORD    = var.municipality == "tampere" ? "${local.param_prefix}/service/ipaas/password" : null
+    TAMPERE_FRENDS_USERNAME   = var.municipality == "tampere" && var.archival_enabled ? "${local.param_prefix}/service/frends/username" : null
+    TAMPERE_FRENDS_PASSWORD   = var.municipality == "tampere" && var.archival_enabled ? "${local.param_prefix}/service/frends/password" : null
+    TAMPERE_BUCKET_EXPORT     = var.municipality == "tampere" ? "${local.param_prefix}/service/bucket/export" : null
+    TAMPERE_INVOICE_URL       = var.municipality == "tampere" ? "${local.param_prefix}/service/invoice/url" : null
+    TAMPERE_PAYMENT_URL       = var.municipality == "tampere" ? "${local.param_prefix}/service/payment/url" : null
+    TAMPERE_ARCHIVAL_BASE_URL = var.municipality == "tampere" && var.archival_enabled ? "${local.param_prefix}/service/archival/base-url" : null
+    TAMPERE_ARCHIVAL_API_KEY  = var.municipality == "tampere" && var.archival_enabled ? "${local.param_prefix}/service/archival/api-key" : null
 
     # VesilahtiProperties
     VESILAHTI_IPAAS_USERNAME = var.municipality == "vesilahti" ? "${local.param_prefix}/service/ipaas/username" : null
@@ -169,6 +173,7 @@ module "app_service" {
     EVAKA_INTEGRATION_KOSKI_ENABLED              = var.evaka_integration_koski_enabled
     EVAKA_INTEGRATION_SFI_ENABLED                = var.evaka_integration_sfi_enabled
     EVAKA_INTEGRATION_VTJ_ENABLED                = var.vtj_enabled
+    EVAKA_INTEGRATION_ARCHIVAL_ENABLED           = var.archival_enabled
     EVAKA_ASYNC_JOB_RUNNER_DISABLE_RUNNER        = var.evaka_async_job_runner_disable_runner
     EVAKA_FRONTEND_BASE_URL_FI                   = local.frontend_url
     EVAKA_FRONTEND_BASE_URL_SV                   = local.frontend_url
@@ -581,6 +586,11 @@ variable "jamix_diets_enabled" {
 }
 
 variable "aromi_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "archival_enabled" {
   type    = bool
   default = false
 }

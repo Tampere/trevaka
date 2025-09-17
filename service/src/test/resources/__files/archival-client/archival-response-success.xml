@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+SPDX-FileCopyrightText: 2023-2025 Tampere region
+
+SPDX-License-Identifier: LGPL-2.1-or-later
+-->
+
+<success>
+    <records>
+        <record>
+            <otherId>8554e2a5-29bb-4e3c-9aca-59c4995c1d86</otherId>
+            <archiveId>archive-record-id-1</archiveId>
+        </record>
+    </records>
+    <files>
+        <file>
+            <fileName>8554e2a5-29bb-4e3c-9aca-59c4995c1d86</fileName>
+            <originalId>8554e2a5-29bb-4e3c-9aca-59c4995c1d86</originalId>
+            <archiveId>archive-file-id-1</archiveId>
+        </file>
+    </files>
+</success>

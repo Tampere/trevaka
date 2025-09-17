@@ -40,6 +40,8 @@ evaka:
   integration:
     koski:
       enabled: false
+    archival:
+      enabled: true
   local_s3:
     url: "https://localhost:9876"
 
@@ -47,6 +49,9 @@ tampere:
   ipaas:
     username: user
     password: pass
+  frends:
+    username: frends-user
+    password: frends-pass
   invoice:
     url: http://localhost:${server.port}/dev-api/tampere/salesOrder
   payment:
@@ -55,6 +60,9 @@ tampere:
     export: trevaka-export-dev
   bi-export:
     prefix: bi
+  archival:
+    base-url: http://localhost:${server.port}/dev-api/tampere/archival
+    api-key: arvo
 
 vesilahti:
   ipaas:
