@@ -76,7 +76,6 @@ tampere:
     prefix: bi
   archival:
     base-url: http://localhost:${wiremock.server.port}/mock/frends/archival
-    api-key: arvo
 vesilahti:
   ipaas:
     username: user

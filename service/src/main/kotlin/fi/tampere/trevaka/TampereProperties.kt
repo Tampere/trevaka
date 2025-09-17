@@ -55,5 +55,4 @@ data class BiExportProperties(
 
 data class ArchivalProperties(
     val baseUrl: String,
-    val apiKey: String,
 )

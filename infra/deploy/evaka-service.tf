@@ -117,7 +117,6 @@ module "app_service" {
     TAMPERE_INVOICE_URL       = var.municipality == "tampere" ? "${local.param_prefix}/service/invoice/url" : null
     TAMPERE_PAYMENT_URL       = var.municipality == "tampere" ? "${local.param_prefix}/service/payment/url" : null
     TAMPERE_ARCHIVAL_BASE_URL = var.municipality == "tampere" && var.archival_enabled ? "${local.param_prefix}/service/archival/base-url" : null
-    TAMPERE_ARCHIVAL_API_KEY  = var.municipality == "tampere" && var.archival_enabled ? "${local.param_prefix}/service/archival/api-key" : null
 
     # VesilahtiProperties
     VESILAHTI_IPAAS_USERNAME = var.municipality == "vesilahti" ? "${local.param_prefix}/service/ipaas/username" : null

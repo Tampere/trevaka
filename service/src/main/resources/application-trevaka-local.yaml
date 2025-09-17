@@ -62,7 +62,6 @@ tampere:
     prefix: bi
   archival:
     base-url: http://localhost:${server.port}/dev-api/tampere/archival
-    api-key: arvo
 
 vesilahti:
   ipaas:

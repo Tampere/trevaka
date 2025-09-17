@@ -76,7 +76,7 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
         val request = Request.Builder()
             .url("${properties.baseUrl}/records/add")
             .header("Accept", "*/*")
-            .header("X-API-key", properties.apiKey)
+            // .header("X-API-key", properties.apiKey) // Integration platform adds this header
             .header("X-API-version", "1.0")
             .header("X-API-transactionid", transactionId)
             .post(body)

@@ -81,7 +81,7 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
             postRequestedFor(urlEqualTo("/mock/frends/archival/records/add"))
                 .withBasicAuth(BasicCredentials("frends-user", "frends-pass"))
                 .withHeader("Content-Type", containing("multipart/form-data; boundary="))
-                .withHeader("X-API-key", equalTo("arvo"))
+                .withoutHeader("X-API-key")
                 .withRequestBodyPart(
                     MultipartValuePatternBuilder()
                         .withHeader("Content-Disposition", equalTo("form-data; name=\"xml\""))
@@ -126,7 +126,7 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
             postRequestedFor(urlEqualTo("/mock/frends/archival/records/add"))
                 .withBasicAuth(BasicCredentials("frends-user", "frends-pass"))
                 .withHeader("Content-Type", containing("multipart/form-data; boundary="))
-                .withHeader("X-API-key", equalTo("arvo"))
+                .withoutHeader("X-API-key")
                 .withRequestBodyPart(
                     MultipartValuePatternBuilder()
                         .withHeader("Content-Disposition", equalTo("form-data; name=\"xml\""))
