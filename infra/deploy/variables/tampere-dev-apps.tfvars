@@ -35,6 +35,7 @@ dvv_mutp_update_enabled                       = false
 send_pending_decision_reminder_emails_enabled = true
 evaka_integration_sfi_enabled                 = true
 aromi_enabled                                 = true
+archival_enabled                              = true
 
 evaka_job_freeze_voucher_value_reports_cron          = "0 30 23 L * ?"
 evaka_job_inactive_employees_role_reset_enabled      = false
