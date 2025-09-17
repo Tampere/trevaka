@@ -167,7 +167,7 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
             )
         }
         assertEquals(
-            "Unsuccessfully post record, response body: Error(errorCode=invalid_apikey, errorSummary=API-avaimella ei ole oikeutta kirjoittaa kansioon)",
+            "Unsuccessfully post record (status=401), response body: Error(errorCode=invalid_apikey, errorSummary=API-avaimella ei ole oikeutta kirjoittaa kansioon)",
             exception.message,
         )
 

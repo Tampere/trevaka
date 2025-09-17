@@ -84,23 +84,24 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
 
         return withLoggingContext("transactionId" to transactionId) {
             client.newCall(request).execute().use { response ->
+                val code = response.code
                 val xml = response.body.string()
                 val data = unmarshal(xml)
                 if (response.isSuccessful) {
                     when (data) {
                         is Success -> {
-                            logger.info { "Successfully post record, response body: $data" }
+                            logger.info { "Successfully post record (status=$code), response body: $data" }
                             data
                         }
                         else -> {
-                            logger.error { "Successfully post record, but response body was unexpected: $xml" }
+                            logger.error { "Successfully post record (status=$code), but response body was unexpected: $xml" }
                             null
                         }
                     }
                 } else {
                     val message = when (data) {
-                        is Error -> "Unsuccessfully post record, response body: $data"
-                        else -> "Unsuccessfully post record and response body was unexpected: $xml"
+                        is Error -> "Unsuccessfully post record (status=$code), response body: $data"
+                        else -> "Unsuccessfully post record (status=$code) and response body was unexpected: $xml"
                     }
                     error(message)
                 }
