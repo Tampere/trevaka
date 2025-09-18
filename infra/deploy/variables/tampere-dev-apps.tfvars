@@ -62,4 +62,5 @@ tampere_summertime_absence_free_month = "JANUARY"
 
 service_logging_levels = {
   "fi.espoo.evaka.titania" : "DEBUG"
+  "fi.tampere.trevaka.archival" : "TRACE"
 }
