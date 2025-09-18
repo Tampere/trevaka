@@ -18,6 +18,10 @@ updates:
       timezone: "Europe/Helsinki"
     allow:
       - dependency-name: "adobe/s3mock"
+      - dependency-name: "valkey/valkey"
+    ignore:
+      - dependency-name: "valkey/valkey"
+        update-types: [ "version-update:semver-major" ]
   - package-ecosystem: "npm"
     directory: "/e2e"
     schedule:
