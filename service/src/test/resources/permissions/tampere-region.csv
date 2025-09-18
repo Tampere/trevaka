@@ -370,7 +370,7 @@ Yksikkö;"Saapuneet hakemukset -raportti";READ_APPLICATIONS_REPORT;x;x;x;;;x;;x;
 Yksikkö;"Varhaiskasvatuspaikkatakuu-raportti";"READ_PLACEMENT_GUARANTEE_REPORT";x;;x;;;x;;x;;;x
 Yksikkö;"Lasten tuen tarpeet ja tukitoimet -raportti";"READ_ASSISTANCE_NEEDS_AND_ACTIONS_REPORT";x;x;x;;;x;;x;;x;x
 Yksikkö;"Lasten tuen tarpeet ja tukitoimet -raportti (lapsittain)";"READ_ASSISTANCE_NEEDS_AND_ACTIONS_REPORT_BY_CHILD";x;x;;;;;;x;;x;x
-Yksikkö;"Päiväkohtaiset lapsen tulo- ja lähtöajat -raportti";"READ_ATTENDANCE_RESERVATION_REPORT";x;;;;;;;x;x;;x
+Yksikkö;"Päiväkohtaiset lapsen tulo- ja lähtöajat -raportti";"READ_ATTENDANCE_RESERVATION_REPORT";x;x;x;;;;;x;x;;x
 Yksikkö;"Lasten kielet ja iät yksiköissä -raportti";"READ_CHILD_AGE_AND_LANGUAGE_REPORT";x;x;x;;;x;;;;x;
 Yksikkö;"Lapsi eri osoitteessa -raportti";"READ_CHILD_IN_DIFFERENT_ADDRESS_REPORT";x;;x;x;;x;;;;;
 Yksikkö;"Palveluntarpeen ylitykset -raportti";"READ_EXCEEDED_SERVICE_NEEDS_REPORT";"VES,HAM,NOK,YLO,PIR,KAN,LEM,ORI";;;"VES,HAM,NOK,YLO,PIR,KAN,LEM,ORI";;"VES,HAM,NOK,YLO,PIR,KAN,LEM,ORI";;"VES,HAM,NOK,YLO,PIR,KAN,LEM,ORI";;;"VES,HAM,NOK,YLO,PIR,KAN,LEM,ORI"
