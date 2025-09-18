@@ -4,7 +4,14 @@
 
 import type { FeatureFlags } from 'lib-customizations/types'
 
-const featureFlags: FeatureFlags = {
+import type { Env } from './env'
+import { env } from './env'
+
+type Features = {
+  default: FeatureFlags
+} & Record<Env, FeatureFlags>
+
+const prod: FeatureFlags = {
   environmentLabel: null,
   citizenShiftCareAbsence: false,
   daycareApplication: {
@@ -42,5 +49,16 @@ const featureFlags: FeatureFlags = {
   showCitizenApplicationPreschoolTerms: true,
   decisionChildDocumentTypes: true
 }
+
+const features: Features = {
+  default: {
+    ...prod,
+    environmentLabel: 'Test',
+    citizenChildDocumentTypes: true
+  },
+  prod
+}
+
+const featureFlags = features[env()]
 
 export default featureFlags
