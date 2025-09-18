@@ -379,6 +379,8 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
         Action.Unit.READ_ATTENDANCE_RESERVATION_REPORT -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
+                HasGlobalRole(UserRole.REPORT_VIEWER, UserRole.DIRECTOR) as ScopedActionRule<in T>,
+            ) + sequenceOf(
                 HasUnitRole(UserRole.STAFF).inUnit() as ScopedActionRule<in T>,
             )
         }
