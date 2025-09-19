@@ -29,7 +29,7 @@ internal class Record {
     @get:XmlElement
     var otherId: String? = null
 
-    @get:XmlElement
+    @get:XmlElement(name = "archiveid")
     var archiveId: String? = null
 
     override fun toString(): String = "Record(otherId=$otherId, archiveId=$archiveId)"
@@ -37,22 +37,22 @@ internal class Record {
 
 internal class Files {
     @get:XmlElement
-    var file: List<File>? = null
+    var entry: List<FileEntry>? = null
 
-    override fun toString(): String = "Files(file=$file)"
+    override fun toString(): String = "Files(entry=$entry)"
 }
 
-internal class File {
-    @get:XmlElement
-    var fileName: String? = null
-
+internal class FileEntry {
     @get:XmlElement
     var originalId: String? = null
 
     @get:XmlElement
+    var name: String? = null
+
+    @get:XmlElement(name = "archiveid")
     var archiveId: String? = null
 
-    override fun toString(): String = "FileResponse(fileName=$fileName, originalId=$originalId, archiveId=$archiveId)"
+    override fun toString(): String = "FileEntry(originalId=$originalId, name=$name, archiveId=$archiveId)"
 }
 
 @XmlRootElement

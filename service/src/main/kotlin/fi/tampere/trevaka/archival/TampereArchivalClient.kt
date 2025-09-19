@@ -105,13 +105,12 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
     }
 
     private fun marshal(data: Any): String {
-        logger.trace { "Marshal $data" }
         val marshaller = context.createMarshaller()
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true)
         return StringWriter().use { writer ->
             marshaller.marshal(data, writer)
             writer.toString()
-        }
+        }.also { xml -> logger.trace { "Marshalled $xml" } }
     }
 
     private fun unmarshal(xml: String): Any? {
