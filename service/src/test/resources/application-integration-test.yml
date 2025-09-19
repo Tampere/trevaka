@@ -54,6 +54,8 @@ evaka:
       password: pass
       xroad:
         address: http://localhost:${wiremock.server.port}/mock/vtj
+    archival:
+      enabled: true
   local_s3:
     url: "https://localhost:9876"
 
@@ -61,6 +63,9 @@ tampere:
   ipaas:
     username: user
     password: pass
+  frends:
+    username: frends-user
+    password: frends-pass
   invoice:
     url: http://localhost:${wiremock.server.port}/mock/ipaas/salesOrder
   payment:
@@ -69,6 +74,8 @@ tampere:
     export: trevaka-export-it
   bi-export:
     prefix: bi
+  archival:
+    base-url: http://localhost:${wiremock.server.port}/mock/frends/archival
 vesilahti:
   ipaas:
     username: user

@@ -81,6 +81,8 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv")
     implementation("org.bouncycastle:bcpkix-jdk18on")
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("org.apache.tika:tika-core")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 

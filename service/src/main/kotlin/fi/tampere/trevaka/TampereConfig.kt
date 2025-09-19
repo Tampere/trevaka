@@ -5,6 +5,7 @@
 package fi.tampere.trevaka
 
 import fi.espoo.evaka.BucketEnv
+import fi.espoo.evaka.EvakaEnv
 import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.application.ApplicationStatus
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
@@ -21,6 +22,7 @@ import fi.espoo.evaka.shared.auth.PasswordSpecification
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
+import fi.tampere.trevaka.archival.TampereArchivalClient
 import fi.tampere.trevaka.bi.BiExportClient
 import fi.tampere.trevaka.bi.BiExportJob
 import fi.tampere.trevaka.bi.FileBiExportS3Client
@@ -29,6 +31,7 @@ import fi.tampere.trevaka.invoice.config.HTTP_CLIENT_INVOICE
 import fi.tampere.trevaka.payment.TamperePaymentClient
 import fi.tampere.trevaka.security.TampereActionRuleMapping
 import io.opentelemetry.api.trace.Tracer
+import okhttp3.OkHttpClient
 import org.apache.hc.client5.http.classic.HttpClient
 import org.jdbi.v3.core.Jdbi
 import org.springframework.beans.factory.annotation.Qualifier
@@ -45,9 +48,11 @@ import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3AsyncClient
+import trevaka.frends.basicAuthInterceptor
 import trevaka.security.TrevakaActionRuleMapping
 import trevaka.titania.TrimStartTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
+import java.time.Duration
 import java.time.MonthDay
 
 const val WEB_SERVICE_TEMPLATE_PAYMENT = "webServiceTemplatePayment"
@@ -217,5 +222,15 @@ class TampereConfig {
     )
 
     @Bean
-    fun archivalIntegrationClient(): ArchivalIntegrationClient = ArchivalIntegrationClient.FailingClient()
+    fun archivalIntegrationClient(evakaEnv: EvakaEnv, properties: TampereProperties): ArchivalIntegrationClient = if (evakaEnv.archivalEnabled) {
+        val client = OkHttpClient.Builder()
+            .connectTimeout(Duration.ofMinutes(1))
+            .readTimeout(Duration.ofMinutes(1))
+            .writeTimeout(Duration.ofMinutes(1))
+            .addInterceptor(basicAuthInterceptor(properties.frends ?: error("Frends properties not set (TAMPERE_FRENDS_*)")))
+            .build()
+        TampereArchivalClient(client, properties.archival ?: error("Archival properties not set (TAMPERE_ARCHIVAL_*)"))
+    } else {
+        ArchivalIntegrationClient.FailingClient()
+    }
 }

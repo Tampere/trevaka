@@ -57,6 +57,7 @@ const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
+    archiveIntegrationEnabled: true,
     citizenChildDocumentTypes: true
   },
   staging: {
