@@ -15,7 +15,6 @@ import fi.espoo.evaka.shared.ChildDocumentId
 import fi.espoo.evaka.user.EvakaUser
 import fi.tampere.trevaka.ArchivalProperties
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.github.oshai.kotlinlogging.withLoggingContext
 import jakarta.xml.bind.JAXBContext
 import jakarta.xml.bind.JAXBException
 import jakarta.xml.bind.Marshaller
@@ -24,9 +23,9 @@ import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.slf4j.MDC
 import java.io.StringReader
 import java.io.StringWriter
-import java.util.UUID
 
 private val logger = KotlinLogging.logger {}
 
@@ -47,8 +46,6 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
         documentContent: Document,
         evakaUser: EvakaUser,
     ): String? {
-        val transactionId = UUID.randomUUID().toString()
-
         val data = transform(evakaUser).apply {
             collection.add(transform(childDocumentDetails, documentContent))
         }
@@ -61,7 +58,7 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
             .addFormDataPart("xml", null, metadata)
             .addFormDataPart("content", childDocumentDetails.originalId(), file)
             .build()
-        return postRecord(transactionId, body)?.records?.record?.archiveId
+        return postRecord(body)?.records?.record?.archiveId
     }
 
     private fun transform(evakaUser: EvakaUser) = Collections().apply {
@@ -72,39 +69,37 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
         }
     }
 
-    private fun postRecord(transactionId: String, body: MultipartBody): Success? {
+    private fun postRecord(body: MultipartBody): Success? {
         val request = Request.Builder()
             .url("${properties.baseUrl}/records/add")
             .header("Accept", "*/*")
             // .header("X-API-key", properties.apiKey) // Integration platform adds this header
             .header("X-API-version", "1.0")
-            .header("X-API-transactionid", transactionId)
+            .apply { transactionId()?.let { header("X-API-transactionid", it) } }
             .post(body)
             .build()
 
-        return withLoggingContext("transactionId" to transactionId) {
-            client.newCall(request).execute().use { response ->
-                val code = response.code
-                val xml = response.body.string()
-                val data = unmarshal(xml)
-                if (response.isSuccessful) {
-                    when (data) {
-                        is Success -> {
-                            logger.info { "Successfully post record (status=$code), response body: $data" }
-                            data
-                        }
-                        else -> {
-                            logger.error { "Successfully post record (status=$code), but response body was unexpected: $xml" }
-                            null
-                        }
+        return client.newCall(request).execute().use { response ->
+            val code = response.code
+            val xml = response.body.string()
+            val data = unmarshal(xml)
+            if (response.isSuccessful) {
+                when (data) {
+                    is Success -> {
+                        logger.info { "Successfully post record (status=$code), response body: $data" }
+                        data
                     }
-                } else {
-                    val message = when (data) {
-                        is Error -> "Unsuccessfully post record (status=$code), response body: $data"
-                        else -> "Unsuccessfully post record (status=$code) and response body was unexpected: $xml"
+                    else -> {
+                        logger.error { "Successfully post record (status=$code), but response body was unexpected: $xml" }
+                        null
                     }
-                    error(message)
                 }
+            } else {
+                val message = when (data) {
+                    is Error -> "Unsuccessfully post record (status=$code), response body: $data"
+                    else -> "Unsuccessfully post record (status=$code) and response body was unexpected: $xml"
+                }
+                error(message)
             }
         }
     }
@@ -129,4 +124,6 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
             return null
         }
     }
+
+    private fun transactionId(): String? = MDC.get("traceId")
 }

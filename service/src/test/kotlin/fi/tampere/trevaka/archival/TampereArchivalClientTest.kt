@@ -82,6 +82,7 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
                 .withBasicAuth(BasicCredentials("frends-user", "frends-pass"))
                 .withHeader("Content-Type", containing("multipart/form-data; boundary="))
                 .withoutHeader("X-API-key")
+                .withoutHeader("X-API-transactionid") // only set when running AsyncJob
                 .withRequestBodyPart(
                     MultipartValuePatternBuilder()
                         .withHeader("Content-Disposition", equalTo("form-data; name=\"xml\""))
@@ -127,6 +128,7 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
                 .withBasicAuth(BasicCredentials("frends-user", "frends-pass"))
                 .withHeader("Content-Type", containing("multipart/form-data; boundary="))
                 .withoutHeader("X-API-key")
+                .withoutHeader("X-API-transactionid") // only set when running AsyncJob
                 .withRequestBodyPart(
                     MultipartValuePatternBuilder()
                         .withHeader("Content-Disposition", equalTo("form-data; name=\"xml\""))

@@ -59,6 +59,6 @@ class TampereDevApi(
 
     @PostMapping("/archival/records/add")
     fun archive(request: HttpServletRequest) {
-        logger.info { request.reader.lines().collect(joining(lineSeparator())) }
+        logger.info { request.headerNames.asSequence().joinToString { "$it:${request.getHeader(it)}" } }
     }
 }
