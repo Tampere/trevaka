@@ -28,14 +28,12 @@ import jakarta.xml.bind.JAXBIntrospector
 import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.client.SoapFaultClientException
 import org.springframework.ws.soap.client.core.SoapActionCallback
+import trevaka.jaxb.localDateToXMLGregorianCalendar
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
-import javax.xml.datatype.DatatypeFactory
-import javax.xml.datatype.XMLGregorianCalendar
 
 private val logger = KotlinLogging.logger {}
 private val restrictedAddress = Address().apply {
@@ -170,8 +168,6 @@ class TampereInvoiceClient(
             )
         }
     }
-
-    private fun localDateToXMLGregorianCalendar(localDate: LocalDate): XMLGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(localDate.toString())
 
     private fun unmarshalFaultDetail(exception: SoapFaultClientException): Any? = try {
         val detailEntries = exception.soapFault?.faultDetail?.detailEntries
