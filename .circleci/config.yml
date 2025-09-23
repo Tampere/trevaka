@@ -40,14 +40,21 @@ orbs:
   aws-cli: circleci/aws-cli@5.4.0
   aws-ecr: circleci/aws-ecr@9.5.2
   terraform: circleci/terraform@3.6.0
+  mise:
+    commands:
+      install:
+        steps:
+          - run:
+              name: Install mise
+              command: |
+                curl https://mise.run | sh
+                echo 'export PATH="/home/circleci/.local/share/mise/shims:$PATH"' >> "$BASH_ENV"
+          - run: mise --version
 
 executors:
   docker_ubuntu:
     docker:
       - image: cimg/base:current-24.04
-  docker_reuse:
-    docker:
-      - image: fsfe/reuse:5.0.2 # NOTE: Update add-license-headers.sh to match
   machine_ubuntu:
     machine:
       image: ubuntu-2404:current
@@ -110,19 +117,16 @@ commands:
               --provenance=false \
               << parameters.dir >>
 
-  terraform_install:
-    steps:
-      - terraform/install:
-          terraform_version: 1.12.1
-
 jobs:
   # MISC JOBS
 
   check_licenses:
-    executor: docker_reuse
+    executor: docker_ubuntu
     resource_class: small
     steps:
       - checkout
+      - mise/install
+      - run: mise use uv@0.8 pipx:reuse@5.0.2
       - run:
           name: reuse lint
           command: |
@@ -142,7 +146,8 @@ jobs:
         type: string
     steps:
       - checkout
-      - terraform_install
+      - mise/install
+      - run: mise use terraform@1.12.1
       - terraform/validate:
           path: << parameters.path >>
       - terraform/fmt:
@@ -382,7 +387,8 @@ jobs:
           configure_default_region: false
           configure_profile_region: false
           role_arn: << parameters.role-arn >>
-      - terraform_install
+      - mise/install
+      - run: mise use terraform@1.12.1
       - terraform/apply:
           backend_config: region=${TF_VAR_region},bucket=${TF_VAR_terraform_bucket}
           path: infra/deploy
