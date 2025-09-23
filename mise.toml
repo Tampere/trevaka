@@ -10,7 +10,7 @@ node = { version = "22", postinstall = "corepack enable" }
 python = "3.13"
 uv = "0.8"
 "pipx:reuse" = "5.1.1"
-terraform = "1.12.1"
+terraform = "1.13.3"
 
 [env]
 NODE_OPTIONS = "--max-old-space-size=8192"
