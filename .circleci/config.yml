@@ -126,7 +126,7 @@ jobs:
     steps:
       - checkout
       - mise/install
-      - run: mise use uv@0.8 pipx:reuse@5.0.2
+      - run: mise install uv pipx:reuse
       - run:
           name: reuse lint
           command: |
@@ -147,7 +147,7 @@ jobs:
     steps:
       - checkout
       - mise/install
-      - run: mise use terraform@1.12.1
+      - run: mise install terraform
       - terraform/validate:
           path: << parameters.path >>
       - terraform/fmt:
@@ -388,7 +388,7 @@ jobs:
           configure_profile_region: false
           role_arn: << parameters.role-arn >>
       - mise/install
-      - run: mise use terraform@1.12.1
+      - run: mise install terraform
       - terraform/apply:
           backend_config: region=${TF_VAR_region},bucket=${TF_VAR_terraform_bucket}
           path: infra/deploy
