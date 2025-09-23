@@ -9,7 +9,7 @@ java = "temurin-21"
 node = { version = "22", postinstall = "corepack enable" }
 python = "3.13"
 uv = "0.8"
-"pipx:reuse" = "5.0.2"
+"pipx:reuse" = "5.1.1"
 terraform = "1.12.1"
 
 [env]
