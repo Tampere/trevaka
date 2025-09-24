@@ -50,9 +50,10 @@ const customizations: EmployeeCustomizations = {
           BILLABLE: 'Varhaiskasvatus / esiopetuksen kerho'
         },
         absenceTypes: {
+          UNKNOWN_ABSENCE: 'Esiopetuksen ilmoittamaton poissaolo',
           PLANNED_ABSENCE: 'Suunniteltu poissaolo',
           FORCE_MAJEURE: 'Hyvityspäivä',
-          FREE_ABSENCE: 'Kesäajan maksuton poissaolo'
+          FREE_ABSENCE: 'Kesäajan maksuttoman jakson poissaolo'
         },
         absenceTypesShort: {
           PLANNED_ABSENCE: 'Suunniteltu',
@@ -61,20 +62,19 @@ const customizations: EmployeeCustomizations = {
         absenceTypeInfo: {
           NO_ABSENCE: 'Lapsi läsnä varhaiskasvatuksessa/esiopetustoiminnassa.',
           OTHER_ABSENCE:
-            'Käytetään tapauksissa, kun lapsi on poissa varhaiskasvatuksesta/esiopetustoiminnasta huoltajan ilmoituksesta.',
+            'Käytetään tapauksissa, kun ilmoitus lapsen poissaolosta tulee kalenterin lukkiutumisen jälkeen.',
           UNKNOWN_ABSENCE:
-            'Käytetään tapauksissa, kun lapsen poissaolosta ei tule huoltajalta mitään ilmoitusta.',
-          PLANNED_ABSENCE:
-            'Käytetään etukäteen ilmoitetuista poissaoloista. Ilta- ja vuorohoitoyksiköissä kaikille (ml. päiväryhmät), on laitettava merkintä myös viikonlopuille.',
+            'Käytetään tapauksissa, kun lapsen esiopetuksen poissaolosta ei tule huoltajalta mitään ilmoitusta.',
+          PLANNED_ABSENCE: 'Käytetään etukäteen ilmoitetuista poissaoloista.',
           SICKLEAVE: 'Lapsi sairaana.',
           TEMPORARY_RELOCATION:
             'Käytetään tapauksissa, kun lapselle on tehty varasijoitus toiseen yksikköön.',
           PARENTLEAVE:
-            'Käytetään tapauksissa, kun lapsi on poissa varhaiskasvatuksesta/esiopetustoiminnasta isyysvapaan ajan.',
+            'Käytetään tapauksissa, kun lapsi on poissa varhaiskasvatuksesta/esiopetustoiminnasta vanhempainvapaan ajan.',
           FORCE_MAJEURE:
             'Käytetään erityistapauksissa, kun lapsen poissaolosta hyvitetään asiakasmaksua.',
           FREE_ABSENCE:
-            'Käytetään kesäaikana 8 viikon maksuttomalla ajanjaksolla.'
+            'Käytetään kesäaikana ennalta sovitun 6 viikon maksuttoman ajanjakson poissaoloihin.'
         },
         careTypes: {
           PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus'
