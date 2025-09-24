@@ -51,7 +51,7 @@ sourceSets.main {
 }
 
 dependencies {
-    xjcTool(platform("org.glassfish.jaxb:jaxb-bom:4.0.5"))
+    xjcTool(platform("org.glassfish.jaxb:jaxb-bom:4.0.6"))
     xjcTool("com.sun.xml.bind:jaxb-xjc")
     xjcTool("com.sun.xml.bind:jaxb-impl")
 
