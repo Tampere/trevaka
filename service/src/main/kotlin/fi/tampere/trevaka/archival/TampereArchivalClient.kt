@@ -7,6 +7,7 @@ package fi.tampere.trevaka.archival
 import com.profium.reception._2022._03.Collections
 import fi.espoo.evaka.caseprocess.CaseProcess
 import fi.espoo.evaka.caseprocess.DocumentMetadata
+import fi.espoo.evaka.decision.Decision
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.document.childdocument.ChildDocumentDetails
 import fi.espoo.evaka.pis.service.PersonDTO
@@ -37,6 +38,20 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
         Error::class.java,
     )
 
+    override fun uploadDecisionToArchive(
+        caseProcess: CaseProcess,
+        child: PersonDTO,
+        decision: Decision,
+        document: Document,
+        user: EvakaUser,
+    ): String? {
+        val (collection, content) = transform(caseProcess, decision, document)
+        val collections = transform(user).apply {
+            this.collection.add(collection)
+        }
+        return postRecord(collections, content)?.records?.record?.archiveId
+    }
+
     override fun uploadChildDocumentToArchive(
         documentId: ChildDocumentId,
         caseProcess: CaseProcess?,
@@ -46,19 +61,11 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
         documentContent: Document,
         evakaUser: EvakaUser,
     ): String? {
-        val data = transform(evakaUser).apply {
-            collection.add(transform(childDocumentDetails, documentContent))
+        val (collection, content) = transform(childDocumentDetails, documentContent)
+        val collections = transform(evakaUser).apply {
+            this.collection.add(collection)
         }
-        val xml = marshal(data)
-
-        val metadata = xml.toRequestBody("application/xml".toMediaType())
-        val file = documentContent.bytes.toRequestBody(documentContent.contentType.toMediaType())
-        val body = MultipartBody.Builder()
-            .setType(MultipartBody.FORM)
-            .addFormDataPart("xml", null, metadata)
-            .addFormDataPart("content", childDocumentDetails.originalId(), file)
-            .build()
-        return postRecord(body)?.records?.record?.archiveId
+        return postRecord(collections, content)?.records?.record?.archiveId
     }
 
     private fun transform(evakaUser: EvakaUser) = Collections().apply {
@@ -69,7 +76,15 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
         }
     }
 
-    private fun postRecord(body: MultipartBody): Success? {
+    private fun postRecord(collections: Collections, content: Map<String, Document>): Success? {
+        val xml = marshal(collections)
+        val metadata = xml.toRequestBody("application/xml".toMediaType())
+        val files = content.mapValues { (_, document) -> document.bytes.toRequestBody(document.contentType.toMediaType()) }
+        val body = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("xml", null, metadata)
+            .apply { files.forEach { (originalId, file) -> addFormDataPart("content", originalId, file) } }
+            .build()
         val request = Request.Builder()
             .url("${properties.baseUrl}/records/add")
             .header("Accept", "*/*")

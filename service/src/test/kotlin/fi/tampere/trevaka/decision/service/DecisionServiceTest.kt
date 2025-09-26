@@ -197,6 +197,7 @@ fun validDecision(type: DecisionType, decisionUnit: DecisionUnit) = Decision(
     resolved = null,
     resolvedByName = null,
     documentContainsContactInfo = false,
+    archivedAt = null,
 )
 
 fun validDecisionUnit(providerType: ProviderType) = DecisionUnit(

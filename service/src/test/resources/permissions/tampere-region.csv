@@ -126,6 +126,7 @@ Hakemus;"Liitteen lähetys";UPLOAD_ATTACHMENT;x;;;;;x;;;;;
 "Talouden muistiinpano";Poisto;DELETE;x;;;x;x;;;;;;
 Päätös;Luku;READ;x;;;;;x;;x;;;
 Päätös;"Lataus (pdf)";DOWNLOAD_PDF;x;;x;;;x;;x;;;x
+Päätös;Arkistointi;ARCHIVE;x;;;;;;;;;;
 "Esiopetuksen poissaolohakemus";Luku;READ;x;;;;;;;x;x;;
 "Esiopetuksen poissaolohakemus";"Päätöksen luonti";DECIDE;x;;;;;;;x;;;
 "Esiopetuksen poissaolohakemus";"Päätöksen luonti (max viikko)";DECIDE_MAX_WEEK;x;;;;;;;x;x;;
