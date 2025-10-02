@@ -269,6 +269,7 @@ module "app_service" {
     EVAKA_JOB_SEND_MISSING_RESERVATION_REMINDERS_CRON            = var.evaka_job_send_missing_reservation_reminders_cron
     EVAKA_JOB_SEND_MISSING_HOLIDAY_RESERVATION_REMINDERS_ENABLED = var.evaka_job_send_missing_holiday_reservation_reminders_enabled
     EVAKA_JOB_SEND_OUTDATED_INCOME_NOTIFICATIONS_ENABLED         = var.evaka_job_send_outdated_income_notifications_enabled
+    EVAKA_JOB_SEND_NEW_CUSTOMER_INCOME_NOTIFICATION_ENABLED      = true
     EVAKA_JOB_GET_SFI_EVENTS_ENABLED                             = var.evaka_integration_sfi_enabled
 
     EVAKA_JOB_END_ACTIVE_DAYCARE_ASSISTANCE_DECISIONS_ENABLED                = var.evaka_job_end_active_daycare_assistance_decisions_enabled
