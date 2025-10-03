@@ -12,6 +12,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.catchThrowable
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.core.io.ClassPathResource
 import org.springframework.ws.soap.client.SoapFaultClientException
 
 class TamperePaymentClientIT : AbstractTampereIntegrationTest() {
@@ -42,7 +43,8 @@ class TamperePaymentClientIT : AbstractTampereIntegrationTest() {
                     "Content-Type",
                     equalTo("application/soap+xml; charset=utf-8; action=\"http://www.tampere.fi/services/sapfico/payableaccounting/v1.0/SendPayableAccounting\""),
                 )
-                .withoutHeader("SOAPAction"),
+                .withoutHeader("SOAPAction")
+                .withRequestBody(equalToXml(ClassPathResource("__files/payment-client/payable-accounting-request.xml").getContentAsString(Charsets.UTF_8))),
         )
     }
 
