@@ -23,7 +23,7 @@
   },
   "jest": {
     "projects": [
-      "./src/e2e/tampere.jest.config.ts"
+      "./src/e2e"
     ],
     "reporters": [
       "default",
