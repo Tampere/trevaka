@@ -6,14 +6,18 @@ package fi.tampere.trevaka.archival
 
 import com.profium.reception._2022._03.Collections
 import fi.espoo.evaka.caseprocess.CaseProcess
+import fi.espoo.evaka.caseprocess.CaseProcessHistoryRow
+import fi.espoo.evaka.caseprocess.CaseProcessState
 import fi.espoo.evaka.caseprocess.DocumentMetadata
 import fi.espoo.evaka.decision.Decision
+import fi.espoo.evaka.document.ChildDocumentType
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.document.childdocument.ChildDocumentDetails
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.s3.Document
 import fi.espoo.evaka.shared.ChildDocumentId
 import fi.espoo.evaka.user.EvakaUser
+import fi.espoo.evaka.user.EvakaUserType
 import fi.tampere.trevaka.ArchivalProperties
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.xml.bind.JAXBContext
@@ -27,6 +31,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.slf4j.MDC
 import java.io.StringReader
 import java.io.StringWriter
+import java.lang.IllegalStateException
 
 private val logger = KotlinLogging.logger {}
 
@@ -61,12 +66,21 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
         documentContent: Document,
         evakaUser: EvakaUser,
     ): String? {
-        val (collection, content) = transform(childDocumentDetails, documentContent)
+        val ownerDetails = OwnerDetails("${childInfo.firstName} ${childInfo.lastName}", childInfo.dateOfBirth)
+        val (collection, content) = transform(childDocumentDetails, documentContent, ownerDetails, extractAgents(caseProcess))
         val collections = transform(evakaUser).apply {
             this.collection.add(collection)
         }
         return postRecord(collections, content)?.records?.record?.archiveId
     }
+
+    private fun extractAgentRole(historyRows: List<CaseProcessHistoryRow>) = if (historyRows.any { it.state == CaseProcessState.DECIDING }) "Päättäjä" else "Laatija"
+
+    private fun extractAgents(caseProcess: CaseProcess?): List<AuthorDetails> = caseProcess?.history
+        ?.filter { it.enteredBy.type == EvakaUserType.EMPLOYEE }
+        ?.groupBy { it.enteredBy.id }
+        ?.map { AuthorDetails(it.value[0].enteredBy.name, extractAgentRole(it.value)) }
+        ?: throw IllegalStateException("No employee agents found for case process ${caseProcess?.id}")
 
     private fun transform(evakaUser: EvakaUser) = Collections().apply {
         initiator = Collections.Initiator().apply {
