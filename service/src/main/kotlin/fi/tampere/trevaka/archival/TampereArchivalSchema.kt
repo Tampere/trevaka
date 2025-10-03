@@ -56,6 +56,12 @@ internal class FileEntry {
 }
 
 @XmlRootElement
+internal class Errors {
+    var error: List<Error>? = null
+
+    override fun toString(): String = "Errors(error=$error)"
+}
+
 internal class Error {
     @get:XmlElement(name = "error_code")
     var errorCode: String? = null

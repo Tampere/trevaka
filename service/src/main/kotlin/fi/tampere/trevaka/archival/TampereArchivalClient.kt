@@ -35,7 +35,7 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
     private val context = JAXBContext.newInstance(
         Collections::class.java,
         Success::class.java,
-        Error::class.java,
+        Errors::class.java,
     )
 
     override fun uploadDecisionToArchive(
@@ -111,7 +111,7 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
                 }
             } else {
                 val message = when (data) {
-                    is Error -> "Unsuccessfully post record (status=$code), response body: $data"
+                    is Errors -> "Unsuccessfully post record (status=$code), response body: $data"
                     else -> "Unsuccessfully post record (status=$code) and response body was unexpected: $xml"
                 }
                 error(message)
