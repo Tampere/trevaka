@@ -170,4 +170,5 @@ val validAssistanceNeedPreschoolDecision =
         unitPostalCode = "22222",
         unitPostOffice = "Parkkila",
         unitStreetAddress = "Kelokuja 122 G",
+        processId = null,
     )

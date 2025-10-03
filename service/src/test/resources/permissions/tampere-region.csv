@@ -77,6 +77,7 @@
 ;"Palveluseteliarvon muokkaus";UPDATE_VOUCHER_VALUE;x;;;x;;;;;;;
 ;"Palveluseteliarvon poisto";DELETE_VOUCHER_VALUE;x;;;x;;;;;;;
 ;"Päätösluonnoksen yksiköiden luku";READ_DECISION_UNITS;x;;x;;;x;;x;;;x
+;Sijoittelutyöpöytä;"READ_PLACEMENT_DESKTOP_DAYCARES";x;;;;;x;;;;;
 ;"Talouden maksuasetuksien luku";READ_FEE_THRESHOLDS;x;;x;x;x;;;;;;
 ;"Talouden maksuasetuksien luonti";CREATE_FEE_THRESHOLDS;x;;;x;;;;;;;
 ;"Talouden päätöksen käsittelijöiden luku";"READ_FINANCE_DECISION_HANDLERS";x;;x;x;x;x;;x;;;x
@@ -120,6 +121,7 @@ Hakemus;"Muistiinpanojen luku";READ_NOTES;x;;x;;;x;;;;x;
 Hakemus;"Muistiinpanon luonti";CREATE_NOTE;x;;;;;x;;;;x;
 Hakemus;"Erityisopettajan muistiinpanojen luku";"READ_SPECIAL_EDUCATION_TEACHER_NOTES";x;;;;;;;;;x;
 Hakemus;"Liitteen lähetys";UPLOAD_ATTACHMENT;x;;;;;x;;;;;
+Hakemus;"Sijoitushahmotelman muokkaus";UPDATE_PLACEMENT_DRAFT;x;;;;;x;;;;;
 "Hakemuksen muistiinpano";Muokkaus;UPDATE;x;;;;;x;;;;;
 "Hakemuksen muistiinpano";Poisto;DELETE;x;;;;;x;;;;;
 "Talouden muistiinpano";Muokkaus;UPDATE;x;;;x;x;;;;;;
