@@ -27,14 +27,11 @@ import fi.tampere.trevaka.bi.BiExportClient
 import fi.tampere.trevaka.bi.BiExportJob
 import fi.tampere.trevaka.bi.FileBiExportS3Client
 import fi.tampere.trevaka.export.ExportUnitsAclService
-import fi.tampere.trevaka.invoice.config.HTTP_CLIENT_INVOICE
 import fi.tampere.trevaka.payment.TamperePaymentClient
 import fi.tampere.trevaka.security.TampereActionRuleMapping
 import io.opentelemetry.api.trace.Tracer
 import okhttp3.OkHttpClient
-import org.apache.hc.client5.http.classic.HttpClient
 import org.jdbi.v3.core.Jdbi
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
@@ -48,14 +45,16 @@ import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3AsyncClient
+import trevaka.TrevakaProperties
 import trevaka.frends.basicAuthInterceptor
+import trevaka.frends.newFrendsHttpClient
+import trevaka.ipaas.newIpaasHttpClient
 import trevaka.security.TrevakaActionRuleMapping
 import trevaka.titania.TrimStartTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
 import java.time.Duration
 import java.time.MonthDay
 
-const val WEB_SERVICE_TEMPLATE_PAYMENT = "webServiceTemplatePayment"
 internal val PAYMENT_SOAP_PACKAGES = arrayOf(
     "fi.tampere.messages.ipaas.commontypes.v1",
     "fi.tampere.messages.sapfico.payableaccounting.v05",
@@ -164,13 +163,12 @@ class TampereConfig {
     fun tampereBiJob(biExportClient: BiExportClient): BiExportJob = BiExportJob(biExportClient)
 
     @Bean
-    fun paymentIntegrationClient(
-        @Qualifier(WEB_SERVICE_TEMPLATE_PAYMENT) webServiceTemplate: WebServiceTemplate,
-        properties: TampereProperties,
-    ): PaymentIntegrationClient = TamperePaymentClient(webServiceTemplate, properties.payment)
-
-    @Bean(WEB_SERVICE_TEMPLATE_PAYMENT)
-    fun webServiceTemplate(@Qualifier(HTTP_CLIENT_INVOICE) httpClient: HttpClient): WebServiceTemplate {
+    fun paymentIntegrationClient(trevakaProperties: TrevakaProperties, tampereProperties: TampereProperties): PaymentIntegrationClient {
+        val httpClient = if (tampereProperties.enabledFeatures.frendsPayment) {
+            newFrendsHttpClient(trevakaProperties.frends ?: error("Frends properties not set (TREVAKA_FRENDS_*)"))
+        } else {
+            newIpaasHttpClient(tampereProperties.ipaas)
+        }
         val messageFactory = SaajSoapMessageFactory().apply {
             setSoapVersion(SoapVersion.SOAP_12)
             afterPropertiesSet()
@@ -179,11 +177,13 @@ class TampereConfig {
             setPackagesToScan(*PAYMENT_SOAP_PACKAGES)
             afterPropertiesSet()
         }
-        return WebServiceTemplate(messageFactory).apply {
+        val webServiceTemplate = WebServiceTemplate(messageFactory).apply {
             this.marshaller = marshaller
             unmarshaller = marshaller
             setMessageSender(SimpleHttpComponents5MessageSender(httpClient))
+            afterPropertiesSet()
         }
+        return TamperePaymentClient(webServiceTemplate, tampereProperties.payment)
     }
 
     @Bean fun actionRuleMapping(): ActionRuleMapping = TampereActionRuleMapping(TrevakaActionRuleMapping())
@@ -195,6 +195,9 @@ class TampereConfig {
 
     @Bean
     fun mealTypeMapper(): MealTypeMapper = DefaultMealTypeMapper
+
+    @Bean
+    fun ipaasProperties(properties: TampereProperties) = properties.ipaas
 
     @Bean
     fun tampereScheduledJobEnv(env: Environment): ScheduledJobsEnv<TampereScheduledJob> = ScheduledJobsEnv.fromEnvironment(

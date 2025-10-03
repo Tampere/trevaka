@@ -6,6 +6,7 @@ package fi.tampere.trevaka.invoice.service
 
 import com.github.tomakehurst.wiremock.client.BasicCredentials
 import com.github.tomakehurst.wiremock.client.WireMock.*
+import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.catchThrowable
@@ -16,7 +17,7 @@ import org.springframework.ws.soap.client.SoapFaultClientException
 internal class TampereInvoiceClientIT : AbstractTampereIntegrationTest() {
 
     @Autowired
-    private lateinit var client: TampereInvoiceClient
+    private lateinit var client: InvoiceIntegrationClient
 
     @Test
     fun send() {

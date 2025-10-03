@@ -24,8 +24,6 @@ import fi.espoo.evaka.shared.domain.getHolidays
 import fi.tampere.trevaka.SummertimeAbsenceProperties
 import fi.tampere.trevaka.TampereProperties
 import fi.tampere.trevaka.invoice.service.TampereInvoiceClient
-import org.apache.hc.client5.http.classic.HttpClient
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
@@ -34,13 +32,12 @@ import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.SoapVersion
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory
 import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
+import trevaka.TrevakaProperties
+import trevaka.frends.newFrendsHttpClient
 import trevaka.ipaas.newIpaasHttpClient
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.YearMonth
-
-const val WEB_SERVICE_TEMPLATE_INVOICE = "webServiceTemplateInvoice"
-const val HTTP_CLIENT_INVOICE = "httpClientInvoice"
 
 internal val SOAP_PACKAGES = arrayOf(
     "fi.tampere.messages.ipaas.commontypes.v1",
@@ -52,16 +49,12 @@ internal val SOAP_PACKAGES = arrayOf(
 class InvoiceConfiguration {
     @Primary
     @Bean
-    fun invoiceIntegrationClient(
-        @Qualifier(WEB_SERVICE_TEMPLATE_INVOICE) webServiceTemplate: WebServiceTemplate,
-        properties: TampereProperties,
-    ): InvoiceIntegrationClient = TampereInvoiceClient(webServiceTemplate, properties.invoice)
-
-    @Bean(WEB_SERVICE_TEMPLATE_INVOICE)
-    fun webServiceTemplate(
-        @Qualifier(HTTP_CLIENT_INVOICE) httpClient: HttpClient,
-        properties: TampereProperties,
-    ): WebServiceTemplate {
+    fun invoiceIntegrationClient(trevakaProperties: TrevakaProperties, tampereProperties: TampereProperties): InvoiceIntegrationClient {
+        val httpClient = if (tampereProperties.enabledFeatures.frendsInvoice) {
+            newFrendsHttpClient(trevakaProperties.frends ?: error("Frends properties not set (TREVAKA_FRENDS_*)"))
+        } else {
+            newIpaasHttpClient(tampereProperties.ipaas)
+        }
         val messageFactory = SaajSoapMessageFactory().apply {
             setSoapVersion(SoapVersion.SOAP_12)
             afterPropertiesSet()
@@ -70,15 +63,14 @@ class InvoiceConfiguration {
             setPackagesToScan(*SOAP_PACKAGES)
             afterPropertiesSet()
         }
-        return WebServiceTemplate(messageFactory).apply {
+        val webServiceTemplate = WebServiceTemplate(messageFactory).apply {
             this.marshaller = marshaller
             unmarshaller = marshaller
             setMessageSender(SimpleHttpComponents5MessageSender(httpClient))
+            afterPropertiesSet()
         }
+        return TampereInvoiceClient(webServiceTemplate, tampereProperties.invoice)
     }
-
-    @Bean(HTTP_CLIENT_INVOICE)
-    fun httpClient(properties: TampereProperties) = newIpaasHttpClient(properties.ipaas)
 
     @Bean
     fun incomeTypesProvider(): IncomeTypesProvider = TampereIncomeTypesProvider()

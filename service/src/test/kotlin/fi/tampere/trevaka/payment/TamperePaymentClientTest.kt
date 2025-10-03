@@ -6,7 +6,6 @@ package fi.tampere.trevaka.payment
 
 import fi.espoo.evaka.daycare.CareType
 import fi.espoo.evaka.invoicing.domain.Payment
-import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.espoo.evaka.invoicing.domain.PaymentStatus
 import fi.espoo.evaka.invoicing.domain.PaymentUnit
 import fi.espoo.evaka.shared.DaycareId
@@ -21,7 +20,6 @@ import fi.tampere.trevaka.PaymentProperties
 import fi.tampere.trevaka.SummertimeAbsenceProperties
 import fi.tampere.trevaka.TampereConfig
 import fi.tampere.trevaka.TampereProperties
-import fi.tampere.trevaka.invoice.config.InvoiceConfiguration
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -31,6 +29,7 @@ import org.springframework.ws.test.client.MockWebServiceServer
 import org.springframework.ws.test.client.RequestMatchers.connectionTo
 import org.springframework.ws.test.client.RequestMatchers.payload
 import org.springframework.ws.test.client.ResponseCreators.withPayload
+import trevaka.TrevakaProperties
 import trevaka.addClientInterceptors
 import trevaka.ipaas.IpaasProperties
 import trevaka.newPayloadValidatingInterceptor
@@ -40,13 +39,14 @@ import java.util.*
 
 class TamperePaymentClientTest {
 
-    private lateinit var client: PaymentIntegrationClient
+    private lateinit var client: TamperePaymentClient
     private lateinit var server: MockWebServiceServer
     private lateinit var tx: Database.Read
 
     @BeforeEach
     fun setup() {
-        val properties = TampereProperties(
+        val trevakaProperties = TrevakaProperties()
+        val tampereProperties = TampereProperties(
             IpaasProperties("user", "pass"),
             InvoiceProperties(""),
             PaymentProperties("http://localhost:8080/payableAccounting"),
@@ -59,17 +59,16 @@ class TamperePaymentClientTest {
             ),
         )
         val configuration = TampereConfig()
-        val webServiceTemplate = configuration.webServiceTemplate(InvoiceConfiguration().httpClient(properties))
+        client = configuration.paymentIntegrationClient(trevakaProperties, tampereProperties) as TamperePaymentClient
         addClientInterceptors(
-            webServiceTemplate,
+            client.webServiceTemplate,
             newPayloadValidatingInterceptor(
                 "iPaaS_Common_Types_v1_0.xsd",
                 "PayableAccounting_v08.xsd",
                 "SAPFICO_Ostoreskontra_v1_0_InlineSchema1.xsd",
             ),
         )
-        client = configuration.paymentIntegrationClient(webServiceTemplate, properties)
-        server = MockWebServiceServer.createServer(webServiceTemplate)
+        server = MockWebServiceServer.createServer(client.webServiceTemplate)
         tx = mock {}
     }
 
