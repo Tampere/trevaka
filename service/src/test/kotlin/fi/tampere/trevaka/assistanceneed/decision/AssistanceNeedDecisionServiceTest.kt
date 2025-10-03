@@ -172,6 +172,7 @@ val validAssistanceNeedDecision = AssistanceNeedDecision(
     motivationForDecision = "Päätösmotivaatioteksti",
     annulmentReason = "",
     hasDocument = false,
+    processId = null,
 )
 
 val validPersonDTO = PersonDTO(

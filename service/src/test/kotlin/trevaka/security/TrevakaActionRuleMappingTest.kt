@@ -362,6 +362,7 @@ private fun translate(action: Global) = action.name to when (action) {
     Global.OUT_OF_OFFICE_PAGE -> "Poissaoloviesti-sivu"
     Global.READ_AROMI_ORDERS -> "Aromi-raportti"
     Global.SEND_NEKKU_ORDER -> "Nekun lähetys"
+    Global.READ_PLACEMENT_DESKTOP_DAYCARES -> "Sijoittelutyöpöytä"
 }
 
 private fun translate(entry: Enum<*>) = entry.name to when (entry.name) {
@@ -639,6 +640,7 @@ private fun translate(entry: Enum<*>) = entry.name to when (entry.name) {
     "ANNUL_DECISION" -> "Päätöksen mitätöinti"
     "UPDATE_DECISION_VALIDITY" -> "Päätöksen voimassaoloajan muokkaus"
     "ARCHIVE" -> "Arkistointi"
+    "UPDATE_PLACEMENT_DRAFT" -> "Sijoitushahmotelman muokkaus"
     else -> throw error("Unsupported entry ${entry.name}")
 }
 
