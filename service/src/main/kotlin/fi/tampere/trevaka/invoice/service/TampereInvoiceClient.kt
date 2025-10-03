@@ -49,7 +49,7 @@ private const val MAX_ITEM_PROFIT_CENTER_LENGTH = 10
 private const val MAX_TEXT_ROW_LENGTH = 70
 
 class TampereInvoiceClient(
-    private val webServiceTemplate: WebServiceTemplate,
+    internal val webServiceTemplate: WebServiceTemplate,
     private val properties: InvoiceProperties,
 ) : InvoiceIntegrationClient {
 

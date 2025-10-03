@@ -59,6 +59,10 @@ evaka:
   local_s3:
     url: "https://localhost:9876"
 
+trevaka:
+  frends:
+    api-key: frends-api-key-123
+
 tampere:
   ipaas:
     username: user

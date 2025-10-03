@@ -6,6 +6,7 @@ package fi.tampere.trevaka.payment
 
 import com.github.tomakehurst.wiremock.client.BasicCredentials
 import com.github.tomakehurst.wiremock.client.WireMock.*
+import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.catchThrowable
@@ -16,7 +17,7 @@ import org.springframework.ws.soap.client.SoapFaultClientException
 class TamperePaymentClientIT : AbstractTampereIntegrationTest() {
 
     @Autowired
-    private lateinit var client: TamperePaymentClient
+    private lateinit var client: PaymentIntegrationClient
 
     @Test
     fun send() {

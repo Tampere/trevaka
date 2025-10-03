@@ -35,53 +35,53 @@ fun main(args: Array<String>) {
 @Profile("tampere_evaka")
 @Configuration
 @ComponentScan("fi.tampere.trevaka")
-@ConfigurationPropertiesScan(basePackages = ["fi.tampere.trevaka"])
+@ConfigurationPropertiesScan(basePackages = ["trevaka", "fi.tampere.trevaka"])
 class TampereComponentScan
 
 @Profile("vesilahti_evaka")
 @Configuration
 @ComponentScan("fi.vesilahti.evaka")
-@ConfigurationPropertiesScan(basePackages = ["fi.vesilahti.evaka"])
+@ConfigurationPropertiesScan(basePackages = ["trevaka", "fi.vesilahti.evaka"])
 class VesilahtiComponentScan
 
 @Profile("hameenkyro_evaka")
 @Configuration
 @ComponentScan("fi.hameenkyro.evaka")
-@ConfigurationPropertiesScan(basePackages = ["fi.hameenkyro.evaka"])
+@ConfigurationPropertiesScan(basePackages = ["trevaka", "fi.hameenkyro.evaka"])
 class HameenkyroComponentScan
 
 @Profile("ylojarvi_evaka")
 @Configuration
 @ComponentScan("fi.ylojarvi.evaka")
-@ConfigurationPropertiesScan(basePackages = ["fi.ylojarvi.evaka"])
+@ConfigurationPropertiesScan(basePackages = ["trevaka", "fi.ylojarvi.evaka"])
 class YlojarviComponentScan
 
 @Profile("pirkkala_evaka")
 @Configuration
 @ComponentScan("fi.pirkkala.evaka")
-@ConfigurationPropertiesScan(basePackages = ["fi.pirkkala.evaka"])
+@ConfigurationPropertiesScan(basePackages = ["trevaka", "fi.pirkkala.evaka"])
 class PirkkalaComponentScan
 
 @Profile("nokia_evaka")
 @Configuration
 @ComponentScan("fi.nokiankaupunki.evaka")
-@ConfigurationPropertiesScan(basePackages = ["fi.nokiankaupunki.evaka"])
+@ConfigurationPropertiesScan(basePackages = ["trevaka", "fi.nokiankaupunki.evaka"])
 class NokiaComponentScan
 
 @Profile("kangasala_evaka")
 @Configuration
 @ComponentScan("fi.kangasala.evaka")
-@ConfigurationPropertiesScan(basePackages = ["fi.kangasala.evaka"])
+@ConfigurationPropertiesScan(basePackages = ["trevaka", "fi.kangasala.evaka"])
 class KangasalaComponentScan
 
 @Profile("lempaala_evaka")
 @Configuration
 @ComponentScan("fi.lempaala.evaka")
-@ConfigurationPropertiesScan(basePackages = ["fi.lempaala.evaka"])
+@ConfigurationPropertiesScan(basePackages = ["trevaka", "fi.lempaala.evaka"])
 class LempaalaComponentScan
 
 @Profile("orivesi_evaka")
 @Configuration
 @ComponentScan("fi.orivesi.evaka")
-@ConfigurationPropertiesScan(basePackages = ["fi.orivesi.evaka"])
+@ConfigurationPropertiesScan(basePackages = ["trevaka", "fi.orivesi.evaka"])
 class OrivesiComponentScan

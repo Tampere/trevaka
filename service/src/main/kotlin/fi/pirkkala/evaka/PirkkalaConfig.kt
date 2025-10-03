@@ -21,9 +21,6 @@ import fi.pirkkala.evaka.security.PirkkalaActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
-import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
-import trevaka.ipaas.dvvModificationRequestCustomizer
-import trevaka.ipaas.newIpaasHttpClient
 import trevaka.security.TrevakaActionRuleMapping
 import trevaka.titania.PrefixTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
@@ -104,10 +101,7 @@ class PirkkalaConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun webServiceMessageSender(properties: PirkkalaProperties) = SimpleHttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
-
-    @Bean
-    fun basicAuthCustomizer(properties: PirkkalaProperties) = dvvModificationRequestCustomizer(properties.ipaas)
+    fun ipaasProperties(properties: PirkkalaProperties) = properties.ipaas
 
     @Bean
     fun mealTypeMapper(): MealTypeMapper = PirkkalaMealTypeMapper

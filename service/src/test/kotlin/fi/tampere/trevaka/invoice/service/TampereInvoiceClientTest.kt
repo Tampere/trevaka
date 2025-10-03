@@ -10,7 +10,6 @@ import fi.espoo.evaka.invoicing.domain.InvoiceDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceRowDetailed
 import fi.espoo.evaka.invoicing.domain.InvoiceStatus
 import fi.espoo.evaka.invoicing.domain.PersonDetailed
-import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.espoo.evaka.invoicing.service.ProductKey
 import fi.espoo.evaka.shared.AreaId
 import fi.espoo.evaka.shared.DaycareId
@@ -34,6 +33,7 @@ import org.springframework.ws.test.client.MockWebServiceServer
 import org.springframework.ws.test.client.RequestMatchers.connectionTo
 import org.springframework.ws.test.client.RequestMatchers.payload
 import org.springframework.ws.test.client.ResponseCreators.*
+import trevaka.TrevakaProperties
 import trevaka.addClientInterceptors
 import trevaka.ipaas.IpaasProperties
 import trevaka.newPayloadValidatingInterceptor
@@ -43,12 +43,13 @@ import java.util.UUID
 
 internal class TampereInvoiceClientTest {
 
-    private lateinit var client: InvoiceIntegrationClient
+    private lateinit var client: TampereInvoiceClient
     private lateinit var server: MockWebServiceServer
 
     @BeforeEach
     fun setup() {
-        val properties = TampereProperties(
+        val trevakaProperties = TrevakaProperties()
+        val tampereProperties = TampereProperties(
             IpaasProperties("user", "pass"),
             InvoiceProperties("http://localhost:8080/salesOrder"),
             PaymentProperties(""),
@@ -61,17 +62,16 @@ internal class TampereInvoiceClientTest {
             ),
         )
         val configuration = InvoiceConfiguration()
-        val webServiceTemplate = configuration.webServiceTemplate(configuration.httpClient(properties), properties)
+        client = configuration.invoiceIntegrationClient(trevakaProperties, tampereProperties) as TampereInvoiceClient
         addClientInterceptors(
-            webServiceTemplate,
+            client.webServiceTemplate,
             newPayloadValidatingInterceptor(
                 "iPaaS_Common_Types_v1_0.xsd",
                 "SalesOrder_iPaaS_v11_2.xsd",
                 "SAPSD_Myyntitilaus_v1_0_InlineSchema1.xsd",
             ),
         )
-        client = configuration.invoiceIntegrationClient(webServiceTemplate, properties)
-        server = MockWebServiceServer.createServer(webServiceTemplate)
+        server = MockWebServiceServer.createServer(client.webServiceTemplate)
     }
 
     @Test

@@ -21,9 +21,6 @@ import fi.vesilahti.evaka.security.VesilahtiActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
-import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
-import trevaka.ipaas.dvvModificationRequestCustomizer
-import trevaka.ipaas.newIpaasHttpClient
 import trevaka.security.TrevakaActionRuleMapping
 import trevaka.titania.PrefixTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
@@ -108,10 +105,7 @@ class VesilahtiConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun webServiceMessageSender(properties: VesilahtiProperties) = SimpleHttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
-
-    @Bean
-    fun basicAuthCustomizer(properties: VesilahtiProperties) = dvvModificationRequestCustomizer(properties.ipaas)
+    fun ipaasProperties(properties: VesilahtiProperties) = properties.ipaas
 
     @Bean
     fun mealTypeMapper(): MealTypeMapper = DefaultMealTypeMapper

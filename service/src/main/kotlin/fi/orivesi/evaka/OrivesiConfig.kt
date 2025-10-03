@@ -21,9 +21,6 @@ import fi.orivesi.evaka.security.OrivesiActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
-import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
-import trevaka.ipaas.dvvModificationRequestCustomizer
-import trevaka.ipaas.newIpaasHttpClient
 import trevaka.security.TrevakaActionRuleMapping
 import trevaka.titania.PrefixTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
@@ -108,10 +105,7 @@ class OrivesiConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun webServiceMessageSender(properties: OrivesiProperties) = SimpleHttpComponents5MessageSender(newIpaasHttpClient(properties.ipaas))
-
-    @Bean
-    fun basicAuthCustomizer(properties: OrivesiProperties) = dvvModificationRequestCustomizer(properties.ipaas)
+    fun ipaasProperties(properties: OrivesiProperties) = properties.ipaas
 
     @Bean
     fun mealTypeMapper(): MealTypeMapper = OrivesiMealTypeMapper()

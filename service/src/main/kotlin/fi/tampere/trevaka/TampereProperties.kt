@@ -5,7 +5,7 @@
 package fi.tampere.trevaka
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import trevaka.frends.FrendsProperties
+import trevaka.frends.FrendsArchivalProperties
 import trevaka.ipaas.IpaasProperties
 import java.time.Month
 
@@ -20,8 +20,9 @@ data class TampereProperties(
     val summertimeAbsence: SummertimeAbsenceProperties = SummertimeAbsenceProperties(),
     val bucket: BucketProperties,
     val biExport: BiExportProperties,
-    val frends: FrendsProperties? = null,
+    val frends: FrendsArchivalProperties? = null,
     val archival: ArchivalProperties? = null,
+    val enabledFeatures: TampereEnabledFeatures = TampereEnabledFeatures(),
 )
 
 data class InvoiceProperties(
@@ -55,4 +56,9 @@ data class BiExportProperties(
 
 data class ArchivalProperties(
     val baseUrl: String,
+)
+
+data class TampereEnabledFeatures(
+    val frendsInvoice: Boolean = false,
+    val frendsPayment: Boolean = false,
 )

@@ -27,7 +27,7 @@ import java.time.format.DateTimeFormatter
 private val logger = KotlinLogging.logger {}
 
 class TamperePaymentClient(
-    private val webServiceTemplate: WebServiceTemplate,
+    internal val webServiceTemplate: WebServiceTemplate,
     private val properties: PaymentProperties,
 ) : PaymentIntegrationClient {
     override fun send(payments: List<Payment>, tx: Database.Read): PaymentIntegrationClient.SendResult {
