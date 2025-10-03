@@ -25,6 +25,8 @@ import fi.espoo.evaka.application.Guardian
 import fi.espoo.evaka.application.PersonBasics
 import fi.espoo.evaka.application.Preferences
 import fi.espoo.evaka.caseprocess.CaseProcess
+import fi.espoo.evaka.caseprocess.CaseProcessHistoryRow
+import fi.espoo.evaka.caseprocess.CaseProcessState
 import fi.espoo.evaka.caseprocess.DocumentConfidentiality
 import fi.espoo.evaka.caseprocess.DocumentMetadata
 import fi.espoo.evaka.daycare.domain.ProviderType
@@ -51,6 +53,7 @@ import fi.espoo.evaka.shared.ChildDocumentId
 import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.DecisionId
 import fi.espoo.evaka.shared.DocumentTemplateId
+import fi.espoo.evaka.shared.EvakaUserId
 import fi.espoo.evaka.shared.PersonId
 import fi.espoo.evaka.shared.auth.AuthenticatedUser
 import fi.espoo.evaka.shared.domain.DateRange
@@ -66,6 +69,8 @@ import org.junit.jupiter.api.assertNull
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.ClassPathResource
+import software.amazon.awssdk.services.s3.model.InvalidObjectStateException
+import java.lang.Error
 import java.time.LocalDate
 import java.time.LocalTime
 import java.util.UUID
@@ -118,6 +123,25 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
         )
     }
 
+
+    @Test
+    fun uploadChildDocumentWithoutHistory() {
+
+        assertThrows<IllegalStateException> {
+            archivalIntegrationClient.uploadChildDocumentToArchive(
+                testVasuDetails.id,
+                emptyTestCaseProcessChildDocument,
+                testChildInfo,
+                testVasuDetails,
+                testDocumentMetadataChildDocument,
+                testDocumentChildDocument,
+                testEvakaUser,
+            )
+        }
+
+    }
+
+
     @Test
     fun uploadChildDocument() {
         stubFor(
@@ -131,7 +155,7 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
 
         val archiveId = archivalIntegrationClient.uploadChildDocumentToArchive(
             testVasuDetails.id,
-            testCaseProcessChildDocument,
+            fullTestCaseProcessChildDocument,
             testChildInfo,
             testVasuDetails,
             testDocumentMetadataChildDocument,
@@ -177,7 +201,7 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
         assertNull(
             archivalIntegrationClient.uploadChildDocumentToArchive(
                 testVasuDetails.id,
-                testCaseProcessChildDocument,
+                fullTestCaseProcessChildDocument,
                 testChildInfo,
                 testVasuDetails,
                 testDocumentMetadataChildDocument,
@@ -223,7 +247,7 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
         val exception = assertThrows<IllegalStateException> {
             archivalIntegrationClient.uploadChildDocumentToArchive(
                 testVasuDetails.id,
-                testCaseProcessChildDocument,
+                fullTestCaseProcessChildDocument,
                 testChildInfo,
                 testVasuDetails,
                 testDocumentMetadataChildDocument,
@@ -427,7 +451,7 @@ private val testVasuDetails = ChildDocumentDetails(
     decision = null,
 )
 
-private val testCaseProcessChildDocument = null
+private val emptyTestCaseProcessChildDocument = null
 
 private val testDocumentMetadataChildDocument = testVasuDetails.toDocumentMetadata()
 
@@ -438,3 +462,52 @@ private val testDocumentChildDocument = Document(
 )
 
 private val testEvakaUser = EvakaUser(AuthenticatedUser.SystemInternalUser.evakaUserId, "eVaka", EvakaUserType.SYSTEM)
+
+private val testPreparerUser = EvakaUser(
+    id = EvakaUserId(UUID.randomUUID()),
+    name = "Esko Esivalmistelija",
+    EvakaUserType.EMPLOYEE
+)
+
+private val testDeciderUser = EvakaUser(
+    id = EvakaUserId(UUID.randomUUID()),
+    name = "Pänü Päättäjä",
+    EvakaUserType.EMPLOYEE
+)
+
+private val fullTestCaseProcessChildDocument = CaseProcess(
+    id = CaseProcessId(UUID.randomUUID()),
+    caseIdentifier = "1/12.06.01.11/2025",
+    processDefinitionNumber = "12.06.01.11",
+    year = 2025,
+    number = 1,
+    organization = "Varhaiskasvatustoiminta",
+    archiveDurationMonths = 12 * 10,
+    migrated = false,
+    history = listOf(
+        CaseProcessHistoryRow(
+            rowIndex = 1,
+            state = CaseProcessState.INITIAL,
+            enteredAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 45)),
+            enteredBy = testPreparerUser
+        ),
+        CaseProcessHistoryRow(
+            rowIndex = 2,
+            state = CaseProcessState.PREPARATION,
+            enteredAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 45)),
+            enteredBy = testPreparerUser
+        ),
+        CaseProcessHistoryRow(
+            rowIndex = 3,
+            state = CaseProcessState.DECIDING,
+            enteredAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 55)),
+            enteredBy = testDeciderUser
+        ),
+        CaseProcessHistoryRow(
+            rowIndex = 4,
+            state = CaseProcessState.COMPLETED,
+            enteredAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 55)),
+            enteredBy = testEvakaUser
+        )
+    )
+)
