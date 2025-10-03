@@ -123,10 +123,8 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
         )
     }
 
-
     @Test
     fun uploadChildDocumentWithoutHistory() {
-
         assertThrows<IllegalStateException> {
             archivalIntegrationClient.uploadChildDocumentToArchive(
                 testVasuDetails.id,
@@ -138,9 +136,7 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
                 testEvakaUser,
             )
         }
-
     }
-
 
     @Test
     fun uploadChildDocument() {
@@ -466,13 +462,13 @@ private val testEvakaUser = EvakaUser(AuthenticatedUser.SystemInternalUser.evaka
 private val testPreparerUser = EvakaUser(
     id = EvakaUserId(UUID.randomUUID()),
     name = "Esko Esivalmistelija",
-    EvakaUserType.EMPLOYEE
+    EvakaUserType.EMPLOYEE,
 )
 
 private val testDeciderUser = EvakaUser(
     id = EvakaUserId(UUID.randomUUID()),
     name = "Pänü Päättäjä",
-    EvakaUserType.EMPLOYEE
+    EvakaUserType.EMPLOYEE,
 )
 
 private val fullTestCaseProcessChildDocument = CaseProcess(
@@ -489,25 +485,25 @@ private val fullTestCaseProcessChildDocument = CaseProcess(
             rowIndex = 1,
             state = CaseProcessState.INITIAL,
             enteredAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 45)),
-            enteredBy = testPreparerUser
+            enteredBy = testPreparerUser,
         ),
         CaseProcessHistoryRow(
             rowIndex = 2,
             state = CaseProcessState.PREPARATION,
             enteredAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 45)),
-            enteredBy = testPreparerUser
+            enteredBy = testPreparerUser,
         ),
         CaseProcessHistoryRow(
             rowIndex = 3,
             state = CaseProcessState.DECIDING,
             enteredAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 55)),
-            enteredBy = testDeciderUser
+            enteredBy = testDeciderUser,
         ),
         CaseProcessHistoryRow(
             rowIndex = 4,
             state = CaseProcessState.COMPLETED,
             enteredAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 55)),
-            enteredBy = testEvakaUser
-        )
-    )
+            enteredBy = testEvakaUser,
+        ),
+    ),
 )

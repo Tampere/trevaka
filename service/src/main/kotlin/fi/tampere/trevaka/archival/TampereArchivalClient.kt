@@ -76,12 +76,11 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
 
     private fun extractAgentRole(historyRows: List<CaseProcessHistoryRow>) = if (historyRows.any { it.state == CaseProcessState.DECIDING }) "Päättäjä" else "Laatija"
 
-    private fun extractAgents(caseProcess: CaseProcess?): List<AuthorDetails> =
-        caseProcess?.history
-            ?.filter { it.enteredBy.type == EvakaUserType.EMPLOYEE }
-            ?.groupBy { it.enteredBy.id }
-            ?.map { AuthorDetails(it.value[0].enteredBy.name, extractAgentRole(it.value)) }
-            ?: throw IllegalStateException("No employee agents found for case process ${caseProcess?.id}")
+    private fun extractAgents(caseProcess: CaseProcess?): List<AuthorDetails> = caseProcess?.history
+        ?.filter { it.enteredBy.type == EvakaUserType.EMPLOYEE }
+        ?.groupBy { it.enteredBy.id }
+        ?.map { AuthorDetails(it.value[0].enteredBy.name, extractAgentRole(it.value)) }
+        ?: throw IllegalStateException("No employee agents found for case process ${caseProcess?.id}")
 
     private fun transform(evakaUser: EvakaUser) = Collections().apply {
         initiator = Collections.Initiator().apply {
