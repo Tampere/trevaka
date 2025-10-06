@@ -39,8 +39,8 @@ const prod: FeatureFlags = {
   assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
   hideOvertimeSelection: false,
-  hideSicknessSelection: true,
-  hideChildSicknessSelection: true,
+  hideSicknessSelection: false,
+  hideChildSicknessSelection: false,
   hideClubApplication: true,
   discussionReservations: true,
   jamixIntegration: true,
@@ -56,8 +56,6 @@ const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
-    hideSicknessSelection: false,
-    hideChildSicknessSelection: false,
     citizenChildDocumentTypes: true
   },
   prod
