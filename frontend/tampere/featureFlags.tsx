@@ -43,6 +43,8 @@ const prod: FeatureFlags = {
   assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
   hideOvertimeSelection: false,
+  hideSicknessSelection: true,
+  hideChildSicknessSelection: true,
   discussionReservations: true,
   aromiIntegration: true,
   serviceApplications: true,
@@ -57,6 +59,8 @@ const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
+    hideSicknessSelection: false,
+    hideChildSicknessSelection: false,
     archiveIntegration: {
       decisions: true,
       childDocuments: true

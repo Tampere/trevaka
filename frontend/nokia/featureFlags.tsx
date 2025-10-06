@@ -39,6 +39,8 @@ const prod: FeatureFlags = {
   assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
   hideOvertimeSelection: false,
+  hideSicknessSelection: false,
+  hideChildSicknessSelection: false,
   hideClubApplication: true,
   discussionReservations: true,
   jamixIntegration: true,
