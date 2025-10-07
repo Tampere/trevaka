@@ -5,14 +5,16 @@
 package fi.tampere.trevaka.archival
 
 import com.profium.reception._2022._03.Collections
+import com.profium.sahke2.Agent
 import fi.espoo.evaka.caseprocess.CaseProcess
 import fi.espoo.evaka.caseprocess.CaseProcessHistoryRow
 import fi.espoo.evaka.caseprocess.CaseProcessState
 import fi.espoo.evaka.caseprocess.DocumentMetadata
 import fi.espoo.evaka.decision.Decision
-import fi.espoo.evaka.document.ChildDocumentType
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.document.childdocument.ChildDocumentDetails
+import fi.espoo.evaka.invoicing.domain.FeeDecisionDetailed
+import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionDetailed
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.s3.Document
 import fi.espoo.evaka.shared.ChildDocumentId
@@ -32,8 +34,11 @@ import org.slf4j.MDC
 import java.io.StringReader
 import java.io.StringWriter
 import java.lang.IllegalStateException
+import java.time.format.DateTimeFormatter
 
 private val logger = KotlinLogging.logger {}
+
+internal val ARCHIVAL_DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy")
 
 class TampereArchivalClient(private val client: OkHttpClient, private val properties: ArchivalProperties) : ArchivalIntegrationClient {
 
@@ -47,6 +52,32 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
         caseProcess: CaseProcess,
         child: PersonDTO,
         decision: Decision,
+        document: Document,
+        user: EvakaUser,
+    ): String? {
+        val (collection, content) = transform(caseProcess, decision, document, child)
+        val collections = transform(user).apply {
+            this.collection.add(collection)
+        }
+        return postRecord(collections, content)?.records?.record?.archiveId
+    }
+
+    override fun uploadFeeDecisionToArchive(
+        caseProcess: CaseProcess,
+        decision: FeeDecisionDetailed,
+        document: Document,
+        user: EvakaUser,
+    ): String? {
+        val (collection, content) = transform(caseProcess, decision, document)
+        val collections = transform(user).apply {
+            this.collection.add(collection)
+        }
+        return postRecord(collections, content)?.records?.record?.archiveId
+    }
+
+    override fun uploadVoucherValueDecisionToArchive(
+        caseProcess: CaseProcess,
+        decision: VoucherValueDecisionDetailed,
         document: Document,
         user: EvakaUser,
     ): String? {
@@ -73,14 +104,6 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
         }
         return postRecord(collections, content)?.records?.record?.archiveId
     }
-
-    private fun extractAgentRole(historyRows: List<CaseProcessHistoryRow>) = if (historyRows.any { it.state == CaseProcessState.DECIDING }) "Päättäjä" else "Laatija"
-
-    private fun extractAgents(caseProcess: CaseProcess?): List<AuthorDetails> = caseProcess?.history
-        ?.filter { it.enteredBy.type == EvakaUserType.EMPLOYEE }
-        ?.groupBy { it.enteredBy.id }
-        ?.map { AuthorDetails(it.value[0].enteredBy.name, extractAgentRole(it.value)) }
-        ?: throw IllegalStateException("No employee agents found for case process ${caseProcess?.id}")
 
     private fun transform(evakaUser: EvakaUser) = Collections().apply {
         initiator = Collections.Initiator().apply {
@@ -154,4 +177,20 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
     }
 
     private fun transactionId(): String? = MDC.get("traceId")
+}
+
+private fun extractAgentRole(historyRows: List<CaseProcessHistoryRow>) = if (historyRows.any { it.state == CaseProcessState.DECIDING }) "Päättäjä" else "Laatija"
+
+private fun extractAgents(caseProcess: CaseProcess?): List<AuthorDetails> = caseProcess?.history
+    ?.filter { it.enteredBy.type == EvakaUserType.EMPLOYEE }
+    ?.groupBy { it.enteredBy.id }
+    ?.map { AuthorDetails(it.value[0].enteredBy.name, extractAgentRole(it.value)) }
+    ?: throw IllegalStateException("No employee agents found for case process ${caseProcess?.id}")
+
+internal fun transformToAgents(caseProcess: CaseProcess): List<Agent> = extractAgents(caseProcess).map {
+    Agent().apply {
+        agentRole = it.role
+        agentName = it.name
+        // agent corporateName left empty
+    }
 }

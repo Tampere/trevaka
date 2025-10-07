@@ -11,7 +11,6 @@ import fi.espoo.evaka.s3.Document
 import org.apache.tika.mime.MimeTypes
 import trevaka.jaxb.localDateToXMLGregorianCalendar
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 internal fun transform(childDocumentDetails: ChildDocumentDetails, document: Document, ownerDetails: OwnerDetails, authorDetails: List<AuthorDetails>): Pair<Collections.Collection, Map<String, Document>> {
     val originalId = childDocumentDetails.id.toString()
@@ -19,7 +18,7 @@ internal fun transform(childDocumentDetails: ChildDocumentDetails, document: Doc
         type = "record"
         folder = childDocumentDetails.template.processDefinitionNumber
         metadata = Collections.Collection.Metadata().apply {
-            title = "${childDocumentDetails.template.name}, ${ownerDetails.name}, ${ownerDetails.dateOfBirth.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))}"
+            title = "${childDocumentDetails.template.name}, ${ownerDetails.name}, ${ownerDetails.dateOfBirth.format(ARCHIVAL_DATE_FORMATTER)}"
             calculationBaseDate = localDateToXMLGregorianCalendar(childDocumentDetails.template.validity.start)
             created = childDocumentDetails.publishedAt?.toLocalDate()?.let { localDateToXMLGregorianCalendar(it) }
             authorDetails.forEach {

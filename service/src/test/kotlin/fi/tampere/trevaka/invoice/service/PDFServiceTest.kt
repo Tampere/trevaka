@@ -412,6 +412,7 @@ fun validFeeDecision(children: List<FeeDecisionChildDetailed> = listOf(validFeeD
     financeDecisionHandlerFirstName = null,
     financeDecisionHandlerLastName = null,
     documentContainsContactInfo = false,
+    archivedAt = null,
 )
 
 fun validFeeDecisionChild(
@@ -506,6 +507,7 @@ fun validVoucherValueDecision(
     financeDecisionHandlerFirstName = null,
     financeDecisionHandlerLastName = null,
     documentContainsContactInfo = false,
+    archivedAt = null,
 )
 
 private fun validVoucherValueDecisionPlacementDetailed(placementType: PlacementType) = VoucherValueDecisionPlacementDetailed(
