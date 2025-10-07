@@ -43,34 +43,48 @@ import fi.espoo.evaka.document.childdocument.ChildDocumentDetails
 import fi.espoo.evaka.document.childdocument.DocumentContent
 import fi.espoo.evaka.document.childdocument.DocumentStatus
 import fi.espoo.evaka.identity.ExternalIdentifier
+import fi.espoo.evaka.invoicing.domain.FeeDecisionDetailed
+import fi.espoo.evaka.invoicing.domain.FeeDecisionStatus
+import fi.espoo.evaka.invoicing.domain.FeeDecisionType
+import fi.espoo.evaka.invoicing.domain.UnitData
+import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionDetailed
+import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionPlacementDetailed
+import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionServiceNeed
+import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionStatus
+import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionType
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.placement.PlacementType
 import fi.espoo.evaka.s3.Document
 import fi.espoo.evaka.s3.DocumentKey
 import fi.espoo.evaka.shared.ApplicationId
+import fi.espoo.evaka.shared.AreaId
 import fi.espoo.evaka.shared.CaseProcessId
 import fi.espoo.evaka.shared.ChildDocumentId
 import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.DecisionId
 import fi.espoo.evaka.shared.DocumentTemplateId
 import fi.espoo.evaka.shared.EvakaUserId
+import fi.espoo.evaka.shared.FeeDecisionId
 import fi.espoo.evaka.shared.PersonId
+import fi.espoo.evaka.shared.VoucherValueDecisionId
 import fi.espoo.evaka.shared.auth.AuthenticatedUser
+import fi.espoo.evaka.shared.dev.feeThresholds2020
 import fi.espoo.evaka.shared.domain.DateRange
+import fi.espoo.evaka.shared.domain.FiniteDateRange
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.espoo.evaka.shared.domain.UiLanguage
 import fi.espoo.evaka.user.EvakaUser
 import fi.espoo.evaka.user.EvakaUserType
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
+import fi.tampere.trevaka.assistanceneed.decision.toPersonDetailed
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertNull
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.ClassPathResource
-import software.amazon.awssdk.services.s3.model.InvalidObjectStateException
-import java.lang.Error
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
 import java.util.UUID
@@ -136,6 +150,90 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
                 testEvakaUser,
             )
         }
+    }
+
+    @Test
+    fun uploadFeeDecisionToArchive() {
+        stubFor(
+            post(urlEqualTo("/mock/frends/archival/records/add")).willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("Content-Type", "application/xml")
+                    .withBodyFile("archival-client/archival-response-success.xml"),
+            ),
+        )
+
+        val archiveId = archivalIntegrationClient.uploadFeeDecisionToArchive(
+            testCaseProcessApplication,
+            testFeeDecision,
+            testDocumentFeeDecision,
+            testEvakaUser,
+        )
+        assertEquals("archive-record-id-1", archiveId)
+
+        verify(
+            postRequestedFor(urlEqualTo("/mock/frends/archival/records/add"))
+                .withBasicAuth(BasicCredentials("frends-user", "frends-pass"))
+                .withHeader("Content-Type", containing("multipart/form-data; boundary="))
+                .withoutHeader("X-API-key")
+                .withoutHeader("X-API-transactionid") // only set when running AsyncJob
+                .withRequestBodyPart(
+                    MultipartValuePatternBuilder()
+                        .withHeader("Content-Disposition", equalTo("form-data; name=\"xml\""))
+                        .withHeader("Content-Type", equalTo("application/xml; charset=utf-8"))
+                        .withBody(equalToXml(ClassPathResource("archival-client/archival-post-record-request-fee-decision-daycare.xml").getContentAsString(Charsets.UTF_8)))
+                        .build(),
+                )
+                .withRequestBodyPart(
+                    MultipartValuePatternBuilder()
+                        .withHeader("Content-Disposition", equalTo("form-data; name=\"content\"; filename=\"${testFeeDecision.id}\""))
+                        .withHeader("Content-Type", equalTo("text/plain"))
+                        .withBody(equalTo("maksupäätös tekstitiedostona"))
+                        .build(),
+                ),
+        )
+    }
+
+    @Test
+    fun uploadVoucherValueDecisionToArchive() {
+        stubFor(
+            post(urlEqualTo("/mock/frends/archival/records/add")).willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("Content-Type", "application/xml")
+                    .withBodyFile("archival-client/archival-response-success.xml"),
+            ),
+        )
+
+        val archiveId = archivalIntegrationClient.uploadVoucherValueDecisionToArchive(
+            testCaseProcessApplication,
+            testVoucherValueDecision,
+            testDocumentVoucherValueDecision,
+            testEvakaUser,
+        )
+        assertEquals("archive-record-id-1", archiveId)
+
+        verify(
+            postRequestedFor(urlEqualTo("/mock/frends/archival/records/add"))
+                .withBasicAuth(BasicCredentials("frends-user", "frends-pass"))
+                .withHeader("Content-Type", containing("multipart/form-data; boundary="))
+                .withoutHeader("X-API-key")
+                .withoutHeader("X-API-transactionid") // only set when running AsyncJob
+                .withRequestBodyPart(
+                    MultipartValuePatternBuilder()
+                        .withHeader("Content-Disposition", equalTo("form-data; name=\"xml\""))
+                        .withHeader("Content-Type", equalTo("application/xml; charset=utf-8"))
+                        .withBody(equalToXml(ClassPathResource("archival-client/archival-post-record-request-voucher-value-decision-daycare.xml").getContentAsString(Charsets.UTF_8)))
+                        .build(),
+                )
+                .withRequestBodyPart(
+                    MultipartValuePatternBuilder()
+                        .withHeader("Content-Disposition", equalTo("form-data; name=\"content\"; filename=\"${testVoucherValueDecision.id}\""))
+                        .withHeader("Content-Type", equalTo("text/plain"))
+                        .withBody(equalTo("arvopäätös tekstitiedostona"))
+                        .build(),
+                ),
+        )
     }
 
     @Test
@@ -415,6 +513,88 @@ private val testDecisionDaycare = Decision(
 private val testDocumentDecisionDaycare = Document(
     DocumentKey.Decision(testDecisionDaycare.id, testDecisionDaycare.type, OfficialLanguage.FI).value,
     "vakapäätös tekstitiedostona".toByteArray(Charsets.UTF_8),
+    "text/plain",
+)
+
+private val testFeeDecision = FeeDecisionDetailed(
+    id = FeeDecisionId(UUID.fromString("385132a2-4be4-4b52-a3a6-08f27a1270e1")),
+    children = emptyList(),
+    validDuring = FiniteDateRange(LocalDate.of(2022, 2, 1), LocalDate.of(2022, 7, 31)),
+    status = FeeDecisionStatus.SENT,
+    decisionType = FeeDecisionType.NORMAL,
+    headOfFamily = testAdultInfo.toPersonDetailed(),
+    partner = null,
+    headOfFamilyIncome = null,
+    partnerIncome = null,
+    familySize = 2,
+    approvedAt = HelsinkiDateTime.of(LocalDate.of(2020, 1, 15), LocalTime.of(14, 43)),
+    sentAt = HelsinkiDateTime.of(LocalDate.of(2020, 1, 5), LocalTime.of(8, 27)),
+    feeThresholds = feeThresholds2020.getFeeDecisionThresholds(2),
+    financeDecisionHandlerFirstName = "",
+    financeDecisionHandlerLastName = "",
+    documentContainsContactInfo = false,
+    archivedAt = null,
+)
+
+private val testDocumentFeeDecision = Document(
+    DocumentKey.FeeDecision(testFeeDecision.id, OfficialLanguage.FI).value,
+    "maksupäätös tekstitiedostona".toByteArray(Charsets.UTF_8),
+    "text/plain",
+)
+
+private val testVoucherValueDecision = VoucherValueDecisionDetailed(
+    id = VoucherValueDecisionId(UUID.fromString("11479434-12da-4c59-a1e1-d9cd58c203a2")),
+    validFrom = LocalDate.of(2022, 2, 1),
+    validTo = LocalDate.of(2022, 7, 31),
+    status = VoucherValueDecisionStatus.SENT,
+    decisionType = VoucherValueDecisionType.NORMAL,
+    headOfFamily = testAdultInfo.toPersonDetailed(),
+    partner = null,
+    headOfFamilyIncome = null,
+    partnerIncome = null,
+    childIncome = null,
+    familySize = 2,
+    feeThresholds = feeThresholds2020.getFeeDecisionThresholds(2),
+    child = testChildInfo.toPersonDetailed(),
+    placement = VoucherValueDecisionPlacementDetailed(
+        unit = UnitData(
+            id = DaycareId(UUID.randomUUID()),
+            name = "test daycare",
+            areaId = AreaId(UUID.randomUUID()),
+            areaName = "test area",
+            language = "fi",
+        ),
+        type = PlacementType.DAYCARE,
+    ),
+    serviceNeed = VoucherValueDecisionServiceNeed(
+        feeCoefficient = BigDecimal.ZERO,
+        voucherValueCoefficient = BigDecimal.ZERO,
+        feeDescriptionFi = "",
+        feeDescriptionSv = "",
+        voucherValueDescriptionFi = "",
+        voucherValueDescriptionSv = "",
+        missing = false,
+    ),
+    baseCoPayment = 0,
+    siblingDiscount = 0,
+    coPayment = 0,
+    feeAlterations = emptyList(),
+    finalCoPayment = 0,
+    baseValue = 0,
+    childAge = 0,
+    assistanceNeedCoefficient = BigDecimal.ZERO,
+    voucherValue = 0,
+    approvedAt = HelsinkiDateTime.of(LocalDate.of(2020, 1, 15), LocalTime.of(14, 43)),
+    sentAt = HelsinkiDateTime.of(LocalDate.of(2020, 1, 5), LocalTime.of(8, 27)),
+    financeDecisionHandlerFirstName = "",
+    financeDecisionHandlerLastName = "",
+    documentContainsContactInfo = false,
+    archivedAt = null,
+)
+
+private val testDocumentVoucherValueDecision = Document(
+    DocumentKey.VoucherValueDecision(testVoucherValueDecision.id).value,
+    "arvopäätös tekstitiedostona".toByteArray(Charsets.UTF_8),
     "text/plain",
 )
 

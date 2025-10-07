@@ -63,6 +63,8 @@ const features: Features = {
     hideChildSicknessSelection: false,
     archiveIntegration: {
       decisions: true,
+      feeDecisions: true,
+      voucherValueDecisions: true,
       childDocuments: true
     },
     citizenChildDocumentTypes: true
