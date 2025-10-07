@@ -8,18 +8,19 @@ import com.profium.reception._2022._03.Collections
 import fi.espoo.evaka.caseprocess.CaseProcess
 import fi.espoo.evaka.decision.Decision
 import fi.espoo.evaka.decision.DecisionType
+import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.s3.Document
 import org.apache.tika.mime.MimeTypes
 import trevaka.jaxb.localDateToXMLGregorianCalendar
 
-internal fun transform(caseProcess: CaseProcess, decision: Decision, document: Document): Pair<Collections.Collection, Map<String, Document>> {
+internal fun transform(caseProcess: CaseProcess, decision: Decision, document: Document, child: PersonDTO): Pair<Collections.Collection, Map<String, Document>> {
     val originalId = decision.id.toString()
     val title = title(decision)
     return Collections.Collection().apply {
         type = "record"
         folder = caseProcess.processDefinitionNumber
         metadata = Collections.Collection.Metadata().apply {
-            this.title = title
+            this.title = "$title, ${child.firstName} ${child.lastName}, ${child.dateOfBirth.format(ARCHIVAL_DATE_FORMATTER)}"
             calculationBaseDate = localDateToXMLGregorianCalendar(decision.endDate.plusDays(1))
             created = decision.sentDate?.let { localDateToXMLGregorianCalendar(it) }
             agent.addAll(transformToAgents(caseProcess))

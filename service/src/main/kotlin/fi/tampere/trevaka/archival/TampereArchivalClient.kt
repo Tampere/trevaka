@@ -55,7 +55,7 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
         document: Document,
         user: EvakaUser,
     ): String? {
-        val (collection, content) = transform(caseProcess, decision, document)
+        val (collection, content) = transform(caseProcess, decision, document, child)
         val collections = transform(user).apply {
             this.collection.add(collection)
         }
