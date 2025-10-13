@@ -19,6 +19,8 @@ evaka:
         post_office: "Nokia"
   planned_absence:
     enabled_for_hour_based_service_needs: true
+  placement_tool:
+    service_need_option_id: "1c5d7ea4-669f-4b4e-8593-353be4c9cea0"
 trevaka:
   municipality: nokia
 nokia:
