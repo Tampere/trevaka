@@ -136,7 +136,7 @@ class NokiaArchivalClientTest : AbstractNokiaIntegrationTest() {
     fun uploadChildDocumentWithoutHistory() {
         assertThrows<IllegalStateException> {
             archivalIntegrationClient.uploadDecisionToArchive(
-                noHistorytestCaseProcessApplication,
+                noHistoryTestCaseProcessApplication,
                 testChildInfo,
                 testDecisionDaycare,
                 testDocumentDecisionDaycare,
@@ -164,7 +164,7 @@ class NokiaArchivalClientTest : AbstractNokiaIntegrationTest() {
     fun uploadFeeDecisionToArchive() {
         val archival = nokiaProperties.archival ?: error("No archival configuration")
         val archiveId = archivalIntegrationClient.uploadFeeDecisionToArchive(
-            testCaseProcessApplication,
+            testCaseProcessFeeDecision,
             testFeeDecision,
             testDocumentFeeDecision,
             testEvakaUser,
@@ -263,6 +263,18 @@ class NokiaArchivalClientTest : AbstractNokiaIntegrationTest() {
             )
         }
     }
+
+    @Test
+    fun `uploadFeeDecision without hof ssn`() {
+        assertThrows<IllegalStateException> {
+            archivalIntegrationClient.uploadFeeDecisionToArchive(
+                testCaseProcessApplication,
+                testFeeDecision.copy(headOfFamily = noSsnTestAdultInfo.toPersonDetailed()),
+                testDocumentFeeDecision,
+                testEvakaUser,
+            )
+        }
+    }
 }
 
 private fun PersonDTO.toChildBasics() = ChildBasics(id, firstName, lastName, dateOfBirth)
@@ -356,17 +368,7 @@ private val testAdultInfo = PersonDTO(
     municipalityOfResidence = "",
 )
 
-private val testNoHistoryCaseProcessApplication = CaseProcess(
-    id = CaseProcessId(UUID.randomUUID()),
-    caseIdentifier = "1/12.06.01.17/2025",
-    processDefinitionNumber = "12.06.01.17",
-    year = 2025,
-    number = 1,
-    organization = "Tampereen kaupunki, varhaiskasvatus ja esiopetus",
-    archiveDurationMonths = 10 * 12,
-    migrated = false,
-    history = emptyList(),
-)
+private val noSsnTestAdultInfo = testAdultInfo.copy(identity = ExternalIdentifier.NoID)
 
 private val testApplicationDaycare = ApplicationDetails(
     id = ApplicationId(UUID.randomUUID()),
@@ -556,7 +558,7 @@ private val testVasuDetails = ChildDocumentDetails(
         legalBasis = "Varhaiskasvatuslaki (540/2018) 40§:n 3 mom.",
         validity = DateRange(LocalDate.of(2024, 8, 1), LocalDate.of(2025, 7, 31)),
         published = true,
-        processDefinitionNumber = "12.06.01.11",
+        processDefinitionNumber = "04.01.00.11",
         archiveDurationMonths = 1440,
         archiveExternally = true,
         endDecisionWhenUnitChanges = false,
@@ -620,23 +622,35 @@ private val fullCaseProcessHistory =
 
 private val testCaseProcessApplication = CaseProcess(
     id = CaseProcessId(UUID.randomUUID()),
-    caseIdentifier = "1/12.06.01.17/2025",
-    processDefinitionNumber = "12.06.01.17",
+    caseIdentifier = "1/04.01.00.11/2025",
+    processDefinitionNumber = "04.01.00.11",
     year = 2025,
     number = 1,
-    organization = "Tampereen kaupunki, varhaiskasvatus ja esiopetus",
+    organization = "Nokian kaupunki, varhaiskasvatus ja esiopetus",
     archiveDurationMonths = 10 * 12,
     migrated = false,
     history = fullCaseProcessHistory,
 )
 
-private val noHistorytestCaseProcessApplication =
+private val testCaseProcessFeeDecision = CaseProcess(
+    id = CaseProcessId(UUID.randomUUID()),
+    caseIdentifier = "1/04.01.00.12/2025",
+    processDefinitionNumber = "04.01.00.12",
+    year = 2025,
+    number = 1,
+    organization = "Nokian kaupunki, varhaiskasvatus ja esiopetus",
+    archiveDurationMonths = 10 * 12,
+    migrated = false,
+    history = fullCaseProcessHistory,
+)
+
+private val noHistoryTestCaseProcessApplication =
     testCaseProcessApplication.copy(history = emptyList())
 
 private val fullTestCaseProcessChildDocument = CaseProcess(
     id = CaseProcessId(UUID.randomUUID()),
-    caseIdentifier = "1/12.06.01.11/2025",
-    processDefinitionNumber = "12.06.01.11",
+    caseIdentifier = "1/04.01.00.11/2025",
+    processDefinitionNumber = "04.01.00.11",
     year = 2025,
     number = 1,
     organization = "Varhaiskasvatustoiminta",

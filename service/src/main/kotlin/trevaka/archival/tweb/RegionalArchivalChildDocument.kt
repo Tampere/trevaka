@@ -38,8 +38,3 @@ internal fun transformChildDocument(childDocumentDetails: ChildDocumentDetails, 
         }
     } to mapOf(originalId to document)
 }
-
-data class AuthorDetails(val name: String, val role: String)
-data class OwnerDetails(val name: String, val ssn: String) {
-    constructor(dto: PersonDTO) : this("${dto.firstName} ${dto.lastName}", if (dto.identity == ExternalIdentifier.NoID) throw error("Document owner has no SSN") else dto.identity.toString()) {}
-}

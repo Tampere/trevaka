@@ -172,3 +172,5 @@ internal fun childTitle(type: String, owner: PersonDTO): String = listOf(
     if (owner.identity == ExternalIdentifier.NoID) error("No owner ssn available") else owner.identity.toString(),
 )
     .joinToString(SEPARATOR_CHARACTER)
+
+data class AuthorDetails(val name: String, val role: String)

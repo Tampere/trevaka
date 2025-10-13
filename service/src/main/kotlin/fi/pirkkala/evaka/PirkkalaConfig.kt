@@ -4,6 +4,7 @@
 
 package fi.pirkkala.evaka
 
+import fi.espoo.evaka.EvakaEnv
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.espoo.DefaultPasswordSpecification
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
@@ -15,12 +16,15 @@ import fi.espoo.evaka.shared.auth.PasswordConstraints
 import fi.espoo.evaka.shared.auth.PasswordSpecification
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
+import fi.espoo.evaka.shared.sftp.SftpClient
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
+import fi.nokiankaupunki.evaka.NokiaProperties
 import fi.pirkkala.evaka.mealintegration.PirkkalaMealTypeMapper
 import fi.pirkkala.evaka.security.PirkkalaActionRuleMapping
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
+import trevaka.archival.tweb.RegionalTwebArchivalClient
 import trevaka.security.TrevakaActionRuleMapping
 import trevaka.titania.PrefixTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
@@ -118,5 +122,9 @@ class PirkkalaConfig {
     )
 
     @Bean
-    fun archivalIntegrationClient(): ArchivalIntegrationClient = ArchivalIntegrationClient.FailingClient()
+    fun archivalIntegrationClient(evakaEnv: EvakaEnv, properties: PirkkalaProperties): ArchivalIntegrationClient = if (evakaEnv.archivalEnabled && properties.archival != null) {
+        RegionalTwebArchivalClient(SftpClient(properties.archival.sftp.toSftpEnv()), properties.archival)
+    } else {
+        ArchivalIntegrationClient.FailingClient()
+    }
 }
