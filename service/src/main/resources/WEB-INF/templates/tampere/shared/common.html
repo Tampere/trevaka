@@ -380,10 +380,17 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             <div th:text="#{decision.approver.additionalInfo}">(allekirjoitettu koneellisesti)</div>
         </th:block>
         <th:block th:unless="${type == 'notice'}">
-            <div th:if="${not #strings.isEmpty(decisionMakerName)}" th:text="${decisionMakerName}"></div>
-            <div th:if="${not #strings.isEmpty(decisionMakerTitle)}" th:text="${decisionMakerTitle}">Asiakaspalvelupäällikkö</div>
-            <div th:if="${not #strings.isEmpty(decisionMakerName) or not #strings.isEmpty(decisionMakerTitle)}"
-                 th:text="#{decision.approver.additionalInfo}">(allekirjoitettu koneellisesti)</div>
+            <th:block th:if="${decision.type.name() == 'PRESCHOOL' or decision.type.name() == 'PRESCHOOL_DAYCARE'}">
+              <div th:text="${manager.name}"></div>
+              <div th:text="#{decision.decisionMakerTitle}">Varhaiskasvatusyksikön johtaja</div>
+              <div th:text="#{decision.approver.additionalInfo}">(allekirjoitettu koneellisesti)</div>
+            </th:block>
+            <th:block th:unless="${decision.type.name() == 'PRESCHOOL' or decision.type.name() == 'PRESCHOOL_DAYCARE'}">
+              <div th:if="${not #strings.isEmpty(decisionMakerName)}" th:text="${decisionMakerName}"></div>
+              <div th:if="${not #strings.isEmpty(decisionMakerTitle)}" th:text="${decisionMakerTitle}">Asiakaspalvelupäällikkö</div>
+              <div th:if="${not #strings.isEmpty(decisionMakerName) or not #strings.isEmpty(decisionMakerTitle)}"
+                   th:text="#{decision.approver.additionalInfo}">(allekirjoitettu koneellisesti)</div>
+            </th:block>
         </th:block>
         <br/>
         <p>
