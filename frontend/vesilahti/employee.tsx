@@ -77,9 +77,10 @@ const customizations: EmployeeCustomizations = {
         },
         modal: {
           absenceTypes: {
+            UNKNOWN_ABSENCE: 'Esiopetuksen ilmoittamaton poissaolo',
             PLANNED_ABSENCE: 'Suunniteltu poissaolo',
             FORCE_MAJEURE: 'Hyvityspäivä',
-            FREE_ABSENCE: 'Kesäajan maksuton poissaolo'
+            FREE_ABSENCE: 'Kesäajan maksuttoman jakson poissaolo'
           }
         }
       },
