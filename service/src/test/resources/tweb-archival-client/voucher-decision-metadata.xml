@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
-<!--
-SPDX-FileCopyrightText: 2023-2025 Tampere region
-
-SPDX-License-Identifier: LGPL-2.1-or-later
--->
-
 <collections xmlns="http://www.profium.com/reception/2022/03" xmlns:ns2="http://www.profium.com/sahke2">
     <initiator>
         <source_system>eVaka</source_system>

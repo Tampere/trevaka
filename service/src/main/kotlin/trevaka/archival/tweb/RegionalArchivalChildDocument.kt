@@ -5,11 +5,8 @@
 package trevaka.archival.tweb
 
 import com.profium.reception._2022._03.Collections
-import com.profium.sahke2.Agent
-import fi.espoo.evaka.application.ChildInfo
 import fi.espoo.evaka.caseprocess.CaseProcess
 import fi.espoo.evaka.document.childdocument.ChildDocumentDetails
-import fi.espoo.evaka.identity.ExternalIdentifier
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.s3.Document
 import org.apache.tika.mime.MimeTypes

@@ -24,25 +24,14 @@ import fi.espoo.evaka.shared.sftp.SftpClient
 import fi.espoo.evaka.user.EvakaUser
 import fi.espoo.evaka.user.EvakaUserType
 import fi.nokiankaupunki.evaka.SftpArchivalProperties
-import fi.tampere.trevaka.ArchivalProperties
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.xml.bind.JAXBContext
-import jakarta.xml.bind.JAXBException
 import jakarta.xml.bind.Marshaller
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.slf4j.MDC
-import java.io.StringReader
 import java.io.StringWriter
-import java.lang.IllegalStateException
-import java.time.format.DateTimeFormatter
 
 private val logger = KotlinLogging.logger {}
 
-internal val SEPARATOR_CHARACTER = ";"
+internal const val SEPARATOR_CHARACTER = ";"
 
 class RegionalTwebArchivalClient(private val client: SftpClient, private val properties: SftpArchivalProperties) : ArchivalIntegrationClient {
 
@@ -56,7 +45,7 @@ class RegionalTwebArchivalClient(private val client: SftpClient, private val pro
         decision: Decision,
         document: Document,
         user: EvakaUser,
-    ): String? {
+    ): String {
         val (collection, content) = transformDecision(caseProcess, decision, document, child)
         val collections = transform(user).apply {
             this.collection.add(collection)
@@ -69,7 +58,7 @@ class RegionalTwebArchivalClient(private val client: SftpClient, private val pro
         decision: FeeDecisionDetailed,
         document: Document,
         user: EvakaUser,
-    ): String? {
+    ): String {
         val (collection, content) = transformFeeDecision(caseProcess, decision, document)
         val collections = transform(user).apply {
             this.collection.add(collection)
@@ -82,7 +71,7 @@ class RegionalTwebArchivalClient(private val client: SftpClient, private val pro
         decision: VoucherValueDecisionDetailed,
         document: Document,
         user: EvakaUser,
-    ): String? {
+    ): String {
         val (collection, content) = transformVoucherDecision(caseProcess, decision, document)
         val collections = transform(user).apply {
             this.collection.add(collection)
@@ -98,7 +87,7 @@ class RegionalTwebArchivalClient(private val client: SftpClient, private val pro
         documentMetadata: DocumentMetadata,
         documentContent: Document,
         evakaUser: EvakaUser,
-    ): String? {
+    ): String {
         val (collection, content) = transformChildDocument(
             childDocumentDetails,
             documentContent,
@@ -119,7 +108,7 @@ class RegionalTwebArchivalClient(private val client: SftpClient, private val pro
         }
     }
 
-    private fun postRecord(collections: Collections, content: Map<String, Document>): String? {
+    private fun postRecord(collections: Collections, content: Map<String, Document>): String {
         val xml = marshal(collections)
         collections.collection.first().content.file
             .map { file ->

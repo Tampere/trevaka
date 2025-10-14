@@ -8,7 +8,6 @@ import com.profium.reception._2022._03.Collections
 import fi.espoo.evaka.caseprocess.CaseProcess
 import fi.espoo.evaka.decision.Decision
 import fi.espoo.evaka.decision.DecisionType
-import fi.espoo.evaka.identity.ExternalIdentifier
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.s3.Document
 import org.apache.tika.mime.MimeTypes

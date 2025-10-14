@@ -18,7 +18,6 @@ import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.shared.sftp.SftpClient
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
-import fi.nokiankaupunki.evaka.NokiaProperties
 import fi.pirkkala.evaka.mealintegration.PirkkalaMealTypeMapper
 import fi.pirkkala.evaka.security.PirkkalaActionRuleMapping
 import org.springframework.context.annotation.Bean

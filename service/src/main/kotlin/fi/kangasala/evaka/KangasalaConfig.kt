@@ -4,8 +4,8 @@
 
 package fi.kangasala.evaka
 
-import fi.espoo.evaka.application.ApplicationStatus
 import fi.espoo.evaka.EvakaEnv
+import fi.espoo.evaka.application.ApplicationStatus
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.espoo.DefaultPasswordSpecification
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
