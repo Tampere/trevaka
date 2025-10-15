@@ -44,6 +44,7 @@
 ;"Erityisruokavalioiden luku";READ_SPECIAL_DIET_LIST;x;;;;;x;;x;x;x;
 ;"Esiopetuskauden luonti";CREATE_PRESCHOOL_TERM;x;;;;;;;;;;
 ;"Esiopetussijoitusten tuonti";PLACEMENT_TOOL;x;;;;;;;;;;
+;"Hahmotellun täyttö/käyttöasteen luku";READ_DRAFT_OCCUPANCIES;x;;;;;x;;;;;
 ;"Hakemuksen luonti";CREATE_PAPER_APPLICATION;x;;;;;x;;;;;
 ;"Henkilöiden haku";SEARCH_PEOPLE;x;;x;x;x;x;;x;;x;x
 ;"Henkilöiden haku (rajoittamaton)";"SEARCH_PEOPLE_UNRESTRICTED";x;;x;x;x;x;;;;;
