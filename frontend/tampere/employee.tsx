@@ -64,6 +64,7 @@ const customizations: EmployeeCustomizations = {
           FREE_ABSENCE: 'Kesäajan maksuttoman jakson poissaolo'
         },
         absenceTypesShort: {
+          UNKNOWN_ABSENCE: 'Esiopetuksen ilmoittamaton',
           PLANNED_ABSENCE: 'Sopim, muk.',
           FORCE_MAJEURE: 'Hyvitys'
         },
