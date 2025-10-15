@@ -110,6 +110,14 @@ nokia:
     password: pass
   bucket:
     export: trevaka-export-it
+  archival:
+    sftp:
+      host: localhost
+      port: 2222
+      host_keys: AAAAC3NzaC1lZDI1NTE5AAAAICADdlntyAKbOUGQDkdzdhQBu12jZjb0KmxLyrklMXTq
+      username: foo
+      password: pass
+      prefix: upload/
 kangasala:
   ipaas:
     username: user
