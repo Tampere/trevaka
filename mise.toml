@@ -10,8 +10,9 @@ idiomatic_version_file_enable_tools = ["terraform"]
 [tools]
 java = "temurin-21"
 node = { version = "22", postinstall = "corepack enable" }
-python = "3.13"
-"pipx:reuse" = "5.0.2"
+python = "3.14"
+uv = "0.9"
+"pipx:reuse" = "6.1.2"
 
 [env]
 NODE_OPTIONS = "--max-old-space-size=8192"
