@@ -6,6 +6,7 @@ package fi.ylojarvi.evaka
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import trevaka.ipaas.IpaasProperties
+import trevaka.sftp.SftpProperties
 
 @ConfigurationProperties(prefix = "ylojarvi")
 data class YlojarviProperties(
@@ -17,7 +18,14 @@ data class YlojarviProperties(
 data class InvoiceProperties(
     val municipalityCode: String,
     val invoiceType: String,
+    val version: YlojarviInvoiceVersion = YlojarviInvoiceVersion.V2024,
+    val sftp: SftpProperties? = null,
 )
+
+enum class YlojarviInvoiceVersion {
+    V2024,
+    V2026,
+}
 
 data class BucketProperties(
     val export: String,

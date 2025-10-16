@@ -10,7 +10,10 @@ import fi.espoo.evaka.invoicing.domain.IncomeType
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.espoo.evaka.invoicing.service.*
 import fi.espoo.evaka.placement.PlacementType
+import fi.espoo.evaka.shared.sftp.SftpClient
+import fi.ylojarvi.evaka.YlojarviInvoiceVersion
 import fi.ylojarvi.evaka.YlojarviProperties
+import fi.ylojarvi.evaka.invoice.YlojarviInvoiceClient
 import fi.ylojarvi.evaka.invoice.service.ProEInvoiceGenerator
 import fi.ylojarvi.evaka.invoice.service.S3Sender
 import fi.ylojarvi.evaka.invoice.service.YlojarviInvoiceIntegrationClient
@@ -30,9 +33,15 @@ class InvoiceConfiguration {
         properties: YlojarviProperties,
         invoiceGenerator: ProEInvoiceGenerator,
         s3Client: S3Client,
-    ): InvoiceIntegrationClient {
-        val s3Sender = S3Sender(s3Client, properties)
-        return YlojarviInvoiceIntegrationClient(clockService, s3Sender, invoiceGenerator)
+    ): InvoiceIntegrationClient = when (properties.invoice.version) {
+        YlojarviInvoiceVersion.V2024 -> {
+            val s3Sender = S3Sender(s3Client, properties)
+            YlojarviInvoiceIntegrationClient(clockService, s3Sender, invoiceGenerator)
+        }
+        YlojarviInvoiceVersion.V2026 -> {
+            val sftpEnv = properties.invoice.sftp?.toSftpEnv() ?: error("Sftp properties not set")
+            YlojarviInvoiceClient(SftpClient(sftpEnv), properties.invoice, clockService)
+        }
     }
 
     @Bean

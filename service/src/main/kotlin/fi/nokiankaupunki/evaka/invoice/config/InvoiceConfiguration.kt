@@ -10,7 +10,10 @@ import fi.espoo.evaka.invoicing.domain.IncomeType
 import fi.espoo.evaka.invoicing.integration.InvoiceIntegrationClient
 import fi.espoo.evaka.invoicing.service.*
 import fi.espoo.evaka.placement.PlacementType
+import fi.espoo.evaka.shared.sftp.SftpClient
+import fi.nokiankaupunki.evaka.NokiaInvoiceVersion
 import fi.nokiankaupunki.evaka.NokiaProperties
+import fi.nokiankaupunki.evaka.invoice.NokiaInvoiceClient
 import fi.nokiankaupunki.evaka.invoice.service.NokiaInvoiceIntegrationClient
 import fi.nokiankaupunki.evaka.invoice.service.ProEInvoiceGenerator
 import fi.nokiankaupunki.evaka.invoice.service.S3Sender
@@ -30,9 +33,15 @@ class InvoiceConfiguration {
         properties: NokiaProperties,
         invoiceGenerator: ProEInvoiceGenerator,
         s3Client: S3Client,
-    ): InvoiceIntegrationClient {
-        val s3Sender = S3Sender(s3Client, properties)
-        return NokiaInvoiceIntegrationClient(clockService, s3Sender, invoiceGenerator)
+    ): InvoiceIntegrationClient = when (properties.invoice.version) {
+        NokiaInvoiceVersion.V2024 -> {
+            val s3Sender = S3Sender(s3Client, properties)
+            NokiaInvoiceIntegrationClient(clockService, s3Sender, invoiceGenerator)
+        }
+        NokiaInvoiceVersion.V2026 -> {
+            val sftpEnv = properties.invoice.sftp?.toSftpEnv() ?: error("Sftp properties not set")
+            NokiaInvoiceClient(SftpClient(sftpEnv), properties.invoice, clockService)
+        }
     }
 
     @Bean
