@@ -96,6 +96,14 @@ ylojarvi:
   ipaas:
     username: user
     password: pass
+  invoice:
+    sftp:
+      host: localhost
+      port: 2222
+      host_keys: AAAAC3NzaC1lZDI1NTE5AAAAICADdlntyAKbOUGQDkdzdhQBu12jZjb0KmxLyrklMXTq
+      username: foo
+      password: pass
+      prefix: upload/
   bucket:
     export: trevaka-export-it
 pirkkala:
@@ -108,6 +116,14 @@ nokia:
   ipaas:
     username: user
     password: pass
+  invoice:
+    sftp:
+      host: localhost
+      port: 2222
+      host_keys: AAAAC3NzaC1lZDI1NTE5AAAAICADdlntyAKbOUGQDkdzdhQBu12jZjb0KmxLyrklMXTq
+      username: foo
+      password: pass
+      prefix: upload/
   bucket:
     export: trevaka-export-it
   archival:
