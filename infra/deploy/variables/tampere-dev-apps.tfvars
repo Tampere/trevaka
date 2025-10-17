@@ -60,6 +60,8 @@ tampere_job_plan_bi_export_jobs_cron    = "0 0 1 * * *"
 
 tampere_summertime_absence_free_month = "JANUARY"
 
+tampere_frends_invoice = true
+
 service_logging_levels = {
   "fi.espoo.evaka.titania" : "DEBUG"
   "fi.tampere.trevaka.archival" : "TRACE"
