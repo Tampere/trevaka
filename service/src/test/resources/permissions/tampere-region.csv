@@ -98,6 +98,7 @@
 ;"Yksikön luonti";CREATE_UNIT;x;;;;;;;;;;
 ;"Yksikön toimintojen luku";READ_UNIT_FEATURES;x;;;;;;;;;;
 Hakemus;Luku;READ;x;;x;;;x;;x;;;
+Hakemus;"Palveluohjauksen viestien luku";"READ_SERVICE_WORKER_ACCOUNT_MESSAGES";x;;;;;x;;;;;
 Hakemus;"Metadatan luku";READ_METADATA;x;;;;;;;;;;
 Hakemus;"Tuen tarpeellisen luku";"READ_IF_HAS_ASSISTANCE_NEED";x;;x;;;x;;x;;x;
 Hakemus;Muokkaus;UPDATE;x;;;;;x;;;;;
@@ -442,7 +443,7 @@ Työntekijä;Poisto;DELETE;x;;;;;;;;;;
 Työntekijä;"Roolien muokkaus";UPDATE_GLOBAL_ROLES;x;;;;;;;;;;
 Työntekijä;"Yksikön roolien muokkaus";UPDATE_DAYCARE_ROLES;x;;;;;;;;;;
 Työntekijä;"Yksikön roolies poisto";DELETE_DAYCARE_ROLES;x;;;;;;;;;;
-Työntekijä;"Henkilöstön läsnäolojen muokkaus";UPDATE_STAFF_ATTENDANCES;x;;x;;;x;;x;;;x
+Työntekijä;"Henkilöstön läsnäolojen muokkaus";UPDATE_STAFF_ATTENDANCES;x;;;;;;;x;;;
 Työntekijä;Aktivointi;ACTIVATE;x;;;;;;;;;;
 Työntekijä;Deaktivointi;DEACTIVATE;x;;;;;;;;;;
 Työntekijä;"Henkilöstön läsnäolojen luku (meneillään oleva)";"READ_OPEN_GROUP_ATTENDANCE";x;;;;;;;;;;

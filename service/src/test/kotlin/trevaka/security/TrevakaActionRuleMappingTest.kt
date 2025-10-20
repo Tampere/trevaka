@@ -642,6 +642,7 @@ private fun translate(entry: Enum<*>) = entry.name to when (entry.name) {
     "UPDATE_DECISION_VALIDITY" -> "Päätöksen voimassaoloajan muokkaus"
     "ARCHIVE" -> "Arkistointi"
     "UPDATE_PLACEMENT_DRAFT" -> "Sijoitushahmotelman muokkaus"
+    "READ_SERVICE_WORKER_ACCOUNT_MESSAGES" -> "Palveluohjauksen viestien luku"
     else -> throw error("Unsupported entry ${entry.name}")
 }
 
