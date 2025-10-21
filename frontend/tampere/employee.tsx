@@ -19,6 +19,7 @@ import type { EmployeeCustomizations } from 'lib-customizations/types'
 
 import TampereLogo from './city-logo.svg'
 import featureFlags from './featureFlags'
+import sharedCustomizations from './shared'
 
 const customizations: EmployeeCustomizations = {
   appConfig: {},
@@ -671,6 +672,8 @@ const customizations: EmployeeCustomizations = {
     'PRIVATE_SERVICE_VOUCHER'
   ],
   voucherValueDecisionTypes: ['NORMAL', 'RELIEF_ACCEPTED', 'RELIEF_REJECTED'],
+  additionalStaffAttendanceTypes:
+    sharedCustomizations.additionalStaffAttendanceTypes,
   getPaymentsDueDate: () => LocalDate.todayInHelsinkiTz()
 }
 

@@ -30,7 +30,6 @@ const prod: FeatureFlags = {
   financeDecisionHandlerSelect: true,
   feeDecisionPreschoolClubFilter: true,
   placementGuarantee: true,
-  staffAttendanceTypes: true,
   intermittentShiftCare: true,
   citizenAttendanceSummary: true,
   noAbsenceType: true,
@@ -38,9 +37,6 @@ const prod: FeatureFlags = {
   voucherValueSeparation: false,
   assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
-  hideOvertimeSelection: false,
-  hideSicknessSelection: true,
-  hideChildSicknessSelection: true,
   hideClubApplication: true,
   discussionReservations: true,
   jamixIntegration: true,
@@ -56,8 +52,6 @@ const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
-    hideSicknessSelection: false,
-    hideChildSicknessSelection: false,
     citizenChildDocumentTypes: true
   },
   prod
