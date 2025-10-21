@@ -34,7 +34,6 @@ const prod: FeatureFlags = {
   financeDecisionHandlerSelect: true,
   feeDecisionPreschoolClubFilter: true,
   placementGuarantee: true,
-  staffAttendanceTypes: true,
   intermittentShiftCare: true,
   citizenAttendanceSummary: true,
   noAbsenceType: true,
@@ -42,9 +41,6 @@ const prod: FeatureFlags = {
   voucherValueSeparation: false,
   assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
-  hideOvertimeSelection: false,
-  hideSicknessSelection: true,
-  hideChildSicknessSelection: true,
   discussionReservations: true,
   aromiIntegration: true,
   serviceApplications: true,
@@ -59,8 +55,6 @@ const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
-    hideSicknessSelection: false,
-    hideChildSicknessSelection: false,
     archiveIntegration: {
       decisions: true,
       feeDecisions: true,

@@ -11,6 +11,7 @@ import type { EmployeeCustomizations } from 'lib-customizations/types'
 
 import VesilahtiLogo from './VesilahtiLogo.svg'
 import featureFlags from './featureFlags'
+import sharedCustomizations from './shared'
 
 const customizations: EmployeeCustomizations = {
   appConfig: {},
@@ -639,7 +640,9 @@ const customizations: EmployeeCustomizations = {
   placementPlanRejectReasons: ['REASON_1', 'REASON_2', 'REASON_3', 'OTHER'],
   preschoolAssistanceLevels: [],
   unitProviderTypes: ['MUNICIPAL', 'PURCHASED', 'PRIVATE'],
-  voucherValueDecisionTypes: ['NORMAL', 'RELIEF_ACCEPTED', 'RELIEF_REJECTED']
+  voucherValueDecisionTypes: ['NORMAL', 'RELIEF_ACCEPTED', 'RELIEF_REJECTED'],
+  additionalStaffAttendanceTypes:
+    sharedCustomizations.additionalStaffAttendanceTypes
 }
 
 export default customizations

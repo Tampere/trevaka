@@ -15,6 +15,7 @@ import type { EmployeeCustomizations } from 'lib-customizations/types'
 
 import PirkkalaLogo from './PirkkalaLogo.svg'
 import featureFlags from './featureFlags'
+import sharedCustomizations from './shared'
 
 const customizations: EmployeeCustomizations = {
   appConfig: {},
@@ -695,7 +696,9 @@ const customizations: EmployeeCustomizations = {
     'PRIVATE',
     'PRIVATE_SERVICE_VOUCHER'
   ],
-  voucherValueDecisionTypes: ['NORMAL', 'RELIEF_ACCEPTED', 'RELIEF_REJECTED']
+  voucherValueDecisionTypes: ['NORMAL', 'RELIEF_ACCEPTED', 'RELIEF_REJECTED'],
+  additionalStaffAttendanceTypes:
+    sharedCustomizations.additionalStaffAttendanceTypes
 }
 
 export default customizations
