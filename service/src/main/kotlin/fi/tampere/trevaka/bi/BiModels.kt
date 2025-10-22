@@ -239,6 +239,11 @@ data class BiAssistanceNeedVoucherCoefficient(
     val coefficient: BigDecimal,
 )
 
+data class BiAttendanceReservation(
+    val child_id: String,
+    val date: LocalDate,
+)
+
 data class BiBackupCare(
     val id: UUID,
     val created: String,
