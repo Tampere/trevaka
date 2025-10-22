@@ -16,6 +16,7 @@ import fi.espoo.evaka.emailclient.MessageThreadData
 import fi.espoo.evaka.invoicing.domain.FinanceDecisionType
 import fi.espoo.evaka.invoicing.service.IncomeNotificationType
 import fi.espoo.evaka.messaging.MessageType
+import fi.espoo.evaka.shared.ApplicationId
 import fi.espoo.evaka.shared.ChildId
 import fi.espoo.evaka.shared.HtmlSafe
 import fi.espoo.evaka.shared.domain.FiniteDateRange
@@ -181,9 +182,9 @@ $unsubscribeEn
 """,
     )
 
-    override fun messageNotification(language: Language, thread: MessageThreadData): EmailContent = messageNotification(language, thread, false)
+    override fun messageNotification(language: Language, thread: MessageThreadData): EmailContent = messageNotification(language, thread, false, null)
 
-    override fun messageNotification(language: Language, thread: MessageThreadData, isSenderMunicipalAccount: Boolean): EmailContent {
+    override fun messageNotification(language: Language, thread: MessageThreadData, isSenderMunicipalAccount: Boolean, applicationId: ApplicationId?): EmailContent {
         val (typeFi, typeEn) =
             when (thread.type) {
                 MessageType.MESSAGE ->
