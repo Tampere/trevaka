@@ -118,6 +118,12 @@ object BiQueries {
         """,
             )
         }
+
+    val getAttendanceReservations =
+        csvQuery<BiAttendanceReservation> {
+            sql("SELECT DISTINCT child_id, date FROM attendance_reservation")
+        }
+
     val getBackupCares =
         csvQuery<BiBackupCare> {
             sql(
