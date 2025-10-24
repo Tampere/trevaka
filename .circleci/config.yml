@@ -35,6 +35,9 @@ parameters:
   force_new_deployment:
     type: boolean
     default: false
+  maintenance_mode_enabled:
+    type: boolean
+    default: false
 
 orbs:
   aws-cli: circleci/aws-cli@5.4.0
@@ -362,7 +365,7 @@ jobs:
               --exact-timestamps \
               --exclude "*index.html" \
               --exclude "*service-worker.js" --exclude "*service-worker.js.map" \
-              --include "maintenance-page/*"
+              --exclude "maintenance-page/*"
   deploy_backends:
     executor: docker_ubuntu
     resource_class: small
@@ -386,7 +389,7 @@ jobs:
       - terraform/apply:
           backend_config: region=${TF_VAR_region},bucket=${TF_VAR_terraform_bucket}
           path: infra/deploy
-          var: apps_version=<< parameters.version >>,force_new_deployment=<< pipeline.parameters.force_new_deployment >>
+          var: apps_version=<< parameters.version >>,force_new_deployment=<< pipeline.parameters.force_new_deployment >>,maintenance_mode_enabled=<< pipeline.parameters.maintenance_mode_enabled >>
           var_file: variables/<< parameters.municipality >>-<<parameters.environment >>-apps.tfvars
 
 workflows:
