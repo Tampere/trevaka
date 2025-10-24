@@ -214,6 +214,7 @@ module "app_service" {
     EVAKA_INTEGRATION_KOSKI_URL                    = var.evaka_integration_koski_enabled ? var.koski_integration_api_url : null
     EVAKA_INTEGRATION_KOSKI_SOURCE_SYSTEM          = var.evaka_integration_koski_enabled ? var.koski_source_system : null
     EVAKA_INTEGRATION_KOSKI_MUNICIPALITY_CALLER_ID = var.evaka_integration_koski_enabled ? var.evaka_integration_koski_municipality_caller_id : null
+    EVAKA_INTEGRATION_KOSKI_SYNC_RANGE_START       = var.evaka_integration_koski_enabled ? var.evaka_integration_koski_start_date : null
 
     # VardaEnv
     EVAKA_INTEGRATION_VARDA_URL           = var.varda_integration_api_url
@@ -369,6 +370,11 @@ variable "evaka_integration_koski_municipality_caller_id" {
   description = "Koski integration municipalicy caller id"
   type        = string
   default     = ""
+}
+
+variable "evaka_integration_koski_start_date" {
+  type    = string
+  default = null
 }
 
 variable "varda_integration_api_url" {

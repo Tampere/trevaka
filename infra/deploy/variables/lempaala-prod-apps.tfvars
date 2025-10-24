@@ -49,6 +49,7 @@ evaka_job_send_outdated_income_notifications_enabled    = true
 evaka_integration_koski_enabled                = false
 koski_integration_api_url                      = "https://koski.opintopolku.fi/koski/api"
 evaka_integration_koski_municipality_caller_id = "lempaalaevaka"
+evaka_integration_koski_start_date             = "2024-08-01"
 
 # service: varda
 varda_integration_enabled = true
