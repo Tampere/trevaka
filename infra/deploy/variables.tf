@@ -25,9 +25,9 @@ variable "force_new_deployment" {
   default = false
 }
 
-variable "maintenance_mode_bucket" {
-  type    = string
-  default = null
+variable "maintenance_mode_enabled" {
+  type    = bool
+  default = false
 }
 
 # internal
