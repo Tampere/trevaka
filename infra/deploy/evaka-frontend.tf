@@ -30,7 +30,7 @@ module "app_proxy" {
   private_subnet_ids = data.aws_subnets.private.ids
   log_group_name     = data.terraform_remote_state.base.outputs.ecs_tasks.evaka_frontend.log_group_name
 
-  lb_listener_rule_priority = 100
+  lb_listener_rule_priority = 200
 
   secrets = {
     RATE_LIMIT_CIDR_WHITELIST = "${local.param_prefix}/frontend/rate-limit-cidr-allowlist"
