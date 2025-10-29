@@ -531,7 +531,8 @@ const customizations: EmployeeCustomizations = {
       footer: {
         cityLabel: 'Kangasalan kaupunki',
         linkLabel: 'Kangasalan varhaiskasvatus',
-        linkHref: 'https://www.kangasala.fi/kasvatus-ja-opetus/varhaiskasvatus/'
+        linkHref:
+          'https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/'
       },
       unit: {
         placementProposals: {
@@ -578,7 +579,7 @@ const customizations: EmployeeCustomizations = {
         placeholder: {
           phone: 'esim. +358 40 555 5555',
           email: 'etunimi.sukunimi@kangasala.fi',
-          url: 'esim. https://www.kangasala.fi/yhteystiedot/peiponpellon-paivakoti/',
+          url: 'esim. https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/paivakodit/',
           streetAddress: 'Kadun nimi esim. Rautialantie 60',
           decisionCustomization: {
             name: 'esim. Peiponpellon päiväkoti'

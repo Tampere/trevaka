@@ -23,7 +23,7 @@ fi.kangasala.evaka:
         
         Lisätietoja varhaiskasvatuksen asiakasmaksuista
         
-        https://www.kangasala.fi/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/
+        https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/asiakasmaksut/
     VOUCHER_VALUE_DECISION_HEADER:
       fi: Kangasalan varhaiskasvatukseen liittyvät päätökset
     VOUCHER_VALUE_DECISION_CONTENT:
@@ -34,7 +34,7 @@ fi.kangasala.evaka:
 
         Lisätietoja:
 
-        https://www.kangasala.fi/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/
+        https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/asiakasmaksut/
     ASSISTANCE_NEED_DECISION_HEADER:
       fi: Kangasalan varhaiskasvatukseen liittyvät päätökset
     ASSISTANCE_NEED_DECISION_CONTENT:

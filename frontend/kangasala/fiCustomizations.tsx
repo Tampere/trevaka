@@ -123,7 +123,7 @@ const fi: DeepPartial<Translations> = {
             )
           },
           serviceVoucherLink:
-            'https://www.kangasala.fi/varhaiskasvatus-ja-opetus/varhaiskasvatus/yksityinen-varhaiskasvatus/tietoa-yksityisiin-varhaiskasvatuspalveluihin-hakeutumisesta/'
+            'https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/palveluseteli/'
         }
       },
       heading: {
@@ -354,7 +354,7 @@ const fi: DeepPartial<Translations> = {
           <P>
             Lisätietoa varhaiskasvatuksen asiakasmaksuista löydät{' '}
             <ExternalLink
-              href="https://kangasala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
+              href="https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/asiakasmaksut/"
               text="Kangasalan kaupungin sivuilta"
               newTab
             />
@@ -368,7 +368,7 @@ const fi: DeepPartial<Translations> = {
             {preschoolEnabled ? ' tai esiopetuspaikkaan' : 'paikkaan'} lääkärin
             tai ravitsemusterapeutin täyttämän ja allekirjoittaman{' '}
             <ExternalLink
-              href="https://www.kangasala.fi/varhaiskasvatus-ja-opetus/varhaiskasvatus/lapsi-varhaiskasvatuksessa/ruokailu-varhaiskasvatuksessa/"
+              href="https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-abc/"
               text="Selvitys erityisruokavaliosta -lomakkeen"
               newTab
             />
@@ -398,7 +398,7 @@ const fi: DeepPartial<Translations> = {
     cityLabel: '© Kangasalan kaupunki',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://www.kangasala.fi/wp-content/uploads/2024/04/kla-evaka-tietosuojaseloste-202404.pdf"
+        href="https://www.kangasala.fi/tietosuoja-ja-tiedonhallinta/tietosuojaselosteet/"
         text="Tietosuojaselosteet"
         newTab={true}
         data-qa="footer-policy-link"
@@ -406,7 +406,7 @@ const fi: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://www.kangasala.fi/kaupunki-ja-paatoksenteko/osallistu-ja-vaikuta/anna-palautetta-ja-vastaa-kyselyihin/"
+        href="https://www.kangasala.fi/tutustu-ja-asioi/osallistu-ja-vaikuta/anna-palautetta/"
         text="Lähetä palautetta"
         newTab={true}
         data-qa="footer-feedback-link"
@@ -436,7 +436,7 @@ const fi: DeepPartial<Translations> = {
           <P>
             Mikäli kirjautuminen tästä ei onnistu, katso ohjeet{' '}
             <a
-              href="https://www.kangasala.fi/varhaiskasvatus-ja-opetus/varhaiskasvatus/sahkoiset-asiointikanavat/evaka/"
+              href="https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/evaka/"
               target="_blank"
               rel="noreferrer"
             >
@@ -462,7 +462,7 @@ const fi: DeepPartial<Translations> = {
     }`,
     privateUnitInfo: <></>,
     serviceVoucherLink:
-      'https://www.kangasala.fi/varhaiskasvatus-ja-opetus/varhaiskasvatus/yksityinen-varhaiskasvatus/tietoa-yksityisiin-varhaiskasvatuspalveluihin-hakeutumisesta/',
+      'https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/palveluseteli/',
     searchPlaceholder: 'Esim. Peiponpellon päiväkoti'
   },
   decisions: {
@@ -760,7 +760,7 @@ const fi: DeepPartial<Translations> = {
           koon ja tulojen sekä varhaiskasvatusajan mukaan.
         </p>
         <p data-qa="income-description-p4">
-          <a href="https://www.kangasala.fi/varhaiskasvatus-ja-opetus/varhaiskasvatus/varhaiskasvatuksen-maksut-ja-tuet/kunnallisen-varhaiskasvatuksen-asiakasmaksut/">
+          <a href="https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/asiakasmaksut/">
             Lisätietoja asiakasmaksuista
           </a>
         </p>
@@ -804,7 +804,7 @@ const fi: DeepPartial<Translations> = {
             <a
               target="_blank"
               rel="noreferrer"
-              href="https://kangasala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
+              href="https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/asiakasmaksut/"
             >
               tästä
             </a>
@@ -913,7 +913,7 @@ const fi: DeepPartial<Translations> = {
         Jos huomaat saavutettavuuspuutteen verkkopalvelussamme, kerro siitä
         meille.{' '}
         <ExternalLink
-          href="https://www.kangasala.fi/kaupunki-ja-paatoksenteko/osallistu-ja-vaikuta/anna-palautetta-ja-vastaa-kyselyihin/"
+          href="https://www.kangasala.fi/tutustu-ja-asioi/osallistu-ja-vaikuta/anna-palautetta/"
           text="Anna saavutettavuuspalautetta tällä verkkolomakkeella"
         />
       </P>
