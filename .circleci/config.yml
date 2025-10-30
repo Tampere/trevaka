@@ -50,7 +50,7 @@ executors:
       - image: cimg/base:current-24.04
   docker_reuse:
     docker:
-      - image: fsfe/reuse:6.1.2 # NOTE: Update add-license-headers.sh to match
+      - image: fsfe/reuse:6.2.0 # NOTE: Update add-license-headers.sh to match
   machine_ubuntu:
     machine:
       image: ubuntu-2404:current
