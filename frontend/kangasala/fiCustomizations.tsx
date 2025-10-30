@@ -406,7 +406,7 @@ const fi: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://www.kangasala.fi/tutustu-ja-asioi/osallistu-ja-vaikuta/anna-palautetta/"
+        href="https://www.kangasala.fi/tutustu-ja-asioi/osallistu-ja-vaikuta/"
         text="Lähetä palautetta"
         newTab={true}
         data-qa="footer-feedback-link"
@@ -913,7 +913,7 @@ const fi: DeepPartial<Translations> = {
         Jos huomaat saavutettavuuspuutteen verkkopalvelussamme, kerro siitä
         meille.{' '}
         <ExternalLink
-          href="https://www.kangasala.fi/tutustu-ja-asioi/osallistu-ja-vaikuta/anna-palautetta/"
+          href="https://www.kangasala.fi/tutustu-ja-asioi/osallistu-ja-vaikuta/"
           text="Anna saavutettavuuspalautetta tällä verkkolomakkeella"
         />
       </P>

@@ -426,7 +426,7 @@ const en: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://www.kangasala.fi/tutustu-ja-asioi/osallistu-ja-vaikuta/anna-palautetta/"
+        href="https://www.kangasala.fi/tutustu-ja-asioi/osallistu-ja-vaikuta/"
         text="Give feedback"
         newTab={true}
         data-qa="footer-feedback-link"
@@ -702,7 +702,7 @@ const en: DeepPartial<Translations> = {
         If you notice an accessibility gap in our online service, please let us
         know! You can give us feedback using the{' '}
         <ExternalLink
-          href="https://www.kangasala.fi/tutustu-ja-asioi/osallistu-ja-vaikuta/anna-palautetta/"
+          href="https://www.kangasala.fi/tutustu-ja-asioi/osallistu-ja-vaikuta/"
           text="Give accessibility feedback with this web form"
         />
       </P>
