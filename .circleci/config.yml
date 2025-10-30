@@ -116,7 +116,7 @@ commands:
   terraform_install:
     steps:
       - terraform/install:
-          terraform_version: 1.12.1
+          terraform_version: 1.13.4
 
 jobs:
   # MISC JOBS
