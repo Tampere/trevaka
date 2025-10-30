@@ -125,7 +125,7 @@ const en: DeepPartial<Translations> = {
             )
           },
           serviceVoucherLink:
-            'https://www.kangasala.fi/varhaiskasvatus-ja-opetus/varhaiskasvatus/yksityinen-varhaiskasvatus/tietoa-yksityisiin-varhaiskasvatuspalveluihin-hakeutumisesta/'
+            'https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/palveluseteli/'
         }
       },
       heading: {
@@ -372,7 +372,7 @@ const en: DeepPartial<Translations> = {
             You will find further information on client fees for early childhood
             education on{' '}
             <ExternalLink
-              href="https://kangasala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
+              href="https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/asiakasmaksut/"
               text="the website of the City of Kangasala"
               newTab
             />
@@ -386,7 +386,7 @@ const en: DeepPartial<Translations> = {
             childhood education
             {preschoolEnabled ? ' or pre-school education centre' : ''} a{' '}
             <ExternalLink
-              href="https://www.kangasala.fi/varhaiskasvatus-ja-opetus/varhaiskasvatus/lapsi-varhaiskasvatuksessa/ruokailu-varhaiskasvatuksessa/"
+              href="https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/varhaiskasvatuksen-abc/"
               text="Notification of Special Diet form"
               newTab
             />
@@ -418,7 +418,7 @@ const en: DeepPartial<Translations> = {
     cityLabel: '© City of Kangasala',
     privacyPolicyLink: (
       <ExternalLink
-        href="https://www.kangasala.fi/wp-content/uploads/2024/04/kla-evaka-tietosuojaseloste-202404.pdf"
+        href="https://www.kangasala.fi/tietosuoja-ja-tiedonhallinta/tietosuojaselosteet/"
         text="Privacy Notices"
         newTab={true}
         data-qa="footer-policy-link"
@@ -426,7 +426,7 @@ const en: DeepPartial<Translations> = {
     ),
     sendFeedbackLink: (
       <ExternalLink
-        href="https://www.kangasala.fi/kaupunki-ja-paatoksenteko/osallistu-ja-vaikuta/anna-palautetta-ja-vastaa-kyselyihin/"
+        href="https://www.kangasala.fi/tutustu-ja-asioi/osallistu-ja-vaikuta/"
         text="Give feedback"
         newTab={true}
         data-qa="footer-feedback-link"
@@ -458,7 +458,7 @@ const en: DeepPartial<Translations> = {
           <P>
             If you are not able to log in here, see the instructions{' '}
             <a
-              href="https://kangasala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/varhaiskasvatuksen-jarjestaminen/"
+              href="https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/evaka/"
               target="_blank"
               rel="noreferrer"
             >
@@ -484,7 +484,7 @@ const en: DeepPartial<Translations> = {
     }`,
     privateUnitInfo: <></>,
     serviceVoucherLink:
-      'https://www.kangasala.fi/varhaiskasvatus-ja-opetus/varhaiskasvatus/yksityinen-varhaiskasvatus/tietoa-yksityisiin-varhaiskasvatuspalveluihin-hakeutumisesta/',
+      'https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/palveluseteli/',
     searchPlaceholder: 'E.g. Amurin päiväkoti'
   },
   decisions: {
@@ -546,7 +546,7 @@ const en: DeepPartial<Translations> = {
           to family size, income and time in early childhood education.
         </p>
         <p>
-          <a href="https://www.kangasala.fi/varhaiskasvatus-ja-opetus/varhaiskasvatus/varhaiskasvatuksen-maksut-ja-tuet/kunnallisen-varhaiskasvatuksen-asiakasmaksut/">
+          <a href="https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/asiakasmaksut/">
             Further information on client fees.
           </a>
         </p>
@@ -589,7 +589,7 @@ const en: DeepPartial<Translations> = {
             <a
               target="_blank"
               rel="noreferrer"
-              href="https://kangasala.fi/palvelut/kasvatus-ja-opetus/varhaiskasvatus/asiakasmaksut/"
+              href="https://www.kangasala.fi/kasva-ja-opi/varhaiskasvatus-ja-esiopetus/asiakasmaksut/"
             >
               hare
             </a>
@@ -702,7 +702,7 @@ const en: DeepPartial<Translations> = {
         If you notice an accessibility gap in our online service, please let us
         know! You can give us feedback using the{' '}
         <ExternalLink
-          href="https://www.kangasala.fi/kaupunki-ja-paatoksenteko/osallistu-ja-vaikuta/anna-palautetta-ja-vastaa-kyselyihin/"
+          href="https://www.kangasala.fi/tutustu-ja-asioi/osallistu-ja-vaikuta/"
           text="Give accessibility feedback with this web form"
         />
       </P>
