@@ -40,9 +40,9 @@ parameters:
     default: false
 
 orbs:
-  aws-cli: circleci/aws-cli@5.4.0
-  aws-ecr: circleci/aws-ecr@9.5.2
-  terraform: circleci/terraform@3.6.0
+  aws-cli: circleci/aws-cli@5.4.1
+  aws-ecr: circleci/aws-ecr@9.7.0
+  terraform: circleci/terraform@3.7.0
 
 executors:
   docker_ubuntu:
@@ -50,7 +50,7 @@ executors:
       - image: cimg/base:current-24.04
   docker_reuse:
     docker:
-      - image: fsfe/reuse:6.1.2 # NOTE: Update add-license-headers.sh to match
+      - image: fsfe/reuse:6.2.0 # NOTE: Update add-license-headers.sh to match
   machine_ubuntu:
     machine:
       image: ubuntu-2404:current
@@ -116,7 +116,7 @@ commands:
   terraform_install:
     steps:
       - terraform/install:
-          terraform_version: 1.12.1
+          terraform_version: 1.13.4
 
 jobs:
   # MISC JOBS
