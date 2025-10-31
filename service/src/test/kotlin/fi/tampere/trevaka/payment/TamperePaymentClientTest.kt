@@ -29,7 +29,6 @@ import org.springframework.ws.test.client.MockWebServiceServer
 import org.springframework.ws.test.client.RequestMatchers.connectionTo
 import org.springframework.ws.test.client.RequestMatchers.payload
 import org.springframework.ws.test.client.ResponseCreators.withPayload
-import trevaka.TrevakaProperties
 import trevaka.addClientInterceptors
 import trevaka.ipaas.IpaasProperties
 import trevaka.newPayloadValidatingInterceptor
@@ -45,8 +44,7 @@ class TamperePaymentClientTest {
 
     @BeforeEach
     fun setup() {
-        val trevakaProperties = TrevakaProperties()
-        val tampereProperties = TampereProperties(
+        val properties = TampereProperties(
             IpaasProperties("user", "pass"),
             InvoiceProperties(""),
             PaymentProperties("http://localhost:8080/payableAccounting"),
@@ -59,7 +57,7 @@ class TamperePaymentClientTest {
             ),
         )
         val configuration = TampereConfig()
-        client = configuration.paymentIntegrationClient(trevakaProperties, tampereProperties) as TamperePaymentClient
+        client = configuration.paymentIntegrationClient(properties) as TamperePaymentClient
         addClientInterceptors(
             client.webServiceTemplate,
             newPayloadValidatingInterceptor(
