@@ -109,7 +109,8 @@ module "app_service" {
     EVAKA_INTEGRATION_AROMI_SFTP_PASSWORD  = var.aromi_enabled ? "${local.param_prefix}/service/aromi/sftp/password" : null
 
     # TrevakaProperties
-    TREVAKA_FRENDS_API_KEY = local.frends_enabled ? "${local.param_prefix}/service/frends/api-key" : null
+    TREVAKA_VTJ_KYSELY_API_KEY = var.trevaka_frends_vtj_kysely ? "${local.param_prefix}/service/vtj/kysely/api-key" : null
+    TREVAKA_VTJ_MUTPA_API_KEY  = var.trevaka_frends_vtj_mutpa ? "${local.param_prefix}/service/vtj/mutpa/api-key" : null
 
     # TampereProperties
     TAMPERE_IPAAS_USERNAME    = var.municipality == "tampere" ? "${local.param_prefix}/service/ipaas/username" : null
@@ -117,6 +118,7 @@ module "app_service" {
     TAMPERE_FRENDS_USERNAME   = var.municipality == "tampere" && var.archival_enabled ? "${local.param_prefix}/service/frends/username" : null
     TAMPERE_FRENDS_PASSWORD   = var.municipality == "tampere" && var.archival_enabled ? "${local.param_prefix}/service/frends/password" : null
     TAMPERE_BUCKET_EXPORT     = var.municipality == "tampere" ? "${local.param_prefix}/service/bucket/export" : null
+    TAMPERE_FINANCE_API_KEY   = var.municipality == "tampere" && (var.tampere_frends_invoice || var.tampere_frends_payment) ? "${local.param_prefix}/service/frends/api-key" : null
     TAMPERE_INVOICE_URL       = var.municipality == "tampere" ? var.tampere_frends_invoice ? "${local.param_prefix}/service/invoice/url/frends" : "${local.param_prefix}/service/invoice/url" : null
     TAMPERE_PAYMENT_URL       = var.municipality == "tampere" ? var.tampere_frends_payment ? "${local.param_prefix}/service/payment/url/frends" : "${local.param_prefix}/service/payment/url" : null
     TAMPERE_ARCHIVAL_BASE_URL = var.municipality == "tampere" && var.archival_enabled ? "${local.param_prefix}/service/archival/base-url" : null
@@ -677,7 +679,6 @@ locals {
   service_version = var.service_version != "" ? var.service_version : var.apps_version
   jamix_enabled   = var.jamix_orders_enabled || var.jamix_diets_enabled
   xroad_instance  = var.environment == "prod" ? "FI" : "FI-TEST"
-  frends_enabled  = var.trevaka_frends_vtj_kysely || var.trevaka_frends_vtj_mutpa || (var.municipality == "tampere" && (var.tampere_frends_invoice || var.tampere_frends_payment))
 }
 
 output "service_version" {

@@ -66,7 +66,7 @@ class FrendsTest : AbstractTampereIntegrationTest() {
         verify(
             postRequestedFor(urlEqualTo("/mock/vtj"))
                 .withoutHeader("Authorization")
-                .withHeader("X-API-KEY", equalTo("frends-api-key-123"))
+                .withHeader("X-API-KEY", equalTo("vtj-kysely-api-key-123"))
                 .withHeader("Content-Type", equalTo("text/xml; charset=UTF-8"))
                 .withHeader("SOAPAction", equalTo("\"\"")),
         )
@@ -89,7 +89,7 @@ class FrendsTest : AbstractTampereIntegrationTest() {
         verify(
             getRequestedFor(urlEqualTo("/mock/modifications/kirjausavain/2021-04-01"))
                 .withoutHeader("Authorization")
-                .withHeader("X-API-KEY", equalTo("frends-api-key-123")),
+                .withHeader("X-API-KEY", equalTo("vtj-mutpa-api-key-123")),
         )
     }
 
@@ -110,7 +110,7 @@ class FrendsTest : AbstractTampereIntegrationTest() {
         verify(
             postRequestedFor(urlEqualTo("/mock/modifications/muutokset"))
                 .withoutHeader("Authorization")
-                .withHeader("X-API-KEY", equalTo("frends-api-key-123")),
+                .withHeader("X-API-KEY", equalTo("vtj-mutpa-api-key-123")),
         )
     }
 
@@ -133,7 +133,7 @@ class FrendsTest : AbstractTampereIntegrationTest() {
         verify(
             postRequestedFor(urlEqualTo("/mock/ipaas/salesOrder"))
                 .withoutHeader("Authorization")
-                .withHeader("X-API-KEY", equalTo("frends-api-key-123"))
+                .withHeader("X-API-KEY", equalTo("finance-api-key-123"))
                 .withHeader(
                     "Content-Type",
                     equalTo("application/soap+xml; charset=utf-8; action=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\""),
@@ -161,7 +161,7 @@ class FrendsTest : AbstractTampereIntegrationTest() {
         verify(
             postRequestedFor(urlEqualTo("/mock/ipaas/payableAccounting"))
                 .withoutHeader("Authorization")
-                .withHeader("X-API-KEY", equalTo("frends-api-key-123"))
+                .withHeader("X-API-KEY", equalTo("finance-api-key-123"))
                 .withHeader(
                     "Content-Type",
                     equalTo("application/soap+xml; charset=utf-8; action=\"http://www.tampere.fi/services/sapfico/payableaccounting/v1.0/SendPayableAccounting\""),

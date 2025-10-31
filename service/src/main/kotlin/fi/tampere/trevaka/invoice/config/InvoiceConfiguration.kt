@@ -32,7 +32,6 @@ import org.springframework.ws.client.core.WebServiceTemplate
 import org.springframework.ws.soap.SoapVersion
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory
 import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
-import trevaka.TrevakaProperties
 import trevaka.frends.newFrendsHttpClient
 import trevaka.ipaas.newIpaasHttpClient
 import java.math.BigDecimal
@@ -49,11 +48,11 @@ internal val SOAP_PACKAGES = arrayOf(
 class InvoiceConfiguration {
     @Primary
     @Bean
-    fun invoiceIntegrationClient(trevakaProperties: TrevakaProperties, tampereProperties: TampereProperties): InvoiceIntegrationClient {
-        val httpClient = if (tampereProperties.enabledFeatures.frendsInvoice) {
-            newFrendsHttpClient(trevakaProperties.frends ?: error("Frends properties not set (TREVAKA_FRENDS_*)"))
+    fun invoiceIntegrationClient(properties: TampereProperties): InvoiceIntegrationClient {
+        val httpClient = if (properties.enabledFeatures.frendsInvoice) {
+            newFrendsHttpClient(properties.financeApiKey ?: error("Finance api key not set (TAMPERE_FINANCE_API_KEY)"))
         } else {
-            newIpaasHttpClient(tampereProperties.ipaas)
+            newIpaasHttpClient(properties.ipaas)
         }
         val messageFactory = SaajSoapMessageFactory().apply {
             setSoapVersion(SoapVersion.SOAP_12)
@@ -69,7 +68,7 @@ class InvoiceConfiguration {
             setMessageSender(SimpleHttpComponents5MessageSender(httpClient))
             afterPropertiesSet()
         }
-        return TampereInvoiceClient(webServiceTemplate, tampereProperties.invoice)
+        return TampereInvoiceClient(webServiceTemplate, properties.invoice)
     }
 
     @Bean

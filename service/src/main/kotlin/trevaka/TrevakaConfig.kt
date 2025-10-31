@@ -23,7 +23,7 @@ class TrevakaConfig {
     @Bean
     fun webServiceMessageSender(trevakaProperties: TrevakaProperties, ipaasProperties: IpaasProperties): WebServiceMessageSender = if (trevakaProperties.enabledFeatures.frendsVtjKysely) {
         SimpleHttpComponents5MessageSender(
-            newFrendsHttpClient(trevakaProperties.frends ?: error("Frends properties not set (TREVAKA_FRENDS_*)")),
+            newFrendsHttpClient(trevakaProperties.vtjKyselyApiKey ?: error("Vtj kysely api key not set (TREVAKA_VTJ_KYSELY_API_KEY)")),
         )
     } else {
         SimpleHttpComponents5MessageSender(newIpaasHttpClient(ipaasProperties))
@@ -31,7 +31,7 @@ class TrevakaConfig {
 
     @Bean
     fun basicAuthCustomizer(trevakaProperties: TrevakaProperties, ipaasProperties: IpaasProperties) = if (trevakaProperties.enabledFeatures.frendsVtjMutpa) {
-        dvvModificationRequestCustomizer(trevakaProperties.frends ?: error("Frends properties not set (TREVAKA_FRENDS_*)"))
+        dvvModificationRequestCustomizer(trevakaProperties.vtjMutpaApiKey ?: error("Vtj mutpa api key not set (TREVAKA_VTJ_MUTPA_API_KEY)"))
     } else {
         ipaasDvvModificationRequestCustomizer(ipaasProperties)
     }

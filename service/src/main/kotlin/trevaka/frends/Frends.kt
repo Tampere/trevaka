@@ -10,17 +10,16 @@ import okhttp3.Interceptor
 import org.apache.hc.client5.http.classic.HttpClient
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder
 import org.springframework.ws.transport.http.HttpComponents5ClientFactory
-import trevaka.FrendsProperties
 
 private const val HEADER_NAME_API_KEY = "X-API-KEY"
 
-fun newFrendsHttpClient(properties: FrendsProperties): HttpClient = HttpClientBuilder.create()
+fun newFrendsHttpClient(apiKey: String): HttpClient = HttpClientBuilder.create()
     .addRequestInterceptorFirst(HttpComponents5ClientFactory.RemoveSoapHeadersInterceptor())
-    .addRequestInterceptorFirst { request, _, _ -> request.addHeader(HEADER_NAME_API_KEY, properties.apiKey) }
+    .addRequestInterceptorFirst { request, _, _ -> request.addHeader(HEADER_NAME_API_KEY, apiKey) }
     .build()
 
-fun dvvModificationRequestCustomizer(properties: FrendsProperties) = DvvModificationRequestCustomizer { request ->
-    request.header(HEADER_NAME_API_KEY, properties.apiKey)
+fun dvvModificationRequestCustomizer(apiKey: String) = DvvModificationRequestCustomizer { request ->
+    request.header(HEADER_NAME_API_KEY, apiKey)
 }
 
 data class FrendsArchivalProperties(

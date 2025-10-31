@@ -45,7 +45,6 @@ import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3AsyncClient
-import trevaka.TrevakaProperties
 import trevaka.frends.basicAuthInterceptor
 import trevaka.frends.newFrendsHttpClient
 import trevaka.ipaas.newIpaasHttpClient
@@ -163,11 +162,11 @@ class TampereConfig {
     fun tampereBiJob(biExportClient: BiExportClient): BiExportJob = BiExportJob(biExportClient)
 
     @Bean
-    fun paymentIntegrationClient(trevakaProperties: TrevakaProperties, tampereProperties: TampereProperties): PaymentIntegrationClient {
-        val httpClient = if (tampereProperties.enabledFeatures.frendsPayment) {
-            newFrendsHttpClient(trevakaProperties.frends ?: error("Frends properties not set (TREVAKA_FRENDS_*)"))
+    fun paymentIntegrationClient(properties: TampereProperties): PaymentIntegrationClient {
+        val httpClient = if (properties.enabledFeatures.frendsPayment) {
+            newFrendsHttpClient(properties.financeApiKey ?: error("Finance api key not set (TAMPERE_FINANCE_API_KEY)"))
         } else {
-            newIpaasHttpClient(tampereProperties.ipaas)
+            newIpaasHttpClient(properties.ipaas)
         }
         val messageFactory = SaajSoapMessageFactory().apply {
             setSoapVersion(SoapVersion.SOAP_12)
@@ -183,7 +182,7 @@ class TampereConfig {
             setMessageSender(SimpleHttpComponents5MessageSender(httpClient))
             afterPropertiesSet()
         }
-        return TamperePaymentClient(webServiceTemplate, tampereProperties.payment)
+        return TamperePaymentClient(webServiceTemplate, properties.payment)
     }
 
     @Bean fun actionRuleMapping(): ActionRuleMapping = TampereActionRuleMapping(TrevakaActionRuleMapping())
