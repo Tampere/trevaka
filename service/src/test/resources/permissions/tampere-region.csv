@@ -69,7 +69,6 @@
 ;"Maksujen haku";SEARCH_PAYMENTS;x;;;x;;;;;;;
 ;"Maksuluonnosten luonti";CREATE_DRAFT_PAYMENTS;x;;;x;;;;;;;
 ;"Maksupäätösten haku";SEARCH_FEE_DECISIONS;x;;x;x;x;;;;;;
-;"Nekun lähetys";SEND_NEKKU_ORDER;x;;;;;;;;;;
 ;"Palveluntarvevaihtoehtojen luku";"READ_SERVICE_NEED_OPTIONS";x;x;x;x;x;x;x;x;x;x;x
 ;"Palveluohjauksen muistiinpanojen luku";"READ_SERVICE_WORKER_APPLICATION_NOTES";x;;x;;;x;;;;;
 ;"Palveluohjauksen muistiinpanojen muokkaus";"WRITE_SERVICE_WORKER_APPLICATION_NOTES";x;;;;;x;;;;;
