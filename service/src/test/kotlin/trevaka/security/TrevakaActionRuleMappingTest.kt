@@ -361,7 +361,6 @@ private fun translate(action: Global) = action.name to when (action) {
     Global.PLACEMENT_TOOL -> "Esiopetussijoitusten tuonti"
     Global.OUT_OF_OFFICE_PAGE -> "Poissaoloviesti-sivu"
     Global.READ_AROMI_ORDERS -> "Aromi-raportti"
-    Global.SEND_NEKKU_ORDER -> "Nekun lähetys"
     Global.READ_PLACEMENT_DESKTOP_DAYCARES -> "Sijoittelutyöpöytä"
     Global.READ_DRAFT_OCCUPANCIES -> "Hahmotellun täyttö/käyttöasteen luku"
 }
