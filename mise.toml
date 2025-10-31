@@ -12,7 +12,8 @@ java = "temurin-21"
 node = { version = "22", postinstall = "corepack enable" }
 python = "3.14"
 uv = "0.9"
-"pipx:reuse" = "6.2.0"
+"pipx:reuse" = "6.2.0" # NOTE: Update .circleci/config.yml to match
+jq = "1"
 
 [env]
 NODE_OPTIONS = "--max-old-space-size=8192"
