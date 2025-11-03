@@ -290,9 +290,6 @@ module "app_service" {
     EVAKA_JOB_END_ACTIVE_PRESCHOOL_ASSISTANCE_DECISIONS_ENABLED              = var.evaka_job_end_active_preschool_assistance_decisions_enabled
     EVAKA_JOB_END_ASSISTANCE_FACTORS_WHICH_BELONG_TO_PAST_PLACEMENTS_ENABLED = var.evaka_job_end_assistance_factors_which_belong_to_past_placements_enabled
 
-    # emergency disabling of metadata migrations
-    EVAKA_JOB_MIGRATE_METADATA_ENABLED = false
-
     # tampereScheduledJobEnv
     TAMPERE_JOB_EXPORT_UNITS_ACL_ENABLED    = var.municipality == "tampere" ? var.tampere_job_export_units_acl_enabled : null
     TAMPERE_JOB_PLAN_BI_EXPORT_JOBS_ENABLED = var.municipality == "tampere" ? var.tampere_job_plan_bi_export_jobs_enabled : null
