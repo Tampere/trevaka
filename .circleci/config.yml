@@ -50,7 +50,7 @@ executors:
       - image: cimg/base:current-24.04
   docker_reuse:
     docker:
-      - image: fsfe/reuse:6.2.0 # NOTE: Update add-license-headers.sh to match
+      - image: fsfe/reuse:6.2.0 # NOTE: Update mise.toml to match
   machine_ubuntu:
     machine:
       image: ubuntu-2404:current
@@ -391,6 +391,14 @@ jobs:
           path: infra/deploy
           var: apps_version=<< parameters.version >>,force_new_deployment=<< pipeline.parameters.force_new_deployment >>,maintenance_mode_enabled=<< pipeline.parameters.maintenance_mode_enabled >>
           var_file: variables/<< parameters.municipality >>-<<parameters.environment >>-apps.tfvars
+      - when:
+          condition: << pipeline.parameters.force_new_deployment >>
+          steps:
+            - terraform/apply:
+                backend_config: region=${TF_VAR_region},bucket=${TF_VAR_terraform_bucket}
+                path: infra/deploy
+                var: apps_version=<< parameters.version >>,force_new_deployment=false,maintenance_mode_enabled=<< pipeline.parameters.maintenance_mode_enabled >>
+                var_file: variables/<< parameters.municipality >>-<<parameters.environment >>-apps.tfvars
 
 workflows:
   version: 2

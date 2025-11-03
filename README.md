@@ -66,6 +66,8 @@ It is also possible start test environment locally with just Docker Compose:
 
 You can also start other supported configurations with `EVAKA_CUSTOMIZATIONS` environment variable, e.g.:
 
+It is also possible to set instance counts, e.g.: `docker compose --profile evaka up --scale apigw=4 --scale service=2`
+
 ```sh
 EVAKA_CUSTOMIZATIONS=vesilahti docker compose --profile evaka up --build
 ``````

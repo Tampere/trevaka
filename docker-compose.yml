@@ -85,8 +85,6 @@ services:
   apigw:
     build: evaka/apigw
     image: ${EVAKA_APIGW_IMAGE}
-    ports:
-      - "3000"
     hostname: apigw
     depends_on:
       - valkey
@@ -116,8 +114,6 @@ services:
       additional_contexts: # requires docker-compose 2.17.0 or newer
         core: evaka
     image: ${EVAKA_SERVICE_IMAGE}
-    ports:
-      - "8888:8888"
     hostname: service
     depends_on:
       - db

@@ -9,7 +9,6 @@ set -euo pipefail
 
 # Configuration
 DEBUG=${DEBUG:-false}
-REUSE_VERSION=6.2.0 # NOTE: Update .circleci/config.yml to match
 START_YEAR=2023
 CURRENT_YEAR=$(date +"%Y")
 if [ "${START_YEAR}" == "${CURRENT_YEAR}" ]; then
@@ -17,8 +16,6 @@ if [ "${START_YEAR}" == "${CURRENT_YEAR}" ]; then
 else
     REUSE_YEARS="${START_YEAR}-${CURRENT_YEAR}"
 fi
-
-REUSE_IMAGE="fsfe/reuse:${REUSE_VERSION}"
 
 if [ "$DEBUG" = "true" ]; then
     set -x
@@ -30,9 +27,6 @@ if [ -z "${REPO_ROOT}" ]; then
   # not in a submodule -> just get the repository root
   REPO_ROOT=$(git rev-parse --show-toplevel)
 fi
-
-# strip absolute git repository path from absolute working directory path
-REPO_PREFIX=${PWD#"${REPO_ROOT}"}
 
 if [ "${1:-X}" = '--help' ]; then
   echo 'Usage: ./bin/add-license-headers.sh [OPTIONS]'
@@ -46,20 +40,10 @@ if [ "${1:-X}" = '--help' ]; then
   exit 0
 fi
 
-function run_reuse() {
-    run_args=("$@")
-    docker run -u "${UID}" --rm --volume "${REPO_ROOT}:/data" --workdir "/data${REPO_PREFIX}" "$REUSE_IMAGE" "${run_args[@]}"
-}
-
-function addheader() {
-    local file="$1"
-    run_reuse annotate --license "LGPL-2.1-or-later" --copyright "Tampere region" --year "$REUSE_YEARS" "$file"
-}
-
 # MAIN SCRIPT
 
 set +e
-REUSE_OUTPUT=$(run_reuse lint)
+REUSE_OUTPUT=$(reuse lint)
 REUSE_EXIT_CODE="$?"
 set -e
 
@@ -77,7 +61,7 @@ if [ "$REUSE_EXIT_CODE" != 1 ]; then
 fi
 
 set +e
-REUSE_OUTPUT_JSON=$(run_reuse lint --json)
+REUSE_OUTPUT_JSON=$(reuse lint --json)
 set -e
 
 # shellcheck disable=SC2207
@@ -89,7 +73,7 @@ for license in "${MISSING_LICENSES[@]}"; do
     fi
 
     if [ ! -f "${REPO_ROOT}/LICENSES/${license}.txt" ]; then
-        run_reuse download "$license"
+        reuse download "$license"
     fi
 done
 
@@ -101,7 +85,7 @@ while IFS= read -r file; do
         continue
     fi
 
-    addheader "$file"
+    reuse annotate --license "LGPL-2.1-or-later" --copyright "Tampere region" --year "$REUSE_YEARS" "$file"
 done <<< "$NONCOMPLIANT_FILES"
 
 echo 'All files are REUSE compliant'
