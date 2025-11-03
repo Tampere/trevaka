@@ -46,8 +46,8 @@ evaka:
     url: "https://localhost:9876"
 
 trevaka:
-  frends:
-    api-key: frends-api-key-123
+  vtj-kysely-api-key: vtj-kysely-api-key-123
+  vtj-mutpa-api-key: vtj-mutpa-api-key-123
 
 tampere:
   ipaas:
@@ -56,6 +56,7 @@ tampere:
   frends:
     username: frends-user
     password: frends-pass
+  finance-api-key: finance-api-key-123
   invoice:
     url: http://localhost:${server.port}/dev-api/tampere/salesOrder
   payment:

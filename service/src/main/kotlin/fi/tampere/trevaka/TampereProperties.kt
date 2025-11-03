@@ -20,6 +20,7 @@ data class TampereProperties(
     val summertimeAbsence: SummertimeAbsenceProperties = SummertimeAbsenceProperties(),
     val bucket: BucketProperties,
     val biExport: BiExportProperties,
+    val financeApiKey: String? = null,
     val frends: FrendsArchivalProperties? = null,
     val archival: ArchivalProperties? = null,
     val enabledFeatures: TampereEnabledFeatures = TampereEnabledFeatures(),
