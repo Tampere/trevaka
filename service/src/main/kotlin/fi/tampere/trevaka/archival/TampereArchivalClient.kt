@@ -33,7 +33,6 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.slf4j.MDC
 import java.io.StringReader
 import java.io.StringWriter
-import java.lang.IllegalStateException
 import java.time.format.DateTimeFormatter
 
 private val logger = KotlinLogging.logger {}
@@ -186,6 +185,18 @@ private fun extractAgents(caseProcess: CaseProcess?): List<AuthorDetails> = case
     ?.groupBy { it.enteredBy.id }
     ?.map { AuthorDetails(it.value[0].enteredBy.name, extractAgentRole(it.value)) }
     ?: throw IllegalStateException("No employee agents found for case process ${caseProcess?.id}")
+
+internal fun createDecisionMakerAgent(firstName: String?, lastName: String?): List<Agent> = if (firstName != null && lastName != null) {
+    listOf(
+        Agent().apply {
+            agentRole = "Päättäjä"
+            agentName = "$firstName $lastName"
+            // agent corporateName left empty
+        },
+    )
+} else {
+    emptyList()
+}
 
 internal fun transformToAgents(caseProcess: CaseProcess): List<Agent> = extractAgents(caseProcess).map {
     Agent().apply {

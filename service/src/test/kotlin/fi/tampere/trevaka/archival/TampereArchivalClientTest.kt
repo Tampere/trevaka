@@ -114,27 +114,7 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
         )
         assertEquals("archive-record-id-1", archiveId)
 
-        verify(
-            postRequestedFor(urlEqualTo("/mock/frends/archival/records/add"))
-                .withBasicAuth(BasicCredentials("frends-user", "frends-pass"))
-                .withHeader("Content-Type", containing("multipart/form-data; boundary="))
-                .withoutHeader("X-API-key")
-                .withoutHeader("X-API-transactionid") // only set when running AsyncJob
-                .withRequestBodyPart(
-                    MultipartValuePatternBuilder()
-                        .withHeader("Content-Disposition", equalTo("form-data; name=\"xml\""))
-                        .withHeader("Content-Type", equalTo("application/xml; charset=utf-8"))
-                        .withBody(equalToXml(ClassPathResource("archival-client/archival-post-record-request-decision-daycare.xml").getContentAsString(Charsets.UTF_8)))
-                        .build(),
-                )
-                .withRequestBodyPart(
-                    MultipartValuePatternBuilder()
-                        .withHeader("Content-Disposition", equalTo("form-data; name=\"content\"; filename=\"${testDecisionDaycare.id}\""))
-                        .withHeader("Content-Type", equalTo("text/plain"))
-                        .withBody(equalTo("vakapäätös tekstitiedostona"))
-                        .build(),
-                ),
-        )
+        validateMockContent("archival-client/archival-post-record-request-decision-daycare.xml", testDecisionDaycare.id.toString(), "vakapäätös tekstitiedostona")
     }
 
     @Test
@@ -171,27 +151,29 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
         )
         assertEquals("archive-record-id-1", archiveId)
 
-        verify(
-            postRequestedFor(urlEqualTo("/mock/frends/archival/records/add"))
-                .withBasicAuth(BasicCredentials("frends-user", "frends-pass"))
-                .withHeader("Content-Type", containing("multipart/form-data; boundary="))
-                .withoutHeader("X-API-key")
-                .withoutHeader("X-API-transactionid") // only set when running AsyncJob
-                .withRequestBodyPart(
-                    MultipartValuePatternBuilder()
-                        .withHeader("Content-Disposition", equalTo("form-data; name=\"xml\""))
-                        .withHeader("Content-Type", equalTo("application/xml; charset=utf-8"))
-                        .withBody(equalToXml(ClassPathResource("archival-client/archival-post-record-request-fee-decision-daycare.xml").getContentAsString(Charsets.UTF_8)))
-                        .build(),
-                )
-                .withRequestBodyPart(
-                    MultipartValuePatternBuilder()
-                        .withHeader("Content-Disposition", equalTo("form-data; name=\"content\"; filename=\"${testFeeDecision.id}\""))
-                        .withHeader("Content-Type", equalTo("text/plain"))
-                        .withBody(equalTo("maksupäätös tekstitiedostona"))
-                        .build(),
-                ),
+        validateMockContent("archival-client/archival-post-record-request-fee-decision-daycare.xml", testFeeDecision.id.toString(), "maksupäätös tekstitiedostona")
+    }
+
+    @Test
+    fun uploadFeeDecisionWithNoDeciderToArchive() {
+        stubFor(
+            post(urlEqualTo("/mock/frends/archival/records/add")).willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("Content-Type", "application/xml")
+                    .withBodyFile("archival-client/archival-response-success.xml"),
+            ),
         )
+
+        val archiveId = archivalIntegrationClient.uploadFeeDecisionToArchive(
+            testCaseProcessApplication,
+            noDeciderTestFeeDecision,
+            testDocumentFeeDecision,
+            testEvakaUser,
+        )
+        assertEquals("archive-record-id-1", archiveId)
+
+        validateMockContent("archival-client/archival-post-record-request-fee-decision-daycare-no-decider.xml", noDeciderTestFeeDecision.id.toString(), "maksupäätös tekstitiedostona")
     }
 
     @Test
@@ -213,27 +195,29 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
         )
         assertEquals("archive-record-id-1", archiveId)
 
-        verify(
-            postRequestedFor(urlEqualTo("/mock/frends/archival/records/add"))
-                .withBasicAuth(BasicCredentials("frends-user", "frends-pass"))
-                .withHeader("Content-Type", containing("multipart/form-data; boundary="))
-                .withoutHeader("X-API-key")
-                .withoutHeader("X-API-transactionid") // only set when running AsyncJob
-                .withRequestBodyPart(
-                    MultipartValuePatternBuilder()
-                        .withHeader("Content-Disposition", equalTo("form-data; name=\"xml\""))
-                        .withHeader("Content-Type", equalTo("application/xml; charset=utf-8"))
-                        .withBody(equalToXml(ClassPathResource("archival-client/archival-post-record-request-voucher-value-decision-daycare.xml").getContentAsString(Charsets.UTF_8)))
-                        .build(),
-                )
-                .withRequestBodyPart(
-                    MultipartValuePatternBuilder()
-                        .withHeader("Content-Disposition", equalTo("form-data; name=\"content\"; filename=\"${testVoucherValueDecision.id}\""))
-                        .withHeader("Content-Type", equalTo("text/plain"))
-                        .withBody(equalTo("arvopäätös tekstitiedostona"))
-                        .build(),
-                ),
+        validateMockContent("archival-client/archival-post-record-request-voucher-value-decision-daycare.xml", testVoucherValueDecision.id.toString(), "arvopäätös tekstitiedostona")
+    }
+
+    @Test
+    fun uploadVoucherValueDecisionWithNoDeciderToArchive() {
+        stubFor(
+            post(urlEqualTo("/mock/frends/archival/records/add")).willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("Content-Type", "application/xml")
+                    .withBodyFile("archival-client/archival-response-success.xml"),
+            ),
         )
+
+        val archiveId = archivalIntegrationClient.uploadVoucherValueDecisionToArchive(
+            testCaseProcessApplication,
+            noDeciderTestVoucherDecision,
+            testDocumentVoucherValueDecision,
+            testEvakaUser,
+        )
+        assertEquals("archive-record-id-1", archiveId)
+
+        validateMockContent("archival-client/archival-post-record-request-voucher-value-decision-daycare-no-decider.xml", noDeciderTestVoucherDecision.id.toString(), "arvopäätös tekstitiedostona")
     }
 
     @Test
@@ -258,27 +242,7 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
         )
         assertEquals("archive-record-id-1", archiveId)
 
-        verify(
-            postRequestedFor(urlEqualTo("/mock/frends/archival/records/add"))
-                .withBasicAuth(BasicCredentials("frends-user", "frends-pass"))
-                .withHeader("Content-Type", containing("multipart/form-data; boundary="))
-                .withoutHeader("X-API-key")
-                .withoutHeader("X-API-transactionid") // only set when running AsyncJob
-                .withRequestBodyPart(
-                    MultipartValuePatternBuilder()
-                        .withHeader("Content-Disposition", equalTo("form-data; name=\"xml\""))
-                        .withHeader("Content-Type", equalTo("application/xml; charset=utf-8"))
-                        .withBody(equalToXml(ClassPathResource("archival-client/archival-post-record-request-child-document.xml").getContentAsString(Charsets.UTF_8)))
-                        .build(),
-                )
-                .withRequestBodyPart(
-                    MultipartValuePatternBuilder()
-                        .withHeader("Content-Disposition", equalTo("form-data; name=\"content\"; filename=\"${testVasuDetails.id}\""))
-                        .withHeader("Content-Type", equalTo("text/plain"))
-                        .withBody(equalTo("vasu tekstitiedostona"))
-                        .build(),
-                ),
-        )
+        validateMockContent("archival-client/archival-post-record-request-child-document.xml", testVasuDetails.id.toString())
     }
 
     @Test
@@ -303,28 +267,7 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
                 testEvakaUser,
             ),
         )
-
-        verify(
-            postRequestedFor(urlEqualTo("/mock/frends/archival/records/add"))
-                .withBasicAuth(BasicCredentials("frends-user", "frends-pass"))
-                .withHeader("Content-Type", containing("multipart/form-data; boundary="))
-                .withoutHeader("X-API-key")
-                .withoutHeader("X-API-transactionid") // only set when running AsyncJob
-                .withRequestBodyPart(
-                    MultipartValuePatternBuilder()
-                        .withHeader("Content-Disposition", equalTo("form-data; name=\"xml\""))
-                        .withHeader("Content-Type", equalTo("application/xml; charset=utf-8"))
-                        .withBody(equalToXml(ClassPathResource("archival-client/archival-post-record-request-child-document.xml").getContentAsString(Charsets.UTF_8)))
-                        .build(),
-                )
-                .withRequestBodyPart(
-                    MultipartValuePatternBuilder()
-                        .withHeader("Content-Disposition", equalTo("form-data; name=\"content\"; filename=\"${testVasuDetails.id}\""))
-                        .withHeader("Content-Type", equalTo("text/plain"))
-                        .withBody(equalTo("vasu tekstitiedostona"))
-                        .build(),
-                ),
-        )
+        validateMockContent("archival-client/archival-post-record-request-child-document.xml", testVasuDetails.id.toString())
     }
 
     @Test
@@ -417,6 +360,20 @@ private val testAdultInfo = PersonDTO(
     municipalityOfResidence = "",
 )
 
+private val testEvakaUser = EvakaUser(AuthenticatedUser.SystemInternalUser.evakaUserId, "eVaka", EvakaUserType.SYSTEM)
+
+private val testPreparerUser = EvakaUser(
+    id = EvakaUserId(UUID.randomUUID()),
+    name = "Esko Esivalmistelija",
+    EvakaUserType.EMPLOYEE,
+)
+
+private val testDeciderUser = EvakaUser(
+    id = EvakaUserId(UUID.randomUUID()),
+    name = "Pänü Päättäjä",
+    EvakaUserType.EMPLOYEE,
+)
+
 private val testCaseProcessApplication = CaseProcess(
     id = CaseProcessId(UUID.randomUUID()),
     caseIdentifier = "1/12.06.01.17/2025",
@@ -426,7 +383,32 @@ private val testCaseProcessApplication = CaseProcess(
     organization = "Tampereen kaupunki, varhaiskasvatus ja esiopetus",
     archiveDurationMonths = 10 * 12,
     migrated = false,
-    history = emptyList(),
+    history = listOf(
+        CaseProcessHistoryRow(
+            rowIndex = 1,
+            state = CaseProcessState.INITIAL,
+            enteredAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 45)),
+            enteredBy = testPreparerUser,
+        ),
+        CaseProcessHistoryRow(
+            rowIndex = 2,
+            state = CaseProcessState.PREPARATION,
+            enteredAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 45)),
+            enteredBy = testPreparerUser,
+        ),
+        CaseProcessHistoryRow(
+            rowIndex = 3,
+            state = CaseProcessState.DECIDING,
+            enteredAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 55)),
+            enteredBy = testDeciderUser,
+        ),
+        CaseProcessHistoryRow(
+            rowIndex = 4,
+            state = CaseProcessState.COMPLETED,
+            enteredAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 55)),
+            enteredBy = testEvakaUser,
+        ),
+    ),
 )
 
 private val testApplicationDaycare = ApplicationDetails(
@@ -530,11 +512,14 @@ private val testFeeDecision = FeeDecisionDetailed(
     approvedAt = HelsinkiDateTime.of(LocalDate.of(2020, 1, 15), LocalTime.of(14, 43)),
     sentAt = HelsinkiDateTime.of(LocalDate.of(2020, 1, 5), LocalTime.of(8, 27)),
     feeThresholds = feeThresholds2020.getFeeDecisionThresholds(2),
-    financeDecisionHandlerFirstName = "",
-    financeDecisionHandlerLastName = "",
+    financeDecisionHandlerFirstName = "Arto",
+    financeDecisionHandlerLastName = "Asiakasmaksusihteeri",
     documentContainsContactInfo = false,
     archivedAt = null,
 )
+
+private val noDeciderTestFeeDecision =
+    testFeeDecision.copy(financeDecisionHandlerFirstName = null, financeDecisionHandlerLastName = null)
 
 private val testDocumentFeeDecision = Document(
     DocumentKey.FeeDecision(testFeeDecision.id, OfficialLanguage.FI).value,
@@ -586,11 +571,13 @@ private val testVoucherValueDecision = VoucherValueDecisionDetailed(
     voucherValue = 0,
     approvedAt = HelsinkiDateTime.of(LocalDate.of(2020, 1, 15), LocalTime.of(14, 43)),
     sentAt = HelsinkiDateTime.of(LocalDate.of(2020, 1, 5), LocalTime.of(8, 27)),
-    financeDecisionHandlerFirstName = "",
-    financeDecisionHandlerLastName = "",
+    financeDecisionHandlerFirstName = "Marjo",
+    financeDecisionHandlerLastName = "Maksumestari",
     documentContainsContactInfo = false,
     archivedAt = null,
 )
+
+private val noDeciderTestVoucherDecision = testVoucherValueDecision.copy(financeDecisionHandlerFirstName = null, financeDecisionHandlerLastName = null)
 
 private val testDocumentVoucherValueDecision = Document(
     DocumentKey.VoucherValueDecision(testVoucherValueDecision.id).value,
@@ -637,20 +624,6 @@ private val testDocumentChildDocument = Document(
     "text/plain",
 )
 
-private val testEvakaUser = EvakaUser(AuthenticatedUser.SystemInternalUser.evakaUserId, "eVaka", EvakaUserType.SYSTEM)
-
-private val testPreparerUser = EvakaUser(
-    id = EvakaUserId(UUID.randomUUID()),
-    name = "Esko Esivalmistelija",
-    EvakaUserType.EMPLOYEE,
-)
-
-private val testDeciderUser = EvakaUser(
-    id = EvakaUserId(UUID.randomUUID()),
-    name = "Pänü Päättäjä",
-    EvakaUserType.EMPLOYEE,
-)
-
 private val fullTestCaseProcessChildDocument = CaseProcess(
     id = CaseProcessId(UUID.randomUUID()),
     caseIdentifier = "1/12.06.01.11/2025",
@@ -686,4 +659,26 @@ private val fullTestCaseProcessChildDocument = CaseProcess(
             enteredBy = testEvakaUser,
         ),
     ),
+)
+
+private fun validateMockContent(metadataPath: String, documentId: String, documentContent: String = "vasu tekstitiedostona") = verify(
+    postRequestedFor(urlEqualTo("/mock/frends/archival/records/add"))
+        .withBasicAuth(BasicCredentials("frends-user", "frends-pass"))
+        .withHeader("Content-Type", containing("multipart/form-data; boundary="))
+        .withoutHeader("X-API-key")
+        .withoutHeader("X-API-transactionid") // only set when running AsyncJob
+        .withRequestBodyPart(
+            MultipartValuePatternBuilder()
+                .withHeader("Content-Disposition", equalTo("form-data; name=\"xml\""))
+                .withHeader("Content-Type", equalTo("application/xml; charset=utf-8"))
+                .withBody(equalToXml(ClassPathResource(metadataPath).getContentAsString(Charsets.UTF_8)))
+                .build(),
+        )
+        .withRequestBodyPart(
+            MultipartValuePatternBuilder()
+                .withHeader("Content-Disposition", equalTo("form-data; name=\"content\"; filename=\"$documentId\""))
+                .withHeader("Content-Type", equalTo("text/plain"))
+                .withBody(equalTo(documentContent))
+                .build(),
+        ),
 )

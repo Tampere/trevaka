@@ -20,7 +20,7 @@ internal fun transform(caseProcess: CaseProcess, voucherValueDecision: VoucherVa
             title = "Arvopäätös, ${voucherValueDecision.headOfFamily.firstName} ${voucherValueDecision.headOfFamily.lastName}, ${voucherValueDecision.headOfFamily.dateOfBirth.format(ARCHIVAL_DATE_FORMATTER)}"
             calculationBaseDate = localDateToXMLGregorianCalendar(voucherValueDecision.validTo.plusDays(1))
             created = voucherValueDecision.approvedAt?.let { localDateToXMLGregorianCalendar(it.toLocalDate()) }
-            agent.addAll(transformToAgents(caseProcess))
+            agent.addAll(createDecisionMakerAgent(voucherValueDecision.financeDecisionHandlerFirstName, voucherValueDecision.financeDecisionHandlerLastName))
         }
         content = Collections.Collection.Content().apply {
             file.add(
