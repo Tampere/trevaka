@@ -47,7 +47,7 @@ const customizations: EmployeeCustomizations = {
       absences: {
         absenceCategories: {
           NONBILLABLE: 'Esiopetus / kerhotoiminta / koululaisen vuorohoito',
-          BILLABLE: 'Varhaiskasvatus / esiopetuksen kerho'
+          BILLABLE: 'Varhaiskasvatus / täydentävä varhaiskasvatus'
         },
         absenceTypes: {
           UNKNOWN_ABSENCE: 'Esiopetuksen ilmoittamaton poissaolo',
