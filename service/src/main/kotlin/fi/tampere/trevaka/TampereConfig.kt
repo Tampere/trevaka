@@ -102,7 +102,7 @@ class TampereConfig {
                     )
                 ArchiveProcessType.APPLICATION_CLUB ->
                     ArchiveProcessConfig(
-                        processDefinitionNumber = "12.06.01.19",
+                        processDefinitionNumber = "12.06.01.26",
                         archiveDurationMonths = 10 * 12,
                     )
                 ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE ->
