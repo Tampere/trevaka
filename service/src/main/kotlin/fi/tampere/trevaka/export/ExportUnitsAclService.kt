@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service
 import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.model.PutObjectRequest
+import java.time.format.DateTimeFormatter
 
 @JsonPropertyOrder(value = ["unitId", "unitName", "firstName", "lastName", "email", "employeeNumber"])
 data class UnitAclRow(
@@ -25,6 +26,8 @@ data class UnitAclRow(
     @get:JsonProperty("email") val email: String?,
     @get:JsonProperty("employee_number")val employeeNumber: String?,
 )
+
+private val TIMESTAMP_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd")
 
 @Service
 class ExportUnitsAclService(private val s3Client: S3Client, private val properties: TampereProperties) {
@@ -41,7 +44,7 @@ class ExportUnitsAclService(private val s3Client: S3Client, private val properti
         val csv = mapper.writer(schema).writeValueAsString(unitsAcl)
 
         val bucket = properties.bucket.export
-        val key = "reporting/acl/tampere_evaka_acl_${timestamp.toInstant().toEpochMilli()}.csv"
+        val key = "reporting/acl/tampere_evaka_acl_${timestamp.toLocalDate().format(TIMESTAMP_FORMATTER)}.csv"
         val request = PutObjectRequest.builder()
             .bucket(bucket)
             .key(key)
