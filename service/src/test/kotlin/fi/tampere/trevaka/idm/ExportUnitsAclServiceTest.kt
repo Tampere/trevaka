@@ -14,6 +14,7 @@ import fi.espoo.evaka.shared.dev.insert
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
 import fi.tampere.trevaka.AbstractTampereIntegrationTest
 import fi.tampere.trevaka.export.ExportUnitsAclService
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -55,6 +56,7 @@ class ExportUnitsAclServiceTest : AbstractTampereIntegrationTest() {
 
         val (bucket, key) = db.transaction { tx -> exportUnitsAclService.exportUnitsAcl(tx, timestamp) }
 
+        assertThat(key).isEqualTo("reporting/acl/tampere_evaka_acl_20231214.csv")
         val (data, contentType) = getS3Object(bucket, key).use {
             it.readAllBytes().toString(StandardCharsets.UTF_8) to it.response().contentType()
         }
