@@ -20,7 +20,7 @@ internal fun transform(caseProcess: CaseProcess, feeDecision: FeeDecisionDetaile
             title = "Maksupäätös, ${feeDecision.headOfFamily.firstName} ${feeDecision.headOfFamily.lastName}, ${feeDecision.headOfFamily.dateOfBirth.format(ARCHIVAL_DATE_FORMATTER)}"
             calculationBaseDate = localDateToXMLGregorianCalendar(feeDecision.validDuring.end.plusDays(1))
             created = feeDecision.approvedAt?.let { localDateToXMLGregorianCalendar(it.toLocalDate()) }
-            agent.addAll(transformToAgents(caseProcess))
+            agent.addAll(createDecisionMakerAgent(feeDecision.financeDecisionHandlerFirstName, feeDecision.financeDecisionHandlerLastName))
         }
         content = Collections.Collection.Content().apply {
             file.add(

@@ -21,6 +21,7 @@ logging:
         evaka.invoicing.integration.IntegrationClient: DEBUG
       tampere:
         trevaka: DEBUG
+        trevaka.archival: TRACE
     org:
       springframework:
         boot:
