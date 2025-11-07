@@ -56,6 +56,9 @@ class PalvelukykykyselyReportTest : AbstractTampereIntegrationTest() {
             email = "petunian@säpo",
         )
 
+        val startDate = LocalDate.of(2025, 8, 1)
+        val endDate = LocalDate.of(2025, 12, 1)
+
         db.transaction { tx ->
             tx.insert(unit)
             tx.insert(
@@ -78,24 +81,24 @@ class PalvelukykykyselyReportTest : AbstractTampereIntegrationTest() {
                 DevFridgeChild(
                     childId = child1.id,
                     headOfChild = parent1.id,
-                    startDate = LocalDate.of(2025, 1, 1),
-                    endDate = LocalDate.of(2025, 12, 1),
+                    startDate = startDate,
+                    endDate = endDate,
                 ),
             )
             tx.insert(
                 DevFridgeChild(
                     childId = child2.id,
                     headOfChild = parent1.id,
-                    startDate = LocalDate.of(2025, 1, 1),
-                    endDate = LocalDate.of(2025, 12, 1),
+                    startDate = startDate,
+                    endDate = endDate,
                 ),
             )
             tx.insert(
                 DevFridgeChild(
                     childId = child3.id,
                     headOfChild = parent1.id,
-                    startDate = LocalDate.of(2025, 1, 1),
-                    endDate = LocalDate.of(2025, 12, 1),
+                    startDate = startDate,
+                    endDate = endDate,
                 ),
             )
 
@@ -103,8 +106,8 @@ class PalvelukykykyselyReportTest : AbstractTampereIntegrationTest() {
                 DevFridgePartnership(
                     first = parent1.id,
                     second = parent2.id,
-                    startDate = LocalDate.of(2025, 1, 1),
-                    endDate = LocalDate.of(2025, 12, 1),
+                    startDate = startDate,
+                    endDate = endDate,
                 ),
             )
 
@@ -112,8 +115,8 @@ class PalvelukykykyselyReportTest : AbstractTampereIntegrationTest() {
                 DevPlacement(
                     childId = child1.id,
                     unitId = unit.id,
-                    startDate = LocalDate.of(2025, 1, 1),
-                    endDate = LocalDate.of(2025, 12, 1),
+                    startDate = startDate,
+                    endDate = endDate,
                     type = PlacementType.DAYCARE,
                 ),
             )
@@ -121,8 +124,8 @@ class PalvelukykykyselyReportTest : AbstractTampereIntegrationTest() {
                 DevPlacement(
                     childId = child2.id,
                     unitId = unit.id,
-                    startDate = LocalDate.of(2025, 1, 1),
-                    endDate = LocalDate.of(2025, 12, 1),
+                    startDate = startDate,
+                    endDate = endDate,
                     type = PlacementType.PRESCHOOL_DAYCARE,
                 ),
             )
@@ -130,8 +133,8 @@ class PalvelukykykyselyReportTest : AbstractTampereIntegrationTest() {
                 DevPlacement(
                     childId = child3.id,
                     unitId = unit.id,
-                    startDate = LocalDate.of(2025, 1, 1),
-                    endDate = LocalDate.of(2025, 12, 1),
+                    startDate = startDate,
+                    endDate = endDate,
                     type = PlacementType.PRESCHOOL,
                 ),
             )
@@ -149,7 +152,7 @@ class PalvelukykykyselyReportTest : AbstractTampereIntegrationTest() {
                     childLastName = child1.lastName,
                     placementUnit = unit.name,
                     placementType = PlacementType.DAYCARE,
-                    placementStartDate = LocalDate.of(2025, 1, 1),
+                    placementStartDate = startDate,
                     headUrl = "$adultUrl${parent1.id}",
                     headFirstName = parent1.firstName,
                     headLastName = parent1.lastName,
