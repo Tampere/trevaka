@@ -65,7 +65,7 @@ class KangasalaConfig {
                     )
                 ArchiveProcessType.APPLICATION_PRESCHOOL ->
                     ArchiveProcessConfig(
-                        processDefinitionNumber = " 46.00.06",
+                        processDefinitionNumber = "46.00.06",
                         archiveDurationMonths = 120 * 12,
                     )
                 ArchiveProcessType.APPLICATION_CLUB -> null
