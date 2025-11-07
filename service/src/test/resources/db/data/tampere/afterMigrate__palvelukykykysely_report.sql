@@ -36,7 +36,7 @@ FROM placement p1
     AND daterange(fp2.start_date, fp2.end_date, '[]') @> p1.start_date
     AND fp1.indx != fp2.indx
          LEFT JOIN person partner ON partner.id = fp2.person_id
-WHERE p1.start_date BETWEEN '2025-01-01'::date AND '2025-03-31'::date
+WHERE p1.start_date BETWEEN '2025-08-01'::date AND '2025-10-31'::date
   AND p1.type NOT IN ('PRESCHOOL', 'PRESCHOOL_DAYCARE', 'PRESCHOOL_DAYCARE_ONLY')
   AND (EXISTS (SELECT 1
                FROM placement p2
