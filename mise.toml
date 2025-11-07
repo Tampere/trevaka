@@ -9,7 +9,7 @@ idiomatic_version_file_enable_tools = ["terraform"]
 
 [tools]
 java = "temurin-21"
-node = { version = "22", postinstall = "corepack enable" }
+node = { version = "24", postinstall = "corepack enable" }
 python = "3.14"
 uv = "0.9"
 "pipx:reuse" = "6.2.0" # NOTE: Update .circleci/config.yml to match
