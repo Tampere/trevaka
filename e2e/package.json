@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
-    "@types/node": "^22.19.0",
+    "@types/node": "^24.10.0",
     "axios": "^1.13.2",
     "e2e-test": "link:../evaka/frontend/src/e2e-test",
     "jest": "^30.2.0",
