@@ -31,9 +31,9 @@ FROM placement p1
     AND p1.start_date BETWEEN fc.start_date AND fc.end_date
          LEFT JOIN person head ON head.id = fc.head_of_child
          LEFT JOIN fridge_partner fp1 ON fp1.person_id = head.id
-    AND daterange(fp1.start_date, fp1.end_date, '[]') @> p1.start_date
+    AND p1.start_date BETWEEN fp1.start_date AND fp1.end_date
          LEFT JOIN fridge_partner fp2 ON fp1.partnership_id = fp2.partnership_id
-    AND daterange(fp2.start_date, fp2.end_date, '[]') @> p1.start_date
+    AND p1.start_date BETWEEN fp2.start_date AND fp2.end_date
     AND fp1.indx != fp2.indx
          LEFT JOIN person partner ON partner.id = fp2.person_id
 WHERE p1.start_date BETWEEN '2025-08-01'::date AND '2025-10-31'::date
