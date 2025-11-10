@@ -11,6 +11,7 @@ import fi.espoo.evaka.shared.security.Action
 import fi.espoo.evaka.shared.security.PilotFeature
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.shared.security.actionrule.HasGlobalRole
+import fi.espoo.evaka.shared.security.actionrule.HasGroupRole
 import fi.espoo.evaka.shared.security.actionrule.HasUnitRole
 import fi.espoo.evaka.shared.security.actionrule.IsEmployee
 import fi.espoo.evaka.shared.security.actionrule.ScopedActionRule
@@ -257,6 +258,16 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
+        }
+        Action.ChildDocument.UPDATE -> {
+            @Suppress("UNCHECKED_CAST")
+            sequenceOf(HasGlobalRole(UserRole.ADMIN) as ScopedActionRule<in T>) +
+                sequenceOf(
+                    HasUnitRole(UserRole.UNIT_SUPERVISOR, UserRole.SPECIAL_EDUCATION_TEACHER).inPlacementUnitOfChildOfChildDocument(editable = true) as ScopedActionRule<in T>,
+                ) +
+                sequenceOf(
+                    HasGroupRole(UserRole.STAFF).inPlacementGroupOfChildOfChildDocument(editable = true, denyForDecisions = false) as ScopedActionRule<in T>,
+                )
         }
         Action.Decision.DOWNLOAD_PDF -> {
             @Suppress("UNCHECKED_CAST")
