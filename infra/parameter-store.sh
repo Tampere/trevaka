@@ -25,6 +25,11 @@ environments=(
 parameters=(
   "/service/vtj/kysely/api-key"
   "/service/vtj/mutpa/api-key"
+  "/service/frends/sftp/host"
+  "/service/frends/sftp/port"
+  "/service/frends/sftp/host-keys"
+  "/service/frends/sftp/username"
+  # "/service/frends/sftp/private-key"
 )
 
 if [ "$#" -ne 3 ]; then
