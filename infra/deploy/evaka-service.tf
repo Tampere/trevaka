@@ -134,34 +134,49 @@ module "app_service" {
     HAMEENKYRO_BUCKET_EXPORT  = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/bucket/export" : null
 
     # NokiaProperties
-    NOKIA_IPAAS_USERNAME         = var.municipality == "nokia" ? "${local.param_prefix}/service/ipaas/username" : null
-    NOKIA_IPAAS_PASSWORD         = var.municipality == "nokia" ? "${local.param_prefix}/service/ipaas/password" : null
-    NOKIA_INVOICE_SFTP_HOST      = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/invoice/sftp/host" : null
-    NOKIA_INVOICE_SFTP_PORT      = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/invoice/sftp/port" : null
-    NOKIA_INVOICE_SFTP_HOST_KEYS = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/invoice/sftp/host-keys" : null
-    NOKIA_INVOICE_SFTP_USERNAME  = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/invoice/sftp/username" : null
-    NOKIA_INVOICE_SFTP_PASSWORD  = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/invoice/sftp/password" : null
-    NOKIA_BUCKET_EXPORT          = var.municipality == "nokia" ? "${local.param_prefix}/service/bucket/export" : null
+    NOKIA_IPAAS_USERNAME            = var.municipality == "nokia" ? "${local.param_prefix}/service/ipaas/username" : null
+    NOKIA_IPAAS_PASSWORD            = var.municipality == "nokia" ? "${local.param_prefix}/service/ipaas/password" : null
+    NOKIA_INVOICE_SFTP_HOST         = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    NOKIA_INVOICE_SFTP_PORT         = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    NOKIA_INVOICE_SFTP_HOST_KEYS    = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    NOKIA_INVOICE_SFTP_USERNAME     = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    NOKIA_INVOICE_SFTP_PRIVATE_KEY  = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    NOKIA_BUCKET_EXPORT             = var.municipality == "nokia" ? "${local.param_prefix}/service/bucket/export" : null
+    NOKIA_ARCHIVAL_SFTP_HOST        = var.municipality == "nokia" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/host" : null
+    NOKIA_ARCHIVAL_SFTP_PORT        = var.municipality == "nokia" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/port" : null
+    NOKIA_ARCHIVAL_SFTP_HOST_KEYS   = var.municipality == "nokia" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    NOKIA_ARCHIVAL_SFTP_USERNAME    = var.municipality == "nokia" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/username" : null
+    NOKIA_ARCHIVAL_SFTP_PRIVATE_KEY = var.municipality == "nokia" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/private-key" : null
 
     # YlojarviProperties
-    YLOJARVI_IPAAS_USERNAME         = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/ipaas/username" : null
-    YLOJARVI_IPAAS_PASSWORD         = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/ipaas/password" : null
-    YLOJARVI_INVOICE_SFTP_HOST      = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/invoice/sftp/host" : null
-    YLOJARVI_INVOICE_SFTP_PORT      = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/invoice/sftp/port" : null
-    YLOJARVI_INVOICE_SFTP_HOST_KEYS = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/invoice/sftp/host-keys" : null
-    YLOJARVI_INVOICE_SFTP_USERNAME  = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/invoice/sftp/username" : null
-    YLOJARVI_INVOICE_SFTP_PASSWORD  = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/invoice/sftp/password" : null
-    YLOJARVI_BUCKET_EXPORT          = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/bucket/export" : null
+    YLOJARVI_IPAAS_USERNAME           = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/ipaas/username" : null
+    YLOJARVI_IPAAS_PASSWORD           = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/ipaas/password" : null
+    YLOJARVI_INVOICE_SFTP_HOST        = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    YLOJARVI_INVOICE_SFTP_PORT        = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    YLOJARVI_INVOICE_SFTP_HOST_KEYS   = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    YLOJARVI_INVOICE_SFTP_USERNAME    = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    YLOJARVI_INVOICE_SFTP_PRIVATE_KEY = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    YLOJARVI_BUCKET_EXPORT            = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/bucket/export" : null
 
     # PirkkalaProperties
-    PIRKKALA_IPAAS_USERNAME = var.municipality == "pirkkala" ? "${local.param_prefix}/service/ipaas/username" : null
-    PIRKKALA_IPAAS_PASSWORD = var.municipality == "pirkkala" ? "${local.param_prefix}/service/ipaas/password" : null
-    PIRKKALA_BUCKET_EXPORT  = var.municipality == "pirkkala" ? "${local.param_prefix}/service/bucket/export" : null
+    PIRKKALA_IPAAS_USERNAME            = var.municipality == "pirkkala" ? "${local.param_prefix}/service/ipaas/username" : null
+    PIRKKALA_IPAAS_PASSWORD            = var.municipality == "pirkkala" ? "${local.param_prefix}/service/ipaas/password" : null
+    PIRKKALA_BUCKET_EXPORT             = var.municipality == "pirkkala" ? "${local.param_prefix}/service/bucket/export" : null
+    PIRKKALA_ARCHIVAL_SFTP_HOST        = var.municipality == "pirkkala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/host" : null
+    PIRKKALA_ARCHIVAL_SFTP_PORT        = var.municipality == "pirkkala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/port" : null
+    PIRKKALA_ARCHIVAL_SFTP_HOST_KEYS   = var.municipality == "pirkkala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    PIRKKALA_ARCHIVAL_SFTP_USERNAME    = var.municipality == "pirkkala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/username" : null
+    PIRKKALA_ARCHIVAL_SFTP_PRIVATE_KEY = var.municipality == "pirkkala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/private-key" : null
 
     # KangasalaProperties
-    KANGASALA_IPAAS_USERNAME = var.municipality == "kangasala" ? "${local.param_prefix}/service/ipaas/username" : null
-    KANGASALA_IPAAS_PASSWORD = var.municipality == "kangasala" ? "${local.param_prefix}/service/ipaas/password" : null
-    KANGASALA_BUCKET_EXPORT  = var.municipality == "kangasala" ? "${local.param_prefix}/service/bucket/export" : null
+    KANGASALA_IPAAS_USERNAME            = var.municipality == "kangasala" ? "${local.param_prefix}/service/ipaas/username" : null
+    KANGASALA_IPAAS_PASSWORD            = var.municipality == "kangasala" ? "${local.param_prefix}/service/ipaas/password" : null
+    KANGASALA_BUCKET_EXPORT             = var.municipality == "kangasala" ? "${local.param_prefix}/service/bucket/export" : null
+    KANGASALA_ARCHIVAL_SFTP_HOST        = var.municipality == "kangasala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/host" : null
+    KANGASALA_ARCHIVAL_SFTP_PORT        = var.municipality == "kangasala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/port" : null
+    KANGASALA_ARCHIVAL_SFTP_HOST_KEYS   = var.municipality == "kangasala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    KANGASALA_ARCHIVAL_SFTP_USERNAME    = var.municipality == "kangasala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/username" : null
+    KANGASALA_ARCHIVAL_SFTP_PRIVATE_KEY = var.municipality == "kangasala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/private-key" : null
 
     # LempaalaProperties
     LEMPAALA_IPAAS_USERNAME = var.municipality == "lempaala" ? "${local.param_prefix}/service/ipaas/username" : null
@@ -308,12 +323,19 @@ module "app_service" {
     TAMPERE_ENABLED_FEATURES_FRENDS_PAYMENT = var.municipality == "tampere" ? var.tampere_frends_payment : null
 
     # NokiaProperties
-    NOKIA_INVOICE_VERSION     = var.municipality == "nokia" ? var.nokia_invoice_version : null
-    NOKIA_INVOICE_SFTP_PREFIX = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "invoices/" : null
+    NOKIA_INVOICE_VERSION      = var.municipality == "nokia" ? var.nokia_invoice_version : null
+    NOKIA_INVOICE_SFTP_PREFIX  = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? var.environment == "prod" ? "in/eVaka/Raindance/" : "test/in/eVaka/Raindance/" : null
+    NOKIA_ARCHIVAL_SFTP_PREFIX = var.municipality == "nokia" && var.archival_enabled ? var.environment == "prod" ? "in/eVaka/TWeb/" : "test/in/eVaka/TWeb/" : null
 
     # YlojarviProperties
     YLOJARVI_INVOICE_VERSION     = var.municipality == "ylojarvi" ? var.ylojarvi_invoice_version : null
-    YLOJARVI_INVOICE_SFTP_PREFIX = var.municipality == "ylojarvi" && var.nokia_invoice_version == "V2026" ? "invoices/" : null
+    YLOJARVI_INVOICE_SFTP_PREFIX = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? var.environment == "prod" ? "in/eVaka/Raindance/" : "test/in/eVaka/Raindance/" : null
+
+    # PirkkalaProperties
+    PIRKKALA_ARCHIVAL_SFTP_PREFIX = var.municipality == "pirkkala" && var.archival_enabled ? var.environment == "prod" ? "in/eVaka/TWeb/" : "test/in/eVaka/TWeb/" : null
+
+    # KangasalaProperties
+    KANGASALA_ARCHIVAL_SFTP_PREFIX = var.municipality == "kangasala" && var.archival_enabled ? var.environment == "prod" ? "in/eVaka/TWeb/" : "test/in/eVaka/TWeb/" : null
   }
 }
 
