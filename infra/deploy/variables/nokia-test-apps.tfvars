@@ -31,6 +31,7 @@ email_subject_postfix                         = "test"
 dvv_mutp_update_enabled                       = false
 send_pending_decision_reminder_emails_enabled = true
 evaka_integration_sfi_enabled                 = true
+archival_enabled                              = true
 
 evaka_job_inactive_employees_role_reset_enabled      = false
 evaka_job_send_missing_reservation_reminders_enabled = true
@@ -42,3 +43,4 @@ sfi_msg_enable_printing    = false
 sfi_msg_printing_provider  = "Posti"
 
 # service: NokiaProperties
+nokia_invoice_version = "V2026"

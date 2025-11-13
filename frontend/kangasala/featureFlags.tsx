@@ -52,6 +52,12 @@ const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
+    archiveIntegration: {
+      decisions: true,
+      childDocuments: true,
+      feeDecisions: true,
+      voucherValueDecisions: true
+    },
     citizenChildDocumentTypes: true
   },
   prod
