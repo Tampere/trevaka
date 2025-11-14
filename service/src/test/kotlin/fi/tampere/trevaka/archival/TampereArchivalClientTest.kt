@@ -364,13 +364,13 @@ private val testEvakaUser = EvakaUser(AuthenticatedUser.SystemInternalUser.evaka
 
 private val testPreparerUser = EvakaUser(
     id = EvakaUserId(UUID.randomUUID()),
-    name = "Esko Esivalmistelija",
+    name = "Esivalmistelija Esko",
     EvakaUserType.EMPLOYEE,
 )
 
 private val testDeciderUser = EvakaUser(
     id = EvakaUserId(UUID.randomUUID()),
-    name = "Pänü Päättäjä",
+    name = "Päättäjä Pänü",
     EvakaUserType.EMPLOYEE,
 )
 
