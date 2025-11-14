@@ -50,3 +50,6 @@ sfi_msg_enable_printing    = false
 sfi_msg_printing_provider  = "Posti"
 
 # service: TampereProperties
+
+tampere_frends_invoice = true
+tampere_frends_payment = true

@@ -25,6 +25,9 @@ environments=(
 parameters=(
   "/service/vtj/kysely/api-key"
   "/service/vtj/mutpa/api-key"
+  "/service/frends/api-key"
+  "/service/invoice/url/frends"
+  "/service/payment/url/frends"
   "/service/frends/sftp/host"
   "/service/frends/sftp/port"
   "/service/frends/sftp/host-keys"
