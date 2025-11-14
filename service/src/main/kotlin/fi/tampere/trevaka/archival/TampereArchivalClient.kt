@@ -190,7 +190,8 @@ internal fun createDecisionMakerAgent(firstName: String?, lastName: String?): Li
     listOf(
         Agent().apply {
             agentRole = "Päättäjä"
-            agentName = "$firstName $lastName"
+            // name order derives from evaka_user names
+            agentName = "$lastName $firstName"
             // agent corporateName left empty
         },
     )

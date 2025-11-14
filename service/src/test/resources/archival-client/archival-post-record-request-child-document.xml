@@ -14,11 +14,11 @@
             <ns2:created>2025-05-12</ns2:created>
             <ns2:agent>
                 <ns2:agentRole>Laatija</ns2:agentRole>
-                <ns2:agentName>Esko Esivalmistelija</ns2:agentName>
+                <ns2:agentName>Esivalmistelija Esko</ns2:agentName>
             </ns2:agent>
             <ns2:agent>
                 <ns2:agentRole>Päättäjä</ns2:agentRole>
-                <ns2:agentName>Pänü Päättäjä</ns2:agentName>
+                <ns2:agentName>Päättäjä Pänü</ns2:agentName>
             </ns2:agent>
         </ns3:metadata>
         <ns3:content>
