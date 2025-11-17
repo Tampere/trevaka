@@ -242,6 +242,7 @@ Lapsi;"Estettyjen huoltajien luku";READ_BLOCKED_GUARDIANS;x;;;;;x;;;;;
 Lapsi;"Maksumuutoksen luonti";CREATE_FEE_ALTERATION;x;;;x;;;;;;;
 Lapsi;"Maksumuutosten luku";READ_FEE_ALTERATIONS;x;;x;x;;;;;;;
 Lapsi;"Asiakirjan luonti";CREATE_CHILD_DOCUMENT;x;;;;;;;x;x;x;
+Lapsi;"Muun päätöksen luonti";"CREATE_CHILD_DECISION_DOCUMENT";x;;;;;;;x;;x;
 Lapsi;"Asiakirjan luku";READ_CHILD_DOCUMENT;x;;x;;;;;x;x;x;
 Lapsi;"Pedagogisen dokumentoinnin luonti";"CREATE_PEDAGOGICAL_DOCUMENT";x;;;;;;;x;x;x;x
 Lapsi;"Pedagogisen dokumentoinnin luku";"READ_PEDAGOGICAL_DOCUMENTS";x;;;;;;;x;x;x;x
