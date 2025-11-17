@@ -59,7 +59,7 @@ class PirkkalaConfig {
             when (type) {
                 ArchiveProcessType.APPLICATION_DAYCARE ->
                     ArchiveProcessConfig(
-                        processDefinitionNumber = "4801.22",
+                        processDefinitionNumber = "4801.101",
                         archiveDurationMonths = 12 * 12,
                     )
                 ArchiveProcessType.APPLICATION_PRESCHOOL -> null
@@ -70,7 +70,7 @@ class PirkkalaConfig {
                     )
                 ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE ->
                     ArchiveProcessConfig(
-                        processDefinitionNumber = "4801.03",
+                        processDefinitionNumber = "4801.31",
                         archiveDurationMonths = 15 * 12,
                     )
                 ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL ->
@@ -83,7 +83,7 @@ class PirkkalaConfig {
                     archiveDurationMonths = 15 * 12,
                 )
                 ArchiveProcessType.VOUCHER_VALUE_DECISION -> ArchiveProcessConfig(
-                    processDefinitionNumber = "4801.102",
+                    processDefinitionNumber = "4803.03",
                     archiveDurationMonths = 15 * 12,
                 )
             }

@@ -60,27 +60,27 @@ class KangasalaConfig {
             when (type) {
                 ArchiveProcessType.APPLICATION_DAYCARE ->
                     ArchiveProcessConfig(
-                        processDefinitionNumber = "46.00.06",
+                        processDefinitionNumber = "46.00.63",
                         archiveDurationMonths = 120 * 12,
                     )
                 ArchiveProcessType.APPLICATION_PRESCHOOL ->
                     ArchiveProcessConfig(
-                        processDefinitionNumber = " 46.00.06",
+                        processDefinitionNumber = "41.01.05",
                         archiveDurationMonths = 120 * 12,
                     )
                 ArchiveProcessType.APPLICATION_CLUB -> null
                 ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE ->
                     ArchiveProcessConfig(
-                        processDefinitionNumber = "46.00.06",
+                        processDefinitionNumber = "46.00.65",
                         archiveDurationMonths = 120 * 12,
                     )
                 ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL ->
                     ArchiveProcessConfig(
-                        processDefinitionNumber = "46.00.06",
+                        processDefinitionNumber = "41.04.05",
                         archiveDurationMonths = 120 * 12,
                     )
                 ArchiveProcessType.FEE_DECISION -> ArchiveProcessConfig(
-                    processDefinitionNumber = "46.00.06",
+                    processDefinitionNumber = "46.00.64",
                     archiveDurationMonths = 10 * 12,
                 )
                 ArchiveProcessType.VOUCHER_VALUE_DECISION -> ArchiveProcessConfig(
