@@ -84,7 +84,7 @@ class NokiaConfig {
                     archiveDurationMonths = 15 * 12,
                 )
                 ArchiveProcessType.VOUCHER_VALUE_DECISION -> ArchiveProcessConfig(
-                    processDefinitionNumber = "04.01.00.11",
+                    processDefinitionNumber = "04.01.02.59",
                     archiveDurationMonths = 15 * 12,
                 )
             }
