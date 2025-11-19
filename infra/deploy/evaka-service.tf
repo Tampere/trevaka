@@ -314,7 +314,7 @@ module "app_service" {
 
     # TrevakaProperties
     TREVAKA_ENABLED_FEATURES_FRENDS_VTJ_KYSELY = var.trevaka_frends_vtj_kysely
-    TREVAKA_ENABLED_FEATURUS_FRENDS_VTJ_MUTPA  = var.trevaka_frends_vtj_mutpa
+    TREVAKA_ENABLED_FEATURES_FRENDS_VTJ_MUTPA  = var.trevaka_frends_vtj_mutpa
 
     # TampereProperties
     TAMPERE_SUMMERTIME_ABSENCE_FREE_MONTH   = var.municipality == "tampere" ? var.tampere_summertime_absence_free_month : null
