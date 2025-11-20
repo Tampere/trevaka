@@ -42,4 +42,8 @@ sfi_msg_service_identifier = "pirkkala_ws_evaka"
 sfi_msg_enable_printing    = false
 sfi_msg_printing_provider  = "Posti"
 
+# service: TrevakaProperties
+trevaka_frends_vtj_kysely = true
+trevaka_frends_vtj_mutpa  = true
+
 # service: PirkkalaProperties
