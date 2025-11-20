@@ -240,13 +240,13 @@ module "app_service" {
     EVAKA_INTEGRATION_VARDA_END_DATE      = var.evaka_integration_varda_end_date
 
     # DvvModificationsEnv
-    EVAKA_INTEGRATION_DVV_MODIFICATIONS_XROAD_CLIENT_ID = "${local.xroad_instance}/MUN/${var.vtj_xroad_client_membercode}/${var.vtj_xroad_client_subsystemcode}"
+    EVAKA_INTEGRATION_DVV_MODIFICATIONS_XROAD_CLIENT_ID = "${local.xroad_instance}/MUN/${var.vtj_xroad_client_membercode}/${var.trevaka_frends_vtj_mutpa ? "${var.environment != "prod" ? "test-" : ""}vtjmutpa-${var.municipality}-evaka-client" : var.vtj_xroad_client_subsystemcode}"
 
     # VtjXroadClientEnv
     EVAKA_INTEGRATION_VTJ_XROAD_CLIENT_INSTANCE       = local.xroad_instance
     EVAKA_INTEGRATION_VTJ_XROAD_CLIENT_MEMBER_CLASS   = "MUN"
     EVAKA_INTEGRATION_VTJ_XROAD_CLIENT_MEMBER_CODE    = var.vtj_xroad_client_membercode
-    EVAKA_INTEGRATION_VTJ_XROAD_CLIENT_SUBSYSTEM_CODE = var.vtj_xroad_client_subsystemcode
+    EVAKA_INTEGRATION_VTJ_XROAD_CLIENT_SUBSYSTEM_CODE = var.trevaka_frends_vtj_kysely ? "${var.environment != "prod" ? "test-" : ""}vtjkysely-${var.municipality}-evaka-client" : var.vtj_xroad_client_subsystemcode
 
     # VtjXroadServiceEnv
     EVAKA_INTEGRATION_VTJ_XROAD_SERVICE_INSTANCE        = local.xroad_instance
