@@ -16,13 +16,14 @@ import trevaka.jaxb.localDateToXMLGregorianCalendar
 internal fun transform(caseProcess: CaseProcess, decision: Decision, document: Document, child: PersonDTO): Pair<Collections.Collection, Map<String, Document>> {
     val originalId = decision.id.toString()
     val title = title(decision)
+    val decisionSentDate = decision.sentDate?.let { localDateToXMLGregorianCalendar(it) } ?: error("Decision sent date missing, decision: ${decision.id}")
     return Collections.Collection().apply {
         type = "record"
         folder = caseProcess.processDefinitionNumber
         metadata = Collections.Collection.Metadata().apply {
             this.title = "$title, ${child.firstName} ${child.lastName}, ${child.dateOfBirth.format(ARCHIVAL_DATE_FORMATTER)}"
-            calculationBaseDate = localDateToXMLGregorianCalendar(decision.endDate.plusDays(1))
-            created = decision.sentDate?.let { localDateToXMLGregorianCalendar(it) }
+            calculationBaseDate = decisionSentDate
+            created = decisionSentDate
         }
         content = Collections.Collection.Content().apply {
             file.add(
