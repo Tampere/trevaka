@@ -24,7 +24,11 @@ environments=(
 )
 parameters=(
   "/service/vtj/kysely/api-key"
+  "/service/vtj/address/frends"
   "/service/vtj/mutpa/api-key"
+  "/service/dvv-modifications/url/frends"
+  "/service/dvv-modifications/userid"
+  "/service/dvv-modifications/password"
   "/service/frends/api-key"
   "/service/invoice/url/frends"
   "/service/payment/url/frends"
