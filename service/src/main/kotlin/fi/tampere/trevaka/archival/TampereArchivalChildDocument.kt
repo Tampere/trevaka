@@ -14,13 +14,14 @@ import java.time.LocalDate
 
 internal fun transform(childDocumentDetails: ChildDocumentDetails, document: Document, ownerDetails: OwnerDetails, authorDetails: List<AuthorDetails>): Pair<Collections.Collection, Map<String, Document>> {
     val originalId = childDocumentDetails.id.toString()
+    val publicationDate = childDocumentDetails.publishedAt?.toLocalDate()?.let { localDateToXMLGregorianCalendar(it) } ?: error("Document publication date missing, child document: ${childDocumentDetails.id}")
     return Collections.Collection().apply {
         type = "record"
         folder = childDocumentDetails.template.processDefinitionNumber
         metadata = Collections.Collection.Metadata().apply {
             title = "${childDocumentDetails.template.name}, ${ownerDetails.name}, ${ownerDetails.dateOfBirth.format(ARCHIVAL_DATE_FORMATTER)}"
-            calculationBaseDate = localDateToXMLGregorianCalendar(childDocumentDetails.template.validity.start)
-            created = childDocumentDetails.publishedAt?.toLocalDate()?.let { localDateToXMLGregorianCalendar(it) }
+            calculationBaseDate = publicationDate
+            created = publicationDate
             authorDetails.forEach {
                 agent.add(
                     Agent().apply {

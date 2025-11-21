@@ -13,13 +13,14 @@ import trevaka.jaxb.localDateToXMLGregorianCalendar
 
 internal fun transform(caseProcess: CaseProcess, feeDecision: FeeDecisionDetailed, document: Document): Pair<Collections.Collection, Map<String, Document>> {
     val originalId = feeDecision.id.toString()
+    val decisionApprovalDate = feeDecision.approvedAt?.let { localDateToXMLGregorianCalendar(it.toLocalDate()) } ?: error("Fee decision approval date missing, decision: ${feeDecision.id}")
     return Collections.Collection().apply {
         type = "record"
         folder = caseProcess.processDefinitionNumber
         metadata = Collections.Collection.Metadata().apply {
             title = "Maksupäätös, ${feeDecision.headOfFamily.firstName} ${feeDecision.headOfFamily.lastName}, ${feeDecision.headOfFamily.dateOfBirth.format(ARCHIVAL_DATE_FORMATTER)}"
-            calculationBaseDate = localDateToXMLGregorianCalendar(feeDecision.validDuring.end.plusDays(1))
-            created = feeDecision.approvedAt?.let { localDateToXMLGregorianCalendar(it.toLocalDate()) }
+            calculationBaseDate = decisionApprovalDate
+            created = decisionApprovalDate
             agent.addAll(createDecisionMakerAgent(feeDecision.financeDecisionHandlerFirstName, feeDecision.financeDecisionHandlerLastName))
         }
         content = Collections.Collection.Content().apply {
