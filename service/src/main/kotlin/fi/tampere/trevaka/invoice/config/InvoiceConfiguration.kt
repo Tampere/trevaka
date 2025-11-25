@@ -138,24 +138,31 @@ class TampereInvoiceProductProvider : InvoiceProductProvider {
             PlacementType.DAYCARE_PART_TIME_FIVE_YEAR_OLDS,
             ->
                 Product.DAYCARE
+
             PlacementType.PRESCHOOL_DAYCARE,
             PlacementType.PRESCHOOL_DAYCARE_ONLY,
             ->
                 Product.PRESCHOOL_WITH_DAYCARE
+
             PlacementType.PRESCHOOL_CLUB ->
                 Product.PRESCHOOL_WITH_CLUB
+
             PlacementType.PREPARATORY_DAYCARE,
             PlacementType.PREPARATORY_DAYCARE_ONLY,
             ->
                 Product.PRESCHOOL_WITH_DAYCARE
+
             PlacementType.TEMPORARY_DAYCARE,
             ->
                 Product.TEMPORARY_CARE
+
             PlacementType.TEMPORARY_DAYCARE_PART_DAY,
             ->
                 Product.SUMMER_CLUB
+
             PlacementType.SCHOOL_SHIFT_CARE ->
                 Product.SCHOOL_SHIFT_CARE
+
             PlacementType.PRESCHOOL,
             PlacementType.PREPARATORY,
             PlacementType.CLUB,
@@ -171,19 +178,23 @@ class TampereInvoiceProductProvider : InvoiceProductProvider {
             Product.DAYCARE to FeeAlterationType.RELIEF,
             ->
                 Product.DAYCARE_DISCOUNT
+
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlterationType.DISCOUNT,
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlterationType.RELIEF,
             ->
                 Product.PRESCHOOL_WITH_DAYCARE_DISCOUNT
+
             Product.PRESCHOOL_WITH_CLUB to FeeAlterationType.DISCOUNT,
             Product.PRESCHOOL_WITH_CLUB to FeeAlterationType.RELIEF,
             ->
                 Product.PRESCHOOL_WITH_CLUB_DISCOUNT
+
             Product.DAYCARE to FeeAlterationType.INCREASE,
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlterationType.INCREASE,
             Product.PRESCHOOL_WITH_CLUB to FeeAlterationType.INCREASE,
             ->
                 Product.CORRECTION
+
             else ->
                 error("No product mapping found for product + fee alteration type combo ($productKey + $feeAlterationType)")
         }

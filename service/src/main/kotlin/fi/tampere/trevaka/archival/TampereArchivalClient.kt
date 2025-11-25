@@ -140,6 +140,7 @@ class TampereArchivalClient(private val client: OkHttpClient, private val proper
                         logger.info { "Successfully post record (status=$code), response body: $data" }
                         data
                     }
+
                     else -> {
                         logger.error { "Successfully post record (status=$code), but response body was unexpected: $xml" }
                         null

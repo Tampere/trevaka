@@ -189,6 +189,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val prope
                     val value = invoiceData.getAlphanumericValue(it.field) ?: ""
                     result += value.take(it.length).padEnd(it.length)
                 }
+
                 FieldType.NUMERIC -> {
                     val value = invoiceData.getNumericValue(it.field) ?: 0
                     val stringValue = value.toString().padStart(it.length, '0')
@@ -196,6 +197,7 @@ class ProEInvoiceGenerator(private val invoiceChecker: InvoiceChecker, val prope
                     // the decimal part with the correct number of zeroes
                     result += stringValue.padEnd(it.length + it.decimals, '0')
                 }
+
                 FieldType.MONETARY -> {
                     val value = invoiceData.getNumericValue(it.field) ?: 0
                     // if the value is non-zero it has been multiplied by 100 to already contain two decimals
@@ -278,6 +280,7 @@ internal fun handlePerson(person: PersonDetailed): PersonDetailed {
             restrictedPostCode,
             restrictedPostOffice,
         )
+
         false -> if (hasInvoicingAddress(person)) {
             Triple(
                 person.invoicingStreetAddress.trim(),

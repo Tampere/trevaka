@@ -126,6 +126,7 @@ class TampereInvoiceClient(
                     }
                     address = headOfFamily.address()
                 }
+
                 false -> null
             }
             paymentTerm = properties.paymentTerm
@@ -222,6 +223,7 @@ internal data class InvoicePerson(
     fun name(): String = "$lastName $firstName".trim()
     fun address(): Address = when (restrictedDetailsEnabled) {
         true -> restrictedAddress
+
         false -> Address().apply {
             street = streetName.take(MAX_STREET_LENGTH)
             town = postOffice.take(MAX_TOWN_LENGTH)

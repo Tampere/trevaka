@@ -75,13 +75,13 @@ class HameenkyroIncomeTypesProvider : IncomeTypesProvider {
 
 class HameenkyroIncomeCoefficientMultiplierProvider : IncomeCoefficientMultiplierProvider {
     override fun multiplier(coefficient: IncomeCoefficient): BigDecimal = when (coefficient) {
-        IncomeCoefficient.MONTHLY_WITH_HOLIDAY_BONUS -> BigDecimal("1.05") // = 12.5 / 12
-        IncomeCoefficient.MONTHLY_NO_HOLIDAY_BONUS -> BigDecimal("1.0000") // = 12 / 12
-        IncomeCoefficient.BI_WEEKLY_WITH_HOLIDAY_BONUS -> BigDecimal("2.23125") // = ???
-        IncomeCoefficient.BI_WEEKLY_NO_HOLIDAY_BONUS -> BigDecimal("2.125") // = ???
+        IncomeCoefficient.MONTHLY_WITH_HOLIDAY_BONUS -> BigDecimal("1.05")
+        IncomeCoefficient.MONTHLY_NO_HOLIDAY_BONUS -> BigDecimal("1.0000")
+        IncomeCoefficient.BI_WEEKLY_WITH_HOLIDAY_BONUS -> BigDecimal("2.23125")
+        IncomeCoefficient.BI_WEEKLY_NO_HOLIDAY_BONUS -> BigDecimal("2.125")
         IncomeCoefficient.DAILY_ALLOWANCE_21_5 -> BigDecimal("21.5")
         IncomeCoefficient.DAILY_ALLOWANCE_25 -> BigDecimal("25")
-        IncomeCoefficient.YEARLY -> BigDecimal("0.0833333") // 1 / 12
+        IncomeCoefficient.YEARLY -> BigDecimal("0.0833333")
     }
 }
 
@@ -102,20 +102,25 @@ class HameenkyroInvoiceProductProvider : InvoiceProductProvider {
             PlacementType.DAYCARE_PART_TIME_FIVE_YEAR_OLDS,
             ->
                 Product.DAYCARE
+
             PlacementType.PRESCHOOL_DAYCARE,
             PlacementType.PRESCHOOL_DAYCARE_ONLY,
             ->
                 Product.PRESCHOOL_WITH_DAYCARE
+
             PlacementType.PREPARATORY_DAYCARE,
             PlacementType.PREPARATORY_DAYCARE_ONLY,
             ->
                 Product.PRESCHOOL_WITH_DAYCARE
+
             PlacementType.TEMPORARY_DAYCARE,
             PlacementType.TEMPORARY_DAYCARE_PART_DAY,
             ->
                 Product.TEMPORARY_CARE
+
             PlacementType.SCHOOL_SHIFT_CARE ->
                 Product.SCHOOL_SHIFT_CARE
+
             PlacementType.PRESCHOOL_CLUB,
             PlacementType.PRESCHOOL,
             PlacementType.PREPARATORY,
@@ -132,14 +137,17 @@ class HameenkyroInvoiceProductProvider : InvoiceProductProvider {
             Product.DAYCARE to FeeAlterationType.RELIEF,
             ->
                 Product.DAYCARE_DISCOUNT
+
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlterationType.DISCOUNT,
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlterationType.RELIEF,
             ->
                 Product.PRESCHOOL_WITH_DAYCARE_DISCOUNT
+
             Product.DAYCARE to FeeAlterationType.INCREASE,
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlterationType.INCREASE,
             ->
                 Product.CORRECTION
+
             else ->
                 error("No product mapping found for product + fee alteration type combo ($productKey + $feeAlterationType)")
         }

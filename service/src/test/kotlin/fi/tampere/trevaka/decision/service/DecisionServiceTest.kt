@@ -68,6 +68,7 @@ class DecisionServiceTest : AbstractTampereIntegrationTest() {
             isTransferApplication = isTransferApplication,
             serviceNeed = when (decisionType) {
                 DecisionType.CLUB -> null
+
                 else -> ServiceNeed(
                     startTime = "08:00",
                     endTime = "16:00",

@@ -63,26 +63,32 @@ class NokiaConfig {
                         processDefinitionNumber = "04.01.00.11",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.APPLICATION_PRESCHOOL ->
                     ArchiveProcessConfig(
                         processDefinitionNumber = "04.01.03.41",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.APPLICATION_CLUB -> null
+
                 ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE ->
                     ArchiveProcessConfig(
                         processDefinitionNumber = "04.01.00.82",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL ->
                     ArchiveProcessConfig(
                         processDefinitionNumber = "04.01.03.42",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.FEE_DECISION -> ArchiveProcessConfig(
                     processDefinitionNumber = "04.01.00.12",
                     archiveDurationMonths = 15 * 12,
                 )
+
                 ArchiveProcessType.VOUCHER_VALUE_DECISION -> ArchiveProcessConfig(
                     processDefinitionNumber = "04.01.02.59",
                     archiveDurationMonths = 15 * 12,

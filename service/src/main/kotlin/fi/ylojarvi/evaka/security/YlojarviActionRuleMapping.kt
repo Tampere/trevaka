@@ -18,6 +18,7 @@ class YlojarviActionRuleMapping(private val commonRules: ActionRuleMapping) : Ac
         Action.Global.UPDATE_SETTINGS,
         ->
             action.defaultRules.asSequence() + sequenceOf(HasGlobalRole(UserRole.SERVICE_WORKER))
+
         else -> commonRules.rulesOf(action)
     }
 
@@ -29,6 +30,7 @@ class YlojarviActionRuleMapping(private val commonRules: ActionRuleMapping) : Ac
             ) + sequenceOf(
                 HasUnitRole(UserRole.UNIT_SUPERVISOR, UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inUnit() as ScopedActionRule<in T>,
             )
+
         Action.Unit.READ_PRESCHOOL_APPLICATION_REPORT -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
@@ -37,6 +39,7 @@ class YlojarviActionRuleMapping(private val commonRules: ActionRuleMapping) : Ac
                 HasUnitRole(UserRole.UNIT_SUPERVISOR).inUnit() as ScopedActionRule<in T>,
             )
         }
+
         else -> commonRules.rulesOf(action)
     }
 }
