@@ -17,8 +17,8 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.fail
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean
+import org.wiremock.spring.EnableWireMock
 import software.amazon.awssdk.core.ResponseInputStream
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.model.Delete
@@ -38,7 +38,7 @@ private val reportsPath: String = "${Paths.get("build").toAbsolutePath()}/report
 @SpringBootTest(
     classes = [TrevakaMain::class, IntegrationTestConfiguration::class],
 )
-@AutoConfigureWireMock(port = 0)
+@EnableWireMock
 abstract class AbstractIntegrationTest {
 
     @MockitoSpyBean
