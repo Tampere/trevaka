@@ -208,6 +208,7 @@ $unsubscribeEn
                     } else {
                         Pair("viesti", "message")
                     }
+
                 MessageType.BULLETIN ->
                     if (thread.urgent) {
                         Pair("kiireellinen tiedote", "urgent bulletin")
@@ -461,6 +462,7 @@ $unsubscribeEn
                         "arvopäätös",
                         "voucher value decision",
                     )
+
                 FinanceDecisionType.FEE_DECISION ->
                     Pair("maksupäätös", "fee decision")
             }

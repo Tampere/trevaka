@@ -20,13 +20,17 @@ class TemplateConfiguration {
 class OrivesiTemplateProvider : ITemplateProvider {
     override fun getLocalizedFilename(type: DecisionType, lang: OfficialLanguage): String = when (type) {
         DecisionType.CLUB -> throw Error("Not supported")
+
         DecisionType.DAYCARE,
         DecisionType.DAYCARE_PART_TIME,
         -> "Varhaiskasvatuspäätös"
+
         DecisionType.PRESCHOOL -> "Esiopetuspäätös"
+
         DecisionType.PRESCHOOL_DAYCARE,
         DecisionType.PRESCHOOL_CLUB,
         -> "Esiopetusta_täydentävän_toiminnan_päätös"
+
         DecisionType.PREPARATORY_EDUCATION -> throw Error("Not supported")
     }
     override fun getFeeDecisionPath(): String = "orivesi/fee-decision/decision"

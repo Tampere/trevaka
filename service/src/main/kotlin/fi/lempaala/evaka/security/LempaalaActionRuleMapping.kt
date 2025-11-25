@@ -25,6 +25,7 @@ class LempaalaActionRuleMapping(private val commonRules: ActionRuleMapping) : Ac
             ) + sequenceOf(
                 HasUnitRole(UserRole.UNIT_SUPERVISOR, UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inUnit() as ScopedActionRule<in T>,
             )
+
         else -> commonRules.rulesOf(action)
     }
 }

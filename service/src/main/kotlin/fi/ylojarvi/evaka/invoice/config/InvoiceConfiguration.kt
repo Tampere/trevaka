@@ -38,6 +38,7 @@ class InvoiceConfiguration {
             val s3Sender = S3Sender(s3Client, properties)
             YlojarviInvoiceIntegrationClient(clockService, s3Sender, invoiceGenerator)
         }
+
         YlojarviInvoiceVersion.V2026 -> {
             val sftpEnv = properties.invoice.sftp?.toSftpEnv() ?: error("Sftp properties not set")
             YlojarviInvoiceClient(SftpClient(sftpEnv), properties.invoice, clockService)
@@ -111,20 +112,25 @@ class YlojarviInvoiceProductProvider : InvoiceProductProvider {
             PlacementType.DAYCARE_PART_TIME_FIVE_YEAR_OLDS,
             ->
                 Product.DAYCARE
+
             PlacementType.PRESCHOOL_DAYCARE,
             PlacementType.PRESCHOOL_DAYCARE_ONLY,
             ->
                 Product.PRESCHOOL_WITH_DAYCARE
+
             PlacementType.PREPARATORY_DAYCARE,
             PlacementType.PREPARATORY_DAYCARE_ONLY,
             ->
                 Product.PRESCHOOL_WITH_DAYCARE
+
             PlacementType.TEMPORARY_DAYCARE,
             PlacementType.TEMPORARY_DAYCARE_PART_DAY,
             ->
                 Product.TEMPORARY_CARE
+
             PlacementType.SCHOOL_SHIFT_CARE ->
                 Product.SCHOOL_SHIFT_CARE
+
             PlacementType.PRESCHOOL_CLUB,
             PlacementType.PRESCHOOL,
             PlacementType.PREPARATORY,
@@ -141,14 +147,17 @@ class YlojarviInvoiceProductProvider : InvoiceProductProvider {
             Product.DAYCARE to FeeAlterationType.RELIEF,
             ->
                 Product.DAYCARE_DISCOUNT
+
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlterationType.DISCOUNT,
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlterationType.RELIEF,
             ->
                 Product.PRESCHOOL_WITH_DAYCARE_DISCOUNT
+
             Product.DAYCARE to FeeAlterationType.INCREASE,
             Product.PRESCHOOL_WITH_DAYCARE to FeeAlterationType.INCREASE,
             ->
                 Product.CORRECTION
+
             else ->
                 error("No product mapping found for product + fee alteration type combo ($productKey + $feeAlterationType)")
         }

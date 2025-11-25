@@ -223,7 +223,9 @@ private fun permissions(rolesByMunicipality: Map<String, Set<UserRole>>) = UserR
 
 private fun roles(rule: UnscopedActionRule) = when (rule) {
     is HasGlobalRole -> rule.oneOf
+
     is DatabaseActionRule.Unscoped<*> -> roles(rule)
+
     else -> with(rule.toString()) {
         when {
             contains("IsEmployee\$any") -> UserRole.entries
@@ -243,6 +245,7 @@ private fun roles(rule: ScopedActionRule<*>) = when (rule) {
 
 private fun roles(rule: DatabaseActionRule.Unscoped<*>) = when (val params = rule.params) {
     is HasUnitRole -> params.oneOf
+
     else -> with(params.toString()) {
         when {
             contains("IsEmployee") -> emptyList()
@@ -253,8 +256,11 @@ private fun roles(rule: DatabaseActionRule.Unscoped<*>) = when (val params = rul
 
 private fun roles(rule: DatabaseActionRule.Scoped<*, *>) = when (val params = rule.params) {
     is HasGlobalRole -> params.oneOf
+
     is HasUnitRole -> params.oneOf
+
     is HasGroupRole -> params.oneOf
+
     else -> with(params.toString()) {
         when {
             contains("IsEmployee") -> emptyList()

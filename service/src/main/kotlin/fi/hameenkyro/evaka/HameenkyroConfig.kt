@@ -59,30 +59,36 @@ class HameenkyroConfig {
                         processDefinitionNumber = "12.04.01",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.APPLICATION_PRESCHOOL ->
                     ArchiveProcessConfig(
                         processDefinitionNumber = "12.04.00",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.APPLICATION_CLUB ->
                     ArchiveProcessConfig(
                         processDefinitionNumber = "12.04.01",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE ->
                     ArchiveProcessConfig(
                         processDefinitionNumber = "12.04.01",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL ->
                     ArchiveProcessConfig(
                         processDefinitionNumber = "12.04.00",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.FEE_DECISION -> ArchiveProcessConfig(
                     processDefinitionNumber = "12.04.03",
                     archiveDurationMonths = 10 * 12,
                 )
+
                 ArchiveProcessType.VOUCHER_VALUE_DECISION -> ArchiveProcessConfig(
                     processDefinitionNumber = "12.04.03",
                     archiveDurationMonths = 10 * 12,

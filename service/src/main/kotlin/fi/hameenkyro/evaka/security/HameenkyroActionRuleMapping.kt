@@ -25,6 +25,7 @@ class HameenkyroActionRuleMapping(private val commonRules: ActionRuleMapping) : 
             ) + sequenceOf(
                 HasUnitRole(UserRole.UNIT_SUPERVISOR, UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inUnit() as ScopedActionRule<in T>,
             )
+
         else -> commonRules.rulesOf(action)
     }
 }

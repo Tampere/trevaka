@@ -59,30 +59,36 @@ class OrivesiConfig {
                         processDefinitionNumber = "12.07.01",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.APPLICATION_PRESCHOOL ->
                     ArchiveProcessConfig(
                         processDefinitionNumber = "12.01.00.00",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.APPLICATION_CLUB ->
                     ArchiveProcessConfig(
                         processDefinitionNumber = "12.01.00.04",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE ->
                     ArchiveProcessConfig(
                         processDefinitionNumber = "12.07.03",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL ->
                     ArchiveProcessConfig(
                         processDefinitionNumber = "12.01.00.02",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.FEE_DECISION -> ArchiveProcessConfig(
                     processDefinitionNumber = "12.07.02",
                     archiveDurationMonths = 10 * 12,
                 )
+
                 ArchiveProcessType.VOUCHER_VALUE_DECISION -> ArchiveProcessConfig(
                     processDefinitionNumber = "12.07.02",
                     archiveDurationMonths = 10 * 12,

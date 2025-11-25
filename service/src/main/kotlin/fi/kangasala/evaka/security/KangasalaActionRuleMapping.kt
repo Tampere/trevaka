@@ -25,6 +25,7 @@ class KangasalaActionRuleMapping(private val commonRules: ActionRuleMapping) : A
             ) + sequenceOf(
                 HasUnitRole(UserRole.UNIT_SUPERVISOR, UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inUnit() as ScopedActionRule<in T>,
             )
+
         Action.Unit.READ_PRESCHOOL_APPLICATION_REPORT -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
@@ -33,6 +34,7 @@ class KangasalaActionRuleMapping(private val commonRules: ActionRuleMapping) : A
                 HasUnitRole(UserRole.UNIT_SUPERVISOR).inUnit() as ScopedActionRule<in T>,
             )
         }
+
         else -> commonRules.rulesOf(action)
     }
 }

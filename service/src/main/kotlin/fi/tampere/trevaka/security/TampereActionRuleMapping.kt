@@ -18,6 +18,7 @@ class TampereActionRuleMapping(private val commonRules: ActionRuleMapping) : Act
         Action.Global.UPDATE_SETTINGS,
         ->
             action.defaultRules.asSequence() + sequenceOf(HasGlobalRole(UserRole.SERVICE_WORKER))
+
         else -> commonRules.rulesOf(action)
     }
 
@@ -30,6 +31,7 @@ class TampereActionRuleMapping(private val commonRules: ActionRuleMapping) : Act
                 HasUnitRole(UserRole.UNIT_SUPERVISOR).inUnit() as ScopedActionRule<in T>,
             )
         }
+
         else -> commonRules.rulesOf(action)
     }
 }

@@ -18,6 +18,7 @@ class OrivesiActionRuleMapping(private val commonRules: ActionRuleMapping) : Act
         Action.Global.UPDATE_SETTINGS,
         ->
             action.defaultRules.asSequence() + sequenceOf(HasGlobalRole(UserRole.SERVICE_WORKER))
+
         else -> commonRules.rulesOf(action)
     }
 
@@ -29,6 +30,7 @@ class OrivesiActionRuleMapping(private val commonRules: ActionRuleMapping) : Act
             ) + sequenceOf(
                 HasUnitRole(UserRole.UNIT_SUPERVISOR, UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inUnit() as ScopedActionRule<in T>,
             )
+
         else -> commonRules.rulesOf(action)
     }
 }

@@ -43,22 +43,26 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR),
             )
         }
+
         Action.Global.READ_HOLIDAY_PERIODS -> {
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inAnyUnit(),
             )
         }
+
         Action.Global.READ_MISSING_HEAD_OF_FAMILY_REPORT,
         -> {
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR, UserRole.FINANCE_ADMIN, UserRole.SERVICE_WORKER),
             )
         }
+
         Action.Global.READ_PLACEMENT_COUNT_REPORT -> {
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.REPORT_VIEWER),
             )
         }
+
         Action.Global.READ_PLACEMENT_SKETCHING_REPORT -> {
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR),
@@ -74,7 +78,9 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inAnyUnit(),
             )
         }
+
         Action.Global.PIN_CODE_PAGE -> sequenceOf(IsEmployee.any())
+
         Action.Global.CREATE_PERSONAL_MOBILE_DEVICE_PAIRING,
         Action.Global.PERSONAL_MOBILE_DEVICE_PAGE,
         -> {
@@ -82,9 +88,13 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasUnitRole(UserRole.SPECIAL_EDUCATION_TEACHER).inAnyUnit(),
             )
         }
+
         Action.Global.SEND_PATU_REPORT, Action.Global.SUBMIT_PATU_REPORT -> emptySequence()
+
         Action.Global.SETTINGS_PAGE, Action.Global.UPDATE_SETTINGS -> emptySequence()
+
         Action.Global.READ_TAMPERE_REGIONAL_SURVEY_REPORT -> sequenceOf(HasGlobalRole(UserRole.ADMIN, UserRole.REPORT_VIEWER))
+
         else -> action.defaultRules.asSequence()
     }
 
@@ -97,6 +107,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasUnitRole(UserRole.UNIT_SUPERVISOR).inPlacementPlanUnitOfApplication(onlyAllowDeletedForTypes = setOf(ApplicationType.PRESCHOOL)) as ScopedActionRule<in T>,
             )
         }
+
         Action.Application.READ_IF_HAS_ASSISTANCE_NEED,
         Action.Application.READ_PLACEMENT_PLAN_DRAFT,
         Action.Application.READ_DECISION_DRAFT,
@@ -107,6 +118,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.AssistanceNeedDecision.READ_IN_REPORT,
         Action.AssistanceNeedPreschoolDecision.READ_IN_REPORT,
         -> {
@@ -115,6 +127,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.Attachment.READ_APPLICATION_ATTACHMENT,
         Action.Attachment.READ_INCOME_STATEMENT_ATTACHMENT,
         Action.Attachment.READ_INCOME_ATTACHMENT,
@@ -124,6 +137,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.Attachment.READ_PEDAGOGICAL_DOCUMENT_ATTACHMENT,
         Action.Attachment.DELETE_PEDAGOGICAL_DOCUMENT_ATTACHMENT,
         -> {
@@ -134,6 +148,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                     .inPlacementUnitOfChildOfPedagogicalDocumentOfAttachment() as ScopedActionRule<in T>,
             )
         }
+
         Action.BackupCare.UPDATE,
         Action.BackupCare.DELETE,
         -> {
@@ -142,6 +157,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasUnitRole(UserRole.STAFF).inPlacementUnitOfChildOfBackupCare() as ScopedActionRule<in T>,
             )
         }
+
         Action.Child.READ,
         Action.Child.READ_ABSENCES,
         Action.Child.READ_FUTURE_ABSENCES,
@@ -159,6 +175,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.Child.READ_APPLICATION -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
@@ -167,12 +184,14 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasUnitRole(UserRole.UNIT_SUPERVISOR).inPlacementUnitOfChild() as ScopedActionRule<in T>,
             )
         }
+
         Action.Child.CREATE_BACKUP_CARE -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.STAFF).inPlacementUnitOfChild() as ScopedActionRule<in T>,
             )
         }
+
         Action.Child.READ_ASSISTANCE,
         Action.Child.READ_ASSISTANCE_FACTORS,
         -> {
@@ -181,6 +200,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR, UserRole.FINANCE_ADMIN) as ScopedActionRule<in T>,
             )
         }
+
         Action.AssistanceFactor.READ,
         -> {
             @Suppress("UNCHECKED_CAST")
@@ -188,6 +208,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR, UserRole.FINANCE_ADMIN) as ScopedActionRule<in T>,
             )
         }
+
         Action.Child.READ_DAYCARE_ASSISTANCES,
         Action.Child.READ_PRESCHOOL_ASSISTANCES,
         Action.Child.READ_ASSISTANCE_ACTION,
@@ -198,6 +219,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.DaycareAssistance.READ,
         -> {
             @Suppress("UNCHECKED_CAST")
@@ -205,6 +227,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.PreschoolAssistance.READ,
         -> {
             @Suppress("UNCHECKED_CAST")
@@ -212,6 +235,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.AssistanceAction.READ,
         -> {
             @Suppress("UNCHECKED_CAST")
@@ -219,6 +243,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.OtherAssistanceMeasure.READ,
         -> {
             @Suppress("UNCHECKED_CAST")
@@ -226,6 +251,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.Child.READ_PEDAGOGICAL_DOCUMENTS,
         Action.Child.CREATE_PEDAGOGICAL_DOCUMENT,
         -> {
@@ -235,6 +261,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                     .inPlacementUnitOfChild() as ScopedActionRule<in T>,
             )
         }
+
         Action.Child.CREATE_ABSENCE,
         Action.Child.DELETE_ABSENCE,
         -> {
@@ -246,6 +273,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                     .inPlacementUnitOfChild() as ScopedActionRule<in T>,
             )
         }
+
         Action.Child.CREATE_ATTENDANCE_RESERVATION -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
@@ -253,12 +281,14 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                     .inPlacementUnitOfChild() as ScopedActionRule<in T>,
             )
         }
+
         Action.ChildDocument.READ -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.ChildDocument.UPDATE -> {
             @Suppress("UNCHECKED_CAST")
             sequenceOf(HasGlobalRole(UserRole.ADMIN) as ScopedActionRule<in T>) +
@@ -269,18 +299,21 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                     HasGroupRole(UserRole.STAFF).inPlacementGroupOfChildOfChildDocument(editable = true, denyForDecisions = false) as ScopedActionRule<in T>,
                 )
         }
+
         Action.Decision.DOWNLOAD_PDF -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.FeeDecision.READ -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.Group.CREATE_ABSENCES,
         Action.Group.DELETE_ABSENCES,
         -> {
@@ -292,6 +325,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                     .inUnitOfGroup() as ScopedActionRule<in T>,
             )
         }
+
         Action.Group.READ_STAFF_ATTENDANCES,
         Action.Group.READ_CARETAKERS,
         -> {
@@ -300,6 +334,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.Group.READ_ABSENCES -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
@@ -309,12 +344,14 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                     .inUnitOfGroup() as ScopedActionRule<in T>,
             )
         }
+
         Action.Invoice.READ -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.PedagogicalDocument.DELETE,
         Action.PedagogicalDocument.UPDATE,
         Action.PedagogicalDocument.CREATE_ATTACHMENT,
@@ -326,6 +363,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                     .inPlacementUnitOfChildOfPedagogicalDocument() as ScopedActionRule<in T>,
             )
         }
+
         Action.Person.READ_APPLICATIONS,
         Action.Person.READ_CHILD_PLACEMENT_PERIODS,
         Action.Person.READ_DECISIONS,
@@ -347,6 +385,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.Person.READ_FOSTER_CHILDREN,
         Action.Person.READ_FOSTER_PARENTS,
         -> {
@@ -355,12 +394,14 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.FINANCE_ADMIN) as ScopedActionRule<in T>,
             )
         }
+
         Action.Placement.CREATE_SERVICE_NEED -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.FINANCE_ADMIN, UserRole.SERVICE_WORKER) as ScopedActionRule<in T>,
             )
         }
+
         Action.ServiceNeed.UPDATE,
         Action.ServiceNeed.DELETE,
         -> {
@@ -369,6 +410,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.FINANCE_ADMIN, UserRole.SERVICE_WORKER) as ScopedActionRule<in T>,
             )
         }
+
         Action.Unit.READ_APPLICATIONS_AND_PLACEMENT_PLANS,
         Action.Unit.READ_ATTENDANCES,
         Action.Unit.READ_GROUP_DETAILS,
@@ -387,6 +429,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.Unit.READ_ATTENDANCE_RESERVATION_REPORT -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
@@ -395,12 +438,14 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasUnitRole(UserRole.STAFF).inUnit() as ScopedActionRule<in T>,
             )
         }
+
         Action.Unit.READ_CHILD_ATTENDANCES -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         Action.Unit.READ_STAFF_OCCUPANCY_COEFFICIENTS,
         Action.Unit.UPSERT_STAFF_OCCUPANCY_COEFFICIENTS,
         Action.Unit.UPDATE_STAFF_ATTENDANCES,
@@ -410,6 +455,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inUnit() as ScopedActionRule<in T>,
             )
         }
+
         Action.Unit.READ_TEMPORARY_EMPLOYEE,
         Action.Unit.CREATE_TEMPORARY_EMPLOYEE,
         Action.Unit.UPDATE_TEMPORARY_EMPLOYEE,
@@ -420,31 +466,37 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                 HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inUnit() as ScopedActionRule<in T>,
             )
         }
+
         Action.Unit.READ_ASSISTANCE_NEEDS_AND_ACTIONS_REPORT_BY_CHILD -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inUnit() as ScopedActionRule<in T>,
             )
         }
+
         Action.Unit.READ_EXCEEDED_SERVICE_NEEDS_REPORT -> emptySequence()
+
         Action.Unit.READ_HOLIDAY_PERIOD_ATTENDANCE_REPORT -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).withUnitFeatures(PilotFeature.RESERVATIONS).inUnit() as ScopedActionRule<in T>,
             )
         }
+
         Action.Unit.READ_TRANSFER_APPLICATIONS -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasUnitRole(UserRole.UNIT_SUPERVISOR).inUnit() as ScopedActionRule<in T>,
             )
         }
+
         Action.VoucherValueDecision.READ -> {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
             )
         }
+
         else -> action.defaultRules.asSequence()
     }
 }

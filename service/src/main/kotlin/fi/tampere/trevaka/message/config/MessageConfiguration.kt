@@ -69,6 +69,7 @@ Koska olette ottanut Suomi.fi -palvelun käyttöönne, on päätös myös luetta
             row2 = "Asiakaspalvelu",
             row3 = "PL 487, 33101 Tampere",
         )
+
         OfficialLanguage.SV -> DecisionSendAddress(
             street = "PL 487",
             postalCode = "33101",

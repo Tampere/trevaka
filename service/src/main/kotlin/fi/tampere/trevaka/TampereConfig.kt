@@ -95,30 +95,36 @@ class TampereConfig {
                         processDefinitionNumber = "12.06.01.17",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.APPLICATION_PRESCHOOL ->
                     ArchiveProcessConfig(
                         processDefinitionNumber = "12.06.01.17",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.APPLICATION_CLUB ->
                     ArchiveProcessConfig(
                         processDefinitionNumber = "12.06.01.26",
                         archiveDurationMonths = 10 * 12,
                     )
+
                 ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE ->
                     ArchiveProcessConfig(
                         processDefinitionNumber = "12.06.01.14",
                         archiveDurationMonths = 120 * 12,
                     )
+
                 ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL ->
                     ArchiveProcessConfig(
                         processDefinitionNumber = "12.06.01.15",
                         archiveDurationMonths = 120 * 12,
                     )
+
                 ArchiveProcessType.FEE_DECISION -> ArchiveProcessConfig(
                     processDefinitionNumber = "12.06.01.23",
                     archiveDurationMonths = 10 * 12,
                 )
+
                 ArchiveProcessType.VOUCHER_VALUE_DECISION -> ArchiveProcessConfig(
                     processDefinitionNumber = "12.06.01.23",
                     archiveDurationMonths = 10 * 12,
