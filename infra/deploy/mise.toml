@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: 2023-2025 Tampere region
+#
+# SPDX-License-Identifier: LGPL-2.1-or-later
+
+[tools]
+terraform = "1.14.0" # NOTE: Update .circleci/config.yml to match
