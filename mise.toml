@@ -4,9 +4,6 @@
 
 min_version = "2025.5.1"
 
-[settings]
-idiomatic_version_file_enable_tools = ["terraform"]
-
 [tools]
 java = "temurin-21"
 node = { version = "24", postinstall = "corepack enable" }
