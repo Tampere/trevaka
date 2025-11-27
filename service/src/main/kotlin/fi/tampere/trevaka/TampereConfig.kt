@@ -45,6 +45,7 @@ import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3AsyncClient
+import trevaka.export.ExportPreschoolChildDocumentsService
 import trevaka.frends.basicAuthInterceptor
 import trevaka.frends.newFrendsHttpClient
 import trevaka.ipaas.newIpaasHttpClient
@@ -213,10 +214,12 @@ class TampereConfig {
 
     @Bean
     fun tampereScheduledJobs(
+        exportPreschoolChildDocumentsService: ExportPreschoolChildDocumentsService,
         exportUnitsAclService: ExportUnitsAclService,
         tampereRunner: AsyncJobRunner<TampereAsyncJob>,
+        properties: TampereProperties,
         env: ScheduledJobsEnv<TampereScheduledJob>,
-    ): TampereScheduledJobs = TampereScheduledJobs(exportUnitsAclService, tampereRunner, env)
+    ): TampereScheduledJobs = TampereScheduledJobs(exportPreschoolChildDocumentsService, exportUnitsAclService, tampereRunner, properties, env)
 
     @Bean
     fun passwordSpecification(): PasswordSpecification = DefaultPasswordSpecification(
