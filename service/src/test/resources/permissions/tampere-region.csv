@@ -271,21 +271,21 @@ Varasijoitus;Poisto;DELETE;x;;;;;x;;x;x;;x
 "Päivittäinen varhaiskasvatusaika";Poisto;DELETE;x;;;;;;;x;x;x;
 "Tuen kerroin";Muokkaus;UPDATE;x;;;;;x;;x;;x;
 "Tuen kerroin";Poisto;DELETE;x;;;;;x;;x;;x;
-"Tuen kerroin";Luku;READ;x;;x;x;;x;;x;x;x;
+"Tuen kerroin";Luku;READ;x;;x;x;;x;;x;x;x;x
 Palvelusetelikerroin;Muokkaus;UPDATE;x;;;;;;;;;x;
 Palvelusetelikerroin;Poisto;DELETE;x;;;;;;;;;x;
 "Tuen taso varhaiskasvatuksessa";Muokkaus;UPDATE;x;;;;;x;;x;;x;
 "Tuen taso varhaiskasvatuksessa";Poisto;DELETE;x;;;;;x;;x;;x;
-"Tuen taso varhaiskasvatuksessa";Luku;READ;x;;x;;;;;x;x;x;
+"Tuen taso varhaiskasvatuksessa";Luku;READ;x;;x;;;;;x;x;x;x
 "Tuki esiopetuksessa";Muokkaus;UPDATE;x;;;;;x;;x;;x;
 "Tuki esiopetuksessa";Poisto;DELETE;x;;;;;x;;x;;x;
-"Tuki esiopetuksessa";Luku;READ;x;;x;;;x;;x;x;x;
+"Tuki esiopetuksessa";Luku;READ;x;;x;;;x;;x;x;x;x
 "Tukitoimet ja tukipalvelut";Muokkaus;UPDATE;x;;;;;x;;x;;x;
 "Tukitoimet ja tukipalvelut";Poisto;DELETE;x;;;;;x;;x;;x;
-"Tukitoimet ja tukipalvelut";Luku;READ;x;;x;;;;;x;x;x;
+"Tukitoimet ja tukipalvelut";Luku;READ;x;;x;;;;;x;x;x;x
 "Muut toimet";Muokkaus;UPDATE;x;;;;;x;;x;;x;
 "Muut toimet";Poisto;DELETE;x;;;;;x;;x;;x;
-"Muut toimet";Luku;READ;x;;x;;;;;x;x;x;
+"Muut toimet";Luku;READ;x;;x;;;;;x;x;x;x
 "Päätös tuesta varhaiskasvatuksessa";"Päätöksentekijöiden luku";"READ_DECISION_MAKER_OPTIONS";x;;;;;x;;x;x;x;
 "Päätös tuesta varhaiskasvatuksessa";Muokkaus;UPDATE;x;;;;;x;;x;;x;
 "Päätös tuesta varhaiskasvatuksessa";Poisto;DELETE;x;;;;;x;;x;;x;
