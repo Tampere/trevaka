@@ -206,6 +206,8 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR, UserRole.FINANCE_ADMIN) as ScopedActionRule<in T>,
+            ) + sequenceOf(
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inPlacementUnitOfChildOfAssistanceFactor(true) as ScopedActionRule<in T>,
             )
         }
 
@@ -225,6 +227,8 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
+            ) + sequenceOf(
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inPlacementUnitOfChildOfDaycareAssistance(true) as ScopedActionRule<in T>,
             )
         }
 
@@ -233,6 +237,8 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
+            ) + sequenceOf(
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inPlacementUnitOfChildOfPreschoolAssistance(true) as ScopedActionRule<in T>,
             )
         }
 
@@ -241,6 +247,8 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
+            ) + sequenceOf(
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inPlacementUnitOfChildOfAssistanceAction(true) as ScopedActionRule<in T>,
             )
         }
 
@@ -249,6 +257,8 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
             @Suppress("UNCHECKED_CAST")
             action.defaultRules.asSequence() + sequenceOf(
                 HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
+            ) + sequenceOf(
+                HasUnitRole(UserRole.EARLY_CHILDHOOD_EDUCATION_SECRETARY).inPlacementUnitOfChildOfOtherAssistanceMeasure(true) as ScopedActionRule<in T>,
             )
         }
 
