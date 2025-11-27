@@ -345,6 +345,11 @@ jobs:
     executor: docker_ubuntu
     resource_class: small
     steps:
+      - when:
+          condition:
+            equal: [ current, << parameters.version >> ]
+          steps:
+            - run: circleci-agent step halt
       - setup_remote_docker
       - setup_aws
       - run:
@@ -386,6 +391,14 @@ jobs:
           configure_profile_region: false
           role_arn: << parameters.role-arn >>
       - terraform_install
+      - when:
+          condition:
+            equal: [ current, << parameters.version >> ]
+          steps:
+            - terraform/init:
+                backend_config: region=${TF_VAR_region},bucket=${TF_VAR_terraform_bucket}
+                path: infra/deploy
+            - run: terraform -chdir=infra/deploy output | tee infra/deploy/versions.auto.tfvars
       - terraform/apply:
           backend_config: region=${TF_VAR_region},bucket=${TF_VAR_terraform_bucket}
           path: infra/deploy
