@@ -5,16 +5,19 @@
 package fi.ylojarvi.evaka.invoice
 
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
+import fi.ylojarvi.evaka.InvoiceProperties
 import fi.ylojarvi.evaka.invoice.service.validInvoice
 import fi.ylojarvi.evaka.invoice.service.validPerson
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import trevaka.invoice.expectedRowLength
 
+private val properties = InvoiceProperties("123", "45")
+
 class YlojarviInvoiceClientTest {
     @Test
     fun `toInvoiceHeaderRow returns correct length`() {
-        val fields = toInvoiceHeaderRow("", validInvoice(), HelsinkiDateTime.now())
+        val fields = toInvoiceHeaderRow("", validInvoice(), HelsinkiDateTime.now(), properties)
         assertEquals(expectedRowLength(803, 70), fields.sumOf { it.length })
     }
 

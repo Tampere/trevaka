@@ -48,7 +48,7 @@ class YlojarviInvoiceClient(
         if (ssnInvoices.isEmpty()) return SendResult(succeeded = zeroSumInvoices, manuallySent = nonSsnInvoices)
 
         val now = clockService.clock().now()
-        val data = FixedLengthField.render(ssnInvoices.flatMap { invoice -> toInvoiceData(invoice, now) })
+        val data = FixedLengthField.render(ssnInvoices.flatMap { invoice -> toInvoiceData(invoice, now, properties) })
         val timestamp = now.toLocalDateTime().format(FILENAME_DATE_TIME_FORMATTER)
         val filename = "${properties.sftp!!.prefix}${properties.municipalityCode}_${properties.invoiceType}_$timestamp.dat"
         data.byteInputStream(Charsets.ISO_8859_1).use { sftpClient.put(it, filename) }
@@ -58,7 +58,7 @@ class YlojarviInvoiceClient(
 
 // RD Myyntilaskut liittymäkuvaus MRP 2.3.pdf
 
-internal fun toInvoiceData(invoice: InvoiceDetailed, now: HelsinkiDateTime): List<List<FixedLengthField>> {
+internal fun toInvoiceData(invoice: InvoiceDetailed, now: HelsinkiDateTime, properties: InvoiceProperties): List<List<FixedLengthField>> {
     val header = invoice.headOfFamily.ssn!!
     val invoiceRows = invoice.rows
         .sortedBy { row -> row.child.firstName }
@@ -70,7 +70,7 @@ internal fun toInvoiceData(invoice: InvoiceDetailed, now: HelsinkiDateTime): Lis
             )
         }
     return listOfNotNull(
-        toInvoiceHeaderRow(header, invoice, now),
+        toInvoiceHeaderRow(header, invoice, now, properties),
         invoice.codebtor?.let { toCodebtorRow(header, it) },
         *invoiceRows.toTypedArray(),
     )
@@ -87,7 +87,7 @@ internal fun toInvoiceRows(header: String, rows: List<InvoiceRowDetailed>): List
 /**
  * 3.1 Laskun otsikkotietue
  */
-internal fun toInvoiceHeaderRow(header: String, invoice: InvoiceDetailed, now: HelsinkiDateTime): List<FixedLengthField> {
+internal fun toInvoiceHeaderRow(header: String, invoice: InvoiceDetailed, now: HelsinkiDateTime, properties: InvoiceProperties): List<FixedLengthField> {
     val person = InvoicePerson.of(invoice.headOfFamily, RESTRICTED_ADDRESS)
     return listOf(
         Text(header, 11), // 1. Tunniste: Asiakkaan tunniste, hetu, y-tunnus tai muu (esim. jatkettu y-tunnus)
@@ -120,7 +120,7 @@ internal fun toInvoiceHeaderRow(header: String, invoice: InvoiceDetailed, now: H
         Text(null, 1), // 26. Ei käytössä
         Text("1000", 10), // 27. Kumppani: Asiakkaan kumppanikoodi (henkilöasiakkailla aina 1000)
         Text("EUR", 3), // 28. Valuutta: Valuutta, vain EUR
-        Text(null, 2), // 29. Laskulaji: Laskulajin koodi
+        Text(properties.invoiceType, 2), // 29. Laskulaji: Laskulajin koodi
         Text(null, 3), // 30. Ei käytössä
         Text("Varhaiskasvatus ${now.minusMonths(1).let { YearMonth.of(it.year, it.month) }.format(YEAR_MONTH_FORMATTER)}", 30), // 31. Viitteemme: Viitteemme-tieto laskulla. Tiedon tulee siirtyä aineistossa.
         Text("K".takeIf { invoice.headOfFamily.restrictedDetailsEnabled }, 1), // 32. Turvakielto: Vain henkilöasiakkaat. K = Turvakieltomerkitty osoite (muulloin tyhjä)
