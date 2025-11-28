@@ -119,15 +119,6 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
             )
         }
 
-        Action.AssistanceNeedDecision.READ_IN_REPORT,
-        Action.AssistanceNeedPreschoolDecision.READ_IN_REPORT,
-        -> {
-            @Suppress("UNCHECKED_CAST")
-            action.defaultRules.asSequence() + sequenceOf(
-                HasGlobalRole(UserRole.DIRECTOR) as ScopedActionRule<in T>,
-            )
-        }
-
         Action.Attachment.READ_APPLICATION_ATTACHMENT,
         Action.Attachment.READ_INCOME_STATEMENT_ATTACHMENT,
         Action.Attachment.READ_INCOME_ATTACHMENT,
@@ -162,8 +153,6 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
         Action.Child.READ_ABSENCES,
         Action.Child.READ_FUTURE_ABSENCES,
         Action.Child.READ_ADDITIONAL_INFO,
-        Action.Child.READ_ASSISTANCE_NEED_DECISIONS,
-        Action.Child.READ_ASSISTANCE_NEED_PRESCHOOL_DECISIONS,
         Action.Child.READ_BACKUP_CARE,
         Action.Child.READ_PLACEMENT,
         Action.Child.READ_GUARDIANS,

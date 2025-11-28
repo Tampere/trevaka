@@ -369,6 +369,7 @@ private fun translate(action: Global) = action.name to when (action) {
     Global.READ_AROMI_ORDERS -> "Aromi-raportti"
     Global.READ_PLACEMENT_DESKTOP_DAYCARES -> "Sijoittelutyöpöytä"
     Global.READ_DRAFT_OCCUPANCIES -> "Hahmotellun täyttö/käyttöasteen luku"
+    Global.READ_PRESCHOOL_ABSENCE_REPORT_FOR_AREA -> "Esiopetuksen poissaoloraportti alueittain"
 }
 
 private fun translate(entry: Enum<*>) = entry.name to when (entry.name) {
@@ -631,7 +632,7 @@ private fun translate(entry: Enum<*>) = entry.name to when (entry.name) {
     "UPDATE_TEMPORARY_EMPLOYEE" -> "Tilapäisen sijaisen muokkaus"
     "DELETE_TEMPORARY_EMPLOYEE" -> "Tilapäisen sijaisen poisto"
     "READ_MEAL_REPORT" -> "Ruokailijamäärät-raportti"
-    "READ_PRESCHOOL_ABSENCE_REPORT" -> "Esiopetuksen poissaoloraportti"
+    "READ_PRESCHOOL_ABSENCE_REPORT_FOR_UNIT" -> "Esiopetuksen poissaoloraportti"
     "READ_CHILD_DOCUMENTS_REPORT" -> "Pedagogiset asiakirjat -raportti"
     "READ_PRESCHOOL_APPLICATION_REPORT" -> "Ehdottava EO-raportti"
     "READ_HOLIDAY_PERIOD_ATTENDANCE_REPORT" -> "Lomakyselyraportti"
