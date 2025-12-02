@@ -16,7 +16,7 @@
     "lib-common": "link:../evaka/frontend/src/lib-common",
     "lib-components": "link:../evaka/frontend/src/lib-components",
     "lib-customizations": "link:../evaka/frontend/src/lib-customizations",
-    "ts-jest": "^29.4.5",
+    "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "tslib": "^2.8.1",
     "typescript": "^5.9.3"
