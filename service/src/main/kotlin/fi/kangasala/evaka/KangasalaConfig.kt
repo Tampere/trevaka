@@ -112,9 +112,6 @@ class KangasalaConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun ipaasProperties(properties: KangasalaProperties) = properties.ipaas
-
-    @Bean
     fun mealTypeMapper(): MealTypeMapper = KangasalaMealTypeMapper
 
     @Bean

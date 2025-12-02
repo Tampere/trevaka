@@ -24,7 +24,7 @@ class TamperePaymentClientIT : AbstractTampereIntegrationTest() {
     fun send() {
         val payment1 = testPayment
         stubFor(
-            post(urlEqualTo("/mock/ipaas/payableAccounting")).willReturn(
+            post(urlEqualTo("/mock/frends/payableAccounting")).willReturn(
                 aResponse()
                     .withStatus(200)
                     .withHeader("Content-Type", "application/soap+xml")
@@ -37,8 +37,9 @@ class TamperePaymentClientIT : AbstractTampereIntegrationTest() {
             .returns(listOf()) { it.failed }
 
         verify(
-            postRequestedFor(urlEqualTo("/mock/ipaas/payableAccounting"))
-                .withBasicAuth(BasicCredentials("user", "pass"))
+            postRequestedFor(urlEqualTo("/mock/frends/payableAccounting"))
+                .withoutHeader("Authorization")
+                .withHeader("X-API-KEY", equalTo("finance-api-key-123"))
                 .withHeader(
                     "Content-Type",
                     equalTo("application/soap+xml; charset=utf-8; action=\"http://www.tampere.fi/services/sapfico/payableaccounting/v1.0/SendPayableAccounting\""),
@@ -52,7 +53,7 @@ class TamperePaymentClientIT : AbstractTampereIntegrationTest() {
     fun sendWithApplicationFaultResponse() {
         val payment1 = testPayment
         stubFor(
-            post(urlEqualTo("/mock/ipaas/payableAccounting")).willReturn(
+            post(urlEqualTo("/mock/frends/payableAccounting")).willReturn(
                 aResponse()
                     .withStatus(400)
                     .withHeader("Content-Type", "application/soap+xml")
@@ -64,8 +65,9 @@ class TamperePaymentClientIT : AbstractTampereIntegrationTest() {
 
         assertThat(thrown).isInstanceOf(SoapFaultClientException::class.java)
         verify(
-            postRequestedFor(urlEqualTo("/mock/ipaas/payableAccounting"))
-                .withBasicAuth(BasicCredentials("user", "pass"))
+            postRequestedFor(urlEqualTo("/mock/frends/payableAccounting"))
+                .withoutHeader("Authorization")
+                .withHeader("X-API-KEY", equalTo("finance-api-key-123"))
                 .withHeader(
                     "Content-Type",
                     equalTo("application/soap+xml; charset=utf-8; action=\"http://www.tampere.fi/services/sapfico/payableaccounting/v1.0/SendPayableAccounting\""),
@@ -78,7 +80,7 @@ class TamperePaymentClientIT : AbstractTampereIntegrationTest() {
     fun sendWithSystemFaultResponse() {
         val payment1 = testPayment
         stubFor(
-            post(urlEqualTo("/mock/ipaas/payableAccounting")).willReturn(
+            post(urlEqualTo("/mock/frends/payableAccounting")).willReturn(
                 aResponse()
                     .withStatus(500)
                     .withHeader("Content-Type", "application/soap+xml")
@@ -90,8 +92,9 @@ class TamperePaymentClientIT : AbstractTampereIntegrationTest() {
 
         assertThat(thrown).isInstanceOf(SoapFaultClientException::class.java)
         verify(
-            postRequestedFor(urlEqualTo("/mock/ipaas/payableAccounting"))
-                .withBasicAuth(BasicCredentials("user", "pass"))
+            postRequestedFor(urlEqualTo("/mock/frends/payableAccounting"))
+                .withoutHeader("Authorization")
+                .withHeader("X-API-KEY", equalTo("finance-api-key-123"))
                 .withHeader(
                     "Content-Type",
                     equalTo("application/soap+xml; charset=utf-8; action=\"http://www.tampere.fi/services/sapfico/payableaccounting/v1.0/SendPayableAccounting\""),

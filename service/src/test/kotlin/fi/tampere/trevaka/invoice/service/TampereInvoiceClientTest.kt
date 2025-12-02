@@ -34,7 +34,6 @@ import org.springframework.ws.test.client.RequestMatchers.connectionTo
 import org.springframework.ws.test.client.RequestMatchers.payload
 import org.springframework.ws.test.client.ResponseCreators.*
 import trevaka.addClientInterceptors
-import trevaka.ipaas.IpaasProperties
 import trevaka.newPayloadValidatingInterceptor
 import java.time.LocalDate
 import java.util.Locale
@@ -48,7 +47,6 @@ internal class TampereInvoiceClientTest {
     @BeforeEach
     fun setup() {
         val properties = TampereProperties(
-            IpaasProperties("user", "pass"),
             InvoiceProperties("http://localhost:8080/salesOrder"),
             PaymentProperties(""),
             SummertimeAbsenceProperties(),
@@ -58,6 +56,7 @@ internal class TampereInvoiceClientTest {
             BiExportProperties(
                 prefix = "bi",
             ),
+            "finance-api-key-123",
         )
         val configuration = InvoiceConfiguration()
         client = configuration.invoiceIntegrationClient(properties) as TampereInvoiceClient

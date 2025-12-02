@@ -34,7 +34,8 @@ internal class DvvModificationsServiceClientIT : AbstractTampereIntegrationTest(
 
         verify(
             getRequestedFor(urlEqualTo("/mock/modifications/kirjausavain/2021-04-01"))
-                .withBasicAuth(BasicCredentials("user", "pass")),
+                .withoutHeader("Authorization")
+                .withHeader("X-API-KEY", equalTo("vtj-mutpa-api-key-123")),
         )
     }
 
@@ -54,7 +55,8 @@ internal class DvvModificationsServiceClientIT : AbstractTampereIntegrationTest(
 
         verify(
             postRequestedFor(urlEqualTo("/mock/modifications/muutokset"))
-                .withBasicAuth(BasicCredentials("user", "pass")),
+                .withoutHeader("Authorization")
+                .withHeader("X-API-KEY", equalTo("vtj-mutpa-api-key-123")),
         )
     }
 }

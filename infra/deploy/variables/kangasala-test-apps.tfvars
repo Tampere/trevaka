@@ -24,7 +24,6 @@ voucher_value_decision_days_in_advance        = 123
 varda_integration_api_url                     = ""
 vtj_enabled                                   = true
 vtj_xroad_client_membercode                   = "1923299-5"
-vtj_xroad_client_subsystemcode                = "kangasalaevaka"
 email_allowlist                               = "^(.+)@kangasala.fi$"
 email_name                                    = "Kangasalan varhaiskasvatus"
 email_subject_postfix                         = "test"
@@ -45,9 +44,5 @@ sfi_msg_printing_provider  = "Posti"
 # service: jamix
 jamix_orders_enabled = true
 jamix_diets_enabled  = true
-
-# service: TrevakaProperties
-trevaka_frends_vtj_kysely = true
-trevaka_frends_vtj_mutpa  = true
 
 # service: KangasalaProperties

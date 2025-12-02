@@ -33,7 +33,6 @@ import org.springframework.ws.soap.SoapVersion
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory
 import org.springframework.ws.transport.http.SimpleHttpComponents5MessageSender
 import trevaka.frends.newFrendsHttpClient
-import trevaka.ipaas.newIpaasHttpClient
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.YearMonth
@@ -49,11 +48,7 @@ class InvoiceConfiguration {
     @Primary
     @Bean
     fun invoiceIntegrationClient(properties: TampereProperties): InvoiceIntegrationClient {
-        val httpClient = if (properties.enabledFeatures.frendsInvoice) {
-            newFrendsHttpClient(properties.financeApiKey ?: error("Finance api key not set (TAMPERE_FINANCE_API_KEY)"))
-        } else {
-            newIpaasHttpClient(properties.ipaas)
-        }
+        val httpClient = newFrendsHttpClient(properties.financeApiKey)
         val messageFactory = SaajSoapMessageFactory().apply {
             setSoapVersion(SoapVersion.SOAP_12)
             afterPropertiesSet()

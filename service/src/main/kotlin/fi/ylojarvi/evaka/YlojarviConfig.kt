@@ -113,9 +113,6 @@ class YlojarviConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun ipaasProperties(properties: YlojarviProperties) = properties.ipaas
-
-    @Bean
     fun mealTypeMapper(): MealTypeMapper = YlojarviMealTypeMapper
 
     @Bean

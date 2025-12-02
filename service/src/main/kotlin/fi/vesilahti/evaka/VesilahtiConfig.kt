@@ -111,9 +111,6 @@ class VesilahtiConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun ipaasProperties(properties: VesilahtiProperties) = properties.ipaas
-
-    @Bean
     fun mealTypeMapper(): MealTypeMapper = DefaultMealTypeMapper
 
     @Bean

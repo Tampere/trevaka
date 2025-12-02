@@ -5,12 +5,10 @@
 package fi.ylojarvi.evaka
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import trevaka.ipaas.IpaasProperties
 import trevaka.sftp.SftpProperties
 
 @ConfigurationProperties(prefix = "ylojarvi")
 data class YlojarviProperties(
-    val ipaas: IpaasProperties,
     val invoice: InvoiceProperties,
     val bucket: BucketProperties,
 )

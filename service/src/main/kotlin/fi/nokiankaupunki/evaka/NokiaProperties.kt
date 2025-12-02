@@ -5,12 +5,10 @@
 package fi.nokiankaupunki.evaka
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import trevaka.ipaas.IpaasProperties
 import trevaka.sftp.SftpProperties
 
 @ConfigurationProperties(prefix = "nokia")
 data class NokiaProperties(
-    val ipaas: IpaasProperties,
     val invoice: InvoiceProperties,
     val bucket: BucketProperties,
     val archival: SftpArchivalProperties?,

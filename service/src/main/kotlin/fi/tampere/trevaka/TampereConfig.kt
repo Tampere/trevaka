@@ -48,7 +48,6 @@ import software.amazon.awssdk.services.s3.S3AsyncClient
 import trevaka.export.ExportPreschoolChildDocumentsService
 import trevaka.frends.basicAuthInterceptor
 import trevaka.frends.newFrendsHttpClient
-import trevaka.ipaas.newIpaasHttpClient
 import trevaka.security.TrevakaActionRuleMapping
 import trevaka.titania.TrimStartTitaniaEmployeeIdConverter
 import trevaka.tomcat.tomcatAccessLoggingCustomizer
@@ -170,11 +169,7 @@ class TampereConfig {
 
     @Bean
     fun paymentIntegrationClient(properties: TampereProperties): PaymentIntegrationClient {
-        val httpClient = if (properties.enabledFeatures.frendsPayment) {
-            newFrendsHttpClient(properties.financeApiKey ?: error("Finance api key not set (TAMPERE_FINANCE_API_KEY)"))
-        } else {
-            newIpaasHttpClient(properties.ipaas)
-        }
+        val httpClient = newFrendsHttpClient(properties.financeApiKey)
         val messageFactory = SaajSoapMessageFactory().apply {
             setSoapVersion(SoapVersion.SOAP_12)
             afterPropertiesSet()
@@ -201,9 +196,6 @@ class TampereConfig {
 
     @Bean
     fun mealTypeMapper(): MealTypeMapper = DefaultMealTypeMapper
-
-    @Bean
-    fun ipaasProperties(properties: TampereProperties) = properties.ipaas
 
     @Bean
     fun tampereScheduledJobEnv(env: Environment): ScheduledJobsEnv<TampereScheduledJob> = ScheduledJobsEnv.fromEnvironment(

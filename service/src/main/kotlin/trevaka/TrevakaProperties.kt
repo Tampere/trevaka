@@ -8,12 +8,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 
 @ConfigurationProperties(prefix = "trevaka")
 data class TrevakaProperties(
-    val enabledFeatures: TrevakaEnabledFeatures = TrevakaEnabledFeatures(),
-    val vtjKyselyApiKey: String? = null,
-    val vtjMutpaApiKey: String? = null,
-)
-
-data class TrevakaEnabledFeatures(
-    val frendsVtjKysely: Boolean = false,
-    val frendsVtjMutpa: Boolean = false,
+    val vtjKyselyApiKey: String,
+    val vtjMutpaApiKey: String,
 )

@@ -24,7 +24,7 @@ internal class TampereInvoiceClientIT : AbstractTampereIntegrationTest() {
     fun send() {
         val invoice1 = validInvoice()
         stubFor(
-            post(urlEqualTo("/mock/ipaas/salesOrder")).willReturn(
+            post(urlEqualTo("/mock/frends/salesOrder")).willReturn(
                 aResponse()
                     .withStatus(200)
                     .withHeader("Content-Type", "application/soap+xml")
@@ -37,8 +37,9 @@ internal class TampereInvoiceClientIT : AbstractTampereIntegrationTest() {
             .returns(listOf()) { it.failed }
 
         verify(
-            postRequestedFor(urlEqualTo("/mock/ipaas/salesOrder"))
-                .withBasicAuth(BasicCredentials("user", "pass"))
+            postRequestedFor(urlEqualTo("/mock/frends/salesOrder"))
+                .withoutHeader("Authorization")
+                .withHeader("X-API-KEY", equalTo("finance-api-key-123"))
                 .withHeader(
                     "Content-Type",
                     equalTo("application/soap+xml; charset=utf-8; action=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\""),
@@ -52,7 +53,7 @@ internal class TampereInvoiceClientIT : AbstractTampereIntegrationTest() {
     fun sendWithApplicationFaultResponse() {
         val invoice1 = validInvoice()
         stubFor(
-            post(urlEqualTo("/mock/ipaas/salesOrder")).willReturn(
+            post(urlEqualTo("/mock/frends/salesOrder")).willReturn(
                 aResponse()
                     .withStatus(400)
                     .withHeader("Content-Type", "application/soap+xml")
@@ -64,8 +65,9 @@ internal class TampereInvoiceClientIT : AbstractTampereIntegrationTest() {
 
         assertThat(thrown).isInstanceOf(SoapFaultClientException::class.java)
         verify(
-            postRequestedFor(urlEqualTo("/mock/ipaas/salesOrder"))
-                .withBasicAuth(BasicCredentials("user", "pass"))
+            postRequestedFor(urlEqualTo("/mock/frends/salesOrder"))
+                .withoutHeader("Authorization")
+                .withHeader("X-API-KEY", equalTo("finance-api-key-123"))
                 .withHeader(
                     "Content-Type",
                     equalTo("application/soap+xml; charset=utf-8; action=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\""),
@@ -78,7 +80,7 @@ internal class TampereInvoiceClientIT : AbstractTampereIntegrationTest() {
     fun sendWithSystemFaultResponse() {
         val invoice1 = validInvoice()
         stubFor(
-            post(urlEqualTo("/mock/ipaas/salesOrder")).willReturn(
+            post(urlEqualTo("/mock/frends/salesOrder")).willReturn(
                 aResponse()
                     .withStatus(500)
                     .withHeader("Content-Type", "application/soap+xml")
@@ -90,8 +92,9 @@ internal class TampereInvoiceClientIT : AbstractTampereIntegrationTest() {
 
         assertThat(thrown).isInstanceOf(SoapFaultClientException::class.java)
         verify(
-            postRequestedFor(urlEqualTo("/mock/ipaas/salesOrder"))
-                .withBasicAuth(BasicCredentials("user", "pass"))
+            postRequestedFor(urlEqualTo("/mock/frends/salesOrder"))
+                .withoutHeader("Authorization")
+                .withHeader("X-API-KEY", equalTo("finance-api-key-123"))
                 .withHeader(
                     "Content-Type",
                     equalTo("application/soap+xml; charset=utf-8; action=\"http://www.tampere.fi/services/sapsd/salesorder/v1.0/SendSalesOrder\""),

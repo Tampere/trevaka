@@ -111,9 +111,6 @@ class HameenkyroConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun ipaasProperties(properties: HameenkyroProperties) = properties.ipaas
-
-    @Bean
     fun mealTypeMapper(): MealTypeMapper = DefaultMealTypeMapper
 
     @Bean

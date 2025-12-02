@@ -30,7 +30,6 @@ varda_integration_api_url              = "https://backend.prod.varda.opintopolku
 evaka_integration_varda_start_date     = "2024-08-01"
 vtj_enabled                            = true
 vtj_xroad_client_membercode            = "0151789-6"
-vtj_xroad_client_subsystemcode         = "orivesievaka"
 email_name                             = "Oriveden varhaiskasvatus"
 dvv_mutp_update_enabled                = true
 evaka_integration_sfi_enabled          = true
@@ -62,9 +61,5 @@ sfi_msg_printing_provider  = "Posti"
 # service: jamix
 jamix_orders_enabled = true
 jamix_diets_enabled  = true
-
-# service: TrevakaProperties
-trevaka_frends_vtj_kysely = true
-trevaka_frends_vtj_mutpa  = true
 
 # service: OrivesiProperties

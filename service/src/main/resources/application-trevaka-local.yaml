@@ -51,9 +51,6 @@ trevaka:
   vtj-mutpa-api-key: vtj-mutpa-api-key-123
 
 tampere:
-  ipaas:
-    username: user
-    password: pass
   frends:
     username: frends-user
     password: frends-pass
@@ -70,21 +67,12 @@ tampere:
     base-url: http://localhost:${server.port}/dev-api/tampere/archival
 
 vesilahti:
-  ipaas:
-    username: user
-    password: pass
   bucket:
     export: trevaka-export-dev
 hameenkyro:
-  ipaas:
-    username: user
-    password: pass
   bucket:
     export: trevaka-export-dev
 ylojarvi:
-  ipaas:
-    username: user
-    password: pass
   invoice:
     sftp:
       host: localhost
@@ -103,15 +91,9 @@ ylojarvi:
   bucket:
     export: trevaka-export-dev
 pirkkala:
-  ipaas:
-    username: user
-    password: pass
   bucket:
     export: trevaka-export-dev
 nokia:
-  ipaas:
-    username: user
-    password: pass
   invoice:
     sftp:
       host: localhost
@@ -130,20 +112,11 @@ nokia:
   bucket:
     export: trevaka-export-dev
 kangasala:
-  ipaas:
-    username: user
-    password: pass
   bucket:
     export: trevaka-export-dev
 lempaala:
-  ipaas:
-    username: user
-    password: pass
   bucket:
     export: trevaka-export-dev
 orivesi:
-  ipaas:
-    username: user
-    password: pass
   bucket:
     export: trevaka-export-dev
