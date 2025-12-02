@@ -392,7 +392,7 @@ Yksikkö;"Palveluseteliyksiköt-raportti";"READ_SERVICE_VOUCHER_REPORT";x;x;x;x;
 Yksikkö;"Palvelusetelilapset yksikössä -raportti";"READ_SERVICE_VOUCHER_VALUES_REPORT";x;;x;x;;;;x;;;x
 Yksikkö;"Yksikön toimintojen muokkaus";UPDATE_FEATURES;x;;;;;;;;;;
 Yksikkö;"Lukemattomien viestien luku";READ_UNREAD_MESSAGES;;;;;;;;;;;
-Yksikkö;"Irtisanotun sijoituksen luku";"READ_TERMINATED_PLACEMENTS";x;;;;;;;x;;;
+Yksikkö;"Irtisanotun sijoituksen luku";"READ_TERMINATED_PLACEMENTS";x;;;;;x;;x;;;
 Yksikkö;"Ryhmää odottavien lasten luku";"READ_MISSING_GROUP_PLACEMENTS";x;;x;;;x;;x;;;x
 Yksikkö;"Tapahtumien luku";READ_CALENDAR_EVENTS;x;;;;;;;x;x;x;
 Yksikkö;"Tapahtuman luonti";CREATE_CALENDAR_EVENT;x;;;;;;;x;x;x;
