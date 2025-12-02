@@ -222,13 +222,13 @@ $unsubscribeEn
             subject = "Uusi $typeFi eVakassa / New $typeEn in eVaka",
             html =
             """
-                <p>Sinulle on saapunut uusi $typeFi Tampereen varhaiskasvatuksen verkkopalveluun eVakaan${if (showSubjectInBody) " otsikolla \"" + thread.title + "\"" else ""}.</p>
+                <p>Sinulle on saapunut uusi $typeFi Tampereen varhaiskasvatuksen verkkopalveluun eVakaan lähettäjältä ${thread.senderName}${if (showSubjectInBody) " otsikolla \"" + thread.title + "\"" else ""}.</p>
                 <p>Tämä on eVaka-järjestelmän automaattisesti lähettämä ilmoitus. Älä vastaa tähän viestiin.</p>
                 $unsubscribeFi
 
                 <hr>
 
-                <p>You have received a new $typeEn in Tampere`s early childhood education system eVaka${if (showSubjectInBody) " with subject \"" + thread.title + "\"" else ""}.</p>
+                <p>You have received a new $typeEn in Tampere`s early childhood education system eVaka from ${thread.senderName}${if (showSubjectInBody) " with subject \"" + thread.title + "\"" else ""}.</p>
                 <p>This is an automatic message from the eVaka system. Do not reply to this message.</p>
                 $unsubscribeEn
         """
