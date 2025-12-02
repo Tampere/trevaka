@@ -63,4 +63,8 @@ sfi_msg_printing_provider  = "Posti"
 jamix_orders_enabled = true
 jamix_diets_enabled  = true
 
+# service: TrevakaProperties
+trevaka_frends_vtj_kysely = true
+trevaka_frends_vtj_mutpa  = true
+
 # service: PirkkalaProperties
