@@ -42,7 +42,8 @@ internal class PersonDetailsServiceIT : AbstractTampereIntegrationTest() {
         assertThat(person).returns("070644-937X", { it.socialSecurityNumber })
         verify(
             postRequestedFor(urlEqualTo("/mock/vtj"))
-                .withBasicAuth(BasicCredentials("user", "pass"))
+                .withoutHeader("Authorization")
+                .withHeader("X-API-KEY", equalTo("vtj-kysely-api-key-123"))
                 .withHeader("Content-Type", equalTo("text/xml; charset=UTF-8"))
                 .withHeader("SOAPAction", equalTo("\"\"")),
         )

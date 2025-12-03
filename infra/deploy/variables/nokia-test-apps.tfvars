@@ -24,7 +24,6 @@ voucher_value_decision_days_in_advance        = 123
 varda_integration_api_url                     = ""
 vtj_enabled                                   = true
 vtj_xroad_client_membercode                   = "0205717-4"
-vtj_xroad_client_subsystemcode                = "nokiaevaka"
 email_allowlist                               = "^(.+)@nokia.fi$"
 email_name                                    = "Nokian varhaiskasvatus"
 email_subject_postfix                         = "test"
@@ -41,10 +40,6 @@ evaka_job_send_outdated_income_notifications_enabled = true
 sfi_msg_service_identifier = "nokia_ws_evaka"
 sfi_msg_enable_printing    = false
 sfi_msg_printing_provider  = "Posti"
-
-# service: TrevakaProperties
-trevaka_frends_vtj_kysely = true
-trevaka_frends_vtj_mutpa  = true
 
 # service: NokiaProperties
 nokia_invoice_version = "V2026"

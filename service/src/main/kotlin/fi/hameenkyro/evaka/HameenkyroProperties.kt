@@ -5,11 +5,9 @@
 package fi.hameenkyro.evaka
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import trevaka.ipaas.IpaasProperties
 
 @ConfigurationProperties(prefix = "hameenkyro")
 data class HameenkyroProperties(
-    val ipaas: IpaasProperties,
     val bucket: BucketProperties,
 )
 

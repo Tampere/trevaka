@@ -5,11 +5,9 @@
 package fi.lempaala.evaka
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import trevaka.ipaas.IpaasProperties
 
 @ConfigurationProperties(prefix = "lempaala")
 data class LempaalaProperties(
-    val ipaas: IpaasProperties,
     val invoice: InvoiceProperties,
     val bucket: BucketProperties,
 )

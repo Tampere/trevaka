@@ -75,7 +75,7 @@ module "app_service" {
     EVAKA_INTEGRATION_VARDA_BASIC_AUTH = "${local.param_prefix}/service/varda/basic-auth"
 
     # DvvModificationsEnv
-    EVAKA_INTEGRATION_DVV_MODIFICATIONS_URL      = var.trevaka_frends_vtj_mutpa ? "${local.param_prefix}/service/dvv-modifications/url/frends" : "${local.param_prefix}/service/dvv-modifications/url"
+    EVAKA_INTEGRATION_DVV_MODIFICATIONS_URL      = "${local.param_prefix}/service/dvv-modifications/url/frends"
     EVAKA_INTEGRATION_DVV_MODIFICATIONS_USER_ID  = "${local.param_prefix}/service/dvv-modifications/userid"
     EVAKA_INTEGRATION_DVV_MODIFICATIONS_PASSWORD = "${local.param_prefix}/service/dvv-modifications/password"
 
@@ -84,7 +84,7 @@ module "app_service" {
     EVAKA_INTEGRATION_VTJ_PASSWORD = "${local.param_prefix}/service/vtj/password"
 
     # VtjXroadEnv
-    EVAKA_INTEGRATION_VTJ_XROAD_ADDRESS = var.trevaka_frends_vtj_kysely ? "${local.param_prefix}/service/vtj/address/frends" : "${local.param_prefix}/service/vtj/address"
+    EVAKA_INTEGRATION_VTJ_XROAD_ADDRESS = "${local.param_prefix}/service/vtj/address/frends"
 
     # SfiEnv
     EVAKA_INTEGRATION_SFI_REST_USERNAME = var.evaka_integration_sfi_enabled ? "${local.param_prefix}/service/sfi/username" : null
@@ -109,33 +109,25 @@ module "app_service" {
     EVAKA_INTEGRATION_AROMI_SFTP_PASSWORD  = var.aromi_enabled ? "${local.param_prefix}/service/aromi/sftp/password" : null
 
     # TrevakaProperties
-    TREVAKA_VTJ_KYSELY_API_KEY = var.trevaka_frends_vtj_kysely ? "${local.param_prefix}/service/vtj/kysely/api-key" : null
-    TREVAKA_VTJ_MUTPA_API_KEY  = var.trevaka_frends_vtj_mutpa ? "${local.param_prefix}/service/vtj/mutpa/api-key" : null
+    TREVAKA_VTJ_KYSELY_API_KEY = "${local.param_prefix}/service/vtj/kysely/api-key"
+    TREVAKA_VTJ_MUTPA_API_KEY  = "${local.param_prefix}/service/vtj/mutpa/api-key"
 
     # TampereProperties
-    TAMPERE_IPAAS_USERNAME    = var.municipality == "tampere" ? "${local.param_prefix}/service/ipaas/username" : null
-    TAMPERE_IPAAS_PASSWORD    = var.municipality == "tampere" ? "${local.param_prefix}/service/ipaas/password" : null
     TAMPERE_FRENDS_USERNAME   = var.municipality == "tampere" && var.archival_enabled ? "${local.param_prefix}/service/frends/username" : null
     TAMPERE_FRENDS_PASSWORD   = var.municipality == "tampere" && var.archival_enabled ? "${local.param_prefix}/service/frends/password" : null
     TAMPERE_BUCKET_EXPORT     = var.municipality == "tampere" ? "${local.param_prefix}/service/bucket/export" : null
-    TAMPERE_FINANCE_API_KEY   = var.municipality == "tampere" && (var.tampere_frends_invoice || var.tampere_frends_payment) ? "${local.param_prefix}/service/frends/api-key" : null
-    TAMPERE_INVOICE_URL       = var.municipality == "tampere" ? var.tampere_frends_invoice ? "${local.param_prefix}/service/invoice/url/frends" : "${local.param_prefix}/service/invoice/url" : null
-    TAMPERE_PAYMENT_URL       = var.municipality == "tampere" ? var.tampere_frends_payment ? "${local.param_prefix}/service/payment/url/frends" : "${local.param_prefix}/service/payment/url" : null
+    TAMPERE_FINANCE_API_KEY   = var.municipality == "tampere" ? "${local.param_prefix}/service/frends/api-key" : null
+    TAMPERE_INVOICE_URL       = var.municipality == "tampere" ? "${local.param_prefix}/service/invoice/url/frends" : null
+    TAMPERE_PAYMENT_URL       = var.municipality == "tampere" ? "${local.param_prefix}/service/payment/url/frends" : null
     TAMPERE_ARCHIVAL_BASE_URL = var.municipality == "tampere" && var.archival_enabled ? "${local.param_prefix}/service/archival/base-url" : null
 
     # VesilahtiProperties
-    VESILAHTI_IPAAS_USERNAME = var.municipality == "vesilahti" ? "${local.param_prefix}/service/ipaas/username" : null
-    VESILAHTI_IPAAS_PASSWORD = var.municipality == "vesilahti" ? "${local.param_prefix}/service/ipaas/password" : null
-    VESILAHTI_BUCKET_EXPORT  = var.municipality == "vesilahti" ? "${local.param_prefix}/service/bucket/export" : null
+    VESILAHTI_BUCKET_EXPORT = var.municipality == "vesilahti" ? "${local.param_prefix}/service/bucket/export" : null
 
     # HameenkyroProperties
-    HAMEENKYRO_IPAAS_USERNAME = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/ipaas/username" : null
-    HAMEENKYRO_IPAAS_PASSWORD = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/ipaas/password" : null
-    HAMEENKYRO_BUCKET_EXPORT  = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/bucket/export" : null
+    HAMEENKYRO_BUCKET_EXPORT = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/bucket/export" : null
 
     # NokiaProperties
-    NOKIA_IPAAS_USERNAME            = var.municipality == "nokia" ? "${local.param_prefix}/service/ipaas/username" : null
-    NOKIA_IPAAS_PASSWORD            = var.municipality == "nokia" ? "${local.param_prefix}/service/ipaas/password" : null
     NOKIA_INVOICE_SFTP_HOST         = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/host" : null
     NOKIA_INVOICE_SFTP_PORT         = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/port" : null
     NOKIA_INVOICE_SFTP_HOST_KEYS    = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
@@ -149,8 +141,6 @@ module "app_service" {
     NOKIA_ARCHIVAL_SFTP_PRIVATE_KEY = var.municipality == "nokia" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/private-key" : null
 
     # YlojarviProperties
-    YLOJARVI_IPAAS_USERNAME           = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/ipaas/username" : null
-    YLOJARVI_IPAAS_PASSWORD           = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/ipaas/password" : null
     YLOJARVI_INVOICE_SFTP_HOST        = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/host" : null
     YLOJARVI_INVOICE_SFTP_PORT        = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/port" : null
     YLOJARVI_INVOICE_SFTP_HOST_KEYS   = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
@@ -159,8 +149,6 @@ module "app_service" {
     YLOJARVI_BUCKET_EXPORT            = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/bucket/export" : null
 
     # PirkkalaProperties
-    PIRKKALA_IPAAS_USERNAME            = var.municipality == "pirkkala" ? "${local.param_prefix}/service/ipaas/username" : null
-    PIRKKALA_IPAAS_PASSWORD            = var.municipality == "pirkkala" ? "${local.param_prefix}/service/ipaas/password" : null
     PIRKKALA_BUCKET_EXPORT             = var.municipality == "pirkkala" ? "${local.param_prefix}/service/bucket/export" : null
     PIRKKALA_ARCHIVAL_SFTP_HOST        = var.municipality == "pirkkala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/host" : null
     PIRKKALA_ARCHIVAL_SFTP_PORT        = var.municipality == "pirkkala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/port" : null
@@ -169,8 +157,6 @@ module "app_service" {
     PIRKKALA_ARCHIVAL_SFTP_PRIVATE_KEY = var.municipality == "pirkkala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/private-key" : null
 
     # KangasalaProperties
-    KANGASALA_IPAAS_USERNAME            = var.municipality == "kangasala" ? "${local.param_prefix}/service/ipaas/username" : null
-    KANGASALA_IPAAS_PASSWORD            = var.municipality == "kangasala" ? "${local.param_prefix}/service/ipaas/password" : null
     KANGASALA_BUCKET_EXPORT             = var.municipality == "kangasala" ? "${local.param_prefix}/service/bucket/export" : null
     KANGASALA_ARCHIVAL_SFTP_HOST        = var.municipality == "kangasala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/host" : null
     KANGASALA_ARCHIVAL_SFTP_PORT        = var.municipality == "kangasala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/port" : null
@@ -179,14 +165,10 @@ module "app_service" {
     KANGASALA_ARCHIVAL_SFTP_PRIVATE_KEY = var.municipality == "kangasala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/private-key" : null
 
     # LempaalaProperties
-    LEMPAALA_IPAAS_USERNAME = var.municipality == "lempaala" ? "${local.param_prefix}/service/ipaas/username" : null
-    LEMPAALA_IPAAS_PASSWORD = var.municipality == "lempaala" ? "${local.param_prefix}/service/ipaas/password" : null
-    LEMPAALA_BUCKET_EXPORT  = var.municipality == "lempaala" ? "${local.param_prefix}/service/bucket/export" : null
+    LEMPAALA_BUCKET_EXPORT = var.municipality == "lempaala" ? "${local.param_prefix}/service/bucket/export" : null
 
     # OrivesiProperties
-    ORIVESI_IPAAS_USERNAME = var.municipality == "orivesi" ? "${local.param_prefix}/service/ipaas/username" : null
-    ORIVESI_IPAAS_PASSWORD = var.municipality == "orivesi" ? "${local.param_prefix}/service/ipaas/password" : null
-    ORIVESI_BUCKET_EXPORT  = var.municipality == "orivesi" ? "${local.param_prefix}/service/bucket/export" : null
+    ORIVESI_BUCKET_EXPORT = var.municipality == "orivesi" ? "${local.param_prefix}/service/bucket/export" : null
   }
 
   env_vars = {
@@ -240,13 +222,13 @@ module "app_service" {
     EVAKA_INTEGRATION_VARDA_END_DATE      = var.evaka_integration_varda_end_date
 
     # DvvModificationsEnv
-    EVAKA_INTEGRATION_DVV_MODIFICATIONS_XROAD_CLIENT_ID = "${local.xroad_instance}/MUN/${var.vtj_xroad_client_membercode}/${var.trevaka_frends_vtj_mutpa ? "${var.environment != "prod" ? "test-" : ""}vtjmutpa-${var.municipality}-evaka-client" : var.vtj_xroad_client_subsystemcode}"
+    EVAKA_INTEGRATION_DVV_MODIFICATIONS_XROAD_CLIENT_ID = "${local.xroad_instance}/MUN/${var.vtj_xroad_client_membercode}/${var.environment != "prod" ? "test-" : ""}vtjmutpa-${var.municipality}-evaka-client"
 
     # VtjXroadClientEnv
     EVAKA_INTEGRATION_VTJ_XROAD_CLIENT_INSTANCE       = local.xroad_instance
     EVAKA_INTEGRATION_VTJ_XROAD_CLIENT_MEMBER_CLASS   = "MUN"
     EVAKA_INTEGRATION_VTJ_XROAD_CLIENT_MEMBER_CODE    = var.vtj_xroad_client_membercode
-    EVAKA_INTEGRATION_VTJ_XROAD_CLIENT_SUBSYSTEM_CODE = var.trevaka_frends_vtj_kysely ? "${var.environment != "prod" ? "test-" : ""}vtjkysely-${var.municipality}-evaka-client" : var.vtj_xroad_client_subsystemcode
+    EVAKA_INTEGRATION_VTJ_XROAD_CLIENT_SUBSYSTEM_CODE = "${var.environment != "prod" ? "test-" : ""}vtjkysely-${var.municipality}-evaka-client"
 
     # VtjXroadServiceEnv
     EVAKA_INTEGRATION_VTJ_XROAD_SERVICE_INSTANCE        = local.xroad_instance
@@ -313,15 +295,9 @@ module "app_service" {
     TAMPERE_JOB_PLAN_BI_EXPORT_JOBS_ENABLED = var.municipality == "tampere" ? var.tampere_job_plan_bi_export_jobs_enabled : null
     TAMPERE_JOB_PLAN_BI_EXPORT_JOBS_CRON    = var.municipality == "tampere" ? var.tampere_job_plan_bi_export_jobs_cron : null
 
-    # TrevakaProperties
-    TREVAKA_ENABLED_FEATURES_FRENDS_VTJ_KYSELY = var.trevaka_frends_vtj_kysely
-    TREVAKA_ENABLED_FEATURES_FRENDS_VTJ_MUTPA  = var.trevaka_frends_vtj_mutpa
-
     # TampereProperties
-    TAMPERE_SUMMERTIME_ABSENCE_FREE_MONTH   = var.municipality == "tampere" ? var.tampere_summertime_absence_free_month : null
-    TAMPERE_BI_EXPORT_PREFIX                = var.municipality == "tampere" ? "reporting" : null
-    TAMPERE_ENABLED_FEATURES_FRENDS_INVOICE = var.municipality == "tampere" ? var.tampere_frends_invoice : null
-    TAMPERE_ENABLED_FEATURES_FRENDS_PAYMENT = var.municipality == "tampere" ? var.tampere_frends_payment : null
+    TAMPERE_SUMMERTIME_ABSENCE_FREE_MONTH = var.municipality == "tampere" ? var.tampere_summertime_absence_free_month : null
+    TAMPERE_BI_EXPORT_PREFIX              = var.municipality == "tampere" ? "reporting" : null
 
     # NokiaProperties
     NOKIA_INVOICE_VERSION      = var.municipality == "nokia" ? var.nokia_invoice_version : null
@@ -431,10 +407,6 @@ variable "evaka_async_job_runner_disable_runner" {
 }
 
 variable "vtj_xroad_client_membercode" {
-  type = string
-}
-
-variable "vtj_xroad_client_subsystemcode" {
   type = string
 }
 
@@ -656,26 +628,6 @@ variable "aromi_window_start_offset" {
 }
 
 variable "archival_enabled" {
-  type    = bool
-  default = false
-}
-
-variable "trevaka_frends_vtj_kysely" {
-  type    = bool
-  default = false
-}
-
-variable "trevaka_frends_vtj_mutpa" {
-  type    = bool
-  default = false
-}
-
-variable "tampere_frends_invoice" {
-  type    = bool
-  default = false
-}
-
-variable "tampere_frends_payment" {
   type    = bool
   default = false
 }

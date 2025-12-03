@@ -112,9 +112,6 @@ class NokiaConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun ipaasProperties(properties: NokiaProperties) = properties.ipaas
-
-    @Bean
     fun mealTypeMapper(): MealTypeMapper = NokiaMealTypeMapper
 
     @Bean

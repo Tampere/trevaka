@@ -111,9 +111,6 @@ class OrivesiConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun ipaasProperties(properties: OrivesiProperties) = properties.ipaas
-
-    @Bean
     fun mealTypeMapper(): MealTypeMapper = OrivesiMealTypeMapper()
 
     @Bean

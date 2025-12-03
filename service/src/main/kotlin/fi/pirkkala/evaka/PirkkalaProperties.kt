@@ -6,11 +6,9 @@ package fi.pirkkala.evaka
 
 import fi.nokiankaupunki.evaka.SftpArchivalProperties
 import org.springframework.boot.context.properties.ConfigurationProperties
-import trevaka.ipaas.IpaasProperties
 
 @ConfigurationProperties(prefix = "pirkkala")
 data class PirkkalaProperties(
-    val ipaas: IpaasProperties,
     val invoice: InvoiceProperties,
     val bucket: BucketProperties,
     val archival: SftpArchivalProperties? = null,

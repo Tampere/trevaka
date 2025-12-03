@@ -5,11 +5,9 @@
 package fi.orivesi.evaka
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import trevaka.ipaas.IpaasProperties
 
 @ConfigurationProperties(prefix = "orivesi")
 data class OrivesiProperties(
-    val ipaas: IpaasProperties,
     val invoice: InvoiceProperties,
     val bucket: BucketProperties,
 )

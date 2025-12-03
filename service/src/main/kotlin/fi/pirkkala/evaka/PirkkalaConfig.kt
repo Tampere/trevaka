@@ -110,9 +110,6 @@ class PirkkalaConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun ipaasProperties(properties: PirkkalaProperties) = properties.ipaas
-
-    @Bean
     fun mealTypeMapper(): MealTypeMapper = PirkkalaMealTypeMapper
 
     @Bean

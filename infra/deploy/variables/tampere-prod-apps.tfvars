@@ -33,7 +33,6 @@ voucher_value_decision_days_in_advance = 123
 varda_integration_api_url              = "https://backend.prod.varda.opintopolku.fi/api"
 vtj_enabled                            = true
 vtj_xroad_client_membercode            = "0211675-2"
-vtj_xroad_client_subsystemcode         = "treVaka"
 email_name                             = "Tampereen varhaiskasvatus"
 dvv_mutp_update_enabled                = true
 evaka_integration_sfi_enabled          = true
@@ -66,15 +65,8 @@ sfi_msg_service_identifier = "tampere_ws_evaka"
 sfi_msg_enable_printing    = true
 sfi_msg_printing_provider  = "Posti"
 
-# service: TrevakaProperties
-trevaka_frends_vtj_kysely = true
-trevaka_frends_vtj_mutpa  = true
-
 # service: TampereProperties
 tampere_job_export_units_acl_enabled = true
 
 tampere_job_plan_bi_export_jobs_enabled = true
 tampere_job_plan_bi_export_jobs_cron    = "0 0 1 * * *"
-
-tampere_frends_invoice = true
-tampere_frends_payment = true

@@ -34,7 +34,6 @@ varda_integration_api_url              = "https://backend.prod.varda.opintopolku
 evaka_integration_varda_start_date     = "2024-03-01"
 vtj_enabled                            = true
 vtj_xroad_client_membercode            = "0157711-9"
-vtj_xroad_client_subsystemcode         = "vesilahtievaka"
 email_name                             = "Vesilahden varhaiskasvatus"
 dvv_mutp_update_enabled                = true
 evaka_integration_sfi_enabled          = true
@@ -62,9 +61,5 @@ varda_integration_enabled = true
 sfi_msg_service_identifier = "vesilahti_ws_evaka"
 sfi_msg_enable_printing    = true
 sfi_msg_printing_provider  = "Posti"
-
-# service: TrevakaProperties
-trevaka_frends_vtj_kysely = true
-trevaka_frends_vtj_mutpa  = true
 
 # service: VesilahtiProperties

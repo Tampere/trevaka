@@ -64,17 +64,14 @@ trevaka:
   vtj-mutpa-api-key: vtj-mutpa-api-key-123
 
 tampere:
-  ipaas:
-    username: user
-    password: pass
   frends:
     username: frends-user
     password: frends-pass
   finance-api-key: finance-api-key-123
   invoice:
-    url: http://localhost:${wiremock.server.port}/mock/ipaas/salesOrder
+    url: http://localhost:${wiremock.server.port}/mock/frends/salesOrder
   payment:
-    url: http://localhost:${wiremock.server.port}/mock/ipaas/payableAccounting
+    url: http://localhost:${wiremock.server.port}/mock/frends/payableAccounting
   bucket:
     export: trevaka-export-it
   bi-export:
@@ -82,21 +79,12 @@ tampere:
   archival:
     base-url: http://localhost:${wiremock.server.port}/mock/frends/archival
 vesilahti:
-  ipaas:
-    username: user
-    password: pass
   bucket:
     export: trevaka-export-it
 hameenkyro:
-  ipaas:
-    username: user
-    password: pass
   bucket:
     export: trevaka-export-it
 ylojarvi:
-  ipaas:
-    username: user
-    password: pass
   invoice:
     sftp:
       host: localhost
@@ -115,15 +103,9 @@ ylojarvi:
   bucket:
     export: trevaka-export-it
 pirkkala:
-  ipaas:
-    username: user
-    password: pass
   bucket:
     export: trevaka-export-it
 nokia:
-  ipaas:
-    username: user
-    password: pass
   invoice:
     sftp:
       host: localhost
@@ -157,21 +139,12 @@ nokia:
         -----END OPENSSH PRIVATE KEY-----
       prefix: upload/
 kangasala:
-  ipaas:
-    username: user
-    password: pass
   bucket:
     export: trevaka-export-it
 lempaala:
-  ipaas:
-    username: user
-    password: pass
   bucket:
     export: trevaka-export-it
 orivesi:
-  ipaas:
-    username: user
-    password: pass
   bucket:
     export: trevaka-export-it
 

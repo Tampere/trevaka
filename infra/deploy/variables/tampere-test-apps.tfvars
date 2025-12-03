@@ -31,7 +31,6 @@ voucher_value_decision_days_in_advance        = 123
 varda_integration_api_url                     = ""
 vtj_enabled                                   = true
 vtj_xroad_client_membercode                   = "0211675-2"
-vtj_xroad_client_subsystemcode                = "treVaka"
 email_allowlist                               = "^(.+)@tampere.fi$"
 email_name                                    = "Tampereen varhaiskasvatus"
 email_subject_postfix                         = "staging"
@@ -49,11 +48,4 @@ sfi_msg_service_identifier = "tampere_ws_evaka"
 sfi_msg_enable_printing    = false
 sfi_msg_printing_provider  = "Posti"
 
-# service: TrevakaProperties
-trevaka_frends_vtj_kysely = true
-trevaka_frends_vtj_mutpa  = true
-
 # service: TampereProperties
-
-tampere_frends_invoice = true
-tampere_frends_payment = true

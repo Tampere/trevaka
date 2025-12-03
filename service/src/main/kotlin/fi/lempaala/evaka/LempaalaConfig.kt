@@ -99,9 +99,6 @@ class LempaalaConfig {
     fun accessLoggingCustomizer(env: Environment) = tomcatAccessLoggingCustomizer(env)
 
     @Bean
-    fun ipaasProperties(properties: LempaalaProperties) = properties.ipaas
-
-    @Bean
     fun mealTypeMapper(): MealTypeMapper = LempaalaMealTypeMapper
 
     @Bean
