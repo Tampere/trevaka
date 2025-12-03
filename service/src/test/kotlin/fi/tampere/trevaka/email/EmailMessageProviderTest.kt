@@ -93,6 +93,24 @@ internal class EmailMessageProviderTest : AbstractTampereIntegrationTest() {
             ),
         ),
         Arguments.of(
+            "messageNotification with subject",
+            emailMessageProvider.messageNotification(
+                Language.fi,
+                MessageThreadData(
+                    id = MessageThreadId(UUID.randomUUID()),
+                    type = MessageType.BULLETIN,
+                    title = HtmlSafe("Ensi viikolla uimaan"),
+                    urgent = false,
+                    sensitive = false,
+                    senderName = HtmlSafe("Kaisa Kasvattaja"),
+                    senderType = AccountType.PERSONAL,
+                    isCopy = false,
+                ),
+                isSenderMunicipalAccount = true,
+                applicationId = null,
+            ),
+        ),
+        Arguments.of(
             "pedagogicalDocumentNotification",
             emailMessageProvider.pedagogicalDocumentNotification(Language.fi, ChildId(UUID.randomUUID())),
         ),
