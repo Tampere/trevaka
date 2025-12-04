@@ -360,6 +360,7 @@ private val testApplicationDaycare = ApplicationDetails(
     modifiedAt = HelsinkiDateTime.of(LocalDate.of(2022, 1, 2), LocalTime.of(11, 12)),
     modifiedBy = null,
     sentDate = LocalDate.of(2022, 1, 3),
+    sentTime = null,
     dueDate = LocalDate.of(2022, 5, 3),
     dueDateSetManuallyAt = null,
     transferApplication = false,
