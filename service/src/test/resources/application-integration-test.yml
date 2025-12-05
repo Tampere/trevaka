@@ -77,6 +77,8 @@ tampere:
   bi-export:
     prefix: bi
   archival:
+    schedule:
+      daily-document-limit: 20
     base-url: http://localhost:${wiremock.server.port}/mock/frends/archival
 vesilahti:
   bucket:

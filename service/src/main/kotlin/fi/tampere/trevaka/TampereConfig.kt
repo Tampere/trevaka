@@ -16,6 +16,7 @@ import fi.espoo.evaka.mealintegration.MealTypeMapper
 import fi.espoo.evaka.shared.ArchiveProcessConfig
 import fi.espoo.evaka.shared.ArchiveProcessType
 import fi.espoo.evaka.shared.FeatureConfig
+import fi.espoo.evaka.shared.async.AsyncJob
 import fi.espoo.evaka.shared.async.AsyncJobRunner
 import fi.espoo.evaka.shared.auth.PasswordConstraints
 import fi.espoo.evaka.shared.auth.PasswordSpecification
@@ -211,7 +212,8 @@ class TampereConfig {
         tampereRunner: AsyncJobRunner<TampereAsyncJob>,
         properties: TampereProperties,
         env: ScheduledJobsEnv<TampereScheduledJob>,
-    ): TampereScheduledJobs = TampereScheduledJobs(exportPreschoolChildDocumentsService, exportUnitsAclService, tampereRunner, properties, env)
+        asyncJobRunner: AsyncJobRunner<AsyncJob>,
+    ): TampereScheduledJobs = TampereScheduledJobs(exportPreschoolChildDocumentsService, exportUnitsAclService, tampereRunner, asyncJobRunner, properties, env)
 
     @Bean
     fun passwordSpecification(): PasswordSpecification = DefaultPasswordSpecification(
