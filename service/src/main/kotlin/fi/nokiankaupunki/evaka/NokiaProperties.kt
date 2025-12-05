@@ -4,6 +4,7 @@
 
 package fi.nokiankaupunki.evaka
 
+import fi.tampere.trevaka.ArchivalSchedule
 import org.springframework.boot.context.properties.ConfigurationProperties
 import trevaka.sftp.SftpProperties
 
@@ -33,5 +34,7 @@ data class BucketProperties(
 }
 
 data class SftpArchivalProperties(
+    val dailyDocumentLimit: Int,
+    val schedule: ArchivalSchedule,
     val sftp: SftpProperties,
 )
