@@ -12,7 +12,6 @@ import fi.espoo.evaka.application.ApplicationType
 import fi.espoo.evaka.assistance.DaycareAssistanceLevel
 import fi.espoo.evaka.assistance.OtherAssistanceMeasureType
 import fi.espoo.evaka.assistance.PreschoolAssistanceLevel
-import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionStatus
 import fi.espoo.evaka.attendance.StaffAttendanceType
 import fi.espoo.evaka.daycare.CareType
 import fi.espoo.evaka.daycare.domain.Language
@@ -170,64 +169,6 @@ data class BiAssistanceFactor(
     val modified_by: UUID,
     val valid_during: String, // DateRange
     val capacity_factor: BigDecimal,
-)
-
-data class BiAssistanceNeedDecision(
-    val id: UUID,
-    val created: String,
-    val updated: String,
-    val decision_number: Long,
-    val child_id: UUID,
-    val language: String,
-    val decision_made: LocalDate?,
-    val sent_for_decision: LocalDate?,
-    val selected_unit: UUID?,
-    val decision_maker_employee_id: UUID?,
-    val decision_maker_title: String?,
-    val preparer_1_employee_id: UUID?,
-    val preparer_1_title: String?,
-    val preparer_2_employee_id: UUID?,
-    val preparer_2_title: String?,
-    val pedagogical_motivation: String?,
-    val structural_motivation_opt_smaller_group: Boolean,
-    val structural_motivation_opt_special_group: Boolean,
-    val structural_motivation_opt_small_group: Boolean,
-    val structural_motivation_opt_group_assistant: Boolean,
-    val structural_motivation_opt_child_assistant: Boolean,
-    val structural_motivation_opt_additional_staff: Boolean,
-    val structural_motivation_description: String?,
-    val care_motivation: String?,
-    val service_opt_consultation_special_ed: Boolean,
-    val service_opt_part_time_special_ed: Boolean,
-    val service_opt_full_time_special_ed: Boolean,
-    val service_opt_interpretation_and_assistance_services: Boolean,
-    val service_opt_special_aides: Boolean,
-    val services_motivation: String?,
-    val expert_responsibilities: String?,
-    val guardians_heard_on: LocalDate?,
-    val view_of_guardians: String?,
-    val other_representative_heard: Boolean,
-    val other_representative_details: String?,
-    val motivation_for_decision: String?,
-    val preparer_1_phone_number: String?,
-    val preparer_2_phone_number: String?,
-    val decision_maker_has_opened: Boolean,
-    val document_key: String?,
-    val unread_guardian_ids: List<UUID>?,
-    val assistance_levels: List<String>?,
-    val validity_period: String?, // DateRange
-    val status: AssistanceNeedDecisionStatus,
-    val annulment_reason: String,
-    val document_contains_contact_info: Boolean,
-)
-
-data class BiAssistanceNeedDecisionGuardian(
-    val id: UUID,
-    val created: String,
-    val assistance_need_decision_id: UUID,
-    val person_id: UUID,
-    val is_heard: Boolean,
-    val details: String?,
 )
 
 data class BiAssistanceNeedVoucherCoefficient(
