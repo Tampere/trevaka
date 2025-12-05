@@ -57,9 +57,19 @@ data class BiExportProperties(
 
 data class ArchivalProperties(
     val baseUrl: String,
+    val schedule: ArchivalSchedule = ArchivalSchedule(),
 )
 
 data class TampereEnabledFeatures(
     val frendsInvoice: Boolean = false,
     val frendsPayment: Boolean = false,
+)
+
+data class ArchivalSchedule(
+    val dailyDocumentLimit: Long = 2000,
+    val decisionDelayDays: Long = 180,
+    val feeDecisionDelayDays: Long = 180,
+    val voucherDecisionDelayDays: Long = 180,
+    val documentDecisionDelayDays: Long = 30,
+    val documentPlanDelayDays: Long = 180,
 )

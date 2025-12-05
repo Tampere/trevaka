@@ -16,10 +16,17 @@ import fi.espoo.evaka.mealintegration.MealTypeMapper
 import fi.espoo.evaka.shared.ArchiveProcessConfig
 import fi.espoo.evaka.shared.ArchiveProcessType
 import fi.espoo.evaka.shared.FeatureConfig
+import fi.espoo.evaka.shared.async.AsyncJob
+import fi.espoo.evaka.shared.async.AsyncJob.ArchiveChildDocument
+import fi.espoo.evaka.shared.async.AsyncJob.ArchiveDecision
+import fi.espoo.evaka.shared.async.AsyncJob.ArchiveFeeDecision
+import fi.espoo.evaka.shared.async.AsyncJob.ArchiveVoucherValueDecision
+import fi.espoo.evaka.shared.async.AsyncJobPool
 import fi.espoo.evaka.shared.async.AsyncJobRunner
 import fi.espoo.evaka.shared.auth.PasswordConstraints
 import fi.espoo.evaka.shared.auth.PasswordSpecification
 import fi.espoo.evaka.shared.auth.UserRole
+import fi.espoo.evaka.shared.config.emailThrottleInterval
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
 import fi.tampere.trevaka.archival.TampereArchivalClient
@@ -35,6 +42,7 @@ import org.jdbi.v3.core.Jdbi
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
+import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
 import org.springframework.core.env.Environment
 import org.springframework.oxm.jaxb.Jaxb2Marshaller
@@ -163,7 +171,45 @@ class TampereConfig {
         jdbi: Jdbi,
         tracer: Tracer,
         env: Environment,
-    ): AsyncJobRunner<TampereAsyncJob> = AsyncJobRunner(TampereAsyncJob::class, listOf(TampereAsyncJob.pool), jdbi, tracer)
+    ): AsyncJobRunner<TampereAsyncJob> = AsyncJobRunner(
+        TampereAsyncJob::class,
+        listOf(
+            TampereAsyncJob.pool,
+        ),
+        jdbi,
+        tracer,
+    )
+
+    @Primary
+    @Bean
+    fun coreOverrideAsyncJobRunner(jdbi: Jdbi, tracer: Tracer, env: Environment): AsyncJobRunner<AsyncJob> = AsyncJobRunner(
+        AsyncJob::class,
+        listOf(
+            AsyncJob.main,
+            // this is a reasonable default but should probably be configurable
+            AsyncJob.email.withThrottleInterval(
+                emailThrottleInterval(maxEmailsPerSecondRate = 14),
+            ),
+            AsyncJob.urgent,
+            AsyncJob.varda,
+            AsyncJob.suomiFi.withThrottleInterval(
+                Duration.ofSeconds(1).takeIf { env.activeProfiles.contains("production") },
+            ),
+            AsyncJob.nightly,
+            AsyncJobRunner.Pool(
+                AsyncJobPool.Id(AsyncJob::class, "archival"),
+                AsyncJobPool.Config(concurrency = 1),
+                setOf(
+                    ArchiveDecision::class,
+                    ArchiveFeeDecision::class,
+                    ArchiveVoucherValueDecision::class,
+                    ArchiveChildDocument::class,
+                ),
+            ),
+        ),
+        jdbi,
+        tracer,
+    )
 
     @Bean
     fun tampereBiJob(biExportClient: BiExportClient): BiExportJob = BiExportJob(biExportClient)
@@ -219,7 +265,8 @@ class TampereConfig {
         tampereRunner: AsyncJobRunner<TampereAsyncJob>,
         properties: TampereProperties,
         env: ScheduledJobsEnv<TampereScheduledJob>,
-    ): TampereScheduledJobs = TampereScheduledJobs(exportPreschoolChildDocumentsService, exportUnitsAclService, tampereRunner, properties, env)
+        asyncJobRunner: AsyncJobRunner<AsyncJob>,
+    ): TampereScheduledJobs = TampereScheduledJobs(exportPreschoolChildDocumentsService, exportUnitsAclService, tampereRunner, asyncJobRunner, properties, env)
 
     @Bean
     fun passwordSpecification(): PasswordSpecification = DefaultPasswordSpecification(
