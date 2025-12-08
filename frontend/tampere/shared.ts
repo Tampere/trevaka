@@ -16,7 +16,9 @@ const prod: SharedCustomizations = {
     'OTHER_WORK',
     'TRAINING',
     'OVERTIME',
-    'JUSTIFIED_CHANGE'
+    'JUSTIFIED_CHANGE',
+    'SICKNESS',
+    'CHILD_SICKNESS'
   ]
 }
 
@@ -25,12 +27,7 @@ const sharedCustomizationsByEnv: { default: SharedCustomizations } & Record<
   SharedCustomizations
 > = {
   default: {
-    ...prod,
-    additionalStaffAttendanceTypes: [
-      ...prod.additionalStaffAttendanceTypes,
-      'SICKNESS',
-      'CHILD_SICKNESS'
-    ]
+    ...prod
   },
   staging: {
     ...prod
