@@ -106,11 +106,11 @@ describe('Citizen attendance reservations', () => {
         expect(await absenceChips.count()).toBe(2)
 
         await waitUntilEqual(
-            () => page.findByDataQa('absence-SICKLEAVE').find('label').text,
+            () => page.findByDataQa('absence-SICKLEAVE').find('span').text,
             'Sairaus'
         )
         await waitUntilEqual(
-            () => page.findByDataQa('absence-OTHER_ABSENCE').find('label').text,
+            () => page.findByDataQa('absence-OTHER_ABSENCE').find('span').text,
             'Poissaolo'
         )
     })
