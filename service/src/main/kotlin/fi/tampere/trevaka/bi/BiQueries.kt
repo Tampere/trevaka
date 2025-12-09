@@ -89,26 +89,6 @@ object BiQueries {
             )
         }
 
-    val getAssistanceNeedDecisions =
-        csvQuery<BiAssistanceNeedDecision> {
-            sql(
-                """
-            select id, created_at::text AS created, updated_at::text AS updated, decision_number, child_id, language, decision_made, sent_for_decision, selected_unit, decision_maker_employee_id, decision_maker_title, preparer_1_employee_id, preparer_1_title, preparer_2_employee_id, preparer_2_title, pedagogical_motivation, structural_motivation_opt_smaller_group, structural_motivation_opt_special_group, structural_motivation_opt_small_group, structural_motivation_opt_group_assistant, structural_motivation_opt_child_assistant, structural_motivation_opt_additional_staff, structural_motivation_description, care_motivation, service_opt_consultation_special_ed, service_opt_part_time_special_ed, service_opt_full_time_special_ed, service_opt_interpretation_and_assistance_services, service_opt_special_aides, services_motivation, expert_responsibilities, guardians_heard_on, view_of_guardians, other_representative_heard, other_representative_details, motivation_for_decision, preparer_1_phone_number, preparer_2_phone_number, decision_maker_has_opened, document_key, unread_guardian_ids, assistance_levels, validity_period::text, status, annulment_reason, document_contains_contact_info
-            FROM assistance_need_decision
-        """,
-            )
-        }
-
-    val getAssistanceNeedDecisionGuardians =
-        csvQuery<BiAssistanceNeedDecisionGuardian> {
-            sql(
-                """
-            select id, created_at::text AS created, assistance_need_decision_id, person_id, is_heard, details
-            FROM assistance_need_decision_guardian
-        """,
-            )
-        }
-
     val getAssistanceNeedVoucherCoefficients =
         csvQuery<BiAssistanceNeedVoucherCoefficient> {
             sql(
