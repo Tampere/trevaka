@@ -39,6 +39,7 @@ evaka_integration_sfi_enabled          = true
 aromi_enabled                          = true
 aromi_cron                             = "0 15 1 * * *"
 aromi_window_start_offset              = 3
+archival_enabled                       = true
 
 evaka_job_cancel_outdated_transfer_applications_enabled = true
 evaka_job_freeze_voucher_value_reports_enabled          = true
