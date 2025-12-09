@@ -48,6 +48,12 @@ const prod: FeatureFlags = {
   multiSelectDeparture: true,
   requireAttachments: true,
   showCitizenApplicationPreschoolTerms: true,
+  archiveIntegration: {
+    decisions: true,
+    feeDecisions: true,
+    voucherValueDecisions: true,
+    childDocuments: true
+  },
   decisionChildDocumentTypes: true
 }
 
@@ -55,12 +61,6 @@ const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
-    archiveIntegration: {
-      decisions: true,
-      feeDecisions: true,
-      voucherValueDecisions: true,
-      childDocuments: true
-    },
     citizenChildDocumentTypes: true
   },
   staging: {
