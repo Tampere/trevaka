@@ -45,8 +45,9 @@ private fun Database.Read.getTemplateIdForExport(date: LocalDate): DocumentTempl
         """
 SELECT id
 FROM document_template
-WHERE name ILIKE '%tiedonsiirtolomake%'
+WHERE name ILIKE '%tiedonsiirto esiopetuksesta perusopetukseen%'
   AND upper(validity) <= ${bind(date)}
+  AND published
 ORDER BY validity DESC
 LIMIT 1
         """.trimIndent(),
