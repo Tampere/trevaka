@@ -64,7 +64,7 @@ class ExportPreschoolChildDocumentsServiceTest : AbstractTampereIntegrationTest(
         db.transaction { tx ->
             tx.insert(
                 DevDocumentTemplate(
-                    name = "Tiedonsiirtolomake perusopetukseen 2024-2025",
+                    name = "Tiedonsiirto esiopetuksesta perusopetukseen 2024-2025",
                     validity = DateRange(LocalDate.of(2024, 8, 1), LocalDate.of(2025, 7, 31)),
                     content = DocumentTemplateContent(sections = emptyList()),
                 ),
@@ -87,21 +87,21 @@ class ExportPreschoolChildDocumentsServiceTest : AbstractTampereIntegrationTest(
         db.transaction { tx ->
             tx.insert(
                 DevDocumentTemplate(
-                    name = "Tiedonsiirtolomake perusopetukseen 2023-2024",
+                    name = "Tiedonsiirto esiopetuksesta perusopetukseen 2023-2024",
                     validity = DateRange(LocalDate.of(2023, 8, 1), LocalDate.of(2024, 7, 31)),
                     content = DocumentTemplateContent(sections = emptyList()),
                 ),
             )
             tx.insert(
                 DevDocumentTemplate(
-                    name = "Tiedonsiirtolomake perusopetukseen 2024-2025",
+                    name = "Tiedonsiirto esiopetuksesta perusopetukseen 2024-2025",
                     validity = DateRange(LocalDate.of(2024, 8, 1), LocalDate.of(2025, 7, 31)),
                     content = DocumentTemplateContent(sections = emptyList()),
                 ),
             )
             tx.insert(
                 DevDocumentTemplate(
-                    name = "Tiedonsiirtolomake perusopetukseen 2025-2026",
+                    name = "Tiedonsiirto esiopetuksesta perusopetukseen 2025-2026",
                     validity = DateRange(LocalDate.of(2025, 8, 1), LocalDate.of(2026, 7, 31)),
                     content = DocumentTemplateContent(sections = emptyList()),
                 ),
@@ -161,7 +161,7 @@ class ExportPreschoolChildDocumentsServiceTest : AbstractTampereIntegrationTest(
             val childId = tx.insert(DevPerson(), DevPersonType.CHILD)
             val templateId = tx.insert(
                 DevDocumentTemplate(
-                    name = "Tiedonsiirtolomake perusopetukseen 2024-2025",
+                    name = "Tiedonsiirto esiopetuksesta perusopetukseen 2024-2025",
                     validity = DateRange(LocalDate.of(2024, 8, 1), LocalDate.of(2025, 7, 31)),
                     content = DocumentTemplateContent(
                         sections = listOf(
