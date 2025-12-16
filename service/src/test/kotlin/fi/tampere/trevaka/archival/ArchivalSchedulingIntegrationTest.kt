@@ -483,18 +483,19 @@ class ArchivalSchedulingIntegrationTest : AbstractTampereIntegrationTest() {
 
     @Test
     fun `respects archival limit when specified`() {
-        val schedule = tampereProperties.archival?.schedule!!.copy(dailyDocumentLimit = 1)
+        val schedule = tampereProperties.archival?.schedule!!.copy(dailyDocumentLimit = 5)
         val oldEnough = today.minusDays(schedule.documentPlanDelayDays)
 
-        insertTemplateAndDocument(oldEnough, archiveExternally = true)
-        insertTemplateAndDocument(oldEnough, archiveExternally = true)
-        insertTemplateAndDocument(oldEnough, archiveExternally = true)
-
-        // Plan with limit of 1
+        // Insert in excess of the limit
+        val docIds = List((schedule.dailyDocumentLimit * 3).toInt()) {
+            insertTemplateAndDocument(oldEnough, archiveExternally = true).toString()
+        }
+        // Plan with limit
         planDocumentArchival(db, clock, asyncJobRunner, schedule)
 
-        val jobs = getScheduledChildDocumentArchivalJobs()
-        assertEquals(1, jobs.size)
+        val jobDocIds = getScheduledChildDocumentArchivalJobs().map { it.documentId }
+        assertEquals(schedule.dailyDocumentLimit.toInt(), jobDocIds.size)
+        assertThat(docIds).containsAll(jobDocIds)
     }
 
     private fun markDocumentArchived(documentId: ChildDocumentId) {

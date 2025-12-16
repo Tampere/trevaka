@@ -11,6 +11,7 @@ import fi.espoo.evaka.shared.VoucherValueDecisionId
 import fi.espoo.evaka.shared.async.AsyncJob
 import fi.espoo.evaka.shared.async.AsyncJobRunner
 import fi.espoo.evaka.shared.db.Database
+import fi.espoo.evaka.shared.db.Predicate
 import fi.espoo.evaka.shared.domain.EvakaClock
 import fi.tampere.trevaka.ArchivalSchedule
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -26,7 +27,7 @@ fun planDocumentArchival(
     if (schedule.dailyDocumentLimit < 1) error("Invalid archival limit configuration of ${schedule.dailyDocumentLimit}")
 
     db.transaction { tx ->
-        val archivalPicks = pickIds(tx, clock, schedule)
+        val archivalPicks = selectLimitedEligibleDocumentIds(tx, clock, schedule)
         logger.info {
             "Scheduling archival for ${archivalPicks.planChildDocuments.size} plan child documents, ${archivalPicks.decisionChildDocuments.size} decision child documents, ${archivalPicks.decisions.size} decisions, ${archivalPicks.feeDecisions.size} fee decisions and ${archivalPicks.voucherValueDecisions.size} voucher value decisions, limit: ${schedule.dailyDocumentLimit})"
         }
@@ -57,39 +58,104 @@ fun planDocumentArchival(
     }
 }
 
-private fun pickIds(tx: Database.Transaction, clock: EvakaClock, schedule: ArchivalSchedule): ArchivalPicks {
-    // select extra to pad out rough proportionality in extreme distributions
-    val documentTypeLimit = (schedule.dailyDocumentLimit / 2).toInt().coerceAtLeast(1)
+private fun selectLimitedEligibleDocumentIds(tx: Database.Transaction, clock: EvakaClock, schedule: ArchivalSchedule): ArchivalPicks {
+    val decisionPredicate = Predicate {
+        where(
+            """
+            $it.status in ('ACCEPTED','REJECTED')
+                  AND $it.type <> 'CLUB'
+                  AND $it.archived_at IS NULL
+                  AND $it.resolved <= ${bind(clock.today().minusDays(schedule.decisionDelayDays)!!)}
+        """,
+        )
+    }
+
+    val feeDecisionPredicate = Predicate {
+        where(
+            """
+            $it.approved_at <= ${bind(clock.today().minusDays(schedule.feeDecisionDelayDays)!!)}
+                  AND $it.status in ('ANNULLED','SENT')
+                  AND $it.archived_at IS NULL
+        """,
+        )
+    }
+
+    val voucherDecisionPredicate = Predicate {
+        where(
+            """
+            $it.approved_at <= ${bind(clock.today().minusDays(schedule.voucherDecisionDelayDays)!!)}
+                  AND $it.status in ('ANNULLED','SENT')
+                  AND $it.archived_at IS NULL
+        """,
+        )
+    }
+
+    val childDocumentPredicate = Predicate {
+        where(
+            """
+                  $it.archived_at IS NULL
+                  AND $it.status = 'COMPLETED'
+        """,
+        )
+    }
+
+    val childDocumentPlanTemplatePredicate = Predicate {
+        where(
+            """
+            -- upper is exclusive
+            upper($it.validity) - interval '1 day' <= ${bind(clock.today().minusDays(schedule.documentPlanDelayDays)!!)}
+            AND $it.archive_externally = true
+            AND $it.type <> 'OTHER_DECISION'
+        """,
+        )
+    }
+
+    val childDocumentDecisionTemplatePredicate = Predicate {
+        where(
+            """
+            -- must have no placements at all since delay days ago
+            NOT EXISTS (select from placement pla where cd.child_id = pla.child_id AND pla.end_date > ${bind(clock.today().minusDays(schedule.documentDecisionDelayDays)!!)})
+            AND $it.archive_externally = true
+            AND $it.type = 'OTHER_DECISION'
+        """,
+        )
+    }
 
     logger.info {
         "Planning document archival jobs, max limit: ${schedule.dailyDocumentLimit}"
     }
 
-    val dau = clock.today().minusDays(schedule.documentPlanDelayDays)
-    val planChildDocumentIds = tx.getChildPlanDocumentsEligibleForArchival(dau, documentTypeLimit)
-    val decisionChildDocumentIds = tx.getChildDecisionDocumentsEligibleForArchival(clock.today().minusDays(schedule.documentDecisionDelayDays), documentTypeLimit)
-    val decisionIds = tx.getDecisionsEligibleForArchival(clock.today().minusDays(schedule.decisionDelayDays), documentTypeLimit)
-    val feeDecisionIds = tx.getFeeDecisionsEligibleForArchival(clock.today().minusDays(schedule.feeDecisionDelayDays), documentTypeLimit)
-    val voucherValueDecisionIds = tx.getVoucherValueDecisionsEligibleForArchival(clock.today().minusDays(schedule.voucherDecisionDelayDays), documentTypeLimit)
+    // check eligible document counts
+    val archivablePlanDocumentCount = tx.getEligibleChildDocumentCount(childDocumentPredicate, childDocumentPlanTemplatePredicate)
+    val archivableDecisionDocumentCount = tx.getEligibleChildDocumentCount(childDocumentPredicate, childDocumentDecisionTemplatePredicate)
+    val archivableDecisionCount = tx.getEligibleDecisionCount(decisionPredicate)
+    val archivableFeeDecisionCount = tx.getEligibleFeeDecisionCount(feeDecisionPredicate)
+    val archivableVoucherValueDecisionCount = tx.getEligibleVoucherDecisionCount(voucherDecisionPredicate)
 
-    val archivalTargets = listOf(
+    // distribute the daily archival quota proportionally based on eligible document occurrence
+    val proportionalPickCounts = distributeProportionally(
+        listOf(
+            archivablePlanDocumentCount,
+            archivableDecisionDocumentCount,
+            archivableDecisionCount,
+            archivableFeeDecisionCount,
+            archivableVoucherValueDecisionCount,
+        ),
+        schedule.dailyDocumentLimit.toInt(),
+    )
+
+    val planChildDocumentIds = tx.getChildDocumentsEligibleForArchival(childDocumentPredicate, childDocumentPlanTemplatePredicate, proportionalPickCounts[0])
+    val decisionChildDocumentIds = tx.getChildDocumentsEligibleForArchival(childDocumentPredicate, childDocumentDecisionTemplatePredicate, proportionalPickCounts[1])
+    val decisionIds = tx.getDecisionsEligibleForArchival(decisionPredicate, proportionalPickCounts[2])
+    val feeDecisionIds = tx.getFeeDecisionsEligibleForArchival(feeDecisionPredicate, proportionalPickCounts[3])
+    val voucherValueDecisionIds = tx.getVoucherValueDecisionsEligibleForArchival(voucherDecisionPredicate, proportionalPickCounts[4])
+
+    return ArchivalPicks(
         planChildDocumentIds,
         decisionChildDocumentIds,
         decisionIds,
         feeDecisionIds,
         voucherValueDecisionIds,
-    )
-    val sizes = archivalTargets.map { it.size }
-
-    // rough proportional archival allocation guaranteed to be <= daily limit
-    val proportionalPicks = distributeProportionally(sizes, schedule.dailyDocumentLimit.toInt())
-
-    return ArchivalPicks(
-        planChildDocumentIds.take(proportionalPicks[0]),
-        decisionChildDocumentIds.take(proportionalPicks[1]),
-        decisionIds.take(proportionalPicks[2]),
-        feeDecisionIds.take(proportionalPicks[3]),
-        voucherValueDecisionIds.take(proportionalPicks[4]),
     )
 }
 

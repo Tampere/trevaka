@@ -9,10 +9,26 @@ import fi.espoo.evaka.shared.DecisionId
 import fi.espoo.evaka.shared.FeeDecisionId
 import fi.espoo.evaka.shared.VoucherValueDecisionId
 import fi.espoo.evaka.shared.db.Database
-import java.time.LocalDate
+import fi.espoo.evaka.shared.db.Predicate
 
-fun Database.Read.getChildPlanDocumentsEligibleForArchival(
-    eligibleDate: LocalDate,
+fun Database.Read.getEligibleChildDocumentCount(
+    documentPredicate: Predicate,
+    templatePredicate: Predicate,
+): Int = createQuery {
+    sql(
+        """
+                SELECT count(cd.id)
+                FROM child_document cd
+                JOIN document_template dt ON cd.template_id = dt.id
+                WHERE ${predicate(templatePredicate.forTable("dt").and(documentPredicate.forTable("cd")))}
+                """,
+    )
+}
+    .exactlyOne<Int>()
+
+fun Database.Read.getChildDocumentsEligibleForArchival(
+    documentPredicate: Predicate,
+    templatePredicate: Predicate,
     limit: Int,
 ): List<ChildDocumentId> = createQuery {
     sql(
@@ -20,12 +36,7 @@ fun Database.Read.getChildPlanDocumentsEligibleForArchival(
                 SELECT cd.id
                 FROM child_document cd
                 JOIN document_template dt ON cd.template_id = dt.id
-                -- upper is exclusive
-                WHERE upper(dt.validity) - interval '1 day' <= ${bind(eligibleDate)}
-                  AND dt.archive_externally = true
-                  AND cd.archived_at IS NULL
-                  AND dt.type <> 'OTHER_DECISION'
-                  AND cd.status = 'COMPLETED'
+                WHERE ${predicate(templatePredicate.forTable("dt").and(documentPredicate.forTable("cd")))}
                 ORDER BY cd.created
                 LIMIT $limit
                 """,
@@ -33,39 +44,28 @@ fun Database.Read.getChildPlanDocumentsEligibleForArchival(
 }
     .toList<ChildDocumentId>()
 
-fun Database.Read.getChildDecisionDocumentsEligibleForArchival(
-    eligibleDate: LocalDate,
-    limit: Int,
-): List<ChildDocumentId> = createQuery {
+fun Database.Read.getEligibleDecisionCount(
+    decision: Predicate,
+): Int = createQuery {
     sql(
         """
-                SELECT cd.id
-                FROM child_document cd
-                JOIN document_template dt ON cd.template_id = dt.id
-                WHERE NOT EXISTS (select from placement pla where cd.child_id = pla.child_id AND pla.end_date > ${bind(eligibleDate)})
-                  AND dt.archive_externally = true
-                  AND cd.archived_at IS NULL
-                  AND dt.type = 'OTHER_DECISION'
-                  AND cd.status = 'COMPLETED'
-                ORDER BY cd.created
-                LIMIT $limit
+                SELECT count(d.id)
+                FROM decision d
+                WHERE ${predicate(decision.forTable("d"))}
                 """,
     )
 }
-    .toList<ChildDocumentId>()
+    .exactlyOne<Int>()
 
 fun Database.Read.getDecisionsEligibleForArchival(
-    eligibleDate: LocalDate,
+    decision: Predicate,
     limit: Int,
 ): List<DecisionId> = createQuery {
     sql(
         """
                 SELECT d.id
                 FROM decision d
-                WHERE d.status in ('ACCEPTED','REJECTED')
-                  AND d.type <> 'CLUB' 
-                  AND d.archived_at IS NULL
-                  And d.resolved <= ${bind(eligibleDate)}
+                WHERE ${predicate(decision.forTable("d"))}
                 ORDER BY d.resolved
                 LIMIT $limit
                 """,
@@ -73,17 +73,28 @@ fun Database.Read.getDecisionsEligibleForArchival(
 }
     .toList<DecisionId>()
 
+fun Database.Read.getEligibleFeeDecisionCount(
+    feeDecision: Predicate,
+): Int = createQuery {
+    sql(
+        """
+                SELECT count(fd.id)
+                FROM fee_decision fd
+                WHERE ${predicate(feeDecision.forTable("fd"))}
+                """,
+    )
+}
+    .exactlyOne<Int>()
+
 fun Database.Read.getFeeDecisionsEligibleForArchival(
-    eligibleDate: LocalDate,
+    feeDecision: Predicate,
     limit: Int,
 ): List<FeeDecisionId> = createQuery {
     sql(
         """
                 SELECT fd.id
                 FROM fee_decision fd
-                WHERE fd.approved_at <= ${bind(eligibleDate)}
-                  AND fd.status in ('ANNULLED','SENT')
-                  AND fd.archived_at IS NULL
+                WHERE ${predicate(feeDecision.forTable("fd"))}
                 ORDER BY fd.approved_at
                 LIMIT $limit
                 """,
@@ -91,17 +102,28 @@ fun Database.Read.getFeeDecisionsEligibleForArchival(
 }
     .toList<FeeDecisionId>()
 
+fun Database.Read.getEligibleVoucherDecisionCount(
+    voucherDecision: Predicate,
+): Int = createQuery {
+    sql(
+        """
+                SELECT count(vvd.id)
+                FROM voucher_value_decision vvd
+                WHERE ${predicate(voucherDecision.forTable("vvd"))}
+                """,
+    )
+}
+    .exactlyOne<Int>()
+
 fun Database.Read.getVoucherValueDecisionsEligibleForArchival(
-    eligibleDate: LocalDate,
+    voucherDecision: Predicate,
     limit: Int,
 ): List<VoucherValueDecisionId> = createQuery {
     sql(
         """
                 SELECT vvd.id
                 FROM voucher_value_decision vvd                
-                WHERE vvd.approved_at <= ${bind(eligibleDate)}
-                  AND vvd.status in ('ANNULLED','SENT')
-                  AND vvd.archived_at IS NULL
+                WHERE ${predicate(voucherDecision.forTable("vvd"))}
                 ORDER BY vvd.approved_at
                 LIMIT $limit
                 """,

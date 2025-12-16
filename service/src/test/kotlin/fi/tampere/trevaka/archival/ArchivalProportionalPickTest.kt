@@ -48,15 +48,14 @@ class ArchivalProportionalPickTest {
         while (categories.sum() > 0) {
             rounds++
             if (rounds > maxRounds) fail("Max limit of steps reached")
-            val preSelection = categories.map { count -> (totalLimit / 2).coerceAtMost(count) }
-            val distribution = distributeProportionally(preSelection, totalLimit)
+            val distribution = distributeProportionally(categories, totalLimit)
             categories = categories.zip(distribution) { a, b -> a - b }
             batches.add(distribution.sum())
         }
 
         assertEquals(0, categories.sum())
-        assert(batches.max() < totalLimit)
+        assert(batches.max() <= totalLimit)
         assert(batches.min() > 0)
-        assert(batches.average() > (0.9 * totalLimit))
+        assert(batches.average() > (0.95 * totalLimit))
     }
 }
