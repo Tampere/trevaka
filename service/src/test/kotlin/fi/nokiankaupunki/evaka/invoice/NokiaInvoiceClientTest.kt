@@ -11,8 +11,10 @@ import fi.nokiankaupunki.evaka.invoice.service.validPerson
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import trevaka.invoice.expectedRowLength
+import trevaka.sftp.SftpProperties
 
-private val properties = InvoiceProperties("123", "45")
+private val sftpProperties = SftpProperties("localhost", 22, emptyList(), "user", "pass", null, "")
+private val properties = InvoiceProperties("123", "45", sftpProperties)
 
 class NokiaInvoiceClientTest {
     @Test

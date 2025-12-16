@@ -42,4 +42,3 @@ sfi_msg_enable_printing    = false
 sfi_msg_printing_provider  = "Posti"
 
 # service: NokiaProperties
-nokia_invoice_version = "V2026"
