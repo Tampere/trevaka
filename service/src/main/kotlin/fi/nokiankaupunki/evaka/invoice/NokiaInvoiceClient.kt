@@ -51,7 +51,7 @@ class NokiaInvoiceClient(
         val now = clockService.clock().now()
         val data = FixedLengthField.render(ssnInvoices.flatMap { invoice -> toInvoiceData(invoice, now, properties) })
         val timestamp = now.toLocalDateTime().format(FILENAME_DATE_TIME_FORMATTER)
-        val filename = "${properties.sftp!!.prefix}${properties.municipalityCode}_${properties.invoiceType}_$timestamp.dat"
+        val filename = "${properties.sftp.prefix}${properties.municipalityCode}_${properties.invoiceType}_$timestamp.dat"
         data.byteInputStream(Charsets.ISO_8859_1).use { sftpClient.put(it, filename) }
         return SendResult(succeeded = zeroSumInvoices + ssnInvoices, manuallySent = nonSsnInvoices)
     }
