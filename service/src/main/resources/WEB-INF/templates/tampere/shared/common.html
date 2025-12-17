@@ -87,7 +87,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 
         .page .decision-details-container {
             margin-top: 10mm;
-            margin-bottom: 15mm;
+            margin-bottom: 10mm;
             page-break-inside: avoid;
         }
 
@@ -238,8 +238,8 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             <div class="left-column">
                 <div th:text="#{header.1}">PÄÄTÖS</div>
                 <div th:text="${#messages.msgOrNull('header.2.' + decision.type)} ?: #{header.2}"></div>
-                <div><span th:replace="~{tampere/shared/common :: decision-date(type = ${type})}"></span></div>
-                <div th:unless="${type == 'notice'}">
+                <div><span th:replace="~{tampere/shared/common :: decision-date}"></span></div>
+                <div th:unless="${decision.type.name() == 'CLUB'}">
                     <span th:text="#{header.decisionNumber}">Päätöksen numero</span>
                     <span th:text="${decision.decisionNumber}"></span>
                 </div>
@@ -320,18 +320,15 @@ SPDX-License-Identifier: LGPL-2.1-or-later
         <p>
             <span th:utext="#{decision.details.child(${child.firstName}, ${child.lastName}, ${#temporals.format(child.dateOfBirth, 'd.M.yyyy')})}">Lapsellenne</span>
             <br/>
-            <span th:utext="${#messages.msgOrNull('decision.details.date.' + decision.type)} ?: #{decision.details.date}">on myönnetty varhaiskasvatuspaikka ajalle</span>
-            <span th:replace="~{tampere/shared/common :: placement-dates}"></span>
+            <th:block th:with="decisionStartDateStr=${#temporals.format(decision.startDate, 'd.M.yyyy')},decisionEndDateStr=${#temporals.format(decision.endDate, 'd.M.yyyy')}">
+              <span th:utext="${#messages.msgOrNull('decision.details.date.' + decision.type, decisionStartDateStr, decisionEndDateStr)} ?: #{decision.details.date(${decisionStartDateStr}, ${decisionEndDateStr})}">on myönnetty varhaiskasvatuspaikka ajalle</span>
+            </th:block>
         </p>
     </div>
 
     <div th:if="${decision.type.name() != 'PRESCHOOL' && serviceNeed != null && serviceNeed.serviceNeedOption != null}">
         <span class="strong" th:text="#{decision.serviceNeed} + ': '"></span>
         <span th:text="${serviceNeed.serviceNeedOption.nameFi}"></span>
-    </div>
-
-    <div th:if="${decision.type.name() == 'PRESCHOOL'}" th:utext="#{decision.details.preschool}">
-        Maksuton esiopetus 4 tuntia päivässä...
     </div>
 
     <div class="decision-details-container">
@@ -358,28 +355,39 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             </div>
         </div>
     </div>
+    <div th:if="${decision.type.name() == 'PRESCHOOL'}"
+         th:utext="#{decision.details.preschool}">
+        Päätös on ehdollinen: ...
+    </div>
+    <div th:if="${decision.type.name() == 'PRESCHOOL_DAYCARE'}"
+         th:utext="#{decision.details.preschool_daycare}">
+        Päätös on ehdollinen: ...
+    </div>
 </div>
 
 <div th:fragment="decision-details">
     <div class="decision-details-container">
         <p>
-            <strong th:if="${type == 'notice'}" th:text="#{notice.sentDate}">Ilmoituspäivä</strong>
-            <strong th:unless="${type == 'notice'}" th:text="#{decision.sentDate}">Päätöspäivä</strong>
+            <strong th:text="${#messages.msgOrNull('decision.sentDate.' + decision.type)} ?: #{decision.sentDate}">Päätöspäivä</strong>
             <span th:replace="~{tampere/shared/common :: format-date(${decision.sentDate})}"></span>
+        </p>
+        <p th:unless="${decision.type.name() == 'PRESCHOOL_DAYCARE'}">
+          <strong th:text="#{decision.inform.title}">Tiedoksi:</strong>
+          <span th:text="#{decision.inform.guardians}">Huoltajat</span>
         </p>
         <p>
             <strong th:text="#{notice.noticeMethodTitle}">Tiedoksiantotapa:</strong>
-            <span th:text="#{notice.noticeMethod.sent}">Lähetetty</span>
+            <span th:text="${#messages.msgOrNull('notice.noticeMethod.' + decision.type)} ?: #{notice.noticeMethod}">Lähetetty</span>
         </p>
         <p>
             <strong th:text="${#messages.msgOrNull('decision.approver.prefix.' + decision.type)} ?: #{decision.approver.prefix}">Päätöksentekijä</strong>
         </p>
-        <th:block th:if="${type == 'notice'}">
+        <th:block th:if="${decision.type.name() == 'CLUB'}">
             <div th:text="${decision.createdBy}"></div>
             <div th:text="#{notice.approver.title}">Koordinaattori</div>
             <div th:text="#{decision.approver.additionalInfo}">(allekirjoitettu koneellisesti)</div>
         </th:block>
-        <th:block th:unless="${type == 'notice'}">
+        <th:block th:unless="${decision.type.name() == 'CLUB'}">
             <th:block th:if="${decision.type.name() == 'PRESCHOOL' or decision.type.name() == 'PRESCHOOL_DAYCARE'}">
               <div th:text="${manager.name}"></div>
               <div th:text="#{decision.decisionMakerTitle}">Varhaiskasvatusyksikön johtaja</div>
@@ -405,22 +413,13 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             <div th:utext="#{decision.approver.phoneNumber}"></div>
         </th:block>
     </div>
-    <p>
-    <div th:text="#{decision.inform.guardians}"></div>
-    </p>
 </div>
-
-<span th:fragment="placement-dates">
-  <span th:text="${#temporals.format(decision.startDate, 'd.M.yyyy')}
-                  + ' – ' +
-                  ${#temporals.format(decision.endDate, 'd.M.yyyy')}"></span>
-</span>
 
 
 <span th:fragment="decision-date">
-    <div class="detail" th:if="${type == 'notice'}"
+    <div class="detail" th:if="${decision.type.name() == 'CLUB'}"
          th:text="#{text.notice.sentDate(${#temporals.format(decision.sentDate, 'd.M.yyyy')})}"></div>
-    <div class="detail" th:unless="${type == 'notice'}"
+    <div class="detail" th:unless="${decision.type.name() == 'CLUB'}"
          th:text="#{text.decision.sentDate(${#temporals.format(decision.sentDate, 'd.M.yyyy')})}"></div>
 </span>
 
