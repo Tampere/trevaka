@@ -7,6 +7,7 @@ package fi.tampere.trevaka.archival
 import com.profium.reception._2022._03.Collections
 import fi.espoo.evaka.caseprocess.CaseProcess
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionDetailed
+import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionStatus
 import fi.espoo.evaka.s3.Document
 import org.apache.tika.mime.MimeTypes
 import trevaka.jaxb.localDateToXMLGregorianCalendar
@@ -18,7 +19,7 @@ internal fun transform(caseProcess: CaseProcess, voucherValueDecision: VoucherVa
         type = "record"
         folder = caseProcess.processDefinitionNumber
         metadata = Collections.Collection.Metadata().apply {
-            title = "Arvopäätös, ${voucherValueDecision.headOfFamily.firstName} ${voucherValueDecision.headOfFamily.lastName}, ${voucherValueDecision.headOfFamily.dateOfBirth.format(ARCHIVAL_DATE_FORMATTER)}"
+            title = "Arvopäätös, ${status(voucherValueDecision)}, ${voucherValueDecision.headOfFamily.firstName} ${voucherValueDecision.headOfFamily.lastName}, ${voucherValueDecision.headOfFamily.dateOfBirth.format(ARCHIVAL_DATE_FORMATTER)}"
             calculationBaseDate = decisionApprovalDate
             created = decisionApprovalDate
             agent.addAll(createDecisionMakerAgent(voucherValueDecision.financeDecisionHandlerFirstName, voucherValueDecision.financeDecisionHandlerLastName))
@@ -34,4 +35,10 @@ internal fun transform(caseProcess: CaseProcess, voucherValueDecision: VoucherVa
             )
         }
     } to mapOf(originalId to document)
+}
+
+private fun status(voucherValueDecision: VoucherValueDecisionDetailed) = when (voucherValueDecision.status) {
+    VoucherValueDecisionStatus.SENT -> "Lähetetty"
+    VoucherValueDecisionStatus.ANNULLED -> "Mitätöity"
+    else -> error("Voucher value decision with status ${voucherValueDecision.status} cannot be archived")
 }

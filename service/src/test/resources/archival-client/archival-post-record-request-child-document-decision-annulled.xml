@@ -7,18 +7,22 @@
     </ns3:initiator>
     <ns3:collection>
         <ns3:type>record</ns3:type>
-        <ns3:folder>12.06.01.17</ns3:folder>
+        <ns3:folder>12.06.01.26</ns3:folder>
         <ns3:metadata>
-            <ns2:title>Maksupäätös, Lähetetty, Jane Smith, 02.09.1998</ns2:title>
-            <ns2:calculationBaseDate>2020-01-15</ns2:calculationBaseDate>
-            <ns2:created>2020-01-15</ns2:created>
+            <ns2:title>Päätös pidennetystä oppivelvollisuudesta, Mitätöity, John Smith, 08.12.2022</ns2:title>
+            <ns2:calculationBaseDate>2025-05-12</ns2:calculationBaseDate>
+            <ns2:created>2025-05-12</ns2:created>
+            <ns2:agent>
+                <ns2:agentRole>Laatija</ns2:agentRole>
+                <ns2:agentName>Esivalmistelija Esko</ns2:agentName>
+            </ns2:agent>
             <ns2:agent>
                 <ns2:agentRole>Päättäjä</ns2:agentRole>
-                <ns2:agentName>Asiakasmaksusihteeri Arto</ns2:agentName>
+                <ns2:agentName>Päättäjä Pänü</ns2:agentName>
             </ns2:agent>
         </ns3:metadata>
         <ns3:content>
-            <ns3:file name="Maksupäätös.txt" originalId="385132a2-4be4-4b52-a3a6-08f27a1270e1"/>
+            <ns3:file name="Päätös pidennetystä oppivelvollisuudesta.txt" originalId="8554e2a5-29bb-4e3c-9aca-59c4995c1d86"/>
         </ns3:content>
     </ns3:collection>
 </ns3:collections>

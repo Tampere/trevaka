@@ -39,6 +39,8 @@ import fi.espoo.evaka.document.DocumentTemplate
 import fi.espoo.evaka.document.DocumentTemplateContent
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.document.childdocument.ChildBasics
+import fi.espoo.evaka.document.childdocument.ChildDocumentDecision
+import fi.espoo.evaka.document.childdocument.ChildDocumentDecisionStatus
 import fi.espoo.evaka.document.childdocument.ChildDocumentDetails
 import fi.espoo.evaka.document.childdocument.DocumentContent
 import fi.espoo.evaka.document.childdocument.DocumentStatus
@@ -59,6 +61,7 @@ import fi.espoo.evaka.s3.DocumentKey
 import fi.espoo.evaka.shared.ApplicationId
 import fi.espoo.evaka.shared.AreaId
 import fi.espoo.evaka.shared.CaseProcessId
+import fi.espoo.evaka.shared.ChildDocumentDecisionId
 import fi.espoo.evaka.shared.ChildDocumentId
 import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.DecisionId
@@ -118,6 +121,29 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
     }
 
     @Test
+    fun uploadRejectedDecision() {
+        stubFor(
+            post(urlEqualTo("/mock/frends/archival/records/add")).willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("Content-Type", "application/xml")
+                    .withBodyFile("archival-client/archival-response-success.xml"),
+            ),
+        )
+
+        val archiveId = archivalIntegrationClient.uploadDecisionToArchive(
+            testCaseProcessApplication,
+            testChildInfo,
+            testDecisionDaycare.copy(status = DecisionStatus.REJECTED),
+            testDocumentDecisionDaycare,
+            testEvakaUser,
+        )
+        assertEquals("archive-record-id-1", archiveId)
+
+        validateMockContent("archival-client/archival-post-record-request-decision-daycare-rejected.xml", testDecisionDaycare.id.toString(), "vakapäätös tekstitiedostona")
+    }
+
+    @Test
     fun uploadChildDocumentWithoutHistory() {
         assertThrows<IllegalStateException> {
             archivalIntegrationClient.uploadChildDocumentToArchive(
@@ -152,6 +178,28 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
         assertEquals("archive-record-id-1", archiveId)
 
         validateMockContent("archival-client/archival-post-record-request-fee-decision-daycare.xml", testFeeDecision.id.toString(), "maksupäätös tekstitiedostona")
+    }
+
+    @Test
+    fun uploadAnnulledFeeDecisionToArchive() {
+        stubFor(
+            post(urlEqualTo("/mock/frends/archival/records/add")).willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("Content-Type", "application/xml")
+                    .withBodyFile("archival-client/archival-response-success.xml"),
+            ),
+        )
+
+        val archiveId = archivalIntegrationClient.uploadFeeDecisionToArchive(
+            testCaseProcessApplication,
+            testFeeDecision.copy(status = FeeDecisionStatus.ANNULLED),
+            testDocumentFeeDecision,
+            testEvakaUser,
+        )
+        assertEquals("archive-record-id-1", archiveId)
+
+        validateMockContent("archival-client/archival-post-record-request-fee-decision-daycare-annulled.xml", testFeeDecision.id.toString(), "maksupäätös tekstitiedostona")
     }
 
     @Test
@@ -199,6 +247,28 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
     }
 
     @Test
+    fun uploadAnnulledVoucherValueDecisionToArchive() {
+        stubFor(
+            post(urlEqualTo("/mock/frends/archival/records/add")).willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("Content-Type", "application/xml")
+                    .withBodyFile("archival-client/archival-response-success.xml"),
+            ),
+        )
+
+        val archiveId = archivalIntegrationClient.uploadVoucherValueDecisionToArchive(
+            testCaseProcessApplication,
+            testVoucherValueDecision.copy(status = VoucherValueDecisionStatus.ANNULLED),
+            testDocumentVoucherValueDecision,
+            testEvakaUser,
+        )
+        assertEquals("archive-record-id-1", archiveId)
+
+        validateMockContent("archival-client/archival-post-record-request-voucher-value-decision-daycare-annulled.xml", testVoucherValueDecision.id.toString(), "arvopäätös tekstitiedostona")
+    }
+
+    @Test
     fun uploadVoucherValueDecisionWithNoDeciderToArchive() {
         stubFor(
             post(urlEqualTo("/mock/frends/archival/records/add")).willReturn(
@@ -243,6 +313,81 @@ class TampereArchivalClientTest : AbstractTampereIntegrationTest() {
         assertEquals("archive-record-id-1", archiveId)
 
         validateMockContent("archival-client/archival-post-record-request-child-document.xml", testVasuDetails.id.toString())
+    }
+
+    @Test
+    fun uploadAcceptedChildDocumentDecision() {
+        stubFor(
+            post(urlEqualTo("/mock/frends/archival/records/add")).willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("Content-Type", "application/xml")
+                    .withBodyFile("archival-client/archival-response-success.xml"),
+            ),
+        )
+
+        val archiveId = archivalIntegrationClient.uploadChildDocumentToArchive(
+            testChildDocumentDecisionDetails.id,
+            fullTestCaseProcessChildDocument,
+            testChildInfo,
+            testChildDocumentDecisionDetails,
+            testDocumentMetadataChildDocument,
+            testDocumentChildDocumentDecision,
+            testEvakaUser,
+        )
+        assertEquals("archive-record-id-1", archiveId)
+
+        validateMockContent("archival-client/archival-post-record-request-child-document-decision.xml", testChildDocumentDecisionDetails.id.toString(), "pidennetyn oppivelvollisuuden päätös tekstitiedostona")
+    }
+
+    @Test
+    fun uploadAnnulledChildDocumentDecision() {
+        stubFor(
+            post(urlEqualTo("/mock/frends/archival/records/add")).willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("Content-Type", "application/xml")
+                    .withBodyFile("archival-client/archival-response-success.xml"),
+            ),
+        )
+
+        val archiveId = archivalIntegrationClient.uploadChildDocumentToArchive(
+            testChildDocumentDecisionDetails.id,
+            fullTestCaseProcessChildDocument,
+            testChildInfo,
+            testChildDocumentDecisionDetails.let { it.copy(decision = it.decision!!.copy(status = ChildDocumentDecisionStatus.ANNULLED)) },
+            testDocumentMetadataChildDocument,
+            testDocumentChildDocumentDecision,
+            testEvakaUser,
+        )
+        assertEquals("archive-record-id-1", archiveId)
+
+        validateMockContent("archival-client/archival-post-record-request-child-document-decision-annulled.xml", testChildDocumentDecisionDetails.id.toString(), "pidennetyn oppivelvollisuuden päätös tekstitiedostona")
+    }
+
+    @Test
+    fun uploadRejectedChildDocumentDecision() {
+        stubFor(
+            post(urlEqualTo("/mock/frends/archival/records/add")).willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("Content-Type", "application/xml")
+                    .withBodyFile("archival-client/archival-response-success.xml"),
+            ),
+        )
+
+        val archiveId = archivalIntegrationClient.uploadChildDocumentToArchive(
+            testChildDocumentDecisionDetails.id,
+            fullTestCaseProcessChildDocument,
+            testChildInfo,
+            testChildDocumentDecisionDetails.let { it.copy(decision = it.decision!!.copy(status = ChildDocumentDecisionStatus.REJECTED)) },
+            testDocumentMetadataChildDocument,
+            testDocumentChildDocument,
+            testEvakaUser,
+        )
+        assertEquals("archive-record-id-1", archiveId)
+
+        validateMockContent("archival-client/archival-post-record-request-child-document-decision-rejected.xml", testVasuDetails.id.toString())
     }
 
     @Test
@@ -616,6 +761,43 @@ private val testVasuDetails = ChildDocumentDetails(
     decision = null,
 )
 
+private val testChildDocumentDecisionDetails = ChildDocumentDetails(
+    id = ChildDocumentId(UUID.fromString("8554e2a5-29bb-4e3c-9aca-59c4995c1d86")),
+    status = DocumentStatus.COMPLETED,
+    publishedAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 45)),
+    archivedAt = null,
+    pdfAvailable = true,
+    content = DocumentContent(answers = emptyList()),
+    publishedContent = DocumentContent(answers = emptyList()),
+    child = testChildInfo.toChildBasics(),
+    template = DocumentTemplate(
+        id = DocumentTemplateId(UUID.randomUUID()),
+        name = "Päätös pidennetystä oppivelvollisuudesta",
+        type = ChildDocumentType.OTHER_DECISION,
+        placementTypes = setOf(PlacementType.PRESCHOOL, PlacementType.PRESCHOOL_DAYCARE),
+        language = UiLanguage.FI,
+        confidentiality = DocumentConfidentiality(durationYears = 100, basis = "Varhaiskasvatuslaki 40 § 3 mom."),
+        legalBasis = "Varhaiskasvatuslaki (540/2018) 40§:n 3 mom.",
+        validity = DateRange(LocalDate.of(2024, 8, 1), LocalDate.of(2025, 7, 31)),
+        published = true,
+        processDefinitionNumber = "12.06.01.26",
+        archiveDurationMonths = 1440,
+        archiveExternally = true,
+        endDecisionWhenUnitChanges = false,
+        content = DocumentTemplateContent(sections = emptyList()),
+    ),
+    decisionMaker = null,
+    decision = ChildDocumentDecision(
+        id = ChildDocumentDecisionId(UUID.randomUUID()),
+        status = ChildDocumentDecisionStatus.ACCEPTED,
+        annulmentReason = "",
+        decisionNumber = 123,
+        validity = DateRange(LocalDate.of(2025, 7, 31), LocalDate.of(2025, 7, 31)),
+        createdAt = HelsinkiDateTime.of(LocalDate.of(2020, 1, 15), LocalTime.of(14, 43)),
+        daycareName = "Ullanlinnan merenkulun instituutti",
+    ),
+)
+
 private val emptyTestCaseProcessChildDocument = null
 
 private val testDocumentMetadataChildDocument = testVasuDetails.toDocumentMetadata()
@@ -623,6 +805,12 @@ private val testDocumentMetadataChildDocument = testVasuDetails.toDocumentMetada
 private val testDocumentChildDocument = Document(
     DocumentKey.ChildDocument(testVasuDetails.id).value,
     "vasu tekstitiedostona".toByteArray(Charsets.UTF_8),
+    "text/plain",
+)
+
+private val testDocumentChildDocumentDecision = Document(
+    DocumentKey.ChildDocument(testChildDocumentDecisionDetails.id).value,
+    "pidennetyn oppivelvollisuuden päätös tekstitiedostona".toByteArray(Charsets.UTF_8),
     "text/plain",
 )
 
