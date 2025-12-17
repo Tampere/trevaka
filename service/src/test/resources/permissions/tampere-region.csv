@@ -32,7 +32,6 @@
 ;Raakaraportti;READ_RAW_REPORT;x;x;;;;;;;;;
 ;"Sijoitusten määrä -raportti";"READ_PLACEMENT_COUNT_REPORT";x;x;x;;;;;;;;
 ;"Tampereen alueen seutuselvitys -raportti";"READ_TAMPERE_REGIONAL_SURVEY_REPORT";x;x;;;;;;;;;
-;"Titania-virheet -raportti";READ_TITANIA_ERRORS;x;;;;;;;;;;
 ;"Tulevat esikoululaiset -raportti";READ_FUTURE_PRESCHOOLERS;x;;;;;;;;;;
 ;"Varda-raportit";READ_VARDA_REPORT;x;;;;;;;;;;
 ;"Varhaiskasvatuksessa lopettavat lapset -raportti";"READ_ENDED_PLACEMENTS_REPORT";x;;x;x;;x;;;;;
@@ -408,6 +407,7 @@ Yksikkö;Lomakyselyraportti;"READ_HOLIDAY_PERIOD_ATTENDANCE_REPORT";x;;;;;;;x;;;
 Yksikkö;Poissaolokyselyraportti;"READ_HOLIDAY_QUESTIONNAIRE_REPORT";x;;;;;;;x;;;
 Yksikkö;"Varhaiskasvatuksessa aloittavat lapset";"READ_STARTING_PLACEMENTS_REPORT";x;;x;x;;x;;x;;;
 Yksikkö;"Työntekijän henkilönumeron luku";"READ_STAFF_EMPLOYEE_NUMBER";x;;;;;;;x;;;
+Yksikkö;"Titania-virheet -raportti";READ_TITANIA_ERRORS;x;;;;;;;x;;;
 Ryhmä;Muokkaus;UPDATE;x;;;;;;;x;;;x
 Ryhmä;Poisto;DELETE;x;;;;;x;;x;;;x
 Ryhmä;"Poissaolon luonti";CREATE_ABSENCES;x;;;x;;;;x;x;x;x

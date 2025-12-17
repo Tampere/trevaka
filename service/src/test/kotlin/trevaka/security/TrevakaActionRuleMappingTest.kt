@@ -331,7 +331,6 @@ private fun translate(action: Global) = action.name to when (action) {
     Global.READ_RAW_REPORT -> "Raakaraportti"
     Global.READ_SEXTET_REPORT -> "Kuusikkovertailu"
     Global.READ_UNITS_REPORT -> "Yksiköt-raportti"
-    Global.READ_TITANIA_ERRORS -> "Titania-virheet -raportti"
     Global.READ_VARDA_REPORT -> "Varda-raportit"
     Global.READ_TAMPERE_REGIONAL_SURVEY_REPORT -> "Tampereen alueen seutuselvitys -raportti"
     Global.UPDATE_SETTINGS -> "Asetuksien muokkaus"
@@ -650,6 +649,7 @@ private fun translate(entry: Enum<*>) = entry.name to when (entry.name) {
     "UPDATE_PLACEMENT_DRAFT" -> "Sijoitushahmotelman muokkaus"
     "READ_SERVICE_WORKER_ACCOUNT_MESSAGES" -> "Palveluohjauksen viestien luku"
     "CREATE_CHILD_DECISION_DOCUMENT" -> "Muun päätöksen luonti"
+    "READ_TITANIA_ERRORS" -> "Titania-virheet -raportti"
     else -> throw error("Unsupported entry ${entry.name}")
 }
 
