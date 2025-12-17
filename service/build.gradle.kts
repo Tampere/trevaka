@@ -7,7 +7,7 @@ plugins {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(libs.versions.java.get())
     }
 }
 
@@ -51,7 +51,7 @@ sourceSets.main {
 }
 
 dependencies {
-    xjcTool(platform("org.glassfish.jaxb:jaxb-bom:4.0.6"))
+    xjcTool(platform("evaka:evaka-bom"))
     xjcTool("com.sun.xml.bind:jaxb-xjc")
     xjcTool("com.sun.xml.bind:jaxb-impl")
 
