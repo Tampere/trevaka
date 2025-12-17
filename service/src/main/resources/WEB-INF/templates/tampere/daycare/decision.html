@@ -31,7 +31,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later
             <div th:replace="~{tampere/shared/preschool-correction :: correction}" />
         </th:block>
         <th:block th:case="*">
-            <div th:replace="~{tampere/shared/daycare-correction :: correction}" />
+            <div th:replace="~{tampere/shared/daycare-correction :: correction(decisionTypeName = ${decision.type.name()})}" />
         </th:block>
     </th:block>
 </div>

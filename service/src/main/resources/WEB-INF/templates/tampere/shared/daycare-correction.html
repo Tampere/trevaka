@@ -11,11 +11,11 @@ SPDX-License-Identifier: LGPL-2.1-or-later
 <th:block th:fragment="correction">
     <h1 th:text="#{title}"></h1>
     <div class="correction-content">
-        <div th:utext="#{content}"></div>
+        <div th:utext="${#messages.msgOrNull('content.' + decisionTypeName)} ?: #{content}"></div>
     </div>
 
     <div class="correction-content">
-        <h2 th:text="#{address.title}">Oikaisuviranomaisen osoite</h2>
+        <h2 th:text="${#messages.msgOrNull('address.title.' + decisionTypeName)} ?: #{address.title}">Oikaisuviranomainen</h2>
         <div th:utext="#{address.content}">Tampereen kaupunki, Kasvatus- ja opetuslautakunta, ...</div>
     </div>
 
@@ -27,6 +27,11 @@ SPDX-License-Identifier: LGPL-2.1-or-later
     <div class="correction-content">
         <h2 th:text="#{notice.title}">Tiedoksisaanti</h2>
         <div th:utext="#{notice.content}">Asianosaisen katsotaan saaneen päätöksestä tiedon, ...</div>
+    </div>
+
+    <div class="correction-content">
+        <h2 th:text="#{complaint.title}">Oikaisuvaatimus</h2>
+        <div th:utext="${#messages.msgOrNull('complaint.content.' + decisionTypeName)} ?: #{complaint.content}">Oikaisuvaatimuksesta on käytävä ilmi ...</div>
     </div>
 </th:block>
 </body>
