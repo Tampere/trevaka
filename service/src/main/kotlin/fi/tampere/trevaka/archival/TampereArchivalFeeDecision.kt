@@ -10,6 +10,7 @@ import fi.espoo.evaka.invoicing.domain.FeeDecisionDetailed
 import fi.espoo.evaka.invoicing.domain.FeeDecisionStatus
 import fi.espoo.evaka.s3.Document
 import org.apache.tika.mime.MimeTypes
+import trevaka.archival.status
 import trevaka.jaxb.localDateToXMLGregorianCalendar
 
 internal fun transform(caseProcess: CaseProcess, feeDecision: FeeDecisionDetailed, document: Document): Pair<Collections.Collection, Map<String, Document>> {
@@ -35,10 +36,4 @@ internal fun transform(caseProcess: CaseProcess, feeDecision: FeeDecisionDetaile
             )
         }
     } to mapOf(originalId to document)
-}
-
-private fun status(feeDecision: FeeDecisionDetailed) = when (feeDecision.status) {
-    FeeDecisionStatus.SENT -> "Lähetetty"
-    FeeDecisionStatus.ANNULLED -> "Mitätöity"
-    else -> error("Fee decision with status ${feeDecision.status} cannot be archived")
 }

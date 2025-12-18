@@ -12,6 +12,7 @@ import fi.espoo.evaka.decision.DecisionType
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.s3.Document
 import org.apache.tika.mime.MimeTypes
+import trevaka.archival.status
 import trevaka.jaxb.localDateToXMLGregorianCalendar
 
 internal fun transform(caseProcess: CaseProcess, decision: Decision, document: Document, child: PersonDTO): Pair<Collections.Collection, Map<String, Document>> {
@@ -47,10 +48,4 @@ private fun title(decision: Decision): String = when (decision.type) {
     DecisionType.PRESCHOOL_DAYCARE -> "Täydentävän varhaiskasvatuksen päätös"
     DecisionType.PRESCHOOL_CLUB -> "Esiopetuksen kerhon päätös"
     DecisionType.PREPARATORY_EDUCATION -> throw UnsupportedOperationException("Preparatory education")
-}
-
-private fun status(decision: Decision): String = when (decision.status) {
-    DecisionStatus.ACCEPTED -> "Hyväksytty"
-    DecisionStatus.REJECTED -> "Hylätty"
-    else -> error("Decision with status ${decision.status} cannot be archived")
 }

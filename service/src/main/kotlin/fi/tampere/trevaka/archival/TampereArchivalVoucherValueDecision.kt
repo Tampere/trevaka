@@ -7,9 +7,9 @@ package fi.tampere.trevaka.archival
 import com.profium.reception._2022._03.Collections
 import fi.espoo.evaka.caseprocess.CaseProcess
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionDetailed
-import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionStatus
 import fi.espoo.evaka.s3.Document
 import org.apache.tika.mime.MimeTypes
+import trevaka.archival.status
 import trevaka.jaxb.localDateToXMLGregorianCalendar
 
 internal fun transform(caseProcess: CaseProcess, voucherValueDecision: VoucherValueDecisionDetailed, document: Document): Pair<Collections.Collection, Map<String, Document>> {
@@ -35,10 +35,4 @@ internal fun transform(caseProcess: CaseProcess, voucherValueDecision: VoucherVa
             )
         }
     } to mapOf(originalId to document)
-}
-
-private fun status(voucherValueDecision: VoucherValueDecisionDetailed) = when (voucherValueDecision.status) {
-    VoucherValueDecisionStatus.SENT -> "Lähetetty"
-    VoucherValueDecisionStatus.ANNULLED -> "Mitätöity"
-    else -> error("Voucher value decision with status ${voucherValueDecision.status} cannot be archived")
 }

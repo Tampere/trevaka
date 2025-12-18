@@ -9,7 +9,7 @@
         <type>record</type>
         <folder>04.01.00.11</folder>
         <metadata>
-            <ns2:title>Arvopäätös;Lähetetty;Jane Smith;020998-958R</ns2:title>
+            <ns2:title>Arvopäätös;Mitätöity;Jane Smith;020998-958R</ns2:title>
             <ns2:calculationBaseDate>2022-08-01</ns2:calculationBaseDate>
             <ns2:created>2020-01-15</ns2:created>
             <ns2:agent>
