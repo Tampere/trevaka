@@ -94,8 +94,6 @@ module "app_service" {
     EVAKA_INTEGRATION_SFI_PRINTING_BILLING_PASSWORD = var.evaka_integration_sfi_enabled ? "${local.param_prefix}/service/sfi/printing/password" : null
 
     # SfiContactPersonEnv
-    EVAKA_INTEGRATION_SFI_CONTACT_PERSON_NAME  = var.evaka_integration_sfi_enabled ? "${local.param_prefix}/service/sfi/contact/name" : null
-    EVAKA_INTEGRATION_SFI_CONTACT_PERSON_PHONE = var.evaka_integration_sfi_enabled ? "${local.param_prefix}/service/sfi/contact/phone" : null
     EVAKA_INTEGRATION_SFI_CONTACT_PERSON_EMAIL = var.evaka_integration_sfi_enabled ? "${local.param_prefix}/service/sfi/contact/email" : null
 
     # JamixEnv
