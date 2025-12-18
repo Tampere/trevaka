@@ -152,11 +152,12 @@ internal fun transformToAgents(caseProcess: CaseProcess): List<Agent> = extractA
     }
 }
 
-internal fun hofTitle(type: String, owner: PersonDetailed): String = listOf(type, "${owner.firstName} ${owner.lastName}", owner.ssn ?: error("No owner ssn available"))
+internal fun hofTitle(type: String, status: String, owner: PersonDetailed): String = listOf(type, status, "${owner.firstName} ${owner.lastName}", owner.ssn ?: error("No owner ssn available"))
     .joinToString(SEPARATOR_CHARACTER)
 
-internal fun childTitle(type: String, owner: PersonDTO): String = listOf(
+internal fun childTitle(type: String, status: String, owner: PersonDTO): String = listOf(
     type,
+    status,
     "${owner.firstName} ${owner.lastName}",
     if (owner.identity == ExternalIdentifier.NoID) error("No owner ssn available") else owner.identity.toString(),
 )

@@ -11,6 +11,7 @@ import fi.espoo.evaka.decision.DecisionType
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.s3.Document
 import org.apache.tika.mime.MimeTypes
+import trevaka.archival.status
 import trevaka.jaxb.localDateToXMLGregorianCalendar
 
 internal fun transformDecision(
@@ -24,7 +25,7 @@ internal fun transformDecision(
         type = "record"
         folder = caseProcess.processDefinitionNumber
         metadata = Collections.Collection.Metadata().apply {
-            title = childTitle(type(decision), child)
+            title = childTitle(type(decision), status(decision), child)
             calculationBaseDate = localDateToXMLGregorianCalendar(decision.endDate.plusDays(1))
             created = decision.sentDate?.let { localDateToXMLGregorianCalendar(it) }
             agent.addAll(transformToAgents(caseProcess))

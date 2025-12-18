@@ -7,9 +7,9 @@
     </initiator>
     <collection>
         <type>record</type>
-        <folder>04.01.00.11</folder>
+        <folder>04.01.00.12</folder>
         <metadata>
-            <ns2:title>Arvopäätös;Lähetetty;Jane Smith;020998-958R</ns2:title>
+            <ns2:title>Maksupäätös;Mitätöity;Jane Smith;020998-958R</ns2:title>
             <ns2:calculationBaseDate>2022-08-01</ns2:calculationBaseDate>
             <ns2:created>2020-01-15</ns2:created>
             <ns2:agent>
@@ -22,7 +22,7 @@
             </ns2:agent>
         </metadata>
         <content>
-            <file name="11479434-12da-4c59-a1e1-d9cd58c203a2.txt" originalId="11479434-12da-4c59-a1e1-d9cd58c203a2"/>
+            <file name="385132a2-4be4-4b52-a3a6-08f27a1270e1.txt" originalId="385132a2-4be4-4b52-a3a6-08f27a1270e1"/>
         </content>
     </collection>
 </collections>

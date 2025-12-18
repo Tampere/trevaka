@@ -9,6 +9,7 @@ import com.profium.sahke2.Agent
 import fi.espoo.evaka.document.childdocument.ChildDocumentDetails
 import fi.espoo.evaka.s3.Document
 import org.apache.tika.mime.MimeTypes
+import trevaka.archival.status
 import trevaka.jaxb.localDateToXMLGregorianCalendar
 import java.time.LocalDate
 
@@ -19,7 +20,7 @@ internal fun transform(childDocumentDetails: ChildDocumentDetails, document: Doc
         type = "record"
         folder = childDocumentDetails.template.processDefinitionNumber
         metadata = Collections.Collection.Metadata().apply {
-            title = "${childDocumentDetails.template.name}, ${ownerDetails.name}, ${ownerDetails.dateOfBirth.format(ARCHIVAL_DATE_FORMATTER)}"
+            title = "${childDocumentDetails.template.name}, ${status(childDocumentDetails)}, ${ownerDetails.name}, ${ownerDetails.dateOfBirth.format(ARCHIVAL_DATE_FORMATTER)}"
             calculationBaseDate = publicationDate
             created = publicationDate
             authorDetails.forEach {

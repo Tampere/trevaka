@@ -10,6 +10,7 @@ import fi.espoo.evaka.document.childdocument.ChildDocumentDetails
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.s3.Document
 import org.apache.tika.mime.MimeTypes
+import trevaka.archival.status
 import trevaka.jaxb.localDateToXMLGregorianCalendar
 
 internal fun transformChildDocument(childDocumentDetails: ChildDocumentDetails, document: Document, childInfo: PersonDTO, caseProcess: CaseProcess): Pair<Collections.Collection, Map<String, Document>> {
@@ -18,7 +19,7 @@ internal fun transformChildDocument(childDocumentDetails: ChildDocumentDetails, 
         type = "record"
         folder = childDocumentDetails.template.processDefinitionNumber
         metadata = Collections.Collection.Metadata().apply {
-            title = childTitle(childDocumentDetails.template.name, childInfo)
+            title = childTitle(childDocumentDetails.template.name, status(childDocumentDetails), childInfo)
             calculationBaseDate = localDateToXMLGregorianCalendar(childDocumentDetails.template.validity.start)
             created = childDocumentDetails.publishedAt?.toLocalDate()?.let { localDateToXMLGregorianCalendar(it) }
             agent.addAll(transformToAgents(caseProcess))

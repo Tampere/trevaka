@@ -4,8 +4,20 @@
 
 package fi.nokiankaupunki.evaka.archival
 
-import fi.espoo.evaka.application.*
-import fi.espoo.evaka.caseprocess.*
+import fi.espoo.evaka.application.ApplicationDetails
+import fi.espoo.evaka.application.ApplicationForm
+import fi.espoo.evaka.application.ApplicationOrigin
+import fi.espoo.evaka.application.ApplicationStatus
+import fi.espoo.evaka.application.ApplicationType
+import fi.espoo.evaka.application.ChildDetails
+import fi.espoo.evaka.application.Guardian
+import fi.espoo.evaka.application.PersonBasics
+import fi.espoo.evaka.application.Preferences
+import fi.espoo.evaka.caseprocess.CaseProcess
+import fi.espoo.evaka.caseprocess.CaseProcessHistoryRow
+import fi.espoo.evaka.caseprocess.CaseProcessState
+import fi.espoo.evaka.caseprocess.DocumentConfidentiality
+import fi.espoo.evaka.caseprocess.DocumentMetadata
 import fi.espoo.evaka.daycare.domain.ProviderType
 import fi.espoo.evaka.decision.Decision
 import fi.espoo.evaka.decision.DecisionStatus
@@ -16,19 +28,44 @@ import fi.espoo.evaka.document.DocumentTemplate
 import fi.espoo.evaka.document.DocumentTemplateContent
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.document.childdocument.ChildBasics
+import fi.espoo.evaka.document.childdocument.ChildDocumentDecision
+import fi.espoo.evaka.document.childdocument.ChildDocumentDecisionStatus
 import fi.espoo.evaka.document.childdocument.ChildDocumentDetails
 import fi.espoo.evaka.document.childdocument.DocumentContent
 import fi.espoo.evaka.document.childdocument.DocumentStatus
 import fi.espoo.evaka.identity.ExternalIdentifier
-import fi.espoo.evaka.invoicing.domain.*
+import fi.espoo.evaka.invoicing.domain.FeeDecisionDetailed
+import fi.espoo.evaka.invoicing.domain.FeeDecisionStatus
+import fi.espoo.evaka.invoicing.domain.FeeDecisionType
+import fi.espoo.evaka.invoicing.domain.UnitData
+import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionDetailed
+import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionPlacementDetailed
+import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionServiceNeed
+import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionStatus
+import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionType
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.placement.PlacementType
 import fi.espoo.evaka.s3.Document
 import fi.espoo.evaka.s3.DocumentKey
-import fi.espoo.evaka.shared.*
+import fi.espoo.evaka.shared.ApplicationId
+import fi.espoo.evaka.shared.AreaId
+import fi.espoo.evaka.shared.CaseProcessId
+import fi.espoo.evaka.shared.ChildDocumentDecisionId
+import fi.espoo.evaka.shared.ChildDocumentId
+import fi.espoo.evaka.shared.DaycareId
+import fi.espoo.evaka.shared.DecisionId
+import fi.espoo.evaka.shared.DocumentTemplateId
+import fi.espoo.evaka.shared.EvakaUserId
+import fi.espoo.evaka.shared.FeeDecisionId
+import fi.espoo.evaka.shared.PersonId
+import fi.espoo.evaka.shared.VoucherValueDecisionId
 import fi.espoo.evaka.shared.auth.AuthenticatedUser
 import fi.espoo.evaka.shared.dev.feeThresholds2020
-import fi.espoo.evaka.shared.domain.*
+import fi.espoo.evaka.shared.domain.DateRange
+import fi.espoo.evaka.shared.domain.FiniteDateRange
+import fi.espoo.evaka.shared.domain.HelsinkiDateTime
+import fi.espoo.evaka.shared.domain.OfficialLanguage
+import fi.espoo.evaka.shared.domain.UiLanguage
 import fi.espoo.evaka.shared.sftp.SftpClient
 import fi.espoo.evaka.user.EvakaUser
 import fi.espoo.evaka.user.EvakaUserType
@@ -44,7 +81,7 @@ import java.math.BigDecimal
 import java.nio.charset.StandardCharsets
 import java.time.LocalDate
 import java.time.LocalTime
-import java.util.*
+import java.util.UUID
 
 class NokiaArchivalClientTest : AbstractNokiaIntegrationTest() {
 
@@ -74,6 +111,35 @@ class NokiaArchivalClientTest : AbstractNokiaIntegrationTest() {
             sftpClient.getAsString("${archival.sftp.prefix}${testDecisionDaycare.id}.txt", StandardCharsets.UTF_8)
         assertEquals(
             ClassPathResource("tweb-archival-client/decision-metadata.xml")
+                .getContentAsString(StandardCharsets.UTF_8),
+            metadata,
+        )
+        assertEquals(
+            "vakapäätös tekstitiedostona",
+            document,
+        )
+    }
+
+    @Test
+    fun uploadRejectedDecision() {
+        val archival = nokiaProperties.archival ?: error("No archival configuration")
+        val archiveId = archivalIntegrationClient.uploadDecisionToArchive(
+            testCaseProcessApplication,
+            testChildInfo,
+            testDecisionDaycare.copy(status = DecisionStatus.REJECTED),
+            testDocumentDecisionDaycare,
+            testEvakaUser,
+        )
+        assertEquals("static-sftp-response", archiveId)
+
+        val sftpClient = SftpClient(archival.sftp.toSftpEnv())
+        val metadata =
+            sftpClient.getAsString("${archival.sftp.prefix}${testDecisionDaycare.id}.xml", StandardCharsets.UTF_8)
+
+        val document =
+            sftpClient.getAsString("${archival.sftp.prefix}${testDecisionDaycare.id}.txt", StandardCharsets.UTF_8)
+        assertEquals(
+            ClassPathResource("tweb-archival-client/decision-metadata-rejected.xml")
                 .getContentAsString(StandardCharsets.UTF_8),
             metadata,
         )
@@ -141,6 +207,35 @@ class NokiaArchivalClientTest : AbstractNokiaIntegrationTest() {
     }
 
     @Test
+    fun uploadAnnulledFeeDecisionToArchive() {
+        val archival = nokiaProperties.archival ?: error("No archival configuration")
+        val archiveId = archivalIntegrationClient.uploadFeeDecisionToArchive(
+            testCaseProcessFeeDecision,
+            testFeeDecision.copy(status = FeeDecisionStatus.ANNULLED),
+            testDocumentFeeDecision,
+            testEvakaUser,
+        )
+
+        assertEquals("static-sftp-response", archiveId)
+
+        val sftpClient = SftpClient(archival.sftp.toSftpEnv())
+        val metadata =
+            sftpClient.getAsString("${archival.sftp.prefix}${testFeeDecision.id}.xml", StandardCharsets.UTF_8)
+
+        val document =
+            sftpClient.getAsString("${archival.sftp.prefix}${testFeeDecision.id}.txt", StandardCharsets.UTF_8)
+        assertEquals(
+            ClassPathResource("tweb-archival-client/fee-decision-metadata-annulled.xml")
+                .getContentAsString(StandardCharsets.UTF_8),
+            metadata,
+        )
+        assertEquals(
+            "maksupäätös tekstitiedostona",
+            document,
+        )
+    }
+
+    @Test
     fun uploadVoucherValueDecisionToArchive() {
         val archival = nokiaProperties.archival ?: error("No archival configuration")
         val archiveId = archivalIntegrationClient.uploadVoucherValueDecisionToArchive(
@@ -160,6 +255,35 @@ class NokiaArchivalClientTest : AbstractNokiaIntegrationTest() {
             sftpClient.getAsString("${archival.sftp.prefix}${testVoucherValueDecision.id}.txt", StandardCharsets.UTF_8)
         assertEquals(
             ClassPathResource("tweb-archival-client/voucher-decision-metadata.xml")
+                .getContentAsString(StandardCharsets.UTF_8),
+            metadata,
+        )
+        assertEquals(
+            "arvopäätös tekstitiedostona",
+            document,
+        )
+    }
+
+    @Test
+    fun uploadAnnulledVoucherValueDecisionToArchive() {
+        val archival = nokiaProperties.archival ?: error("No archival configuration")
+        val archiveId = archivalIntegrationClient.uploadVoucherValueDecisionToArchive(
+            testCaseProcessApplication,
+            testVoucherValueDecision.copy(status = VoucherValueDecisionStatus.ANNULLED),
+            testDocumentVoucherValueDecision,
+            testEvakaUser,
+        )
+
+        assertEquals("static-sftp-response", archiveId)
+
+        val sftpClient = SftpClient(archival.sftp.toSftpEnv())
+        val metadata =
+            sftpClient.getAsString("${archival.sftp.prefix}${testVoucherValueDecision.id}.xml", StandardCharsets.UTF_8)
+
+        val document =
+            sftpClient.getAsString("${archival.sftp.prefix}${testVoucherValueDecision.id}.txt", StandardCharsets.UTF_8)
+        assertEquals(
+            ClassPathResource("tweb-archival-client/voucher-decision-metadata-annulled.xml")
                 .getContentAsString(StandardCharsets.UTF_8),
             metadata,
         )
@@ -196,6 +320,68 @@ class NokiaArchivalClientTest : AbstractNokiaIntegrationTest() {
         )
         assertEquals(
             "vasu tekstitiedostona",
+            document,
+        )
+    }
+
+    @Test
+    fun uploadChildDocumentDecision() {
+        val archival = nokiaProperties.archival ?: error("No archival configuration")
+        val archiveId = archivalIntegrationClient.uploadChildDocumentToArchive(
+            testChildDocumentDecisionDetails.id,
+            fullTestCaseProcessChildDocument,
+            testChildInfo,
+            testChildDocumentDecisionDetails,
+            testDocumentMetadataChildDocument,
+            testChildDocumentDecision,
+            testEvakaUser,
+        )
+        assertEquals("static-sftp-response", archiveId)
+
+        val sftpClient = SftpClient(archival.sftp.toSftpEnv())
+        val metadata =
+            sftpClient.getAsString("${archival.sftp.prefix}${testChildDocumentDecisionDetails.id}.xml", StandardCharsets.UTF_8)
+
+        val document =
+            sftpClient.getAsString("${archival.sftp.prefix}${testChildDocumentDecisionDetails.id}.txt", StandardCharsets.UTF_8)
+        assertEquals(
+            ClassPathResource("tweb-archival-client/child-document-decision-metadata.xml")
+                .getContentAsString(StandardCharsets.UTF_8),
+            metadata,
+        )
+        assertEquals(
+            "oppivelvollisuuden pidentämispäätös tekstitiedostona",
+            document,
+        )
+    }
+
+    @Test
+    fun uploadRejectedChildDocumentDecision() {
+        val archival = nokiaProperties.archival ?: error("No archival configuration")
+        val archiveId = archivalIntegrationClient.uploadChildDocumentToArchive(
+            testChildDocumentDecisionDetails.id,
+            fullTestCaseProcessChildDocument,
+            testChildInfo,
+            testChildDocumentDecisionDetails.let { it.copy(decision = it.decision!!.copy(status = ChildDocumentDecisionStatus.REJECTED)) },
+            testDocumentMetadataChildDocument,
+            testChildDocumentDecision,
+            testEvakaUser,
+        )
+        assertEquals("static-sftp-response", archiveId)
+
+        val sftpClient = SftpClient(archival.sftp.toSftpEnv())
+        val metadata =
+            sftpClient.getAsString("${archival.sftp.prefix}${testChildDocumentDecisionDetails.id}.xml", StandardCharsets.UTF_8)
+
+        val document =
+            sftpClient.getAsString("${archival.sftp.prefix}${testChildDocumentDecisionDetails.id}.txt", StandardCharsets.UTF_8)
+        assertEquals(
+            ClassPathResource("tweb-archival-client/child-document-decision-metadata-rejected.xml")
+                .getContentAsString(StandardCharsets.UTF_8),
+            metadata,
+        )
+        assertEquals(
+            "oppivelvollisuuden pidentämispäätös tekstitiedostona",
             document,
         )
     }
@@ -521,6 +707,43 @@ private val testVasuDetails = ChildDocumentDetails(
     decision = null,
 )
 
+private val testChildDocumentDecisionDetails = ChildDocumentDetails(
+    id = ChildDocumentId(UUID.fromString("8554e2a5-29bb-4e3c-9aca-59c4995c1d86")),
+    status = DocumentStatus.COMPLETED,
+    publishedAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 45)),
+    archivedAt = null,
+    pdfAvailable = true,
+    content = DocumentContent(answers = emptyList()),
+    publishedContent = DocumentContent(answers = emptyList()),
+    child = testChildInfo.toChildBasics(),
+    template = DocumentTemplate(
+        id = DocumentTemplateId(UUID.randomUUID()),
+        name = "Päätös pidennetystä oppivelvollisuudesta",
+        type = ChildDocumentType.OTHER_DECISION,
+        placementTypes = setOf(PlacementType.PRESCHOOL, PlacementType.PRESCHOOL_DAYCARE),
+        language = UiLanguage.FI,
+        confidentiality = DocumentConfidentiality(durationYears = 100, basis = "Varhaiskasvatuslaki 40 § 3 mom."),
+        legalBasis = "Varhaiskasvatuslaki (540/2018) 40§:n 3 mom.",
+        validity = DateRange(LocalDate.of(2024, 8, 1), LocalDate.of(2025, 7, 31)),
+        published = true,
+        processDefinitionNumber = "04.01.03.42",
+        archiveDurationMonths = 1440,
+        archiveExternally = true,
+        endDecisionWhenUnitChanges = false,
+        content = DocumentTemplateContent(sections = emptyList()),
+    ),
+    decisionMaker = null,
+    decision = ChildDocumentDecision(
+        id = ChildDocumentDecisionId(UUID.randomUUID()),
+        status = ChildDocumentDecisionStatus.ACCEPTED,
+        validity = DateRange(LocalDate.of(2024, 8, 1), LocalDate.of(2025, 7, 31)),
+        createdAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 45)),
+        decisionNumber = 123,
+        daycareName = "Satolan mäkitupa",
+        annulmentReason = "",
+    ),
+)
+
 private val emptyTestCaseProcessChildDocument = null
 
 private val testDocumentMetadataChildDocument = testVasuDetails.toDocumentMetadata()
@@ -528,6 +751,12 @@ private val testDocumentMetadataChildDocument = testVasuDetails.toDocumentMetada
 private val testDocumentChildDocument = Document(
     DocumentKey.ChildDocument(testVasuDetails.id).value,
     "vasu tekstitiedostona".toByteArray(Charsets.UTF_8),
+    "text/plain",
+)
+
+private val testChildDocumentDecision = Document(
+    DocumentKey.ChildDocument(testVasuDetails.id).value,
+    "oppivelvollisuuden pidentämispäätös tekstitiedostona".toByteArray(Charsets.UTF_8),
     "text/plain",
 )
 

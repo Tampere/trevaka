@@ -9,6 +9,7 @@ import fi.espoo.evaka.caseprocess.CaseProcess
 import fi.espoo.evaka.invoicing.domain.FeeDecisionDetailed
 import fi.espoo.evaka.s3.Document
 import org.apache.tika.mime.MimeTypes
+import trevaka.archival.status
 import trevaka.jaxb.localDateToXMLGregorianCalendar
 
 internal fun transformFeeDecision(caseProcess: CaseProcess, feeDecision: FeeDecisionDetailed, document: Document): Pair<Collections.Collection, Map<String, Document>> {
@@ -17,7 +18,7 @@ internal fun transformFeeDecision(caseProcess: CaseProcess, feeDecision: FeeDeci
         type = "record"
         folder = caseProcess.processDefinitionNumber
         metadata = Collections.Collection.Metadata().apply {
-            title = hofTitle("Maksupäätös", feeDecision.headOfFamily)
+            title = hofTitle("Maksupäätös", status(feeDecision), feeDecision.headOfFamily)
             calculationBaseDate = localDateToXMLGregorianCalendar(feeDecision.validDuring.end.plusDays(1))
             created = feeDecision.approvedAt?.let { localDateToXMLGregorianCalendar(it.toLocalDate()) }
             agent.addAll(transformToAgents(caseProcess))

@@ -7,8 +7,10 @@ package fi.tampere.trevaka.archival
 import com.profium.reception._2022._03.Collections
 import fi.espoo.evaka.caseprocess.CaseProcess
 import fi.espoo.evaka.invoicing.domain.FeeDecisionDetailed
+import fi.espoo.evaka.invoicing.domain.FeeDecisionStatus
 import fi.espoo.evaka.s3.Document
 import org.apache.tika.mime.MimeTypes
+import trevaka.archival.status
 import trevaka.jaxb.localDateToXMLGregorianCalendar
 
 internal fun transform(caseProcess: CaseProcess, feeDecision: FeeDecisionDetailed, document: Document): Pair<Collections.Collection, Map<String, Document>> {
@@ -18,7 +20,7 @@ internal fun transform(caseProcess: CaseProcess, feeDecision: FeeDecisionDetaile
         type = "record"
         folder = caseProcess.processDefinitionNumber
         metadata = Collections.Collection.Metadata().apply {
-            title = "Maksupäätös, ${feeDecision.headOfFamily.firstName} ${feeDecision.headOfFamily.lastName}, ${feeDecision.headOfFamily.dateOfBirth.format(ARCHIVAL_DATE_FORMATTER)}"
+            title = "Maksupäätös, ${status(feeDecision)}, ${feeDecision.headOfFamily.firstName} ${feeDecision.headOfFamily.lastName}, ${feeDecision.headOfFamily.dateOfBirth.format(ARCHIVAL_DATE_FORMATTER)}"
             calculationBaseDate = decisionApprovalDate
             created = decisionApprovalDate
             agent.addAll(createDecisionMakerAgent(feeDecision.financeDecisionHandlerFirstName, feeDecision.financeDecisionHandlerLastName))

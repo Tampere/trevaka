@@ -9,6 +9,7 @@ import fi.espoo.evaka.caseprocess.CaseProcess
 import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionDetailed
 import fi.espoo.evaka.s3.Document
 import org.apache.tika.mime.MimeTypes
+import trevaka.archival.status
 import trevaka.jaxb.localDateToXMLGregorianCalendar
 
 internal fun transform(caseProcess: CaseProcess, voucherValueDecision: VoucherValueDecisionDetailed, document: Document): Pair<Collections.Collection, Map<String, Document>> {
@@ -18,7 +19,7 @@ internal fun transform(caseProcess: CaseProcess, voucherValueDecision: VoucherVa
         type = "record"
         folder = caseProcess.processDefinitionNumber
         metadata = Collections.Collection.Metadata().apply {
-            title = "Arvopäätös, ${voucherValueDecision.headOfFamily.firstName} ${voucherValueDecision.headOfFamily.lastName}, ${voucherValueDecision.headOfFamily.dateOfBirth.format(ARCHIVAL_DATE_FORMATTER)}"
+            title = "Arvopäätös, ${status(voucherValueDecision)}, ${voucherValueDecision.headOfFamily.firstName} ${voucherValueDecision.headOfFamily.lastName}, ${voucherValueDecision.headOfFamily.dateOfBirth.format(ARCHIVAL_DATE_FORMATTER)}"
             calculationBaseDate = decisionApprovalDate
             created = decisionApprovalDate
             agent.addAll(createDecisionMakerAgent(voucherValueDecision.financeDecisionHandlerFirstName, voucherValueDecision.financeDecisionHandlerLastName))
