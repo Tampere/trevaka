@@ -29,6 +29,7 @@ parameters=(
   "/service/dvv-modifications/url/frends"
   "/service/dvv-modifications/userid"
   "/service/dvv-modifications/password"
+  "/service/sfi/contact/email"
   "/service/frends/api-key"
   "/service/invoice/url/frends"
   "/service/payment/url/frends"
