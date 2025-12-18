@@ -53,6 +53,7 @@ class ExportPreschoolChildDocumentsServiceTest : AbstractTampereIntegrationTest(
                     tx,
                     timestamp,
                     properties.bucket.export,
+                    "837",
                 )
             }
         }
@@ -72,7 +73,7 @@ class ExportPreschoolChildDocumentsServiceTest : AbstractTampereIntegrationTest(
         }
 
         val (bucket, key) = db.read { tx ->
-            exportPreschoolChildDocumentsService.exportPreschoolChildDocuments(tx, timestamp, properties.bucket.export)
+            exportPreschoolChildDocumentsService.exportPreschoolChildDocuments(tx, timestamp, properties.bucket.export, "837")
         }
 
         val (data, contentType) = getS3Object(bucket, key).use {
@@ -116,10 +117,10 @@ class ExportPreschoolChildDocumentsServiceTest : AbstractTampereIntegrationTest(
         }
 
         val (bucket, key) = db.read { tx ->
-            exportPreschoolChildDocumentsService.exportPreschoolChildDocuments(tx, timestamp, properties.bucket.export)
+            exportPreschoolChildDocumentsService.exportPreschoolChildDocuments(tx, timestamp, properties.bucket.export, "837")
         }
 
-        assertEquals("reporting/preschool/evaka_child_documents_2025-08-01.json", key)
+        assertEquals("reporting/preschool/837_evaka_child_documents_2025-08-01.json", key)
         val (data, contentType) = getS3Object(bucket, key).use {
             it.readAllBytes().toString(Charsets.UTF_8) to it.response().contentType()
         }
@@ -193,7 +194,7 @@ class ExportPreschoolChildDocumentsServiceTest : AbstractTampereIntegrationTest(
         }
 
         val (bucket, key) = db.read { tx ->
-            exportPreschoolChildDocumentsService.exportPreschoolChildDocuments(tx, timestamp, properties.bucket.export)
+            exportPreschoolChildDocumentsService.exportPreschoolChildDocuments(tx, timestamp, properties.bucket.export, "837")
         }
 
         val (data, contentType) = getS3Object(bucket, key).use {

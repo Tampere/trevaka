@@ -59,7 +59,7 @@ class TampereScheduledJobs(
     fun exportPreschoolChildDocuments(db: Database.Connection, clock: EvakaClock) {
         db.read { tx ->
             tx.setStatementTimeout(REPORT_STATEMENT_TIMEOUT)
-            exportPreschoolChildDocumentsService.exportPreschoolChildDocuments(tx, clock.now(), properties.bucket.export)
+            exportPreschoolChildDocumentsService.exportPreschoolChildDocuments(tx, clock.now(), properties.bucket.export, "837")
         }
     }
 

@@ -22,13 +22,14 @@ class ExportPreschoolChildDocumentsService(private val s3Client: S3Client) {
         tx: Database.Read,
         timestamp: HelsinkiDateTime,
         bucket: String,
+        municipalityCode: String,
     ): Pair<String, String> {
         val date = timestamp.toLocalDate()
         val templateId = tx.getTemplateIdForExport(date)
         logger.info { "Export child documents for template $templateId" }
         val documents = tx.getDocumentsJsonForExport(templateId)
 
-        val key = "reporting/preschool/evaka_child_documents_$date.json"
+        val key = "reporting/preschool/${municipalityCode}_evaka_child_documents_$date.json"
         val request = PutObjectRequest.builder()
             .bucket(bucket)
             .key(key)
