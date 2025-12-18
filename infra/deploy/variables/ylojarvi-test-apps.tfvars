@@ -41,4 +41,3 @@ sfi_msg_enable_printing    = false
 sfi_msg_printing_provider  = "Posti"
 
 # service: YlojarviProperties
-ylojarvi_invoice_version = "V2026"
