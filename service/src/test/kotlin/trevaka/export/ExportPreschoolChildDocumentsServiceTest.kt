@@ -119,7 +119,7 @@ class ExportPreschoolChildDocumentsServiceTest : AbstractTampereIntegrationTest(
             exportPreschoolChildDocumentsService.exportPreschoolChildDocuments(tx, timestamp, properties.bucket.export)
         }
 
-        assertEquals("reporting/preschool/evaka_child_documents_2025-08-01.json", key)
+        assertEquals("reporting/preschool/837_evaka_child_documents_2025-08-01.json", key)
         val (data, contentType) = getS3Object(bucket, key).use {
             it.readAllBytes().toString(Charsets.UTF_8) to it.response().contentType()
         }
