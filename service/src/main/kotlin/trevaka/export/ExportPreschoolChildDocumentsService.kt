@@ -4,6 +4,7 @@
 
 package trevaka.export
 
+import fi.espoo.evaka.OphEnv
 import fi.espoo.evaka.shared.DocumentTemplateId
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
@@ -17,19 +18,18 @@ import java.time.LocalDate
 private val logger = KotlinLogging.logger {}
 
 @Service
-class ExportPreschoolChildDocumentsService(private val s3Client: S3Client) {
+class ExportPreschoolChildDocumentsService(private val s3Client: S3Client, private val ophEnv: OphEnv) {
     fun exportPreschoolChildDocuments(
         tx: Database.Read,
         timestamp: HelsinkiDateTime,
         bucket: String,
-        municipalityCode: String,
     ): Pair<String, String> {
         val date = timestamp.toLocalDate()
         val templateId = tx.getTemplateIdForExport(date)
         logger.info { "Export child documents for template $templateId" }
         val documents = tx.getDocumentsJsonForExport(templateId)
 
-        val key = "reporting/preschool/${municipalityCode}_evaka_child_documents_$date.json"
+        val key = "reporting/preschool/${ophEnv.municipalityCode}_evaka_child_documents_$date.json"
         val request = PutObjectRequest.builder()
             .bucket(bucket)
             .key(key)
