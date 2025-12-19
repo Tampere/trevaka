@@ -55,8 +55,6 @@ varda_integration_enabled = true
 
 # service: sfi message
 sfi_msg_service_identifier = "kangasala_ws_evaka"
-sfi_msg_enable_printing    = true
-sfi_msg_printing_provider  = "Posti"
 
 # service: jamix
 jamix_orders_enabled = true

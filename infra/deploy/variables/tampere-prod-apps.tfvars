@@ -63,8 +63,6 @@ evaka_job_varda_update_cron = "0 0 5 * * 1,2,3,4,5"
 
 # service: sfi message
 sfi_msg_service_identifier = "tampere_ws_evaka"
-sfi_msg_enable_printing    = true
-sfi_msg_printing_provider  = "Posti"
 
 # service: TampereProperties
 tampere_job_export_units_acl_enabled = true

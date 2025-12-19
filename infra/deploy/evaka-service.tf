@@ -238,13 +238,8 @@ module "app_service" {
 
     # SfiEnv
     EVAKA_INTEGRATION_SFI_SERVICE_IDENTIFIER     = var.evaka_integration_sfi_enabled ? var.sfi_msg_service_identifier : null
-    EVAKA_INTEGRATION_SFI_PRINTING_ENABLED       = var.evaka_integration_sfi_enabled ? var.sfi_msg_enable_printing : null
     EVAKA_INTEGRATION_SFI_REST_ADDRESS           = var.evaka_integration_sfi_enabled ? var.environment == "prod" ? "https://api.messages.suomi.fi" : "https://api.messages-qa.suomi.fi" : null
     EVAKA_INTEGRATION_SFI_REST_PASSWORD_SSM_NAME = var.evaka_integration_sfi_enabled ? "${local.param_prefix}/service/sfi/password" : null
-
-    # SfiPrintingEnv
-    EVAKA_INTEGRATION_SFI_PRINTING_FORCE_PRINT_FOR_ELECTRONIC_USER = var.evaka_integration_sfi_enabled ? var.sfi_msg_force_print_for_electronic_user : null
-    EVAKA_INTEGRATION_SFI_PRINTING_PROVIDER                        = var.evaka_integration_sfi_enabled ? var.sfi_msg_printing_provider : null
 
     # JamixEnv
     EVAKA_INTEGRATION_JAMIX_ENABLED = local.jamix_enabled
@@ -584,19 +579,6 @@ variable "evaka_job_send_outdated_income_notifications_enabled" {
 }
 
 variable "sfi_msg_service_identifier" {
-  type = string
-}
-
-variable "sfi_msg_enable_printing" {
-  type = bool
-}
-
-variable "sfi_msg_force_print_for_electronic_user" {
-  type    = bool
-  default = false
-}
-
-variable "sfi_msg_printing_provider" {
   type = string
 }
 

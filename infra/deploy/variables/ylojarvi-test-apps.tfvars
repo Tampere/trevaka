@@ -37,8 +37,6 @@ evaka_job_send_outdated_income_notifications_enabled = true
 
 # service: sfi message
 sfi_msg_service_identifier = "ylojarvi_ws_evaka"
-sfi_msg_enable_printing    = false
-sfi_msg_printing_provider  = "Posti"
 
 # service: YlojarviProperties
 ylojarvi_invoice_version = "V2026"
