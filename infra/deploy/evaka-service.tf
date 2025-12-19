@@ -250,6 +250,10 @@ module "app_service" {
     EVAKA_INTEGRATION_AROMI_FILE_PATTERN        = var.aromi_enabled ? "'In/EVAKA'ddMMyyyy'.${var.environment == "prod" ? "csv" : "csvtst"}'" : null
     EVAKA_INTEGRATION_AROMI_WINDOW_START_OFFSET = var.aromi_enabled ? var.aromi_window_start_offset : null
 
+    # ArchivalPoolEnv
+    EVAKA_ARCHIVAL_POOL_THROTTLE_INTERVAL_SECONDS = 6
+    EVAKA_ARCHIVAL_POOL_CONCURRENCY               = 1
+
     # ScheduledJobsEnv
     EVAKA_JOB_CANCEL_OUTDATED_TRANSFER_APPLICATIONS_ENABLED      = var.evaka_job_cancel_outdated_transfer_applications_enabled
     EVAKA_JOB_DVV_UPDATE_ENABLED                                 = var.dvv_mutp_update_enabled

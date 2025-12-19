@@ -6,6 +6,7 @@ package fi.tampere.trevaka
 
 import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.reports.REPORT_STATEMENT_TIMEOUT
+import fi.espoo.evaka.shared.async.AsyncJob
 import fi.espoo.evaka.shared.async.AsyncJobRunner
 import fi.espoo.evaka.shared.async.AsyncJobType
 import fi.espoo.evaka.shared.async.removeUnclaimedJobs
@@ -17,6 +18,7 @@ import fi.espoo.evaka.shared.job.ScheduledJobSettings
 import fi.tampere.trevaka.bi.BiTable
 import fi.tampere.trevaka.export.ExportUnitsAclService
 import io.github.oshai.kotlinlogging.KotlinLogging
+import trevaka.archival.planDocumentArchival
 import trevaka.export.ExportPreschoolChildDocumentsService
 import java.time.LocalTime
 
@@ -36,12 +38,17 @@ enum class TampereScheduledJob(
         { jobs, db, clock -> jobs.planBiJobs(db, clock, BiTable.entries) },
         ScheduledJobSettings(enabled = false, schedule = JobSchedule.daily(LocalTime.of(1, 0))),
     ),
+    PlanDocumentArchival(
+        TampereScheduledJobs::archiveEligibleDocuments,
+        ScheduledJobSettings(enabled = false, schedule = JobSchedule.daily(LocalTime.of(20, 0))),
+    ),
 }
 
 class TampereScheduledJobs(
     private val exportPreschoolChildDocumentsService: ExportPreschoolChildDocumentsService,
     private val exportUnitsAclService: ExportUnitsAclService,
     private val asyncJobRunner: AsyncJobRunner<TampereAsyncJob>,
+    private val coreAsyncJobRunner: AsyncJobRunner<AsyncJob>,
     private val properties: TampereProperties,
     env: ScheduledJobsEnv<TampereScheduledJob>,
 ) : JobSchedule {
@@ -75,5 +82,14 @@ class TampereScheduledJobs(
                 retryCount = 1,
             )
         }
+    }
+
+    fun archiveEligibleDocuments(db: Database.Connection, clock: EvakaClock) {
+        planDocumentArchival(
+            db,
+            clock,
+            coreAsyncJobRunner,
+            properties.archival?.schedule ?: error("No archival configuration available"),
+        )
     }
 }
