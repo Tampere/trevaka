@@ -59,7 +59,5 @@ varda_integration_enabled = true
 
 # service: sfi message
 sfi_msg_service_identifier = "hameenkyro_ws_evaka"
-sfi_msg_enable_printing    = true
-sfi_msg_printing_provider  = "Posti"
 
 # service: HameenkyroProperties
