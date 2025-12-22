@@ -291,10 +291,17 @@ module "app_service" {
     TAMPERE_JOB_EXPORT_UNITS_ACL_ENABLED    = var.municipality == "tampere" ? var.tampere_job_export_units_acl_enabled : null
     TAMPERE_JOB_PLAN_BI_EXPORT_JOBS_ENABLED = var.municipality == "tampere" ? var.tampere_job_plan_bi_export_jobs_enabled : null
     TAMPERE_JOB_PLAN_BI_EXPORT_JOBS_CRON    = var.municipality == "tampere" ? var.tampere_job_plan_bi_export_jobs_cron : null
+    TAMPERE_JOB_PLAN_DOCUMENT_ARCHIVAL      = var.municipality == "tampere" ? var.tampere_job_plan_document_archival : null
 
     # TampereProperties
-    TAMPERE_SUMMERTIME_ABSENCE_FREE_MONTH = var.municipality == "tampere" ? var.tampere_summertime_absence_free_month : null
-    TAMPERE_BI_EXPORT_PREFIX              = var.municipality == "tampere" ? "reporting" : null
+    TAMPERE_SUMMERTIME_ABSENCE_FREE_MONTH                  = var.municipality == "tampere" ? var.tampere_summertime_absence_free_month : null
+    TAMPERE_BI_EXPORT_PREFIX                               = var.municipality == "tampere" ? "reporting" : null
+    TAMPERE_ARCHIVAL_SCHEDULE_DAILY_DOCUMENT_LIMIT         = var.municipality == "tampere" ? var.tampere_archival_schedule_daily_document_limit : null
+    TAMPERE_ARCHIVAL_SCHEDULE_DECISION_DELAY_DAYS          = var.municipality == "tampere" ? var.tampere_archival_schedule_decision_delay_days : null
+    TAMPERE_ARCHIVAL_SCHEDULE_FEE_DECISION_DELAY_DAYS      = var.municipality == "tampere" ? var.tampere_archival_schedule_fee_decision_delay_days : null
+    TAMPERE_ARCHIVAL_SCHEDULE_VOUCHER_DECISION_DELAY_DAYS  = var.municipality == "tampere" ? var.tampere_archival_schedule_voucher_decision_delay_days : null
+    TAMPERE_ARCHIVAL_SCHEDULE_DOCUMENT_DECISION_DELAY_DAYS = var.municipality == "tampere" ? var.tampere_archival_schedule_document_decision_delay_days : null
+    TAMPERE_ARCHIVAL_SCHEDULE_DOCUMENT_PLAN_DELAY_DAYS     = var.municipality == "tampere" ? var.tampere_archival_schedule_document_plan_delay_days : null
 
     # NokiaProperties
     NOKIA_INVOICE_VERSION      = var.municipality == "nokia" ? var.nokia_invoice_version : null
@@ -639,6 +646,41 @@ variable "ylojarvi_invoice_version" {
 variable "service_logging_levels" {
   type    = map(string)
   default = {}
+}
+
+variable "tampere_job_plan_document_archival" {
+  type    = bool
+  default = false
+}
+
+variable "tampere_archival_schedule_daily_document_limit" {
+  type    = number
+  default = null
+}
+
+variable "tampere_archival_schedule_decision_delay_days" {
+  type    = number
+  default = null
+}
+
+variable "tampere_archival_schedule_fee_decision_delay_days" {
+  type    = number
+  default = null
+}
+
+variable "tampere_archival_schedule_voucher_decision_delay_days" {
+  type    = number
+  default = null
+}
+
+variable "tampere_archival_schedule_document_decision_delay_days" {
+  type    = number
+  default = null
+}
+
+variable "tampere_archival_schedule_document_plan_delay_days" {
+  type    = number
+  default = null
 }
 
 locals {
