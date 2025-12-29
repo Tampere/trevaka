@@ -322,7 +322,7 @@ internal class InvoiceConfigurationIT : AbstractTampereIntegrationTest() {
                         childId = part.child.id,
                         unitId = part.placement.unitId,
                         startDate = decision.validFrom,
-                        endDate = decision.validTo!!,
+                        endDate = decision.validTo,
                         type = part.placement.type,
                     ),
                 )
