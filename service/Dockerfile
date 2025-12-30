@@ -4,7 +4,7 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-FROM eclipse-temurin:21-noble AS builder
+FROM eclipse-temurin:25-noble AS builder
 WORKDIR /service
 COPY ./gradle/ ./gradle/
 COPY ./gradlew ./
@@ -14,7 +14,7 @@ COPY . ./
 RUN ./gradlew assemble \
     && java -Djarmode=tools -jar build/libs/trevaka-service.jar extract --layers --launcher --destination build/extracted
 
-FROM eclipse-temurin:21-jre-noble
+FROM eclipse-temurin:25-jre-noble
 LABEL maintainer="https://github.com/tampere/trevaka"
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
