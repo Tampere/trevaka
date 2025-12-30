@@ -5,7 +5,7 @@
 min_version = "2025.5.1"
 
 [tools]
-java = "temurin-21"
+java = "temurin-25"
 node = { version = "24", postinstall = "corepack enable" }
 python = "3.14"
 uv = "0.9"
