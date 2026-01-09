@@ -18,14 +18,8 @@ data class NokiaProperties(
 data class InvoiceProperties(
     val municipalityCode: String,
     val invoiceType: String,
-    val version: NokiaInvoiceVersion = NokiaInvoiceVersion.V2024,
-    val sftp: SftpProperties? = null,
+    val sftp: SftpProperties,
 )
-
-enum class NokiaInvoiceVersion {
-    V2024,
-    V2026,
-}
 
 data class BucketProperties(
     val export: String,
