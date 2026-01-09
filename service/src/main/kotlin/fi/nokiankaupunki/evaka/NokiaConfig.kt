@@ -37,8 +37,6 @@ class NokiaConfig {
     fun featureConfig() = FeatureConfig(
         valueDecisionCapacityFactorEnabled = true,
         citizenReservationThresholdHours = 7 * 24 - 9, // Mon 09:00
-        dailyFeeDivisorOperationalDaysOverride = null,
-        freeSickLeaveOnContractDays = true,
         freeAbsenceGivesADailyRefund = true,
         alwaysUseDaycareFinanceDecisionHandler = true,
         paymentNumberSeriesStart = null,
