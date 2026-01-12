@@ -5,7 +5,7 @@
 package trevaka.tomcat
 
 import fi.espoo.evaka.logging.defaultAccessLoggingValve
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory
+import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory
 import org.springframework.boot.web.server.WebServerFactoryCustomizer
 import org.springframework.core.env.Environment
 

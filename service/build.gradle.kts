@@ -65,8 +65,9 @@ dependencies {
     implementation("net.logstash.logback:logstash-logback-encoder")
     implementation("org.thymeleaf:thymeleaf")
 
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-web-services")
+    implementation("org.springframework.boot:spring-boot-tomcat")
+    implementation("org.springframework.boot:spring-boot-webservices")
+    implementation("org.springframework.boot:spring-boot-jdbc")
 
     implementation("org.apache.httpcomponents.core5:httpcore5")
     implementation("org.apache.httpcomponents.client5:httpclient5")
@@ -78,20 +79,22 @@ dependencies {
     implementation("software.amazon.awssdk:http-auth-aws-crt")
     implementation("io.opentelemetry:opentelemetry-api")
     implementation("com.github.kagkarlsson:db-scheduler")
-    implementation("com.fasterxml.jackson.core:jackson-core")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv")
+    implementation("tools.jackson.core:jackson-core")
+    implementation("tools.jackson.dataformat:jackson-dataformat-csv")
     implementation("org.bouncycastle:bcpkix-jdk18on")
     implementation("com.squareup.okhttp3:okhttp")
     implementation("org.apache.tika:tika-core")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit-pioneer:junit-pioneer:2.3.0") // for CartesianProductTest
     testImplementation("org.mockito.kotlin:mockito-kotlin")
-    testImplementation("org.springframework.ws:spring-ws-test")
-    testImplementation("org.wiremock.integrations:wiremock-spring-boot:3.10.6")
+    testImplementation("org.springframework.boot:spring-boot-starter-webservices-test")
+    testImplementation("org.wiremock.integrations:wiremock-spring-boot:4.0.8")
     testImplementation("com.auth0:java-jwt")
+
+    developmentOnly(platform("evaka:evaka-bom"))
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
 
 springBoot {

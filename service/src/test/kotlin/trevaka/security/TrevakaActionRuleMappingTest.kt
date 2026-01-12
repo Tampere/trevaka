@@ -6,7 +6,6 @@ package trevaka.security
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
-import com.fasterxml.jackson.dataformat.csv.CsvMapper
 import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.Action
 import fi.espoo.evaka.shared.security.Action.AbsenceApplication
@@ -81,6 +80,7 @@ import fi.ylojarvi.evaka.security.YlojarviActionRuleMapping
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.core.io.ClassPathResource
+import tools.jackson.dataformat.csv.CsvMapper
 import java.nio.charset.StandardCharsets
 
 @JsonPropertyOrder(

@@ -6,7 +6,6 @@ package fi.tampere.trevaka.export
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
-import com.fasterxml.jackson.dataformat.csv.CsvMapper
 import fi.espoo.evaka.shared.DaycareId
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Service
 import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.model.PutObjectRequest
+import tools.jackson.dataformat.csv.CsvMapper
 import java.time.format.DateTimeFormatter
 
 @JsonPropertyOrder(value = ["unitId", "unitName", "firstName", "lastName", "email", "employeeNumber"])

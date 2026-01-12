@@ -55,6 +55,3 @@ updates:
       interval: "daily"
       time: "10:00"
       timezone: "Europe/Helsinki"
-    ignore:
-      - dependency-name: "org.wiremock.integrations:wiremock-spring-boot"
-        update-types: [ "version-update:semver-major" ]

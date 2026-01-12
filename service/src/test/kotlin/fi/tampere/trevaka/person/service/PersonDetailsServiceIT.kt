@@ -44,7 +44,7 @@ internal class PersonDetailsServiceIT : AbstractTampereIntegrationTest() {
             postRequestedFor(urlEqualTo("/mock/vtj"))
                 .withoutHeader("Authorization")
                 .withHeader("X-API-KEY", equalTo("vtj-kysely-api-key-123"))
-                .withHeader("Content-Type", equalTo("text/xml; charset=UTF-8"))
+                .withHeader("Content-Type", equalTo("text/xml; charset=utf-8"))
                 .withHeader("SOAPAction", equalTo("\"\"")),
         )
     }

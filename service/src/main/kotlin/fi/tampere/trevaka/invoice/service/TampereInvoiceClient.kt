@@ -173,7 +173,7 @@ class TampereInvoiceClient(
     private fun unmarshalFaultDetail(exception: SoapFaultClientException): Any? = try {
         val detailEntries = exception.soapFault?.faultDetail?.detailEntries
         when (detailEntries?.hasNext()) {
-            true -> webServiceTemplate.unmarshaller.unmarshal(detailEntries.next().source)
+            true -> webServiceTemplate.unmarshaller!!.unmarshal(detailEntries.next().source)
             else -> null
         }
     } catch (e: Exception) {
