@@ -20,5 +20,5 @@ fun newPayloadValidatingInterceptor(vararg filenames: String) = PayloadValidatin
 }
 
 fun addClientInterceptors(webServiceTemplate: WebServiceTemplate, vararg clientInterceptor: ClientInterceptor) {
-    webServiceTemplate.interceptors = (webServiceTemplate.interceptors ?: emptyArray<ClientInterceptor>()) + clientInterceptor
+    webServiceTemplate.setInterceptors((webServiceTemplate.interceptors ?: emptyArray<ClientInterceptor>()) + clientInterceptor)
 }

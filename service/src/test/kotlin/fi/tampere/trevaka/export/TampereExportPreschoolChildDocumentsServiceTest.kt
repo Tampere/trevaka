@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-package trevaka.export
+package fi.tampere.trevaka.export
 
 import fi.espoo.evaka.document.CheckboxGroupQuestionOption
 import fi.espoo.evaka.document.DocumentTemplateContent
@@ -35,13 +35,14 @@ import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 import org.springframework.beans.factory.annotation.Autowired
+import trevaka.export.ExportPreschoolChildDocumentsService
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 private val timestamp = HelsinkiDateTime.of(LocalDate.of(2025, 8, 1), LocalTime.of(5, 1))
 
-class ExportPreschoolChildDocumentsServiceTest : AbstractTampereIntegrationTest() {
+class TampereExportPreschoolChildDocumentsServiceTest : AbstractTampereIntegrationTest() {
     @Autowired
     private lateinit var exportPreschoolChildDocumentsService: ExportPreschoolChildDocumentsService
 
