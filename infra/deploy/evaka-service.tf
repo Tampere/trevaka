@@ -288,10 +288,10 @@ module "app_service" {
     EVAKA_JOB_END_ASSISTANCE_FACTORS_WHICH_BELONG_TO_PAST_PLACEMENTS_ENABLED = var.evaka_job_end_assistance_factors_which_belong_to_past_placements_enabled
 
     # tampereScheduledJobEnv
-    TAMPERE_JOB_EXPORT_UNITS_ACL_ENABLED    = var.municipality == "tampere" ? var.tampere_job_export_units_acl_enabled : null
-    TAMPERE_JOB_PLAN_BI_EXPORT_JOBS_ENABLED = var.municipality == "tampere" ? var.tampere_job_plan_bi_export_jobs_enabled : null
-    TAMPERE_JOB_PLAN_BI_EXPORT_JOBS_CRON    = var.municipality == "tampere" ? var.tampere_job_plan_bi_export_jobs_cron : null
-    TAMPERE_JOB_PLAN_DOCUMENT_ARCHIVAL      = var.municipality == "tampere" ? var.tampere_job_plan_document_archival : null
+    TAMPERE_JOB_EXPORT_UNITS_ACL_ENABLED       = var.municipality == "tampere" ? var.tampere_job_export_units_acl_enabled : null
+    TAMPERE_JOB_PLAN_BI_EXPORT_JOBS_ENABLED    = var.municipality == "tampere" ? var.tampere_job_plan_bi_export_jobs_enabled : null
+    TAMPERE_JOB_PLAN_BI_EXPORT_JOBS_CRON       = var.municipality == "tampere" ? var.tampere_job_plan_bi_export_jobs_cron : null
+    TAMPERE_JOB_PLAN_DOCUMENT_ARCHIVAL_ENABLED = var.municipality == "tampere" ? var.tampere_job_plan_document_archival_enabled : null
 
     # TampereProperties
     TAMPERE_SUMMERTIME_ABSENCE_FREE_MONTH                  = var.municipality == "tampere" ? var.tampere_summertime_absence_free_month : null
@@ -648,7 +648,7 @@ variable "service_logging_levels" {
   default = {}
 }
 
-variable "tampere_job_plan_document_archival" {
+variable "tampere_job_plan_document_archival_enabled" {
   type    = bool
   default = false
 }
