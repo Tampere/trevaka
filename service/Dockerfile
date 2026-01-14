@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.15.1
+# syntax=docker/dockerfile:1
 # check=error=true
 # SPDX-FileCopyrightText: 2021 City of Tampere
 #
