@@ -4,8 +4,13 @@
 
 package fi.tampere.trevaka.person.service
 
-import com.github.tomakehurst.wiremock.client.BasicCredentials
-import com.github.tomakehurst.wiremock.client.WireMock.*
+import com.github.tomakehurst.wiremock.client.WireMock.aResponse
+import com.github.tomakehurst.wiremock.client.WireMock.equalTo
+import com.github.tomakehurst.wiremock.client.WireMock.post
+import com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor
+import com.github.tomakehurst.wiremock.client.WireMock.stubFor
+import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
+import com.github.tomakehurst.wiremock.client.WireMock.verify
 import fi.espoo.evaka.identity.ExternalIdentifier
 import fi.espoo.evaka.shared.auth.AuthenticatedUser
 import fi.espoo.evaka.vtjclient.service.persondetails.IPersonDetailsService

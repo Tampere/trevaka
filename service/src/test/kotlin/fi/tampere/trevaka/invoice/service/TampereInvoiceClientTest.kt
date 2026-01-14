@@ -32,7 +32,9 @@ import org.springframework.ws.soap.client.SoapFaultClientException
 import org.springframework.ws.test.client.MockWebServiceServer
 import org.springframework.ws.test.client.RequestMatchers.connectionTo
 import org.springframework.ws.test.client.RequestMatchers.payload
-import org.springframework.ws.test.client.ResponseCreators.*
+import org.springframework.ws.test.client.ResponseCreators.withClientOrSenderFault
+import org.springframework.ws.test.client.ResponseCreators.withPayload
+import org.springframework.ws.test.client.ResponseCreators.withServerOrReceiverFault
 import trevaka.addClientInterceptors
 import trevaka.newPayloadValidatingInterceptor
 import java.time.LocalDate
