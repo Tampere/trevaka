@@ -18,16 +18,11 @@ import fi.espoo.evaka.invoicing.service.ProductKey
 import fi.espoo.evaka.invoicing.service.ProductWithName
 import fi.espoo.evaka.placement.PlacementType
 import fi.espoo.evaka.shared.sftp.SftpClient
-import fi.nokiankaupunki.evaka.NokiaInvoiceVersion
 import fi.nokiankaupunki.evaka.NokiaProperties
 import fi.nokiankaupunki.evaka.invoice.NokiaInvoiceClient
-import fi.nokiankaupunki.evaka.invoice.service.NokiaInvoiceIntegrationClient
-import fi.nokiankaupunki.evaka.invoice.service.ProEInvoiceGenerator
-import fi.nokiankaupunki.evaka.invoice.service.S3Sender
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
-import software.amazon.awssdk.services.s3.S3Client
 import trevaka.time.ClockService
 import java.math.BigDecimal
 
@@ -38,18 +33,9 @@ class InvoiceConfiguration {
     fun invoiceIntegrationClient(
         clockService: ClockService,
         properties: NokiaProperties,
-        invoiceGenerator: ProEInvoiceGenerator,
-        s3Client: S3Client,
-    ): InvoiceIntegrationClient = when (properties.invoice.version) {
-        NokiaInvoiceVersion.V2024 -> {
-            val s3Sender = S3Sender(s3Client, properties)
-            NokiaInvoiceIntegrationClient(clockService, s3Sender, invoiceGenerator)
-        }
-
-        NokiaInvoiceVersion.V2026 -> {
-            val sftpEnv = properties.invoice.sftp?.toSftpEnv() ?: error("Sftp properties not set")
-            NokiaInvoiceClient(SftpClient(sftpEnv), properties.invoice, clockService)
-        }
+    ): InvoiceIntegrationClient {
+        val sftpEnv = properties.invoice.sftp.toSftpEnv()
+        return NokiaInvoiceClient(SftpClient(sftpEnv), properties.invoice, clockService)
     }
 
     @Bean

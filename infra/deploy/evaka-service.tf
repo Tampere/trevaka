@@ -126,11 +126,11 @@ module "app_service" {
     HAMEENKYRO_BUCKET_EXPORT = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/bucket/export" : null
 
     # NokiaProperties
-    NOKIA_INVOICE_SFTP_HOST         = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/host" : null
-    NOKIA_INVOICE_SFTP_PORT         = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/port" : null
-    NOKIA_INVOICE_SFTP_HOST_KEYS    = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
-    NOKIA_INVOICE_SFTP_USERNAME     = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/username" : null
-    NOKIA_INVOICE_SFTP_PRIVATE_KEY  = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    NOKIA_INVOICE_SFTP_HOST         = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    NOKIA_INVOICE_SFTP_PORT         = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    NOKIA_INVOICE_SFTP_HOST_KEYS    = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    NOKIA_INVOICE_SFTP_USERNAME     = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    NOKIA_INVOICE_SFTP_PRIVATE_KEY  = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
     NOKIA_BUCKET_EXPORT             = var.municipality == "nokia" ? "${local.param_prefix}/service/bucket/export" : null
     NOKIA_ARCHIVAL_SFTP_HOST        = var.municipality == "nokia" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/host" : null
     NOKIA_ARCHIVAL_SFTP_PORT        = var.municipality == "nokia" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/port" : null
@@ -139,11 +139,11 @@ module "app_service" {
     NOKIA_ARCHIVAL_SFTP_PRIVATE_KEY = var.municipality == "nokia" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/private-key" : null
 
     # YlojarviProperties
-    YLOJARVI_INVOICE_SFTP_HOST        = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/host" : null
-    YLOJARVI_INVOICE_SFTP_PORT        = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/port" : null
-    YLOJARVI_INVOICE_SFTP_HOST_KEYS   = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
-    YLOJARVI_INVOICE_SFTP_USERNAME    = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/username" : null
-    YLOJARVI_INVOICE_SFTP_PRIVATE_KEY = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    YLOJARVI_INVOICE_SFTP_HOST        = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    YLOJARVI_INVOICE_SFTP_PORT        = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    YLOJARVI_INVOICE_SFTP_HOST_KEYS   = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    YLOJARVI_INVOICE_SFTP_USERNAME    = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    YLOJARVI_INVOICE_SFTP_PRIVATE_KEY = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
     YLOJARVI_BUCKET_EXPORT            = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/bucket/export" : null
 
     # PirkkalaProperties
@@ -304,13 +304,11 @@ module "app_service" {
     TAMPERE_ARCHIVAL_SCHEDULE_DOCUMENT_PLAN_DELAY_DAYS     = var.municipality == "tampere" ? var.tampere_archival_schedule_document_plan_delay_days : null
 
     # NokiaProperties
-    NOKIA_INVOICE_VERSION      = var.municipality == "nokia" ? var.nokia_invoice_version : null
-    NOKIA_INVOICE_SFTP_PREFIX  = var.municipality == "nokia" && var.nokia_invoice_version == "V2026" ? var.environment == "prod" ? "in/eVaka/Raindance/" : "test/in/eVaka/Raindance/" : null
+    NOKIA_INVOICE_SFTP_PREFIX  = var.municipality == "nokia" ? var.environment == "prod" ? "in/eVaka/Raindance/" : "test/in/eVaka/Raindance/" : null
     NOKIA_ARCHIVAL_SFTP_PREFIX = var.municipality == "nokia" && var.archival_enabled ? var.environment == "prod" ? "in/eVaka/TWeb/" : "test/in/eVaka/TWeb/" : null
 
     # YlojarviProperties
-    YLOJARVI_INVOICE_VERSION     = var.municipality == "ylojarvi" ? var.ylojarvi_invoice_version : null
-    YLOJARVI_INVOICE_SFTP_PREFIX = var.municipality == "ylojarvi" && var.ylojarvi_invoice_version == "V2026" ? var.environment == "prod" ? "in/eVaka/Raindance/" : "test/in/eVaka/Raindance/" : null
+    YLOJARVI_INVOICE_SFTP_PREFIX = var.municipality == "ylojarvi" ? var.environment == "prod" ? "in/eVaka/Raindance/" : "test/in/eVaka/Raindance/" : null
 
     # PirkkalaProperties
     PIRKKALA_ARCHIVAL_SFTP_PREFIX = var.municipality == "pirkkala" && var.archival_enabled ? var.environment == "prod" ? "in/eVaka/TWeb/" : "test/in/eVaka/TWeb/" : null
@@ -621,26 +619,6 @@ variable "aromi_window_start_offset" {
 variable "archival_enabled" {
   type    = bool
   default = false
-}
-
-variable "nokia_invoice_version" {
-  type    = string
-  default = "V2024"
-
-  validation {
-    condition     = contains(["V2024", "V2026"], var.nokia_invoice_version)
-    error_message = "Invoice version must be V2024 or V2026"
-  }
-}
-
-variable "ylojarvi_invoice_version" {
-  type    = string
-  default = "V2024"
-
-  validation {
-    condition     = contains(["V2024", "V2026"], var.ylojarvi_invoice_version)
-    error_message = "Invoice version must be V2024 or V2026"
-  }
 }
 
 variable "service_logging_levels" {
