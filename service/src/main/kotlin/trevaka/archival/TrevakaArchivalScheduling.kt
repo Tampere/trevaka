@@ -66,6 +66,7 @@ private fun selectLimitedEligibleDocumentIds(tx: Database.Transaction, clock: Ev
                   AND $it.type <> 'CLUB'
                   AND $it.archived_at IS NULL
                   AND $it.resolved <= ${bind(clock.today().minusDays(schedule.decisionDelayDays)!!)}
+                  AND $it.document_key IS NOT NULL
         """,
         )
     }
@@ -76,6 +77,7 @@ private fun selectLimitedEligibleDocumentIds(tx: Database.Transaction, clock: Ev
             $it.approved_at <= ${bind(clock.today().minusDays(schedule.feeDecisionDelayDays)!!)}
                   AND $it.status in ('ANNULLED','SENT')
                   AND $it.archived_at IS NULL
+                  AND $it.document_key IS NOT NULL
         """,
         )
     }
@@ -86,6 +88,7 @@ private fun selectLimitedEligibleDocumentIds(tx: Database.Transaction, clock: Ev
             $it.approved_at <= ${bind(clock.today().minusDays(schedule.voucherDecisionDelayDays)!!)}
                   AND $it.status in ('ANNULLED','SENT')
                   AND $it.archived_at IS NULL
+                  AND $it.document_key IS NOT NULL
         """,
         )
     }
@@ -95,6 +98,7 @@ private fun selectLimitedEligibleDocumentIds(tx: Database.Transaction, clock: Ev
             """
                   $it.archived_at IS NULL
                   AND $it.status = 'COMPLETED'
+                  AND $it.document_key IS NOT NULL
         """,
         )
     }

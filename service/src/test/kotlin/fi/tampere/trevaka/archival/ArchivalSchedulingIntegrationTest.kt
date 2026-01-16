@@ -482,6 +482,77 @@ class ArchivalSchedulingIntegrationTest : AbstractTampereIntegrationTest() {
     }
 
     @Test
+    fun `does not schedule job for vasu without document key`() {
+        val schedule = tampereProperties.archival?.schedule!!
+
+        val oldEnough = today.minusDays(schedule.documentPlanDelayDays)
+
+        insertTemplateAndDocument(oldEnough, archiveExternally = true, documentKey = null)
+        planDocumentArchival(db, clock, asyncJobRunner, schedule)
+
+        val jobs = getScheduledChildDocumentArchivalJobs()
+        assertEquals(0, jobs.size)
+    }
+
+    @Test
+    fun `does not schedule job for child document decision without document key`() {
+        val schedule = tampereProperties.archival?.schedule!!
+
+        // last placement end + schedule delay
+        val lateArchivalClock = MockEvakaClock(now.plusYears(2).plusDays(schedule.documentDecisionDelayDays))
+        val validityEnd = today.plusYears(2)
+
+        insertTemplateAndDocument(validityEnd, archiveExternally = true, ChildDocumentType.OTHER_DECISION, documentKey = null)
+
+        planDocumentArchival(db, lateArchivalClock, asyncJobRunner, schedule)
+
+        val lateJobs = getScheduledChildDocumentArchivalJobs().map { it.documentId }
+        assertEquals(0, lateJobs.size)
+    }
+
+    @Test
+    fun `does not schedule job for decision without document key`() {
+        val schedule = tampereProperties.archival?.schedule!!
+
+        // add schedule delay to simulated 'now'
+        val eligibleArchivalClock = MockEvakaClock(now.plusDays(schedule.decisionDelayDays))
+
+        insertDecisionData(documentKey = null)
+        planDocumentArchival(db, eligibleArchivalClock, asyncJobRunner, schedule)
+
+        val jobs = getScheduledDecisionArchivalJobs()
+        assertEquals(0, jobs.size)
+    }
+
+    @Test
+    fun `does not schedule job for fee decision without document key`() {
+        val schedule = tampereProperties.archival?.schedule!!
+
+        // add schedule delay to simulated 'now'
+        val eligibleArchivalClock = MockEvakaClock(now.plusDays(schedule.feeDecisionDelayDays))
+
+        insertFeeDecision(documentKey = null)
+        planDocumentArchival(db, eligibleArchivalClock, asyncJobRunner, schedule)
+
+        val jobs = getScheduledFeeDecisionArchivalJobs()
+        assertEquals(0, jobs.size)
+    }
+
+    @Test
+    fun `does not schedule job for voucher value decision without document key`() {
+        val schedule = tampereProperties.archival?.schedule!!
+
+        // add schedule delay to simulated 'now'
+        val eligibleArchivalClock = MockEvakaClock(now.plusDays(schedule.voucherDecisionDelayDays))
+
+        insertVoucherValueDecision(documentKey = null)
+        planDocumentArchival(db, eligibleArchivalClock, asyncJobRunner, schedule)
+
+        val jobs = getScheduledVoucherValueDecisionArchivalJobs()
+        assertEquals(0, jobs.size)
+    }
+
+    @Test
     fun `respects archival limit when specified`() {
         val schedule = tampereProperties.archival?.schedule!!.copy(dailyDocumentLimit = 5)
         val oldEnough = today.minusDays(schedule.documentPlanDelayDays)
@@ -575,6 +646,7 @@ class ArchivalSchedulingIntegrationTest : AbstractTampereIntegrationTest() {
         archiveExternally: Boolean,
         type: ChildDocumentType = ChildDocumentType.VASU,
         status: ChildDocumentDecisionStatus = ChildDocumentDecisionStatus.ACCEPTED,
+        documentKey: String? = "test-key",
     ): ChildDocumentId {
         return db.transaction { tx ->
             val templateId = tx.insert(
@@ -606,6 +678,7 @@ class ArchivalSchedulingIntegrationTest : AbstractTampereIntegrationTest() {
                         contentLockedBy = null,
                         publishedAt = now,
                         publishedBy = user.evakaUserId,
+                        documentKey = documentKey,
                     ),
                 )
             } else {
@@ -630,6 +703,7 @@ class ArchivalSchedulingIntegrationTest : AbstractTampereIntegrationTest() {
                             status = status,
                         ),
                         decisionMaker = employee.id,
+                        documentKey = documentKey,
                     ),
                 )
             }
@@ -640,6 +714,7 @@ class ArchivalSchedulingIntegrationTest : AbstractTampereIntegrationTest() {
     private fun insertFeeDecision(
         status: FeeDecisionStatus = FeeDecisionStatus.SENT,
         approvedAt: HelsinkiDateTime = HelsinkiDateTime.of(today, LocalTime.of(0, 0)),
+        documentKey: String? = "test-key",
     ): FeeDecisionId = db.transaction { tx ->
         tx.insert(
             DevFeeDecision(
@@ -647,6 +722,7 @@ class ArchivalSchedulingIntegrationTest : AbstractTampereIntegrationTest() {
                 status = status,
                 validDuring = FiniteDateRange(today, today.plusMonths(1)),
                 approvedAt = approvedAt,
+                documentKey = documentKey,
             ),
         )
     }
@@ -654,6 +730,7 @@ class ArchivalSchedulingIntegrationTest : AbstractTampereIntegrationTest() {
     private fun insertVoucherValueDecision(
         status: VoucherValueDecisionStatus = VoucherValueDecisionStatus.SENT,
         approvedAt: HelsinkiDateTime = HelsinkiDateTime.of(today, LocalTime.of(0, 0)),
+        documentKey: String? = "test-key",
     ): VoucherValueDecisionId = db.transaction { tx ->
         tx.insert(
             DevVoucherValueDecision(
@@ -664,6 +741,7 @@ class ArchivalSchedulingIntegrationTest : AbstractTampereIntegrationTest() {
                 approvedAt = approvedAt,
                 childId = childId,
                 placementUnitId = daycare.id,
+                documentKey = documentKey,
             ),
         )
     }
@@ -672,6 +750,7 @@ class ArchivalSchedulingIntegrationTest : AbstractTampereIntegrationTest() {
         status: DecisionStatus = DecisionStatus.ACCEPTED,
         type: DecisionType = DecisionType.DAYCARE,
         resolvedAt: HelsinkiDateTime = HelsinkiDateTime.of(today, LocalTime.of(0, 0)),
+        documentKey: String? = "test-key",
     ): DecisionId = db.transaction { tx ->
         val appId = tx.insertTestApplication(
             type = when (type) {
@@ -713,6 +792,7 @@ class ArchivalSchedulingIntegrationTest : AbstractTampereIntegrationTest() {
                 endDate = today.plusMonths(1),
                 resolved = resolvedAt,
                 resolvedBy = user.evakaUserId.raw,
+                documentKey = documentKey,
             ),
         )
     }
