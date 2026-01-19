@@ -90,7 +90,7 @@ dependencies {
     testImplementation("org.junit-pioneer:junit-pioneer:2.3.0") // for CartesianProductTest
     testImplementation("org.mockito.kotlin:mockito-kotlin")
     testImplementation("org.springframework.boot:spring-boot-starter-webservices-test")
-    testImplementation("org.wiremock.integrations:wiremock-spring-boot:4.0.8")
+    testImplementation("org.wiremock.integrations:wiremock-spring-boot:4.0.9")
     testImplementation("com.auth0:java-jwt")
 
     developmentOnly(platform("evaka:evaka-bom"))
