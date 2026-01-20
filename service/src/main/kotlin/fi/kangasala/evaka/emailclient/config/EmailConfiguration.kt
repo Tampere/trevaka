@@ -66,16 +66,6 @@ class KangasalaEmailMessageProvider : IEmailMessageProvider {
         html = getPreschoolApplicationReceivedEmailHtml(),
     )
 
-    override fun assistanceNeedDecisionNotification(language: Language) = EmailContent.fromHtml(
-        subject = subjectForDecisionEmail,
-        html = getDecisionEmailHtml(),
-    )
-
-    override fun assistanceNeedPreschoolDecisionNotification(language: Language) = EmailContent.fromHtml(
-        subject = subjectForDecisionEmail,
-        html = getDecisionEmailHtml(),
-    )
-
     private fun getPendingDecisionEmailHtml(): String = """
             <p>Olet saanut päätöksen/ilmoituksen Kangasalan varhaiskasvatukselta, joka odottaa toimenpiteitäsi. Myönnetty varhaiskasvatus-/kerhopaikka tulee hyväksyä tai hylätä kahden viikon sisällä päätöksen saapumisesta.</p>
             

@@ -52,14 +52,6 @@ Koska olette ottanut Suomi.fi -palvelun käyttöönne, on päätös myös luetta
 
     override fun getVoucherValueDecisionContent(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.VOUCHER_VALUE_DECISION_CONTENT", null, resolveLocale(lang))
 
-    override fun getAssistanceNeedDecisionHeader(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.ASSISTANCE_NEED_DECISION_HEADER", null, resolveLocale(lang))
-
-    override fun getAssistanceNeedDecisionContent(lang: OfficialLanguage): String = messageSource.getMessage("$PREFIX.ASSISTANCE_NEED_DECISION_CONTENT", null, resolveLocale(lang))
-
-    override fun getAssistanceNeedPreschoolDecisionHeader(lang: OfficialLanguage): String = getAssistanceNeedDecisionHeader(lang)
-
-    override fun getAssistanceNeedPreschoolDecisionContent(lang: OfficialLanguage): String = getAssistanceNeedDecisionContent(lang)
-
     override fun getDefaultDecisionAddress(lang: OfficialLanguage): DecisionSendAddress = when (lang) {
         OfficialLanguage.FI, OfficialLanguage.SV -> DecisionSendAddress(
             street = "PL 50",

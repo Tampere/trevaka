@@ -215,10 +215,6 @@ Lapsi;"Tukitoimen luonti";CREATE_ASSISTANCE_ACTION;x;;;;;x;;x;;x;
 Lapsi;"Tukitoimien luku";READ_ASSISTANCE_ACTION;x;;x;;;x;;x;;x;x
 Lapsi;"Muut toimet luonti";"CREATE_OTHER_ASSISTANCE_MEASURE";x;;;;;x;;x;;x;
 Lapsi;"Muut toimet luku";"READ_OTHER_ASSISTANCE_MEASURES";x;;x;;;x;;x;;x;x
-Lapsi;"Tuen päätös varhaiskasvatuksessa luonti";"CREATE_ASSISTANCE_NEED_DECISION";x;;;;;x;;x;;x;
-Lapsi;"Tuen päätöksien varhaiskasvatuksessa luku";"READ_ASSISTANCE_NEED_DECISIONS";;;;;;;;;;;
-Lapsi;"Tuen päätös esiopetuksessa luonti";"CREATE_ASSISTANCE_NEED_PRESCHOOL_DECISION";x;;;;;x;;x;;x;
-Lapsi;"Tuen päätöksien esiopetuksessa luku";"READ_ASSISTANCE_NEED_PRESCHOOL_DECISIONS";;;;;;;;;;;
 Lapsi;"Palvelusetelikertoimien luku";"READ_ASSISTANCE_NEED_VOUCHER_COEFFICIENTS";x;;;;;x;;x;;x;
 Lapsi;"Palvelusetelikertoimen luonti";"CREATE_ASSISTANCE_NEED_VOUCHER_COEFFICIENT";x;;;;;;;;;x;
 Lapsi;"Läsnäolovarauksen luonti";"CREATE_ATTENDANCE_RESERVATION";x;;;;;;;x;x;x;x
@@ -286,29 +282,6 @@ Palvelusetelikerroin;Poisto;DELETE;x;;;;;;;;;x;
 "Muut toimet";Muokkaus;UPDATE;x;;;;;x;;x;;x;
 "Muut toimet";Poisto;DELETE;x;;;;;x;;x;;x;
 "Muut toimet";Luku;READ;x;;x;;;;;x;x;x;x
-"Päätös tuesta varhaiskasvatuksessa";"Päätöksentekijöiden luku";"READ_DECISION_MAKER_OPTIONS";;;;;;;;;;;
-"Päätös tuesta varhaiskasvatuksessa";Muokkaus;UPDATE;;;;;;;;;;;
-"Päätös tuesta varhaiskasvatuksessa";Poisto;DELETE;;;;;;;;;;;
-"Päätös tuesta varhaiskasvatuksessa";Luku;READ;;;;;;;;;;;
-"Päätös tuesta varhaiskasvatuksessa";Lähetys;SEND;;;;;;;;;;;
-"Päätös tuesta varhaiskasvatuksessa";"Takaisin lähettämättömäksi palautus";REVERT_TO_UNSENT;;;;;;;;;;;
-"Päätös tuesta varhaiskasvatuksessa";"Raportista luku";READ_IN_REPORT;;;;;;;;;;;
-"Päätös tuesta varhaiskasvatuksessa";"Metadatan luku";READ_METADATA;;;;;;;;;;;
-"Päätös tuesta varhaiskasvatuksessa";"Päätöksen luonti";DECIDE;;;;;;;;;;;
-"Päätös tuesta varhaiskasvatuksessa";"Avatuksi merkitseminen";MARK_AS_OPENED;;;;;;;;;;;
-"Päätös tuesta varhaiskasvatuksessa";"Päätöksentekijän muokkaus";UPDATE_DECISION_MAKER;;;;;;;;;;;
-"Päätös tuesta varhaiskasvatuksessa";Mitätöinti;ANNUL;;;;;;;;;;;
-"Päätös tuesta esiopetuksessa";"Päätöksentekijöiden luku";"READ_DECISION_MAKER_OPTIONS";;;;;;;;;;;
-"Päätös tuesta esiopetuksessa";Muokkaus;UPDATE;;;;;;;;;;;
-"Päätös tuesta esiopetuksessa";Poisto;DELETE;;;;;;;;;;;
-"Päätös tuesta esiopetuksessa";Luku;READ;;;;;;;;;;;
-"Päätös tuesta esiopetuksessa";Lähetys;SEND;;;;;;;;;;;
-"Päätös tuesta esiopetuksessa";"Takaisin lähettämättömäksi palautus";REVERT_TO_UNSENT;;;;;;;;;;;
-"Päätös tuesta esiopetuksessa";"Raportista luku";READ_IN_REPORT;;;;;;;;;;;
-"Päätös tuesta esiopetuksessa";"Metadatan luku";READ_METADATA;;;;;;;;;;;
-"Päätös tuesta esiopetuksessa";"Päätöksen luonti";DECIDE;;;;;;;;;;;
-"Päätös tuesta esiopetuksessa";"Avatuksi merkitseminen";MARK_AS_OPENED;;;;;;;;;;;
-"Päätös tuesta esiopetuksessa";Mitätöinti;ANNUL;;;;;;;;;;;
 "Pegagoginen dokumentointi";"Liitteen luonti";CREATE_ATTACHMENT;x;;;;;;;x;x;x;x
 "Pegagoginen dokumentointi";Poisto;DELETE;x;;;;;;;x;x;x;x
 "Pegagoginen dokumentointi";Muokkaus;UPDATE;x;;;;;;;x;x;x;x

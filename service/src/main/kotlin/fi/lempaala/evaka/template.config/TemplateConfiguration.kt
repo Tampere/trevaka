@@ -41,6 +41,4 @@ class LempaalaTemplateProvider : ITemplateProvider {
     override fun getDaycareDecisionPath(): String = "lempaala/daycare/decision"
     override fun getPreschoolDecisionPath(): String = "lempaala/daycare/decision"
     override fun getPreparatoryDecisionPath(): String = throw Error("Not supported")
-    override fun getAssistanceNeedDecisionPath(): String = "lempaala/assistance/decision"
-    override fun getAssistanceNeedPreschoolDecisionPath(): String = "lempaala/assistance-preschool/decision"
 }

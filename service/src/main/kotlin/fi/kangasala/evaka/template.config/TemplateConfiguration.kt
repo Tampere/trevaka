@@ -41,6 +41,4 @@ class KangasalaTemplateProvider : ITemplateProvider {
     override fun getDaycareDecisionPath(): String = "kangasala/daycare/decision"
     override fun getPreschoolDecisionPath(): String = "kangasala/daycare/decision"
     override fun getPreparatoryDecisionPath(): String = "kangasala/preparatory/decision"
-    override fun getAssistanceNeedDecisionPath(): String = "kangasala/assistance/decision"
-    override fun getAssistanceNeedPreschoolDecisionPath(): String = "kangasala/assistance-preschool/decision"
 }

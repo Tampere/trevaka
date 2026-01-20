@@ -40,7 +40,6 @@ class YlojarviConfig {
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,
         useContractDaysAsDailyFeeDivisor = true,
-        assistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
         preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
         requestedStartUpperLimit = 14,
         postOffice = "YLÖJÄRVI",
@@ -69,18 +68,6 @@ class YlojarviConfig {
                     ArchiveProcessConfig(
                         processDefinitionNumber = "12.07.01",
                         archiveDurationMonths = 10 * 12,
-                    )
-
-                ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE ->
-                    ArchiveProcessConfig(
-                        processDefinitionNumber = "12.07.01",
-                        archiveDurationMonths = 120 * 12,
-                    )
-
-                ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL ->
-                    ArchiveProcessConfig(
-                        processDefinitionNumber = "12.01.02",
-                        archiveDurationMonths = 120 * 12,
                     )
 
                 ArchiveProcessType.FEE_DECISION -> ArchiveProcessConfig(

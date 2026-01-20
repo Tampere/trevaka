@@ -71,12 +71,12 @@ import fi.espoo.evaka.user.EvakaUser
 import fi.espoo.evaka.user.EvakaUserType
 import fi.nokiankaupunki.evaka.AbstractNokiaIntegrationTest
 import fi.nokiankaupunki.evaka.NokiaProperties
-import fi.tampere.trevaka.assistanceneed.decision.toPersonDetailed
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.ClassPathResource
+import trevaka.invoice.toPersonDetailed
 import java.math.BigDecimal
 import java.nio.charset.StandardCharsets
 import java.time.LocalDate
