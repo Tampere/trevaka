@@ -41,6 +41,4 @@ class OrivesiTemplateProvider : ITemplateProvider {
     override fun getDaycareDecisionPath(): String = "orivesi/daycare/decision"
     override fun getPreschoolDecisionPath(): String = "orivesi/daycare/decision"
     override fun getPreparatoryDecisionPath(): String = throw Error("Not supported")
-    override fun getAssistanceNeedDecisionPath(): String = "orivesi/assistance/decision"
-    override fun getAssistanceNeedPreschoolDecisionPath(): String = "orivesi/assistance-preschool/decision"
 }

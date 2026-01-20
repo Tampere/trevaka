@@ -35,7 +35,6 @@ const prod: FeatureFlags = {
   noAbsenceType: true,
   voucherUnitPayments: false,
   voucherValueSeparation: false,
-  assistanceNeedDecisionsLanguageSelect: false,
   extendedPreschoolTerm: false,
   hideClubApplication: false,
   discussionReservations: true,

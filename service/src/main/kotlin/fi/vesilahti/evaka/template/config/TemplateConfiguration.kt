@@ -41,6 +41,4 @@ class VesilahtiTemplateProvider : ITemplateProvider {
     override fun getDaycareDecisionPath(): String = "vesilahti/daycare/decision"
     override fun getPreschoolDecisionPath(): String = throw UnsupportedOperationException()
     override fun getPreparatoryDecisionPath(): String = "vesilahti/preparatory/decision"
-    override fun getAssistanceNeedDecisionPath(): String = "vesilahti/assistance/decision"
-    override fun getAssistanceNeedPreschoolDecisionPath(): String = "vesilahti/assistance-preschool/decision"
 }

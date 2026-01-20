@@ -13,8 +13,6 @@ import fi.espoo.evaka.shared.security.Action.Application
 import fi.espoo.evaka.shared.security.Action.ApplicationNote
 import fi.espoo.evaka.shared.security.Action.AssistanceAction
 import fi.espoo.evaka.shared.security.Action.AssistanceFactor
-import fi.espoo.evaka.shared.security.Action.AssistanceNeedDecision
-import fi.espoo.evaka.shared.security.Action.AssistanceNeedPreschoolDecision
 import fi.espoo.evaka.shared.security.Action.AssistanceNeedVoucherCoefficient
 import fi.espoo.evaka.shared.security.Action.Attachment
 import fi.espoo.evaka.shared.security.Action.BackupCare
@@ -172,8 +170,6 @@ private fun rows() = Global.entries.map { Row("", translate(it), permissions(it)
     PreschoolAssistance.entries.map { Row("Tuki esiopetuksessa", translate(it), permissions(it)) } +
     AssistanceAction.entries.map { Row("Tukitoimet ja tukipalvelut", translate(it), permissions(it)) } +
     OtherAssistanceMeasure.entries.map { Row("Muut toimet", translate(it), permissions(it)) } +
-    AssistanceNeedDecision.entries.map { Row("Päätös tuesta varhaiskasvatuksessa", translate(it), permissions(it)) } +
-    AssistanceNeedPreschoolDecision.entries.map { Row("Päätös tuesta esiopetuksessa", translate(it), permissions(it)) } +
     PedagogicalDocument.entries.map { Row("Pegagoginen dokumentointi", translate(it), permissions(it)) } +
     ChildDocument.entries.map { Row("Asiakirja", translate(it), permissions(it)) } +
     FeeAlteration.entries.map { Row("Maksumuutos", translate(it), permissions(it)) } +

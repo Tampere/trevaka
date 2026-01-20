@@ -41,6 +41,4 @@ class YlojarviTemplateProvider : ITemplateProvider {
     override fun getDaycareDecisionPath(): String = "ylojarvi/daycare/decision"
     override fun getPreschoolDecisionPath(): String = "ylojarvi/daycare/decision"
     override fun getPreparatoryDecisionPath(): String = "ylojarvi/preparatory/decision"
-    override fun getAssistanceNeedDecisionPath(): String = "ylojarvi/assistance/decision"
-    override fun getAssistanceNeedPreschoolDecisionPath(): String = "ylojarvi/assistance-preschool/decision"
 }

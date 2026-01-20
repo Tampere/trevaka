@@ -43,7 +43,6 @@ class KangasalaConfig {
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,
         useContractDaysAsDailyFeeDivisor = true,
-        assistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
         preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
         requestedStartUpperLimit = 14,
         postOffice = "KANGASALA",
@@ -69,18 +68,6 @@ class KangasalaConfig {
                     )
 
                 ArchiveProcessType.APPLICATION_CLUB -> null
-
-                ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE ->
-                    ArchiveProcessConfig(
-                        processDefinitionNumber = "46.00.65",
-                        archiveDurationMonths = 120 * 12,
-                    )
-
-                ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL ->
-                    ArchiveProcessConfig(
-                        processDefinitionNumber = "41.04.05",
-                        archiveDurationMonths = 120 * 12,
-                    )
 
                 ArchiveProcessType.FEE_DECISION -> ArchiveProcessConfig(
                     processDefinitionNumber = "46.00.64",

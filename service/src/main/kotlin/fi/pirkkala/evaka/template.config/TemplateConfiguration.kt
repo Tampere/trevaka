@@ -41,6 +41,4 @@ class PirkkalaTemplateProvider : ITemplateProvider {
     override fun getDaycareDecisionPath(): String = "pirkkala/daycare/decision"
     override fun getPreschoolDecisionPath(): String = "pirkkala/daycare/decision"
     override fun getPreparatoryDecisionPath(): String = throw Error("Not supported")
-    override fun getAssistanceNeedDecisionPath(): String = "pirkkala/assistance/decision"
-    override fun getAssistanceNeedPreschoolDecisionPath(): String = "pirkkala/assistance-preschool/decision"
 }

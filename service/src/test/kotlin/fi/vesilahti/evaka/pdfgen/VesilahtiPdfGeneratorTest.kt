@@ -6,8 +6,6 @@ package fi.vesilahti.evaka.pdfgen
 
 import fi.espoo.evaka.application.ServiceNeed
 import fi.espoo.evaka.application.ServiceNeedOption
-import fi.espoo.evaka.assistanceneed.decision.AssistanceNeedDecisionService
-import fi.espoo.evaka.assistanceneed.preschooldecision.AssistanceNeedPreschoolDecisionService
 import fi.espoo.evaka.daycare.UnitManager
 import fi.espoo.evaka.daycare.domain.ProviderType
 import fi.espoo.evaka.decision.DecisionType
@@ -20,8 +18,6 @@ import fi.espoo.evaka.setting.SettingType
 import fi.espoo.evaka.shared.ServiceNeedOptionId
 import fi.espoo.evaka.shared.domain.OfficialLanguage
 import fi.espoo.evaka.shared.template.ITemplateProvider
-import fi.tampere.trevaka.assistanceneed.decision.validAssistanceNeedDecision
-import fi.tampere.trevaka.assistanceneed.decision.validAssistanceNeedPreschoolDecision
 import fi.tampere.trevaka.decision.service.validChild
 import fi.tampere.trevaka.decision.service.validDecision
 import fi.tampere.trevaka.decision.service.validDecisionUnit
@@ -46,12 +42,6 @@ class VesilahtiPdfGeneratorTest : AbstractVesilahtiIntegrationTest() {
 
     @Autowired
     private lateinit var pdfGenerator: PdfGenerator
-
-    @Autowired
-    private lateinit var daycareAssistanceDecisionService: AssistanceNeedDecisionService
-
-    @Autowired
-    private lateinit var preschoolAssistanceDecisionService: AssistanceNeedPreschoolDecisionService
 
     private fun createDecisionPdfValues() = ArgumentSets
         .argumentsForFirstParameter(supportedDecisionTypes())
@@ -113,33 +103,6 @@ class VesilahtiPdfGeneratorTest : AbstractVesilahtiIntegrationTest() {
         val bytes = pdfGenerator.generateFeeDecisionPdf(FeeDecisionPdfData(decision, settings, OfficialLanguage.FI))
 
         val filename = "vesilahti-fee-decision-with-decision-type-$decisionType.pdf"
-        writeReportsFile(filename, bytes)
-    }
-
-    @Test
-    fun daycareAssistanceDecisionGeneratePdf() {
-        val decision = validAssistanceNeedDecision
-
-        val bytes = daycareAssistanceDecisionService.generatePdf(
-            sentDate = LocalDate.of(2022, 9, 12),
-            decision = decision,
-        )
-
-        val filename = "vesilahti-daycare-assistance-decision.pdf"
-        writeReportsFile(filename, bytes)
-    }
-
-    @Test
-    fun preschoolAssistanceDecisionGeneratePdf() {
-        val decision = validAssistanceNeedPreschoolDecision
-
-        val bytes = preschoolAssistanceDecisionService.generatePdf(
-            sentDate = LocalDate.of(2022, 9, 12),
-            decision = decision,
-            validTo = null,
-        )
-
-        val filename = "vesilahti-preschool-assistance-decision.pdf"
         writeReportsFile(filename, bytes)
     }
 }

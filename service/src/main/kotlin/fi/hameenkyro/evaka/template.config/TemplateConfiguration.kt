@@ -41,6 +41,4 @@ class HameenkyroTemplateProvider : ITemplateProvider {
     override fun getDaycareDecisionPath(): String = "hameenkyro/daycare/decision"
     override fun getPreschoolDecisionPath(): String = "hameenkyro/daycare/decision"
     override fun getPreparatoryDecisionPath(): String = "hameenkyro/preparatory/decision"
-    override fun getAssistanceNeedDecisionPath(): String = "hameenkyro/assistance/decision"
-    override fun getAssistanceNeedPreschoolDecisionPath(): String = "hameenkyro/assistance-preschool/decision"
 }

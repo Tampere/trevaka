@@ -39,7 +39,6 @@ class LempaalaConfig {
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,
         useContractDaysAsDailyFeeDivisor = true,
-        assistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
         preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
         requestedStartUpperLimit = 14,
         postOffice = "LEMPÄÄLÄ",
@@ -61,14 +60,6 @@ class LempaalaConfig {
                 ArchiveProcessType.APPLICATION_PRESCHOOL -> null
 
                 ArchiveProcessType.APPLICATION_CLUB -> null
-
-                ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE ->
-                    ArchiveProcessConfig(
-                        processDefinitionNumber = "12.07.01.03",
-                        archiveDurationMonths = 10 * 12,
-                    )
-
-                ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL -> null
 
                 ArchiveProcessType.FEE_DECISION -> ArchiveProcessConfig(
                     processDefinitionNumber = "12.07.01.01",

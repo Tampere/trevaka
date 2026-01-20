@@ -42,7 +42,6 @@ class PirkkalaConfig {
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,
         useContractDaysAsDailyFeeDivisor = true,
-        assistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
         preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
         requestedStartUpperLimit = 14,
         postOffice = "PIRKKALA",
@@ -67,18 +66,6 @@ class PirkkalaConfig {
                     ArchiveProcessConfig(
                         processDefinitionNumber = "4801.23",
                         archiveDurationMonths = 12 * 12,
-                    )
-
-                ArchiveProcessType.ASSISTANCE_NEED_DECISION_DAYCARE ->
-                    ArchiveProcessConfig(
-                        processDefinitionNumber = "4801.31",
-                        archiveDurationMonths = 15 * 12,
-                    )
-
-                ArchiveProcessType.ASSISTANCE_NEED_DECISION_PRESCHOOL ->
-                    ArchiveProcessConfig(
-                        processDefinitionNumber = "4102.03",
-                        archiveDurationMonths = 20 * 12,
                     )
 
                 ArchiveProcessType.FEE_DECISION -> ArchiveProcessConfig(
