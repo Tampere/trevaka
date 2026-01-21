@@ -39,7 +39,6 @@ class LempaalaConfig {
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,
         useContractDaysAsDailyFeeDivisor = true,
-        preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
         requestedStartUpperLimit = 14,
         postOffice = "LEMPÄÄLÄ",
         municipalMessageAccountName = "Lempäälän kunta",
