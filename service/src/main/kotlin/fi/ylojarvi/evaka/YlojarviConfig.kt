@@ -40,7 +40,6 @@ class YlojarviConfig {
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,
         useContractDaysAsDailyFeeDivisor = true,
-        preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR, UserRole.UNIT_SUPERVISOR),
         requestedStartUpperLimit = 14,
         postOffice = "YLÖJÄRVI",
         municipalMessageAccountName = "Ylöjärven kaupunki",

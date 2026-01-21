@@ -42,7 +42,6 @@ class PirkkalaConfig {
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,
         useContractDaysAsDailyFeeDivisor = true,
-        preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
         requestedStartUpperLimit = 14,
         postOffice = "PIRKKALA",
         municipalMessageAccountName = "Pirkkalan kunta",

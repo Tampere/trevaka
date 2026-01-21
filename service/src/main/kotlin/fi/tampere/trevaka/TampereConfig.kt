@@ -75,7 +75,6 @@ class TampereConfig {
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,
         useContractDaysAsDailyFeeDivisor = true,
-        preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
         requestedStartUpperLimit = 14,
         postOffice = "TAMPERE",
         municipalMessageAccountName = "Tampereen kaupunki",

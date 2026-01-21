@@ -39,7 +39,6 @@ class OrivesiConfig {
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,
         useContractDaysAsDailyFeeDivisor = true,
-        preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
         requestedStartUpperLimit = 14,
         postOffice = "ORIVESI",
         municipalMessageAccountName = "Oriveden kaupunki",

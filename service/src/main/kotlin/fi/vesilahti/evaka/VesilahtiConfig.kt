@@ -39,7 +39,6 @@ class VesilahtiConfig {
         unplannedAbsencesAreContractSurplusDays = true,
         maxContractDaySurplusThreshold = null,
         useContractDaysAsDailyFeeDivisor = true,
-        preschoolAssistanceDecisionMakerRoles = setOf(UserRole.DIRECTOR),
         requestedStartUpperLimit = 14,
         postOffice = "VESILAHTI",
         municipalMessageAccountName = "Vesilahden kunta",

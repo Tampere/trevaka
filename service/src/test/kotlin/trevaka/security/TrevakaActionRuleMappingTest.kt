@@ -323,7 +323,6 @@ private fun translate(action: Global) = action.name to when (action) {
     Global.READ_MISSING_HEAD_OF_FAMILY_REPORT -> "Puuttuvat päämiehet -raportti"
     Global.READ_PLACEMENT_SKETCHING_REPORT -> "Esiopetuksen sijoitusten hahmotteluraportti -raportti"
     Global.READ_PLACEMENT_COUNT_REPORT -> "Sijoitusten määrä -raportti"
-    Global.READ_PRESENCE_REPORT -> "Läsnäolot-raportti"
     Global.READ_RAW_REPORT -> "Raakaraportti"
     Global.READ_SEXTET_REPORT -> "Kuusikkovertailu"
     Global.READ_UNITS_REPORT -> "Yksiköt-raportti"
