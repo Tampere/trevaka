@@ -57,13 +57,7 @@ tampere_job_plan_bi_export_jobs_cron    = "0 0 1 * * *"
 
 tampere_summertime_absence_free_month = "JANUARY"
 
-tampere_job_plan_document_archival_enabled             = true
-tampere_archival_schedule_daily_document_limit         = 200
-tampere_archival_schedule_document_plan_delay_days     = 140
-tampere_archival_schedule_document_decision_delay_days = 30
-tampere_archival_schedule_decision_delay_days          = 180
-tampere_archival_schedule_fee_decision_delay_days      = 180
-tampere_archival_schedule_voucher_decision_delay_days  = 180
+tampere_job_plan_document_archival_enabled = true
 
 service_logging_levels = {
   "fi.espoo.evaka.titania" : "DEBUG"
