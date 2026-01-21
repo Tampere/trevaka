@@ -21,7 +21,6 @@
 ;"Hetuttomat lapset -raportti";"READ_NON_SSN_CHILDREN_REPORT";x;;;x;;x;;;;;
 ;Kuusikkovertailu;READ_SEXTET_REPORT;x;x;x;;;;;;;;
 ;"Laskujen täsmäytys -raportti";READ_INVOICE_REPORT;x;;x;x;x;;;;;;
-;"Läsnäolot-raportti";READ_PRESENCE_REPORT;x;x;x;;;;;;;;
 ;"Monistuneet kuntalaiset -raportti";"READ_DUPLICATE_PEOPLE_REPORT";x;;;;;;;;;;
 ;"Muut päätökset -raportti";"READ_CHILD_DOCUMENT_DECISIONS_REPORT";x;;x;;;;;x;;x;
 ;"Patu-raportin lähetys";SEND_PATU_REPORT;;;;;;;;;;;
