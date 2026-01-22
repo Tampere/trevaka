@@ -40,3 +40,6 @@ evaka_job_send_outdated_income_notifications_enabled = true
 sfi_msg_service_identifier = "nokia_ws_evaka"
 
 # service: NokiaProperties
+nokia_job_plan_document_archival_enabled         = true
+nokia_archival_schedule_daily_document_limit     = 20
+nokia_archival_schedule_document_plan_delay_days = 140

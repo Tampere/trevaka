@@ -5,6 +5,7 @@
 package fi.pirkkala.evaka
 
 import fi.espoo.evaka.EvakaEnv
+import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.espoo.DefaultPasswordSpecification
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
@@ -14,7 +15,6 @@ import fi.espoo.evaka.shared.ArchiveProcessType
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.PasswordConstraints
 import fi.espoo.evaka.shared.auth.PasswordSpecification
-import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.shared.sftp.SftpClient
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
@@ -79,6 +79,13 @@ class PirkkalaConfig {
             }
         },
         daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
+    )
+
+    @Bean
+    fun pirkkalaScheduledJobEnv(env: Environment): ScheduledJobsEnv<PirkkalaScheduledJob> = ScheduledJobsEnv.fromEnvironment(
+        PirkkalaScheduledJob.entries.associateWith { it.defaultSettings },
+        "pirkkala.job",
+        env,
     )
 
     @Bean

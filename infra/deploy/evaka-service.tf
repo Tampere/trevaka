@@ -303,18 +303,34 @@ module "app_service" {
     TAMPERE_ARCHIVAL_SCHEDULE_DOCUMENT_DECISION_DELAY_DAYS = var.municipality == "tampere" ? var.tampere_archival_schedule_document_decision_delay_days : null
     TAMPERE_ARCHIVAL_SCHEDULE_DOCUMENT_PLAN_DELAY_DAYS     = var.municipality == "tampere" ? var.tampere_archival_schedule_document_plan_delay_days : null
 
+    # NokiaScheduledJobEnv
+    NOKIA_JOB_PLAN_DOCUMENT_ARCHIVAL_ENABLED = var.municipality == "nokia" ? var.nokia_job_plan_document_archival_enabled : null
+
     # NokiaProperties
-    NOKIA_INVOICE_SFTP_PREFIX  = var.municipality == "nokia" ? var.environment == "prod" ? "in/eVaka/Raindance/" : "test/in/eVaka/Raindance/" : null
-    NOKIA_ARCHIVAL_SFTP_PREFIX = var.municipality == "nokia" && var.archival_enabled ? var.environment == "prod" ? "in/eVaka/TWeb/" : "test/in/eVaka/TWeb/" : null
+    NOKIA_INVOICE_SFTP_PREFIX                        = var.municipality == "nokia" ? var.environment == "prod" ? "in/eVaka/Raindance/" : "test/in/eVaka/Raindance/" : null
+    NOKIA_ARCHIVAL_SFTP_PREFIX                       = var.municipality == "nokia" && var.archival_enabled ? var.environment == "prod" ? "in/eVaka/TWeb/" : "test/in/eVaka/TWeb/" : null
+    NOKIA_ARCHIVAL_SCHEDULE_DAILY_DOCUMENT_LIMIT     = var.municipality == "nokia" ? var.nokia_archival_schedule_daily_document_limit : null
+    NOKIA_ARCHIVAL_SCHEDULE_DOCUMENT_PLAN_DELAY_DAYS = var.municipality == "nokia" ? var.nokia_archival_schedule_document_plan_delay_days : null
 
     # YlojarviProperties
     YLOJARVI_INVOICE_SFTP_PREFIX = var.municipality == "ylojarvi" ? var.environment == "prod" ? "in/eVaka/Raindance/" : "test/in/eVaka/Raindance/" : null
 
+    # PirkkalaScheduledJobEnv
+    PIRKKALA_JOB_PLAN_DOCUMENT_ARCHIVAL_ENABLED = var.municipality == "pirkkala" ? var.pirkkala_job_plan_document_archival_enabled : null
+
     # PirkkalaProperties
-    PIRKKALA_ARCHIVAL_SFTP_PREFIX = var.municipality == "pirkkala" && var.archival_enabled ? var.environment == "prod" ? "in/eVaka/TWeb/" : "test/in/eVaka/TWeb/" : null
+    PIRKKALA_ARCHIVAL_SFTP_PREFIX                       = var.municipality == "pirkkala" && var.archival_enabled ? var.environment == "prod" ? "in/eVaka/TWeb/" : "test/in/eVaka/TWeb/" : null
+    PIRKKALA_ARCHIVAL_SCHEDULE_DAILY_DOCUMENT_LIMIT     = var.municipality == "pirkkala" ? var.pirkkala_archival_schedule_daily_document_limit : null
+    PIRKKALA_ARCHIVAL_SCHEDULE_DOCUMENT_PLAN_DELAY_DAYS = var.municipality == "pirkkala" ? var.pirkkala_archival_schedule_document_plan_delay_days : null
+
+    # KangasalaScheduledJobEnv
+    KANGASALA_JOB_PLAN_DOCUMENT_ARCHIVAL_ENABLED = var.municipality == "kangasala" ? var.kangasala_job_plan_document_archival_enabled : null
 
     # KangasalaProperties
-    KANGASALA_ARCHIVAL_SFTP_PREFIX = var.municipality == "kangasala" && var.archival_enabled ? var.environment == "prod" ? "in/eVaka/TWeb/" : "test/in/eVaka/TWeb/" : null
+    KANGASALA_ARCHIVAL_SFTP_PREFIX                       = var.municipality == "kangasala" && var.archival_enabled ? var.environment == "prod" ? "in/eVaka/TWeb/" : "test/in/eVaka/TWeb/" : null
+    KANGASALA_ARCHIVAL_SCHEDULE_DAILY_DOCUMENT_LIMIT     = var.municipality == "kangasala" ? var.kangasala_archival_schedule_daily_document_limit : null
+    KANGASALA_ARCHIVAL_SCHEDULE_DOCUMENT_PLAN_DELAY_DAYS = var.municipality == "kangasala" ? var.kangasala_archival_schedule_document_plan_delay_days : null
+
   }
 }
 
@@ -657,6 +673,51 @@ variable "tampere_archival_schedule_document_decision_delay_days" {
 }
 
 variable "tampere_archival_schedule_document_plan_delay_days" {
+  type    = number
+  default = null
+}
+
+variable "pirkkala_job_plan_document_archival_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "pirkkala_archival_schedule_daily_document_limit" {
+  type    = number
+  default = null
+}
+
+variable "pirkkala_archival_schedule_document_plan_delay_days" {
+  type    = number
+  default = null
+}
+
+variable "nokia_job_plan_document_archival_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "nokia_archival_schedule_daily_document_limit" {
+  type    = number
+  default = null
+}
+
+variable "nokia_archival_schedule_document_plan_delay_days" {
+  type    = number
+  default = null
+}
+
+variable "kangasala_job_plan_document_archival_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "kangasala_archival_schedule_daily_document_limit" {
+  type    = number
+  default = null
+}
+
+variable "kangasala_archival_schedule_document_plan_delay_days" {
   type    = number
   default = null
 }

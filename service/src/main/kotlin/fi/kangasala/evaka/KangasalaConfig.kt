@@ -5,6 +5,7 @@
 package fi.kangasala.evaka
 
 import fi.espoo.evaka.EvakaEnv
+import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.application.ApplicationStatus
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.espoo.DefaultPasswordSpecification
@@ -15,7 +16,6 @@ import fi.espoo.evaka.shared.ArchiveProcessType
 import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.auth.PasswordConstraints
 import fi.espoo.evaka.shared.auth.PasswordSpecification
-import fi.espoo.evaka.shared.auth.UserRole
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
 import fi.espoo.evaka.shared.sftp.SftpClient
 import fi.espoo.evaka.titania.TitaniaEmployeeIdConverter
@@ -81,6 +81,13 @@ class KangasalaConfig {
         },
         daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
         placementToolApplicationStatus = ApplicationStatus.WAITING_DECISION,
+    )
+
+    @Bean
+    fun kangasalaScheduledJobEnv(env: Environment): ScheduledJobsEnv<KangasalaScheduledJob> = ScheduledJobsEnv.fromEnvironment(
+        KangasalaScheduledJob.entries.associateWith { it.defaultSettings },
+        "kangasala.job",
+        env,
     )
 
     @Bean
