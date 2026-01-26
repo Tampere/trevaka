@@ -44,3 +44,6 @@ jamix_orders_enabled = true
 jamix_diets_enabled  = true
 
 # service: KangasalaProperties
+kangasala_job_plan_document_archival_enabled         = true
+kangasala_archival_schedule_daily_document_limit     = 10
+kangasala_archival_schedule_document_plan_delay_days = 140

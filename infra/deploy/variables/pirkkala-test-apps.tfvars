@@ -40,3 +40,6 @@ evaka_job_send_outdated_income_notifications_enabled = true
 sfi_msg_service_identifier = "pirkkala_ws_evaka"
 
 # service: PirkkalaProperties
+pirkkala_job_plan_document_archival_enabled         = true
+pirkkala_archival_schedule_daily_document_limit     = 10
+pirkkala_archival_schedule_document_plan_delay_days = 140
