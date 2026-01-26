@@ -17,22 +17,16 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.ClassPathResource
-import org.springframework.test.context.TestPropertySource
 import java.time.LocalDate
 import java.time.LocalTime
 
-@TestPropertySource(
-    properties = [
-        "ylojarvi.invoice.version=V2026",
-    ],
-)
 class YlojarviInvoiceClientIT : AbstractYlojarviIntegrationTest() {
     @Autowired private lateinit var invoiceIntegrationClient: InvoiceIntegrationClient
     private lateinit var sftpClient: SftpClient
 
     @BeforeEach
     fun init() {
-        sftpClient = SftpClient(properties.invoice.sftp!!.toSftpEnv())
+        sftpClient = SftpClient(properties.invoice.sftp.toSftpEnv())
     }
 
     @Test
