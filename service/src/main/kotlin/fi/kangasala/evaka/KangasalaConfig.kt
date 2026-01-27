@@ -14,6 +14,8 @@ import fi.espoo.evaka.mealintegration.MealTypeMapper
 import fi.espoo.evaka.shared.ArchiveProcessConfig
 import fi.espoo.evaka.shared.ArchiveProcessType
 import fi.espoo.evaka.shared.FeatureConfig
+import fi.espoo.evaka.shared.async.AsyncJob
+import fi.espoo.evaka.shared.async.AsyncJobRunner
 import fi.espoo.evaka.shared.auth.PasswordConstraints
 import fi.espoo.evaka.shared.auth.PasswordSpecification
 import fi.espoo.evaka.shared.security.actionrule.ActionRuleMapping
@@ -89,6 +91,13 @@ class KangasalaConfig {
         "kangasala.job",
         env,
     )
+
+    @Bean
+    fun kangasalaScheduledJobs(
+        properties: KangasalaProperties,
+        env: ScheduledJobsEnv<KangasalaScheduledJob>,
+        asyncJobRunner: AsyncJobRunner<AsyncJob>,
+    ): KangasalaScheduledJobs = KangasalaScheduledJobs(asyncJobRunner, properties, env)
 
     @Bean
     fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()
