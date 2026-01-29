@@ -152,22 +152,9 @@ class NokiaArchivalClientTest : AbstractNokiaIntegrationTest() {
     @Test
     fun uploadChildDocumentWithoutHistory() {
         assertThrows<IllegalStateException> {
-            archivalIntegrationClient.uploadDecisionToArchive(
-                noHistoryTestCaseProcessApplication,
-                testChildInfo,
-                testDecisionDaycare,
-                testDocumentDecisionDaycare,
-                testEvakaUser,
-            )
-        }
-    }
-
-    @Test
-    fun uploadDecisionWithoutHistory() {
-        assertThrows<IllegalStateException> {
             archivalIntegrationClient.uploadChildDocumentToArchive(
                 testVasuDetails.id,
-                emptyTestCaseProcessChildDocument,
+                fullTestCaseProcessChildDocument.copy(history = emptyList()),
                 testChildInfo,
                 testVasuDetails,
                 testDocumentMetadataChildDocument,
@@ -175,6 +162,64 @@ class NokiaArchivalClientTest : AbstractNokiaIntegrationTest() {
                 testEvakaUser,
             )
         }
+    }
+
+    @Test
+    fun uploadMetadataMigratedDecision() {
+        val archival = nokiaProperties.archival ?: error("No archival configuration")
+        val archiveId = archivalIntegrationClient.uploadDecisionToArchive(
+            testCaseProcessApplication.copy(history = migratedMetadataHistory),
+            testChildInfo,
+            testDecisionDaycare,
+            testDocumentDecisionDaycare,
+            testEvakaUser,
+        )
+        assertEquals("static-sftp-response", archiveId)
+
+        val sftpClient = SftpClient(archival.sftp.toSftpEnv())
+        val metadata =
+            sftpClient.getAsString("${archival.sftp.prefix}${testDecisionDaycare.id}.xml", StandardCharsets.UTF_8)
+
+        val document =
+            sftpClient.getAsString("${archival.sftp.prefix}${testDecisionDaycare.id}.txt", StandardCharsets.UTF_8)
+        assertEquals(
+            ClassPathResource("tweb-archival-client/decision-metadata-no-agents.xml")
+                .getContentAsString(StandardCharsets.UTF_8),
+            metadata,
+        )
+        assertEquals(
+            "vakapäätös tekstitiedostona",
+            document,
+        )
+    }
+
+    @Test
+    fun uploadDecisionWithoutHistory() {
+        val archival = nokiaProperties.archival ?: error("No archival configuration")
+        val archiveId = archivalIntegrationClient.uploadDecisionToArchive(
+            testCaseProcessApplication.copy(history = emptyList()),
+            testChildInfo,
+            testDecisionDaycare,
+            testDocumentDecisionDaycare,
+            testEvakaUser,
+        )
+        assertEquals("static-sftp-response", archiveId)
+
+        val sftpClient = SftpClient(archival.sftp.toSftpEnv())
+        val metadata =
+            sftpClient.getAsString("${archival.sftp.prefix}${testDecisionDaycare.id}.xml", StandardCharsets.UTF_8)
+
+        val document =
+            sftpClient.getAsString("${archival.sftp.prefix}${testDecisionDaycare.id}.txt", StandardCharsets.UTF_8)
+        assertEquals(
+            ClassPathResource("tweb-archival-client/decision-metadata-no-agents.xml")
+                .getContentAsString(StandardCharsets.UTF_8),
+            metadata,
+        )
+        assertEquals(
+            "vakapäätös tekstitiedostona",
+            document,
+        )
     }
 
     @Test
@@ -744,8 +789,6 @@ private val testChildDocumentDecisionDetails = ChildDocumentDetails(
     ),
 )
 
-private val emptyTestCaseProcessChildDocument = null
-
 private val testDocumentMetadataChildDocument = testVasuDetails.toDocumentMetadata()
 
 private val testDocumentChildDocument = Document(
@@ -766,6 +809,12 @@ private val testPreparerUser = EvakaUser(
     id = EvakaUserId(UUID.randomUUID()),
     name = "Esko Esivalmistelija",
     EvakaUserType.EMPLOYEE,
+)
+
+private val testCitizenUser = EvakaUser(
+    id = EvakaUserId(UUID.randomUUID()),
+    name = "Keijo Kuntalainen",
+    EvakaUserType.CITIZEN,
 )
 
 private val testDeciderUser = EvakaUser(
@@ -802,6 +851,22 @@ private val fullCaseProcessHistory =
         ),
     )
 
+private val migratedMetadataHistory =
+    listOf(
+        CaseProcessHistoryRow(
+            rowIndex = 1,
+            state = CaseProcessState.INITIAL,
+            enteredAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 45)),
+            enteredBy = testEvakaUser,
+        ),
+        CaseProcessHistoryRow(
+            rowIndex = 4,
+            state = CaseProcessState.COMPLETED,
+            enteredAt = HelsinkiDateTime.of(LocalDate.of(2025, 5, 12), LocalTime.of(8, 55)),
+            enteredBy = testCitizenUser,
+        ),
+    )
+
 private val testCaseProcessApplication = CaseProcess(
     id = CaseProcessId(UUID.randomUUID()),
     caseIdentifier = "1/04.01.00.11/2025",
@@ -825,9 +890,6 @@ private val testCaseProcessFeeDecision = CaseProcess(
     migrated = false,
     history = fullCaseProcessHistory,
 )
-
-private val noHistoryTestCaseProcessApplication =
-    testCaseProcessApplication.copy(history = emptyList())
 
 private val fullTestCaseProcessChildDocument = CaseProcess(
     id = CaseProcessId(UUID.randomUUID()),

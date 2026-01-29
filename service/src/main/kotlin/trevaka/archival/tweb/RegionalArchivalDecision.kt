@@ -28,7 +28,7 @@ internal fun transformDecision(
             title = childTitle(type(decision), status(decision), child)
             calculationBaseDate = localDateToXMLGregorianCalendar(decision.endDate.plusDays(1))
             created = decision.sentDate?.let { localDateToXMLGregorianCalendar(it) }
-            agent.addAll(transformToAgents(caseProcess))
+            agent.addAll(transformToAgents(caseProcess, false))
         }
         content = Collections.Collection.Content().apply {
             file.add(
