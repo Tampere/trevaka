@@ -142,15 +142,16 @@ private fun extractAgents(caseProcess: CaseProcess): List<AuthorDetails> = caseP
     .filter { it.enteredBy.type == EvakaUserType.EMPLOYEE }
     .groupBy { it.enteredBy.id }
     .map { AuthorDetails(it.value[0].enteredBy.name, extractAgentRole(it.value)) }
-    .ifEmpty { error("No employee agents found for case process ${caseProcess.id}") }
 
-internal fun transformToAgents(caseProcess: CaseProcess): List<Agent> = extractAgents(caseProcess).map {
-    Agent().apply {
-        agentRole = it.role
-        agentName = it.name
-        // agent corporateName left empty
+internal fun transformToAgents(caseProcess: CaseProcess, isRequired: Boolean = true): List<Agent> = extractAgents(caseProcess)
+    .also { if (it.isEmpty() && isRequired) error("No employee agents found for case process ${caseProcess.id}") }
+    .map {
+        Agent().apply {
+            agentRole = it.role
+            agentName = it.name
+            // agent corporateName left empty
+        }
     }
-}
 
 internal fun hofTitle(type: String, status: String, owner: PersonDetailed): String = listOf(type, status, "${owner.firstName} ${owner.lastName}", owner.ssn ?: error("No owner ssn available"))
     .joinToString(SEPARATOR_CHARACTER)
