@@ -69,4 +69,4 @@ tampere_job_plan_bi_export_jobs_enabled = true
 tampere_job_plan_bi_export_jobs_cron    = "0 0 1 * * *"
 
 tampere_job_plan_document_archival_enabled     = true
-tampere_archival_schedule_daily_document_limit = 20
+tampere_archival_schedule_daily_document_limit = 200
