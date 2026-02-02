@@ -121,6 +121,35 @@ class NokiaArchivalClientTest : AbstractNokiaIntegrationTest() {
     }
 
     @Test
+    fun uploadPreschoolDaycareDecisionFromPreschoolApplication() {
+        val archival = nokiaProperties.archival ?: error("No archival configuration")
+        val archiveId = archivalIntegrationClient.uploadDecisionToArchive(
+            testCaseProcessApplicationPreschool,
+            testChildInfo,
+            testDecisionPreschoolDaycare,
+            testDocumentDecisionPreschoolDaycare,
+            testEvakaUser,
+        )
+        assertEquals("static-sftp-response", archiveId)
+
+        val sftpClient = SftpClient(archival.sftp.toSftpEnv())
+        val metadata =
+            sftpClient.getAsString("${archival.sftp.prefix}${testDecisionDaycare.id}.xml", StandardCharsets.UTF_8)
+
+        val document =
+            sftpClient.getAsString("${archival.sftp.prefix}${testDecisionDaycare.id}.txt", StandardCharsets.UTF_8)
+        assertEquals(
+            ClassPathResource("tweb-archival-client/decision-metadata-preschool-daycare.xml")
+                .getContentAsString(StandardCharsets.UTF_8),
+            metadata,
+        )
+        assertEquals(
+            "vakapäätös tekstitiedostona",
+            document,
+        )
+    }
+
+    @Test
     fun uploadRejectedDecision() {
         val archival = nokiaProperties.archival ?: error("No archival configuration")
         val archiveId = archivalIntegrationClient.uploadDecisionToArchive(
@@ -635,8 +664,51 @@ private val testDecisionDaycare = Decision(
     archivedAt = null,
 )
 
+private val testApplicationPreschool =
+    testApplicationDaycare.copy(type = ApplicationType.PRESCHOOL)
+
+private val testDecisionPreschoolDaycare = Decision(
+    id = DecisionId(UUID.fromString("c74c1dad-f448-41ce-83af-e37d0c095286")),
+    createdBy = "todo",
+    type = DecisionType.PRESCHOOL_DAYCARE,
+    startDate = LocalDate.of(2022, 2, 1),
+    endDate = LocalDate.of(2022, 7, 31),
+    unit = DecisionUnit(
+        id = DaycareId(UUID.randomUUID()),
+        name = "asd",
+        daycareDecisionName = "asd",
+        preschoolDecisionName = "asd",
+        manager = null,
+        streetAddress = "",
+        postalCode = "",
+        postOffice = "",
+        phone = null,
+        decisionHandler = "",
+        decisionHandlerAddress = "",
+        providerType = ProviderType.MUNICIPAL,
+    ),
+    applicationId = testApplicationPreschool.id,
+    childId = testChildInfo.id,
+    childName = "${testChildInfo.lastName} ${testChildInfo.firstName}",
+    documentKey = null,
+    decisionNumber = 2398437,
+    sentDate = LocalDate.of(2022, 1, 8),
+    status = DecisionStatus.ACCEPTED,
+    requestedStartDate = null,
+    resolved = null,
+    resolvedByName = null,
+    documentContainsContactInfo = false,
+    archivedAt = null,
+)
+
 private val testDocumentDecisionDaycare = Document(
     DocumentKey.Decision(testDecisionDaycare.id, testDecisionDaycare.type, OfficialLanguage.FI).value,
+    "vakapäätös tekstitiedostona".toByteArray(Charsets.UTF_8),
+    "text/plain",
+)
+
+private val testDocumentDecisionPreschoolDaycare = Document(
+    DocumentKey.Decision(testDecisionPreschoolDaycare.id, testDecisionPreschoolDaycare.type, OfficialLanguage.FI).value,
     "vakapäätös tekstitiedostona".toByteArray(Charsets.UTF_8),
     "text/plain",
 )
@@ -866,6 +938,18 @@ private val migratedMetadataHistory =
             enteredBy = testCitizenUser,
         ),
     )
+
+private val testCaseProcessApplicationPreschool = CaseProcess(
+    id = CaseProcessId(UUID.randomUUID()),
+    caseIdentifier = "1/04.01.03.41/2025",
+    processDefinitionNumber = "04.01.03.41",
+    year = 2025,
+    number = 1,
+    organization = "Nokian kaupunki, varhaiskasvatus ja esiopetus",
+    archiveDurationMonths = 10 * 12,
+    migrated = false,
+    history = fullCaseProcessHistory,
+)
 
 private val testCaseProcessApplication = CaseProcess(
     id = CaseProcessId(UUID.randomUUID()),

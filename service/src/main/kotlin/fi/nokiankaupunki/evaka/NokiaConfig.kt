@@ -126,8 +126,8 @@ class NokiaConfig {
     )
 
     @Bean
-    fun archivalIntegrationClient(evakaEnv: EvakaEnv, properties: NokiaProperties): ArchivalIntegrationClient = if (evakaEnv.archivalEnabled && properties.archival != null) {
-        RegionalTwebArchivalClient(SftpClient(properties.archival.sftp.toSftpEnv()), properties.archival)
+    fun archivalIntegrationClient(evakaEnv: EvakaEnv, properties: NokiaProperties, featureConfig: FeatureConfig): ArchivalIntegrationClient = if (evakaEnv.archivalEnabled && properties.archival != null) {
+        RegionalTwebArchivalClient(SftpClient(properties.archival.sftp.toSftpEnv()), properties.archival, featureConfig)
     } else {
         ArchivalIntegrationClient.FailingClient()
     }

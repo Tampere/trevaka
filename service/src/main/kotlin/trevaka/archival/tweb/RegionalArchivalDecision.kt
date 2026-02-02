@@ -10,6 +10,8 @@ import fi.espoo.evaka.decision.Decision
 import fi.espoo.evaka.decision.DecisionType
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.s3.Document
+import fi.espoo.evaka.shared.ArchiveProcessType
+import fi.espoo.evaka.shared.FeatureConfig
 import org.apache.tika.mime.MimeTypes
 import trevaka.archival.status
 import trevaka.jaxb.localDateToXMLGregorianCalendar
@@ -19,11 +21,21 @@ internal fun transformDecision(
     decision: Decision,
     document: Document,
     child: PersonDTO,
+    featureConfig: FeatureConfig,
 ): Pair<Collections.Collection, Map<String, Document>> {
     val originalId = decision.id.toString()
     return Collections.Collection().apply {
         type = "record"
-        folder = caseProcess.processDefinitionNumber
+        folder =
+            // use application-based process definition number, unless preschool daycare decision
+            // as it may also derive from a preschool application
+            when (decision.type) {
+                DecisionType.PRESCHOOL_DAYCARE ->
+                    // yearly config is not currently used
+                    featureConfig.archiveMetadataConfigs(ArchiveProcessType.APPLICATION_DAYCARE, 2026)?.processDefinitionNumber ?: error("No process definition number for daycare application defined")
+
+                else -> caseProcess.processDefinitionNumber
+            }
         metadata = Collections.Collection.Metadata().apply {
             title = childTitle(type(decision), status(decision), child)
             calculationBaseDate = localDateToXMLGregorianCalendar(decision.endDate.plusDays(1))

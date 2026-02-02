@@ -124,8 +124,8 @@ class PirkkalaConfig {
     )
 
     @Bean
-    fun archivalIntegrationClient(evakaEnv: EvakaEnv, properties: PirkkalaProperties): ArchivalIntegrationClient = if (evakaEnv.archivalEnabled && properties.archival != null) {
-        RegionalTwebArchivalClient(SftpClient(properties.archival.sftp.toSftpEnv()), properties.archival)
+    fun archivalIntegrationClient(evakaEnv: EvakaEnv, properties: PirkkalaProperties, featureConfig: FeatureConfig): ArchivalIntegrationClient = if (evakaEnv.archivalEnabled && properties.archival != null) {
+        RegionalTwebArchivalClient(SftpClient(properties.archival.sftp.toSftpEnv()), properties.archival, featureConfig)
     } else {
         ArchivalIntegrationClient.FailingClient()
     }
