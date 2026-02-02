@@ -126,8 +126,8 @@ class KangasalaConfig {
     )
 
     @Bean
-    fun archivalIntegrationClient(evakaEnv: EvakaEnv, properties: KangasalaProperties): ArchivalIntegrationClient = if (evakaEnv.archivalEnabled && properties.archival != null) {
-        RegionalTwebArchivalClient(SftpClient(properties.archival.sftp.toSftpEnv()), properties.archival)
+    fun archivalIntegrationClient(evakaEnv: EvakaEnv, properties: KangasalaProperties, featureConfig: FeatureConfig): ArchivalIntegrationClient = if (evakaEnv.archivalEnabled && properties.archival != null) {
+        RegionalTwebArchivalClient(SftpClient(properties.archival.sftp.toSftpEnv()), properties.archival, featureConfig)
     } else {
         ArchivalIntegrationClient.FailingClient()
     }

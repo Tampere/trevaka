@@ -20,6 +20,7 @@ import fi.espoo.evaka.invoicing.domain.VoucherValueDecisionDetailed
 import fi.espoo.evaka.pis.service.PersonDTO
 import fi.espoo.evaka.s3.Document
 import fi.espoo.evaka.shared.ChildDocumentId
+import fi.espoo.evaka.shared.FeatureConfig
 import fi.espoo.evaka.shared.sftp.SftpClient
 import fi.espoo.evaka.user.EvakaUser
 import fi.espoo.evaka.user.EvakaUserType
@@ -33,7 +34,11 @@ private val logger = KotlinLogging.logger {}
 
 internal const val SEPARATOR_CHARACTER = ";"
 
-class RegionalTwebArchivalClient(private val client: SftpClient, private val properties: SftpArchivalProperties) : ArchivalIntegrationClient {
+class RegionalTwebArchivalClient(
+    private val client: SftpClient,
+    private val properties: SftpArchivalProperties,
+    private val featureConfig: FeatureConfig,
+) : ArchivalIntegrationClient {
 
     private val context = JAXBContext.newInstance(
         Collections::class.java,
@@ -46,7 +51,7 @@ class RegionalTwebArchivalClient(private val client: SftpClient, private val pro
         document: Document,
         user: EvakaUser,
     ): String {
-        val (collection, content) = transformDecision(caseProcess, decision, document, child)
+        val (collection, content) = transformDecision(caseProcess, decision, document, child, featureConfig)
         val collections = transform(user).apply {
             this.collection.add(collection)
         }
