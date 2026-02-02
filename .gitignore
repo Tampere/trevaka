@@ -4,6 +4,7 @@
 # IDEs
 /.vscode/
 /.idea/
+*.iml
 
 .gradle
 .gradle_user_home
