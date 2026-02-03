@@ -229,6 +229,7 @@ Lapsi;"Päivittäisten varhaiskasvatusaikojen luku";READ_DAILY_SERVICE_TIMES;;;;
 Lapsi;"Päivittäisen varhaiskasvatusajan luonti";"CREATE_DAILY_SERVICE_TIME";;;;;;;;;;;
 Lapsi;"Sijoituksen luku";READ_PLACEMENT;x;;x;x;x;x;;x;x;x;x
 Lapsi;"Palvelutarpeen muutoshakemuksien luku";"READ_SERVICE_APPLICATIONS";x;;;;;;;x;;;
+Lapsi;"Palvelutarpeiden luku";READ_SERVICE_NEEDS;x;;;;;x;;x;x;x;x
 Lapsi;"Perheen yhteystietojen luku";READ_FAMILY_CONTACTS;x;;;;;;;x;x;x;x
 Lapsi;"Perheen yhteystietojen muokkaus";"UPDATE_FAMILY_CONTACT_DETAILS";x;;;;;;;x;x;x;
 Lapsi;"Perheen yhteystietojen järjestyksen muokkaus";"UPDATE_FAMILY_CONTACT_PRIORITY";x;;;;;;;x;x;x;
@@ -334,14 +335,14 @@ Yksikkö;"Mobiililaitteiden luku";READ_MOBILE_DEVICES;x;;;;;;;x;;;x
 Yksikkö;"Mobiililaitteen parituksen luonti";"CREATE_MOBILE_DEVICE_PAIRING";x;;;;;;;x;;;x
 Yksikkö;"Käyttöoikeuksien luku";READ_ACL;x;;;;;;;x;;;x
 Yksikkö;"Johtajan käyttöoikeuden luonti";"INSERT_ACL_UNIT_SUPERVISOR";x;;;;;;;;;;
-Yksikkö;"Johtajan käyttöoikeuden luonti";"DELETE_ACL_UNIT_SUPERVISOR";x;;;;;;;;;;
+Yksikkö;"Johtajan käyttöoikeuden muokkaus";"UPDATE_ACL_UNIT_SUPERVISOR";x;;;;;;;;;;
 Yksikkö;"Erityisopettajan käyttöoikeuden luonti";"INSERT_ACL_SPECIAL_EDUCATION_TEACHER";x;;;;;;;;;;
-Yksikkö;"Erityisopettajan käyttöoikeuden luonti";"DELETE_ACL_SPECIAL_EDUCATION_TEACHER";x;;;;;;;;;;
+Yksikkö;"Erityisopettajan käyttöoikeuden muokkaus";"UPDATE_ACL_SPECIAL_EDUCATION_TEACHER";x;;;;;;;;;;
 Yksikkö;"Varhaiskasvatussihteerin käyttöoikeuden luonti";"INSERT_ACL_EARLY_CHILDHOOD_EDUCATION_SECRETARY";x;;;;;;;;;;
-Yksikkö;"Varhaiskasvatussihteerin käyttöoikeuden poisto";"DELETE_ACL_EARLY_CHILDHOOD_EDUCATION_SECRETARY";x;;;;;;;;;;
+Yksikkö;"Varhaiskasvatussihteerin käyttöoikeuden muokkaus";"UPDATE_ACL_EARLY_CHILDHOOD_EDUCATION_SECRETARY";x;;;;;;;;;;
 Yksikkö;"Henkilökunnan käyttöoikeuden luonti";INSERT_ACL_STAFF;x;;;;;;;x;;;x
-Yksikkö;"Henkilökunnan käyttöoikeuden poisto";DELETE_ACL_STAFF;x;;;;;;;x;;;x
-Yksikkö;"Käyttöoikeuden poisto (ajastettu)";DELETE_ACL_SCHEDULED;x;;;;;;;x;;;
+Yksikkö;"Henkilökunnan käyttöoikeuden muokkaus";UPDATE_ACL_STAFF;x;;;;;;;x;;;x
+Yksikkö;"Käyttöoikeuden muokkaus (ajastettu)";UPDATE_ACL_SCHEDULED;x;;;;;;;x;;;
 Yksikkö;"Ryhmän käyttöoikeuden muokkaus";UPDATE_STAFF_GROUP_ACL;x;;;;;;;x;;;x
 Yksikkö;"Saapuneet hakemukset -raportti";READ_APPLICATIONS_REPORT;x;x;x;;;x;;x;;;x
 Yksikkö;"Varhaiskasvatuspaikkatakuu-raportti";"READ_PLACEMENT_GUARANTEE_REPORT";x;;x;;;x;;x;;;x

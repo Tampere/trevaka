@@ -295,7 +295,7 @@ class TrevakaActionRuleMapping : ActionRuleMapping {
                     HasUnitRole(UserRole.UNIT_SUPERVISOR, UserRole.SPECIAL_EDUCATION_TEACHER).inPlacementUnitOfChildOfChildDocument(editable = true) as ScopedActionRule<in T>,
                 ) +
                 sequenceOf(
-                    HasGroupRole(UserRole.STAFF).inPlacementGroupOfChildOfChildDocument(editable = true, denyForDecisions = false) as ScopedActionRule<in T>,
+                    HasGroupRole(UserRole.STAFF).inPlacementGroupOfChildOfChildDocumentWithFutureAccess(editable = true, denyForDecisions = false) as ScopedActionRule<in T>,
                 )
         }
 
