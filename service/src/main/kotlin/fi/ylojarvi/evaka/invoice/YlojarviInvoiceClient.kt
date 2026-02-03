@@ -98,7 +98,7 @@ internal fun toInvoiceHeaderRow(header: String, invoice: InvoiceDetailed, now: H
         Text(person.address.streetAddress, 30), // 6. Lähiosoite: Asiakkaan lähiosoite
         Text("${person.address.postalCode} ${person.address.postOffice}", 30), // 7. Postiosoite: Asiakkaan postinro + postitoimipaikka
         Text(null, 15), // 8. Ei käytössä
-        Text(null, 1), // 9. Varattu (ei käsitellä liittymässä): Ääkkönen, jos ANSI-koodaus sen vaatii
+        Text("ä", 1), // 9. Varattu (ei käsitellä liittymässä): Ääkkönen, jos ANSI-koodaus sen vaatii
         Empty(14), // Puuttuu dokumentaatiosta
         Text(null, 30), // 10. Viitteenne: Viitteenne-tieto laskulla. Tiedon tulee siirtyä aineistossa.
         Text(null, 30), // 11. Ei käytössä
