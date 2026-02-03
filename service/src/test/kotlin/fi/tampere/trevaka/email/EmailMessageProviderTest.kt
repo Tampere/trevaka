@@ -127,8 +127,8 @@ internal class EmailMessageProviderTest : AbstractTampereIntegrationTest() {
             emailMessageProvider.calendarEventNotification(
                 Language.fi,
                 listOf(
-                    CalendarEventNotificationData(HtmlSafe("Tapahtuma 1"), FiniteDateRange(LocalDate.of(2023, 8, 21), LocalDate.of(2023, 8, 21))),
-                    CalendarEventNotificationData(HtmlSafe("Tapahtuma 2"), FiniteDateRange(LocalDate.of(2023, 8, 22), LocalDate.of(2023, 8, 23))),
+                    CalendarEventNotificationData(HtmlSafe("Tapahtuma 1"), FiniteDateRange(LocalDate.of(2023, 8, 21), LocalDate.of(2023, 8, 21)), emptyList()),
+                    CalendarEventNotificationData(HtmlSafe("Tapahtuma 2"), FiniteDateRange(LocalDate.of(2023, 8, 22), LocalDate.of(2023, 8, 23)), emptyList()),
                 ),
             ),
         ),

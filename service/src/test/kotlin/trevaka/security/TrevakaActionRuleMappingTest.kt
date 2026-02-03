@@ -589,14 +589,14 @@ private fun translate(entry: Enum<*>) = entry.name to when (entry.name) {
     "CREATE_MOBILE_DEVICE_PAIRING" -> "Mobiililaitteen parituksen luonti"
     "READ_ACL" -> "Käyttöoikeuksien luku"
     "INSERT_ACL_UNIT_SUPERVISOR" -> "Johtajan käyttöoikeuden luonti"
-    "DELETE_ACL_UNIT_SUPERVISOR" -> "Johtajan käyttöoikeuden luonti"
+    "UPDATE_ACL_UNIT_SUPERVISOR" -> "Johtajan käyttöoikeuden muokkaus"
     "INSERT_ACL_SPECIAL_EDUCATION_TEACHER" -> "Erityisopettajan käyttöoikeuden luonti"
-    "DELETE_ACL_SPECIAL_EDUCATION_TEACHER" -> "Erityisopettajan käyttöoikeuden luonti"
+    "UPDATE_ACL_SPECIAL_EDUCATION_TEACHER" -> "Erityisopettajan käyttöoikeuden muokkaus"
     "INSERT_ACL_EARLY_CHILDHOOD_EDUCATION_SECRETARY" -> "Varhaiskasvatussihteerin käyttöoikeuden luonti"
-    "DELETE_ACL_EARLY_CHILDHOOD_EDUCATION_SECRETARY" -> "Varhaiskasvatussihteerin käyttöoikeuden poisto"
+    "UPDATE_ACL_EARLY_CHILDHOOD_EDUCATION_SECRETARY" -> "Varhaiskasvatussihteerin käyttöoikeuden muokkaus"
     "INSERT_ACL_STAFF" -> "Henkilökunnan käyttöoikeuden luonti"
-    "DELETE_ACL_STAFF" -> "Henkilökunnan käyttöoikeuden poisto"
-    "DELETE_ACL_SCHEDULED" -> "Käyttöoikeuden poisto (ajastettu)"
+    "UPDATE_ACL_STAFF" -> "Henkilökunnan käyttöoikeuden muokkaus"
+    "UPDATE_ACL_SCHEDULED" -> "Käyttöoikeuden muokkaus (ajastettu)"
     "UPDATE_STAFF_GROUP_ACL" -> "Ryhmän käyttöoikeuden muokkaus"
     "READ_APPLICATIONS_REPORT" -> "Saapuneet hakemukset -raportti"
     "READ_PLACEMENT_GUARANTEE_REPORT" -> "Varhaiskasvatuspaikkatakuu-raportti"
@@ -645,6 +645,7 @@ private fun translate(entry: Enum<*>) = entry.name to when (entry.name) {
     "READ_SERVICE_WORKER_ACCOUNT_MESSAGES" -> "Palveluohjauksen viestien luku"
     "CREATE_CHILD_DECISION_DOCUMENT" -> "Muun päätöksen luonti"
     "READ_TITANIA_ERRORS" -> "Titania-virheet -raportti"
+    "READ_SERVICE_NEEDS" -> "Palvelutarpeiden luku"
     else -> throw error("Unsupported entry ${entry.name}")
 }
 
