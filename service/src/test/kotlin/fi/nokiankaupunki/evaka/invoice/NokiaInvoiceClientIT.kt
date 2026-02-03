@@ -46,7 +46,7 @@ class NokiaInvoiceClientIT : AbstractNokiaIntegrationTest() {
         assertEquals(invoices, result.succeeded)
         assertEquals(emptyList<InvoiceDetailed>(), result.failed)
         assertEquals(emptyList<InvoiceDetailed>(), result.manuallySent)
-        val data = sftpClient.getAsString("upload/536_56_202102011234.dat", Charsets.ISO_8859_1)
+        val data = sftpClient.getAsString("upload/605_56_202102011234.dat", Charsets.ISO_8859_1)
         assertEquals(
             ClassPathResource("invoice-client/nokia-invoice-2026.dat").getContentAsString(Charsets.ISO_8859_1),
             data,
