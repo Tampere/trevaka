@@ -112,7 +112,7 @@ internal fun toInvoiceHeaderRow(header: String, invoice: InvoiceDetailed, now: H
         Text("K", 1), // 18. Tulostustapa: Tulostetaan K/E
         Date(invoice.invoiceDate), // 19. Laskupvm: Laskutuspäivä, vvvvkkpp
         Date(invoice.dueDate), // 20. Eräpvm: Eräpäivä, vvvvkkpp
-        Date((invoice.sentAt ?: now).toLocalDate()), // 21. Kirjauspvm: Kirjauspäivä, vvvvkkpp
+        Date(invoice.invoiceDate), // 21. Kirjauspvm: Kirjauspäivä, vvvvkkpp
         Date(null), // 22. Tulostuspvm: Käytössä tulostustavalla E (ks. nro 18)
         Text(null, 10), // 23. Hyvityslaskunumero: Hyvitettävän laskun numero
         Empty(2), // Puuttuu dokumentaatiosta
