@@ -25,5 +25,5 @@ trevaka:
   municipality: nokia
 nokia:
   invoice:
-    municipalityCode: 536
+    municipalityCode: 605
     invoiceType: 56
