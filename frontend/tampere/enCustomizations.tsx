@@ -510,19 +510,11 @@ const en: DeepPartial<Translations> = {
     searchPlaceholder: 'E.g. Amurin päiväkoti'
   },
   decisions: {
-    summary: (
-      <P width="800px">
-        This page displays the received decisions regarding your child.
-      </P>
-    ),
+    summary: 'This page displays the received decisions regarding your child.',
     applicationDecisions: {
       type: {
-        PRESCHOOL_DAYCARE: 'supplementary early childhood education',
-        PRESCHOOL_CLUB: 'pre-school club'
-      },
-      confirmationInfo: {
-        preschool:
-          'The place of pre-primary education and/or the place of activities that supplement pre-primary education must be received or rejected without delay, no later than within two weeks of receiving notification of the decision. If you have applied for both pre-primary education and activities that supplement pre-primary education, you will receive separate decisions on both.'
+        PRESCHOOL_DAYCARE: 'Supplementary early childhood education',
+        PRESCHOOL_CLUB: 'Pre-school club'
       },
       summary:
         'The place indicated in the decision must be received or rejected without delay, no later than two weeks after the decision has been notified.',
