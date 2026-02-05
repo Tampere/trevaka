@@ -194,9 +194,9 @@ internal fun toInvoiceRow(header: String, row: InvoiceRowDetailed): List<FixedLe
     Text(row.costCenter, 4), // KP: Kustannuspaikka
     Text(
         when {
-            row.daycareType.contains(CareType.FAMILY) -> " 483"
-            row.daycareType.contains(CareType.CENTRE) -> " 485"
-            row.daycareType.contains(CareType.CLUB) -> " 484"
+            row.daycareType.contains(CareType.FAMILY) -> "483"
+            row.daycareType.contains(CareType.CENTRE) -> "485"
+            row.daycareType.contains(CareType.CLUB) -> "484"
             else -> throw Error("DaycareType ${row.daycareType} not supported")
         },
         4,
