@@ -484,20 +484,10 @@ const fi: DeepPartial<Translations> = {
     searchPlaceholder: 'Esim. Peiponpellon päiväkoti'
   },
   decisions: {
-    childhoodEducationTitle:
-      'Varhaiskasvatukseen, esiopetusta täydentävään varhaiskasvatukseen ja kerhoon liittyvät päätökset',
-    summary: (
-      <P width="800px">
-        Tälle sivulle saapuvat kaikki lasta koskevat päätökset.
-      </P>
-    ),
+    summary: 'Tälle sivulle saapuvat kaikki lasta koskevat päätökset.',
     applicationDecisions: {
       type: {
-        PRESCHOOL_DAYCARE: 'esiopetusta täydentävästä varhaiskasvatuksesta'
-      },
-      confirmationInfo: {
-        preschool:
-          'Esiopetuspaikka ja/tai esiopetusta täydentävän varhaiskasvatuksen paikka tulee vastaanottaa tai hylätä viipymättä, viimeistään kahden viikon kuluessa päätöksen tiedoksisaannista. Mikäli olet hakenut sekä esiopetukseen että esiopetusta täydentävään varhaiskasvatukseen, saat molemmista erilliset päätökset.'
+        PRESCHOOL_DAYCARE: 'Esiopetusta täydentävä varhaiskasvatus'
       },
       summary:
         'Päätöksessä ilmoitettu paikka tulee vastaanottaa tai hylätä viipymättä, viimeistään kahden viikon kuluessa päätöksen tiedoksisaannista.',
