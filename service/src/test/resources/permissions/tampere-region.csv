@@ -289,6 +289,7 @@ Asiakirja;Luku;READ;x;;x;;;;;x;x;x;
 Asiakirja;"Metadatan luku";READ_METADATA;x;;;;;;;;;;
 Asiakirja;"Hyväksyttyjen päätöksien luku";READ_ACCEPTED_DECISIONS;;;;;;;;;;;
 Asiakirja;Lataus;DOWNLOAD;x;;;;;;;x;x;x;
+Asiakirja;"Version lataus";DOWNLOAD_VERSION;x;;;;;;;;;;
 Asiakirja;Muokkaus;UPDATE;x;;;;;;;x;x;x;
 Asiakirja;Julkaisu;PUBLISH;x;;;;;;;x;x;x;
 Asiakirja;"Seuraavaan tilaan siirtäminen";NEXT_STATUS;x;;;;;;;x;x;x;
