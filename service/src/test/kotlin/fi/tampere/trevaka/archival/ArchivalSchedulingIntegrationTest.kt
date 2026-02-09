@@ -32,6 +32,7 @@ import fi.espoo.evaka.shared.async.AsyncJobRunner
 import fi.espoo.evaka.shared.auth.AuthenticatedUser
 import fi.espoo.evaka.shared.dev.DevChildDocument
 import fi.espoo.evaka.shared.dev.DevChildDocumentDecision
+import fi.espoo.evaka.shared.dev.DevChildDocumentPublishedVersion
 import fi.espoo.evaka.shared.dev.DevDaycare
 import fi.espoo.evaka.shared.dev.DevDocumentTemplate
 import fi.espoo.evaka.shared.dev.DevEmployee
@@ -671,14 +672,19 @@ class ArchivalSchedulingIntegrationTest : AbstractTampereIntegrationTest() {
                         templateId = templateId,
                         status = DocumentStatus.COMPLETED,
                         content = emptyContent,
-                        publishedContent = emptyContent,
                         modifiedAt = now,
                         modifiedBy = user.evakaUserId,
                         contentLockedAt = now,
                         contentLockedBy = null,
-                        publishedAt = now,
-                        publishedBy = user.evakaUserId,
-                        documentKey = documentKey,
+                        publishedVersions = listOf(
+                            DevChildDocumentPublishedVersion(
+                                versionNumber = 1,
+                                createdAt = now,
+                                createdBy = user.evakaUserId,
+                                publishedContent = emptyContent,
+                                documentKey = documentKey,
+                            ),
+                        ),
                     ),
                 )
             } else {
@@ -688,13 +694,10 @@ class ArchivalSchedulingIntegrationTest : AbstractTampereIntegrationTest() {
                         templateId = templateId,
                         status = DocumentStatus.COMPLETED,
                         content = emptyContent,
-                        publishedContent = emptyContent,
                         modifiedAt = now,
                         modifiedBy = user.evakaUserId,
                         contentLockedAt = now,
                         contentLockedBy = null,
-                        publishedAt = now,
-                        publishedBy = user.evakaUserId,
                         decision = DevChildDocumentDecision(
                             daycareId = daycare.id,
                             validity = if (status != ChildDocumentDecisionStatus.REJECTED) DateRange(LocalDate.of(2020, 1, 1), validityEnd) else null,
@@ -703,7 +706,15 @@ class ArchivalSchedulingIntegrationTest : AbstractTampereIntegrationTest() {
                             status = status,
                         ),
                         decisionMaker = employee.id,
-                        documentKey = documentKey,
+                        publishedVersions = listOf(
+                            DevChildDocumentPublishedVersion(
+                                versionNumber = 1,
+                                createdAt = now,
+                                createdBy = user.evakaUserId,
+                                publishedContent = emptyContent,
+                                documentKey = documentKey,
+                            ),
+                        ),
                     ),
                 )
             }

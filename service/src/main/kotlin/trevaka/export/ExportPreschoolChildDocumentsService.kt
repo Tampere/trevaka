@@ -64,11 +64,12 @@ WITH question AS (SELECT question
                   CROSS JOIN jsonb_array_elements(section -> 'questions') question
                   WHERE document_template.id = ${bind(templateId)}
                     AND question ->> 'type' != 'STATIC_TEXT_DISPLAY'),
-     document AS (SELECT DISTINCT ON (child_id) *
-                  FROM child_document
-                  WHERE template_id = ${bind(templateId)}
-                    AND status = 'COMPLETED'
-                  ORDER BY child_id, published_at DESC NULLS LAST),
+     document AS (SELECT DISTINCT ON (cd.child_id) cd.child_id, v.published_content
+                  FROM child_document cd
+                  LEFT JOIN child_document_latest_published_version v ON v.child_document_id = cd.id
+                  WHERE cd.template_id = ${bind(templateId)}
+                    AND cd.status = 'COMPLETED'
+                  ORDER BY cd.child_id, v.published_at DESC NULLS LAST),
      answer AS (SELECT document.child_id, answer
                 FROM document
                 CROSS JOIN jsonb_array_elements(document.published_content -> 'answers') answer),
