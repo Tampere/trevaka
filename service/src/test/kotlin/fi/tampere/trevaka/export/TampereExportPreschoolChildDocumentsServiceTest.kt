@@ -21,6 +21,7 @@ import fi.espoo.evaka.document.childdocument.CheckboxGroupAnswerContent
 import fi.espoo.evaka.document.childdocument.DocumentContent
 import fi.espoo.evaka.document.childdocument.DocumentStatus
 import fi.espoo.evaka.shared.dev.DevChildDocument
+import fi.espoo.evaka.shared.dev.DevChildDocumentPublishedVersion
 import fi.espoo.evaka.shared.dev.DevDocumentTemplate
 import fi.espoo.evaka.shared.dev.DevEmployee
 import fi.espoo.evaka.shared.dev.DevPerson
@@ -182,13 +183,18 @@ class TampereExportPreschoolChildDocumentsServiceTest : AbstractTampereIntegrati
                     childId = childId,
                     templateId = templateId,
                     content = content,
-                    publishedContent = content,
                     modifiedAt = timestamp,
                     modifiedBy = employee.evakaUserId,
                     contentLockedAt = timestamp,
                     contentLockedBy = null,
-                    publishedAt = timestamp,
-                    publishedBy = employee.evakaUserId,
+                    publishedVersions = listOf(
+                        DevChildDocumentPublishedVersion(
+                            versionNumber = 1,
+                            createdAt = timestamp,
+                            createdBy = employee.evakaUserId,
+                            publishedContent = content,
+                        ),
+                    ),
                 ),
             )
         }

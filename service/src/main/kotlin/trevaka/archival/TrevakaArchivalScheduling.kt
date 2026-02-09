@@ -98,7 +98,7 @@ private fun selectLimitedEligibleDocumentIds(tx: Database.Transaction, clock: Ev
             """
                   $it.archived_at IS NULL
                   AND $it.status = 'COMPLETED'
-                  AND $it.document_key IS NOT NULL
+                  AND EXISTS (SELECT FROM child_document_published_version v WHERE v.child_document_id = $it.id AND v.document_key IS NOT NULL)
         """,
         )
     }

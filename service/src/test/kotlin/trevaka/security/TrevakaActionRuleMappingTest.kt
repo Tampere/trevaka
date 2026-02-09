@@ -634,6 +634,7 @@ private fun translate(entry: Enum<*>) = entry.name to when (entry.name) {
     "READ_STARTING_PLACEMENTS_REPORT" -> "Varhaiskasvatuksessa aloittavat lapset"
     "READ_STAFF_EMPLOYEE_NUMBER" -> "Työntekijän henkilönumeron luku"
     "READ_ACCEPTED_DECISIONS" -> "Hyväksyttyjen päätöksien luku"
+    "DOWNLOAD_VERSION" -> "Version lataus"
     "PUBLISH" -> "Julkaisu"
     "NEXT_STATUS" -> "Seuraavaan tilaan siirtäminen"
     "PREV_STATUS" -> "Edelliseen tilaan siirtäminen"
