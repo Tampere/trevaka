@@ -24,7 +24,11 @@ fun planDocumentArchival(
     asyncJobRunner: AsyncJobRunner<AsyncJob>,
     schedule: ArchivalSchedule,
 ) {
-    if (schedule.dailyDocumentLimit < 1) error("Invalid archival limit configuration of ${schedule.dailyDocumentLimit}")
+    if (schedule.dailyDocumentLimit < 0) error("Invalid archival limit configuration of ${schedule.dailyDocumentLimit}")
+    if (schedule.dailyDocumentLimit.toInt() == 0) {
+        logger.info { "Archival daily document limit set to 0, skipping archival job creation" }
+        return
+    }
 
     db.transaction { tx ->
         val archivalPicks = selectLimitedEligibleDocumentIds(tx, clock, schedule)

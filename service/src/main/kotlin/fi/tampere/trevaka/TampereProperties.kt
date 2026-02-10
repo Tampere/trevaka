@@ -58,7 +58,7 @@ data class ArchivalProperties(
 )
 
 data class ArchivalSchedule(
-    val dailyDocumentLimit: Long = 2000,
+    val dailyDocumentLimit: Long = 0,
     val decisionDelayDays: Long = 180,
     val feeDecisionDelayDays: Long = 180,
     val voucherDecisionDelayDays: Long = 180,
