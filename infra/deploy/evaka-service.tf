@@ -249,6 +249,7 @@ module "app_service" {
     EVAKA_INTEGRATION_AROMI_ENABLED             = var.aromi_enabled
     EVAKA_INTEGRATION_AROMI_FILE_PATTERN        = var.aromi_enabled ? "'In/EVAKA'ddMMyyyy'.${var.environment == "prod" ? "csv" : "csvtst"}'" : null
     EVAKA_INTEGRATION_AROMI_WINDOW_START_OFFSET = var.aromi_enabled ? var.aromi_window_start_offset : null
+    EVAKA_INTEGRATION_AROMI_WINDOW_END_OFFSET   = var.aromi_enabled ? var.aromi_window_end_offset : null
 
     # ArchivalPoolEnv
     EVAKA_ARCHIVAL_POOL_THROTTLE_INTERVAL_SECONDS = 6
@@ -630,6 +631,11 @@ variable "aromi_cron" {
 variable "aromi_window_start_offset" {
   type    = number
   default = 1
+}
+
+variable "aromi_window_end_offset" {
+  type    = number
+  default = 24
 }
 
 variable "archival_enabled" {
