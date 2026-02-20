@@ -638,7 +638,7 @@ variable "aromi_enabled" {
 
 variable "aromi_cron" {
   type    = string
-  default = "0 0 1,12 * * *" // daily 1:00 and 12:00
+  default = "0 10 3,12 * * *" // daily 03:10 and 12:10
 }
 
 variable "aromi_window_start_offset" {
