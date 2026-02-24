@@ -41,7 +41,8 @@ const customizations: EmployeeMobileCustomizations = {
           PREPARATORY_DAYCARE_ONLY: 'Pelkkä täydentävä'
         }
       }
-    }
+    },
+    sv: {}
   },
   additionalStaffAttendanceTypes:
     sharedCustomizations.additionalStaffAttendanceTypes

@@ -36,7 +36,8 @@ const customizations: EmployeeMobileCustomizations = {
           PRESCHOOL_DAYCARE: 'Täydentävä varhaiskasvatus'
         }
       }
-    }
+    },
+    sv: {}
   },
   additionalStaffAttendanceTypes:
     sharedCustomizations.additionalStaffAttendanceTypes
