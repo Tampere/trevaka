@@ -63,5 +63,4 @@ jamix_diets_enabled  = true
 
 # service: PirkkalaProperties
 pirkkala_job_plan_document_archival_enabled     = true
-pirkkala_archival_schedule_daily_document_limit = 1000
-
+pirkkala_archival_schedule_daily_document_limit = 100
