@@ -71,7 +71,6 @@ dependencies {
 
     implementation("org.apache.httpcomponents.core5:httpcore5")
     implementation("org.apache.httpcomponents.client5:httpclient5")
-    implementation("com.github.kittinunf.fuel:fuel")
     implementation("org.jdbi:jdbi3-core")
     implementation("org.jdbi:jdbi3-kotlin")
     implementation("org.jdbi:jdbi3-json")
