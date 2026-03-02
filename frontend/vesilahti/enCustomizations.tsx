@@ -175,7 +175,7 @@ const en: DeepPartial<Translations> = {
                 . If you do not activate the Suomi.fi Messages service, the
                 decision will be sent to you by post.
               </P>
-              <P fitted={true}>
+              <P $fitted={true}>
                 * The information denoted with an asterisk is mandatory.
               </P>
             </>
@@ -194,7 +194,7 @@ const en: DeepPartial<Translations> = {
                 service or by post, if the applicant does not use the Suomi.fi
                 Messages service.
               </P>
-              <P fitted={true}>
+              <P $fitted={true}>
                 * The information denoted with an asterisk is mandatory.
               </P>
             </>
@@ -260,7 +260,7 @@ const en: DeepPartial<Translations> = {
         urgent: {
           attachmentsMessage: {
             text: (
-              <P fitted={true}>
+              <P $fitted={true}>
                 If the need for an early child education place is due to sudden
                 employment or obtaining a study place, the early childhood
                 education place must be sought no later than two weeks before
@@ -417,7 +417,7 @@ const en: DeepPartial<Translations> = {
         : ''
     }`,
     summary: (
-      <P width="800px">
+      <P $width="800px">
         The child&apos;s custodian can apply for early childhood education
         {preschoolEnabled
           ? ' and activities supplementing pre-primary education'
@@ -586,7 +586,7 @@ const en: DeepPartial<Translations> = {
         <P>
           <strong>To be noted:</strong>
         </P>
-        <Gap size="xs" />
+        <Gap $size="xs" />
         <UnorderedList>
           <li>
             If your income exceeds the highest payment income threshold
