@@ -154,7 +154,7 @@ const fi: DeepPartial<Translations> = {
                 . Mikäli ette ota Suomi.fi-viestit -palvelua käyttöön, päätös
                 lähetetään teille postitse.
               </P>
-              <P fitted={true}>* Tähdellä merkityt tiedot ovat pakollisia</P>
+              <P $fitted={true}>* Tähdellä merkityt tiedot ovat pakollisia</P>
             </>
           ),
           PRESCHOOL: (
@@ -177,7 +177,7 @@ const fi: DeepPartial<Translations> = {
                 -palveluun tai postitse, mikäli et ole ottanut Suomi.fi
                 -palvelua käyttöön.
               </P>
-              <P fitted={true}>* Tähdellä merkityt tiedot ovat pakollisia</P>
+              <P $fitted={true}>* Tähdellä merkityt tiedot ovat pakollisia</P>
             </>
           ),
           CLUB: (
@@ -235,7 +235,7 @@ const fi: DeepPartial<Translations> = {
         urgent: {
           attachmentsMessage: {
             text: (
-              <P fitted={true}>
+              <P $fitted={true}>
                 Mikäli varhaiskasvatuspaikan tarve johtuu äkillisestä
                 työllistymisestä tai opiskelupaikan saamisesta, tulee paikkaa
                 hakea viimeistään kaksi viikkoa ennen kuin hoidon tarve alkaa.
@@ -383,7 +383,7 @@ const fi: DeepPartial<Translations> = {
       preschoolEnabled ? ' ja esiopetukseen' : ''
     }`,
     summary: (
-      <P width="800px">
+      <P $width="800px">
         Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen
         {preschoolEnabled ? ' ja esiopetukseen' : ''}. Huoltajan lasten tiedot
         haetaan tähän näkymään automaattisesti Väestötietojärjestelmästä.
@@ -557,7 +557,7 @@ const fi: DeepPartial<Translations> = {
               Oikaisuvaatimus on tehtävä kirjallisesti. Myös sähköinen asiakirja
               täyttää vaatimuksen kirjallisesta muodosta.
             </P>
-            <P noMargin>Oikaisuvaatimuksessa on ilmoitettava:</P>
+            <P $noMargin>Oikaisuvaatimuksessa on ilmoitettava:</P>
             <ol>
               <li>
                 oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite ja
@@ -576,7 +576,7 @@ const fi: DeepPartial<Translations> = {
               <li>miten päätöstä halutaan oikaistavaksi</li>
               <li>perusteet, joilla oikaisua vaaditaan.</li>
             </ol>
-            <P noMargin>Oikaisuvaatimukseen on liitettävä:</P>
+            <P $noMargin>Oikaisuvaatimukseen on liitettävä:</P>
             <ol>
               <li>asiakirjat, joihin vedotaan</li>
               <li>valtakirja, mikäli käytetään asiamiestä.</li>
@@ -652,7 +652,7 @@ const fi: DeepPartial<Translations> = {
             sähköisesti tapahtuu lähettäjän omalla vastuulla.
           </P>
           <H3>Oikaisuvaatimuksen muoto ja kieli</H3>
-          <P noMargin>Oikaisuvaatimuksessa on ilmoitettava:</P>
+          <P $noMargin>Oikaisuvaatimuksessa on ilmoitettava:</P>
           <ol>
             <li>
               Oikaisuvaatimuksen tekijän nimi, kotikunta, postiosoite ja
@@ -668,7 +668,7 @@ const fi: DeepPartial<Translations> = {
             <li>perusteet, joilla oikaisua vaaditaan</li>
           </ol>
 
-          <P noMargin>Oikaisuvaatimukseen on liitettävä</P>
+          <P $noMargin>Oikaisuvaatimukseen on liitettävä</P>
           <ol>
             <li>asiakirjat, joihin vedotaan</li>
             <li>valtakirja, mikäli käytetään asiamiestä</li>
@@ -745,7 +745,7 @@ const fi: DeepPartial<Translations> = {
         <P>
           <strong>Huomioitavaa:</strong>
         </P>
-        <Gap size="xs" />
+        <Gap $size="xs" />
         <UnorderedList data-qa="income-formDescription-ul">
           <li>
             Jos tulosi ylittävät perhekoon mukaisen korkeimman maksun tulorajan,
