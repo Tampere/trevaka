@@ -347,6 +347,24 @@ jobs:
           command: ./link.sh && ./lint.sh
       - slack-notification
 
+  notify_update_tracker:
+    executor: docker_ubuntu
+    resource_class: small
+    parameters:
+      source:
+        type: string
+      environment:
+        type: string
+    steps:
+      - run:
+          name: Notify evaka-update-tracker (<< parameters.source >> << parameters.environment >>)
+          command: |
+            curl -sf -X POST \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: token ${EVAKA_PAT}" \
+              https://api.github.com/repos/espoon-voltti/evaka-update-tracker/dispatches \
+              -d '{"event_type":"<< parameters.source >>-deployed","client_payload":{"source":"<< parameters.source >>","environment":"<< parameters.environment >>"}}'
+
   deploy_frontends:
     parameters:
       municipality:
@@ -565,6 +583,14 @@ workflows:
           municipality: tampere
           environment: test
           version: << pipeline.parameters.version >>
+      - notify_update_tracker:
+          name: notify_update_tracker_test
+          context:
+            - evaka-update-tracker
+          requires:
+            - tampere_test_backends
+          source: trevaka
+          environment: test
 
       # tampere-prod
       - tampere_prod_approve:
@@ -593,6 +619,14 @@ workflows:
           municipality: tampere
           environment: prod
           version: << pipeline.parameters.version >>
+      - notify_update_tracker:
+          name: notify_update_tracker_prod
+          context:
+            - evaka-update-tracker
+          requires:
+            - tampere_prod_backends
+          source: trevaka
+          environment: prod
 
       # other test environments
       - deploy_frontends:
