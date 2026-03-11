@@ -42,6 +42,7 @@ parameters:
 orbs:
   aws-cli: circleci/aws-cli@5.4.1
   aws-ecr: circleci/aws-ecr@9.7.0
+  slack: circleci/slack@5.2.3
   terraform: circleci/terraform@3.7.0
 
 executors:
@@ -118,6 +119,13 @@ commands:
       - terraform/install:
           terraform_version: 1.14.0 # NOTE: Update infra/deploy/mise.toml to match
 
+  slack-notification:
+    steps:
+      - slack/notify:
+          channel: evaka-infra-ci-seutu
+          event: fail
+          template: basic_fail_1
+
 jobs:
   # MISC JOBS
 
@@ -126,6 +134,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - run: /bin/sh -c 'apk --no-cache add curl jq bash'
       - run:
           name: reuse lint
           command: |
@@ -136,6 +145,7 @@ jobs:
               echo '=========================================';
               exit 1
             }
+      - slack-notification
 
   terraform_lint:
     executor: docker_ubuntu
@@ -151,6 +161,7 @@ jobs:
       - terraform/fmt:
           path: << parameters.path >>
           recursive: true
+      - slack-notification
 
   # BUILD JOBS
 
@@ -168,6 +179,7 @@ jobs:
           dir: evaka/apigw
           cache: api-gateway
           version: << parameters.version >>
+      - slack-notification
 
   frontend_build_image:
     executor: machine_ubuntu
@@ -193,6 +205,7 @@ jobs:
           extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=<< parameters.customizations >> --build-arg ICONS=pro --build-context customizations=frontend/<< parameters.customizations >>
           cache: frontend-<< parameters.customizations >>
           version: << parameters.version >>
+      - slack-notification
 
   service_build_image:
     executor: machine_ubuntu
@@ -214,6 +227,7 @@ jobs:
           dir: service
           extra_build_args: --build-context core=evaka --target builder --cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:service-<< pipeline.git.revision >>
           version: << parameters.version >>
+      - slack-notification
 
   service_test:
     executor: machine_ubuntu
@@ -248,6 +262,7 @@ jobs:
       - store_artifacts:
           path: /tmp/service/build/reports
           destination: build/reports
+      - slack-notification
 
   e2e_test:
     executor: machine_ubuntu
@@ -330,6 +345,7 @@ jobs:
           name: Lint customizations
           working_directory: frontend
           command: ./link.sh && ./lint.sh
+      - slack-notification
 
   deploy_frontends:
     parameters:
@@ -371,6 +387,8 @@ jobs:
               --exclude "*index.html" \
               --exclude "*service-worker.js" --exclude "*service-worker.js.map" \
               --exclude "maintenance-page/*"
+      - slack-notification
+
   deploy_backends:
     executor: docker_ubuntu
     resource_class: small
@@ -412,6 +430,7 @@ jobs:
                 path: infra/deploy
                 var: apps_version=<< parameters.version >>,force_new_deployment=false,maintenance_mode_enabled=<< pipeline.parameters.maintenance_mode_enabled >>
                 var_file: variables/<< parameters.municipality >>-<<parameters.environment >>-apps.tfvars
+      - slack-notification
 
 workflows:
   version: 2
@@ -422,8 +441,12 @@ workflows:
         - not:
             equal: [scheduled_pipeline, << pipeline.trigger_source >>]
     jobs:
-      - check_licenses
+      - check_licenses:
+          context:
+            - slack-secrets
       - terraform_lint:
+          context:
+            - slack-secrets
           matrix:
             parameters:
               path:
@@ -432,11 +455,13 @@ workflows:
       - apigw_build_image:
           context:
             - trevaka-aws
+            - slack-secrets
           version: << pipeline.parameters.version >>
 
       - e2e_test:
           context:
             - trevaka-aws
+            - slack-secrets
           requires:
             - frontend_build_image-<< matrix.customizations >>
             - apigw_build_image
@@ -450,6 +475,7 @@ workflows:
       - frontend_build_image:
           context:
             - trevaka-aws
+            - slack-secrets
           version: << pipeline.parameters.version >>
           matrix:
             parameters:
@@ -467,10 +493,12 @@ workflows:
       - service_build_image:
           context:
             - trevaka-aws
+            - slack-secrets
           version: << pipeline.parameters.version >>
       - service_test:
           context:
             - trevaka-aws
+            - slack-secrets
           requires:
             - service_build_image
           version: << pipeline.parameters.version >>
@@ -496,6 +524,7 @@ workflows:
           context:
             - trevaka-aws
             - tampere-evaka-dev
+            - slack-secrets
           requires:
             - tampere_dev_approve
           municipality: tampere
@@ -506,6 +535,7 @@ workflows:
           context:
             - trevaka-aws
             - tampere-evaka-dev
+            - slack-secrets
           requires:
             - tampere_dev_frontends
           municipality: tampere
@@ -518,6 +548,7 @@ workflows:
           context:
             - trevaka-aws
             - tampere-evaka-test
+            - slack-secrets
           requires:
             - tampere_prod_approve
           municipality: tampere
@@ -528,6 +559,7 @@ workflows:
           context:
             - trevaka-aws
             - tampere-evaka-test
+            - slack-secrets
           requires:
             - tampere_test_frontends
           municipality: tampere
@@ -544,6 +576,7 @@ workflows:
           context:
             - trevaka-aws
             - tampere-evaka-prod
+            - slack-secrets
           requires:
             - tampere_prod_approve
           municipality: tampere
@@ -554,6 +587,7 @@ workflows:
           context:
             - trevaka-aws
             - tampere-evaka-prod
+            - slack-secrets
           requires:
             - tampere_prod_frontends
           municipality: tampere
@@ -577,6 +611,7 @@ workflows:
           context:
             - trevaka-aws
             - << matrix.municipality >>-evaka-test
+            - slack-secrets
           requires:
             - tampere_dev_backends
           municipality: << matrix.municipality >>
@@ -598,6 +633,7 @@ workflows:
           context:
             - trevaka-aws
             - << matrix.municipality >>-evaka-test
+            - slack-secrets
           requires:
             - << matrix.municipality >>_test_frontends
           municipality: << matrix.municipality >>
@@ -621,6 +657,7 @@ workflows:
           context:
             - trevaka-aws
             - << matrix.municipality >>-evaka-prod
+            - slack-secrets
           requires:
             - << matrix.municipality >>_test_backends
             - tampere_prod_backends
@@ -643,6 +680,7 @@ workflows:
           context:
             - trevaka-aws
             - << matrix.municipality >>-evaka-prod
+            - slack-secrets
           requires:
             - << matrix.municipality >>_prod_frontends
           municipality: << matrix.municipality >>
@@ -664,6 +702,7 @@ workflows:
           context:
             - trevaka-aws
             - << pipeline.parameters.municipality >>-evaka-<< pipeline.parameters.environment >>
+            - slack-secrets
           municipality: << pipeline.parameters.municipality >>
           environment: << pipeline.parameters.environment >>
           version: << pipeline.parameters.version >>
@@ -672,6 +711,7 @@ workflows:
           context:
             - trevaka-aws
             - << pipeline.parameters.municipality >>-evaka-<< pipeline.parameters.environment >>
+            - slack-secrets
           requires:
             - << pipeline.parameters.municipality >>_<< pipeline.parameters.environment >>_frontends
           municipality: << pipeline.parameters.municipality >>
