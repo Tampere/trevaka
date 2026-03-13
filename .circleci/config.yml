@@ -324,8 +324,7 @@ jobs:
           working_directory: e2e
           command: yarn e2e-ci-playwright
           environment:
-            HEADLESS: true
-            JEST_JUNIT_OUTPUT_DIR: test-results
+            CI: 'true'
       - run:
           name: Collect docker compose logs
           command: docker compose --profile evaka logs --tail=all > /tmp/docker-compose-logs.txt
@@ -334,11 +333,8 @@ jobs:
           path: /tmp/docker-compose-logs.txt
           destination: docker-compose-logs.txt
       - store_artifacts:
-          path: e2e/screenshots
-          destination: screenshots
-      - store_artifacts:
-          path: e2e/videos
-          destination: videos
+          path: e2e/test-results/artifacts
+          destination: test-artifacts
       - store_test_results:
           path: e2e/test-results
       - run:

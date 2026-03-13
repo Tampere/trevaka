@@ -8,6 +8,7 @@ import LocalTime from 'lib-common/local-time'
 import { fromUuid, randomId } from 'lib-common/id-type'
 import { AreaId, DaycareId, PlacementId } from 'lib-common/generated/api-types/shared'
 import config from 'e2e-test/config'
+import { test, expect } from 'e2e-test/playwright'
 import { resetDatabaseForE2ETests } from '../../common/tampere-dev-api'
 import { createDaycarePlacements } from 'e2e-test/generated/api-clients'
 import {
@@ -17,20 +18,21 @@ import {
 } from 'e2e-test/dev-api/fixtures'
 import CitizenCalendarPage from 'e2e-test/pages/citizen/citizen-calendar'
 import CitizenHeader from 'e2e-test/pages/citizen/citizen-header'
-import { Page } from 'e2e-test/utils/page'
-import { waitUntilEqual } from "e2e-test/utils";
+import { waitUntilEqual } from 'e2e-test/utils'
 import { enduserLogin } from 'e2e-test/utils/user'
 import { DevPerson } from 'e2e-test/generated/api-types'
 
 const mockedTime = HelsinkiDateTime.of(2024, 3, 14, 7, 26)
 const mockedDate = mockedTime.toLocalDate()
 
-let page: Page
 let header: CitizenHeader
 let calendarPage: CitizenCalendarPage
 let children: DevPerson[]
 
-beforeEach(async () => {
+test.describe('Citizen attendance reservations', () => {
+  test.use({ evakaOptions: { mockedTime } })
+
+  test.beforeEach(async ({ evaka: page }) => {
     await resetDatabaseForE2ETests()
     const child = await Fixture.person(testChildRestricted)
       .saveChild({updateMockVtj: true})
@@ -84,34 +86,32 @@ beforeEach(async () => {
     )
     const adult = await Fixture.person(testAdult).saveAdult({updateMockVtjWithDependants: children})
 
-    page = await Page.open({ mockedTime })
     await page.goto(config.enduserUrl)
     await enduserLogin(page, adult)
     header = new CitizenHeader(page)
     calendarPage = new CitizenCalendarPage(page, 'desktop')
     await header.selectTab('calendar')
-})
+  })
 
-describe('Citizen attendance reservations', () => {
-    test('Open absence modal and check Tampere options', async () => {
-        const reservationDay = mockedDate.addBusinessDays(10)
+  test('Open absence modal and check Tampere options', async ({ evaka: page }) => {
+    const reservationDay = mockedDate.addBusinessDays(10)
 
-        const dayView = await calendarPage.openDayView(reservationDay)
-        await dayView.createAbsence()
-        await waitUntilEqual(
-            () => page.find('[data-qa="title"]').text,
-            'Ilmoita poissaoloja'
-        )
-        let absenceChips = await page.findAll('[data-qa^="absence-"]')
-        expect(await absenceChips.count()).toBe(2)
+    const dayView = await calendarPage.openDayView(reservationDay)
+    await dayView.createAbsence()
+    await waitUntilEqual(
+        () => page.find('[data-qa="title"]').text,
+        'Ilmoita poissaoloja'
+    )
+    let absenceChips = await page.findAll('[data-qa^="absence-"]')
+    expect(await absenceChips.count()).toBe(2)
 
-        await waitUntilEqual(
-            () => page.findByDataQa('absence-SICKLEAVE').find('span').text,
-            'Sairaus'
-        )
-        await waitUntilEqual(
-            () => page.findByDataQa('absence-OTHER_ABSENCE').find('span').text,
-            'Poissaolo'
-        )
-    })
+    await waitUntilEqual(
+        () => page.findByDataQa('absence-SICKLEAVE').find('span').text,
+        'Sairaus'
+    )
+    await waitUntilEqual(
+        () => page.findByDataQa('absence-OTHER_ABSENCE').find('span').text,
+        'Poissaolo'
+    )
+  })
 })
