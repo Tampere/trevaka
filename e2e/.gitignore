@@ -1,8 +1,7 @@
 node_modules/
 dist/
 junit.xml
-screenshots/
-traces/
+test-results/
 
 .pnp.*
 .yarn/*

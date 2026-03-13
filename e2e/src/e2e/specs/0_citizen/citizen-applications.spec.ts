@@ -4,7 +4,8 @@
 
 import HelsinkiDateTime from 'lib-common/helsinki-date-time'
 import config from 'e2e-test/config'
-import { Page, Radio, Checkbox, DatePicker } from 'e2e-test/utils/page'
+import { test, expect } from 'e2e-test/playwright'
+import { Radio, Checkbox, DatePicker } from 'e2e-test/utils/page'
 import { waitUntilEqual } from 'e2e-test/utils'
 import CitizenHeader from 'e2e-test/pages/citizen/citizen-header'
 import CitizenApplicationsPage from 'e2e-test/pages/citizen/citizen-applications'
@@ -17,32 +18,29 @@ import { testChildRestricted, testAdult, Fixture } from 'e2e-test/dev-api/fixtur
 const mockedTime = HelsinkiDateTime.of(2024, 4, 23, 7, 40)
 const mockedDate = mockedTime.toLocalDate()
 
-let page: Page
 let header: CitizenHeader
 let applicationsPage: CitizenApplicationsPage
 
-beforeEach(async () => {
-  await resetDatabaseForE2ETests()
-  const child = await Fixture.person(testChildRestricted)
-    .saveChild({ updateMockVtj: true })
-  const adult = await Fixture.person(testAdult)
-    .saveAdult({ updateMockVtjWithDependants: [child] })
-  page = await Page.open({ mockedTime })
-  await page.goto(config.enduserUrl)
-  await enduserLogin(page, adult)
-  header = new CitizenHeader(page)
-  applicationsPage = new CitizenApplicationsPage(page)
-})
-afterEach(async () => {
-  await page.close()
-})
+test.describe('Citizen applications page', () => {
+  test.use({ evakaOptions: { mockedTime } })
 
-const customerContactText = 'Varhaiskasvatuksen asiakaspalveluun: varhaiskasvatus.asiakaspalvelu@tampere.fi / 040 800 7260 (ma–to klo 9–11).'
-const customerContactEmailHref = 'mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi'
-const customerContactTelHref = 'tel:+358408007260'
+  test.beforeEach(async ({ evaka: page }) => {
+    await resetDatabaseForE2ETests()
+    const child = await Fixture.person(testChildRestricted)
+      .saveChild({ updateMockVtj: true })
+    const adult = await Fixture.person(testAdult)
+      .saveAdult({ updateMockVtjWithDependants: [child] })
+    await page.goto(config.enduserUrl)
+    await enduserLogin(page, adult)
+    header = new CitizenHeader(page)
+    applicationsPage = new CitizenApplicationsPage(page)
+  })
 
-describe('Citizen applications page', () => {
-  test('Applications and ApplicationCreation customizations', async () => {
+  const customerContactText = 'Varhaiskasvatuksen asiakaspalveluun: varhaiskasvatus.asiakaspalvelu@tampere.fi / 040 800 7260 (ma–to klo 9–11).'
+  const customerContactEmailHref = 'mailto:varhaiskasvatus.asiakaspalvelu@tampere.fi'
+  const customerContactTelHref = 'tel:+358408007260'
+
+  test('Applications and ApplicationCreation customizations', async ({ evaka: page }) => {
     await header.selectTab('applications')
     await waitUntilEqual(() => page.find('h1 + p').text, 'Lapsen huoltaja voi tehdä lapselleen hakemuksen varhaiskasvatukseen, esiopetukseen ja kerhoon. Huoltajan lasten tiedot haetaan tähän näkymään automaattisesti Väestötietojärjestelmästä.')
     await page.find(`[data-qa="new-application-${testChildRestricted.id}"]`).click()
@@ -82,7 +80,7 @@ describe('Citizen applications page', () => {
       customerContactTelHref
     )
   })
-  test('Daycare application form customizations', async () => {
+  test('Daycare application form customizations', async ({ evaka: page }) => {
     await header.selectTab('applications')
     let editorPage = await applicationsPage.createApplication(testChildRestricted.id, 'DAYCARE')
     await waitUntilEqual(
@@ -227,7 +225,7 @@ describe('Citizen applications page', () => {
       'Lapsella on jo samantyyppinen, keskeneräinen hakemus. Palaa Hakemukset-näkymään ja muokkaa olemassa olevaa hakemusta tai ota yhteyttä Varhaiskasvatuksen asiakaspalveluun.'
     )
   })
-  test('Club application form customizations', async () => {
+  test('Club application form customizations', async ({ evaka: page }) => {
     await header.selectTab('applications')
     let editorPage = await applicationsPage.createApplication(testChildRestricted.id, 'CLUB')
     await waitUntilEqual(

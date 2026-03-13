@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
 import config from 'e2e-test/config'
-import { Page } from 'e2e-test/utils/page'
+import { test } from 'e2e-test/playwright'
 import { waitUntilEqual } from 'e2e-test/utils'
 import CitizenHeader from 'e2e-test/pages/citizen/citizen-header'
 import CitizenIncomePage from 'e2e-test/pages/citizen/citizen-income'
@@ -13,26 +13,21 @@ import {
 } from '../../common/tampere-dev-api'
 import { testAdult, Fixture } from 'e2e-test/dev-api/fixtures'
 
-let page: Page
 let header: CitizenHeader
 let incomePage: CitizenIncomePage
 
-beforeEach(async () => {
-  await resetDatabaseForE2ETests()
-  const adult = await Fixture.person(testAdult)
-    .saveAdult({ updateMockVtjWithDependants: [] })
-  page = await Page.open()
-  await page.goto(config.enduserUrl)
-  await enduserLogin(page, adult)
-  header = new CitizenHeader(page)
-  incomePage = new CitizenIncomePage(page, 'desktop')
-})
-afterEach(async () => {
-  await page.close()
-})
+test.describe('Citizen income page', () => {
+  test.beforeEach(async ({ evaka: page }) => {
+    await resetDatabaseForE2ETests()
+    const adult = await Fixture.person(testAdult)
+      .saveAdult({ updateMockVtjWithDependants: [] })
+    await page.goto(config.enduserUrl)
+    await enduserLogin(page, adult)
+    header = new CitizenHeader(page)
+    incomePage = new CitizenIncomePage(page, 'desktop')
+  })
 
-describe('Citizen income page', () => {
-  test('Text customizations', async () => {
+  test('Text customizations', async ({ evaka: page }) => {
     await header.selectTab('income')
 
     let incomeDescriptionP1 = page.find('[data-qa="income-description-p1"]')
