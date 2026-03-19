@@ -43,12 +43,23 @@ RUN apt-get update \
 WORKDIR /evaka/service
 COPY entrypoint.sh entrypoint.sh
 ENTRYPOINT ["./entrypoint.sh"]
+
+ENV USERNAME=ubuntu
+ENV HOME_DIR=/home/${USERNAME}
+
+RUN mkdir -p /config \
+ && chown ${USERNAME}:${USERNAME} /config \
+ && ln -s /config ${HOME_DIR}/s3 # old config path for backwards compatibility
+
+VOLUME /config
+VOLUME /tmp
+
 COPY --from=builder /service/build/extracted/dependencies/ ./
 COPY --from=builder /service/build/extracted/spring-boot-loader/ ./
 COPY --from=builder /service/build/extracted/snapshot-dependencies/ ./
 COPY --from=builder /service/build/extracted/application/ ./
 
-USER ubuntu
+USER ${USERNAME}
 
 ARG build=none
 ARG commit=none

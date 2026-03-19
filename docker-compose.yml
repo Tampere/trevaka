@@ -69,6 +69,10 @@ services:
       args:
         EVAKA_CUSTOMIZATIONS: ${EVAKA_CUSTOMIZATIONS}
     image: ${EVAKA_FRONTEND_IMAGE}
+    read_only: true
+    tmpfs: # In ECS these are disk-backed via Dockerfile VOLUME (ext4 on ephemeral NVMe)
+      - /nginx:uid=101,gid=101,size=64m
+      - /internal:uid=101,gid=101,size=64m
     ports:
       - "9099:8080"
     environment:
@@ -86,6 +90,9 @@ services:
   apigw:
     build: evaka/apigw
     image: ${EVAKA_APIGW_IMAGE}
+    read_only: true
+    tmpfs: # In ECS these are disk-backed via Dockerfile VOLUME (ext4 on ephemeral NVMe)
+      - /config:uid=1001,gid=1001,size=64m
     hostname: apigw
     depends_on:
       - valkey
@@ -115,6 +122,10 @@ services:
       additional_contexts: # requires docker-compose 2.17.0 or newer
         core: evaka
     image: ${EVAKA_SERVICE_IMAGE}
+    read_only: true
+    tmpfs: # In ECS these are disk-backed via Dockerfile VOLUME (ext4 on ephemeral NVMe)
+      - /config:uid=1000,gid=1000,size=64m
+      - /tmp:exec,mode=1777,size=128m
     hostname: service
     depends_on:
       - db

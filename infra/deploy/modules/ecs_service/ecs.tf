@@ -43,12 +43,13 @@ resource "aws_ecs_task_definition" "service" {
   tags                     = {}
   container_definitions = jsonencode([
     {
-      name         = "${var.project}-${var.name}-${var.environment}"
-      image        = var.image
-      portMappings = [{ hostPort : var.container_port, containerPort : var.container_port, protocol : "tcp" }]
-      environment  = [for name, value in var.env_vars : { name : name, value : value } if value != null]
-      essential    = true
-      secrets      = [for name, arn in var.secrets : { name : name, valueFrom : arn } if arn != null]
+      name                   = "${var.project}-${var.name}-${var.environment}"
+      image                  = var.image
+      portMappings           = [{ hostPort : var.container_port, containerPort : var.container_port, protocol : "tcp" }]
+      environment            = [for name, value in var.env_vars : { name : name, value : value } if value != null]
+      essential              = true
+      secrets                = [for name, arn in var.secrets : { name : name, valueFrom : arn } if arn != null]
+      readonlyRootFilesystem = var.readonly_root_filesystem
       logConfiguration = {
         logDriver = "awslogs"
         options = {
