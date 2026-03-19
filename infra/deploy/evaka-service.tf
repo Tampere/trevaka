@@ -192,6 +192,7 @@ module "app_service" {
     EVAKA_PASSWORD_BLACKLIST_DIRECTORY           = "/opt/password-blacklists"
 
     EVAKA_NOT_FOR_PROD_FORCE_UNPUBLISH_DOCUMENT_TEMPLATE_ENABLED = contains(["dev", "test"], var.environment) ? true : null
+    EVAKA_NOT_FOR_PROD_ALLOW_SFI_ADMINS                          = contains(["dev", "test"], var.environment) ? true : null
 
     # JwtEnv
     EVAKA_JWT_PUBLIC_KEYS_URL = "file:///home/ubuntu/s3/jwks.json"
