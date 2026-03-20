@@ -160,3 +160,8 @@ variable "log_group_name" {
 variable "lb_listener_rule_priority" {
   type = number
 }
+
+variable "readonly_root_filesystem" {
+  description = "Whether to make the container filesystem read-only."
+  type        = bool
+}

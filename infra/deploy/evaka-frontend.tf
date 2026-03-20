@@ -21,6 +21,8 @@ module "app_proxy" {
   wait_for_steady_state = true
   force_new_deployment  = var.force_new_deployment || var.proxy_force_new_deployment
 
+  readonly_root_filesystem = true
+
   vpc_id             = data.terraform_remote_state.base.outputs.vpc_id
   ecs_cluster_id     = data.terraform_remote_state.base.outputs.ecs_cluster_id
   alb_listener_arn   = data.terraform_remote_state.base.outputs.public_alb_listener_arn

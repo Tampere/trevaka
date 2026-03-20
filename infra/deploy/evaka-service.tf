@@ -35,6 +35,8 @@ module "app_service" {
   wait_for_steady_state = true
   force_new_deployment  = var.force_new_deployment || var.service_force_new_deployment
 
+  readonly_root_filesystem = true
+
   vpc_id             = data.terraform_remote_state.base.outputs.vpc_id
   ecs_cluster_id     = data.terraform_remote_state.base.outputs.ecs_cluster_id
   alb_listener_arn   = data.terraform_remote_state.base.outputs.private_alb_listener_arn
@@ -195,7 +197,7 @@ module "app_service" {
     EVAKA_NOT_FOR_PROD_ALLOW_SFI_ADMINS                          = contains(["dev", "test"], var.environment) ? true : null
 
     # JwtEnv
-    EVAKA_JWT_PUBLIC_KEYS_URL = "file:///home/ubuntu/s3/jwks.json"
+    EVAKA_JWT_PUBLIC_KEYS_URL = "file:///config/jwks.json"
 
     # WebPushEnv
     EVAKA_WEB_PUSH_ENABLED = true
