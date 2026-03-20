@@ -48,8 +48,7 @@ ENV USERNAME=ubuntu
 ENV HOME_DIR=/home/${USERNAME}
 
 RUN mkdir -p /config \
- && chown ${USERNAME}:${USERNAME} /config \
- && ln -s /config ${HOME_DIR}/s3 # old config path for backwards compatibility
+ && chown ${USERNAME}:${USERNAME} /config
 
 VOLUME /config
 VOLUME /tmp
