@@ -45,7 +45,6 @@ COPY entrypoint.sh entrypoint.sh
 ENTRYPOINT ["./entrypoint.sh"]
 
 ENV USERNAME=ubuntu
-ENV HOME_DIR=/home/${USERNAME}
 
 RUN mkdir -p /config \
  && chown ${USERNAME}:${USERNAME} /config
