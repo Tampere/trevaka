@@ -60,7 +60,8 @@ const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
-    citizenChildDocumentTypes: true
+    citizenChildDocumentTypes: true,
+    placementDesktop: true
   },
   staging: {
     ...prod,
