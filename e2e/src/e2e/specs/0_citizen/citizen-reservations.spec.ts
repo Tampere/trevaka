@@ -18,7 +18,6 @@ import {
 } from 'e2e-test/dev-api/fixtures'
 import CitizenCalendarPage from 'e2e-test/pages/citizen/citizen-calendar'
 import CitizenHeader from 'e2e-test/pages/citizen/citizen-header'
-import { waitUntilEqual } from 'e2e-test/utils'
 import { enduserLogin } from 'e2e-test/utils/user'
 import { DevPerson } from 'e2e-test/generated/api-types'
 
@@ -98,19 +97,22 @@ test.describe('Citizen attendance reservations', () => {
 
     const dayView = await calendarPage.openDayView(reservationDay)
     await dayView.createAbsence()
-    await waitUntilEqual(
-        () => page.find('[data-qa="title"]').text,
+    await expect.poll(
+        () => page.find('[data-qa="title"]').text)
+        .toEqual(
         'Ilmoita poissaoloja'
     )
     let absenceChips = await page.findAll('[data-qa^="absence-"]')
     expect(await absenceChips.count()).toBe(2)
 
-    await waitUntilEqual(
-        () => page.findByDataQa('absence-SICKLEAVE').find('span').text,
+    await expect.poll(
+        () => page.findByDataQa('absence-SICKLEAVE').find('span').text)
+      .toEqual(
         'Sairaus'
     )
-    await waitUntilEqual(
-        () => page.findByDataQa('absence-OTHER_ABSENCE').find('span').text,
+    await expect.poll(
+        () => page.findByDataQa('absence-OTHER_ABSENCE').find('span').text)
+      .toEqual(
         'Poissaolo'
     )
   })
