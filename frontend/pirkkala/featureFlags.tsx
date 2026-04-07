@@ -50,15 +50,15 @@ const prod: FeatureFlags = {
     childDocuments: true,
     feeDecisions: true,
     voucherValueDecisions: true
-  }
+  },
+  placementDesktop: true
 }
 
 const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
-    citizenChildDocumentTypes: true,
-    placementDesktop: true
+    citizenChildDocumentTypes: true
   },
   prod
 }

@@ -53,15 +53,15 @@ const prod: FeatureFlags = {
     voucherValueDecisions: true,
     childDocuments: true
   },
-  decisionChildDocumentTypes: true
+  decisionChildDocumentTypes: true,
+  placementDesktop: true
 }
 
 const features: Features = {
   default: {
     ...prod,
     environmentLabel: 'Test',
-    citizenChildDocumentTypes: true,
-    placementDesktop: true
+    citizenChildDocumentTypes: true
   },
   staging: {
     ...prod,
