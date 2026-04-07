@@ -21,7 +21,7 @@ test.describe('Citizen income page', () => {
     const adult = await Fixture.person(testAdult)
       .saveAdult({ updateMockVtjWithDependants: [] })
     await page.goto(config.enduserUrl)
-    await enduserLogin(page, adult)
+    await enduserLogin(page, adult, '/')
     header = new CitizenHeader(page)
     incomePage = new CitizenIncomePage(page, 'desktop')
   })

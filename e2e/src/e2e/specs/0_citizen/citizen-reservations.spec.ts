@@ -86,7 +86,7 @@ test.describe('Citizen attendance reservations', () => {
     const adult = await Fixture.person(testAdult).saveAdult({updateMockVtjWithDependants: children})
 
     await page.goto(config.enduserUrl)
-    await enduserLogin(page, adult)
+    await enduserLogin(page, adult, '/')
     header = new CitizenHeader(page)
     calendarPage = new CitizenCalendarPage(page, 'desktop')
     await header.selectTab('calendar')
