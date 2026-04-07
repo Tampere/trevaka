@@ -30,7 +30,7 @@ test.describe('Citizen applications page', () => {
     const adult = await Fixture.person(testAdult)
       .saveAdult({ updateMockVtjWithDependants: [child] })
     await page.goto(config.enduserUrl)
-    await enduserLogin(page, adult)
+    await enduserLogin(page, adult, '/')
     header = new CitizenHeader(page)
     applicationsPage = new CitizenApplicationsPage(page)
   })
