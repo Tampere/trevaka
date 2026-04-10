@@ -4,6 +4,8 @@
 
 package fi.ylojarvi.evaka
 
+import fi.espoo.evaka.OphEnv
+import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.application.ApplicationStatus
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.espoo.DefaultPasswordSpecification
@@ -83,6 +85,20 @@ class YlojarviConfig {
         daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
         placementToolApplicationStatus = ApplicationStatus.WAITING_DECISION,
     )
+
+    @Bean
+    fun ylojarviScheduledJobEnv(env: Environment): ScheduledJobsEnv<YlojarviScheduledJob> = ScheduledJobsEnv.fromEnvironment(
+        YlojarviScheduledJob.entries.associateWith { it.defaultSettings },
+        "ylojarvi.job",
+        env,
+    )
+
+    @Bean
+    fun ylojarviScheduledJobs(
+        properties: YlojarviProperties,
+        ophEnv: OphEnv,
+        env: ScheduledJobsEnv<YlojarviScheduledJob>,
+    ): YlojarviScheduledJobs = YlojarviScheduledJobs(properties, ophEnv, env)
 
     @Bean
     fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()

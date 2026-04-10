@@ -4,6 +4,8 @@
 
 package fi.orivesi.evaka
 
+import fi.espoo.evaka.OphEnv
+import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.espoo.DefaultPasswordSpecification
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
@@ -81,6 +83,20 @@ class OrivesiConfig {
         },
         daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
     )
+
+    @Bean
+    fun orivesiScheduledJobEnv(env: Environment): ScheduledJobsEnv<OrivesiScheduledJob> = ScheduledJobsEnv.fromEnvironment(
+        OrivesiScheduledJob.entries.associateWith { it.defaultSettings },
+        "orivesi.job",
+        env,
+    )
+
+    @Bean
+    fun orivesiScheduledJobs(
+        properties: OrivesiProperties,
+        ophEnv: OphEnv,
+        env: ScheduledJobsEnv<OrivesiScheduledJob>,
+    ): OrivesiScheduledJobs = OrivesiScheduledJobs(properties, ophEnv, env)
 
     @Bean
     fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()

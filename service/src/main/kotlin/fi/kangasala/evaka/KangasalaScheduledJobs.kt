@@ -4,6 +4,7 @@
 
 package fi.kangasala.evaka
 
+import fi.espoo.evaka.OphEnv
 import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.shared.async.AsyncJob
 import fi.espoo.evaka.shared.async.AsyncJobRunner
@@ -13,12 +14,17 @@ import fi.espoo.evaka.shared.job.JobSchedule
 import fi.espoo.evaka.shared.job.ScheduledJobDefinition
 import fi.espoo.evaka.shared.job.ScheduledJobSettings
 import trevaka.archival.planDocumentArchival
+import trevaka.export.exportPreschoolChildDocumentsViaSftp
 import java.time.LocalTime
 
 enum class KangasalaScheduledJob(
     val fn: (KangasalaScheduledJobs, Database.Connection, EvakaClock) -> Unit,
     val defaultSettings: ScheduledJobSettings,
 ) {
+    ExportPreschoolChildDocuments(
+        KangasalaScheduledJobs::exportPreschoolChildDocuments,
+        ScheduledJobSettings(enabled = false, schedule = JobSchedule.cron("0 0 0 1 8 ?")),
+    ),
     PlanDocumentArchival(
         KangasalaScheduledJobs::archiveEligibleDocuments,
         ScheduledJobSettings(enabled = false, schedule = JobSchedule.daily(LocalTime.of(20, 0))),
@@ -28,6 +34,7 @@ enum class KangasalaScheduledJob(
 class KangasalaScheduledJobs(
     private val coreAsyncJobRunner: AsyncJobRunner<AsyncJob>,
     private val properties: KangasalaProperties,
+    private val ophEnv: OphEnv,
     env: ScheduledJobsEnv<KangasalaScheduledJob>,
 ) : JobSchedule {
 
@@ -35,6 +42,11 @@ class KangasalaScheduledJobs(
         env.jobs.map {
             ScheduledJobDefinition(it.key, it.value) { db, clock -> it.key.fn(this, db, clock) }
         }
+
+    fun exportPreschoolChildDocuments(db: Database.Connection, clock: EvakaClock) {
+        val primus = properties.primus ?: error("Primus not configured")
+        exportPreschoolChildDocumentsViaSftp(db, clock, ophEnv.municipalityCode, primus)
+    }
 
     fun archiveEligibleDocuments(db: Database.Connection, clock: EvakaClock) {
         planDocumentArchival(

@@ -5,10 +5,12 @@
 package fi.vesilahti.evaka
 
 import org.springframework.boot.context.properties.ConfigurationProperties
+import trevaka.primus.PrimusProperties
 
 @ConfigurationProperties(prefix = "vesilahti")
 data class VesilahtiProperties(
     val bucket: BucketProperties,
+    val primus: PrimusProperties? = null,
 )
 
 data class BucketProperties(

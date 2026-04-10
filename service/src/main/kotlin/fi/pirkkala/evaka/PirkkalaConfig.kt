@@ -5,6 +5,7 @@
 package fi.pirkkala.evaka
 
 import fi.espoo.evaka.EvakaEnv
+import fi.espoo.evaka.OphEnv
 import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.espoo.DefaultPasswordSpecification
@@ -93,9 +94,10 @@ class PirkkalaConfig {
     @Bean
     fun pirkkalaScheduledJobs(
         properties: PirkkalaProperties,
+        ophEnv: OphEnv,
         env: ScheduledJobsEnv<PirkkalaScheduledJob>,
         asyncJobRunner: AsyncJobRunner<AsyncJob>,
-    ): PirkkalaScheduledJobs = PirkkalaScheduledJobs(asyncJobRunner, properties, env)
+    ): PirkkalaScheduledJobs = PirkkalaScheduledJobs(asyncJobRunner, properties, ophEnv, env)
 
     @Bean
     fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()

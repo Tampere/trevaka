@@ -5,6 +5,7 @@
 package fi.nokiankaupunki.evaka
 
 import fi.espoo.evaka.EvakaEnv
+import fi.espoo.evaka.OphEnv
 import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.application.ApplicationStatus
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
@@ -95,9 +96,10 @@ class NokiaConfig {
     @Bean
     fun nokiaScheduledJobs(
         properties: NokiaProperties,
+        ophEnv: OphEnv,
         env: ScheduledJobsEnv<NokiaScheduledJob>,
         asyncJobRunner: AsyncJobRunner<AsyncJob>,
-    ): NokiaScheduledJobs = NokiaScheduledJobs(asyncJobRunner, properties, env)
+    ): NokiaScheduledJobs = NokiaScheduledJobs(asyncJobRunner, properties, ophEnv, env)
 
     @Bean
     fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()

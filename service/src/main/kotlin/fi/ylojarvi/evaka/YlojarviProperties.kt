@@ -5,12 +5,14 @@
 package fi.ylojarvi.evaka
 
 import org.springframework.boot.context.properties.ConfigurationProperties
+import trevaka.primus.PrimusProperties
 import trevaka.sftp.SftpProperties
 
 @ConfigurationProperties(prefix = "ylojarvi")
 data class YlojarviProperties(
     val invoice: InvoiceProperties,
     val bucket: BucketProperties,
+    val primus: PrimusProperties? = null,
 )
 
 data class InvoiceProperties(

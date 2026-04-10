@@ -5,17 +5,63 @@
 package trevaka.export
 
 import fi.espoo.evaka.OphEnv
+import fi.espoo.evaka.reports.REPORT_STATEMENT_TIMEOUT
 import fi.espoo.evaka.shared.DocumentTemplateId
 import fi.espoo.evaka.shared.db.Database
+import fi.espoo.evaka.shared.domain.EvakaClock
 import fi.espoo.evaka.shared.domain.HelsinkiDateTime
+import fi.espoo.evaka.shared.sftp.SftpClient
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Service
 import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.model.PutObjectRequest
+import trevaka.primus.PrimusProperties
 import java.time.LocalDate
 
 private val logger = KotlinLogging.logger {}
+
+data class PreschoolChildDocumentsExport(val filename: String, val documents: String)
+
+private fun readPreschoolChildDocumentsForExport(
+    tx: Database.Read,
+    timestamp: HelsinkiDateTime,
+    municipalityCode: String,
+    filenamePrefix: String,
+    baseFilename: String,
+): PreschoolChildDocumentsExport {
+    val date = timestamp.toLocalDate()
+    val templateId = tx.getTemplateIdForExport(date)
+    logger.info { "Export child documents for template $templateId" }
+    val documents = tx.getDocumentsJsonForExport(templateId)
+    val filename = "${filenamePrefix}${municipalityCode}_${baseFilename}_$date.json"
+    return PreschoolChildDocumentsExport(filename, documents)
+}
+
+private fun uploadPreschoolChildDocumentsViaSftp(
+    export: PreschoolChildDocumentsExport,
+    primus: PrimusProperties,
+) {
+    val sftpClient = SftpClient(primus.sftp.toSftpEnv())
+    logger.info { "Uploading ${export.filename} via SFTP to ${primus.sftp.host}" }
+    export.documents.byteInputStream().use { sftpClient.put(it, export.filename) }
+    logger.info { "Uploaded ${export.filename} via SFTP" }
+}
+
+private fun String.ensureTrailingSlash(): String = if (this.endsWith("/")) this else "$this/"
+
+fun exportPreschoolChildDocumentsViaSftp(
+    db: Database.Connection,
+    clock: EvakaClock,
+    municipalityCode: String,
+    primus: PrimusProperties,
+) {
+    val export = db.read { tx ->
+        tx.setStatementTimeout(REPORT_STATEMENT_TIMEOUT)
+        readPreschoolChildDocumentsForExport(tx, clock.now(), municipalityCode, primus.sftp.prefix.ensureTrailingSlash(), "preschool_to_primary_transfer")
+    }
+    uploadPreschoolChildDocumentsViaSftp(export, primus)
+}
 
 @Service
 class ExportPreschoolChildDocumentsService(private val s3Client: S3Client, private val ophEnv: OphEnv) {
@@ -24,20 +70,21 @@ class ExportPreschoolChildDocumentsService(private val s3Client: S3Client, priva
         timestamp: HelsinkiDateTime,
         bucket: String,
     ): Pair<String, String> {
-        val date = timestamp.toLocalDate()
-        val templateId = tx.getTemplateIdForExport(date)
-        logger.info { "Export child documents for template $templateId" }
-        val documents = tx.getDocumentsJsonForExport(templateId)
-
-        val key = "reporting/preschool/${ophEnv.municipalityCode}_evaka_child_documents_$date.json"
+        val export = readPreschoolChildDocumentsForExport(
+            tx,
+            timestamp,
+            ophEnv.municipalityCode,
+            "reporting/preschool/",
+            "evaka_child_documents",
+        )
         val request = PutObjectRequest.builder()
             .bucket(bucket)
-            .key(key)
+            .key(export.filename)
             .contentType("application/json")
             .build()
-        val body = RequestBody.fromString(documents)
+        val body = RequestBody.fromString(export.documents)
         s3Client.putObject(request, body)
-        return bucket to key
+        return bucket to export.filename
     }
 }
 
