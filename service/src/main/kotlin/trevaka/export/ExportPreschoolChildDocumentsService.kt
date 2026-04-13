@@ -21,24 +21,30 @@ import java.time.LocalDate
 
 private val logger = KotlinLogging.logger {}
 
+enum class ChildDocumentTransferType(val templateNamePattern: String, val baseFilename: String) {
+    PRESCHOOL_TO_PRIMARY("%tiedonsiirto esiopetuksesta perusopetukseen%", "preschool_to_primary_transfer"),
+    DAYCARE_TO_PRESCHOOL("%tiedonsiirto varhaiskasvatuksesta esiopetukseen%", "daycare_to_preschool_transfer"),
+}
+
 data class PreschoolChildDocumentsExport(val filename: String, val documents: String)
 
-private fun readPreschoolChildDocumentsForExport(
+private fun readChildDocumentsForExport(
     tx: Database.Read,
     timestamp: HelsinkiDateTime,
     municipalityCode: String,
     filenamePrefix: String,
     baseFilename: String,
+    templateNamePattern: String,
 ): PreschoolChildDocumentsExport {
     val date = timestamp.toLocalDate()
-    val templateId = tx.getTemplateIdForExport(date)
+    val templateId = tx.getTemplateIdForExport(date, templateNamePattern)
     logger.info { "Export child documents for template $templateId" }
     val documents = tx.getDocumentsJsonForExport(templateId)
     val filename = "${filenamePrefix}${municipalityCode}_${baseFilename}_$date.json"
     return PreschoolChildDocumentsExport(filename, documents)
 }
 
-private fun uploadPreschoolChildDocumentsViaSftp(
+private fun uploadChildDocumentsViaSftp(
     export: PreschoolChildDocumentsExport,
     primus: PrimusProperties,
 ) {
@@ -50,17 +56,18 @@ private fun uploadPreschoolChildDocumentsViaSftp(
 
 private fun String.ensureTrailingSlash(): String = if (this.endsWith("/")) this else "$this/"
 
-fun exportPreschoolChildDocumentsViaSftp(
+fun exportChildDocumentsViaSftp(
     db: Database.Connection,
     clock: EvakaClock,
     municipalityCode: String,
     primus: PrimusProperties,
+    transferType: ChildDocumentTransferType,
 ) {
     val export = db.read { tx ->
         tx.setStatementTimeout(REPORT_STATEMENT_TIMEOUT)
-        readPreschoolChildDocumentsForExport(tx, clock.now(), municipalityCode, primus.sftp.prefix.ensureTrailingSlash(), "preschool_to_primary_transfer")
+        readChildDocumentsForExport(tx, clock.now(), municipalityCode, primus.sftp.prefix.ensureTrailingSlash(), transferType.baseFilename, transferType.templateNamePattern)
     }
-    uploadPreschoolChildDocumentsViaSftp(export, primus)
+    uploadChildDocumentsViaSftp(export, primus)
 }
 
 @Service
@@ -70,12 +77,13 @@ class ExportPreschoolChildDocumentsService(private val s3Client: S3Client, priva
         timestamp: HelsinkiDateTime,
         bucket: String,
     ): Pair<String, String> {
-        val export = readPreschoolChildDocumentsForExport(
+        val export = readChildDocumentsForExport(
             tx,
             timestamp,
             ophEnv.municipalityCode,
             "reporting/preschool/",
             "evaka_child_documents",
+            ChildDocumentTransferType.PRESCHOOL_TO_PRIMARY.templateNamePattern,
         )
         val request = PutObjectRequest.builder()
             .bucket(bucket)
@@ -88,12 +96,12 @@ class ExportPreschoolChildDocumentsService(private val s3Client: S3Client, priva
     }
 }
 
-private fun Database.Read.getTemplateIdForExport(date: LocalDate): DocumentTemplateId = createQuery {
+private fun Database.Read.getTemplateIdForExport(date: LocalDate, templateNamePattern: String): DocumentTemplateId = createQuery {
     sql(
         """
 SELECT id
 FROM document_template
-WHERE name ILIKE '%tiedonsiirto esiopetuksesta perusopetukseen%'
+WHERE name ILIKE ${bind(templateNamePattern)}
   AND upper(validity) <= ${bind(date)}
   AND published
 ORDER BY validity DESC
