@@ -11,14 +11,15 @@ import fi.espoo.evaka.shared.domain.EvakaClock
 import fi.espoo.evaka.shared.job.JobSchedule
 import fi.espoo.evaka.shared.job.ScheduledJobDefinition
 import fi.espoo.evaka.shared.job.ScheduledJobSettings
-import trevaka.export.exportPreschoolChildDocumentsViaSftp
+import trevaka.export.ChildDocumentTransferType
+import trevaka.export.exportChildDocumentsViaSftp
 
 enum class YlojarviScheduledJob(
     val fn: (YlojarviScheduledJobs, Database.Connection, EvakaClock) -> Unit,
     val defaultSettings: ScheduledJobSettings,
 ) {
-    ExportPreschoolChildDocuments(
-        YlojarviScheduledJobs::exportPreschoolChildDocuments,
+    ExportPreschoolToPrimaryChildDocuments(
+        YlojarviScheduledJobs::exportPreschoolToPrimaryChildDocuments,
         ScheduledJobSettings(enabled = false, schedule = JobSchedule.cron("0 0 0 1 8 ?")),
     ),
 }
@@ -34,8 +35,8 @@ class YlojarviScheduledJobs(
             ScheduledJobDefinition(it.key, it.value) { db, clock -> it.key.fn(this, db, clock) }
         }
 
-    fun exportPreschoolChildDocuments(db: Database.Connection, clock: EvakaClock) {
+    fun exportPreschoolToPrimaryChildDocuments(db: Database.Connection, clock: EvakaClock) {
         val primus = properties.primus ?: error("Primus not configured")
-        exportPreschoolChildDocumentsViaSftp(db, clock, ophEnv.municipalityCode, primus)
+        exportChildDocumentsViaSftp(db, clock, ophEnv.municipalityCode, primus, ChildDocumentTransferType.PRESCHOOL_TO_PRIMARY)
     }
 }

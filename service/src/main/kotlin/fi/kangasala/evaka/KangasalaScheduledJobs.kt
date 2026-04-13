@@ -14,15 +14,16 @@ import fi.espoo.evaka.shared.job.JobSchedule
 import fi.espoo.evaka.shared.job.ScheduledJobDefinition
 import fi.espoo.evaka.shared.job.ScheduledJobSettings
 import trevaka.archival.planDocumentArchival
-import trevaka.export.exportPreschoolChildDocumentsViaSftp
+import trevaka.export.ChildDocumentTransferType
+import trevaka.export.exportChildDocumentsViaSftp
 import java.time.LocalTime
 
 enum class KangasalaScheduledJob(
     val fn: (KangasalaScheduledJobs, Database.Connection, EvakaClock) -> Unit,
     val defaultSettings: ScheduledJobSettings,
 ) {
-    ExportPreschoolChildDocuments(
-        KangasalaScheduledJobs::exportPreschoolChildDocuments,
+    ExportPreschoolToPrimaryChildDocuments(
+        KangasalaScheduledJobs::exportPreschoolToPrimaryChildDocuments,
         ScheduledJobSettings(enabled = false, schedule = JobSchedule.cron("0 0 0 1 8 ?")),
     ),
     PlanDocumentArchival(
@@ -43,9 +44,9 @@ class KangasalaScheduledJobs(
             ScheduledJobDefinition(it.key, it.value) { db, clock -> it.key.fn(this, db, clock) }
         }
 
-    fun exportPreschoolChildDocuments(db: Database.Connection, clock: EvakaClock) {
+    fun exportPreschoolToPrimaryChildDocuments(db: Database.Connection, clock: EvakaClock) {
         val primus = properties.primus ?: error("Primus not configured")
-        exportPreschoolChildDocumentsViaSftp(db, clock, ophEnv.municipalityCode, primus)
+        exportChildDocumentsViaSftp(db, clock, ophEnv.municipalityCode, primus, ChildDocumentTransferType.PRESCHOOL_TO_PRIMARY)
     }
 
     fun archiveEligibleDocuments(db: Database.Connection, clock: EvakaClock) {
