@@ -2,41 +2,32 @@
 //
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-package fi.nokiankaupunki.evaka
+package fi.ylojarvi.evaka
 
 import fi.espoo.evaka.OphEnv
 import fi.espoo.evaka.ScheduledJobsEnv
-import fi.espoo.evaka.shared.async.AsyncJob
-import fi.espoo.evaka.shared.async.AsyncJobRunner
 import fi.espoo.evaka.shared.db.Database
 import fi.espoo.evaka.shared.domain.EvakaClock
 import fi.espoo.evaka.shared.job.JobSchedule
 import fi.espoo.evaka.shared.job.ScheduledJobDefinition
 import fi.espoo.evaka.shared.job.ScheduledJobSettings
-import trevaka.archival.planDocumentArchival
 import trevaka.export.ChildDocumentTransferType
 import trevaka.export.exportChildDocumentsViaSftp
-import java.time.LocalTime
 
-enum class NokiaScheduledJob(
-    val fn: (NokiaScheduledJobs, Database.Connection, EvakaClock) -> Unit,
+enum class YlojarviScheduledJob(
+    val fn: (YlojarviScheduledJobs, Database.Connection, EvakaClock) -> Unit,
     val defaultSettings: ScheduledJobSettings,
 ) {
     ExportPreschoolToPrimaryChildDocuments(
-        NokiaScheduledJobs::exportPreschoolToPrimaryChildDocuments,
+        YlojarviScheduledJobs::exportPreschoolToPrimaryChildDocuments,
         ScheduledJobSettings(enabled = false, schedule = JobSchedule.cron("0 0 0 1 8 ?")),
-    ),
-    PlanDocumentArchival(
-        NokiaScheduledJobs::archiveEligibleDocuments,
-        ScheduledJobSettings(enabled = false, schedule = JobSchedule.daily(LocalTime.of(20, 0))),
     ),
 }
 
-class NokiaScheduledJobs(
-    private val coreAsyncJobRunner: AsyncJobRunner<AsyncJob>,
-    private val properties: NokiaProperties,
+class YlojarviScheduledJobs(
+    private val properties: YlojarviProperties,
     private val ophEnv: OphEnv,
-    env: ScheduledJobsEnv<NokiaScheduledJob>,
+    env: ScheduledJobsEnv<YlojarviScheduledJob>,
 ) : JobSchedule {
 
     override val jobs: List<ScheduledJobDefinition> =
@@ -47,14 +38,5 @@ class NokiaScheduledJobs(
     fun exportPreschoolToPrimaryChildDocuments(db: Database.Connection, clock: EvakaClock) {
         val primus = properties.primus ?: error("Primus not configured")
         exportChildDocumentsViaSftp(db, clock, ophEnv.municipalityCode, primus, ChildDocumentTransferType.PRESCHOOL_TO_PRIMARY)
-    }
-
-    fun archiveEligibleDocuments(db: Database.Connection, clock: EvakaClock) {
-        planDocumentArchival(
-            db,
-            clock,
-            coreAsyncJobRunner,
-            properties.archival?.schedule ?: error("No archival configuration available"),
-        )
     }
 }

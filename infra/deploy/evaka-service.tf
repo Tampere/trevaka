@@ -122,10 +122,22 @@ module "app_service" {
     TAMPERE_ARCHIVAL_BASE_URL = var.municipality == "tampere" && var.archival_enabled ? "${local.param_prefix}/service/archival/base-url" : null
 
     # VesilahtiProperties
-    VESILAHTI_BUCKET_EXPORT = var.municipality == "vesilahti" ? "${local.param_prefix}/service/bucket/export" : null
+    VESILAHTI_BUCKET_EXPORT           = var.municipality == "vesilahti" ? "${local.param_prefix}/service/bucket/export" : null
+    VESILAHTI_PRIMUS_SFTP_HOST        = var.municipality == "vesilahti" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    VESILAHTI_PRIMUS_SFTP_PORT        = var.municipality == "vesilahti" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    VESILAHTI_PRIMUS_SFTP_HOST_KEYS   = var.municipality == "vesilahti" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    VESILAHTI_PRIMUS_SFTP_USERNAME    = var.municipality == "vesilahti" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    VESILAHTI_PRIMUS_SFTP_PRIVATE_KEY = var.municipality == "vesilahti" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    VESILAHTI_PRIMUS_SFTP_PREFIX      = var.municipality == "vesilahti" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
 
     # HameenkyroProperties
-    HAMEENKYRO_BUCKET_EXPORT = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/bucket/export" : null
+    HAMEENKYRO_BUCKET_EXPORT           = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/bucket/export" : null
+    HAMEENKYRO_PRIMUS_SFTP_HOST        = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    HAMEENKYRO_PRIMUS_SFTP_PORT        = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    HAMEENKYRO_PRIMUS_SFTP_HOST_KEYS   = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    HAMEENKYRO_PRIMUS_SFTP_USERNAME    = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    HAMEENKYRO_PRIMUS_SFTP_PRIVATE_KEY = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    HAMEENKYRO_PRIMUS_SFTP_PREFIX      = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
 
     # NokiaProperties
     NOKIA_INVOICE_SFTP_HOST         = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/host" : null
@@ -139,6 +151,12 @@ module "app_service" {
     NOKIA_ARCHIVAL_SFTP_HOST_KEYS   = var.municipality == "nokia" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
     NOKIA_ARCHIVAL_SFTP_USERNAME    = var.municipality == "nokia" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/username" : null
     NOKIA_ARCHIVAL_SFTP_PRIVATE_KEY = var.municipality == "nokia" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    NOKIA_PRIMUS_SFTP_HOST          = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    NOKIA_PRIMUS_SFTP_PORT          = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    NOKIA_PRIMUS_SFTP_HOST_KEYS     = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    NOKIA_PRIMUS_SFTP_USERNAME      = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    NOKIA_PRIMUS_SFTP_PRIVATE_KEY   = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    NOKIA_PRIMUS_SFTP_PREFIX        = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
 
     # YlojarviProperties
     YLOJARVI_INVOICE_SFTP_HOST        = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/host" : null
@@ -147,6 +165,12 @@ module "app_service" {
     YLOJARVI_INVOICE_SFTP_USERNAME    = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/username" : null
     YLOJARVI_INVOICE_SFTP_PRIVATE_KEY = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
     YLOJARVI_BUCKET_EXPORT            = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/bucket/export" : null
+    YLOJARVI_PRIMUS_SFTP_HOST         = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    YLOJARVI_PRIMUS_SFTP_PORT         = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    YLOJARVI_PRIMUS_SFTP_HOST_KEYS    = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    YLOJARVI_PRIMUS_SFTP_USERNAME     = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    YLOJARVI_PRIMUS_SFTP_PRIVATE_KEY  = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    YLOJARVI_PRIMUS_SFTP_PREFIX       = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
 
     # PirkkalaProperties
     PIRKKALA_BUCKET_EXPORT             = var.municipality == "pirkkala" ? "${local.param_prefix}/service/bucket/export" : null
@@ -155,6 +179,12 @@ module "app_service" {
     PIRKKALA_ARCHIVAL_SFTP_HOST_KEYS   = var.municipality == "pirkkala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
     PIRKKALA_ARCHIVAL_SFTP_USERNAME    = var.municipality == "pirkkala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/username" : null
     PIRKKALA_ARCHIVAL_SFTP_PRIVATE_KEY = var.municipality == "pirkkala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    PIRKKALA_PRIMUS_SFTP_HOST          = var.municipality == "pirkkala" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    PIRKKALA_PRIMUS_SFTP_PORT          = var.municipality == "pirkkala" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    PIRKKALA_PRIMUS_SFTP_HOST_KEYS     = var.municipality == "pirkkala" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    PIRKKALA_PRIMUS_SFTP_USERNAME      = var.municipality == "pirkkala" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    PIRKKALA_PRIMUS_SFTP_PRIVATE_KEY   = var.municipality == "pirkkala" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    PIRKKALA_PRIMUS_SFTP_PREFIX        = var.municipality == "pirkkala" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
 
     # KangasalaProperties
     KANGASALA_BUCKET_EXPORT             = var.municipality == "kangasala" ? "${local.param_prefix}/service/bucket/export" : null
@@ -163,12 +193,30 @@ module "app_service" {
     KANGASALA_ARCHIVAL_SFTP_HOST_KEYS   = var.municipality == "kangasala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
     KANGASALA_ARCHIVAL_SFTP_USERNAME    = var.municipality == "kangasala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/username" : null
     KANGASALA_ARCHIVAL_SFTP_PRIVATE_KEY = var.municipality == "kangasala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    KANGASALA_PRIMUS_SFTP_HOST          = var.municipality == "kangasala" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    KANGASALA_PRIMUS_SFTP_PORT          = var.municipality == "kangasala" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    KANGASALA_PRIMUS_SFTP_HOST_KEYS     = var.municipality == "kangasala" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    KANGASALA_PRIMUS_SFTP_USERNAME      = var.municipality == "kangasala" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    KANGASALA_PRIMUS_SFTP_PRIVATE_KEY   = var.municipality == "kangasala" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    KANGASALA_PRIMUS_SFTP_PREFIX        = var.municipality == "kangasala" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
 
     # LempaalaProperties
-    LEMPAALA_BUCKET_EXPORT = var.municipality == "lempaala" ? "${local.param_prefix}/service/bucket/export" : null
+    LEMPAALA_BUCKET_EXPORT           = var.municipality == "lempaala" ? "${local.param_prefix}/service/bucket/export" : null
+    LEMPAALA_PRIMUS_SFTP_HOST        = var.municipality == "lempaala" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    LEMPAALA_PRIMUS_SFTP_PORT        = var.municipality == "lempaala" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    LEMPAALA_PRIMUS_SFTP_HOST_KEYS   = var.municipality == "lempaala" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    LEMPAALA_PRIMUS_SFTP_USERNAME    = var.municipality == "lempaala" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    LEMPAALA_PRIMUS_SFTP_PRIVATE_KEY = var.municipality == "lempaala" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    LEMPAALA_PRIMUS_SFTP_PREFIX      = var.municipality == "lempaala" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
 
     # OrivesiProperties
-    ORIVESI_BUCKET_EXPORT = var.municipality == "orivesi" ? "${local.param_prefix}/service/bucket/export" : null
+    ORIVESI_BUCKET_EXPORT           = var.municipality == "orivesi" ? "${local.param_prefix}/service/bucket/export" : null
+    ORIVESI_PRIMUS_SFTP_HOST        = var.municipality == "orivesi" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    ORIVESI_PRIMUS_SFTP_PORT        = var.municipality == "orivesi" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    ORIVESI_PRIMUS_SFTP_HOST_KEYS   = var.municipality == "orivesi" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    ORIVESI_PRIMUS_SFTP_USERNAME    = var.municipality == "orivesi" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    ORIVESI_PRIMUS_SFTP_PRIVATE_KEY = var.municipality == "orivesi" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    ORIVESI_PRIMUS_SFTP_PREFIX      = var.municipality == "orivesi" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
   }
 
   env_vars = {

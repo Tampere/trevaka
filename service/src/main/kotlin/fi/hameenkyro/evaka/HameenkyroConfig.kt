@@ -4,6 +4,8 @@
 
 package fi.hameenkyro.evaka
 
+import fi.espoo.evaka.OphEnv
+import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.espoo.DefaultPasswordSpecification
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
@@ -81,6 +83,20 @@ class HameenkyroConfig {
         },
         daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
     )
+
+    @Bean
+    fun hameenkyroScheduledJobEnv(env: Environment): ScheduledJobsEnv<HameenkyroScheduledJob> = ScheduledJobsEnv.fromEnvironment(
+        HameenkyroScheduledJob.entries.associateWith { it.defaultSettings },
+        "hameenkyro.job",
+        env,
+    )
+
+    @Bean
+    fun hameenkyroScheduledJobs(
+        properties: HameenkyroProperties,
+        ophEnv: OphEnv,
+        env: ScheduledJobsEnv<HameenkyroScheduledJob>,
+    ): HameenkyroScheduledJobs = HameenkyroScheduledJobs(properties, ophEnv, env)
 
     @Bean
     fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()

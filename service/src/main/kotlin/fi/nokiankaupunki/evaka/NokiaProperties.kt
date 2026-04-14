@@ -6,6 +6,7 @@ package fi.nokiankaupunki.evaka
 
 import fi.tampere.trevaka.ArchivalSchedule
 import org.springframework.boot.context.properties.ConfigurationProperties
+import trevaka.primus.PrimusProperties
 import trevaka.sftp.SftpProperties
 
 @ConfigurationProperties(prefix = "nokia")
@@ -13,6 +14,7 @@ data class NokiaProperties(
     val invoice: InvoiceProperties,
     val bucket: BucketProperties,
     val archival: SftpArchivalProperties?,
+    val primus: PrimusProperties? = null,
 )
 
 data class InvoiceProperties(

@@ -4,6 +4,8 @@
 
 package fi.vesilahti.evaka
 
+import fi.espoo.evaka.OphEnv
+import fi.espoo.evaka.ScheduledJobsEnv
 import fi.espoo.evaka.document.archival.ArchivalIntegrationClient
 import fi.espoo.evaka.espoo.DefaultPasswordSpecification
 import fi.espoo.evaka.invoicing.domain.PaymentIntegrationClient
@@ -81,6 +83,20 @@ class VesilahtiConfig {
         },
         daycarePlacementPlanEndMonthDay = MonthDay.of(8, 15),
     )
+
+    @Bean
+    fun vesilahtiScheduledJobEnv(env: Environment): ScheduledJobsEnv<VesilahtiScheduledJob> = ScheduledJobsEnv.fromEnvironment(
+        VesilahtiScheduledJob.entries.associateWith { it.defaultSettings },
+        "vesilahti.job",
+        env,
+    )
+
+    @Bean
+    fun vesilahtiScheduledJobs(
+        properties: VesilahtiProperties,
+        ophEnv: OphEnv,
+        env: ScheduledJobsEnv<VesilahtiScheduledJob>,
+    ): VesilahtiScheduledJobs = VesilahtiScheduledJobs(properties, ophEnv, env)
 
     @Bean
     fun paymentIntegrationClient(): PaymentIntegrationClient = PaymentIntegrationClient.FailingClient()

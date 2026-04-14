@@ -5,10 +5,12 @@
 package fi.hameenkyro.evaka
 
 import org.springframework.boot.context.properties.ConfigurationProperties
+import trevaka.primus.PrimusProperties
 
 @ConfigurationProperties(prefix = "hameenkyro")
 data class HameenkyroProperties(
     val bucket: BucketProperties,
+    val primus: PrimusProperties? = null,
 )
 
 data class BucketProperties(
