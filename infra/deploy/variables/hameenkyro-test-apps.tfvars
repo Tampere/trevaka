@@ -43,3 +43,5 @@ evaka_job_send_outdated_income_notifications_enabled = true
 sfi_msg_service_identifier = "hameenkyro_ws_evaka"
 
 # service: HameenkyroProperties
+hameenkyro_job_export_preschool_to_primary_child_documents_enabled = true
+hameenkyro_job_export_preschool_to_primary_child_documents_cron    = "0 */10 * * * ?"

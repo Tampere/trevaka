@@ -39,3 +39,5 @@ evaka_job_send_outdated_income_notifications_enabled = true
 sfi_msg_service_identifier = "lempaala_ws_evaka"
 
 # service: LempaalaProperties
+lempaala_job_export_daycare_to_preschool_child_documents_enabled = true
+lempaala_job_export_daycare_to_preschool_child_documents_cron    = "0 */10 * * * ?"
