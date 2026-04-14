@@ -357,6 +357,10 @@ module "app_service" {
     TAMPERE_ARCHIVAL_SCHEDULE_DOCUMENT_DECISION_DELAY_DAYS = var.municipality == "tampere" ? var.tampere_archival_schedule_document_decision_delay_days : null
     TAMPERE_ARCHIVAL_SCHEDULE_DOCUMENT_PLAN_DELAY_DAYS     = var.municipality == "tampere" ? var.tampere_archival_schedule_document_plan_delay_days : null
 
+    # HameenkyroScheduledJobEnv
+    HAMEENKYRO_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_ENABLED = var.municipality == "hameenkyro" ? var.hameenkyro_job_export_preschool_to_primary_child_documents_enabled : null
+    HAMEENKYRO_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_CRON    = var.municipality == "hameenkyro" ? var.hameenkyro_job_export_preschool_to_primary_child_documents_cron : null
+
     # NokiaScheduledJobEnv
     NOKIA_JOB_PLAN_DOCUMENT_ARCHIVAL_ENABLED = var.municipality == "nokia" ? var.nokia_job_plan_document_archival_enabled : null
 
@@ -378,7 +382,13 @@ module "app_service" {
     PIRKKALA_ARCHIVAL_SCHEDULE_DOCUMENT_PLAN_DELAY_DAYS = var.municipality == "pirkkala" ? var.pirkkala_archival_schedule_document_plan_delay_days : null
 
     # KangasalaScheduledJobEnv
-    KANGASALA_JOB_PLAN_DOCUMENT_ARCHIVAL_ENABLED = var.municipality == "kangasala" ? var.kangasala_job_plan_document_archival_enabled : null
+    KANGASALA_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_ENABLED = var.municipality == "kangasala" ? var.kangasala_job_export_preschool_to_primary_child_documents_enabled : null
+    KANGASALA_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_CRON    = var.municipality == "kangasala" ? var.kangasala_job_export_preschool_to_primary_child_documents_cron : null
+    KANGASALA_JOB_PLAN_DOCUMENT_ARCHIVAL_ENABLED                      = var.municipality == "kangasala" ? var.kangasala_job_plan_document_archival_enabled : null
+
+    # LempaalaScheduledJobEnv
+    LEMPAALA_JOB_EXPORT_DAYCARE_TO_PRESCHOOL_CHILD_DOCUMENTS_ENABLED = var.municipality == "lempaala" ? var.lempaala_job_export_daycare_to_preschool_child_documents_enabled : null
+    LEMPAALA_JOB_EXPORT_DAYCARE_TO_PRESCHOOL_CHILD_DOCUMENTS_CRON    = var.municipality == "lempaala" ? var.lempaala_job_export_daycare_to_preschool_child_documents_cron : null
 
     # KangasalaProperties
     KANGASALA_ARCHIVAL_SFTP_PREFIX                       = var.municipality == "kangasala" && var.archival_enabled ? var.environment == "prod" ? "in/eVaka/TWeb/" : "test/in/eVaka/TWeb/" : null
@@ -774,6 +784,36 @@ variable "nokia_archival_schedule_daily_document_limit" {
 
 variable "nokia_archival_schedule_document_plan_delay_days" {
   type    = number
+  default = null
+}
+
+variable "hameenkyro_job_export_preschool_to_primary_child_documents_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "hameenkyro_job_export_preschool_to_primary_child_documents_cron" {
+  type    = string
+  default = null
+}
+
+variable "kangasala_job_export_preschool_to_primary_child_documents_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "kangasala_job_export_preschool_to_primary_child_documents_cron" {
+  type    = string
+  default = null
+}
+
+variable "lempaala_job_export_daycare_to_preschool_child_documents_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "lempaala_job_export_daycare_to_preschool_child_documents_cron" {
+  type    = string
   default = null
 }
 
