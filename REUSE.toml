@@ -66,36 +66,3 @@ path = "infra/deploy/.terraform.lock.hcl"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2023-2024 Tampere region"
 SPDX-License-Identifier = "LGPL-2.1-or-later"
-
-[[annotations]]
-path = "service/build.gradle.kts"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2021 City of Tampere"
-SPDX-License-Identifier = "LGPL-2.1-or-later"
-
-[[annotations]]
-path = "service/src/test/resources/archival-client/**.xml"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2023-2025 Tampere region"
-SPDX-License-Identifier = "LGPL-2.1-or-later"
-
-[[annotations]]
-path = [
-    "service/src/test/resources/invoice-client/**.xml",
-    "service/src/test/resources/invoice-client/**.dat",
-]
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2021 City of Tampere"
-SPDX-License-Identifier = "LGPL-2.1-or-later"
-
-[[annotations]]
-path = "service/src/test/resources/payment-client/**.xml"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2023-2024 Tampere region"
-SPDX-License-Identifier = "LGPL-2.1-or-later"
-
-[[annotations]]
-path = "**/gradle/wrapper/**"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2007-2020 The original author or authors <info@gradle.com>"
-SPDX-License-Identifier = "Apache-2.0"
