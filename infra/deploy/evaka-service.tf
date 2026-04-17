@@ -226,7 +226,8 @@ module "app_service" {
 
     # Spring
     SPRING_APPLICATION_JSON = length(var.service_logging_levels) > 0 ? jsonencode({ "logging.level" : var.service_logging_levels }) : null
-    SPRING_PROFILES_ACTIVE  = join(",", ["production", "${var.municipality}_evaka"])
+    SPRING_PROFILES_ACTIVE  = "production"
+    EVAKA_MUNICIPALITY      = var.municipality
 
     # EvakaEnv
     EVAKA_INTEGRATION_KOSKI_ENABLED              = var.evaka_integration_koski_enabled
