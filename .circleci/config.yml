@@ -202,7 +202,7 @@ jobs:
       - build_docker_image:
           image: frontend/<< parameters.customizations >>
           dir: evaka/frontend
-          extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=<< parameters.customizations >> --build-arg ICONS=pro --build-context customizations=frontend/<< parameters.customizations >>
+          extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=<< parameters.customizations >> --build-arg ICONS=pro --build-context customizations=evaka/frontend/src/lib-customizations/<< parameters.customizations >>
           cache: frontend-<< parameters.customizations >>
           version: << parameters.version >>
       - slack-notification
@@ -218,14 +218,14 @@ jobs:
       - setup_aws
       - build_docker_image:
           image: service
-          dir: service
-          extra_build_args: --build-context core=evaka
+          dir: evaka
+          extra_build_args: -f evaka/service/Dockerfile
           cache: service
           version: << parameters.version >>
       - build_docker_image:
           image: service-builder
-          dir: service
-          extra_build_args: --build-context core=evaka --target builder --cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:service-<< pipeline.git.revision >>
+          dir: evaka
+          extra_build_args: -f evaka/service/Dockerfile --target builder --cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:service-<< pipeline.git.revision >>
           version: << parameters.version >>
       - slack-notification
 
@@ -337,10 +337,6 @@ jobs:
           destination: test-artifacts
       - store_test_results:
           path: e2e/test-results
-      - run:
-          name: Lint customizations
-          working_directory: frontend
-          command: ./link.sh && ./lint.sh
       - slack-notification
 
   notify_update_tracker:
