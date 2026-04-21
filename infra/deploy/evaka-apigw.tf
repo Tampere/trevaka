@@ -78,6 +78,7 @@ module "app_apigw" {
 
     # enduser
     SFI_MODE              = var.environment == "prod" ? "prod" : "test"
+    SFI_SAML_PUBLIC_CERT  = length(data.terraform_remote_state.base.outputs.sfi_idp_cert_container_paths) > 0 ? join(",", data.terraform_remote_state.base.outputs.sfi_idp_cert_container_paths) : null
     SFI_SAML_CALLBACK_URL = "${local.frontend_url}/api/application/auth/saml/login/callback"
     SFI_SAML_ISSUER       = "${local.frontend_url}/api/application/auth/saml/"
     SFI_SAML_PRIVATE_CERT = "/home/evaka/s3/${coalesce(var.apigw_suomifi_identification_key, "apigw.key")}"
