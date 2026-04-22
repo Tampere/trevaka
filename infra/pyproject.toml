@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: 2026 Tampere region
+#
+# SPDX-License-Identifier: LGPL-2.1-or-later
+
+[project]
+name = "trevaka-infra"
+version = "0.1.0"
+description = "Infrastructure scripts for trevaka"
+requires-python = ">=3.13"
+dependencies = [
+    "boto3>=1.40.14",
+    "click>=8.3.2",
+    "cryptography>=44.0.0",
+]
