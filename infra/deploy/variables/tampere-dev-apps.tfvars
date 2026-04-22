@@ -63,3 +63,5 @@ service_logging_levels = {
   "fi.espoo.evaka.titania" : "DEBUG"
   "fi.tampere.trevaka.archival" : "TRACE"
 }
+
+sfi_idp_certificate_years = [2024, 2026]

@@ -43,3 +43,5 @@ evaka_job_send_outdated_income_notifications_enabled = true
 sfi_msg_service_identifier = "vesilahti_ws_evaka"
 
 # service: VesilahtiProperties
+
+sfi_idp_certificate_years = [2024, 2026]
