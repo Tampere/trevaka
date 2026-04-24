@@ -66,8 +66,8 @@ set -e
 
 # shellcheck disable=SC2207
 MISSING_LICENSES=($(echo "$REUSE_OUTPUT_JSON" | jq -r '.non_compliant.missing_licenses | keys | .[]'))
-echo "${MISSING_LICENSES[@]}"
-for license in "${MISSING_LICENSES[@]}"; do
+echo "${MISSING_LICENSES[@]:-}"
+for license in "${MISSING_LICENSES[@]:-}"; do
     if [ -z "$license" ]; then
         continue
     fi
