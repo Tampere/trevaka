@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# SPDX-FileCopyrightText: 2026 City of Tampere
+# SPDX-License-Identifier: LGPL-2.1-or-later
+
 # usage: bin/tf.sh <environment> <terraform subcommand> [args...]
 # where <environment> is tampere-test, hameenkyro-prod etc
 set -xueo pipefail
