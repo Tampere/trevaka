@@ -15,7 +15,7 @@ locals {
 
 data "aws_ssm_parameter" "sfi-idp-certificate" {
   for_each = local.sfi_idp_cert_years
-  name     = "/${local.project}-${var.environment}/suomifi/idp-certificate-${each.key}"
+  name     = "/${local.project}-${var.environment}/apigw/sfi/idp-certificate-${each.key}"
 }
 
 resource "aws_s3_object" "sfi-idp-certificate" {

@@ -8,7 +8,7 @@ usage: uv run infra/update-sfi-idp-certs.py [dev] [test] [prod]
 Downloads all Suomi.fi Tunnistus SAML IDP signing certificates from SAML metadata
 and stores each in SSM for every municipality in the given environment(s).
 
-SSM path per municipality: /{project}-{env}/suomifi/idp-certificate-{year}
+SSM path per municipality: /{project}-{env}/apigw/sfi/idp-certificate-{year}
 where project is "trevaka" for tampere and "{municipality}-evaka" for others.
 
 By default updates all environments. Pass environment name(s) to restrict:
@@ -184,7 +184,9 @@ def main(environments: tuple[str, ...], dry_run: bool) -> None:
         for municipality in cfg["municipalities"]:
             project = project_name(municipality)
             for pem, year in certs:
-                ssm_path = f"/{project}-{cfg['env_name']}/suomifi/idp-certificate-{year}"
+                ssm_path = (
+                    f"/{project}-{cfg['env_name']}/apigw/sfi/idp-certificate-{year}"
+                )
                 write_cert(cfg["profile"], ssm_path, pem, dry_run)
 
 
