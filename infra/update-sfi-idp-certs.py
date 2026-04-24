@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2026 Tampere region
+# SPDX-FileCopyrightText: 2023-2026 Tampere region
 #
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
