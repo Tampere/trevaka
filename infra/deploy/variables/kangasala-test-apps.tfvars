@@ -49,3 +49,5 @@ kangasala_job_export_preschool_to_primary_child_documents_cron    = "0 */10 * * 
 kangasala_job_plan_document_archival_enabled                      = true
 kangasala_archival_schedule_daily_document_limit                  = 10
 kangasala_archival_schedule_document_plan_delay_days              = 140
+
+sfi_idp_certificate_years = [2024, 2026]
