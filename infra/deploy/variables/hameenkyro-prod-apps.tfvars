@@ -61,3 +61,5 @@ varda_integration_enabled = true
 sfi_msg_service_identifier = "hameenkyro_ws_evaka"
 
 # service: HameenkyroProperties
+
+sfi_idp_certificate_years = [2024]

@@ -117,7 +117,7 @@ commands:
   terraform_install:
     steps:
       - terraform/install:
-          terraform_version: 1.14.0 # NOTE: Update infra/deploy/mise.toml to match
+          terraform_version: 1.14.9 # NOTE: Update infra/deploy/mise.toml to match
 
   slack-notification:
     steps:

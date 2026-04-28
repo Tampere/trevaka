@@ -61,3 +61,5 @@ jamix_orders_enabled = true
 jamix_diets_enabled  = true
 
 # service: YlojarviProperties
+
+sfi_idp_certificate_years = [2024]
