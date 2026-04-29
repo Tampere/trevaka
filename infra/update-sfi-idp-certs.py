@@ -6,9 +6,9 @@
 usage: uv run infra/update-sfi-idp-certs.py [dev] [test] [prod]
 
 Downloads all Suomi.fi Tunnistus SAML IDP signing certificates from SAML metadata
-and stores each in SSM for every municipality in the given environment(s).
+and uploads each to S3 for every municipality in the given environment(s).
 
-SSM path per municipality: /{project}-{env}/apigw/sfi/idp-certificate-{year}
+S3 path per municipality: s3://{project}-{env}-deployment/api-gw/sfi-idp-certificate-{year}.pem
 where project is "trevaka" for tampere and "{municipality}-evaka" for others.
 
 By default updates all environments. Pass environment name(s) to restrict:
@@ -127,23 +127,24 @@ def extract_signing_certs(entity: ET.Element) -> list[tuple[str, int]]:
     return results
 
 
-def write_cert(profile: str, ssm_path: str, pem: str, dry_run: bool) -> None:
+def write_cert(profile: str, bucket: str, s3_key: str, pem: str, dry_run: bool) -> None:
+    s3_url = f"s3://{bucket}/{s3_key}"
     if dry_run:
-        print(f"[dry-run] {profile}  →  {ssm_path}")
+        print(f"[dry-run] {profile}  →  {s3_url}")
         return
 
     try:
         session = boto3.Session(profile_name=profile)
-        ssm = session.client("ssm")
-        ssm.put_parameter(
-            Name=ssm_path,
-            Value=pem,
-            Type="SecureString",
-            Overwrite=True,
+        s3 = session.client("s3")
+        s3.put_object(
+            Bucket=bucket,
+            Key=s3_key,
+            Body=pem.encode("utf-8"),
+            ContentType="application/x-pem-file",
         )
-        print(f"OK    {profile}  →  {ssm_path}")
+        print(f"OK    {profile}  →  {s3_url}")
     except Exception as e:
-        print(f"FAIL  {profile}  →  {ssm_path}: {e}", file=sys.stderr)
+        print(f"FAIL  {profile}  →  {s3_url}: {e}", file=sys.stderr)
 
 
 @click.command()
@@ -153,10 +154,10 @@ def write_cert(profile: str, ssm_path: str, pem: str, dry_run: bool) -> None:
     type=click.Choice(list(ENVIRONMENTS.keys())),
 )
 @click.option(
-    "--dry-run", is_flag=True, help="Print what would be done without writing to SSM"
+    "--dry-run", is_flag=True, help="Print what would be done without writing to S3"
 )
 def main(environments: tuple[str, ...], dry_run: bool) -> None:
-    """Download SFI IDP certs from SAML metadata and store in SSM."""
+    """Download SFI IDP certs from SAML metadata and store in S3."""
 
     if not environments:
         environments = tuple(ENVIRONMENTS.keys())
@@ -184,10 +185,9 @@ def main(environments: tuple[str, ...], dry_run: bool) -> None:
         for municipality in cfg["municipalities"]:
             project = project_name(municipality)
             for pem, year in certs:
-                ssm_path = (
-                    f"/{project}-{cfg['env_name']}/apigw/sfi/idp-certificate-{year}"
-                )
-                write_cert(cfg["profile"], ssm_path, pem, dry_run)
+                bucket = f"{project}-{cfg['env_name']}-deployment"
+                s3_key = f"api-gw/sfi-idp-certificate-{year}.pem"
+                write_cert(cfg["profile"], bucket, s3_key, pem, dry_run)
 
 
 if __name__ == "__main__":
