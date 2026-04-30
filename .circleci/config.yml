@@ -383,7 +383,7 @@ jobs:
           command: |
             docker pull ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend/<< parameters.municipality >>:<< parameters.version >>
             container_id=$(docker create ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend/<< parameters.municipality >>:<< parameters.version >>)
-            docker cp "$container_id:/static" "frontend"
+            docker cp "$container_id:/static/<< parameters.municipality >>" "frontend"
             docker rm "$container_id"
       - aws-cli/setup:
           configure_default_region: false
