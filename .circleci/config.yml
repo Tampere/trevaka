@@ -197,7 +197,7 @@ jobs:
           working_directory: evaka/frontend
           command: |
             aws s3 sync s3://trevaka-artifacts/vendor/fortawesome/ ./vendor/fortawesome/
-            echo "Running unpack-pro-icons.sh" && ./unpack-pro-icons.sh
+            echo "Running unpack-pro-icons.sh" && ./bin/unpack-pro-icons.sh
             rm -v ./vendor/fortawesome/*
       - build_docker_image:
           image: frontend/<< parameters.customizations >>
