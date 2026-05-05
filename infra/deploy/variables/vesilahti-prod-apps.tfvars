@@ -62,4 +62,4 @@ sfi_msg_service_identifier = "vesilahti_ws_evaka"
 
 # service: VesilahtiProperties
 
-sfi_idp_certificate_years = [2024]
+sfi_idp_certificate_years = [2024, 2026]
