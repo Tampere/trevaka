@@ -62,4 +62,4 @@ jamix_diets_enabled  = true
 
 # service: LempaalaProperties
 
-sfi_idp_certificate_years = [2024]
+sfi_idp_certificate_years = [2024, 2026]
