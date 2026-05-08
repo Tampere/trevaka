@@ -363,13 +363,19 @@ module "app_service" {
     HAMEENKYRO_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_CRON    = var.municipality == "hameenkyro" ? var.hameenkyro_job_export_preschool_to_primary_child_documents_cron : null
 
     # NokiaScheduledJobEnv
-    NOKIA_JOB_PLAN_DOCUMENT_ARCHIVAL_ENABLED = var.municipality == "nokia" ? var.nokia_job_plan_document_archival_enabled : null
+    NOKIA_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_ENABLED = var.municipality == "nokia" ? var.nokia_job_export_preschool_to_primary_child_documents_enabled : null
+    NOKIA_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_CRON    = var.municipality == "nokia" ? var.nokia_job_export_preschool_to_primary_child_documents_cron : null
+    NOKIA_JOB_PLAN_DOCUMENT_ARCHIVAL_ENABLED                      = var.municipality == "nokia" ? var.nokia_job_plan_document_archival_enabled : null
 
     # NokiaProperties
     NOKIA_INVOICE_SFTP_PREFIX                        = var.municipality == "nokia" ? var.environment == "prod" ? "in/eVaka/Raindance/" : "test/in/eVaka/Raindance/" : null
     NOKIA_ARCHIVAL_SFTP_PREFIX                       = var.municipality == "nokia" && var.archival_enabled ? var.environment == "prod" ? "in/eVaka/TWeb/" : "test/in/eVaka/TWeb/" : null
     NOKIA_ARCHIVAL_SCHEDULE_DAILY_DOCUMENT_LIMIT     = var.municipality == "nokia" ? var.nokia_archival_schedule_daily_document_limit : null
     NOKIA_ARCHIVAL_SCHEDULE_DOCUMENT_PLAN_DELAY_DAYS = var.municipality == "nokia" ? var.nokia_archival_schedule_document_plan_delay_days : null
+
+    # YlojarviScheduledJobEnv
+    YLOJARVI_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_ENABLED = var.municipality == "ylojarvi" ? var.ylojarvi_job_export_preschool_to_primary_child_documents_enabled : null
+    YLOJARVI_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_CRON    = var.municipality == "ylojarvi" ? var.ylojarvi_job_export_preschool_to_primary_child_documents_cron : null
 
     # YlojarviProperties
     YLOJARVI_INVOICE_SFTP_PREFIX = var.municipality == "ylojarvi" ? var.environment == "prod" ? "in/eVaka/Raindance/" : "test/in/eVaka/Raindance/" : null
@@ -773,6 +779,16 @@ variable "pirkkala_archival_schedule_document_plan_delay_days" {
   default = null
 }
 
+variable "nokia_job_export_preschool_to_primary_child_documents_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "nokia_job_export_preschool_to_primary_child_documents_cron" {
+  type    = string
+  default = null
+}
+
 variable "nokia_job_plan_document_archival_enabled" {
   type    = bool
   default = false
@@ -785,6 +801,16 @@ variable "nokia_archival_schedule_daily_document_limit" {
 
 variable "nokia_archival_schedule_document_plan_delay_days" {
   type    = number
+  default = null
+}
+
+variable "ylojarvi_job_export_preschool_to_primary_child_documents_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "ylojarvi_job_export_preschool_to_primary_child_documents_cron" {
+  type    = string
   default = null
 }
 

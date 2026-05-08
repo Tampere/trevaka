@@ -61,5 +61,7 @@ varda_integration_enabled = true
 sfi_msg_service_identifier = "hameenkyro_ws_evaka"
 
 # service: HameenkyroProperties
+hameenkyro_job_export_preschool_to_primary_child_documents_enabled = true
+hameenkyro_job_export_preschool_to_primary_child_documents_cron    = "0 0 13 11 5 ?"
 
 sfi_idp_certificate_years = [2024, 2026]
