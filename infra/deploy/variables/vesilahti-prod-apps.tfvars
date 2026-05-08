@@ -61,5 +61,7 @@ varda_integration_enabled = true
 sfi_msg_service_identifier = "vesilahti_ws_evaka"
 
 # service: VesilahtiProperties
+vesilahti_job_export_daycare_to_preschool_child_documents_enabled = true
+vesilahti_job_export_daycare_to_preschool_child_documents_cron    = "0 0 13 11 5 ?"
 
 sfi_idp_certificate_years = [2024, 2026]
