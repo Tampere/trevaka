@@ -63,7 +63,7 @@ jamix_diets_enabled  = true
 
 # service: NokiaProperties
 nokia_job_export_preschool_to_primary_child_documents_enabled = true
-nokia_job_export_preschool_to_primary_child_documents_cron    = "0 0 13 11 5 ?"
+nokia_job_export_preschool_to_primary_child_documents_cron    = "0 0 13 13 5 ?"
 nokia_job_plan_document_archival_enabled                      = true
 nokia_archival_schedule_daily_document_limit                  = 1000
 
