@@ -62,6 +62,6 @@ jamix_diets_enabled  = true
 
 # service: OrivesiProperties
 orivesi_job_export_daycare_to_preschool_child_documents_enabled = true
-orivesi_job_export_daycare_to_preschool_child_documents_cron    = "0 0 13 11 5 ?"
+orivesi_job_export_daycare_to_preschool_child_documents_cron    = "0 0 13 13 5 ?"
 
 sfi_idp_certificate_years = [2024, 2026]
