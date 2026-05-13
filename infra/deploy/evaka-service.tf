@@ -244,6 +244,7 @@ module "app_service" {
 
     EVAKA_NOT_FOR_PROD_FORCE_UNPUBLISH_DOCUMENT_TEMPLATE_ENABLED = contains(["dev", "test"], var.environment) ? true : null
     EVAKA_NOT_FOR_PROD_ALLOW_SFI_ADMINS                          = contains(["dev", "test"], var.environment) ? true : null
+    EVAKA_DECISION_REASONING_GENERIC_REMOVAL_ENABLED             = contains(["dev", "test"], var.environment) ? true : null
 
     # JwtEnv
     EVAKA_JWT_PUBLIC_KEYS_URL = "file:///config/jwks.json"
