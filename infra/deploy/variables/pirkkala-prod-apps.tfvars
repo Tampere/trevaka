@@ -63,7 +63,6 @@ jamix_diets_enabled  = true
 
 # service: PirkkalaProperties
 pirkkala_job_export_daycare_to_preschool_child_documents_enabled = true
-pirkkala_job_export_daycare_to_preschool_child_documents_cron    = "0 0 13 13 5 ?"
 pirkkala_job_plan_document_archival_enabled                      = true
 pirkkala_archival_schedule_daily_document_limit                  = 1000
 
