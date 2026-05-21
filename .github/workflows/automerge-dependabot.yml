@@ -9,7 +9,7 @@ permissions:
 jobs:
   automerge:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' && github.head_ref == 'dependabot/submodules/evaka' }}
+    if: ${{ github.actor == 'dependabot[bot]' && startsWith(github.head_ref, 'dependabot/submodules/evaka') }}
     steps:
       - name: Enable auto-merge for evaka submodule
         run: gh pr merge --auto --merge "$PR_URL"
