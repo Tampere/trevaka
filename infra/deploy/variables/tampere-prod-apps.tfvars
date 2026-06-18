@@ -63,6 +63,9 @@ evaka_job_varda_update_cron = "0 0 5 * * 1,2,3,4,5"
 sfi_msg_service_identifier = "tampere_ws_evaka"
 
 # service: TampereProperties
+export_preschool_child_documents_enabled = true
+export_preschool_child_documents_cron    = "0 0 0 27 7 ?"
+
 tampere_job_export_units_acl_enabled = true
 
 tampere_job_plan_bi_export_jobs_enabled = true
