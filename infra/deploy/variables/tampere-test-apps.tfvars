@@ -28,7 +28,7 @@ service_task_memory_mb                        = 4096
 service_heap_size_mb                          = 2048
 fee_decision_days_in_advance                  = 123
 voucher_value_decision_days_in_advance        = 123
-varda_integration_api_url                     = ""
+varda_integration_api_url                     = "http://localhost"
 vtj_enabled                                   = true
 vtj_xroad_client_membercode                   = "0211675-2"
 email_allowlist                               = "^(.+)@tampere.fi$"
@@ -48,3 +48,5 @@ evaka_job_send_outdated_income_notifications_enabled = true
 sfi_msg_service_identifier = "tampere_ws_evaka"
 
 # service: TampereProperties
+
+sfi_idp_certificate_years = [2024, 2026]

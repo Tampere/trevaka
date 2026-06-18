@@ -25,7 +25,7 @@ ad_saml_external_id_prefix = "hameenkyro-ad"
 service_count                                 = 1
 fee_decision_days_in_advance                  = 123
 voucher_value_decision_days_in_advance        = 123
-varda_integration_api_url                     = ""
+varda_integration_api_url                     = "http://localhost"
 vtj_enabled                                   = true
 vtj_xroad_client_membercode                   = "0132947-3"
 email_allowlist                               = "^(.+)@hameenkyro.fi$"
@@ -43,3 +43,7 @@ evaka_job_send_outdated_income_notifications_enabled = true
 sfi_msg_service_identifier = "hameenkyro_ws_evaka"
 
 # service: HameenkyroProperties
+hameenkyro_job_export_preschool_to_primary_child_documents_enabled = true
+hameenkyro_job_export_preschool_to_primary_child_documents_cron    = "0 0 1 * * ?"
+
+sfi_idp_certificate_years = [2024, 2026]

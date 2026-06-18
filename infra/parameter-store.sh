@@ -38,6 +38,7 @@ parameters=(
   "/service/frends/sftp/host-keys"
   "/service/frends/sftp/username"
   # "/service/frends/sftp/private-key"
+  "/service/frends/sftp/primus-path"
 )
 
 if [ "$#" -ne 3 ]; then

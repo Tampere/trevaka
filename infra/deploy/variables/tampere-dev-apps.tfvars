@@ -18,6 +18,8 @@ apigw_ad_key                     = "apigw-to-ad.key"
 
 # internal-gw
 titania_enabled            = true
+ad_saml_entrypoint_url     = "https://disabled.invalid/saml2"
+ad_saml_public_cert        = ["tamperead-mock.pem"]
 ad_saml_external_id_prefix = "tampere-ad"
 
 # service
@@ -63,3 +65,5 @@ service_logging_levels = {
   "fi.espoo.evaka.titania" : "DEBUG"
   "fi.tampere.trevaka.archival" : "TRACE"
 }
+
+sfi_idp_certificate_years = [2024, 2026]

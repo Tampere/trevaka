@@ -117,7 +117,7 @@ commands:
   terraform_install:
     steps:
       - terraform/install:
-          terraform_version: 1.14.0 # NOTE: Update infra/deploy/mise.toml to match
+          terraform_version: 1.14.9 # NOTE: Update infra/deploy/mise.toml to match
 
   slack-notification:
     steps:
@@ -197,12 +197,12 @@ jobs:
           working_directory: evaka/frontend
           command: |
             aws s3 sync s3://trevaka-artifacts/vendor/fortawesome/ ./vendor/fortawesome/
-            echo "Running unpack-pro-icons.sh" && ./unpack-pro-icons.sh
+            echo "Running unpack-pro-icons.sh" && ./bin/unpack-pro-icons.sh
             rm -v ./vendor/fortawesome/*
       - build_docker_image:
           image: frontend/<< parameters.customizations >>
           dir: evaka/frontend
-          extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=<< parameters.customizations >> --build-arg ICONS=pro --build-context customizations=frontend/<< parameters.customizations >>
+          extra_build_args: --build-arg EVAKA_CUSTOMIZATIONS=<< parameters.customizations >> --build-arg ICONS=pro --build-context customizations=evaka/frontend/src/lib-customizations/<< parameters.customizations >>
           cache: frontend-<< parameters.customizations >>
           version: << parameters.version >>
       - slack-notification
@@ -218,14 +218,14 @@ jobs:
       - setup_aws
       - build_docker_image:
           image: service
-          dir: service
-          extra_build_args: --build-context core=evaka
+          dir: evaka
+          extra_build_args: -f evaka/service/Dockerfile
           cache: service
           version: << parameters.version >>
       - build_docker_image:
           image: service-builder
-          dir: service
-          extra_build_args: --build-context core=evaka --target builder --cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:service-<< pipeline.git.revision >>
+          dir: evaka
+          extra_build_args: -f evaka/service/Dockerfile --target builder --cache-from type=registry,ref=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/build-cache:service-<< pipeline.git.revision >>
           version: << parameters.version >>
       - slack-notification
 
@@ -324,7 +324,7 @@ jobs:
           working_directory: e2e
           command: yarn e2e-ci-playwright
           environment:
-            CI: 'true'
+            CI: "true"
       - run:
           name: Collect docker compose logs
           command: docker compose --profile evaka logs --tail=all > /tmp/docker-compose-logs.txt
@@ -337,10 +337,6 @@ jobs:
           destination: test-artifacts
       - store_test_results:
           path: e2e/test-results
-      - run:
-          name: Lint customizations
-          working_directory: frontend
-          command: ./link.sh && ./lint.sh
       - slack-notification
 
   notify_update_tracker:
@@ -377,7 +373,7 @@ jobs:
     steps:
       - when:
           condition:
-            equal: [ current, << parameters.version >> ]
+            equal: [current, << parameters.version >>]
           steps:
             - run: circleci-agent step halt
       - setup_remote_docker
@@ -387,7 +383,7 @@ jobs:
           command: |
             docker pull ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend/<< parameters.municipality >>:<< parameters.version >>
             container_id=$(docker create ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/trevaka/frontend/<< parameters.municipality >>:<< parameters.version >>)
-            docker cp "$container_id:/static" "frontend"
+            docker cp "$container_id:/static/<< parameters.municipality >>" "frontend"
             docker rm "$container_id"
       - aws-cli/setup:
           configure_default_region: false
@@ -425,7 +421,7 @@ jobs:
       - terraform_install
       - when:
           condition:
-            equal: [ current, << parameters.version >> ]
+            equal: [current, << parameters.version >>]
           steps:
             - terraform/init:
                 backend_config: region=${TF_VAR_region},bucket=${TF_VAR_terraform_bucket}
@@ -579,15 +575,6 @@ workflows:
           municipality: tampere
           environment: test
           version: << pipeline.parameters.version >>
-      - notify_update_tracker:
-          name: notify_update_tracker_test
-          context:
-            - evaka-update-tracker
-          requires:
-            - tampere_test_backends
-          source: trevaka
-          environment: test
-
       # tampere-prod
       - tampere_prod_approve:
           type: approval
@@ -615,15 +602,6 @@ workflows:
           municipality: tampere
           environment: prod
           version: << pipeline.parameters.version >>
-      - notify_update_tracker:
-          name: notify_update_tracker_prod
-          context:
-            - evaka-update-tracker
-          requires:
-            - tampere_prod_backends
-          source: trevaka
-          environment: prod
-
       # other test environments
       - deploy_frontends:
           matrix:
@@ -669,6 +647,22 @@ workflows:
           municipality: << matrix.municipality >>
           environment: test
           version: << pipeline.parameters.version >>
+      - notify_update_tracker:
+          name: notify_update_tracker_test
+          context:
+            - evaka-update-tracker
+          requires:
+            - tampere_dev_backends
+            - vesilahti_test_backends
+            - hameenkyro_test_backends
+            - nokia_test_backends
+            - ylojarvi_test_backends
+            - pirkkala_test_backends
+            - kangasala_test_backends
+            - lempaala_test_backends
+            - orivesi_test_backends
+          source: trevaka
+          environment: test
 
       # other prod environments
       - deploy_frontends:
@@ -716,6 +710,24 @@ workflows:
           municipality: << matrix.municipality >>
           environment: prod
           version: << pipeline.parameters.version >>
+      - notify_update_tracker:
+          name: notify_update_tracker_prod
+          context:
+            - evaka-update-tracker
+          requires:
+            - tampere_test_backends
+            - tampere_prod_backends
+            - vesilahti_prod_backends
+            - hameenkyro_prod_backends
+            - nokia_prod_backends
+            - ylojarvi_prod_backends
+            - pirkkala_prod_backends
+            - kangasala_prod_backends
+            - lempaala_prod_backends
+            - orivesi_prod_backends
+          source: trevaka
+          environment: prod
+
   deploy_env:
     when:
       and:

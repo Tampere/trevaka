@@ -61,3 +61,6 @@ jamix_orders_enabled = true
 jamix_diets_enabled  = true
 
 # service: YlojarviProperties
+ylojarvi_job_export_preschool_to_primary_child_documents_enabled = true
+
+sfi_idp_certificate_years = [2024, 2026]

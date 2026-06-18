@@ -122,10 +122,22 @@ module "app_service" {
     TAMPERE_ARCHIVAL_BASE_URL = var.municipality == "tampere" && var.archival_enabled ? "${local.param_prefix}/service/archival/base-url" : null
 
     # VesilahtiProperties
-    VESILAHTI_BUCKET_EXPORT = var.municipality == "vesilahti" ? "${local.param_prefix}/service/bucket/export" : null
+    VESILAHTI_BUCKET_EXPORT           = var.municipality == "vesilahti" ? "${local.param_prefix}/service/bucket/export" : null
+    VESILAHTI_PRIMUS_SFTP_HOST        = var.municipality == "vesilahti" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    VESILAHTI_PRIMUS_SFTP_PORT        = var.municipality == "vesilahti" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    VESILAHTI_PRIMUS_SFTP_HOST_KEYS   = var.municipality == "vesilahti" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    VESILAHTI_PRIMUS_SFTP_USERNAME    = var.municipality == "vesilahti" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    VESILAHTI_PRIMUS_SFTP_PRIVATE_KEY = var.municipality == "vesilahti" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    VESILAHTI_PRIMUS_SFTP_PREFIX      = var.municipality == "vesilahti" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
 
     # HameenkyroProperties
-    HAMEENKYRO_BUCKET_EXPORT = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/bucket/export" : null
+    HAMEENKYRO_BUCKET_EXPORT           = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/bucket/export" : null
+    HAMEENKYRO_PRIMUS_SFTP_HOST        = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    HAMEENKYRO_PRIMUS_SFTP_PORT        = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    HAMEENKYRO_PRIMUS_SFTP_HOST_KEYS   = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    HAMEENKYRO_PRIMUS_SFTP_USERNAME    = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    HAMEENKYRO_PRIMUS_SFTP_PRIVATE_KEY = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    HAMEENKYRO_PRIMUS_SFTP_PREFIX      = var.municipality == "hameenkyro" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
 
     # NokiaProperties
     NOKIA_INVOICE_SFTP_HOST         = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/host" : null
@@ -139,6 +151,12 @@ module "app_service" {
     NOKIA_ARCHIVAL_SFTP_HOST_KEYS   = var.municipality == "nokia" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
     NOKIA_ARCHIVAL_SFTP_USERNAME    = var.municipality == "nokia" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/username" : null
     NOKIA_ARCHIVAL_SFTP_PRIVATE_KEY = var.municipality == "nokia" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    NOKIA_PRIMUS_SFTP_HOST          = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    NOKIA_PRIMUS_SFTP_PORT          = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    NOKIA_PRIMUS_SFTP_HOST_KEYS     = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    NOKIA_PRIMUS_SFTP_USERNAME      = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    NOKIA_PRIMUS_SFTP_PRIVATE_KEY   = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    NOKIA_PRIMUS_SFTP_PREFIX        = var.municipality == "nokia" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
 
     # YlojarviProperties
     YLOJARVI_INVOICE_SFTP_HOST        = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/host" : null
@@ -147,6 +165,12 @@ module "app_service" {
     YLOJARVI_INVOICE_SFTP_USERNAME    = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/username" : null
     YLOJARVI_INVOICE_SFTP_PRIVATE_KEY = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
     YLOJARVI_BUCKET_EXPORT            = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/bucket/export" : null
+    YLOJARVI_PRIMUS_SFTP_HOST         = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    YLOJARVI_PRIMUS_SFTP_PORT         = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    YLOJARVI_PRIMUS_SFTP_HOST_KEYS    = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    YLOJARVI_PRIMUS_SFTP_USERNAME     = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    YLOJARVI_PRIMUS_SFTP_PRIVATE_KEY  = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    YLOJARVI_PRIMUS_SFTP_PREFIX       = var.municipality == "ylojarvi" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
 
     # PirkkalaProperties
     PIRKKALA_BUCKET_EXPORT             = var.municipality == "pirkkala" ? "${local.param_prefix}/service/bucket/export" : null
@@ -155,6 +179,12 @@ module "app_service" {
     PIRKKALA_ARCHIVAL_SFTP_HOST_KEYS   = var.municipality == "pirkkala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
     PIRKKALA_ARCHIVAL_SFTP_USERNAME    = var.municipality == "pirkkala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/username" : null
     PIRKKALA_ARCHIVAL_SFTP_PRIVATE_KEY = var.municipality == "pirkkala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    PIRKKALA_PRIMUS_SFTP_HOST          = var.municipality == "pirkkala" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    PIRKKALA_PRIMUS_SFTP_PORT          = var.municipality == "pirkkala" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    PIRKKALA_PRIMUS_SFTP_HOST_KEYS     = var.municipality == "pirkkala" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    PIRKKALA_PRIMUS_SFTP_USERNAME      = var.municipality == "pirkkala" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    PIRKKALA_PRIMUS_SFTP_PRIVATE_KEY   = var.municipality == "pirkkala" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    PIRKKALA_PRIMUS_SFTP_PREFIX        = var.municipality == "pirkkala" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
 
     # KangasalaProperties
     KANGASALA_BUCKET_EXPORT             = var.municipality == "kangasala" ? "${local.param_prefix}/service/bucket/export" : null
@@ -163,12 +193,30 @@ module "app_service" {
     KANGASALA_ARCHIVAL_SFTP_HOST_KEYS   = var.municipality == "kangasala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
     KANGASALA_ARCHIVAL_SFTP_USERNAME    = var.municipality == "kangasala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/username" : null
     KANGASALA_ARCHIVAL_SFTP_PRIVATE_KEY = var.municipality == "kangasala" && var.archival_enabled ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    KANGASALA_PRIMUS_SFTP_HOST          = var.municipality == "kangasala" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    KANGASALA_PRIMUS_SFTP_PORT          = var.municipality == "kangasala" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    KANGASALA_PRIMUS_SFTP_HOST_KEYS     = var.municipality == "kangasala" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    KANGASALA_PRIMUS_SFTP_USERNAME      = var.municipality == "kangasala" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    KANGASALA_PRIMUS_SFTP_PRIVATE_KEY   = var.municipality == "kangasala" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    KANGASALA_PRIMUS_SFTP_PREFIX        = var.municipality == "kangasala" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
 
     # LempaalaProperties
-    LEMPAALA_BUCKET_EXPORT = var.municipality == "lempaala" ? "${local.param_prefix}/service/bucket/export" : null
+    LEMPAALA_BUCKET_EXPORT           = var.municipality == "lempaala" ? "${local.param_prefix}/service/bucket/export" : null
+    LEMPAALA_PRIMUS_SFTP_HOST        = var.municipality == "lempaala" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    LEMPAALA_PRIMUS_SFTP_PORT        = var.municipality == "lempaala" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    LEMPAALA_PRIMUS_SFTP_HOST_KEYS   = var.municipality == "lempaala" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    LEMPAALA_PRIMUS_SFTP_USERNAME    = var.municipality == "lempaala" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    LEMPAALA_PRIMUS_SFTP_PRIVATE_KEY = var.municipality == "lempaala" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    LEMPAALA_PRIMUS_SFTP_PREFIX      = var.municipality == "lempaala" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
 
     # OrivesiProperties
-    ORIVESI_BUCKET_EXPORT = var.municipality == "orivesi" ? "${local.param_prefix}/service/bucket/export" : null
+    ORIVESI_BUCKET_EXPORT           = var.municipality == "orivesi" ? "${local.param_prefix}/service/bucket/export" : null
+    ORIVESI_PRIMUS_SFTP_HOST        = var.municipality == "orivesi" ? "${local.param_prefix}/service/frends/sftp/host" : null
+    ORIVESI_PRIMUS_SFTP_PORT        = var.municipality == "orivesi" ? "${local.param_prefix}/service/frends/sftp/port" : null
+    ORIVESI_PRIMUS_SFTP_HOST_KEYS   = var.municipality == "orivesi" ? "${local.param_prefix}/service/frends/sftp/host-keys" : null
+    ORIVESI_PRIMUS_SFTP_USERNAME    = var.municipality == "orivesi" ? "${local.param_prefix}/service/frends/sftp/username" : null
+    ORIVESI_PRIMUS_SFTP_PRIVATE_KEY = var.municipality == "orivesi" ? "${local.param_prefix}/service/frends/sftp/private-key" : null
+    ORIVESI_PRIMUS_SFTP_PREFIX      = var.municipality == "orivesi" ? "${local.param_prefix}/service/frends/sftp/primus-path" : null
   }
 
   env_vars = {
@@ -178,7 +226,8 @@ module "app_service" {
 
     # Spring
     SPRING_APPLICATION_JSON = length(var.service_logging_levels) > 0 ? jsonencode({ "logging.level" : var.service_logging_levels }) : null
-    SPRING_PROFILES_ACTIVE  = join(",", ["production", "${var.municipality}_evaka"])
+    SPRING_PROFILES_ACTIVE  = "production"
+    EVAKA_MUNICIPALITY      = var.municipality
 
     # EvakaEnv
     EVAKA_INTEGRATION_KOSKI_ENABLED              = var.evaka_integration_koski_enabled
@@ -309,8 +358,14 @@ module "app_service" {
     TAMPERE_ARCHIVAL_SCHEDULE_DOCUMENT_DECISION_DELAY_DAYS = var.municipality == "tampere" ? var.tampere_archival_schedule_document_decision_delay_days : null
     TAMPERE_ARCHIVAL_SCHEDULE_DOCUMENT_PLAN_DELAY_DAYS     = var.municipality == "tampere" ? var.tampere_archival_schedule_document_plan_delay_days : null
 
+    # HameenkyroScheduledJobEnv
+    HAMEENKYRO_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_ENABLED = var.municipality == "hameenkyro" ? var.hameenkyro_job_export_preschool_to_primary_child_documents_enabled : null
+    HAMEENKYRO_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_CRON    = var.municipality == "hameenkyro" ? var.hameenkyro_job_export_preschool_to_primary_child_documents_cron : null
+
     # NokiaScheduledJobEnv
-    NOKIA_JOB_PLAN_DOCUMENT_ARCHIVAL_ENABLED = var.municipality == "nokia" ? var.nokia_job_plan_document_archival_enabled : null
+    NOKIA_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_ENABLED = var.municipality == "nokia" ? var.nokia_job_export_preschool_to_primary_child_documents_enabled : null
+    NOKIA_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_CRON    = var.municipality == "nokia" ? var.nokia_job_export_preschool_to_primary_child_documents_cron : null
+    NOKIA_JOB_PLAN_DOCUMENT_ARCHIVAL_ENABLED                      = var.municipality == "nokia" ? var.nokia_job_plan_document_archival_enabled : null
 
     # NokiaProperties
     NOKIA_INVOICE_SFTP_PREFIX                        = var.municipality == "nokia" ? var.environment == "prod" ? "in/eVaka/Raindance/" : "test/in/eVaka/Raindance/" : null
@@ -318,11 +373,17 @@ module "app_service" {
     NOKIA_ARCHIVAL_SCHEDULE_DAILY_DOCUMENT_LIMIT     = var.municipality == "nokia" ? var.nokia_archival_schedule_daily_document_limit : null
     NOKIA_ARCHIVAL_SCHEDULE_DOCUMENT_PLAN_DELAY_DAYS = var.municipality == "nokia" ? var.nokia_archival_schedule_document_plan_delay_days : null
 
+    # YlojarviScheduledJobEnv
+    YLOJARVI_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_ENABLED = var.municipality == "ylojarvi" ? var.ylojarvi_job_export_preschool_to_primary_child_documents_enabled : null
+    YLOJARVI_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_CRON    = var.municipality == "ylojarvi" ? var.ylojarvi_job_export_preschool_to_primary_child_documents_cron : null
+
     # YlojarviProperties
     YLOJARVI_INVOICE_SFTP_PREFIX = var.municipality == "ylojarvi" ? var.environment == "prod" ? "in/eVaka/Raindance/" : "test/in/eVaka/Raindance/" : null
 
     # PirkkalaScheduledJobEnv
-    PIRKKALA_JOB_PLAN_DOCUMENT_ARCHIVAL_ENABLED = var.municipality == "pirkkala" ? var.pirkkala_job_plan_document_archival_enabled : null
+    PIRKKALA_JOB_EXPORT_DAYCARE_TO_PRESCHOOL_CHILD_DOCUMENTS_ENABLED = var.municipality == "pirkkala" ? var.pirkkala_job_export_daycare_to_preschool_child_documents_enabled : null
+    PIRKKALA_JOB_EXPORT_DAYCARE_TO_PRESCHOOL_CHILD_DOCUMENTS_CRON    = var.municipality == "pirkkala" ? var.pirkkala_job_export_daycare_to_preschool_child_documents_cron : null
+    PIRKKALA_JOB_PLAN_DOCUMENT_ARCHIVAL_ENABLED                      = var.municipality == "pirkkala" ? var.pirkkala_job_plan_document_archival_enabled : null
 
     # PirkkalaProperties
     PIRKKALA_ARCHIVAL_SFTP_PREFIX                       = var.municipality == "pirkkala" && var.archival_enabled ? var.environment == "prod" ? "in/eVaka/TWeb/" : "test/in/eVaka/TWeb/" : null
@@ -330,7 +391,21 @@ module "app_service" {
     PIRKKALA_ARCHIVAL_SCHEDULE_DOCUMENT_PLAN_DELAY_DAYS = var.municipality == "pirkkala" ? var.pirkkala_archival_schedule_document_plan_delay_days : null
 
     # KangasalaScheduledJobEnv
-    KANGASALA_JOB_PLAN_DOCUMENT_ARCHIVAL_ENABLED = var.municipality == "kangasala" ? var.kangasala_job_plan_document_archival_enabled : null
+    KANGASALA_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_ENABLED = var.municipality == "kangasala" ? var.kangasala_job_export_preschool_to_primary_child_documents_enabled : null
+    KANGASALA_JOB_EXPORT_PRESCHOOL_TO_PRIMARY_CHILD_DOCUMENTS_CRON    = var.municipality == "kangasala" ? var.kangasala_job_export_preschool_to_primary_child_documents_cron : null
+    KANGASALA_JOB_PLAN_DOCUMENT_ARCHIVAL_ENABLED                      = var.municipality == "kangasala" ? var.kangasala_job_plan_document_archival_enabled : null
+
+    # LempaalaScheduledJobEnv
+    LEMPAALA_JOB_EXPORT_DAYCARE_TO_PRESCHOOL_CHILD_DOCUMENTS_ENABLED = var.municipality == "lempaala" ? var.lempaala_job_export_daycare_to_preschool_child_documents_enabled : null
+    LEMPAALA_JOB_EXPORT_DAYCARE_TO_PRESCHOOL_CHILD_DOCUMENTS_CRON    = var.municipality == "lempaala" ? var.lempaala_job_export_daycare_to_preschool_child_documents_cron : null
+
+    # VesilahtiScheduledJobEnv
+    VESILAHTI_JOB_EXPORT_DAYCARE_TO_PRESCHOOL_CHILD_DOCUMENTS_ENABLED = var.municipality == "vesilahti" ? var.vesilahti_job_export_daycare_to_preschool_child_documents_enabled : null
+    VESILAHTI_JOB_EXPORT_DAYCARE_TO_PRESCHOOL_CHILD_DOCUMENTS_CRON    = var.municipality == "vesilahti" ? var.vesilahti_job_export_daycare_to_preschool_child_documents_cron : null
+
+    # OrivesiScheduledJobEnv
+    ORIVESI_JOB_EXPORT_DAYCARE_TO_PRESCHOOL_CHILD_DOCUMENTS_ENABLED = var.municipality == "orivesi" ? var.orivesi_job_export_daycare_to_preschool_child_documents_enabled : null
+    ORIVESI_JOB_EXPORT_DAYCARE_TO_PRESCHOOL_CHILD_DOCUMENTS_CRON    = var.municipality == "orivesi" ? var.orivesi_job_export_daycare_to_preschool_child_documents_cron : null
 
     # KangasalaProperties
     KANGASALA_ARCHIVAL_SFTP_PREFIX                       = var.municipality == "kangasala" && var.archival_enabled ? var.environment == "prod" ? "in/eVaka/TWeb/" : "test/in/eVaka/TWeb/" : null
@@ -699,6 +774,16 @@ variable "tampere_archival_schedule_document_plan_delay_days" {
   default = null
 }
 
+variable "pirkkala_job_export_daycare_to_preschool_child_documents_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "pirkkala_job_export_daycare_to_preschool_child_documents_cron" {
+  type    = string
+  default = null
+}
+
 variable "pirkkala_job_plan_document_archival_enabled" {
   type    = bool
   default = false
@@ -714,6 +799,16 @@ variable "pirkkala_archival_schedule_document_plan_delay_days" {
   default = null
 }
 
+variable "nokia_job_export_preschool_to_primary_child_documents_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "nokia_job_export_preschool_to_primary_child_documents_cron" {
+  type    = string
+  default = null
+}
+
 variable "nokia_job_plan_document_archival_enabled" {
   type    = bool
   default = false
@@ -726,6 +821,66 @@ variable "nokia_archival_schedule_daily_document_limit" {
 
 variable "nokia_archival_schedule_document_plan_delay_days" {
   type    = number
+  default = null
+}
+
+variable "ylojarvi_job_export_preschool_to_primary_child_documents_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "ylojarvi_job_export_preschool_to_primary_child_documents_cron" {
+  type    = string
+  default = null
+}
+
+variable "hameenkyro_job_export_preschool_to_primary_child_documents_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "hameenkyro_job_export_preschool_to_primary_child_documents_cron" {
+  type    = string
+  default = null
+}
+
+variable "kangasala_job_export_preschool_to_primary_child_documents_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "kangasala_job_export_preschool_to_primary_child_documents_cron" {
+  type    = string
+  default = null
+}
+
+variable "lempaala_job_export_daycare_to_preschool_child_documents_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "lempaala_job_export_daycare_to_preschool_child_documents_cron" {
+  type    = string
+  default = null
+}
+
+variable "vesilahti_job_export_daycare_to_preschool_child_documents_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "vesilahti_job_export_daycare_to_preschool_child_documents_cron" {
+  type    = string
+  default = null
+}
+
+variable "orivesi_job_export_daycare_to_preschool_child_documents_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "orivesi_job_export_daycare_to_preschool_child_documents_cron" {
+  type    = string
   default = null
 }
 

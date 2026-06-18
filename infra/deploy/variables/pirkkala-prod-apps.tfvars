@@ -62,5 +62,8 @@ jamix_orders_enabled = true
 jamix_diets_enabled  = true
 
 # service: PirkkalaProperties
-pirkkala_job_plan_document_archival_enabled     = true
-pirkkala_archival_schedule_daily_document_limit = 1000
+pirkkala_job_export_daycare_to_preschool_child_documents_enabled = true
+pirkkala_job_plan_document_archival_enabled                      = true
+pirkkala_archival_schedule_daily_document_limit                  = 1000
+
+sfi_idp_certificate_years = [2024, 2026]

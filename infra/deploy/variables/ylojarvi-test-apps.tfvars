@@ -21,7 +21,7 @@ ad_saml_external_id_prefix = "ylojarvi-ad"
 service_count                                 = 1
 fee_decision_days_in_advance                  = 123
 voucher_value_decision_days_in_advance        = 123
-varda_integration_api_url                     = ""
+varda_integration_api_url                     = "http://localhost"
 vtj_enabled                                   = true
 vtj_xroad_client_membercode                   = "0158221-7"
 email_allowlist                               = "^(.+)@ylojarvi.fi$"
@@ -39,3 +39,5 @@ evaka_job_send_outdated_income_notifications_enabled = true
 sfi_msg_service_identifier = "ylojarvi_ws_evaka"
 
 # service: YlojarviProperties
+
+sfi_idp_certificate_years = [2024, 2026]

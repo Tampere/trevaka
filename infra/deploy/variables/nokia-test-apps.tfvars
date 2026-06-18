@@ -21,7 +21,7 @@ ad_saml_external_id_prefix = "nokia-ad"
 service_count                                 = 1
 fee_decision_days_in_advance                  = 123
 voucher_value_decision_days_in_advance        = 123
-varda_integration_api_url                     = ""
+varda_integration_api_url                     = "http://localhost"
 vtj_enabled                                   = true
 vtj_xroad_client_membercode                   = "0205717-4"
 email_allowlist                               = "^(.+)@nokia.fi$"
@@ -43,3 +43,5 @@ sfi_msg_service_identifier = "nokia_ws_evaka"
 nokia_job_plan_document_archival_enabled         = true
 nokia_archival_schedule_daily_document_limit     = 10
 nokia_archival_schedule_document_plan_delay_days = 140
+
+sfi_idp_certificate_years = [2024, 2026]

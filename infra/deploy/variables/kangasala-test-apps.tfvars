@@ -21,7 +21,7 @@ ad_saml_external_id_prefix = "kangasala-ad"
 service_count                                 = 1
 fee_decision_days_in_advance                  = 123
 voucher_value_decision_days_in_advance        = 123
-varda_integration_api_url                     = ""
+varda_integration_api_url                     = "http://localhost"
 vtj_enabled                                   = true
 vtj_xroad_client_membercode                   = "1923299-5"
 email_allowlist                               = "^(.+)@kangasala.fi$"
@@ -44,6 +44,10 @@ jamix_orders_enabled = true
 jamix_diets_enabled  = true
 
 # service: KangasalaProperties
-kangasala_job_plan_document_archival_enabled         = true
-kangasala_archival_schedule_daily_document_limit     = 10
-kangasala_archival_schedule_document_plan_delay_days = 140
+kangasala_job_export_preschool_to_primary_child_documents_enabled = true
+kangasala_job_export_preschool_to_primary_child_documents_cron    = "0 0 1 * * ?"
+kangasala_job_plan_document_archival_enabled                      = true
+kangasala_archival_schedule_daily_document_limit                  = 10
+kangasala_archival_schedule_document_plan_delay_days              = 140
+
+sfi_idp_certificate_years = [2024, 2026]
