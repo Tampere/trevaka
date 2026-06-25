@@ -129,6 +129,7 @@ services:
     depends_on:
       - db
       - s3
+      - dummy-idp
     env_file:
       - .env
     environment:
@@ -141,6 +142,7 @@ services:
       EVAKA_LOCAL_S3_URL: https://s3:9191
       EVAKA_BUCKET_PROXY_THROUGH_NGINX: true
       EVAKA_PASSWORD_BLACKLIST_DIRECTORY: /opt/password-blacklists
+      EVAKA_INTEGRATION_VTJ_MOCK_URL: http://dummy-idp:9090
       # ecosystem.config.js
       SPRING_PROFILES_INCLUDE: local
     restart: unless-stopped
