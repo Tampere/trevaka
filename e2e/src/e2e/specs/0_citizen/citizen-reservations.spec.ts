@@ -40,6 +40,8 @@ test.describe('Citizen attendance reservations', () => {
             areaId: fromUuid<AreaId>('6529e31e-9777-11eb-ba88-33a923255570'), // Etelä
             name: 'Alkuräjähdyksen päiväkoti',
             type: ['CENTRE', 'PRESCHOOL', 'PREPARATORY_EDUCATION'],
+            dailyPreschoolTime: new TimeRange(LocalTime.of(9, 0), LocalTime.of(13, 0)),
+            dailyPreparatoryTime: new TimeRange(LocalTime.of(9, 0), LocalTime.of(14, 0)),
             costCenter: '31500',
             visitingAddress: {
               streetAddress: 'Kamreerintie 1',
