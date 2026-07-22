@@ -253,12 +253,13 @@ module "app_service" {
     EVAKA_WEB_PUSH_ENABLED = true
 
     # EmailEnv
-    EVAKA_EMAIL_ENABLED         = true
-    EVAKA_EMAIL_WHITELIST       = var.email_allowlist
-    EVAKA_EMAIL_SENDER_ADDRESS  = "noreply@${data.terraform_remote_state.base.outputs.public_domain_name}"
-    EVAKA_EMAIL_SENDER_NAME_FI  = var.email_name
-    EVAKA_EMAIL_SENDER_NAME_SV  = var.email_name
-    EVAKA_EMAIL_SUBJECT_POSTFIX = var.email_subject_postfix
+    EVAKA_EMAIL_ENABLED                   = true
+    EVAKA_EMAIL_WHITELIST                 = var.email_allowlist
+    EVAKA_EMAIL_SENDER_ADDRESS            = "noreply@${data.terraform_remote_state.base.outputs.public_domain_name}"
+    EVAKA_EMAIL_SENDER_NAME_FI            = var.email_name
+    EVAKA_EMAIL_SENDER_NAME_SV            = var.email_name
+    EVAKA_EMAIL_SUBJECT_POSTFIX           = var.email_subject_postfix
+    EVAKA_NEW_BROWSER_LOGIN_EMAIL_ENABLED = var.new_browser_login_email_enabled
 
     # KoskiEnv
     EVAKA_INTEGRATION_KOSKI_URL                    = var.evaka_integration_koski_enabled ? var.koski_integration_api_url : null
@@ -575,6 +576,12 @@ variable "email_subject_postfix" {
   description = "Email subject postfix (for test environments)"
   type        = string
   default     = null
+}
+
+variable "new_browser_login_email_enabled" {
+  description = "Enable sending new login device emails"
+  type        = string
+  default     = false
 }
 
 variable "evaka_job_cancel_outdated_transfer_applications_enabled" {

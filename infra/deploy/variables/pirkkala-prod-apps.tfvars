@@ -34,6 +34,7 @@ email_name                             = "Pirkkalan varhaiskasvatus"
 dvv_mutp_update_enabled                = true
 evaka_integration_sfi_enabled          = true
 archival_enabled                       = true
+new_browser_login_email_enabled        = true
 
 evaka_job_cancel_outdated_transfer_applications_enabled = false
 evaka_job_freeze_voucher_value_reports_enabled          = true
