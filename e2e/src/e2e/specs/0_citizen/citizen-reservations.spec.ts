@@ -5,14 +5,13 @@
 import HelsinkiDateTime from 'lib-common/helsinki-date-time'
 import TimeRange from 'lib-common/time-range'
 import LocalTime from 'lib-common/local-time'
-import { fromUuid, randomId } from 'lib-common/id-type'
-import { AreaId, DaycareId, PlacementId } from 'lib-common/generated/api-types/shared'
+import { fromUuid } from 'lib-common/id-type'
+import { AreaId, DaycareId } from 'lib-common/generated/api-types/shared'
 import config from 'e2e-test/config'
 import { test, expect } from 'e2e-test/playwright'
 import { resetDatabaseForE2ETests } from '../../common/tampere-dev-api'
 import { createDaycarePlacements } from 'e2e-test/generated/api-clients'
 import {
-  createDaycarePlacementFixture,
   testChildRestricted, testAdult,
   Fixture
 } from 'e2e-test/dev-api/fixtures'
@@ -75,13 +74,12 @@ test.describe('Citizen attendance reservations', () => {
     ]
     await createDaycarePlacements({
         body: children.map((child) =>
-          createDaycarePlacementFixture(
-            randomId<PlacementId>(),
-            child.id,
-            daycare.id,
-            mockedDate,
-            mockedDate.addYears(1)
-          )
+          Fixture.placement({
+            childId: child.id,
+            unitId: daycare.id,
+            startDate: mockedDate,
+            endDate: mockedDate.addYears(1)
+          })
         )
       }
     )
