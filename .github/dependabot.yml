@@ -10,6 +10,8 @@ updates:
       interval: "daily"
       time: "00:00"
       timezone: "Europe/Helsinki"
+    cooldown:
+      default-days: 0
   - package-ecosystem: "docker-compose"
     directory: "/"
     schedule:
