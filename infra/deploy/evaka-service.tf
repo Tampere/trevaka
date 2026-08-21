@@ -241,6 +241,8 @@ module "app_service" {
     EVAKA_FEE_DECISION_DAYS_IN_ADVANCE           = var.fee_decision_days_in_advance
     EVAKA_VOUCHER_VALUE_DECISION_DAYS_IN_ADVANCE = var.voucher_value_decision_days_in_advance
     EVAKA_PASSWORD_BLACKLIST_DIRECTORY           = "/opt/password-blacklists"
+    EVAKA_WEBAUTHN_RP_ID                         = data.terraform_remote_state.base.outputs.public_domain_name
+    EVAKA_WEBAUTHN_ORIGIN                        = local.frontend_url
 
     EVAKA_NOT_FOR_PROD_FORCE_UNPUBLISH_DOCUMENT_TEMPLATE_ENABLED = contains(["dev", "test"], var.environment) ? true : null
     EVAKA_NOT_FOR_PROD_ALLOW_SFI_ADMINS                          = contains(["dev", "test"], var.environment) ? true : null
