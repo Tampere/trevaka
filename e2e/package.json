@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.13.3",
-    "axios": "^1.19.0",
+    "axios": "^1.20.0",
     "e2e-test": "link:../evaka/frontend/src/e2e-test",
     "lib-common": "link:../evaka/frontend/src/lib-common",
     "lib-components": "link:../evaka/frontend/src/lib-components",
