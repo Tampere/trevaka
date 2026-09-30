@@ -16,3 +16,6 @@
 
 /mise.local.toml
 uv.lock
+
+# written by CI and the tfmux plan template
+/infra/deploy/versions.auto.tfvars
