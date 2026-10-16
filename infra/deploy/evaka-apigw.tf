@@ -71,6 +71,7 @@ module "app_apigw" {
     EVAKA_BASE_URL    = local.frontend_url
     EVAKA_SERVICE_URL = "http://${aws_route53_record.evaka_service.name}"
     ENABLE_DEV_API    = false
+    ENABLE_MCP        = contains(["dev", "test"], var.environment)
     AD_MOCK           = local.apigw_ad_mock
 
     JWT_PRIVATE_KEY = "/home/evaka/s3/${coalesce(var.apigw_service_key, "apigw.key")}"
