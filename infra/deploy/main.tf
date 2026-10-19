@@ -12,9 +12,9 @@ terraform {
   }
   backend "s3" {
     // region & bucket are configured with command-line key/value pairs (-backend-config="region=x" -backend-config="bucket=y")
-    key            = "apps.tfstate"
-    encrypt        = true
-    dynamodb_table = "terraform-locks"
+    key          = "apps.tfstate"
+    encrypt      = true
+    use_lockfile = true
   }
 }
 
