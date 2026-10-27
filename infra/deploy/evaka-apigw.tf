@@ -73,6 +73,9 @@ module "app_apigw" {
     ENABLE_DEV_API    = false
     AD_MOCK           = local.apigw_ad_mock
 
+    # Must stay in sync with evaka-service, which activates the enable_mcp profile when VOLTTI_ENV is dev or test
+    ENABLE_MCP = contains(["dev", "test"], var.environment)
+
     JWT_PRIVATE_KEY = "/home/evaka/s3/${coalesce(var.apigw_service_key, "apigw.key")}"
     JWT_KID         = "${local.project}-apigw"
 
