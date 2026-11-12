@@ -71,6 +71,7 @@ module "app_apigw" {
     EVAKA_BASE_URL    = local.frontend_url
     EVAKA_SERVICE_URL = "http://${aws_route53_record.evaka_service.name}"
     ENABLE_DEV_API    = false
+    ENABLE_MCP        = contains(["dev", "test"], var.environment)
     AD_MOCK           = local.apigw_ad_mock
 
     # Must stay in sync with evaka-service, which activates the enable_mcp profile when VOLTTI_ENV is dev or test
