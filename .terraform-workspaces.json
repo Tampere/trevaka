@@ -1,0 +1,30 @@
+[
+  {
+    "_comment": "State bucket is trevaka-<env>-terraform for tampere and <muni>-evaka-<env>-terraform for the others: the same bucket that holds that environment's base.tfstate. plan pins the deployed component versions through versions.auto.tfvars, as CI's 'current' mode does, so it shows drift rather than a version change.",
+    "root_module": "infra/deploy",
+    "workspaces": [
+      "tampere-dev",
+      "tampere-test",
+      "tampere-prod",
+      "hameenkyro-test",
+      "hameenkyro-prod",
+      "kangasala-test",
+      "kangasala-prod",
+      "lempaala-test",
+      "lempaala-prod",
+      "nokia-test",
+      "nokia-prod",
+      "orivesi-test",
+      "orivesi-prod",
+      "pirkkala-test",
+      "pirkkala-prod",
+      "vesilahti-test",
+      "vesilahti-prod",
+      "ylojarvi-test",
+      "ylojarvi-prod"
+    ],
+    "init": "ENV=${TFMUX_WORKSPACE##*-}; MUNI=${TFMUX_WORKSPACE%-*}; case $MUNI in tampere) BUCKET=trevaka-$ENV-terraform;; *) BUCKET=$MUNI-evaka-$ENV-terraform;; esac; AWS_PROFILE=trevaka-$ENV terraform init -reconfigure -backend-config=bucket=$BUCKET -backend-config=region=eu-west-1",
+    "plan": "ENV=${TFMUX_WORKSPACE##*-}; MUNI=${TFMUX_WORKSPACE%-*}; case $MUNI in tampere) BUCKET=trevaka-$ENV-terraform;; *) BUCKET=$MUNI-evaka-$ENV-terraform;; esac; export AWS_PROFILE=trevaka-$ENV; terraform output -no-color > versions.auto.tfvars && terraform plan -var-file=variables/$TFMUX_WORKSPACE-apps.tfvars -var=region=eu-west-1 -var=terraform_bucket=$BUCKET -var=utility_account_id=518207624130 -var=apps_version=current",
+    "apply": "AWS_PROFILE=trevaka-${TFMUX_WORKSPACE##*-} terraform apply"
+  }
+]
